@@ -1,0 +1,60 @@
+//
+// Prefix header for all source files of the 'FlyingEnglish' target in the 'FlyingEnglish' project
+//
+
+#import <Availability.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+#define NSOffState 0
+#define NSOnState 1
+#define NSMixedState 2
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#define INTERFACE_IS_PAD     ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+#define INTERFACE_IS_PHONE5  ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define INTERFACE_IS_PHONE6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define INTERFACE_IS_PHONE6PLUS ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
+#include <TargetConditionals.h>
+
+// General imports for Objective-C
+#ifdef __OBJC__
+#if TARGET_OS_IPHONE
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#elif TARGET_OS_MAC
+#import <Cocoa/Cocoa.h>
+#endif
+#endif
+
+
+//---------------------------------------------------------
+// Macros
+//---------------------------------------------------------
+
+// Extern
+#if defined(__cplusplus)
+#define FILEMD5HASH_EXTERN extern "C"
+#else
+#define FILEMD5HASH_EXTERN extern
+#endif
+
+
