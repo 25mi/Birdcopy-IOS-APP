@@ -1489,7 +1489,7 @@
 		FA1BE4891B26A0F100AA1AFD /* FlyingHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingHttpTool.m; sourceTree = "<group>"; };
 		FA1BE48A1B26A0F100AA1AFD /* RCDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDataBaseManager.h; sourceTree = "<group>"; };
 		FA1BE48B1B26A0F100AA1AFD /* RCDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDataBaseManager.m; sourceTree = "<group>"; };
-		FA1BE5B21B27DD5A00AA1AFD /* IBag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IBag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1BE5B21B27DD5A00AA1AFD /* ibag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ibag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1BE5BC1B27DE9C00AA1AFD /* ibag-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ibag-Info.plist"; sourceTree = "<group>"; };
 		FA1BE5CB1B27DF3400AA1AFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		FA1BE5CE1B27DF3400AA1AFD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1638,7 +1638,7 @@
 		FA5F24EC1A84FFEF00FC6617 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FA6217FD1A7B38AB00BEEDB1 /* FlyingSetDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSetDefault.h; sourceTree = "<group>"; };
 		FA6217FE1A7B38AB00BEEDB1 /* FlyingSetDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSetDefault.m; sourceTree = "<group>"; };
-		FA632A921B51091400A1222E /* FlyingEnglish copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FlyingEnglish copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA632A921B51091400A1222E /* beiyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beiyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA632A951B510A0000A1222E /* beiyang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = beiyang.plist; sourceTree = "<group>"; };
 		FA632A971B510A0000A1222E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA632A981B510A0000A1222E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1691,7 +1691,7 @@
 		FA8BD0001AD0E20D0092A970 /* MAOFlipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAOFlipViewController.m; path = MAOFlip/MAOFlipViewController.m; sourceTree = "<group>"; };
 		FA8BD0011AD0E20D0092A970 /* MAOPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAOPanGestureRecognizer.h; path = MAOFlip/MAOPanGestureRecognizer.h; sourceTree = "<group>"; };
 		FA8BD0021AD0E20D0092A970 /* MAOPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAOPanGestureRecognizer.m; path = MAOFlip/MAOPanGestureRecognizer.m; sourceTree = "<group>"; };
-		FA8C3EF21B535A1500DEA02D /* ibag copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ibag copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA8C3EF21B535A1500DEA02D /* inet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8C3EF61B535B9100DEA02D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA8C3EF71B535B9100DEA02D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA8C3EF81B535B9100DEA02D /* inet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "inet-Info.plist"; sourceTree = "<group>"; };
@@ -2393,9 +2393,9 @@
 			isa = PBXGroup;
 			children = (
 				C81C2BBE15F4E2DA00754FE2 /* BirdEnglish.app */,
-				FA1BE5B21B27DD5A00AA1AFD /* IBag.app */,
-				FA632A921B51091400A1222E /* FlyingEnglish copy.app */,
-				FA8C3EF21B535A1500DEA02D /* ibag copy.app */,
+				FA1BE5B21B27DD5A00AA1AFD /* ibag.app */,
+				FA632A921B51091400A1222E /* beiyang.app */,
+				FA8C3EF21B535A1500DEA02D /* inet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3328,7 +3328,7 @@
 			);
 			name = ibag;
 			productName = FlyingEnglish;
-			productReference = FA1BE5B21B27DD5A00AA1AFD /* IBag.app */;
+			productReference = FA1BE5B21B27DD5A00AA1AFD /* ibag.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA6329781B51091400A1222E /* beiyang */ = {
@@ -3348,7 +3348,7 @@
 			);
 			name = beiyang;
 			productName = FlyingEnglish;
-			productReference = FA632A921B51091400A1222E /* FlyingEnglish copy.app */;
+			productReference = FA632A921B51091400A1222E /* beiyang.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA8C3DD41B535A1500DEA02D /* inet */ = {
@@ -3368,7 +3368,7 @@
 			);
 			name = inet;
 			productName = FlyingEnglish;
-			productReference = FA8C3EF21B535A1500DEA02D /* ibag copy.app */;
+			productReference = FA8C3EF21B535A1500DEA02D /* inet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -4985,7 +4985,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
-				PRODUCT_NAME = IBag;
+				PRODUCT_NAME = ibag;
 				PROVISIONING_PROFILE = "53a51057-9f6a-4838-a7c6-28b6a345bbc7";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5039,7 +5039,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
-				PRODUCT_NAME = IBag;
+				PRODUCT_NAME = ibag;
 				PROVISIONING_PROFILE = "83b4b677-03fc-496a-8f23-108e456318fd";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "83b4b677-03fc-496a-8f23-108e456318fd";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -5094,7 +5094,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
-				PRODUCT_NAME = "FlyingEnglish copy";
+				PRODUCT_NAME = beiyang;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5145,7 +5145,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
-				PRODUCT_NAME = "FlyingEnglish copy";
+				PRODUCT_NAME = beiyang;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -5201,7 +5201,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
-				PRODUCT_NAME = "ibag copy";
+				PRODUCT_NAME = inet;
 				PROVISIONING_PROFILE = "b9c162fe-86e4-41a1-b43d-0d26b2e6549f";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5255,7 +5255,7 @@
 					"-objc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
-				PRODUCT_NAME = "ibag copy";
+				PRODUCT_NAME = inet;
 				PROVISIONING_PROFILE = "94bb4882-f154-4ae9-bb8b-b6ec3fc29b1d";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "94bb4882-f154-4ae9-bb8b-b6ec3fc29b1d";
 				RUN_CLANG_STATIC_ANALYZER = YES;
