@@ -45,9 +45,6 @@
 - (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
 - (void) shakeNow;
 
-//金币购买管理
-- (void)presentStoreView;
-
 //帐户、充值管理
 - (FlyingSysWithCenter*) getSysWithCenter;
 -(void)  awardGold:(int) MoneyCount;
@@ -99,5 +96,12 @@
 
 - (void) presentViewController:(UIViewController *)viewController;
 - (void) pushViewController:(UIViewController *)viewController;
+
+//share
+
++ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL;
++ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password;
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+
 
 @end

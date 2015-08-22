@@ -51,7 +51,6 @@
 #import "FlyingItemView.h"
 #import "UIView+Autosizing.h"
 #import "NSString+FlyingExtention.h"
-#import "FlyingMyLessonsViewController.h"
 #import "FlyingSysWithCenter.h"
 
 #import "MuPageViewNormal.h"
@@ -719,7 +718,7 @@ enum
                                    if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
                                        
                                        UIImage * coverImage=
-                                       [FlyingMyLessonsViewController thumbnailImageForPDF:[NSURL fileURLWithPath:lesson.localURLOfContent]
+                                       [iFlyingAppDelegate thumbnailImageForPDF:[NSURL fileURLWithPath:lesson.localURLOfContent]
                                                                                   passWord:phrase];
                                        
                                        if (coverImage) {

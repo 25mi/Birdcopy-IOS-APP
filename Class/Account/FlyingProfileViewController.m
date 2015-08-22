@@ -105,25 +105,15 @@
         self.coinTitleLabel.font         = [UIFont systemFontOfSize:20.0];
         
         //金币
-        self.coinLable1.font             = [UIFont systemFontOfSize:16.0];
         self.coinLabel2.font             = [UIFont systemFontOfSize:16.0];
         self.coinLabel3.font             = [UIFont systemFontOfSize:16.0];
         self.coinLabel4.font             = [UIFont systemFontOfSize:20.0];
         
 
-        self.moneyCountNow.font          = [UIFont boldSystemFontOfSize:20.0];
         self.giftCountNow.font           = [UIFont boldSystemFontOfSize:20.0];
         self.touchCountNow.font          = [UIFont boldSystemFontOfSize:20.0];
         self.totalCoinNow.font           = [UIFont boldSystemFontOfSize:24.0];
-        
-        self.tobuyButton.titleLabel.font = [UIFont boldSystemFontOfSize:20.0];
-        self.toDiggButton.titleLabel.font= [UIFont boldSystemFontOfSize:20.0];
     }
-    
-    [self.tobuyButton setHidden:NO];
-    [self.tobuyButton setBackgroundImage:[UIImage imageNamed:@"greenbutton"]  forState:UIControlStateNormal];
-
-    [self.toDiggButton setBackgroundImage:[UIImage imageNamed:@"graybutton"]  forState:UIControlStateNormal];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -131,7 +121,7 @@
     });
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(buyCoinOK)
+                                             selector:@selector(updateCoinOK)
                                                  name:KBEAccountChange
                                                object:nil];
     
@@ -182,9 +172,6 @@
     [self setGiftCountNow:nil];
     [self setTouchCountNow:nil];
     [self setTotalCoinNow:nil];
-    [self setMoneyCountNow:nil];
-    
-    [self setCoinLable1:nil];
     [self setCoinLabel2:nil];
     [self setCoinLabel3:nil];
     [self setCoinLabel4:nil];
@@ -213,30 +200,7 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:KLoginNickName];
 }
 
-- (IBAction)buyBECoin:(id)sender
-{
-
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate presentStoreView];
-}
-
-
-- (IBAction)toDigCoin:(id)sender
-{
-    
-    NSString *title = @"如何获得奖励金币";
-    NSString *message = [NSString stringWithFormat:@"点击内容页的右上角，分享内容给朋友，系统会奖励你的：）"];
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-    [alertView addButtonWithTitle:@"知道了"
-                             type:SIAlertViewButtonTypeCancel
-                          handler:^(SIAlertView *alertView) {
-                          }];
-    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-    [alertView show];
-}
-
--(void)buyCoinOK
+-(void)updateCoinOK
 {
     [self refreshUI];
 }
@@ -289,7 +253,6 @@
     _buyMoneyCount     = [statisticDAO totalBuyMoneyWithUserID:passport];
     _giftCount      = [statisticDAO giftCountWithUserID:passport];
     
-    self.moneyCountNow.text= [@(_buyMoneyCount) stringValue];
     self.giftCountNow.text = [@(_giftCount+KBEFreeTouchCount) stringValue];
     self.touchCountNow.text= [@(_touchWordCount) stringValue];
     

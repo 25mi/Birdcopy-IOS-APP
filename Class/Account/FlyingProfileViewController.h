@@ -17,18 +17,13 @@
 @property (strong, nonatomic) IBOutlet UILabel *coinTitleLabel;
 @property (strong, nonatomic) IBOutlet UIView  *coinDataView;
 
-@property (strong, nonatomic) IBOutlet UILabel *coinLable1;
 @property (strong, nonatomic) IBOutlet UILabel *coinLabel2;
 @property (strong, nonatomic) IBOutlet UILabel *coinLabel3;
 @property (strong, nonatomic) IBOutlet UILabel *coinLabel4;
-@property (strong, nonatomic) IBOutlet UILabel *moneyCountNow;
 @property (strong, nonatomic) IBOutlet UILabel *giftCountNow;
 @property (strong, nonatomic) IBOutlet UILabel *touchCountNow;
 @property (strong, nonatomic) IBOutlet UILabel *totalCoinNow;
 @property (strong, nonatomic) IBOutlet CERoundProgressView *coinProgressView;
-
-@property (strong, nonatomic) IBOutlet UIButton *tobuyButton;
-@property (strong, nonatomic) IBOutlet UIButton *toDiggButton;
 
 @property (nonatomic, strong) UIImageView * line;
 

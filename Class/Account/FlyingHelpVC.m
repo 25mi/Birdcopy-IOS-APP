@@ -7,7 +7,6 @@
 //
 
 #import "FlyingHelpVC.h"
-#import "FlyingMyLessonsViewController.h"
 #import "RESideMenu.h"
 #import "SIAlertView.h"
 #import "iFlyingAppDelegate.h"

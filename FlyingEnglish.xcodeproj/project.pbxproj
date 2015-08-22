@@ -45,8 +45,6 @@
 		C80657FF17FE53BB00CADF4F /* FlyingLessonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */; };
 		C806580017FE53BB00CADF4F /* FlyingLessonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */; };
 		C806580117FE53BB00CADF4F /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */; };
-		C806580217FE53BB00CADF4F /* FlyingMyLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */; };
-		C806580317FE53BB00CADF4F /* FlyingMyLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */; };
 		C806580A17FE53BB00CADF4F /* FlyingSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575517FE53BB00CADF4F /* FlyingSearchBar.m */; };
 		C806580B17FE53BB00CADF4F /* FlyingSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575717FE53BB00CADF4F /* FlyingSearchViewController.m */; };
 		C806580D17FE53BB00CADF4F /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
@@ -332,10 +330,8 @@
 		FA1BE54B1B27DD5A00AA1AFD /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		FA1BE54C1B27DD5A00AA1AFD /* FlyingProviderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE11D1A6CA4E9007F89D7 /* FlyingProviderMapVC.m */; };
 		FA1BE54D1B27DD5A00AA1AFD /* FlyingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A241A1AB5C89A004AC508 /* FlyingNavigationController.m */; };
-		FA1BE54E1B27DD5A00AA1AFD /* FlyingMyLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */; };
 		FA1BE54F1B27DD5A00AA1AFD /* MAOFlipInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFFC1AD0E20D0092A970 /* MAOFlipInteraction.m */; };
 		FA1BE5501B27DD5A00AA1AFD /* FlyingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAACD0391ABC20C800781401 /* FlyingScrollView.m */; };
-		FA1BE5521B27DD5A00AA1AFD /* FlyingMyLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */; };
 		FA1BE5531B27DD5A00AA1AFD /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77B19CD526200D97FDB /* UIXToolbarView.m */; };
 		FA1BE5541B27DD5A00AA1AFD /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77919CD526200D97FDB /* ThumbsViewController.m */; };
 		FA1BE5551B27DD5A00AA1AFD /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41C1AB7DB4E00E6F748 /* FlyingSubtitleTextView.m */; };
@@ -549,10 +545,6 @@
 		FA5ACC291B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1F1B6FB7400051A3EA /* UIViewController+RESideMenu.m */; };
 		FA5ACC2A1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1F1B6FB7400051A3EA /* UIViewController+RESideMenu.m */; };
 		FA5ACC2B1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1F1B6FB7400051A3EA /* UIViewController+RESideMenu.m */; };
-		FA5ACC2E1B70682A0051A3EA /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */; };
-		FA5ACC2F1B70682A0051A3EA /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */; };
-		FA5ACC301B70682A0051A3EA /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */; };
-		FA5ACC311B70682A0051A3EA /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */; };
 		FA5ACC331B706A370051A3EA /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC321B706A370051A3EA /* MKStoreKitConfigs.plist */; };
 		FA5ACC351B707AB40051A3EA /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; };
 		FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC361B707AD00051A3EA /* MKStoreKitConfigs.plist */; };
@@ -736,10 +728,8 @@
 		FA632A2B1B51091400A1222E /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		FA632A2C1B51091400A1222E /* FlyingProviderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE11D1A6CA4E9007F89D7 /* FlyingProviderMapVC.m */; };
 		FA632A2D1B51091400A1222E /* FlyingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A241A1AB5C89A004AC508 /* FlyingNavigationController.m */; };
-		FA632A2E1B51091400A1222E /* FlyingMyLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */; };
 		FA632A2F1B51091400A1222E /* MAOFlipInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFFC1AD0E20D0092A970 /* MAOFlipInteraction.m */; };
 		FA632A301B51091400A1222E /* FlyingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAACD0391ABC20C800781401 /* FlyingScrollView.m */; };
-		FA632A311B51091400A1222E /* FlyingMyLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */; };
 		FA632A321B51091400A1222E /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77B19CD526200D97FDB /* UIXToolbarView.m */; };
 		FA632A331B51091400A1222E /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77919CD526200D97FDB /* ThumbsViewController.m */; };
 		FA632A341B51091400A1222E /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41C1AB7DB4E00E6F748 /* FlyingSubtitleTextView.m */; };
@@ -772,8 +762,6 @@
 		FA632A4F1B51091400A1222E /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
 		FA632A501B51091400A1222E /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
 		FA632A511B51091400A1222E /* PSCollectionViewCell+delete.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656CB17FE53BA00CADF4F /* PSCollectionViewCell+delete.m */; };
-		FA632A531B51091400A1222E /* libPods-SDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBE1AC96DA40076B3A4 /* libPods-SDWebImage.a */; };
-		FA632A551B51091400A1222E /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBA1AC96D910076B3A4 /* libPods-AFNetworking.a */; };
 		FA632A561B51091400A1222E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
 		FA632A571B51091400A1222E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		FA632A581B51091400A1222E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5F24EC1A84FFEF00FC6617 /* UIKit.framework */; };
@@ -1044,10 +1032,8 @@
 		FA8C3E871B535A1500DEA02D /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		FA8C3E881B535A1500DEA02D /* FlyingProviderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE11D1A6CA4E9007F89D7 /* FlyingProviderMapVC.m */; };
 		FA8C3E891B535A1500DEA02D /* FlyingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A241A1AB5C89A004AC508 /* FlyingNavigationController.m */; };
-		FA8C3E8A1B535A1500DEA02D /* FlyingMyLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */; };
 		FA8C3E8B1B535A1500DEA02D /* MAOFlipInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFFC1AD0E20D0092A970 /* MAOFlipInteraction.m */; };
 		FA8C3E8C1B535A1500DEA02D /* FlyingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAACD0391ABC20C800781401 /* FlyingScrollView.m */; };
-		FA8C3E8D1B535A1500DEA02D /* FlyingMyLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */; };
 		FA8C3E8E1B535A1500DEA02D /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77B19CD526200D97FDB /* UIXToolbarView.m */; };
 		FA8C3E8F1B535A1500DEA02D /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77919CD526200D97FDB /* ThumbsViewController.m */; };
 		FA8C3E901B535A1500DEA02D /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41C1AB7DB4E00E6F748 /* FlyingSubtitleTextView.m */; };
@@ -1080,7 +1066,6 @@
 		FA8C3EAB1B535A1500DEA02D /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
 		FA8C3EAC1B535A1500DEA02D /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
 		FA8C3EAD1B535A1500DEA02D /* PSCollectionViewCell+delete.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656CB17FE53BA00CADF4F /* PSCollectionViewCell+delete.m */; };
-		FA8C3EAF1B535A1500DEA02D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAACC4461B5114BE003D63A4 /* StoreKit.framework */; };
 		FA8C3EB01B535A1500DEA02D /* libPods-SDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBE1AC96DA40076B3A4 /* libPods-SDWebImage.a */; };
 		FA8C3EB21B535A1500DEA02D /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBA1AC96D910076B3A4 /* libPods-AFNetworking.a */; };
 		FA8C3EB31B535A1500DEA02D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
@@ -1157,9 +1142,6 @@
 		FAAB7D9E19C679A3002EB484 /* FlyingHome.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB7D9D19C679A3002EB484 /* FlyingHome.m */; };
 		FAAB7DA419C6B2B6002EB484 /* FlyingCoverViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB7DA219C6B2B6002EB484 /* FlyingCoverViewCell.m */; };
 		FAAB7DA719C717AC002EB484 /* FlyingCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB7DA619C717AC002EB484 /* FlyingCoverView.m */; };
-		FAACC4471B5114BE003D63A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAACC4461B5114BE003D63A4 /* StoreKit.framework */; };
-		FAACC4481B511FE3003D63A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAACC4461B5114BE003D63A4 /* StoreKit.framework */; };
-		FAACC4491B511FF1003D63A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAACC4461B5114BE003D63A4 /* StoreKit.framework */; };
 		FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAACD0391ABC20C800781401 /* FlyingScrollView.m */; };
 		FAAD8ED919FB7FED00784EB4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC419FB7FED00784EB4 /* FMDatabase.m */; };
 		FAAD8EDA19FB7FED00784EB4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
@@ -1286,10 +1268,6 @@
 		C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonParser.m; sourceTree = "<group>"; };
 		C806573E17FE53BB00CADF4F /* FlyingLessonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLessonViewCell.h; sourceTree = "<group>"; };
 		C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonViewCell.m; sourceTree = "<group>"; };
-		C806574117FE53BB00CADF4F /* FlyingMyLessonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMyLessonCell.h; sourceTree = "<group>"; };
-		C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMyLessonCell.m; sourceTree = "<group>"; };
-		C806574317FE53BB00CADF4F /* FlyingMyLessonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMyLessonsViewController.h; sourceTree = "<group>"; };
-		C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMyLessonsViewController.m; sourceTree = "<group>"; };
 		C806575417FE53BB00CADF4F /* FlyingSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchBar.h; sourceTree = "<group>"; };
 		C806575517FE53BB00CADF4F /* FlyingSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSearchBar.m; sourceTree = "<group>"; };
 		C806575617FE53BB00CADF4F /* FlyingSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchViewController.h; sourceTree = "<group>"; };
@@ -1629,8 +1607,6 @@
 		FA5ACC1D1B6FB7400051A3EA /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
 		FA5ACC1E1B6FB7400051A3EA /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		FA5ACC1F1B6FB7400051A3EA /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
-		FA5ACC2C1B70682A0051A3EA /* MKStoreKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKStoreKit.h; sourceTree = "<group>"; };
-		FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKStoreKit.m; sourceTree = "<group>"; };
 		FA5ACC321B706A370051A3EA /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		FA5ACC361B707AD00051A3EA /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
@@ -1747,7 +1723,6 @@
 		FAAB7DA319C6B2B6002EB484 /* FlyingCoverViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCoverViewCell.h; sourceTree = "<group>"; };
 		FAAB7DA519C717AC002EB484 /* FlyingCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCoverView.h; sourceTree = "<group>"; };
 		FAAB7DA619C717AC002EB484 /* FlyingCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCoverView.m; sourceTree = "<group>"; };
-		FAACC4461B5114BE003D63A4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FAACD0381ABC20C800781401 /* FlyingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingScrollView.h; sourceTree = "<group>"; };
 		FAACD0391ABC20C800781401 /* FlyingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingScrollView.m; sourceTree = "<group>"; };
 		FAAD8EC319FB7FED00784EB4 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -1833,7 +1808,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAACC4481B511FE3003D63A4 /* StoreKit.framework in Frameworks */,
 				FA95BD4E1AC2B8CF00542081 /* CoreMotion.framework in Frameworks */,
 				C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */,
 				FA5F24ED1A84FFEF00FC6617 /* UIKit.framework in Frameworks */,
@@ -1884,7 +1858,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAACC4491B511FF1003D63A4 /* StoreKit.framework in Frameworks */,
 				FA1BE5731B27DD5A00AA1AFD /* libPods-SDWebImage.a in Frameworks */,
 				FA1BE5751B27DD5A00AA1AFD /* libPods-AFNetworking.a in Frameworks */,
 				FA1BE5761B27DD5A00AA1AFD /* CoreMotion.framework in Frameworks */,
@@ -1937,8 +1910,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA632A531B51091400A1222E /* libPods-SDWebImage.a in Frameworks */,
-				FA632A551B51091400A1222E /* libPods-AFNetworking.a in Frameworks */,
 				FA632A561B51091400A1222E /* CoreMotion.framework in Frameworks */,
 				FA632A571B51091400A1222E /* MediaPlayer.framework in Frameworks */,
 				FA632A581B51091400A1222E /* UIKit.framework in Frameworks */,
@@ -1979,7 +1950,6 @@
 				FA632A7B1B51091400A1222E /* AudioToolbox.framework in Frameworks */,
 				FA632A7C1B51091400A1222E /* QuartzCore.framework in Frameworks */,
 				FA632A7D1B51091400A1222E /* CoreMedia.framework in Frameworks */,
-				FAACC4471B5114BE003D63A4 /* StoreKit.framework in Frameworks */,
 				FA632A7F1B51091400A1222E /* Foundation.framework in Frameworks */,
 				FA632A801B51091400A1222E /* CoreGraphics.framework in Frameworks */,
 				FA632A811B51091400A1222E /* libPods.a in Frameworks */,
@@ -1990,7 +1960,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA8C3EAF1B535A1500DEA02D /* StoreKit.framework in Frameworks */,
 				FA8C3EB01B535A1500DEA02D /* libPods-SDWebImage.a in Frameworks */,
 				FA8C3EB21B535A1500DEA02D /* libPods-AFNetworking.a in Frameworks */,
 				FA8C3EB31B535A1500DEA02D /* CoreMotion.framework in Frameworks */,
@@ -2139,8 +2108,6 @@
 		C80656A417FE53BA00CADF4F /* Security */ = {
 			isa = PBXGroup;
 			children = (
-				FA5ACC2C1B70682A0051A3EA /* MKStoreKit.h */,
-				FA5ACC2D1B70682A0051A3EA /* MKStoreKit.m */,
 				FAB5F8FE1B16CC3B0041DF89 /* UICKeyChainStore.h */,
 				FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */,
 				FA910BCC1AE5F43100430DA1 /* FileHash.h */,
@@ -2330,17 +2297,6 @@
 			path = LessonList;
 			sourceTree = "<group>";
 		};
-		C806574017FE53BB00CADF4F /* MyLessons */ = {
-			isa = PBXGroup;
-			children = (
-				C806574117FE53BB00CADF4F /* FlyingMyLessonCell.h */,
-				C806574217FE53BB00CADF4F /* FlyingMyLessonCell.m */,
-				C806574317FE53BB00CADF4F /* FlyingMyLessonsViewController.h */,
-				C806574417FE53BB00CADF4F /* FlyingMyLessonsViewController.m */,
-			);
-			path = MyLessons;
-			sourceTree = "<group>";
-		};
 		C806574A17FE53BB00CADF4F /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -2403,7 +2359,6 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAACC4461B5114BE003D63A4 /* StoreKit.framework */,
 				FA493EBE1AC96DA40076B3A4 /* libPods-SDWebImage.a */,
 				FA493EBC1AC96D9E0076B3A4 /* libPods-RESideMenu.a */,
 				FA493EBA1AC96D910076B3A4 /* libPods-AFNetworking.a */,
@@ -2472,7 +2427,6 @@
 				C806570D17FE53BB00CADF4F /* Home */,
 				C806572D17FE53BB00CADF4F /* Lesson */,
 				C806573917FE53BB00CADF4F /* LessonList */,
-				C806574017FE53BB00CADF4F /* MyLessons */,
 				C806574A17FE53BB00CADF4F /* Review */,
 				C85D91A718CDB71000A02B21 /* Scan */,
 				C806575317FE53BB00CADF4F /* Search */,
@@ -3388,7 +3342,7 @@
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -3407,7 +3361,7 @@
 						DevelopmentTeam = V483NATPWH;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -3899,13 +3853,10 @@
 				FA88BC2F1B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */,
 				FA7A241B1AB5C89A004AC508 /* FlyingNavigationController.m in Sources */,
-				FA5ACC2E1B70682A0051A3EA /* MKStoreKit.m in Sources */,
-				C806580217FE53BB00CADF4F /* FlyingMyLessonCell.m in Sources */,
 				FA8BD0031AD0E20D0092A970 /* MAOFlipInteraction.m in Sources */,
 				FA330D401B809B2300CA1C65 /* NSDate+Components.m in Sources */,
 				FA330D341B809B2300CA1C65 /* NSCalendar+DateManipulation.m in Sources */,
 				FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */,
-				C806580317FE53BB00CADF4F /* FlyingMyLessonsViewController.m in Sources */,
 				FA11E7B919CD526200D97FDB /* UIXToolbarView.m in Sources */,
 				FA11E7B819CD526200D97FDB /* ThumbsViewController.m in Sources */,
 				FAE5C42F1AB7DB4E00E6F748 /* FlyingSubtitleTextView.m in Sources */,
@@ -4148,13 +4099,10 @@
 				FA88BC301B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA1BE54C1B27DD5A00AA1AFD /* FlyingProviderMapVC.m in Sources */,
 				FA1BE54D1B27DD5A00AA1AFD /* FlyingNavigationController.m in Sources */,
-				FA5ACC2F1B70682A0051A3EA /* MKStoreKit.m in Sources */,
-				FA1BE54E1B27DD5A00AA1AFD /* FlyingMyLessonCell.m in Sources */,
 				FA1BE54F1B27DD5A00AA1AFD /* MAOFlipInteraction.m in Sources */,
 				FA330D411B809B2300CA1C65 /* NSDate+Components.m in Sources */,
 				FA330D351B809B2300CA1C65 /* NSCalendar+DateManipulation.m in Sources */,
 				FA1BE5501B27DD5A00AA1AFD /* FlyingScrollView.m in Sources */,
-				FA1BE5521B27DD5A00AA1AFD /* FlyingMyLessonsViewController.m in Sources */,
 				FA1BE5531B27DD5A00AA1AFD /* UIXToolbarView.m in Sources */,
 				FA1BE5541B27DD5A00AA1AFD /* ThumbsViewController.m in Sources */,
 				FA1BE5551B27DD5A00AA1AFD /* FlyingSubtitleTextView.m in Sources */,
@@ -4397,13 +4345,10 @@
 				FA88BC311B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA632A2C1B51091400A1222E /* FlyingProviderMapVC.m in Sources */,
 				FA632A2D1B51091400A1222E /* FlyingNavigationController.m in Sources */,
-				FA5ACC301B70682A0051A3EA /* MKStoreKit.m in Sources */,
-				FA632A2E1B51091400A1222E /* FlyingMyLessonCell.m in Sources */,
 				FA632A2F1B51091400A1222E /* MAOFlipInteraction.m in Sources */,
 				FA330D421B809B2300CA1C65 /* NSDate+Components.m in Sources */,
 				FA330D361B809B2300CA1C65 /* NSCalendar+DateManipulation.m in Sources */,
 				FA632A301B51091400A1222E /* FlyingScrollView.m in Sources */,
-				FA632A311B51091400A1222E /* FlyingMyLessonsViewController.m in Sources */,
 				FA632A321B51091400A1222E /* UIXToolbarView.m in Sources */,
 				FA632A331B51091400A1222E /* ThumbsViewController.m in Sources */,
 				FA632A341B51091400A1222E /* FlyingSubtitleTextView.m in Sources */,
@@ -4646,13 +4591,10 @@
 				FA88BC321B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA8C3E881B535A1500DEA02D /* FlyingProviderMapVC.m in Sources */,
 				FA8C3E891B535A1500DEA02D /* FlyingNavigationController.m in Sources */,
-				FA5ACC311B70682A0051A3EA /* MKStoreKit.m in Sources */,
-				FA8C3E8A1B535A1500DEA02D /* FlyingMyLessonCell.m in Sources */,
 				FA8C3E8B1B535A1500DEA02D /* MAOFlipInteraction.m in Sources */,
 				FA330D431B809B2300CA1C65 /* NSDate+Components.m in Sources */,
 				FA330D371B809B2300CA1C65 /* NSCalendar+DateManipulation.m in Sources */,
 				FA8C3E8C1B535A1500DEA02D /* FlyingScrollView.m in Sources */,
-				FA8C3E8D1B535A1500DEA02D /* FlyingMyLessonsViewController.m in Sources */,
 				FA8C3E8E1B535A1500DEA02D /* UIXToolbarView.m in Sources */,
 				FA8C3E8F1B535A1500DEA02D /* ThumbsViewController.m in Sources */,
 				FA8C3E901B535A1500DEA02D /* FlyingSubtitleTextView.m in Sources */,
@@ -5057,7 +4999,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5111,7 +5053,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (

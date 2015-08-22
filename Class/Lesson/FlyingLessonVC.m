@@ -25,7 +25,6 @@
 #import "NSString+FlyingExtention.h"
 
 #import "FlyingM3U8Downloader.h"
-#import "FlyingMyLessonsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIImage+localFile.h"
@@ -75,7 +74,6 @@
 #import "FlyingSubRipItem.h"
 #import "FlyingSubTitle.h"
 #import "ACMagnifyingGlass.h"
-#import "FlyingMyLessonsViewController.h"
 #import "FlyingLessonData.h"
 #import "FlyingLessonDAO.h"
 #import "FlyingNowLessonData.h"
@@ -117,6 +115,11 @@
 #import <AFNetworking.h>
 #import "UIView+Toast.h"
 #import "AFHttpTool.h"
+
+#import "iFlyingAppDelegate.h"
+#import "FlyingItemParser.h"
+#import "FlyingItemDao.h"
+#import "SSZipArchive.h"
 
 static void *FlyingViewControllerPlayerItemStatusObserverContext = &FlyingViewControllerPlayerItemStatusObserverContext;
 static void *FlyingViewControllerSubtitlStatusObserverContext    = &FlyingViewControllerSubtitlStatusObserverContext;
@@ -1552,19 +1555,19 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     //下载字幕
     dispatch_async(_background_queue, ^{
         
-        [FlyingMyLessonsViewController getSrtForLessonID:self.theLesson.lessonID Title:self.theLesson.title];
+        [FlyingLessonVC getSrtForLessonID:self.theLesson.lessonID Title:self.theLesson.title];
     });
     
     //下载课程字典
     dispatch_async(_background_queue, ^{
         
-        [FlyingMyLessonsViewController getDicWithURL:self.theLesson.pronunciationURL LessonID:self.theLesson.lessonID];
+        [FlyingLessonVC getDicWithURL:self.theLesson.pronunciationURL LessonID:self.theLesson.lessonID];
     });
     
     //下载课程辅助资源
     dispatch_async(_background_queue, ^{
         
-        [FlyingMyLessonsViewController getRelativeWithURL:self.theLesson.relativeURL LessonID:self.theLesson.lessonID];
+        [FlyingLessonVC getRelativeWithURL:self.theLesson.relativeURL LessonID:self.theLesson.lessonID];
     });
 }
 
@@ -4284,5 +4287,193 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         self.lockImageView.image = [UIImage imageNamed:@"lock"];
     }
 }
+
+
+//////////////////////////////////////////////////////////////
+#pragma mark get data from offical website
+//////////////////////////////////////////////////////////////
++ (void) getSrtForLessonID: (NSString *) lessonID
+                     Title:(NSString *) title
+{
+    
+    [AFHttpTool lessonResourceType:kResource_Sub
+                          lessonID:lessonID
+                        contentURL:nil
+                             isURL:NO
+                           success:^(id response) {
+                               //
+                               NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                               NSRange segmentRange = [temStr rangeOfString:@"所请求映射类文件不存在"];
+                               
+                               if ( (segmentRange.location==NSNotFound) && (response!=nil) ) {
+                                   
+                                   FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
+                                   [mylessonDAO setUserModle:NO];
+                                   
+                                   FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
+                                   [response writeToFile:lessonData.localURLOfSub atomically:YES];
+                               }
+                               
+                           } failure:^(NSError *err) {
+                               //
+                           }];
+}
+
+
++ (void) getDicWithURL: (NSString *) baseURLStr
+              LessonID: (NSString *) lessonID
+{
+    FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
+    [mylessonDAO setUserModle:NO];
+    FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
+    
+    if(lessonData.BEPROURL)
+    {
+        NSString *localURL = lessonData.localURLOfPro;
+        NSURL *webURL = [NSURL URLWithString:baseURLStr];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3600];
+        AFDownloadRequestOperation * operation = [[AFDownloadRequestOperation alloc] initWithRequest:request targetPath:localURL shouldResume:YES];
+        [operation setShouldOverwrite:YES];
+        [operation setDeleteTempFileOnCancel:YES];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            dispatch_async([appDelegate getBackPubQueue], ^{
+                
+                NSString * outputDir = [iFlyingAppDelegate getLessonDir:lessonID];
+                
+                [SSZipArchive unzipFileAtPath:lessonData.localURLOfPro toDestination:outputDir];
+
+                
+                //升级课程补丁
+                [FlyingLessonVC updateBaseDic:lessonID];
+                
+                [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfPro error:nil];
+                [mylessonDAO updateProURL:nil LessonID:lessonID]; //表示已经下载
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+        [operation start];
+    }
+}
+
++ (void) getRelativeWithURL: (NSString *) relativeURLStr
+                   LessonID: (NSString *) lessonID
+{
+    FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
+    [mylessonDAO setUserModle:NO];
+    FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
+    
+    if(lessonData.BERELATIVEURL)
+    {
+        NSString *localURL = lessonData.localURLOfRelative;
+        NSURL *webURL = [NSURL URLWithString:relativeURLStr];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3600];
+        AFDownloadRequestOperation * operation = [[AFDownloadRequestOperation alloc] initWithRequest:request targetPath:localURL shouldResume:YES];
+        [operation setShouldOverwrite:YES];
+        [operation setDeleteTempFileOnCancel:YES];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            dispatch_async([appDelegate getBackPubQueue], ^{
+                
+                NSString * outputDir = [iFlyingAppDelegate getLessonDir:lessonID];
+                
+                [SSZipArchive unzipFileAtPath:lessonData.localURLOfRelative toDestination:outputDir];
+                
+                [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfRelative error:nil];
+                [mylessonDAO updateRelativeURL:nil LessonID:lessonID]; //表示已经下载
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+        [operation start];
+    }
+    
+    if ( [lessonData.BECONTENTTYPE isEqualToString:KContentTypeText] &&
+        lessonData.BEOFFICIAL)
+    {
+        NSString *localPath = [iFlyingAppDelegate getLessonDir:lessonID];
+        NSString  *fileName =kResource_Background_filenmae;
+        
+        NSString *filePath = [localPath stringByAppendingPathComponent:fileName];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        
+        if(![fm fileExistsAtPath:filePath])
+        {
+            [AFHttpTool lessonResourceType:kResource_Background
+                                  lessonID:lessonID
+                                contentURL:nil
+                                     isURL:YES
+                                   success:^(id response) {
+                                       //
+                                       NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                       NSData * audioData = [NSData dataWithContentsOfURL:[NSURL URLWithString:tempStr]];
+                                       //将数据保存到本地指定位置
+                                       [audioData writeToFile:filePath atomically:YES];
+                                       
+                                   } failure:^(NSError *err) {
+                                       //
+                                   }];
+        }
+    }
+}
+
++ (void) updateBaseDic:(NSString *) lessonID
+{
+    NSString * lessonDir = [iFlyingAppDelegate getLessonDir:lessonID];
+    
+    NSString * fileName = [lessonDir stringByAppendingPathComponent:KLessonDicName];
+    
+    FlyingItemParser * parser= [FlyingItemParser alloc];
+    [parser SetData:[NSData dataWithContentsOfFile:fileName]];
+    
+    FlyingItemDao * dao= [[FlyingItemDao alloc] init];
+    [dao setUserModle:NO];
+    parser.completionBlock = ^(NSArray *itemList, NSInteger allRecordCount)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [itemList enumerateObjectsUsingBlock:^(FlyingItemData  *item, NSUInteger idx, BOOL *stop) {
+                
+                [dao insertWithData:item];
+            }];
+        });
+    };
+    
+    parser.failureBlock = ^(NSError *error)
+    {
+        
+        NSLog(@"word xml  失败！");
+    };
+    
+    [parser parse];
+}
+
++ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title
+{
+    [AFHttpTool lessonResourceType:kResource_Pro
+                          lessonID:lessonID
+                        contentURL:nil
+                             isURL:YES
+                           success:^(id response) {
+                               //
+                               NSString * baseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                               [FlyingLessonVC getDicWithURL:baseURLStr LessonID:lessonID];
+                               
+                           } failure:^(NSError *err) {
+                               //
+                           }];
+}
+
 
 @end

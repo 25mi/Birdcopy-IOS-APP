@@ -8,7 +8,6 @@
 
 #import "BEMenuController.h"
 #import "FlyingProviderListVC.h"
-#import "FlyingMyLessonsViewController.h"
 #import "FlyingLessonListViewController.h"
 #import "shareDefine.h"
 #import "RESideMenu.h"
@@ -132,14 +131,6 @@
         FlyingHome* homeVC = [[FlyingHome alloc] init];
         
         [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:homeVC]
-                                                     animated:YES];
-        [self.sideMenuViewController hideMenuViewController];
-    }
-    else  if([title containsString:@"我的"])
-    {
-        FlyingMyLessonsViewController * albumVC =[[FlyingMyLessonsViewController alloc] init];
-        
-        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:albumVC]
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
