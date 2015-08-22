@@ -4837,7 +4837,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4876,7 +4876,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "aa773386-bbed-4704-b465-25ffbfba72b6";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -4892,7 +4892,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4930,8 +4930,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
