@@ -363,8 +363,6 @@
 		FA1BE56F1B27DD5A00AA1AFD /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
 		FA1BE5701B27DD5A00AA1AFD /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
 		FA1BE5711B27DD5A00AA1AFD /* PSCollectionViewCell+delete.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656CB17FE53BA00CADF4F /* PSCollectionViewCell+delete.m */; };
-		FA1BE5731B27DD5A00AA1AFD /* libPods-SDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBE1AC96DA40076B3A4 /* libPods-SDWebImage.a */; };
-		FA1BE5751B27DD5A00AA1AFD /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA493EBA1AC96D910076B3A4 /* libPods-AFNetworking.a */; };
 		FA1BE5761B27DD5A00AA1AFD /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
 		FA1BE5771B27DD5A00AA1AFD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		FA1BE5781B27DD5A00AA1AFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5F24EC1A84FFEF00FC6617 /* UIKit.framework */; };
@@ -1858,8 +1856,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA1BE5731B27DD5A00AA1AFD /* libPods-SDWebImage.a in Frameworks */,
-				FA1BE5751B27DD5A00AA1AFD /* libPods-AFNetworking.a in Frameworks */,
 				FA1BE5761B27DD5A00AA1AFD /* CoreMotion.framework in Frameworks */,
 				FA1BE5771B27DD5A00AA1AFD /* MediaPlayer.framework in Frameworks */,
 				FA1BE5781B27DD5A00AA1AFD /* UIKit.framework in Frameworks */,

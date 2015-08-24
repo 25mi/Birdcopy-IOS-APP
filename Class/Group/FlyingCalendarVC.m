@@ -19,7 +19,7 @@
     UISegmentedControl *_modePicker;
 }
 
-@property (nonatomic, strong) NSMutableDictionary *eventData;
+@property (nonatomic, strong) NSMutableDictionary *eventDataList;
 
 @end
 
@@ -35,14 +35,14 @@
 {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:self.eventData forKey:@"eventData"];
+    [coder encodeObject:self.eventDataList forKey:@"eventDataList"];
 }
 
 -(void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.eventData = [coder decodeObjectForKey:@"eventData"];
+    self.eventDataList = [coder decodeObjectForKey:@"eventDataList"];
     
     [self initCalendar];
 }
@@ -120,10 +120,10 @@
      *  The key is the date that the array of events appears on.
      */
     
-    self.eventData = [NSMutableDictionary new];
+    self.eventDataList = [NSMutableDictionary new];
     
-    self.eventData[date] = @[releaseUpdatedCalendarKit];
-    self.eventData[date2] = @[mockingJay, fixBug];
+    self.eventDataList[date] = @[releaseUpdatedCalendarKit];
+    self.eventDataList[date2] = @[mockingJay, fixBug];
     
     [_calendarView setDisplayMode:CKCalendarViewModeWeek];
 }
@@ -132,7 +132,7 @@
 
 - (NSArray *)calendarView:(CKCalendarView *)CalendarView eventsForDate:(NSDate *)date
 {
-    return self.eventData[date];
+    return self.eventDataList[date];
 }
 
 #pragma mark - CKCalendarViewDelegate
