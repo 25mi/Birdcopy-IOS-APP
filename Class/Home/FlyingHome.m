@@ -31,8 +31,6 @@
 #import "AFHttpTool.h"
 #import "FlyingHttpTool.h"
 
-#import "FlyingCalendarVC.h"
-
 @interface FlyingHome ()<UIViewControllerRestoration>
 
 {
@@ -371,7 +369,6 @@
 
 - (void) doChat
 {
-    /*
     if (INTERFACE_IS_PAD) {
         
         [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
@@ -382,9 +379,6 @@
     RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
      
     [self.navigationController pushViewController:chatList animated:YES];
-     */
-    
-    [self.navigationController pushViewController:[FlyingCalendarVC new] animated:YES];
 }
 
 - (void) doSearch

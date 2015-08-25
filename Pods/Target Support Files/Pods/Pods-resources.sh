@@ -58,17 +58,17 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/RongCloud.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/en.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/zh-Hans.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/Emoji.plist"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/RongCloud.bundle"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/en.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/zh-Hans.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/Emoji.plist"
   install_resource "SIAlertView/SIAlertView/SIAlertView.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/RongCloud.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/en.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/zh-Hans.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_7_stable/Emoji.plist"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/RongCloud.bundle"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/en.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/zh-Hans.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/Emoji.plist"
   install_resource "SIAlertView/SIAlertView/SIAlertView.bundle"
 fi
 

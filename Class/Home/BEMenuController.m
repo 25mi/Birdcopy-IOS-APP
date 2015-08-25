@@ -48,8 +48,8 @@
     self.restorationIdentifier = @"BEMenuController";
     self.restorationClass      = [self class];
     
-    self.titles =  [NSMutableArray arrayWithArray:@[@"首页",@"我的"]];
-    self.images =  [NSMutableArray arrayWithArray:@[@"Home",@"Favorite"]];
+    self.titles =  [NSMutableArray arrayWithArray:@[@"首页"]];
+    self.images =  [NSMutableArray arrayWithArray:@[@"Home"]];
     
 #ifdef __CLIENT__IS__ENGLISH__
     [self.titles addObject:@"魔词"];

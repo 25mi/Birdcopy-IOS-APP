@@ -55,7 +55,6 @@
 #import "FlyingWordDetailVC.h"
 #import "FlyingSeparateView.h"
 
-#import <StoreKit/SKPaymentQueue.h>
 #import <Foundation/NSAttributedString.h>
 #import <Foundation/NSKeyedArchiver.h>
 #import <Foundation/NSLinguisticTagger.h>
@@ -140,11 +139,8 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     dispatch_queue_t   _background_queue;
     dispatch_source_t  _UpdateDownlonaSource;
     
-    BOOL               _hasRight;
     BOOL               _playonline;
     BOOL               _saveToLocal;
-    BOOL               _hasHistoryRecord;
-    BOOL               _hasCheckedHistoryRecord;
     
     CGFloat            _margin;
     float              _width;
@@ -367,7 +363,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     [self prepareContentView];
     [self prepareOtherContent];
     
-    //监控下载更新
+    //监控缓存更新
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(godReset)
                                                  name:KGodIsComing
@@ -409,34 +405,13 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 -(void) doChatRoom
 {
-    if (_hasRight) {
-        
-        RCDChatViewController *chatRoomVC = [[RCDChatViewController alloc]init];
-        chatRoomVC.targetId = self.theLesson.lessonID;
-        chatRoomVC.conversationType = ConversationType_CHATROOM;
-        chatRoomVC.title = self.theLesson.title;
-        
-        [self.navigationController pushViewController:chatRoomVC animated:YES];
-    }
-    else
-    {
-        NSString *title = @"友情提醒";
-        NSString *message = @"只有购买内容用户才能才能参与聊天？";
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"点错了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        [alertView addButtonWithTitle:@"确认购买内容"
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {
-                                  
-                                  [self buyLessonWithCoin];
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
-    }
+    
+    RCDChatViewController *chatRoomVC = [[RCDChatViewController alloc]init];
+    chatRoomVC.targetId = self.theLesson.lessonID;
+    chatRoomVC.conversationType = ConversationType_CHATROOM;
+    chatRoomVC.title = self.theLesson.title;
+    
+    [self.navigationController pushViewController:chatRoomVC animated:YES];
 }
 
 -(void) initData
@@ -459,21 +434,8 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         _nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
     }
     
-    _hasRight=NO;
-    
-    if(self.theLesson.coinPrice==0) _hasRight=YES;
-    
-    if(!_hasRight){
-        
-        FlyingTouchRecord * touchData = [[FlyingTouchDAO new] selectWithUserID:_currentPassport
-                                                                      LessonID:self.theLesson.lessonID];
-        if(touchData.BETOUCHTIMES>0) _hasRight=YES;
-    }
-    
     _playonline=NO;
     _saveToLocal=NO;
-    _hasHistoryRecord=NO;
-    _hasCheckedHistoryRecord=NO;
     
     _lockScreen=NO;
     
@@ -738,74 +700,64 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         self.buyButton.titleLabel.font     = [UIFont systemFontOfSize:font_iphone_size];
     }
     
-    //校验是否有内容权限
-    if(!_hasRight)
-    {
-        [self.buyButton setTitle:[NSString stringWithFormat:@"%d金币",self.theLesson.coinPrice] forState:UIControlStateNormal];
+    if (!self.theLesson.canDownloaded) {
         
-        [self inquiryRightWithUserID:_currentPassport];
+        [self.buyButton setTitle:@"不支持缓存" forState:UIControlStateNormal];
+        [self.buyButton setEnabled:NO];
     }
     else
     {
-        if (!self.theLesson.canDownloaded) {
-        
-            [self.buyButton setTitle:@"版权方禁止下载" forState:UIControlStateNormal];
-            [self.buyButton setEnabled:NO];
-        }
-        else
+        if([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
         {
-            if([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
+            [self.buyButton setTitle:@"马上欣赏" forState:UIControlStateNormal];
+            
+            return;
+        }
+        
+        if (_lessonData)
+        {
+            if (_lessonData.BEDLPERCENT==1)
             {
                 [self.buyButton setTitle:@"马上欣赏" forState:UIControlStateNormal];
-                
-                return;
             }
-            
-            if (_lessonData)
+            else
             {
-                if (_lessonData.BEDLPERCENT==1)
+                if(_lessonData.BEDLSTATE==YES)
                 {
-                    [self.buyButton setTitle:@"马上欣赏" forState:UIControlStateNormal];
+                    [self.buyButton setTitle:[NSString stringWithFormat:@"缓存:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];;
                 }
                 else
                 {
-                    if(_lessonData.BEDLSTATE==YES)
-                    {
-                        [self.buyButton setTitle:[NSString stringWithFormat:@"下载:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];;
-                    }
-                    else
-                    {
-                        [self.buyButton setTitle:@"离线收藏" forState:UIControlStateNormal];
-                    }
+                    [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
+                }
+            }
+        }
+        else
+        {
+            if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8])
+            {
+                //非官方、非大陆
+                if(![NSString isInMainland] && ![NSString checkOfficialURL:self.theLesson.contentURL])
+                {
+                    [self.contentView makeToast:@"抱歉：版权原因,非大陆地区可能不能使用此课程!" duration:3 position:CSToastPositionCenter];
+                }
+                else if( ![NSString checkM3U8URL:self.theLesson.contentURL]&& INTERFACE_IS_PAD)
+                {
+                    //是平板又不是M3U8直接资源地址
+                    
+                    [self.buyButton   setEnabled:NO];
+                    [self.buyButton setTitle:@"暂时不支持IPAD！" forState:UIControlStateNormal];
+                    
+                    [self.contentView makeToast:@"抱歉：请使用iPhone终端观看后才能使用IPAD观看!" duration:3 position:CSToastPositionCenter];
+                }
+                else
+                {
+                    [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
                 }
             }
             else
             {
-                if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8])
-                {
-                    //非官方、非大陆
-                    if(![NSString isInMainland] && ![NSString checkOfficialURL:self.theLesson.contentURL])
-                    {
-                        [self.contentView makeToast:@"抱歉：版权原因,非大陆地区可能不能使用此课程!" duration:3 position:CSToastPositionCenter];
-                    }
-                    else if( ![NSString checkM3U8URL:self.theLesson.contentURL]&& INTERFACE_IS_PAD)
-                    {
-                        //是平板又不是M3U8直接资源地址
-                        
-                        [self.buyButton   setEnabled:NO];
-                        [self.buyButton setTitle:@"暂时不支持IPAD！" forState:UIControlStateNormal];
-                        
-                        [self.contentView makeToast:@"抱歉：请使用iPhone终端观看后才能使用IPAD观看!" duration:3 position:CSToastPositionCenter];
-                    }
-                    else
-                    {
-                        [self.buyButton setTitle:@"离线收藏" forState:UIControlStateNormal];
-                    }
-                }
-                else
-                {
-                    [self.buyButton setTitle:@"离线收藏" forState:UIControlStateNormal];
-                }
+                [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
             }
         }
     }
@@ -1352,39 +1304,32 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 //////////////////////////////////////////////////////////////
 - (void)playNow:(id)sender
 {
-    if(!_hasRight)
+    if (!_lessonData)
     {
-        [self.contentView makeToast:@"请购买或者联网同步购买记录!!" duration:3 position:CSToastPositionCenter];
-    }
-    else
-    {
-        if (!_lessonData)
+        if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
         {
-            if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-            {
-                [self playLesson:self.theLesson.lessonID];
-            }
-            else
-            {
-                //在线播放
-                _playonline=YES;
-                [self watchNetworkStateNow];
-            }
+            [self playLesson:self.theLesson.lessonID];
         }
         else
         {
-            if(_lessonData.BEDLPERCENT ==1)
-            {
-                [self playLesson:self.theLesson.lessonID];
-            }
-            else if(_lessonData.BEDLSTATE==YES)
-            {
-                [self.contentView makeToast:@"离线缓存中..." duration:3 position:CSToastPositionCenter];
-            }
-            else
-            {
-                [self buyOrDownloadNow];
-            }
+            //在线播放
+            _playonline=YES;
+            [self watchNetworkStateNow];
+        }
+    }
+    else
+    {
+        if(_lessonData.BEDLPERCENT ==1)
+        {
+            [self playLesson:self.theLesson.lessonID];
+        }
+        else if(_lessonData.BEDLSTATE==YES)
+        {
+            [self.contentView makeToast:@"离线缓存中..." duration:3 position:CSToastPositionCenter];
+        }
+        else
+        {
+            [self buyOrDownloadNow];
         }
     }
 }
@@ -1479,45 +1424,30 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 - (void)buyOrDownloadNow
 {
-    if(_hasRight || _hasHistoryRecord)
+    FlyingLessonData    * lessonData = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
+    if(lessonData.BEDLPERCENT ==1)
     {
-        FlyingLessonData    * lessonData = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
-        if(lessonData.BEDLPERCENT ==1)
+        if(self.player && self.player.rate==0)
         {
-            if(self.player && self.player.rate==0)
-            {
-                [self playAndDoAI];
-            }
-            else
-            {
-                [self playLesson:self.theLesson.lessonID];
-            }
+            [self playAndDoAI];
         }
         else
         {
-            if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-            {
-                [self playLesson:self.theLesson.lessonID];
-            }
-            else
-            {
-                _saveToLocal=YES;
-                
-                [self.buyButton setTitle:@"准备下载..." forState:UIControlStateNormal];
-                [self watchNetworkStateNow];
-            }
+            [self playLesson:self.theLesson.lessonID];
         }
     }
     else
     {
-        if (_hasCheckedHistoryRecord)
+        if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
         {
-            
-            [self alertBuyAction];
+            [self playLesson:self.theLesson.lessonID];
         }
         else
         {
-            [self inquiryRightWithUserID:_currentPassport];
+            _saveToLocal=YES;
+            
+            [self.buyButton setTitle:@"准备缓存..." forState:UIControlStateNormal];
+            [self watchNetworkStateNow];
         }
     }
 }
@@ -1541,7 +1471,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
             
             [[NSNotificationCenter defaultCenter] postNotificationName:KlessonStateChange object:nil userInfo:nil];
             
-            //没有用下载管理、直接缓存
+            //没有用缓存管理、直接缓存
             //[self.delegate closeAndReleaseDownloaderForID:lessonID];
         }
     }
@@ -1552,19 +1482,19 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     //保存封面图,离线已经不需要保存了
     //[UIImagePNGRepresentation(self.lessonCoverImageView.image) writeToFile:_lessonData.localURLOfCover  atomically:YES];
     
-    //下载字幕
+    //缓存字幕
     dispatch_async(_background_queue, ^{
         
         [FlyingLessonVC getSrtForLessonID:self.theLesson.lessonID Title:self.theLesson.title];
     });
     
-    //下载课程字典
+    //缓存课程字典
     dispatch_async(_background_queue, ^{
         
         [FlyingLessonVC getDicWithURL:self.theLesson.pronunciationURL LessonID:self.theLesson.lessonID];
     });
     
-    //下载课程辅助资源
+    //缓存课程辅助资源
     dispatch_async(_background_queue, ^{
         
         [FlyingLessonVC getRelativeWithURL:self.theLesson.relativeURL LessonID:self.theLesson.lessonID];
@@ -1581,13 +1511,13 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         [self playAndDoAI];
     }
     
-    //监控下载更新
+    //监控缓存更新
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateDownloadState:)
                                                  name:KlessonStateChange
                                                object:nil];
     
-    //监控下载结束
+    //监控缓存结束
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateDownloadOk:)
                                                  name:KlessonFinishTask
@@ -1648,7 +1578,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
                 {
                     if (_saveToLocal)
                     {
-                        [self.buyButton setTitle:[NSString stringWithFormat:@"下载:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];
+                        [self.buyButton setTitle:[NSString stringWithFormat:@"缓存:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];
                     }
                     
                     if (_playonline && [self.theLesson.contentType isEqualToString:KContentTypeText])
@@ -1703,7 +1633,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
             [self saveToDBForDownload:YES];
         }
         
-        //下载
+        //缓存
         if (_playonline || _saveToLocal) {
             
             [self downloadRelated];
@@ -1727,7 +1657,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         
         if(_saveToLocal)
         {
-            [self.buyButton setTitle:@"进入下载队列..." forState:UIControlStateNormal];
+            [self.buyButton setTitle:@"进入缓存队列..." forState:UIControlStateNormal];
             if(![self.theLesson.contentType isEqualToString:KContentTypePageWeb]){
                 
                 iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -1746,144 +1676,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         [self.contentView makeToast:@"提醒：第三方提供内容！！" duration:3 position:CSToastPositionCenter];
         
         [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"BEEverDownload"];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark Money and Right related
-//////////////////////////////////////////////////////////////
-
-- (void) inquiryRightWithUserID:(NSString *) currentPassport
-{
-    FlyingTouchRecord * touchData = [[FlyingTouchDAO new] selectWithUserID:currentPassport LessonID:self.theLesson.lessonID];
-    
-    if (touchData)
-    {
-        _hasRight=YES;
-        [self initBuyButton];
-        return;
-    }
-    
-    //向服务器获取相关数据
-    [AFHttpTool getTouchDataForUserID:currentPassport
-                             lessonID:self.theLesson.lessonID
-                              success:^(id response) {
-                                  //
-                                  if (response) {
-                                      
-                                      _hasCheckedHistoryRecord=YES;
-                                      
-                                      NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                      
-                                      [[FlyingTouchDAO new] insertDataForUserID:currentPassport
-                                                                       LessonID:self.theLesson.lessonID
-                                                                     touchTimes:[tempStr integerValue]];
-                                      
-                                      if ([tempStr integerValue]>0)
-                                      {
-                                          _hasHistoryRecord=YES;
-                                          _hasRight=YES;
-                                          [self initBuyButton];
-                                      }
-                                      else
-                                      {
-                                          _hasHistoryRecord=NO;
-                                      }
-                                  }
-
-                              } failure:^(NSError *err) {
-                                  //
-                              }];
-}
-
--(void) alertBuyAction
-{
-    NSString *title = @"确认";
-    NSString *message = @"请确认你要购买课程";
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-    [alertView addButtonWithTitle:@"点错了"
-                             type:SIAlertViewButtonTypeCancel
-                          handler:^(SIAlertView *alertView) {
-                          }];
-    [alertView addButtonWithTitle:@"购买"
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *alertView) {
-                              
-                              [self buyLessonWithCoin];
-                          }];
-    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-    [alertView show];
-}
-
-- (void) buyLessonWithCoin
-{
-    FlyingStatisticDAO * statisticDAO = [FlyingStatisticDAO new];
-    
-    NSInteger balanceCoin  = [statisticDAO finalMoneyWithUserID:_currentPassport];
-    NSInteger touchWordCount = [statisticDAO touchCountWithUserID:_currentPassport];
-    
-    if ((balanceCoin-self.theLesson.coinPrice)<=-500) {
-        
-        [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
-        
-        NSString *title = @"付费提醒";
-        NSString *message = [NSString stringWithFormat:@"你的信用额度已经用完,必须在《我的档案》充值才能继续使用!"];
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
-        return;
-    }
-    else{
-        
-        NSInteger sysTouchCount =[[NSUserDefaults standardUserDefaults] integerForKey:@"sysTouchAccount"];
-        
-        if (touchWordCount-sysTouchCount>1000) {
-            
-            [FlyingSysWithCenter uploadUserCenter];
-            
-            [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
-            NSString *title = @"同步提醒";
-            NSString *message = [NSString stringWithFormat:@"你很久没有同步数据了,如果再次提醒请联网使用!"];
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-            [alertView addButtonWithTitle:@"知道了"
-                                     type:SIAlertViewButtonTypeCancel
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            [alertView show];
-            return;
-        }
-        
-        if (balanceCoin<0)
-        {
-            [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
-            [self.contentView makeToast:@"提醒：帐户金币已经用完,请尽快在《我的档案》充值！" duration:3 position:CSToastPositionCenter];
-
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            //更新点击次数和单词纪录
-            [statisticDAO updateWithUserID:_currentPassport TouchCount:(touchWordCount+self.theLesson.coinPrice)];
-            [[FlyingTouchDAO new] plusTouchTime:self.theLesson.coinPrice
-                                     WithUserID:_currentPassport
-                                       LessonID:self.theLesson.lessonID];
-            
-            //向服务器备份消费数据
-            [FlyingSysWithCenter uploadUserCenter];
-            
-            _hasRight=YES;
-            [self initBuyButton];
-            [self buyOrDownloadNow];
-            [SoundPlayer soundEffect:@"iMoneyDialogClose"];
-        });
     }
 }
 
@@ -4352,7 +4144,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
                 [FlyingLessonVC updateBaseDic:lessonID];
                 
                 [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfPro error:nil];
-                [mylessonDAO updateProURL:nil LessonID:lessonID]; //表示已经下载
+                [mylessonDAO updateProURL:nil LessonID:lessonID]; //表示已经缓存
             });
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -4390,7 +4182,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
                 [SSZipArchive unzipFileAtPath:lessonData.localURLOfRelative toDestination:outputDir];
                 
                 [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfRelative error:nil];
-                [mylessonDAO updateRelativeURL:nil LessonID:lessonID]; //表示已经下载
+                [mylessonDAO updateRelativeURL:nil LessonID:lessonID]; //表示已经缓存
             });
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

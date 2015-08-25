@@ -79,7 +79,6 @@
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
 
-#import <StoreKit/StoreKit.h>
 #import "ReaderViewController.h"
 #import "FlyingNowLessonDAO.h"
 #import "CGPDFDocument.h"
