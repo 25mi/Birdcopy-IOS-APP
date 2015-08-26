@@ -23,7 +23,6 @@
 
 #import "UIView+Autosizing.h"
 
-#import "FlyingMyLessonsViewController.h"
 #import "MHWDirectoryWatcher.h"
 
 #import "FMDatabase.h"
@@ -40,7 +39,6 @@
 
 #import "FlyingLessonListViewController.h"
 #import "FlyingGuideViewController.h"
-#import "FlyingMyLessonsViewController.h"
 
 #include <sys/xattr.h>
 
@@ -81,8 +79,11 @@
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
 
-#import "MKStoreKit.h"
-#import <StoreKit/StoreKit.h>
+#import "ReaderViewController.h"
+#import "FlyingNowLessonDAO.h"
+#import "CGPDFDocument.h"
+#import "FlyingNowLessonData.h"
+#import "FileHash.h"
 
 @interface iFlyingAppDelegate ()
 {
@@ -105,11 +106,6 @@
     //后台处理
     dispatch_queue_t             _background_Pub_queue;
     dispatch_queue_t             _background_AI_queue;
-    
-    //金币商店
-    UITapGestureRecognizer      *_tapGesture;
-    UIView                      *_modalView;
-    UIImageView                 *_coinImageView;
     
     //下载管理
     FlyingDownloadManager       *_downloadManager;
@@ -164,8 +160,8 @@
         temp=@"beiyang";
     }
  
-    [UICKeyChainStore defaultKeychain][KLessonOwner] = temp;
-    [UICKeyChainStore defaultKeychain][KLessonOwnerNickname] = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
+    [UICKeyChainStore keyChainStore][KLessonOwner] = temp;
+    [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
 
 #endif
 
@@ -218,7 +214,7 @@
         screenScale = [[UIScreen mainScreen] scale];
         
         //准备购买环境
-        [self prepairIAP];
+        //[self prepairIAP];
         
         //向微信注册
         [WXApi registerApp:KBEWeixinAPPID];
@@ -1001,7 +997,7 @@
 - (void) watchDocumentStateNow
 {
     //开启文件夹监控
-    [FlyingMyLessonsViewController updataDBForLocal];
+    [iFlyingAppDelegate updataDBForLocal];
     
     if (!_docWatcher) {
         
@@ -1016,7 +1012,7 @@
                 _source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
                 dispatch_source_set_event_handler(_source, ^{
                     
-                    [FlyingMyLessonsViewController updataDBForLocal];
+                    [iFlyingAppDelegate updataDBForLocal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KDocumentStateChange object:nil];
                 });
                 dispatch_resume(_source);
@@ -1111,200 +1107,6 @@
     return result;
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark - Buy  Related
-//////////////////////////////////////////////////////////////
-
--(void) prepairIAP
-
-{
-    [[MKStoreKit sharedKit] startProductRequest];
-}
-
-- (void) presentStoreView
-{
-    if ([SKPaymentQueue canMakePayments])
-    {
-
-        _modalView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _modalView.opaque = NO;
-        _modalView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
-        
-        
-        CGFloat deviceWith=_modalView.frame.size.width;
-        CGFloat deviceHeight=_modalView.frame.size.height;
-        
-
-        CGFloat coinShopWith=0;
-        CGFloat coinShopHeight=0;
-        
-        
-        if (INTERFACE_IS_PAD ) {
-        
-            if (deviceWith<deviceHeight) {
-                
-                coinShopWith=KLandscapeShopWith*2;
-                coinShopHeight=KLandscapeShopHeight*2;
-            }
-            else{
-                
-                coinShopWith=KPortraitShopWith*2;
-                coinShopHeight=KPortraitShopWith*2;
-            }
-        }
-        else{
-        
-            if (_modalView.frame.size.width<_modalView.frame.size.height) {
-                
-                
-                coinShopWith=KLandscapeShopWith;
-                coinShopHeight=KLandscapeShopHeight;
-            }
-            else{
-                
-                coinShopWith=KPortraitShopWith;
-                coinShopHeight=KPortraitShopWith;
-            }
-        }
-        
-        _coinImageView   = [[UIImageView alloc] initWithFrame:CGRectMake((deviceWith-coinShopWith)/2, (deviceHeight-coinShopHeight)/2, coinShopWith, coinShopHeight)];
-        
-        [_coinImageView setImage:[UIImage imageNamed:@"coinShop"]];
-        
-        _coinImageView.backgroundColor = [UIColor clearColor];
-        _coinImageView.opaque = NO;
-        
-        [_modalView addSubview:_coinImageView];
-        
-        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCoinShop:)];
-        _tapGesture.numberOfTapsRequired = 1;
-        _tapGesture.numberOfTouchesRequired = 1;
-        _tapGesture.cancelsTouchesInView = NO;
-        [_modalView addGestureRecognizer:_tapGesture];
-
-        [_modalView adjustForAutosizing];
-        [self.window addSubview:_modalView];
-        
-        [self.window bringSubviewToFront:_modalView];
-    }
-    else
-    {
-        [self.window makeToast:@"需要打开应用内购买功能才能继续!" duration:3 position:CSToastPositionCenter];
-    }
-}
-
-- (void)tapCoinShop:(UITapGestureRecognizer *)tapGesture
-{
-    CGPoint touchPoint = [_tapGesture locationInView:_coinImageView];
-
-    CGRect coinShopFrame = _coinImageView.bounds;
-    
-    CGFloat width=coinShopFrame.size.width/3;
-    CGFloat height=coinShopFrame.size.height;
-
-    CGRect leftRect   = CGRectMake(0, 0, width, height);
-    CGRect middleRect = CGRectMake(width, 0, width, height);
-    CGRect rightRect  = CGRectMake(width*2, 0, width, height);
-    
-    
-    NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
-    
-    if (availableProducts.count>0) {
-        if(CGRectContainsPoint(leftRect,touchPoint)){
-            
-            [self buyAppleIdentify:availableProducts[0]];
-            [self addlaodingIndicator];
-        }
-        else if(CGRectContainsPoint(middleRect,touchPoint)){
-            
-            [self buyAppleIdentify:availableProducts[1]];
-            [self addlaodingIndicator];
-        }
-        else if(CGRectContainsPoint(rightRect,touchPoint)){
-            
-            [self buyAppleIdentify:availableProducts[2]];
-            [self addlaodingIndicator];
-        }
-        else{
-            
-            [self removeCoinShopView];
-        }
-    }
-    else{
-        
-        [self removeCoinShopView];
-    }
-}
-
-- (void) buyAppleIdentify:(SKProduct*) product
-{
-    
-    [[MKStoreKit sharedKit] initiatePaymentRequestForProductWithIdentifier:product.productIdentifier];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
-                                                      object:nil
-                                                       queue:[[NSOperationQueue alloc] init]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      NSLog(@"Purchased/Subscribed to product with id: %@", [note object]);
-                                                      [self removeActivityIndicator];
-                                                      
-                                                      NSInteger cointBuyed=[(NSNumber*)[[MKStoreKit sharedKit] valueForKey:@"purchaseRecord"] integerValue];
-                                                      
-                                                      NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-                                                      
-                                                      FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
-                                                      NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:passport];
-                                                      
-                                                      if (cointBuyed==500 ||
-                                                          cointBuyed==2000) {
-                                                          
-                                                          [SoundPlayer soundEffect:@"LootCoinSmall"];
-                                                      }
-                                                      else if (cointBuyed==10000) {
-                                                          
-                                                          [SoundPlayer soundEffect:@"LootCoinLarge"];
-                                                      }
-                                                      
-                                                      appleMoneyCountNow+=cointBuyed;
-                                                      [statisticDAO updateWithUserID:passport AppleMoneyCount:appleMoneyCountNow];
-                                                      
-                                                      
-                                                      NSString *title =  [NSString stringWithFormat:@"购买%@金币成功",[@(cointBuyed) stringValue]];
-                                                      NSString *message = @"好好享受吧：）";
-                                                      SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                                                      [alertView addButtonWithTitle:@"知道了"
-                                                                               type:SIAlertViewButtonTypeDefault
-                                                                            handler:^(SIAlertView *alertView) {}];
-                                                      alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                                                      alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                                                      [alertView show];
-                                                      
-                                                      [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
-                                                  }];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
-                                                      object:nil
-                                                       queue:[[NSOperationQueue alloc] init]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      NSLog(@"Failed restoring purchases with error: %@", [note object]);
-                                                      
-                                                      [self removeActivityIndicator];
-                                                      
-                                                      NSString *message =[NSString stringWithFormat:@"购买失败，好事耐磨哦：）失败原因：%@",[note object]];
-                                                      
-                                                      [self.window makeToast:message duration:3 position:CSToastPositionCenter];
-                                                  }];
-}
-
-- (void) removeCoinShopView
-{
-    [_modalView removeFromSuperview];
-    _modalView=nil;
-    _coinImageView=nil;
-}
 
 + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
 {
@@ -1322,47 +1124,6 @@
                                                fromDate:fromDate toDate:toDate options:0];
     
     return [difference day];
-}
-
--(void) addlaodingIndicator
-{
-    
-    //calculate the correct position
-    
-    UIActivityIndicatorViewStyle style=UIActivityIndicatorViewStyleWhite;
-    
-    CGSize loadingSize=CGSizeMake(150, 100);
-    if (INTERFACE_IS_PAD) {
-        
-        loadingSize=CGSizeMake(300, 200);
-        style=UIActivityIndicatorViewStyleWhiteLarge;
-    }
-    
-    float width = loadingSize.width;
-    float height = loadingSize.height;
-    float x = (_coinImageView.frame.size.width / 2.0) - width/2;
-    float y = (_coinImageView.frame.size.height / 2.0) - height/2;
-    CGRect loadingFrame = CGRectMake(x, y, width, height);
-    FlyingFakeHUD * loadingView= [[FlyingFakeHUD alloc] initWithFrame:loadingFrame];
-    [_coinImageView addSubview:loadingView];
-
-    //calculate the correct position
-    UIActivityIndicatorView * activityIndicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];;
-
-    width = activityIndicator.frame.size.width;
-    height = activityIndicator.frame.size.height;
-    x = (loadingView.frame.size.width / 2.0) - width/2;
-    y = (loadingView.frame.size.height / 2.0) - height/2;
-    activityIndicator.frame = CGRectMake(x, y, width, height);
-    
-    activityIndicator.hidesWhenStopped = YES;
-    [loadingView addSubview:activityIndicator];
-    [activityIndicator startAnimating];
-}
-
--(void) removeActivityIndicator
-{
-    [[_coinImageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void) showLessonViewWithID:(NSString *) lessonID
@@ -2221,6 +1982,206 @@
 -(BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+
++ (void) updataDBForLocal
+{
+    
+    FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
+    
+    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    [nowLessonDAO updateDBFromLocal:passport];
+    
+    //得到本地课程详细信息
+    NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSFileManager* mgr = [NSFileManager defaultManager];
+    
+    //用户目录包含的可读内容
+    
+    NSArray* contents = [mgr contentsOfDirectoryAtPath:path error:nil];
+    
+    FlyingLessonDAO * lessonDAO =[[FlyingLessonDAO alloc] init];
+    
+    for (NSString *fileName in contents) {
+        
+        @autoreleasepool {
+            
+            BOOL isMp3 = [NSString checkMp3URL:fileName];
+            BOOL isMp4 = [NSString checkMp4URL:fileName];
+            BOOL isdoc = [NSString checkDocumentURL:fileName];
+            
+            if(isMp4
+               || [NSString checkOtherVedioURL:fileName]
+               || isdoc
+               || isMp3){
+                
+                NSString* filePath = [path stringByAppendingPathComponent:fileName];
+                
+                //本地文件统一这么处理，最关键是保持和官方lessonID的唯一性。
+                NSString * lessonID= [FileHash md5HashOfFileAtPath:filePath];
+                
+                FlyingLessonData * pubLessondata =[lessonDAO   selectWithLessonID:lessonID];
+                
+                //如果没有相关纪录
+                if (!pubLessondata)
+                {
+                    NSString* lessontitle =[[filePath lastPathComponent] stringByDeletingPathExtension];
+                    
+                    NSString * localSrtPath = [lessontitle localSrtURL];
+                    NSString * localCoverPath = [lessontitle localCoverURL];
+                    
+                    UIImage * coverImage=nil;
+                    if (isMp3) {
+                        
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
+                            
+                            coverImage = [iFlyingAppDelegate thumbnailImageForMp3:[NSURL fileURLWithPath:filePath]];
+                            
+                            if (coverImage) {
+                                
+                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
+                            }
+                        }
+                    }
+                    else if(isMp4){
+                        
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
+                            
+                            coverImage = [iFlyingAppDelegate thumbnailImageForVideo:[NSURL fileURLWithPath:filePath] atTime:10];
+                            
+                            if (coverImage) {
+                                
+                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
+                            }
+                        }
+                    }
+                    else if(isdoc)
+                    {
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
+                            
+                            NSString *phrase=@"";
+                            
+                            if ( [NSString checkPDFURL:fileName])
+                            {
+                                coverImage =[iFlyingAppDelegate thumbnailImageForPDF:[NSURL fileURLWithPath:filePath]
+                                                                                       passWord:phrase];
+                            }
+                            if (coverImage)
+                            {
+                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
+                            }
+                        }
+                    }
+                    
+                    NSString * contentType = KContentTypeVideo;
+                    if(isMp3){
+                        
+                        contentType = KContentTypeAudio;
+                    }
+                    else if (isdoc) {
+                        
+                        contentType = KContentTypeText;
+                    }
+                    
+                    pubLessondata =[[FlyingLessonData alloc] initWithLessonID:lessonID
+                                                                   LocalTitle:lessontitle
+                                                              LocalContentURL:filePath
+                                                                  LocalSubURL:localSrtPath
+                                                                LocalCoverURL:localCoverPath
+                                                                  ContentType:contentType
+                                                                 DownloadType:KDownloadTypeNormal
+                                                                          Tag:nil];
+                    [lessonDAO insertWithData:pubLessondata];
+                    
+                }
+                
+                NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                
+                if (![nowLessonDAO selectWithUserID:passport LessonID:lessonID]) {
+                    
+                    FlyingNowLessonData * data = [[FlyingNowLessonData alloc] initWithUserID:passport
+                                                                                    LessonID:lessonID
+                                                                                   TimeStamp:0
+                                                                                  LocalCover:pubLessondata.localURLOfCover];
+                    [nowLessonDAO insertWithData:data];
+                }
+            }
+        }
+    }
+}
+
+
++ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL
+{
+    
+    AVAsset *assest = [AVURLAsset URLAssetWithURL:mp3fURL options:nil];
+    
+    for (NSString *format in [assest availableMetadataFormats]) {
+        
+        for (AVMetadataItem *item in [assest metadataForFormat:format]) {
+            
+            if ([[item commonKey] isEqualToString:@"artwork"]) {
+                UIImage *img = nil;
+                if ([item.keySpace isEqualToString:AVMetadataKeySpaceiTunes]) {
+                    img = [UIImage imageWithData:[item.value copyWithZone:nil]];
+                }
+                else { // if ([item.keySpace isEqualToString:AVMetadataKeySpaceID3]) {
+                    NSData *data = [(NSDictionary *)[item value] objectForKey:@"data"];
+                    img = [UIImage imageWithData:data]  ;
+                }
+                
+                return img;
+            }
+        }
+    }
+    
+    return nil;
+}
+
++ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password
+{
+    
+    CGPDFDocumentRef documentRef = CGPDFDocumentCreateX((__bridge CFURLRef)pdfURL, password);
+    CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, 1);
+    CGRect pageRect = CGPDFPageGetBoxRect(pageRef, kCGPDFCropBox);
+    
+    UIGraphicsBeginImageContext(pageRect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, CGRectGetMinX(pageRect),CGRectGetMaxY(pageRect));
+    CGContextScaleCTM(context, 1, -1);
+    CGContextTranslateCTM(context, -(pageRect.origin.x), -(pageRect.origin.y));
+    CGContextDrawPDFPage(context, pageRef);
+    
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGPDFDocumentRelease(documentRef), documentRef = NULL;
+    
+    return finalImage;
+}
+
+
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
+    NSParameterAssert(asset);
+    AVAssetImageGenerator *assetImageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    assetImageGenerator.appliesPreferredTrackTransform = YES;
+    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels;
+    
+    CGImageRef thumbnailImageRef = NULL;
+    CFTimeInterval thumbnailImageTime = time;
+    NSError *thumbnailImageGenerationError = nil;
+    thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 60) actualTime:NULL error:&thumbnailImageGenerationError];
+    
+    if (!thumbnailImageRef)
+        NSLog(@"thumbnailImageGenerationError %@", thumbnailImageGenerationError);
+    
+    UIImage *thumbnailImage = thumbnailImageRef ? [UIImage imageWithCGImage:thumbnailImageRef] : nil;
+    
+    return thumbnailImage;
 }
 
 @end

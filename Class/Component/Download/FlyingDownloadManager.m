@@ -15,10 +15,10 @@
 #import "AFDownloadRequestOperation.h"
 #import "NSString+FlyingExtention.h"
 #import "iFlyingAppDelegate.h"
-#import "FlyingMyLessonsViewController.h"
 #import "UICKeyChainStore.h"
 #import "SoundPlayer.h"
 #import "AFHttpTool.h"
+#import "SSZipArchive.h"
 
 @interface FlyingDownloadManager ()
 {
@@ -251,8 +251,9 @@
                     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
                     
                     dispatch_async([appDelegate getBackPubQueue], ^{
-                        
-                        [FlyingMyLessonsViewController expandNormalZipFile:shareBaseDicAllFile OutputDir:baseDir];
+                                                
+                        [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:baseDir];
+
                         [fm removeItemAtPath:shareBaseDicAllFile error:nil];
                         
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everDownloadBaseDictionary"];

@@ -1,28 +1,28 @@
 PODS:
-  - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection (= 2.5.4)
-    - AFNetworking/NSURLSession (= 2.5.4)
-    - AFNetworking/Reachability (= 2.5.4)
-    - AFNetworking/Security (= 2.5.4)
-    - AFNetworking/Serialization (= 2.5.4)
-    - AFNetworking/UIKit (= 2.5.4)
-  - AFNetworking/NSURLConnection (2.5.4):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.4):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.4)
-  - AFNetworking/Security (2.5.4)
-  - AFNetworking/Serialization (2.5.4)
-  - AFNetworking/UIKit (2.5.4):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - INTULocationManager (4.0.0)
   - MBProgressHUD (0.9.1)
-  - RongCloudIMKit (2.2.7)
+  - RongCloudIMKit (2.2.8)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -37,10 +37,10 @@ DEPENDENCIES:
   - SIAlertView
 
 SPEC CHECKSUMS:
-  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   INTULocationManager: 754f2800415378b7bb2c07be103449e1f6a2cc70
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  RongCloudIMKit: 81aa574b10e066eaefeb325b775fa596d1a13942
+  RongCloudIMKit: c55309fcd08c8202d59baeed3f2ef75f84c7da8a
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
 

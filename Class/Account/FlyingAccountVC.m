@@ -28,7 +28,8 @@
 #import "RSKImageCropViewController.h"
 
 #import "AFHttpTool.h"
-
+#import "FlyingNowLessonDAO.h"
+#import "FlyingNowLessonData.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -267,6 +268,23 @@
                                [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
                            }
                        }
+                       
+                       //清楚缓存课程文件
+                       NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                       NSArray * tempArray =  [[[FlyingNowLessonDAO new] selectWithUserID:passport] mutableCopy] ;
+                       
+                       iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
+                       
+                       [tempArray enumerateObjectsUsingBlock:^(FlyingNowLessonData* nowLessonData, NSUInteger idx, BOOL *stop) {
+                           //
+                           
+                           //通知下载中心关闭相关资源，没有下载就是无意义操作
+                           [delegate closeAndReleaseDownloaderForID:nowLessonData.BELESSONID];
+                           
+                           //删除数据库本地纪录，资源自动释放
+                           [[FlyingNowLessonDAO new] deleteWithUserID:passport LessonID:nowLessonData.BELESSONID];
+                       }];
+                       
                        [self performSelectorOnMainThread:@selector(clearCacheSuccess)
                                               withObject:nil waitUntilDone:YES];});
 }

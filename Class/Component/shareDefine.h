@@ -68,8 +68,6 @@ typedef NSInteger American_Local_Word_Level;
 
 
 //#define kAppleDeviceToken         @"kAppleDeviceToken"
-
-
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 #define kUserNickName             @"kUserNickName"
 #define kUserPortraitUri          @"kUserPortraitUri"
