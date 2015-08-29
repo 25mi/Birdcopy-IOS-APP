@@ -113,6 +113,12 @@
 		FA0A618F1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */; };
 		FA0A61931B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
 		FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
+		FA0AF8071B904C1900E24EF6 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */; };
+		FA0AF8081B904C1900E24EF6 /* libINTULocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */; };
+		FA0AF8091B904C1900E24EF6 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */; };
+		FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8041B904C1900E24EF6 /* libPods.a */; };
+		FA0AF80B1B904C1900E24EF6 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8051B904C1900E24EF6 /* libSDWebImage.a */; };
+		FA0AF80C1B904C1900E24EF6 /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8061B904C1900E24EF6 /* libSIAlertView.a */; };
 		FA0C58951B0F6101000D98BA /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		FA0EE11B1A6CA407007F89D7 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE11D1A6CA4E9007F89D7 /* FlyingProviderMapVC.m */; };
@@ -1299,6 +1305,12 @@
 		FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUserInfo.m; sourceTree = "<group>"; };
 		FA0A61911B300AA00022A9E9 /* RCDRCIMDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDRCIMDataSource.h; sourceTree = "<group>"; };
 		FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDRCIMDataSource.m; sourceTree = "<group>"; };
+		FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libINTULocationManager.a; path = "Pods/../build/Debug-iphoneos/libINTULocationManager.a"; sourceTree = "<group>"; };
+		FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		FA0AF8041B904C1900E24EF6 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		FA0AF8051B904C1900E24EF6 /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "Pods/../build/Debug-iphoneos/libSDWebImage.a"; sourceTree = "<group>"; };
+		FA0AF8061B904C1900E24EF6 /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "Pods/../build/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
 		FA0C58931B0F6101000D98BA /* RCDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatViewController.h; sourceTree = "<group>"; };
 		FA0C58941B0F6101000D98BA /* RCDChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatViewController.m; sourceTree = "<group>"; };
 		FA0EE1101A6CA407007F89D7 /* SVPulsingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPulsingAnnotationView.h; sourceTree = "<group>"; };
@@ -1866,6 +1878,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0AF8071B904C1900E24EF6 /* libAFNetworking.a in Frameworks */,
+				FA0AF8081B904C1900E24EF6 /* libINTULocationManager.a in Frameworks */,
+				FA0AF8091B904C1900E24EF6 /* libMBProgressHUD.a in Frameworks */,
+				FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */,
+				FA0AF80B1B904C1900E24EF6 /* libSDWebImage.a in Frameworks */,
+				FA0AF80C1B904C1900E24EF6 /* libSIAlertView.a in Frameworks */,
 				FA8C3EB31B535A1500DEA02D /* CoreMotion.framework in Frameworks */,
 				FA8C3EB41B535A1500DEA02D /* MediaPlayer.framework in Frameworks */,
 				FA8C3EB51B535A1500DEA02D /* UIKit.framework in Frameworks */,
@@ -2261,6 +2279,12 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */,
+				FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */,
+				FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */,
+				FA0AF8041B904C1900E24EF6 /* libPods.a */,
+				FA0AF8051B904C1900E24EF6 /* libSDWebImage.a */,
+				FA0AF8061B904C1900E24EF6 /* libSIAlertView.a */,
 				FA349F721B8C5F4700DDF56E /* libAFNetworking.a */,
 				FA349F731B8C5F4700DDF56E /* libINTULocationManager.a */,
 				FA349F741B8C5F4700DDF56E /* libMBProgressHUD.a */,
@@ -4846,6 +4870,7 @@
 					"$(SRCROOT)/libraries/Social/**",
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -4900,6 +4925,7 @@
 					"$(SRCROOT)/libraries/Social/**",
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

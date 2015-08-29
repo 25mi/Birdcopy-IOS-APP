@@ -1669,14 +1669,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     {
         [self.buyButton setTitle:@"请联网再试！" forState:UIControlStateNormal];
     }
-    
-    //第一次版权提醒
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"BEEverDownload"])
-    {
-        [self.contentView makeToast:@"提醒：第三方提供内容！！" duration:3 position:CSToastPositionCenter];
-        
-        [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"BEEverDownload"];
-    }
 }
 
 #pragma mark - QLPreviewControllerDataSource
