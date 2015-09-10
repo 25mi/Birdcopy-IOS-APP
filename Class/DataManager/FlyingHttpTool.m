@@ -13,10 +13,15 @@
 #import "FlyingUserInfo.h"
 #import "RCDRCIMDataSource.h"
 #import "FlyingLessonParser.h"
-#import "FlyingCoverDataParser.h"
 #import "FlyingItemParser.h"
 #import "FlyingProviderParser.h"
 #import "NSString+FlyingExtention.h"
+#import "FlyingCoverDataParser.h"
+
+
+#import "FlyingGroup.h"
+#import "FlyingPubLessonData.h"
+
 @implementation FlyingHttpTool
 
 + (FlyingHttpTool*)shareInstance
@@ -47,6 +52,7 @@
 -(void) getGroupByID:(NSString *) groupID
    successCompletion:(void (^)(RCGroup *group)) completion
 {
+    /*
     [AFHttpTool getAllGroupsSuccess:^(id response) {
         NSArray *allGroups = response[@"result"];
         if (allGroups) {
@@ -65,91 +71,8 @@
         
     } failure:^(NSError* err){
         
-    }];}
-
-- (void)getAllGroupsWithCompletion:(void (^)(NSMutableArray* result))completion
-{
-    
-    [AFHttpTool getAllGroupsSuccess:^(id response) {
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"result"];
-        if (allGroups) {
-            for (NSDictionary *dic in allGroups) {
-                RCDGroupInfo *group = [[RCDGroupInfo alloc] init];
-                group.groupId = [dic objectForKey:@"id"];
-                group.groupName = [dic objectForKey:@"name"];
-                group.portraitUri = [dic objectForKey:@"portrait"];
-                if (group.portraitUri) {
-                    group.portraitUri=@"";
-                }
-                group.creatorId = [dic objectForKey:@"create_user_id"];
-                group.introduce = [dic objectForKey:@"introduce"];
-                if (group.introduce) {
-                    group.introduce=@"";
-                }
-                group.number = [dic objectForKey:@"number"];
-                group.maxNumber = [dic objectForKey:@"max_number"];
-                group.creatorTime = [dic objectForKey:@"creat_datetime"];
-                [tempArr addObject:group];
-            }
-            
-            //获取加入状态
-            [self getMyGroupsWithBlock:^(NSMutableArray *result) {
-                for (RCDGroupInfo *group in result) {
-                    for (RCDGroupInfo *groupInfo in tempArr) {
-                        if ([group.groupId isEqualToString:groupInfo.groupId]) {
-                            groupInfo.isJoin = YES;
-                        }
-                    }
-                }
-                if (completion) {
-                    completion(tempArr);
-                }
-                
-            }];
-            
-            
-        }
-        
-    } failure:^(NSError* err){
-        
     }];
-}
-
-
--(void) getMyGroupsWithBlock:(void(^)(NSMutableArray* result)) block
-{
-    [AFHttpTool getMyGroupsSuccess:^(id response) {
-        NSArray *allGroups = response[@"result"];
-        NSMutableArray *tempArr = [NSMutableArray new];
-        if (allGroups) {
-            for (NSDictionary *dic in allGroups) {
-                RCDGroupInfo *group = [[RCDGroupInfo alloc] init];
-                group.groupId = [dic objectForKey:@"id"];
-                group.groupName = [dic objectForKey:@"name"];
-                group.portraitUri = [dic objectForKey:@"portrait"];
-                if (group.portraitUri) {
-                    group.portraitUri=@"";
-                }
-                group.creatorId = [dic objectForKey:@"create_user_id"];
-                group.introduce = [dic objectForKey:@"introduce"];
-                if (group.introduce) {
-                    group.introduce=@"";
-                }
-                group.number = [dic objectForKey:@"number"];
-                group.maxNumber = [dic objectForKey:@"max_number"];
-                group.creatorTime = [dic objectForKey:@"creat_datetime"];
-                [tempArr addObject:group];
-            }
-            
-            if (block) {
-                block(tempArr);
-            }
-        }
-        
-    } failure:^(NSError *err) {
-        
-    }];
+     */
 }
 
 - (void)joinGroup:(int)groupID complete:(void (^)(BOOL))joinResult
@@ -426,7 +349,130 @@
     }];
 }
 
-//API
+//////////////////////////////////////////////////////////////
+#pragma  group related (not IM)
+//////////////////////////////////////////////////////////////
+
++ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
+                        PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getAllFlyingGroupForRecommend:isRecommend
+                               PageNumber:pageNumber
+                                  success:^(id response) {
+                                      
+                                      NSMutableArray *tempArr = [NSMutableArray new];
+                                      NSArray *allGroups = response[@"rs"];
+                                      
+                                      if (allGroups) {
+                                          
+                                          for (NSDictionary *dic in allGroups)
+                                          {
+                                              FlyingGroup *group = [[FlyingGroup alloc] init];
+                                              group.gp_id    = [dic objectForKey:@"gp_id"];
+                                              group.gp_name  = [dic objectForKey:@"gp_name"];
+                                              group.gp_owner = [dic objectForKey:@"gp_owner"];
+                                              group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                                              
+                                              group.logo     = [dic objectForKey:@"logo"];
+                                              group.cover     = [dic objectForKey:@"cover"];
+                                              
+                                              group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                                              group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                                              
+                                              group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                                              group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                                              group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                                              
+                                              NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
+                                              
+                                              group.gp_member_sum = [groupSum objectForKey:@"gp_member_sum"];
+                                              group.gp_ln_sum     = [groupSum objectForKey:@"gp_ln_sum"];
+                                              
+                                              [tempArr addObject:group];
+                                          }
+                                      }
+                                      
+                                      if (completion) {
+                                          completion(tempArr,[response[@"allRecordCount"] integerValue]);
+                                      }
+
+                                  } failure:^(NSError *err) {
+                                      //
+                                  }];
+}
+
++ (void) getMyGroupsCompletion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getMyGroupsSuccess:^(id response) {
+       
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            for (NSDictionary *dic in allGroups) {
+                FlyingGroup *group = [[FlyingGroup alloc] init];
+                group.gp_id    = [dic objectForKey:@"gp_id"];
+                group.gp_name  = [dic objectForKey:@"gp_name"];
+                group.gp_owner = [dic objectForKey:@"gp_owner"];
+                group.gp_desc  = [dic objectForKey:@"gp_owner"];
+                
+                group.logo     = [dic objectForKey:@"logo"];
+                group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                
+                group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                
+                [tempArr addObject:group];
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+        
+    } failure:^(NSError *err) {
+        
+    }];
+}
+
+
+
+//获取群Post流
++ (void) getGroupNewsListForGroupID:(NSString*) groupID
+                         PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *newsList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getGroupNewsListForGroupID:groupID
+                                PageNumber:(NSInteger) pageNumber
+                                success:^(id response) {
+                                          
+                                          NSMutableArray *tempArr = [NSMutableArray new];
+                                          NSArray *allGroups = response[@"rs"];
+                                          
+                                          if (allGroups) {
+                                              
+                                              for (NSDictionary *dic in allGroups)
+                                              {
+                                                  if ([dic objectForKey:@"lessonID"]) {
+                                                      FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
+                                                      [tempArr addObject:lessonData];
+                                                  }
+                                              }
+                                          }
+                                          
+                                          if (completion) {
+                                              completion(tempArr,[response[@"allRecordCount"] integerValue]);
+                                          }
+                                          
+                                      } failure:^(NSError *err) {
+                                          //
+                                      }];
+}
+
+
 
 +(void) getUserInfoByopenID:(NSString *) openID
                  completion:(void (^)(RCUserInfo *user)) completion

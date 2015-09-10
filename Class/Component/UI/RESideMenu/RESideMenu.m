@@ -27,7 +27,7 @@
 #import "UIViewController+RESideMenu.h"
 #import "RECommonFunctions.h"
 
-@interface RESideMenu ()<UIViewControllerRestoration>
+@interface RESideMenu ()
 
 @property (strong, readwrite, nonatomic) UIImageView *backgroundImageView;
 @property (assign, readwrite, nonatomic) BOOL visible;
@@ -188,62 +188,9 @@
 
 #pragma mark View life cycle
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[RESideMenu alloc] init];
-    return retViewController;
-}
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.contentViewController forKey:@"contentViewController"];
-    [coder encodeObject:self.leftMenuViewController forKey:@"leftMenuViewController"];
-    [coder encodeObject:self.rightMenuViewController forKey:@"rightMenuViewController"];
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.contentViewController = [coder decodeObjectForKey:@"contentViewController"];
-    self.leftMenuViewController = [coder decodeObjectForKey:@"leftMenuViewController"];
-    self.rightMenuViewController = [coder decodeObjectForKey:@"rightMenuViewController"];
-    
-    if (self.leftMenuViewController) {
-        
-        [self addChildViewController:self.leftMenuViewController];
-        self.leftMenuViewController.view.frame = self.view.bounds;
-        self.leftMenuViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self.menuViewContainer addSubview:self.leftMenuViewController.view];
-        [self.leftMenuViewController didMoveToParentViewController:self];
-    }
-    
-    if (self.rightMenuViewController) {
-        
-        [self addChildViewController:self.rightMenuViewController];
-        self.rightMenuViewController.view.frame = self.view.bounds;
-        self.rightMenuViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self.menuViewContainer addSubview:self.rightMenuViewController.view];
-        [self.rightMenuViewController didMoveToParentViewController:self];
-    }
-    
-    if (self.contentViewController) {
-        
-        [self addChildViewController:self.contentViewController];
-        self.contentViewController.view.frame = self.view.bounds;
-        [self.contentViewContainer addSubview:self.contentViewController.view];
-        [self.contentViewController didMoveToParentViewController:self];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"RESideMenu";
-    self.restorationClass      = [self class];
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundImageView = ({

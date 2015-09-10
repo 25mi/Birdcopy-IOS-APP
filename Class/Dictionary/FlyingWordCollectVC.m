@@ -24,7 +24,7 @@
 #import "FlyingHttpTool.h"
 
 
-@interface FlyingWordCollectVC ()<UIViewControllerRestoration>
+@interface FlyingWordCollectVC ()
 
 @property (strong, nonatomic) MMParallaxPresenter *mmParallaxPresenter;
 @property (strong, nonatomic) UIImageView         *dismissImageView;
@@ -34,18 +34,10 @@
 
 @implementation FlyingWordCollectVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingWordCollectVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingWordCollectVC";
-    self.restorationClass      = [self class];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     

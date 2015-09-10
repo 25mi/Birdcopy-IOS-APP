@@ -21,46 +21,18 @@
 #import "FlyingUserInfo.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
-#import "FlyingHome.h"
 #import "FlyingSearchViewController.h"
+#import "FlyingMyGroupsVC.h"
 
-@interface RCDChatListViewController ()<UIViewControllerRestoration>
+@interface RCDChatListViewController ()
 
 @end
 
 @implementation RCDChatListViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[RCDChatListViewController alloc] init];
-    return retViewController;
-}
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.conversationListDataSource forKey:@"conversationListDataSource"];
-    [coder encodeObject:self.displayConversationTypeArray forKey:@"displayConversationTypeArray"];
-    [coder encodeObject:self.collectionConversationTypeArray forKey:@"collectionConversationTypeArray"];
-
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.conversationListDataSource = [coder decodeObjectForKey:@"conversationListDataSource"];
-    self.displayConversationTypeArray = [coder decodeObjectForKey:@"displayConversationTypeArray"];
-    self.collectionConversationTypeArray = [coder decodeObjectForKey:@"collectionConversationTypeArray"];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"RCDChatListViewController";
-    self.restorationClass      = [self class];
     
     [self addBackFunction];
     
@@ -386,7 +358,7 @@
     
     if (navigationController.viewControllers.count==1) {
         
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+        FlyingMyGroupsVC* homeVC = [[FlyingMyGroupsVC alloc] init];
         
         [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                        animated:YES];
@@ -408,6 +380,7 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindGroup];
     
     [self.navigationController pushViewController:search animated:YES];
 }

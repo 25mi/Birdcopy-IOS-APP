@@ -11,12 +11,21 @@
 #import "FlyingLessonListViewController.h"
 #import "shareDefine.h"
 #import "RESideMenu.h"
-#import "FlyingHome.h"
 #import "FlyingHelpVC.h"
 #import "FlyingReviewVC.h"
 #import "FlyingScanViewController.h"
 #import "RCDChatListViewController.h"
 #import "FlyingNavigationController.h"
+
+#import "FlyingDiscoverContent.h"
+#import "FlyingDIscoverGroups.h"
+#import "FlyingMyGroupsVC.h"
+
+#import "FlyingDiscoverContent.h"
+
+#import "FlyingTaskWordDAO.h"
+#import "UICKeyChainStore.h"
+
 
 #define MENU_IPHONE_HEIGHT  50
 #define MENU_IPAD_HEIGHT    MENU_IPHONE_HEIGHT*2
@@ -24,7 +33,7 @@
 #define MENU_IPHONE_OFFSET  44
 #define MENU_IPAD_OFFSET  MENU_IPHONE_OFFSET*2
 
-@interface BEMenuController ()<UIViewControllerRestoration>
+@interface BEMenuController ()
 @property (strong, readwrite, nonatomic) UITableView *tableView;
 
 
@@ -35,25 +44,22 @@
 
 @implementation BEMenuController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[BEMenuController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"BEMenuController";
-    self.restorationClass      = [self class];
     
     self.titles =  [NSMutableArray arrayWithArray:@[@"首页"]];
     self.images =  [NSMutableArray arrayWithArray:@[@"Home"]];
     
 #ifdef __CLIENT__IS__ENGLISH__
-    [self.titles addObject:@"魔词"];
-    [self.images addObject:@"Word"];
+    
+    NSArray *currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[UICKeyChainStore keyChainStore][KOPENUDIDKEY]];
+    
+    if (currentData.count>0)
+    {
+        [self.titles addObject:@"魔词"];
+        [self.images addObject:@"Word"];
+    }
 #endif
     
     [self.titles addObject:@"账户"];
@@ -63,16 +69,6 @@
     [self.titles addObject:@"服务"];
     [self.images addObject:@"location"];
 #endif
-    
-    [self.titles addObject:@"扫描"];
-    [self.images addObject:@"scanw"];
-
-
-    if(!INTERFACE_IS_PAD)
-    {
-        [self.titles addObject:@"聊天"];
-        [self.images addObject:@"chat"];
-    }
 
     
     CGFloat offset_x=MENU_IPHONE_OFFSET;
@@ -127,10 +123,21 @@
     
     if ([title containsString:@"首页"])
     {
-        
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
+#else
+        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
         
         [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:homeVC]
+                                                     animated:YES];
+        [self.sideMenuViewController hideMenuViewController];
+    }
+    else if([title containsString:@"发现"])
+    {
+        FlyingDiscoverContent * contentVC =[[FlyingDiscoverContent alloc] init];
+        
+        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:contentVC]
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
@@ -254,25 +261,6 @@
     cell.imageView.image = [UIImage imageNamed:self.images[indexPath.section]];
     
     return cell;
-}
-
--(void) refreshChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    NSIndexPath *indexPath =[[NSIndexPath alloc] initWithIndex:self.titles.count-1];
-    
-    if (unreadMsgCount>0)
-    {
-        NSString * title =@"聊天";
-        [self.titles replaceObjectAtIndex:(self.titles.count-1) withObject:[title stringByAppendingString:[@(unreadMsgCount) stringValue]]];
-    }
-    else
-    {
-        [self.titles replaceObjectAtIndex:(self.titles.count-1) withObject:@"聊天"];
-    }
-    
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

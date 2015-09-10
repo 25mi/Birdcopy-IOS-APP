@@ -59,7 +59,7 @@
 
 #include "common.h"
 
-#import "FlyingHome.h"
+#import "FlyingMyGroupsVC.h"
 #import "FlyingLessonVC.h"
 
 #import "FlyingNavigationController.h"
@@ -84,6 +84,9 @@
 #import "CGPDFDocument.h"
 #import "FlyingNowLessonData.h"
 #import "FileHash.h"
+
+#import "FlyingDiscoverContent.h"
+#import "FlyingDIscoverGroups.h"
 
 @interface iFlyingAppDelegate ()
 {
@@ -298,31 +301,6 @@
 - (void)didReceiveMessageNotification:(NSNotification *)notification
 {
     //
-}
-
-- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
-{
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
-{
-    return YES;
-}
-
-- (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [coder encodeObject:[self getMenu] forKey:@"AppDelegateRootViewKey"];
-}
-
-- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    UIViewController * ctl = [coder decodeObjectForKey:@"AppDelegateRootViewKey"];
-    if (ctl) {
-        UIWindow * window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        window.rootViewController = ctl;
-        self.window = window;
-    }
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
@@ -1278,7 +1256,11 @@
 {
     if (!_menu) {
         
-        FlyingHome * homeVC =[[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
+#else
+        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
         
         FlyingNavigationController *navigationController = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
         BEMenuController *menuViewController = [[BEMenuController alloc] init];

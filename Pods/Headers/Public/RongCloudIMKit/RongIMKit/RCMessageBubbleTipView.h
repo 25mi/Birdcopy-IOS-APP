@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/RongIMKit.framework/Headers/RCMessageBubbleTipView.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_11_dev/RongIMKit.framework/Headers/RCMessageBubbleTipView.h

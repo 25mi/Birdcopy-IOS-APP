@@ -23,7 +23,7 @@
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 
-@interface FlyingWordDetailVC ()<UIViewControllerRestoration>
+@interface FlyingWordDetailVC ()
 {
     SoundPlayer                *_soundPlayer;
 }
@@ -32,18 +32,9 @@
 
 @implementation FlyingWordDetailVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingWordDetailVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"FlyingWordDetailVC";
-    self.restorationClass      = [self class];
     
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
@@ -259,7 +250,7 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setPresentingClass:BEHomeFindWordClass];
+    [search setSearchType:BEFindWord];
     
     [self.navigationController pushViewController:search animated:YES];
 }

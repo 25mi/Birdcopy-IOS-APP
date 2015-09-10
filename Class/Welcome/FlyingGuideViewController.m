@@ -18,7 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
 
-@interface FlyingGuideViewController()<UIViewControllerRestoration>
+@interface FlyingGuideViewController()
 {
     MBProgressHUD* hud;
 }
@@ -27,21 +27,11 @@
 
 @implementation FlyingGuideViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingGuideViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingGuideViewController";
-    self.restorationClass      = [self class];    // Do any additional setup after loading the view.
-
 	// Do any additional setup after loading the view.
-    
     self.view.autoresizesSubviews=UIViewAutoresizingNone;
     
     // 单击的 Recognizer

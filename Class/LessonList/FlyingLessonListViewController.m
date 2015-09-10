@@ -28,7 +28,7 @@
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
 
-@interface FlyingLessonListViewController ()<UIViewControllerRestoration>
+@interface FlyingLessonListViewController ()
 {
     NSInteger            _maxNumOfLessons;
     NSInteger            _currentLodingIndex;
@@ -40,29 +40,6 @@
 @end
 
 @implementation FlyingLessonListViewController
-
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingLessonListViewController alloc] init];
-    return retViewController;
-}
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.tagString forKey:@"tagString"];
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.tagString = [coder decodeObjectForKey:@"tagString"];
-    
-    self.title=self.tagString;
-    [self reloadAll];
-}
 
 - (void)viewDidLoad
 {
@@ -445,9 +422,10 @@
 
 - (void) doSomething
 {
-    
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindLesson];
+
     [self.navigationController pushViewController:search animated:YES];
 }
 

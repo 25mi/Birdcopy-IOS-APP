@@ -19,6 +19,6 @@
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
 @property (strong, nonatomic) IBOutlet FlyingSearchBar     *searchBar;
 
-@property (assign, nonatomic)          BEClassType          presentingClass;
+@property (assign, nonatomic)          BESearchType         searchType;
 
 @end

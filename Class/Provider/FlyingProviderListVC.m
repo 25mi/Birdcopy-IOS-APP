@@ -18,18 +18,15 @@
 #import "iFlyingAppDelegate.h"
 #import "SIAlertView.h"
 #import <AFNetworking.h>
-#import "FlyingSearchViewController.h"
 #import "RESideMenu.h"
 #import "SDImageCache.h"
 #import "UIImage+localFile.h"
 #import "FlyingWebViewController.h"
 #import "FlyingScanViewController.h"
-#import "FlyingHome.h"
 #import "FlyingProviderMapVC.h"
 #import "INTULocationManager.h"
 #include "china_shift.h"
 #import "FlyingSetDefault.h"
-#import "FlyingHome.h"
 #import "FlyingNavigationController.h"
 #import "RCDChatListViewController.h"
 #import "UICKeyChainStore.h"
@@ -38,7 +35,10 @@
 #import "MBProgressHUD.h"
 #import "UIView+Toast.h"
 
-@interface FlyingProviderListVC ()<UIViewControllerRestoration>
+#import "FlyingDiscoverContent.h"
+#import "FlyingDIscoverGroups.h"
+
+@interface FlyingProviderListVC ()
 {
     FlyingProviderParser  *_parser;
     NSInteger            _maxNumOfproviders;
@@ -55,18 +55,9 @@
 
 @implementation FlyingProviderListVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingProviderListVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"FlyingProviderListVC";
-    self.restorationClass      = [self class];
     
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
@@ -289,8 +280,12 @@
     [UICKeyChainStore keyChainStore][KLessonOwner] = NULL;
     [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = @"官方";
     
-    FlyingHome* homeVC = [[FlyingHome alloc] init];
-    
+#ifdef __CLIENT__IS__ENGLISH__
+    FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+#else
+    FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
+
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                  animated:YES];
     [self.sideMenuViewController hideMenuViewController];
@@ -352,7 +347,11 @@
                                       [UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
                                       [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
                                       
-                                      FlyingHome* homeVC = [[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+                                      FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+#else
+                                      FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
                                       
                                       [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                                                    animated:YES];
@@ -466,7 +465,11 @@
     
     if (navigationController.viewControllers.count==1) {
         
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+        FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+#else
+        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
         
         [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                        animated:YES];
@@ -509,7 +512,11 @@
         //
         if (reselect) {
             
-            FlyingHome* homeVC = [[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+            FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+#else
+            FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
             
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                          animated:YES];

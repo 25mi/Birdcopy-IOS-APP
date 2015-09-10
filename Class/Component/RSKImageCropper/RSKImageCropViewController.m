@@ -71,12 +71,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 
 @implementation RSKImageCropViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[RSKImageCropViewController alloc] init];
-    return retViewController;
-}
-
 #pragma mark - Lifecycle
 
 - (instancetype)init
@@ -117,9 +111,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"RSKImageCropViewController";
-    self.restorationClass      = [self class];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

@@ -15,11 +15,11 @@
 #import "FlyingUserInfo.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
-#import "FlyingHome.h"
 #import "shareDefine.h"
 #import "UICKeyChainStore.h"
+#import "FlyingMyGroupsVC.h"
 
-@interface FlyingShareWithFriends ()<UIViewControllerRestoration>
+@interface FlyingShareWithFriends ()
 
 
 //@property (nonatomic,strong) NSMutableArray *myDataSource;
@@ -30,18 +30,10 @@
 
 @implementation FlyingShareWithFriends
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingShareWithFriends alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingShareWithFriends";
-    self.restorationClass      = [self class];
     [self addBackFunction];
     
     self.title=@"请选择分享好友";
@@ -166,9 +158,9 @@
     
     if (navigationController.viewControllers.count==1) {
         
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+        FlyingMyGroupsVC * myHome = [[FlyingMyGroupsVC alloc] init];
         
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
+        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:myHome]
                                                        animated:YES];
         [[self sideMenuViewController] hideMenuViewController];
     }

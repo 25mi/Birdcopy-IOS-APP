@@ -18,8 +18,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlyingImagePreivewVC ()<CFShareCircleViewDelegate,
-                                    UIViewControllerRestoration>
+@interface FlyingImagePreivewVC ()<CFShareCircleViewDelegate>
 {
     CGFloat lastScale;
     CGRect oldFrame;    //保存图片原来的大小
@@ -37,18 +36,10 @@
 
 @implementation FlyingImagePreivewVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingShareWithFriends alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingImagePreivewVC";
-    self.restorationClass      = [self class];
     // Do any additional setup after loading the view.
     
     _imageView   = [[UIImageView alloc] initWithFrame:self.view.frame];

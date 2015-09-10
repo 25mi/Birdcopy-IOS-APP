@@ -12,8 +12,7 @@
 
 @interface MAOFlipViewController ()<FlipInteactionDelegate,
                                     UIViewControllerTransitioningDelegate,
-                                    UINavigationControllerDelegate,
-                                    UIViewControllerRestoration>
+                                    UINavigationControllerDelegate>
 
 @property (nonatomic) UINavigationController *flipNavigationController;
 @property (nonatomic) MAOFlipInteraction *flipInteraction;
@@ -22,18 +21,9 @@
 
 @implementation MAOFlipViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[MAOFlipViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.restorationIdentifier = @"MAOFlipViewController";
-    self.restorationClass      = [self class];
-
     
     UIViewController *c = [self.delegate flipViewController:self contentIndex:0];
     if (c) {

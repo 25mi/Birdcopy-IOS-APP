@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBCalendarKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,7 +47,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E2CF4B990DDDA39414CF6919C99394B</key>
+		<key>2FD212D8259CED60AC23180AAB3A5725</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,17 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55D6555108560568ABE83196B779B7EE</key>
+		<key>7F27B337909B50F0352EB646109C34EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85E7274C8A062AE6FC15559689EC192F</key>
+		<key>BE254D98011709562D7FED7630ECE35B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8671847EB1FBE2C065885DAB0B22A410</key>
+		<key>E5A7F80D9B7E264591891CF659040F8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E77A16A77EE2E86110956DFE928B5994</key>
 		<dict>
 			<key>primary</key>
 			<true/>

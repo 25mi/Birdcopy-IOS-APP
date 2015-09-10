@@ -14,7 +14,7 @@
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
 
-@interface FlyingPickColorVCViewController ()<UIViewControllerRestoration>
+@interface FlyingPickColorVCViewController ()
 
 
 @property (nonatomic, strong) UIImageView *cPicker;
@@ -23,19 +23,9 @@
 
 @implementation FlyingPickColorVCViewController
 
-
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingPickColorVCViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"FlyingPickColorVCViewController";
-    self.restorationClass      = [self class];
     
     [self addBackFunction];
     

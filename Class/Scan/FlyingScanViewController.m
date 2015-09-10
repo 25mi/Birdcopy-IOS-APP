@@ -15,15 +15,14 @@
 #import "SoundPlayer.h"
 #import  "ZXingObjC.h"
 #import "FlyingNavigationController.h"
-#import "FlyingHome.h"
 #import "UIView+Toast.h"
+#import "FlyingMyGroupsVC.h"
 
-@interface FlyingScanViewController ()<UIViewControllerRestoration>
+@interface FlyingScanViewController ()
 {
     int num;
     BOOL upOrdown;
     NSTimer * timer;
-    UIAlertView *_shakingAlert;
 }
 
 @property (strong, nonatomic) UILabel            *descLabel;
@@ -35,18 +34,9 @@
 
 @implementation FlyingScanViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingScanViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"FlyingScanViewController";
-    self.restorationClass      = [self class];    // Do any additional setup after loading the view.
     
     //self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -80,14 +70,7 @@
     [scanButton addTarget:self action:@selector(doPhotos) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:scanButton];
     
-    image= [UIImage imageNamed:@"input"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doInput) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:scanBarButtonItem, searchBarButtonItem, nil];
+    self.navigationItem.rightBarButtonItem = scanBarButtonItem;
     
     frame=self.view.frame;
     
@@ -305,12 +288,7 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
             didOutputMetadataObjects:(NSArray *)metadataObjects
                       fromConnection:(AVCaptureConnection *)connection
-{
-    if (_shakingAlert) {
-        
-        [_shakingAlert dismissWithClickedButtonIndex:0 animated:YES];
-    }
-    
+{    
     NSString *resultStr=nil;
     
     if ([metadataObjects count] >0)
@@ -415,9 +393,9 @@
         [_session stopRunning];
         [timer invalidate];
         
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+        FlyingMyGroupsVC* myHomeVC = [[FlyingMyGroupsVC alloc] init];
         
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
+        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:myHomeVC]
                                                        animated:YES];
         [[self sideMenuViewController] hideMenuViewController];
     }
@@ -468,17 +446,6 @@
          [self.captureSession stopRunning];
          */
     }];
-}
-
-- (void) doInput
-{
-    _shakingAlert = [[UIAlertView alloc] initWithTitle:@"手工输入或者拷贝"
-                                               message:nil
-                                              delegate:self
-                                     cancelButtonTitle:@"取消"
-                                     otherButtonTitles:@"确定", nil];
-    [_shakingAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [_shakingAlert show];
 }
 
 //////////////////////////////////////////////////////////////

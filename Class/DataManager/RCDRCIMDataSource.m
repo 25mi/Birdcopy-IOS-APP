@@ -41,6 +41,7 @@
 
 -(void) syncGroups
 {
+    /*
     //开发者调用自己的服务器接口获取所属群组信息，同步给融云服务器，也可以直接
     //客户端创建，然后同步
     [FLYINGHTTPTOOL getMyGroupsWithBlock:^(NSMutableArray *result) {
@@ -55,6 +56,7 @@
                                               }];
         }
     }];
+     */
     
 }
 
@@ -128,9 +130,10 @@
      */
 
 }
-- (void)cacheAllGroup:(void (^)())completion
+- (void)cacheAllIMGroup:(void (^)())completion
 {
-    [FLYINGHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
+    /*
+    [FLYINGHTTPTOOL getAllIMGroupsWithCompletion:^(NSMutableArray *result) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             for(int i = 0;i < result.count;i++){
                 RCGroup *userInfo =[result objectAtIndex:i];
@@ -139,6 +142,7 @@
             completion();
         });
     }];
+     */
 }
 
 - (void)cacheAllFriends:(void (^)())completion
@@ -157,6 +161,7 @@
 {
     __weak RCDRCIMDataSource *weakSelf = self;
     [self cacheAllUserInfo:^{
+        /*
         [weakSelf cacheAllGroup:^{
             [weakSelf cacheAllFriends:^{
                 //[DEFAULTS setBool:YES forKey:@"notFirstTimeLogin"];
@@ -164,6 +169,7 @@
                 completion();
             }];
         }];
+         */
     }];
 }
 
@@ -182,12 +188,15 @@
  */
 - (NSArray *)getAllGroupInfo:(void (^)())completion
 {
+    
     NSArray *allUserInfo = [[RCDataBaseManager shareInstance] getAllGroup];
+    /*
     if (!allUserInfo.count) {
         [self cacheAllGroup:^{
             completion();
         }];
     }
+     */
     return allUserInfo;
 }
 

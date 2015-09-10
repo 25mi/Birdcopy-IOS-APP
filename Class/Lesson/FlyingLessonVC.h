@@ -19,8 +19,7 @@
                                             QLPreviewControllerDataSource,
                                             QLPreviewControllerDelegate,
                                             UIWebViewDelegate,
-                                            FlyingAILearningViewDelegate,
-                                            UIViewControllerRestoration>
+                                            FlyingAILearningViewDelegate>
 
 @property (strong, nonatomic) FlyingPubLessonData * theLesson;
 

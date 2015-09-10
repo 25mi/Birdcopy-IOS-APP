@@ -81,7 +81,7 @@ enum
 	BIRDMODE_DELETE
 };
 
-@interface ReaderViewController ()<UIViewControllerRestoration>
+@interface ReaderViewController ()
 {
 	ReaderDocument *document;
 
@@ -131,18 +131,9 @@ enum
 
 @implementation ReaderViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[ReaderViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"ReaderViewController";
-    self.restorationClass      = [self class];
     
 	self.view.backgroundColor = [UIColor grayColor]; // Neutral gray
     
@@ -150,25 +141,6 @@ enum
     
     [self loadReaderDocument];
 }
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.lessonID forKey:@"lessonID"];
-    [coder encodeBool:self.playOnline forKey:@"playOnline"];
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.lessonID = [coder decodeObjectForKey:@"lessonID"];
-    self.playOnline = [coder decodeBoolForKey:@"playOnline"];
-    
-    [self loadReaderDocument];
-}
-
 
 -(void) doLoadView
 {

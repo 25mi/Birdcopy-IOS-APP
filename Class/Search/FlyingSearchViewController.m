@@ -101,16 +101,22 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (void)initDefultData
 {
-    if (self.presentingClass==BEReviewClass || self.presentingClass==BEHomeFindWordClass ) {
-        
+    if (self.searchType==BEFindWord)
+    {
         self.title=@"查询单词";
         self.searchBar.placeholder = @"请输入单词";
         [self getWordList];
     }
-    else{
-
-        self.title=@"搜索影音";
+    else if (self.searchType==BEFindLesson)
+    {
+        self.title=@"搜索内容（课程）";
         self.searchBar.placeholder = @"例如：生活大爆炸  第二季";
+        [self getAllTagListWithCount:1000];
+    }
+    else
+    {
+        self.title=@"搜索群组";
+        self.searchBar.placeholder = @"例如：美剧";
         [self getAllTagListWithCount:1000];
     }
 }
@@ -221,13 +227,18 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (NSArray *)getListby:(NSString *) searchString
 {
     
-    if (self.presentingClass==BEReviewClass || self.presentingClass==BEHomeFindWordClass ) {
-        
+    if (self.searchType==BEFindWord)
+    {
         return [self getWordListby:searchString];
 
     }
-    else{
+    else if (self.searchType==BEFindLesson)
+    {
     
+        return [self getTagListby:searchString withCount:10000];
+    }
+    else
+    {
         return [self getTagListby:searchString withCount:10000];
     }
 }
@@ -269,7 +280,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 -(void) searchByTag:(NSString *) tag
 {
-    
+    /*
     if (![tag isEqualToString:@"暂时没有查询记录，尽快补充：）"]) {
         
         if (self.presentingClass==BEReviewClass || self.presentingClass==BEHomeFindWordClass ) {
@@ -295,11 +306,12 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
             [self.navigationController pushViewController:lessonList animated:YES];
         }
     }
+     */
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    /*
     if ([segue.identifier isEqualToString:@"fromSearchToList"]) {
         
         FlyingLessonListViewController * tempVC = segue.destinationViewController;
@@ -310,6 +322,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     if ([segue.identifier isEqualToString:@"fromSearchToWord"]) {
         
     }
+     */
 }
 
 
@@ -426,8 +439,9 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     NSInteger gatLength=1;
-    if (self.presentingClass==BEReviewClass || self.presentingClass==BEHomeFindWordClass ) {
-        
+    
+    if (self.searchType==BEFindWord)
+    {
         gatLength=3;
     }
     

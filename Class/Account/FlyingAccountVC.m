@@ -11,7 +11,6 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingOpenIDVC.h"
-#import "FlyingHome.h"
 #import "FlyingNavigationController.h"
 #import "RCDChatListViewController.h"
 #import "AFHttpTool.h"
@@ -30,6 +29,10 @@
 #import "AFHttpTool.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingNowLessonData.h"
+
+#import "FlyingDiscoverContent.h"
+#import "FlyingDIscoverGroups.h"
+
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -203,39 +206,32 @@
     else if (indexPath.section == 1 && indexPath.row == 0) {
         
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myProfile"];
-        
-        [self.navigationController pushViewController:myProfileVC animated:YES];
-    }
-    else if (indexPath.section == 2 && indexPath.row == 0) {
-        
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
         
         [self.navigationController pushViewController:rongCloudSetting animated:YES];
     }
-    else if (indexPath.section == 2 && indexPath.row == 1) {
+    else if (indexPath.section == 1 && indexPath.row == 1) {
         
         [self clearCache];
     }
-    else if (indexPath.section == 3 && indexPath.row == 0) {
+    else if (indexPath.section == 2 && indexPath.row == 0) {
         
         //定制导航条背景颜色
         [self.navigationController pushViewController:[[FlyingPickColorVCViewController alloc] init] animated:YES];
 
     }
-    else if (indexPath.section == 4 && indexPath.row == 0) {
+    else if (indexPath.section == 3 && indexPath.row == 0) {
         
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id helpVC = [storyboard instantiateViewControllerWithIdentifier:@"helpinfo"];
      
         [self.navigationController pushViewController:helpVC animated:YES];
     }
-    else if (indexPath.section == 4 && indexPath.row == 1) {
+    else if (indexPath.section == 3 && indexPath.row == 1) {
         
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        [appDelegate  showWebviewWithURL:KAboutProvierAddress];
+        [appDelegate  showWebviewWithURL:@"http://www.birdcopy.com"];
     }
 
         /*
@@ -688,7 +684,11 @@
     
     if (navigationController.viewControllers.count==1) {
         
-        FlyingHome* homeVC = [[FlyingHome alloc] init];
+#ifdef __CLIENT__IS__ENGLISH__
+        FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+#else
+        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
         
         [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                        animated:YES];

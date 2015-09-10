@@ -68,7 +68,6 @@
 #import "FlyingAILearningView.h"
 #import "FlyingGestureControlView.h"
 #import "FlyingSubtitleTextView.h"
-#import "FlyingReference.h"
 #import "FlyingWordLinguisticData.h"
 #import "FlyingSubRipItem.h"
 #import "FlyingSubTitle.h"
@@ -139,9 +138,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     dispatch_queue_t   _background_queue;
     dispatch_source_t  _UpdateDownlonaSource;
     
-    BOOL               _playonline;
-    BOOL               _saveToLocal;
-    
     CGFloat            _margin;
     float              _width;
     
@@ -211,10 +207,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 @property (strong, nonatomic) FlyingScrollView    *otherScroll;
 
-@property (strong, nonatomic) UIView              *buyAndDownloadView;
-@property (strong, nonatomic) UILabel             *lessonTitleLabel;
-@property (strong, nonatomic) UIButton            *buyButton;
-
 @property (strong, nonatomic) UILabel   *lessonSummaryLabel;
 @property (strong, nonatomic) DWTagList *lessonTagView;
 
@@ -256,36 +248,11 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 @implementation FlyingLessonVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingLessonVC alloc] initWithNibName:nil bundle:nil];
-    return retViewController;
-}
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.theLesson forKey:@"theLesson"];
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.theLesson = [coder decodeObjectForKey:@"theLesson"];
-    
-    [self commonInit];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingLessonVC";
-    self.restorationClass      = [self class];
     // Do any additional setup after loading the view.
-    
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -358,7 +325,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     
     self.deviceOrientation=UIInterfaceOrientationPortrait;
     
-    [self initTitle];
+    self.title=self.theLesson.title;
     
     [self prepareContentView];
     [self prepareOtherContent];
@@ -434,38 +401,10 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         _nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
     }
     
-    _playonline=NO;
-    _saveToLocal=NO;
-    
     _lockScreen=NO;
     
     _lessonData    = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
     _nowLessonData = [_nowLessonDAO selectWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
-}
-
--(void) initTitle
-{
-    //大标题
-    if([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-    {
-        self.title =@"网页详情";
-    }
-    else if([self.theLesson.contentType isEqualToString:KContentTypeText])
-    {
-        self.title =@"文档详情";
-    }
-    else if ([self.theLesson.contentType isEqualToString:KContentTypeVideo])
-    {
-        self.title =@"视频详情";
-    }
-    else if([self.theLesson.contentType isEqualToString:KContentTypeAudio])
-    {
-        self.title =@"音频详情";
-    }
-    else
-    {
-        self.title =@"内容详情";
-    }
 }
 
 -(void) prepareContentView
@@ -566,8 +505,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         [self.view addSubview:self.otherScroll];
     }
     
-    [self prepareBuyAndDownloadView];
-    
     [self prepareLessonSummary];
     [self prepareLessonTagCloud];
     
@@ -632,137 +569,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
                            }];
 }
 
--(void) prepareBuyAndDownloadView
-{
-    if (!self.buyAndDownloadView) {
-        
-        float buyAndDownloadViewWidth=self.view.bounds.size.width;
-        float buyAndDownloadHeight=buyAndDownloadViewWidth*60/320;
-        CGRect buyAndDownloadFrame = CGRectMake(0, 0, buyAndDownloadViewWidth, buyAndDownloadHeight);
-
-        self.buyAndDownloadView = [[UIView alloc] initWithFrame:buyAndDownloadFrame];
-        [self.otherScroll addSubview:self.buyAndDownloadView];
-    }
-    
-    [self initLessonTitle];
-    [self initBuyButton];
-}
-
--(void) initLessonTitle
-{
-    if (!self.lessonTitleLabel) {
-        float titleLableWidth=_width*2/3;
-        float titleLableHeight=self.buyAndDownloadView.bounds.size.height;
-        CGRect titleLabelFrame = CGRectMake(_margin, 0, titleLableWidth, titleLableHeight);
-        self.lessonTitleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
-        
-        [self.buyAndDownloadView addSubview:self.lessonTitleLabel];
-    }
-    
-    //课程标题
-    [self.lessonTitleLabel setText:[NSString stringWithFormat:@"《%@》",self.theLesson.title]];
-    
-    if (INTERFACE_IS_PAD)
-    {
-        self.lessonTitleLabel.font         = [UIFont systemFontOfSize:font_ipad_size];
-    }
-    else
-    {
-        self.lessonTitleLabel.font         = [UIFont systemFontOfSize:font_iphone_size];
-    }
-    
-    self.lessonTitleLabel.numberOfLines = 0;
-    self.lessonTitleLabel.textColor=[UIColor blackColor];
-    self.lessonTitleLabel.textAlignment=NSTextAlignmentCenter;
-}
-
--(void) initBuyButton
-{
-    if (!self.buyButton) {
-        
-        float buyButtonWidth=_width*1/3;
-        float buyButtonHeight=self.buyAndDownloadView.bounds.size.height/2;
-        CGRect buyButtonFrame = CGRectMake(self.lessonTitleLabel.frame.origin.x+self.lessonTitleLabel.frame.size.width, buyButtonHeight/2, buyButtonWidth, buyButtonHeight);
-        self.buyButton = [[UIButton alloc] initWithFrame:buyButtonFrame];
-        [self.buyButton setBackgroundImage:[UIImage imageNamed:@"greenbutton"]
-                                  forState:UIControlStateNormal];
-        [self.buyButton addTarget:self action:@selector(buyOrDownloadNow) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.buyAndDownloadView addSubview:self.buyButton];
-    }
-    
-    if (INTERFACE_IS_PAD)
-    {
-        self.buyButton.titleLabel.font     = [UIFont systemFontOfSize:font_ipad_size];
-    }
-    else
-    {
-        self.buyButton.titleLabel.font     = [UIFont systemFontOfSize:font_iphone_size];
-    }
-    
-    if (!self.theLesson.canDownloaded) {
-        
-        [self.buyButton setTitle:@"不支持缓存" forState:UIControlStateNormal];
-        [self.buyButton setEnabled:NO];
-    }
-    else
-    {
-        if([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-        {
-            [self.buyButton setTitle:@"马上欣赏" forState:UIControlStateNormal];
-            
-            return;
-        }
-        
-        if (_lessonData)
-        {
-            if (_lessonData.BEDLPERCENT==1)
-            {
-                [self.buyButton setTitle:@"马上欣赏" forState:UIControlStateNormal];
-            }
-            else
-            {
-                if(_lessonData.BEDLSTATE==YES)
-                {
-                    [self.buyButton setTitle:[NSString stringWithFormat:@"缓存:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];;
-                }
-                else
-                {
-                    [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
-                }
-            }
-        }
-        else
-        {
-            if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8])
-            {
-                //非官方、非大陆
-                if(![NSString isInMainland] && ![NSString checkOfficialURL:self.theLesson.contentURL])
-                {
-                    [self.contentView makeToast:@"抱歉：版权原因,非大陆地区可能不能使用此课程!" duration:3 position:CSToastPositionCenter];
-                }
-                else if( ![NSString checkM3U8URL:self.theLesson.contentURL]&& INTERFACE_IS_PAD)
-                {
-                    //是平板又不是M3U8直接资源地址
-                    
-                    [self.buyButton   setEnabled:NO];
-                    [self.buyButton setTitle:@"暂时不支持IPAD！" forState:UIControlStateNormal];
-                    
-                    [self.contentView makeToast:@"抱歉：请使用iPhone终端观看后才能使用IPAD观看!" duration:3 position:CSToastPositionCenter];
-                }
-                else
-                {
-                    [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
-                }
-            }
-            else
-            {
-                [self.buyButton setTitle:@"缓存观看" forState:UIControlStateNormal];
-            }
-        }
-    }
-}
-
 - (void) prepareLessonSummary
 {
     if (!self.lessonSummaryLabel)
@@ -804,7 +610,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     }
     
     CGRect frame=CGRectMake(_margin,
-                            self.buyAndDownloadView.frame.origin.y+self.buyAndDownloadView.frame.size.height,
+                            0,
                             _width,
                             self.view.frame.size.width*30/320);
 
@@ -1276,9 +1082,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     self.lessonCoverImageView=nil;
     self.playImageView=nil;
     self.otherScroll=nil;
-    self.buyAndDownloadView=nil;
-    self.lessonTitleLabel=nil;
-    self.buyButton=nil;
     self.lessonTagView=nil;
     self.lessonSummaryLabel=nil;
     self.KeyWordTagView=nil;
@@ -1304,33 +1107,13 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 //////////////////////////////////////////////////////////////
 - (void)playNow:(id)sender
 {
-    if (!_lessonData)
+    if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
     {
-        if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-        {
-            [self playLesson:self.theLesson.lessonID];
-        }
-        else
-        {
-            //在线播放
-            _playonline=YES;
-            [self watchNetworkStateNow];
-        }
+        [self playLesson:self.theLesson.lessonID];
     }
     else
     {
-        if(_lessonData.BEDLPERCENT ==1)
-        {
-            [self playLesson:self.theLesson.lessonID];
-        }
-        else if(_lessonData.BEDLSTATE==YES)
-        {
-            [self.contentView makeToast:@"离线缓存中..." duration:3 position:CSToastPositionCenter];
-        }
-        else
-        {
-            [self buyOrDownloadNow];
-        }
+        [self watchNetworkStateNow];
     }
 }
 
@@ -1343,7 +1126,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     
     if([self.theLesson.contentType isEqualToString:KContentTypeVideo])
     {
-        
         if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.theLesson.contentURL])
         {
             [self playVedio];
@@ -1378,7 +1160,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         {
             ReaderViewController *pdfVC= [[ReaderViewController alloc] init];
             [pdfVC setLessonID:lessonID];
-            [pdfVC setPlayOnline:_playonline];
+            [pdfVC setPlayOnline:YES];
             
             pdfVC.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
             [self  presentViewController:pdfVC animated:YES completion:NULL];
@@ -1419,61 +1201,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         
         [self.playImageView setHidden:NO];
         [self hideLoadingIndicator];
-    }
-}
-
-- (void)buyOrDownloadNow
-{
-    FlyingLessonData    * lessonData = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
-    if(lessonData.BEDLPERCENT ==1)
-    {
-        if(self.player && self.player.rate==0)
-        {
-            [self playAndDoAI];
-        }
-        else
-        {
-            [self playLesson:self.theLesson.lessonID];
-        }
-    }
-    else
-    {
-        if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
-        {
-            [self playLesson:self.theLesson.lessonID];
-        }
-        else
-        {
-            _saveToLocal=YES;
-            
-            [self.buyButton setTitle:@"准备缓存..." forState:UIControlStateNormal];
-            [self watchNetworkStateNow];
-        }
-    }
-}
-
--(void) saveToDBForDownload:(BOOL) forDownload
-{
-    //插入公共课程记录
-    _lessonData =  [[FlyingLessonData alloc] initWithPubData:self.theLesson];
-    [_lessonDAO insertWithData:_lessonData];
-    
-    //个人记录
-    if(forDownload){
-        
-        _nowLessonData = [[FlyingNowLessonData alloc] initWithLessonData:_lessonData];
-        [_nowLessonDAO insertWithData:_nowLessonData];
-        
-        if([self.theLesson.contentType isEqualToString:KContentTypePageWeb]){
-            
-            [_lessonDAO  updateDowloadPercent:1 LessonID:self.theLesson.lessonID];
-            [_lessonDAO updateDowloadState:YES LessonID:self.theLesson.lessonID];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:KlessonStateChange object:nil userInfo:nil];
-            
-            //没有用缓存管理、直接缓存
-            //[self.delegate closeAndReleaseDownloaderForID:lessonID];
-        }
     }
 }
 
@@ -1566,25 +1293,9 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
                 
                 _lessonData    = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
 
-                
-                if (_lessonData.BEDLPERCENT==1)
+                if (_lessonData.BEDLPERCENT<1)
                 {
-                    if (_saveToLocal)
-                    {
-                        [self.buyButton setTitle:@"现在欣赏" forState:UIControlStateNormal];
-                    }
-                }
-                else
-                {
-                    if (_saveToLocal)
-                    {
-                        [self.buyButton setTitle:[NSString stringWithFormat:@"缓存:%.2f%%",_lessonData.BEDLPERCENT*100] forState:UIControlStateNormal];
-                    }
-                    
-                    if (_playonline && [self.theLesson.contentType isEqualToString:KContentTypeText])
-                    {
-                        [self.buyButton setTitle:@"缓存中..." forState:UIControlStateNormal];
-                    }
+                    [self.contentView makeToast:@"加载中..." duration:3 position:CSToastPositionCenter];
                 }
             }
         });
@@ -1601,17 +1312,15 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     if([lessonID isEqualToString:self.theLesson.lessonID])
     {
         //如果是直接播放的文本
-        if([self.theLesson.contentType isEqualToString:KContentTypeText] && _playonline==YES)
+        if([self.theLesson.contentType isEqualToString:KContentTypeText])
         {
-            [self playLesson:self.theLesson.lessonID];
-            [self.buyButton setTitle:@"离线缓存" forState:UIControlStateNormal];
         }
         else
         {
             [self hideLoadingIndicator];
-            [self initData];
-            [self initPlayButton];
-            [self initBuyButton];
+            _lessonData    = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
+            
+            [self playLesson:self.theLesson.lessonID];
         }
     }
 }
@@ -1623,51 +1332,29 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 {
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
-        if (_playonline)
-        {
-            [self saveToDBForDownload:NO];
-        }
+        //插入公共课程记录
+        _lessonData =  [[FlyingLessonData alloc] initWithPubData:self.theLesson];
+        [_lessonDAO insertWithData:_lessonData];
         
-        if(_saveToLocal)
+        if([self.theLesson.contentType isEqualToString:KContentTypeText])
         {
-            [self saveToDBForDownload:YES];
-        }
-        
-        //缓存
-        if (_playonline || _saveToLocal) {
+            [self.playImageView setHidden:YES];
+            [self showLoadingIndicator];
             
-            [self downloadRelated];
+            iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate startDownloaderForID:self.theLesson.lessonID];
+        }
+        else
+        {
+            [self playLesson:self.theLesson.lessonID];
         }
         
-        if (_playonline)
-        {
-            if([self.theLesson.contentType isEqualToString:KContentTypeText]){
-
-                [self.playImageView setHidden:YES];
-                [self showLoadingIndicator];
-                
-                iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate startDownloaderForID:self.theLesson.lessonID];
-            }
-            else
-            {
-                [self playLesson:self.theLesson.lessonID];
-            }
-        }
-        
-        if(_saveToLocal)
-        {
-            [self.buyButton setTitle:@"进入缓存队列..." forState:UIControlStateNormal];
-            if(![self.theLesson.contentType isEqualToString:KContentTypePageWeb]){
-                
-                iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate startDownloaderForID:self.theLesson.lessonID];
-            }
-        }
+        //缓存相关内容
+        [self downloadRelated];
     }
     else
     {
-        [self.buyButton setTitle:@"请联网再试！" forState:UIControlStateNormal];
+        [self.contentView makeToast:@"请联网再试..." duration:3 position:CSToastPositionCenter];
     }
 }
 
@@ -1718,6 +1405,8 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindLesson];
+
     [self.navigationController pushViewController:search animated:YES];
 }
 
@@ -2402,13 +2091,9 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
             {
                 [self showLoadingIndicator];
             }
-            
-            [self.buyButton setEnabled:YES];
         }
         else{
-            
-            [self.buyButton setEnabled:NO];
-            
+                        
             if( !(_contentType== BELocalMp3Audio || _contentType==BEWebMp3Audio) ){
                 
                 [self hideControlBar];
@@ -2881,11 +2566,8 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         [self afterStopplaying];
     }
     
-    if (_playonline) {
-        
-        //删除数据库本地纪录，资源自动释放
-        [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
-    }
+    //删除数据库本地纪录，资源自动释放
+    [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
 
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -3648,7 +3330,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     
     //保存截图(例句视频不截图)
     if ( self.player &&
-        self.timestamp!=0 && !_playonline) {
+        self.timestamp!=0 && _nowLessonData!=nil) {
         
         [self.player pause];
         [self screenCopy];

@@ -38,8 +38,7 @@
 
 
 @interface ThumbsViewController () <ThumbsMainToolbarDelegate,
-                                    ReaderThumbsViewDelegate,
-                                    UIViewControllerRestoration>
+                                    ReaderThumbsViewDelegate>
 
 @end
 
@@ -101,18 +100,9 @@
 	return thumbs;
 }
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[ThumbsViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"ThumbsViewController";
-    self.restorationClass      = [self class];
     
 	assert(delegate != nil); assert(document != nil);
 

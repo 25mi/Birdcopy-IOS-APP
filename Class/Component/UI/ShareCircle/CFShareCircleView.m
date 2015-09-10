@@ -47,7 +47,7 @@ static const UIWindowLevel UIWindowLevelCFShareCircle = 1999.0;  // Don't overla
 
 #pragma mark - CFShareCircleViewController
 
-@interface CFShareCircleViewController : UIViewController<UIViewControllerRestoration>
+@interface CFShareCircleViewController : UIViewController
 
 
 @property (nonatomic, strong) CFShareCircleView *shareCircleView;
@@ -57,13 +57,8 @@ static const UIWindowLevel UIWindowLevelCFShareCircle = 1999.0;  // Don't overla
 @implementation CFShareCircleViewController
 
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+- (void)loadView
 {
-    UIViewController *retViewController = [[CFShareCircleViewController alloc] init];
-    return retViewController;
-}
-
-- (void)loadView {
     self.view = self.shareCircleView;
 }
 
@@ -71,9 +66,6 @@ static const UIWindowLevel UIWindowLevelCFShareCircle = 1999.0;  // Don't overla
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"CFShareCircleViewController";
-    self.restorationClass      = [self class];
-
     [self.shareCircleView setup];
 }
 

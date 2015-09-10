@@ -108,7 +108,6 @@
                   success:(void (^)(id response))success
                   failure:(void (^)(NSError* err))failure
 {
-    
     NSDictionary *params = @{@"tuser_key":openId};
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -179,27 +178,6 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rc_get_usr_from_hp.action"
                            params:params
-                          success:success
-                          failure:failure];
-}
-
-//get groups
-+(void) getAllGroupsSuccess:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"get_all_group"
-                           params:nil
-                          success:success
-                          failure:failure];
-}
-
-+(void) getMyGroupsSuccess:(void (^)(id response))success
-                    failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"get_my_group"
-                           params:nil
                           success:success
                           failure:failure];
 }
@@ -335,6 +313,90 @@
                           success:success
                           failure:failure];
 }
+
+//////////////////////////////////////////////////////////////
+#pragma  group related (not IM)
+//////////////////////////////////////////////////////////////
+//get groups
+
++ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
+                            PageNumber:(NSInteger) pageNumber
+                               success:(void (^)(id response))success
+                               failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    
+    NSString * lessonOwner = [UICKeyChainStore keyChainStore][KLessonOwner];
+    
+    if(isRecommend)
+    {
+        if(lessonOwner)
+        {
+            [params setObject:@"1" forKey:@"owner_recom"];
+        }
+        else
+        {
+            [params setObject:@"1" forKey:@"sys_recom"];
+        }
+    }
+
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_gp_list_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
+//get groups
++(void) getMyGroupsSuccess:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure
+{
+    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":passport}];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
++ (void) getGroupNewsListForGroupID:(NSString*) groupID
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma  old API, not jason

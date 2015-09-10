@@ -61,11 +61,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                      failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////////////////////////
-//get groups
-+(void) getMyGroupsSuccess:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure;
-+(void) getAllGroupsSuccess:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure;
 //get group by id
 +(void) getGroupByID:(int) groupID
              success:(void (^)(id response))success
@@ -116,7 +111,26 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
             success:(void (^)(id response))success
             failure:(void (^)(NSError* err))failure;
 
-//以前的官方API
+//////////////////////////////////////////////////////////////////////////////////
+//群相关操作
+//////////////////////////////////////////////////////////////////////////////////
++ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
+                        PageNumber:(NSInteger) pageNumber
+                           success:(void (^)(id response))success
+                           failure:(void (^)(NSError* err))failure;
+
+//get groups
++(void) getMyGroupsSuccess:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure;
+
++ (void) getGroupNewsListForGroupID:(NSString*) groupID
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure;
+
+//////////////////////////////////////////////////////////////////////////////////
+//以前的API
+//////////////////////////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
                    success:(void (^)(id response))success

@@ -9,18 +9,18 @@
 #ifndef FlyingEnglish_shareDefine_h
 #define FlyingEnglish_shareDefine_h
 
-typedef enum BEClassType {
-    BEHomeClass,
-    BELCClass,
-    BEReviewClass,
-    BEHomeFindWordClass
-} BEClassType;
+typedef enum BESearchType
+{
+    BEFindGroup,
+    BEFindLesson,
+    BEFindWord,
+} BESearchType;
 
 //瀑布布局相关
 #define TileHeight_iphone  20
 #define TileHeight_ipad    30
 
-//计费相关
+//虚拟金币相关
 #define KBEFreeTouchCount         200
 #define KBEGoldAwardCount         50
 
@@ -142,12 +142,8 @@ typedef NSInteger American_Local_Word_Level;
 //#define KAboutProvierAddress      @"http://j.birdcopy.com"
 
 #define KEnglishServerAddress     @"http://www.birdenglish.com:9999"
-#define KDoctorServerAddress      @"http://www.birdenglish.com:8888"
+#define KDoctorServerAddress      @"http://d.birdcopy.com"
 #define KITServerAddress          @"http://it.birdcopy.com"
-
-#define KSubServerAddress         @"http://www.birdenglish.com"
-#define KAboutProvierAddress      @"http://www.birdenglish.com"
-
 
 #define KUpdateM3U8FileURL        @"la_access_file_from_hp.action"
 

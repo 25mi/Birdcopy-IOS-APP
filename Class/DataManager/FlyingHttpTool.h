@@ -27,12 +27,6 @@
                     completion:(void(^)(BOOL isFriend)) completion;
 
 
-//获取我的群组
--(void) getMyGroupsWithBlock:(void(^)(NSMutableArray* result)) block;
-
-//获取群组列表
-- (void) getAllGroupsWithCompletion:(void(^)(NSMutableArray *result)) completion;
-
 //根据id获取单个群组
 -(void) getGroupByID:(NSString *) groupID
    successCompletion:(void (^)(RCGroup *group)) completion;
@@ -91,6 +85,22 @@
 
 + (void) getLessonForISBN:(NSString*) ISBN
                Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
+
+//////////////////////////////////////////////////////////////
+#pragma  group related (not IM)
+//////////////////////////////////////////////////////////////
+//获取所有群组
++ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
+                            PageNumber:(NSInteger) pageNumber
+                            Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
+
+//获取我的群组
++ (void) getMyGroupsCompletion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
+
+//获取群Post流
++ (void) getGroupNewsListForGroupID:(NSString*) groupID
+                         PageNumber:(NSInteger) pageNumber
+                            Completion:(void (^)(NSArray *newsList,NSInteger allRecordCount)) completion;
 
 + (void) getAlbumListForContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber

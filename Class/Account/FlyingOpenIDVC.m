@@ -16,8 +16,7 @@
 #import "RCDataBaseManager.h"
 #import "shareDefine.h"
 
-@interface FlyingOpenIDVC ()<ACEExpandableTableViewDelegate,
-                            UIViewControllerRestoration>
+@interface FlyingOpenIDVC ()<ACEExpandableTableViewDelegate>
 {
     CGFloat _cellHeight[2];
 }
@@ -28,19 +27,10 @@
 
 @implementation FlyingOpenIDVC
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingOpenIDVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingOpenIDVC";
-    self.restorationClass      = [self class];
-
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     

@@ -25,7 +25,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "AFHttpTool.h"
 
-@interface FlyingWordAbstractVC()<UIViewControllerRestoration>
+@interface FlyingWordAbstractVC()
 {
     UILabel                 *_wordLabel;
     HCSStarRatingView       *_starRatingView;
@@ -54,18 +54,10 @@
     return self;
 }
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingWordAbstractVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingWordAbstractVC";
-    self.restorationClass      = [self class];
     // Do any additional setup after loading the view.
     
     // Do any additional setup after loading the view.

@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2.2.8/RongIMLib.framework/Headers/interf_dec.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_2_11_dev/RongIMLib.framework/Headers/interf_dec.h

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlyingNavigationController : UINavigationController<UIViewControllerRestoration>
+@interface FlyingNavigationController : UINavigationController
 
 @end

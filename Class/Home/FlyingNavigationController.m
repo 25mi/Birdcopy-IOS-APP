@@ -25,18 +25,9 @@
     return UIInterfaceOrientationPortrait;
 }
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingNavigationController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"FlyingNavigationController";
-    self.restorationClass      = [self class];
 }
 
 @end

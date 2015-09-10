@@ -21,8 +21,9 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - INTULocationManager (4.0.0)
+  - MBCalendarKit (3.0.4)
   - MBProgressHUD (0.9.1)
-  - RongCloudIMKit (2.2.8)
+  - RongCloudIMKit (2.2.11)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -31,6 +32,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - INTULocationManager
+  - MBCalendarKit (~> 3.0.4)
   - MBProgressHUD
   - RongCloudIMKit
   - SDWebImage
@@ -39,8 +41,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   INTULocationManager: 754f2800415378b7bb2c07be103449e1f6a2cc70
+  MBCalendarKit: 2a3a60f902162a03bb4957966a4b795af998211f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  RongCloudIMKit: c55309fcd08c8202d59baeed3f2ef75f84c7da8a
+  RongCloudIMKit: 9268043d0b4cdc5fd39a23d43d7115a3f913c6e7
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
 

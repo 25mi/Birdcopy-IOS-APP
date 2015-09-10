@@ -31,8 +31,7 @@
 #import "FlyingHttpTool.h"
 
 
-@interface RCDChatViewController ()<CFShareCircleViewDelegate,
-                                    UIViewControllerRestoration>
+@interface RCDChatViewController ()<CFShareCircleViewDelegate>
 
 @property (strong,nonatomic) RCMessageModel *theMessagemodel;
 
@@ -42,41 +41,9 @@
 
 @implementation RCDChatViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[RCDChatViewController alloc] init];
-    return retViewController;
-}
-
--(void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeInteger:self.conversationType forKey:@"conversationType"];
-    [coder encodeObject:self.targetId forKey:@"targetId"];
-    [coder encodeObject:self.userName forKey:@"userName"];
-    [coder encodeObject:self.title forKey:@"title"];
-
-}
-
--(void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super decodeRestorableStateWithCoder:coder];
-    
-    self.conversationType = [coder decodeIntegerForKey:@"conversationType"];
-    self.targetId = [coder decodeObjectForKey:@"targetId"];
-    self.userName = [coder decodeObjectForKey:@"userName"];
-    self.title = [coder decodeObjectForKey:@"title"];
-    
-    [self performSelector:@selector(loadLatestHistoryMessage)];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.restorationIdentifier = @"RCDChatViewController";
-    self.restorationClass      = [self class];
     
     // Do any additional setup after loading the view.
     //self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];

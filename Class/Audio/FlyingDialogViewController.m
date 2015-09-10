@@ -43,7 +43,7 @@
 #import "AFHttpTool.h"
 #import "UIView+Toast.h"
 
-@interface FlyingDialogViewController ()<UIViewControllerRestoration>
+@interface FlyingDialogViewController ()
 {
     UIBubbleTableView          *_bubbleTable;
     NSMutableArray             *_currentBubbleData;
@@ -101,18 +101,10 @@
 
 @implementation FlyingDialogViewController
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingDialogViewController alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingDialogViewController";
-    self.restorationClass      = [self class];
 	// Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor blackColor];

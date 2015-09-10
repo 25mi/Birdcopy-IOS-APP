@@ -21,7 +21,6 @@
 #import "NSString+FlyingExtention.h" 
 #import "FlyingWebViewController.h"
 
-#import "FlyingHome.h"
 #import "UIViewController+RESideMenu.h"
 #import "RESideMenu.h"
 
@@ -30,7 +29,7 @@
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
 
-@interface FlyingProviderMapVC ()<UIViewControllerRestoration>
+@interface FlyingProviderMapVC ()
 {
     FlyingProviderParser  *_parser;
     
@@ -45,18 +44,10 @@
 
 #pragma mark - View lifecycle
 
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    UIViewController *retViewController = [[FlyingProviderMapVC alloc] init];
-    return retViewController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.restorationIdentifier = @"FlyingProviderMapVC";
-    self.restorationClass      = [self class];
     self.mapView.delegate = self;
     //self.mapView.clusterSize = kDEFAULTCLUSTERSIZE;
     
