@@ -42,6 +42,8 @@
 {
     [super viewDidLoad];
     
+    [self addBackFunction];
+    
     //顶部导航
     UIImage* image= [UIImage imageNamed:@"menu"];
     CGRect frame= CGRectMake(0, 0, 28, 28);
@@ -52,7 +54,7 @@
     
     self.navigationItem.leftBarButtonItem = menuBarButtonItem;
     
-    image= [UIImage imageNamed:@"Content"];
+    image= [UIImage imageNamed:@"Discover"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:frame];
     [discoverButton setBackgroundImage:image forState:UIControlStateNormal];
@@ -68,13 +70,20 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:calendarBarButtonItem,discoverButtonItem,nil];
     
-    
     [self setupdetailsGroupView];
     
     [self.detailsGroupView reloadData];
     
     //[self requestMoreGroupDetails];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //[self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [super viewWillAppear:animated];
+}
+
 
 #pragma mark -
 #pragma mark Setup
@@ -96,7 +105,7 @@
     if (!_currentData) {
         _currentData =[NSMutableArray arrayWithObjects:@"1",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",nil];
     }
-    
+
     //[_currentData removeAllObjects];
     _currentLodingIndex=0;
     _maxNumOfGroupNews=NSIntegerMax;
@@ -146,12 +155,6 @@
 
 #pragma mark -
 #pragma mark Action Methods
-
-- (void)popViewController:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 #pragma mark -
 #pragma mark UITableView Data Source
@@ -303,7 +306,6 @@
     [headerView setAlpha:0.0];
     [headerView setHidden:YES];
 }
-
 
 //////////////////////////////////////////////////////////////
 #pragma mark

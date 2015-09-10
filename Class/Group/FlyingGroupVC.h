@@ -16,7 +16,7 @@
                                             UITableViewDelegate,
                                             FlyingGroupDetailsViewDelegate>
 
-@property (weak, nonatomic) UIView *navigationBarView;
+@property (strong, nonatomic) UIView *navigationBarView;
 @property (weak, nonatomic) UIView *networkLoadingContainerView;
 @property (weak, nonatomic) UILabel *navBarTitleLabel;
 

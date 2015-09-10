@@ -19,7 +19,7 @@
 #import "FlyingCoverDataParser.h"
 
 
-#import "FlyingGroup.h"
+#import "FlyingGroupData.h"
 #import "FlyingPubLessonData.h"
 
 @implementation FlyingHttpTool
@@ -368,7 +368,7 @@
                                           
                                           for (NSDictionary *dic in allGroups)
                                           {
-                                              FlyingGroup *group = [[FlyingGroup alloc] init];
+                                              FlyingGroupData *group = [[FlyingGroupData alloc] init];
                                               group.gp_id    = [dic objectForKey:@"gp_id"];
                                               group.gp_name  = [dic objectForKey:@"gp_name"];
                                               group.gp_owner = [dic objectForKey:@"gp_owner"];
@@ -411,7 +411,7 @@
         
         if (allGroups) {
             for (NSDictionary *dic in allGroups) {
-                FlyingGroup *group = [[FlyingGroup alloc] init];
+                FlyingGroupData *group = [[FlyingGroupData alloc] init];
                 group.gp_id    = [dic objectForKey:@"gp_id"];
                 group.gp_name  = [dic objectForKey:@"gp_name"];
                 group.gp_owner = [dic objectForKey:@"gp_owner"];
