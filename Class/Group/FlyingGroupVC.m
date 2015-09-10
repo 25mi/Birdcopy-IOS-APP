@@ -23,6 +23,8 @@
 
 #import "FlyingDiscoverContent.h"
 
+#import "FlyingMemberCollectionViewCell.h"
+
 @interface FlyingGroupVC ()
 {
     NSInteger            _maxNumOfGroupNews;
@@ -33,6 +35,8 @@
 }
 
 @property (assign) CGPoint scrollViewDragPoint;
+@property (nonatomic, strong) NSMutableArray* membersDataSource;
+
 
 @end
 
@@ -52,8 +56,14 @@
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    self.navigationItem.leftBarButtonItem = menuBarButtonItem;
+    image= [UIImage imageNamed:@"back"];
+    frame= CGRectMake(0, 0, 28, 28);
+    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:image forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     image= [UIImage imageNamed:@"Discover"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:frame];
@@ -69,6 +79,8 @@
     UIBarButtonItem* calendarBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:calendarButton];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:calendarBarButtonItem,discoverButtonItem,nil];
+    
+    self.title=self.groupData.gp_name;
     
     [self setupdetailsGroupView];
     
@@ -99,6 +111,8 @@
         self.detailsGroupView.delegate = self;
         self.detailsGroupView.tableViewSeparatorColor = [UIColor clearColor];
         
+        self.detailsGroupView.collectionViewDataSource=self;
+        self.detailsGroupView.collectionViewDelegate=self;
         [self.view addSubview:self.detailsGroupView];
     }
     
@@ -119,6 +133,32 @@
 
 #pragma mark -
 #pragma mark Network Request Methods
+
+- (void)requestBaseGoupInfo
+{
+    if (_currentData.count<_maxNumOfGroupNews)
+    {
+        _currentLodingIndex++;
+        
+        [FlyingHttpTool getGroupNewsListForGroupID:self.groupData.gp_id PageNumber:0 Completion:^(NSArray *newsList, NSInteger allRecordCount) {
+            //
+            [self.currentData addObjectsFromArray:newsList];
+            
+            _maxNumOfGroupNews=allRecordCount;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.detailsGroupView reloadData];
+            });
+        }];
+        
+        [FlyingHttpTool getAlbumListForContentType:nil
+                                        PageNumber:_currentLodingIndex
+                                         Recommend:YES
+                                        Completion:^(NSArray *albumList,NSInteger allRecordCount) {
+                                        }];
+    }
+}
+
 
 - (void)requestMoreGroupDetails
 {
@@ -150,7 +190,7 @@
 
 - (void)finishLoadingData
 {
-    [self.detailsGroupView reloadData];
+    [self.detailsGroupView.tableView reloadData];
 }
 
 #pragma mark -
@@ -232,18 +272,16 @@
 #pragma mark -
 #pragma mark UICollectionView DataSource
 
-/*
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 {
-    return [self.similarMoviesDataSource count];
+    return [self.membersDataSource count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    KMSimilarMoviesCollectionViewCell* cell = (KMSimilarMoviesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"KMSimilarMoviesCollectionViewCell" forIndexPath:indexPath];
+    FlyingMemberCollectionViewCell* cell = (FlyingMemberCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"FlyingMemberCollectionViewCell" forIndexPath:indexPath];
     
-    [cell.cellImageView setImageURL:[NSURL URLWithString:[[self.similarMoviesDataSource objectAtIndex:indexPath.row] movieThumbnailPosterImageUrl]]];
+    [cell.cellImageView setImageURL:[NSURL URLWithString:[[self.membersDataSource objectAtIndex:indexPath.row] movieThumbnailPosterImageUrl]]];
     
     return cell;
 }
@@ -253,14 +291,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    KMMovieDetailsViewController* viewController = (KMMovieDetailsViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMMovieDetailsStoryboard" class:[KMMovieDetailsViewController class]];
     
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    viewController.movieDetails = [self.similarMoviesDataSource objectAtIndex:indexPath.row];
+    //[self.navigationController pushViewController:viewController animated:YES];
 }
-
- */
 
  
 #pragma mark -

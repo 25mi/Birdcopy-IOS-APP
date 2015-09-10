@@ -1130,6 +1130,14 @@
 		FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E31B511345007730B3 /* beiyang.entitlements */; };
 		FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E41B511345007730B3 /* BirdEnglish.entitlements */; };
 		FAD886ED1B511345007730B3 /* IBag.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E51B511345007730B3 /* IBag.entitlements */; };
+		FAE0BDDC1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDDD1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDDE1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDDF1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDE01BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDE11BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDE21BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		FAE0BDE31BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		FAE5C3F81AB7D8ED00E6F748 /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
 		FAE5C42D1AB7DB4E00E6F748 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4191AB7DB4E00E6F748 /* DWTagList.m */; };
 		FAE5C42E1AB7DB4E00E6F748 /* FlyingLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41B1AB7DB4E00E6F748 /* FlyingLessonVC.m */; };
@@ -1709,6 +1717,9 @@
 		FAD886E31B511345007730B3 /* beiyang.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
 		FAD886E41B511345007730B3 /* BirdEnglish.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BirdEnglish.entitlements; sourceTree = "<group>"; };
 		FAD886E51B511345007730B3 /* IBag.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IBag.entitlements; sourceTree = "<group>"; };
+		FAE0BDD91BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMemberCollectionViewCell.h; sourceTree = "<group>"; };
+		FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMemberCollectionViewCell.m; sourceTree = "<group>"; };
+		FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		FAE5C3F61AB7D8ED00E6F748 /* FlyingFakeHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingFakeHUD.h; sourceTree = "<group>"; };
 		FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingFakeHUD.m; sourceTree = "<group>"; };
 		FAE5C4181AB7DB4E00E6F748 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
@@ -2500,6 +2511,9 @@
 				FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */,
 				FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */,
 				FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */,
+				FAE0BDD91BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.h */,
+				FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */,
+				FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -3276,6 +3290,7 @@
 				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
 				FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */,
 				C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */,
+				FAE0BDE01BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
 				C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */,
@@ -3290,6 +3305,7 @@
 				FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */,
 				FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */,
 				FA1BE5A51B27DD5A00AA1AFD /* MainStoryboard.storyboard in Resources */,
+				FAE0BDE11BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
 				FA1BE5A71B27DD5A00AA1AFD /* dicModel.db in Resources */,
@@ -3313,6 +3329,7 @@
 				FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */,
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
 				FA632A871B51091400A1222E /* dicModel.db in Resources */,
+				FAE0BDE21BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
 				FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */,
@@ -3327,6 +3344,7 @@
 				FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
 				FA8C3EE11B535A1500DEA02D /* MainStoryboard.storyboard in Resources */,
+				FAE0BDE31BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				FA5ACC331B706A370051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */,
 				FA8C3EFA1B535B9100DEA02D /* InfoPlist.strings in Resources */,
@@ -3525,6 +3543,7 @@
 				FA0EE12A1A6CF618007F89D7 /* china_shift.c in Sources */,
 				FA8CDD791B030821004152C2 /* MuDocRef.m in Sources */,
 				FA88BC371B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
+				FAE0BDDC1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA8CDD7F1B030821004152C2 /* MuTapResult.m in Sources */,
 				FA3454F71B04B5BA00DCF2AB /* DDLog.m in Sources */,
 				FA0EE1321A6D0736007F89D7 /* JPSThumbnailAnnotation.m in Sources */,
@@ -3758,6 +3777,7 @@
 				FA1BE4991B27DD5A00AA1AFD /* china_shift.c in Sources */,
 				FA1BE49A1B27DD5A00AA1AFD /* MuDocRef.m in Sources */,
 				FA88BC381B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
+				FAE0BDDD1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA1BE49B1B27DD5A00AA1AFD /* MuTapResult.m in Sources */,
 				FA1BE49C1B27DD5A00AA1AFD /* DDLog.m in Sources */,
 				FA1BE49D1B27DD5A00AA1AFD /* JPSThumbnailAnnotation.m in Sources */,
@@ -3991,6 +4011,7 @@
 				FA63297D1B51091400A1222E /* china_shift.c in Sources */,
 				FA63297E1B51091400A1222E /* MuDocRef.m in Sources */,
 				FA88BC391B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
+				FAE0BDDE1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA63297F1B51091400A1222E /* MuTapResult.m in Sources */,
 				FA6329801B51091400A1222E /* DDLog.m in Sources */,
 				FA6329811B51091400A1222E /* JPSThumbnailAnnotation.m in Sources */,
@@ -4224,6 +4245,7 @@
 				FA8C3DD91B535A1500DEA02D /* china_shift.c in Sources */,
 				FA8C3DDA1B535A1500DEA02D /* MuDocRef.m in Sources */,
 				FA88BC3A1B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
+				FAE0BDDF1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA8C3DDB1B535A1500DEA02D /* MuTapResult.m in Sources */,
 				FA8C3DDC1B535A1500DEA02D /* DDLog.m in Sources */,
 				FA8C3DDD1B535A1500DEA02D /* JPSThumbnailAnnotation.m in Sources */,

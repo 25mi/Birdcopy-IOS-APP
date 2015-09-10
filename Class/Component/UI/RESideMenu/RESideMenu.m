@@ -120,7 +120,7 @@
     _contentViewInPortraitOffsetCenterX  = 30.f;
     _contentViewScaleValue = 0.7f;
     
-    _backgroundImage = [UIImage imageNamed:@"Deafult"];
+    _backgroundImage = [UIImage imageNamed:@"Default"];
     _menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
 }
 

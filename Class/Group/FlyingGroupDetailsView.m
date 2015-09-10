@@ -101,6 +101,10 @@
     
     [self setupImageButton];
     
+    if(!self.collectionView)
+    {
+        [self setupCollectionView];
+    }
 }
 
 #pragma mark -
@@ -132,7 +136,7 @@
 {
     CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.imageHeaderViewHeight - kDefaultTableViewHeaderMargin);
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:tableHeaderViewFrame];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
+    tableHeaderView.backgroundColor = [UIColor redColor];
     self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -193,6 +197,7 @@
     [self.delegate detailsPage:self imageDataForImageView:self.imageView];
     
     [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark -
@@ -324,5 +329,51 @@
         }];
     }
 }
+
+
+#pragma mark -
+#pragma mark CollectionView Datasource Setup
+
+- (void)setupCollectionView
+{
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, self.imageHeaderViewHeight/4, self.tableView.frame.size.width, self.imageHeaderViewHeight/2)];
+
+    UINib *nib = [UINib nibWithNibName:@"KMSimilarMoviesCollectionViewCell" bundle: nil];
+    
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"KMSimilarMoviesCollectionViewCell"];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.delegate = self.collectionViewDelegate;
+    self.collectionView.dataSource = self.collectionViewDataSource;
+        
+    [self addSubview:self.collectionView];
+    
+    if([self.delegate respondsToSelector:@selector(detailsPage:tableViewDidLoad:)])
+        [self.delegate detailsPage:self tableViewDidLoad:self.tableView];
+}
+
+
+#pragma mark -
+#pragma mark CollectionView Delegate and DataSource setters
+
+- (void)setCollectionViewDataSource:(id<UICollectionViewDataSource>)uicollectionViewDataSource
+{
+    _collectionViewDataSource = uicollectionViewDataSource;
+    
+    self.collectionView.dataSource = _collectionViewDataSource;
+    
+    if (_collectionViewDelegate)
+        [self.collectionView reloadData];
+}
+
+- (void)setCollectionViewDelegaate:(id<UICollectionViewDelegate>)uicollectionViewDelegate
+{
+    _collectionViewDelegate = uicollectionViewDelegate;
+    
+    self.collectionView.delegate = _collectionViewDelegate;
+    
+    if (_collectionViewDataSource)
+        [self.tableView reloadData];
+}
+
 
 @end

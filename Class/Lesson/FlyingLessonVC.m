@@ -449,7 +449,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         else
         {
             [self.lessonCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.theLesson.imageURL]
-                                         placeholderImage:[UIImage imageNamed:@"Deafult"]
+                                         placeholderImage:[UIImage imageNamed:@"Default"]
                                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                 }];
         }

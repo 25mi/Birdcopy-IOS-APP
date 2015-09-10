@@ -14,7 +14,9 @@
 
 @interface FlyingGroupVC : UIViewController<UITableViewDataSource,
                                             UITableViewDelegate,
-                                            FlyingGroupDetailsViewDelegate>
+                                            FlyingGroupDetailsViewDelegate,
+                                            UICollectionViewDataSource,
+                                            UICollectionViewDelegate>
 
 @property (strong, nonatomic) UIView *navigationBarView;
 @property (weak, nonatomic) UIView *networkLoadingContainerView;

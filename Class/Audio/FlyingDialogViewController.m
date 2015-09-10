@@ -143,7 +143,7 @@
     
     self.navigationItem.rightBarButtonItem = moreBarButtonItem;
     
-    self.backgroundImagview =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Deafult"]];
+    self.backgroundImagview =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default"]];
     [self.backgroundImagview setContentMode:UIViewContentModeScaleAspectFit];
     [self.backgroundImagview setFrame:self.view.frame];
     

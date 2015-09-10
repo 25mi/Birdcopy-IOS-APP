@@ -29,6 +29,8 @@
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView headerViewDidLoad:(UIView *)headerView;
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView imageViewWasSelected:(UIImageView *)imageView;
 
+- (void)detailsPage:(FlyingGroupDetailsView *)detailsGroupView collectionViewDidLoad:(UICollectionView *)uicollectionView;
+
 @end
 
 ///-------------------------------
@@ -117,5 +119,22 @@
  Use this method if you need to hide the header imageview.
  */
 - (void)hideHeaderImageView:(BOOL)hidden;
+
+
+@property (strong, nonatomic) UICollectionView *collectionView;
+
+
+/**
+ Details UICollectionViewDataSource.
+ */
+@property (nonatomic, weak) id<UICollectionViewDataSource> collectionViewDataSource;
+///-------------------------------
+
+/**
+ Details UICollectionViewDelegate.
+ */
+@property (nonatomic, weak) id<UICollectionViewDelegate> collectionViewDelegate;
+///-------------------------------
+
 
 @end

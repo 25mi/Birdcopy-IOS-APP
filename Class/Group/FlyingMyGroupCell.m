@@ -51,7 +51,6 @@
         
         _descriptionLabel.textColor =  neutralColor;
         _descriptionLabel.font = descriptionLabelFont;
-        _descriptionLabel.userInteractionEnabled=YES;
         
         _coverImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -67,7 +66,6 @@
         
         [_memberCountButton addTarget:self action:@selector(memberCountButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-        
         _lessonCountButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _lessonCountButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _lessonCountButton.titleLabel.textColor = countColor;
@@ -178,7 +176,7 @@
     [self.lessonCountButton addTarget:self action:@selector(lessonCountButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:groupData.cover] placeholderImage:[UIImage imageNamed:@"Deafult"]];
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:groupData.cover] placeholderImage:[UIImage imageNamed:@"Default"]];
     
     UITapGestureRecognizer *coverRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coverImageViewPressed:)];
     coverRecognizer.numberOfTapsRequired = 1; // 单击

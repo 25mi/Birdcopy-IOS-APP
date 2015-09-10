@@ -259,7 +259,7 @@
             }
             else{
                 
-                [_coverImageView setImage:[UIImage imageNamed:@"Deafult"]];
+                [_coverImageView setImage:[UIImage imageNamed:@"Default"]];
             }
         }
     }
@@ -297,7 +297,7 @@
             }
             else{
                 
-                [_coverImageView setImage:[UIImage imageNamed:@"Deafult"]];
+                [_coverImageView setImage:[UIImage imageNamed:@"Default"]];
             }
         }
         
