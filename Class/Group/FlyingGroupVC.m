@@ -25,7 +25,9 @@
 
 #import "FlyingMemberCollectionViewCell.h"
 
-@interface FlyingGroupVC ()
+#import "FlyingLessonVC.h"
+
+@interface FlyingGroupVC ()<UIGestureRecognizerDelegate>
 {
     NSInteger            _maxNumOfGroupNews;
     NSInteger            _currentLodingIndex;
@@ -35,8 +37,6 @@
 }
 
 @property (assign) CGPoint scrollViewDragPoint;
-@property (nonatomic, strong) NSMutableArray* membersDataSource;
-
 
 @end
 
@@ -46,6 +46,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+
     [self addBackFunction];
     
     //顶部导航
@@ -64,6 +66,7 @@
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    
     image= [UIImage imageNamed:@"Discover"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:frame];
@@ -82,47 +85,79 @@
     
     self.title=self.groupData.gp_name;
     
-    [self setupdetailsGroupView];
-    
-    [self.detailsGroupView reloadData];
-    
-    //[self requestMoreGroupDetails];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //[self.navigationController setNavigationBarHidden:YES animated:YES];
-    
     [super viewWillAppear:animated];
+    
+    [self setupGroupView];
+
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setnavigationBarWithClearStyle:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //Apple bug Fix
+    [self.groupView removeFromSuperview];
+    self.groupView=nil;
+    
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setnavigationBarWithClearStyle:NO];
+    
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
 
 #pragma mark -
 #pragma mark Setup
 
-- (void)setupdetailsGroupView
+- (void)setupGroupView
 {
-    if(!self.detailsGroupView)
+    if(!self.groupView)
     {
-        self.detailsGroupView=[[FlyingGroupDetailsView alloc] initWithFrame:self.view.frame];
+        self.groupView=[[FlyingGroupDetailsView alloc] initWithFrame:self.view.frame];
         
-        self.detailsGroupView.tableViewDataSource = self;
-        self.detailsGroupView.tableViewDelegate = self;
-        self.detailsGroupView.delegate = self;
-        self.detailsGroupView.tableViewSeparatorColor = [UIColor clearColor];
-        
-        self.detailsGroupView.collectionViewDataSource=self;
-        self.detailsGroupView.collectionViewDelegate=self;
-        [self.view addSubview:self.detailsGroupView];
+        self.groupView.tableViewDataSource = self;
+        self.groupView.tableViewDelegate = self;
+        self.groupView.groupDetailsViewDelegate = self;
+        self.groupView.tableViewSeparatorColor = [UIColor clearColor];
+        [self.view addSubview:self.groupView];
     }
     
     if (!_currentData) {
+        
         _currentData =[NSMutableArray arrayWithObjects:@"1",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",nil];
+        
+        _currentLodingIndex=0;
+        _maxNumOfGroupNews=NSIntegerMax;
+
+        [self requestMoreGroupStream];
     }
 
+    //[self.groupView setNavBarView:self.navigationController.navigationBar];
+    
+    if (!self.topBoardNewsData) {
+        
+        self.topBoardNewsData = [[FlyingStreamData alloc] init];
+        
+        self.topBoardNewsData.title=@"周一课程改期通知";
+        self.topBoardNewsData.contentSummary=@"以下几类人群尤其应该关注血脂水平：一是已患冠心病、脑卒中、外周动脉粥样硬化性疾病的患者；二是吸烟、肥胖、患有高血压或糖尿病的患者；三是家族中有冠心病、脑卒中或外周动脉粥样硬化性疾病病史患者，特别是直系亲属中有人50岁以前就得了心脑血管病甚至死于心脑血管病的；四是有家族遗传的高胆固醇血症；五是绝经后女性和40岁以上的男性。以下几类人群尤其应该关注血脂水平：一是已患冠心病、脑卒中、外周动脉粥样硬化性疾病的患者；二是吸烟、肥胖、患有高血压或糖尿病的患者；三是家族中有冠心病、脑卒中或外周动脉粥样硬化性疾病病史患者，特别是直系亲属中有人50岁以前就得了心脑血管病甚至死于心脑血管病的；四是有家族遗传的高胆固醇血症；五是绝经后女性和40岁以上的男性。";
+        self.topBoardNewsData.updateTime=@"8 分钟前";
+        self.topBoardNewsData.relatedNumber =@"13 评论";
+        self.topBoardNewsData.streamType =@"通知";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.groupView reloadBoardNews];
+        });
+
+        
+        //[self requestGoupBoardNews];
+    }
+    
     //[_currentData removeAllObjects];
-    _currentLodingIndex=0;
-    _maxNumOfGroupNews=NSIntegerMax;
 }
 
 #pragma mark Laoding indicatior
@@ -134,63 +169,39 @@
 #pragma mark -
 #pragma mark Network Request Methods
 
-- (void)requestBaseGoupInfo
+- (void)requestGoupBoardNews
 {
-    if (_currentData.count<_maxNumOfGroupNews)
-    {
-        _currentLodingIndex++;
+    [FlyingHttpTool getGroupBoardNewsForGroupID:self.groupData.gp_id PageNumber:1 Completion:^(NSArray *streamList, NSInteger allRecordCount) {
         
-        [FlyingHttpTool getGroupNewsListForGroupID:self.groupData.gp_id PageNumber:0 Completion:^(NSArray *newsList, NSInteger allRecordCount) {
-            //
-            [self.currentData addObjectsFromArray:newsList];
-            
-            _maxNumOfGroupNews=allRecordCount;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.detailsGroupView reloadData];
-            });
-        }];
+        self.topBoardNewsData = streamList[0];
         
-        [FlyingHttpTool getAlbumListForContentType:nil
-                                        PageNumber:_currentLodingIndex
-                                         Recommend:YES
-                                        Completion:^(NSArray *albumList,NSInteger allRecordCount) {
-                                        }];
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.groupView reloadBoardNews];
+        });
+    }];
 }
 
-
-- (void)requestMoreGroupDetails
+- (void)requestMoreGroupStream
 {
      if (_currentData.count<_maxNumOfGroupNews)
      {
          _currentLodingIndex++;
 
-         [FlyingHttpTool getGroupNewsListForGroupID:self.groupData.gp_id PageNumber:0 Completion:^(NSArray *newsList, NSInteger allRecordCount) {
+         [FlyingHttpTool getGroupStreamForGroupID:self.groupData.gp_id PageNumber:_currentLodingIndex Completion:^(NSArray *streamList, NSInteger allRecordCount) {
              //
-             [self.currentData addObjectsFromArray:newsList];
+             [self.currentData addObjectsFromArray:streamList];
              
              _maxNumOfGroupNews=allRecordCount;
              
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self finishLoadingData];
+
+                 [self.groupView.tableView reloadData];
              });
+
          }];
 
-         [FlyingHttpTool getAlbumListForContentType:nil
-                                         PageNumber:_currentLodingIndex
-                                          Recommend:YES
-                                         Completion:^(NSArray *albumList,NSInteger allRecordCount) {
-                                         }];
      }
-}
-
-#pragma mark -
-#pragma mark Fetched Data Processing
-
-- (void)finishLoadingData
-{
-    [self.detailsGroupView.tableView reloadData];
 }
 
 #pragma mark -
@@ -222,7 +233,6 @@
         if (!cell) {
             cell = [[FlyingGroupStreamCell alloc] initWithStyle:UITableViewCellStyleDefault ReuseIdentifier:GROUPSTREAMCELL_IDENTIFIER StreamCellType:FlyingGroupStreamCellTextType];
         }
-
     }
     else
     {
@@ -262,7 +272,15 @@
     cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
      
      */
+    
+    NSInteger lastSectionIndex = [tableView numberOfSections] - 1;
+    NSInteger lastRowIndex = [tableView numberOfRowsInSection:lastSectionIndex] - 1;
+    if ((indexPath.section == lastSectionIndex) && (indexPath.row == lastRowIndex)) {
+        // This is the last cell
+        [self requestMoreGroupStream];
+    }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -274,14 +292,17 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 {
-    return [self.membersDataSource count];
+    return  8;
+    //return [self.membersDataSource count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     FlyingMemberCollectionViewCell* cell = (FlyingMemberCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"FlyingMemberCollectionViewCell" forIndexPath:indexPath];
     
-    [cell.cellImageView setImageURL:[NSURL URLWithString:[[self.membersDataSource objectAtIndex:indexPath.row] movieThumbnailPosterImageUrl]]];
+    [cell.cellImageView setImage:[UIImage imageNamed:@"Icon"]];
+    
+    //[cell.cellImageView setImageURL:[NSURL URLWithString:[[self.membersDataSource objectAtIndex:indexPath.row] movieThumbnailPosterImageUrl]]];
     
     return cell;
 }
@@ -295,9 +316,18 @@
     //[self.navigationController pushViewController:viewController animated:YES];
 }
 
- 
 #pragma mark -
 #pragma mark FlyingGroupDetailsViewDelegate
+
+- (FlyingStreamData*)getTopBoardNewsData
+{
+    return self.topBoardNewsData;
+}
+
+- (CGFloat) getnavigationBarHeight
+{
+    return  self.navigationController.navigationBar.frame.size.height;
+}
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -320,13 +350,12 @@
     
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.groupData.cover] completed:^ (UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
-        if ([detailsGroupView.delegate respondsToSelector:@selector(headerImageViewFinishedLoading:)])
-        [detailsGroupView.delegate headerImageViewFinishedLoading:blockImageView];
+        if ([detailsGroupView.groupDetailsViewDelegate respondsToSelector:@selector(headerImageViewFinishedLoading:)])
+        [detailsGroupView.groupDetailsViewDelegate headerImageViewFinishedLoading:blockImageView];
         
     }];
     
     return imageView;
-
 }
 
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsGroupView tableViewDidLoad:(UITableView *)tableView
@@ -338,6 +367,32 @@
 {
     [headerView setAlpha:0.0];
     [headerView setHidden:YES];
+}
+
+- (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView imageViewWasSelected:(UIImageView *)imageView
+{
+    //
+    if ( [self.topBoardNewsData.streamType isEqualToString:@""]) {
+        
+        //
+        NSString *lessonID = self.topBoardNewsData.contentID;
+        
+        [FlyingHttpTool getLessonForLessonID:lessonID
+                                  Completion:^(FlyingPubLessonData *lesson) {
+                                      //
+                                      FlyingLessonVC * vc=[[FlyingLessonVC alloc] init];
+                                      vc.theLesson=lesson;
+                                      
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          
+                                          [self.navigationController pushViewController:vc animated:YES];
+                                      });
+                                  }];
+    }
+    else
+    {
+        //
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -361,9 +416,11 @@
 
 - (void) doDiscover
 {
+    FlyingDiscoverContent *discoverContent = [[FlyingDiscoverContent alloc] init];
+    discoverContent.author= self.groupData.gp_author;
+    
     [self.navigationController pushViewController:[[FlyingDiscoverContent alloc] init] animated:YES];
 }
-
 
 - (void) doChat
 {
@@ -401,45 +458,26 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
 - (void) addBackFunction
 {
-    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(handleSwipeFrom:)];
     
+    recognizer.delegate=self;
+    
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
+    
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
         [self dismiss];
     }
 }
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
-        
-        [self dismiss];
-    }
-}
-
 
 @end

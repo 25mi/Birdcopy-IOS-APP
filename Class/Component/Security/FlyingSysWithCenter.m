@@ -27,9 +27,15 @@
 {
     @synchronized(self)
     {
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        
+        if (!openID) {
+            
+            return;
+        }
+
         //向服务器帐户进行充值
-        [AFHttpTool chargingCardSysURLForUserID:passport
+        [AFHttpTool chargingCardSysURLForUserID:openID
                                          CardID:cardID
                                         success:^(id response) {
                                             //
@@ -43,7 +49,7 @@
                                                     
                                                     NSString * responseStr=nil;
                                                     FlyingStatisticDAO * statDAO = [[FlyingStatisticDAO alloc] init];
-                                                    FlyingStatisticData *userData = [statDAO selectWithUserID:passport];
+                                                    FlyingStatisticData *userData = [statDAO selectWithUserID:openID];
                                                     
                                                     switch (resultNum) {
                                                         case -1:
@@ -80,7 +86,7 @@
                                                             responseStr = @"中途出错(系统原因)";
                                                             break;
                                                         default:
-                                                            [statDAO updateWithUserID:passport QRMoneyCount:resultNum];
+                                                            [statDAO updateWithUserID:openID QRMoneyCount:resultNum];
                                                             
                                                             
                                                             responseStr = [NSString stringWithFormat:@"充值成功:充值金币数目:%@",[@(resultNum-userData.BEQRCOUNT) stringValue]];
@@ -122,10 +128,14 @@
 //获取充值卡数据
 +(void) sysQRMoneyWithCenter
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
     
+    if(!openID)
+    {
+        return;
+    }
     //向服务器获取最新QR数据
-    [AFHttpTool getQRCountForUserID:passport
+    [AFHttpTool getQRCountForUserID:openID
                             success:^(id response) {
                                 //
                                 if (response) {
@@ -138,11 +148,11 @@
                                         if(resultNum>=0){
                                             
                                             FlyingStatisticDAO * statDAO = [[FlyingStatisticDAO alloc] init];
-                                            FlyingStatisticData *userData = [statDAO selectWithUserID:passport];
+                                            FlyingStatisticData *userData = [statDAO selectWithUserID:openID];
                                             
                                             if(!userData){
                                                 
-                                                userData = [[FlyingStatisticData alloc] initWithUserID:passport
+                                                userData = [[FlyingStatisticData alloc] initWithUserID:openID
                                                                                             MoneyCount:0
                                                                                             TouchCount:0
                                                                                           LearnedTimes:0
@@ -173,11 +183,16 @@
 //向服务器获备份消费以及其其它非充值数据
 +(void) uploadUserCenter
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:passport];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if(!openID)
+    {
+        return;
+    }
+    FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:openID];
     
     
-    [AFHttpTool sysOtherMoneyWithAccount:passport
+    [AFHttpTool sysOtherMoneyWithAccount:openID
                               MoneyCount:staticDat.BEMONEYCOUNT
                                GiftCount:staticDat.BEGIFTCOUNT
                               TouchCount:staticDat.BETOUCHCOUNT
@@ -208,7 +223,7 @@
     
 
     FlyingTouchDAO * touchDAO = [[FlyingTouchDAO alloc] init];
-    NSArray *recordList = [touchDAO selectWithUserID:passport];
+    NSArray *recordList = [touchDAO selectWithUserID:openID];
     
     __block NSMutableString * updateStr =[NSMutableString new];
     
@@ -228,7 +243,7 @@
         }
     }];
 
-    [AFHttpTool sysLessonTouchWithAccount:passport
+    [AFHttpTool sysLessonTouchWithAccount:openID
                            lessonAndTouch:updateStr
                                   success:^(id response) {
                                       //
@@ -259,6 +274,11 @@
 +(void) activeAccount
 {
     NSString *openUDID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (!openUDID) {
+        
+        return;
+    }
     
     [AFHttpTool getMoneyDataWithOpenID:openUDID success:^(id response) {
         //
@@ -380,8 +400,13 @@
 
 +(void) lowCointAlert
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:passport];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if(!openID)
+    {
+        return;
+    }
+    FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:openID];
 
     if (((KBEFreeTouchCount+staticDat.BEQRCOUNT+staticDat.BEMONEYCOUNT+staticDat.BEGIFTCOUNT)-staticDat.BETOUCHCOUNT)<0) {
         
@@ -399,12 +424,16 @@
 
 //用终端登录官网后台
 +(void) loginWithQR:(NSString*)loginID
-{
+{    
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
     
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    if(!openID)
+    {
+        return;
+    }
     
     [AFHttpTool loginWithQR:loginID
-                    Account:passport
+                    Account:openID
                     success:^(id response) {
                         //
                         if (response) {

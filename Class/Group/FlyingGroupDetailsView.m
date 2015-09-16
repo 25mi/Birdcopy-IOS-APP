@@ -9,6 +9,9 @@
 
 #import "FlyingGroupDetailsView.h"
 
+#import "UIView+Autosizing.h"
+#import "iFlyingAppDelegate.h"
+
 /**
  *  Change these values to customize you details page
  *
@@ -88,22 +91,29 @@
     _navBarFadingOffset = _imageHeaderViewHeight - (CGRectGetHeight(_navBarView.frame) + kDefaultTableViewHeaderMargin);
     
     if (!self.tableView)
-    [self setupTableView];
+    {
+        [self setupTableView];
+    }
     
     if (!self.tableView.tableHeaderView)
-    [self setupTableViewHeader];
+    {
+        [self setupTableViewHeader];
+    }
     
     if(!self.imageView)
-    [self setupImageView];
+    {
+        [self setupImageView];
+    }
     
     if (self.backgroundColor)
-    [self setupBackgroundColor];
+    {
+        [self setupBackgroundColor];
+    }
     
     [self setupImageButton];
     
-    if(!self.collectionView)
-    {
-        [self setupCollectionView];
+    if (!self.boardView) {
+        [self setupBoardNews];
     }
 }
 
@@ -128,15 +138,15 @@
     
     [self addSubview:self.tableView];
     
-    if([self.delegate respondsToSelector:@selector(detailsPage:tableViewDidLoad:)])
-    [self.delegate detailsPage:self tableViewDidLoad:self.tableView];
+    if([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:tableViewDidLoad:)])
+    [self.groupDetailsViewDelegate detailsPage:self tableViewDidLoad:self.tableView];
 }
 
 - (void)setupTableViewHeader
 {
     CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.imageHeaderViewHeight - kDefaultTableViewHeaderMargin);
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:tableHeaderViewFrame];
-    tableHeaderView.backgroundColor = [UIColor redColor];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -155,16 +165,15 @@
     self.imageView.backgroundColor = [UIColor blackColor];
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.imageView.clipsToBounds = YES;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    if ([self.delegate respondsToSelector:@selector(contentModeForImage:)])
-    self.imageView.contentMode = [self.delegate contentModeForImage:self.imageView];
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(contentModeForImage:)])
+    self.imageView.contentMode = [self.groupDetailsViewDelegate contentModeForImage:self.imageView];
     
     [self insertSubview:self.imageView belowSubview:self.tableView];
     
-    if ([self.delegate respondsToSelector:@selector(detailsPage:imageDataForImageView:)])
-    [self.delegate detailsPage:self imageDataForImageView:self.imageView];
-    
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:imageDataForImageView:)])
+    [self.groupDetailsViewDelegate detailsPage:self imageDataForImageView:self.imageView];
 }
 
 - (void)setupBackgroundColor
@@ -185,20 +194,75 @@
     self.imageView.layer.mask = gradientLayer;
 }
 
+-(void)setupBoardNews
+{
+    if(self.boardView)
+    {
+        [self.boardView removeFromSuperview];
+    }
+    
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(getTopBoardNewsData)])
+    {
+        CGRect frame=CGRectMake(0, 0, 160, 160);
+        if (INTERFACE_IS_PAD ) {
+            
+            frame=CGRectMake(0, 0, 200, 200);
+        }
+        
+        FlyingStreamData *bordNewData =[self.groupDetailsViewDelegate getTopBoardNewsData];
+        
+        if (bordNewData) {
+            
+            self.boardView = [[FlyingBoardUIView alloc] initWithFrame:frame];
+            [self.boardView setBoardData:bordNewData];
+            
+            //随机散开磁贴的显示位置
+            srand((unsigned int)bordNewData.contentSummary.length);
+            
+            CGFloat x = (self.tableView.tableHeaderView.frame.size.width-self.boardView.frame.size.width)*rand()/(RAND_MAX+1.0);
+            CGFloat y=  (self.tableView.tableHeaderView.frame.size.height-self.boardView.frame.size.height)*rand()/(RAND_MAX+1.0);
+            
+            CGFloat barHeight =0;
+
+            if ([self.groupDetailsViewDelegate respondsToSelector:@selector(getnavigationBarHeight)])
+            {
+                barHeight= [self.groupDetailsViewDelegate getnavigationBarHeight];
+            }
+            
+            self.boardView.frame =CGRectMake(x, barHeight+y,CGRectGetWidth(self.boardView.frame),CGRectGetHeight(self.boardView.frame)) ;
+            
+            [self.boardView adjustForAutosizing];
+            
+            [self insertSubview:self.boardView belowSubview:self.tableView];
+            
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                
+                self.boardView.alpha=1;
+                
+            } completion:^(BOOL finished) {}];
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark Data Refresh
 
 - (void)reloadData;
 {
-    if ([self.delegate respondsToSelector:@selector(contentModeForImage:)])
-    self.imageView.contentMode = [self.delegate contentModeForImage:self.imageView];
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(contentModeForImage:)])
+    self.imageView.contentMode = [self.groupDetailsViewDelegate contentModeForImage:self.imageView];
     
-    if ([self.delegate respondsToSelector:@selector(detailsPage:imageDataForImageView:)])
-    [self.delegate detailsPage:self imageDataForImageView:self.imageView];
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:imageDataForImageView:)])
+    [self.groupDetailsViewDelegate detailsPage:self imageDataForImageView:self.imageView];
     
     [self.tableView reloadData];
-    [self.collectionView reloadData];
 }
+
+- (void)reloadBoardNews
+{
+    [self setupBoardNews];
+}
+
 
 #pragma mark -
 #pragma mark Tableview Delegate and DataSource setters
@@ -230,8 +294,8 @@
 {
     _navBarView = headerView;
     
-    if([self.delegate respondsToSelector:@selector(detailsPage:headerViewDidLoad:)])
-    [self.delegate detailsPage:self headerViewDidLoad:self.navBarView];
+    if([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:headerViewDidLoad:)])
+    [self.groupDetailsViewDelegate detailsPage:self headerViewDidLoad:self.navBarView];
 }
 
 - (void)hideHeaderImageView:(BOOL)hidden
@@ -262,8 +326,8 @@
 
 - (void)imageButtonPressed:(UIButton*)buttom
 {
-    if ([self.delegate respondsToSelector:@selector(detailsPage:imageViewWasSelected:)])
-    [self.delegate detailsPage:self imageViewWasSelected:self.imageView];
+    if ([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:imageViewWasSelected:)])
+    [self.groupDetailsViewDelegate detailsPage:self imageViewWasSelected:self.imageView];
 }
 
 #pragma mark -
@@ -271,7 +335,7 @@
 
 - (void)scrollViewDidScrollWithOffset:(CGFloat)scrollOffset
 {
-    CGPoint scrollViewDragPoint = [self.delegate detailsPage:self tableViewWillBeginDragging:self.tableView];
+    CGPoint scrollViewDragPoint = [self.groupDetailsViewDelegate detailsPage:self tableViewWillBeginDragging:self.tableView];
     
     if (scrollOffset < 0)
     self.imageView.transform = CGAffineTransformMakeScale(1 - (scrollOffset / self.imageScalingFactor), 1 - (scrollOffset / self.imageScalingFactor));
@@ -305,50 +369,68 @@
 
 - (void)animateNavigationBar:(CGFloat)scrollOffset draggingPoint:(CGPoint)scrollViewDragPoint
 {
-    if(scrollOffset > _navBarFadingOffset && _navBarView.alpha == 0.0)
-    {
-        _navBarView.alpha = 0;
-        _navBarView.hidden = NO;
+    
+    if (_navBarView) {
         
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            _navBarView.alpha = 1;
-            
-        }];
-    }
-    else if(scrollOffset < _navBarFadingOffset && _navBarView.alpha == 1.0)
-    {
-        [UIView animateWithDuration:0.3 animations:^{
-            
+        if(scrollOffset > _navBarFadingOffset && _navBarView.alpha == 0.0)
+        {
             _navBarView.alpha = 0;
+            _navBarView.hidden = NO;
             
-        } completion: ^(BOOL finished) {
-            
-            _navBarView.hidden = YES;
-            
-        }];
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                _navBarView.alpha = 1;
+                
+            }];
+        }
+        else if(scrollOffset < _navBarFadingOffset && _navBarView.alpha == 1.0)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                _navBarView.alpha = 0;
+                
+            } completion: ^(BOOL finished) {
+                
+                _navBarView.hidden = YES;
+            }];
+        }
     }
-}
+    else
+    {
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+        if(scrollOffset > _navBarFadingOffset)
+        {
+            [appDelegate setnavigationBarWithClearStyle:NO];
+        }
+        else if(scrollOffset < _navBarFadingOffset)
+        {
+            [appDelegate setnavigationBarWithClearStyle:YES];
+        }
+    }
+ }
 
+/*
 
 #pragma mark -
 #pragma mark CollectionView Datasource Setup
 
 - (void)setupCollectionView
 {
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, self.imageHeaderViewHeight/4, self.tableView.frame.size.width, self.imageHeaderViewHeight/2)];
+    UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, self.imageHeaderViewHeight*3/4, self.tableView.frame.size.width, self.imageHeaderViewHeight/4) collectionViewLayout:flowLayout];
 
-    UINib *nib = [UINib nibWithNibName:@"KMSimilarMoviesCollectionViewCell" bundle: nil];
+    UINib *nib = [UINib nibWithNibName:@"FlyingMemberCollectionViewCell" bundle: nil];
     
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"KMSimilarMoviesCollectionViewCell"];
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingMemberCollectionViewCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.delegate = self.collectionViewDelegate;
     self.collectionView.dataSource = self.collectionViewDataSource;
-        
-    [self addSubview:self.collectionView];
     
-    if([self.delegate respondsToSelector:@selector(detailsPage:tableViewDidLoad:)])
-        [self.delegate detailsPage:self tableViewDidLoad:self.tableView];
+    [self.imageView  addSubview:self.collectionView];
+    
+    if([self.delegate respondsToSelector:@selector(detailsPage:collectionViewDidLoad:)])
+        [self.delegate detailsPage:self collectionViewDidLoad:self.collectionView];
 }
 
 
@@ -374,6 +456,8 @@
     if (_collectionViewDataSource)
         [self.tableView reloadData];
 }
+ 
+ */
 
 
 @end

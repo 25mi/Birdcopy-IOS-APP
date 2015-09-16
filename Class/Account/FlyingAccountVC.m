@@ -31,7 +31,7 @@
 #import "FlyingNowLessonData.h"
 
 #import "FlyingDiscoverContent.h"
-#import "FlyingDIscoverGroups.h"
+#import "FlyingMyGroupsVC.h"
 
 
 #define ORIGINAL_MAX_WIDTH 640.0f
@@ -113,9 +113,14 @@
     }
     else
     {
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
         
-        [AFHttpTool getUserInfoWithOpenID:passport
+        if (!openID) {
+            
+            return;
+        }
+        
+        [AFHttpTool getUserInfoWithOpenID:openID
                                   success:^(id response) {
                                       //
                                       if (response) {
@@ -125,7 +130,7 @@
                                               
                                               RCUserInfo *userInfo = [RCUserInfo new];
                                               
-                                              userInfo.userId= [passport MD5];
+                                              userInfo.userId= [openID MD5];
                                               userInfo.name=response[@"name"];
                                               userInfo.portraitUri=response[@"portraitUri"];
                                               
@@ -266,8 +271,13 @@
                        }
                        
                        //清楚缓存课程文件
-                       NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-                       NSArray * tempArray =  [[[FlyingNowLessonDAO new] selectWithUserID:passport] mutableCopy] ;
+                       NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                       
+                       if (!openID) {
+                           
+                           return;
+                       }
+                       NSArray * tempArray =  [[[FlyingNowLessonDAO new] selectWithUserID:openID] mutableCopy] ;
                        
                        iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
                        
@@ -278,7 +288,7 @@
                            [delegate closeAndReleaseDownloaderForID:nowLessonData.BELESSONID];
                            
                            //删除数据库本地纪录，资源自动释放
-                           [[FlyingNowLessonDAO new] deleteWithUserID:passport LessonID:nowLessonData.BELESSONID];
+                           [[FlyingNowLessonDAO new] deleteWithUserID:openID LessonID:nowLessonData.BELESSONID];
                        }];
                        
                        [self performSelectorOnMainThread:@selector(clearCacheSuccess)
@@ -377,7 +387,17 @@
 {
     NSData *imageData = UIImageJPEGRepresentation(editedImage, 0.7); // 0.7 is JPG quality
     
-    [AFHttpTool requestUploadPotraitWithOpenID:[UICKeyChainStore keyChainStore][KOPENUDIDKEY] data:imageData success:^(id response) {
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (!openID) {
+        
+        return;
+    }
+
+    
+    [AFHttpTool requestUploadPotraitWithOpenID:openID
+                                          data:imageData
+                                       success:^(id response) {
         //
         if (response)
         {
@@ -390,7 +410,10 @@
                 
                 if (portraitUri.length!=0) {
                     
-                    [AFHttpTool refreshUesrWithOpenID: [UICKeyChainStore keyChainStore][KOPENUDIDKEY] name:nil portraitUri:portraitUri br_intro:nil success:^(id response) {
+                    [AFHttpTool refreshUesrWithOpenID:openID
+                                                 name:nil
+                                          portraitUri:portraitUri br_intro:nil
+                                              success:^(id response) {
                         
                         NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
                         
@@ -653,25 +676,11 @@
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }
@@ -685,7 +694,7 @@
     if (navigationController.viewControllers.count==1) {
         
 #ifdef __CLIENT__IS__ENGLISH__
-        FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
 #endif

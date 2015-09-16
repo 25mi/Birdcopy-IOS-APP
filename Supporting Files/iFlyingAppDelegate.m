@@ -151,7 +151,7 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
-    [UICKeyChainStore keyChainStore][KLessonOwner] = nil;
+    [UICKeyChainStore keyChainStore][KAppOwner] = nil;
     
 #ifndef __CLIENT__IS__PLATFORM__
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
@@ -168,16 +168,16 @@
 
 #endif
 
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-
-    if(passport==nil)
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if(openID==nil)
     {
         //从本地终端生成账号
-        passport = [OpenUDID value];
-        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=passport;
+        openID = [OpenUDID value];
+        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=openID;
     }
     //如果有旧账号
-    else if (passport && passport.length==32)
+    else if (openID && openID.length==32)
     {
         //dbPath： 数据库路径，在dbDire中。
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -192,8 +192,8 @@
         }
         
         //从本地终端生成账号
-        passport = [OpenUDID value];
-        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=passport;
+        openID = [OpenUDID value];
+        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=openID;
     }
 
     [self jumpToNext];
@@ -262,34 +262,7 @@
     }
     
     //更改导航条样式    
-    NSData * textColorData = [[NSUserDefaults standardUserDefaults] objectForKey:kNavigationTextColor];
-    UIColor *textColor = [NSKeyedUnarchiver unarchiveObjectWithData:textColorData];
-    
-    if (textColor) {
-        
-        NSData * backgroundColorData = [[NSUserDefaults standardUserDefaults] objectForKey:kNavigationBackColor];
-        UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:backgroundColorData];
-
-        //统一导航条样式
-        UIFont* font = [UIFont systemFontOfSize:19.f];
-        NSDictionary* textAttributes = @{NSFontAttributeName:font,
-                                         NSForegroundColorAttributeName:textColor};
-        [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
-        [[UINavigationBar appearance] setTintColor:textColor];
-        [[UINavigationBar appearance] setBarTintColor:backgroundColor];
-    }
-    else
-    {
-        UIColor *backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.000];
-        textColor= [UIColor blackColor];
-        //统一导航条样式
-        UIFont* font = [UIFont systemFontOfSize:19.f];
-        NSDictionary* textAttributes = @{NSFontAttributeName:font,
-                                         NSForegroundColorAttributeName:textColor};
-        [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
-        [[UINavigationBar appearance] setTintColor:textColor];
-        [[UINavigationBar appearance] setBarTintColor:backgroundColor];
-    }
+    [self setnavigationBarWithClearStyle:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification:)
@@ -365,7 +338,14 @@
     
     if(rongDeviceKoken.length==0)
     {
-        [AFHttpTool getTokenWithOpenID:[UICKeyChainStore keyChainStore][KOPENUDIDKEY]
+        NSString * openID =[UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        
+        if (!openID) {
+            
+            return;
+        }
+        
+        [AFHttpTool getTokenWithOpenID:openID
                                success:^(id response) {
                                    //
                                    if (response) {
@@ -1271,6 +1251,79 @@
     }
     
     return _menu;
+}
+
+-(void) setnavigationBarWithClearStyle:(BOOL) clearStyle
+{
+    UIColor *backgroundColor;
+
+    if(clearStyle)
+    {
+        backgroundColor = [UIColor clearColor];
+        
+     }
+    else
+    {
+        NSData * backgroundColorData = [[NSUserDefaults standardUserDefaults] objectForKey:kNavigationBackColor];
+        
+        backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:backgroundColorData];
+        
+        if (!backgroundColor) {
+            
+            backgroundColor = [UIColor whiteColor];
+        }
+    }
+    
+    [[UINavigationBar appearance] setBarTintColor:backgroundColor];
+    
+    
+    UINavigationController * nowNav = (UINavigationController*)[self getMenu].contentViewController;
+    
+    nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
+    
+    
+    if (clearStyle)
+    {
+        [nowNav.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        nowNav.navigationBar.shadowImage = [UIImage new];
+        nowNav.navigationBar.translucent = YES;
+    }
+    else
+    {
+        nowNav.navigationBar.translucent = NO;
+    }
+}
+
+-(void) resetnavigationBarWithDefaultStyle
+{
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    UIColor *textColor= [UIColor blackColor];
+    
+    //统一导航条样式
+    UIFont* font = [UIFont systemFontOfSize:19.f];
+    NSDictionary* textAttributes = @{NSFontAttributeName:font,
+                                     NSForegroundColorAttributeName:textColor};
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    [[UINavigationBar appearance] setTintColor:textColor];
+    [[UINavigationBar appearance] setBarTintColor:backgroundColor];
+    
+    UINavigationController * nowNav = (UINavigationController*)[self getMenu].contentViewController;
+    
+    nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
+    nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
+    
+    [nowNav.navigationBar setBackgroundImage:nil
+                               forBarMetrics:UIBarMetricsDefault];
+    nowNav.navigationBar.shadowImage = nil;
+    nowNav.navigationBar.translucent = NO;
+    
+    NSData *textColorData = [NSKeyedArchiver archivedDataWithRootObject:textColor];
+    NSData *backgroundColorData = [NSKeyedArchiver archivedDataWithRootObject:backgroundColor];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:textColorData forKey:kNavigationTextColor];
+    [[NSUserDefaults standardUserDefaults] setObject:backgroundColorData forKey:kNavigationBackColor];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 //////////////////////////////////////////////////////////////

@@ -18,8 +18,9 @@
 
 + (NSString *) stringForLevel:(NSInteger)  level;
 
-+ (NSURL *) tagListStrByTag:(NSString *) tag
-                  withCount:(NSInteger) pagecount;
++ (NSURL *) tagListStrForAuthor:(NSString*)author
+                            Tag:(NSString *) tag
+                      withCount:(NSInteger) pagecount;
 
 + (NSURL *) wordListStrByTag:(NSString *) word;
 

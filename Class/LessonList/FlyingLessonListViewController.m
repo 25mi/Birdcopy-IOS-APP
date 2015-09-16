@@ -297,8 +297,8 @@
         
         if (self.recommoned)
         {
-            
-            [FlyingHttpTool getCoverListByTagURLForPageNumber:_currentLodingIndex
+            [FlyingHttpTool getCoverListForAuthor:self.author
+                                       PageNumber:_currentLodingIndex
                                                    SortbyTime:self.sortByTime
                                                    Completion:^(NSArray *lessonList,NSInteger allRecordCount) {
                                                        //
@@ -315,8 +315,8 @@
         }
         else
         {
-            
-            [FlyingHttpTool getLessonListByTagForPageNumber:_currentLodingIndex
+            [FlyingHttpTool getLessonListForAuthor:self.author
+                                        PageNumber:_currentLodingIndex
                                           lessonConcentType:self.contentType
                                                DownloadType:self.downloadType
                                                         Tag:self.tagString
@@ -488,25 +488,11 @@
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }

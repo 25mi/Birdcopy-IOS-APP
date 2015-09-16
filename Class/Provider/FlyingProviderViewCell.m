@@ -77,7 +77,7 @@
         [self addSubview:_coverImageView];
         [self addSubview:_descriptionLable];
         
-        self.backgroundColor = [UIColor colorWithRed:0.98 green:0.99 blue:0.99 alpha:1];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }

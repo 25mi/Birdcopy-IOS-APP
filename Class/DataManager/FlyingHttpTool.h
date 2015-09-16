@@ -73,9 +73,11 @@
 +(void) getUserInfoByRongID:(NSString *) rongID
                  completion:(void (^)(RCUserInfo *user)) completion;
 
-+ (void) getCoverListWithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion;
++ (void) getCoverListForAuthor:(NSString*)author
+         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion;
 
-+ (void) getCoverListByTagURLForPageNumber:(NSInteger) pageNumber
++ (void) getCoverListForAuthor:(NSString*) author
+                    PageNumber:(NSInteger) pageNumber
                              SortbyTime:  (BOOL) time
                              Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
@@ -90,7 +92,8 @@
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
 //获取所有群组
-+ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
++ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
+                        Recommend:(BOOL) isRecommend
                             PageNumber:(NSInteger) pageNumber
                             Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 
@@ -98,23 +101,28 @@
 + (void) getMyGroupsCompletion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 
 //获取群Post流
-+ (void) getGroupNewsListForGroupID:(NSString*) groupID
++ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
                          PageNumber:(NSInteger) pageNumber
-                            Completion:(void (^)(NSArray *newsList,NSInteger allRecordCount)) completion;
+                            Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
 
-+ (void) getAlbumListForContentType:(NSString*) contentType
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                         PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
+
++ (void) getAlbumListForAuthor:(NSString*)author
+                        ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
                           Recommend:(BOOL) isRecommend
                          Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
 
-
-+ (void) getLessonListByTagForPageNumber:(NSInteger) pageNumber
-                       lessonConcentType:  (NSString *) contentType
-                            DownloadType:  (NSString *) downloadType
-                                     Tag:  (NSString *) tag
-                              SortbyTime:  (BOOL) time
-                               Recommend:(BOOL) isRecommend
-                              Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
++ (void) getLessonListForAuthor:   (NSString *) author
+                     PageNumber:   (NSInteger) pageNumber
+              lessonConcentType:  (NSString *) contentType
+                   DownloadType:  (NSString *) downloadType
+                            Tag:  (NSString *) tag
+                     SortbyTime:  (BOOL) time
+                      Recommend:(BOOL) isRecommend
+                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
 + (void) getItemsforWord:(NSString *) word
              Completion:(void (^)(NSArray *itemList,NSInteger allRecordCount)) completion;

@@ -353,11 +353,13 @@
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
 
-+ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
++ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
+                        Recommend:(BOOL) isRecommend
                         PageNumber:(NSInteger) pageNumber
                          Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool getAllFlyingGroupForRecommend:isRecommend
+    [AFHttpTool getAllGroupsForAPPOwner:appOwner
+                            Recommend:isRecommend
                                PageNumber:pageNumber
                                   success:^(id response) {
                                       
@@ -440,36 +442,65 @@
 
 
 
-//获取群Post流
-+ (void) getGroupNewsListForGroupID:(NSString*) groupID
-                         PageNumber:(NSInteger) pageNumber
-                         Completion:(void (^)(NSArray *newsList,NSInteger allRecordCount)) completion
+//获取群公告流
++ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
+                          PageNumber:(NSInteger) pageNumber
+                          Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool getGroupNewsListForGroupID:groupID
-                                PageNumber:(NSInteger) pageNumber
-                                success:^(id response) {
-                                          
-                                          NSMutableArray *tempArr = [NSMutableArray new];
-                                          NSArray *allGroups = response[@"rs"];
-                                          
-                                          if (allGroups) {
-                                              
-                                              for (NSDictionary *dic in allGroups)
-                                              {
-                                                  if ([dic objectForKey:@"lessonID"]) {
-                                                      FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
-                                                      [tempArr addObject:lessonData];
-                                                  }
-                                              }
-                                          }
-                                          
-                                          if (completion) {
-                                              completion(tempArr,[response[@"allRecordCount"] integerValue]);
-                                          }
-                                          
-                                      } failure:^(NSError *err) {
-                                          //
-                                      }];
+    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterNewsOnly PageNumber:pageNumber success:^(id response) {
+        //
+        
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            
+            for (NSDictionary *dic in allGroups)
+            {
+                if ([dic objectForKey:@"lessonID"]) {
+                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
+                    [tempArr addObject:lessonData];
+                }
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+
+    } failure:^(NSError *err) {
+        //
+    }];
+}
+
+//获取群Post流
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                       PageNumber:(NSInteger) pageNumber
+                       Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterAllType PageNumber:pageNumber success:^(id response) {
+        //
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            
+            for (NSDictionary *dic in allGroups)
+            {
+                if ([dic objectForKey:@"lessonID"]) {
+                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
+                    [tempArr addObject:lessonData];
+                }
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+        
+    } failure:^(NSError *err) {
+        //
+    }];
 }
 
 
@@ -539,10 +570,18 @@
                               }];
 }
 
-+ (void) getCoverListWithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion
++ (void) getCoverListForAuthor:(NSString*)author
+         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion
 {
     
-    [AFHttpTool lessonListDataByTagForPageNumber:1 lessonConcentType:nil DownloadType:nil Tag:nil SortbyTime:YES Recommend:YES success:^(id response) {
+    [AFHttpTool lessonListDataByTagForAuthor:author
+                                  PageNumber:1
+                           lessonConcentType:nil
+                                DownloadType:nil
+                                         Tag:nil
+                                  SortbyTime:YES
+                                   Recommend:YES
+                                     success:^(id response) {
         
         
         FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
@@ -568,12 +607,19 @@
     }];
 }
 
-
-+ (void) getCoverListByTagURLForPageNumber:(NSInteger) pageNumber
-                                SortbyTime:  (BOOL) time
-                                Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
++ (void) getCoverListForAuthor:(NSString*) author
+                    PageNumber:(NSInteger) pageNumber
+                    SortbyTime:  (BOOL) time
+                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool lessonListDataByTagForPageNumber:pageNumber lessonConcentType:nil DownloadType:nil Tag:nil SortbyTime:time Recommend:YES success:^(id response) {
+    [AFHttpTool lessonListDataByTagForAuthor:author
+                                  PageNumber:pageNumber
+                           lessonConcentType:nil
+                                DownloadType:nil
+                                         Tag:nil
+                                  SortbyTime:time
+                                   Recommend:YES
+                                     success:^(id response) {
         
         if (response) {
             FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
@@ -668,13 +714,14 @@
     }];
 }
 
-+ (void) getAlbumListForContentType:(NSString*) contentType
++ (void) getAlbumListForAuthor:(NSString*)author
+                   ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
                           Recommend:(BOOL) isRecommend
                          Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
 {
-
-    [AFHttpTool albumListDataForContentType:contentType
+    [AFHttpTool albumListDataForAuthor:author
+                     lessonConcentType:contentType
                                  PageNumber:pageNumber
                                   Recommend:isRecommend
                                     success:^(id response) {
@@ -704,15 +751,17 @@
 }
 
 
-+ (void) getLessonListByTagForPageNumber:(NSInteger) pageNumber
-                       lessonConcentType:  (NSString *) contentType
-                            DownloadType:  (NSString *) downloadType
-                                     Tag:  (NSString *) tag
-                              SortbyTime:  (BOOL) time
-                               Recommend:(BOOL) isRecommend
-                              Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
++ (void) getLessonListForAuthor:   (NSString *) author
+                     PageNumber:   (NSInteger) pageNumber
+              lessonConcentType:  (NSString *) contentType
+                   DownloadType:  (NSString *) downloadType
+                            Tag:  (NSString *) tag
+                     SortbyTime:  (BOOL) time
+                      Recommend:(BOOL) isRecommend
+                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool lessonListDataByTagForPageNumber:pageNumber
+    [AFHttpTool lessonListDataByTagForAuthor:author
+                                  PageNumber:pageNumber
                               lessonConcentType:contentType
                                    DownloadType:downloadType
                                             Tag:tag

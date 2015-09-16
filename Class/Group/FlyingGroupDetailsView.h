@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIImageView+WebCache.h"
+#import "FlyingBoardUIView.h"
+#import "FlyingStreamData.h"
+
 
 @class FlyingGroupDetailsView;
 
@@ -24,12 +27,13 @@
 
 @optional
 
+- (FlyingStreamData*)getTopBoardNewsData;
+- (CGFloat) getnavigationBarHeight;
+
 - (void)headerImageViewFinishedLoading:(UIImageView*)imageView;
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView tableViewDidLoad:(UITableView *)tableView;
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView headerViewDidLoad:(UIView *)headerView;
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView imageViewWasSelected:(UIImageView *)imageView;
-
-- (void)detailsPage:(FlyingGroupDetailsView *)detailsGroupView collectionViewDidLoad:(UICollectionView *)uicollectionView;
 
 @end
 
@@ -103,7 +107,7 @@
 /**
  KMDetailsPageDelegate.
  */
-@property (nonatomic, weak) id<FlyingGroupDetailsViewDelegate> delegate;
+@property (nonatomic, weak) id<FlyingGroupDetailsViewDelegate> groupDetailsViewDelegate;
 ///-------------------------------
 
 ///-------------------------------
@@ -120,21 +124,8 @@
  */
 - (void)hideHeaderImageView:(BOOL)hidden;
 
+@property(nonatomic,strong) FlyingBoardUIView * boardView;
 
-@property (strong, nonatomic) UICollectionView *collectionView;
-
-
-/**
- Details UICollectionViewDataSource.
- */
-@property (nonatomic, weak) id<UICollectionViewDataSource> collectionViewDataSource;
-///-------------------------------
-
-/**
- Details UICollectionViewDelegate.
- */
-@property (nonatomic, weak) id<UICollectionViewDelegate> collectionViewDelegate;
-///-------------------------------
-
+- (void)reloadBoardNews;
 
 @end

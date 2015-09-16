@@ -19,6 +19,10 @@
 
 #import "FlyingGroupVC.h"
 
+#import "UICKeyChainStore.h"
+#import "shareDefine.h"
+#import "FlyingDiscoverContent.h"
+
 @interface FlyingMyGroupsVC ()
 
 @end
@@ -41,7 +45,7 @@
         _feedTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
         _feedTableView.delegate = self;
         _feedTableView.dataSource = self;
-        _feedTableView.backgroundColor = [UIColor whiteColor];
+        _feedTableView.backgroundColor = [UIColor clearColor];
         _feedTableView.separatorColor = [UIColor clearColor];
         
         [self.view addSubview:_feedTableView];
@@ -114,16 +118,17 @@
 
 -(void) loadData
 {
-     [FlyingHttpTool getAllFlyingGroupForRecommend:YES
-     PageNumber:1
-     Completion:^(NSArray *groupList, NSInteger allRecordCount) {
+    [FlyingHttpTool getAllGroupsForAPPOwner:[UICKeyChainStore keyChainStore][KAppOwner]
+                                  Recommend:YES
+                                 PageNumber:1
+                                 Completion:^(NSArray *groupList, NSInteger allRecordCount) {
 
-         [self.currentGroupData addObjectsFromArray:groupList];
+                                    [self.currentGroupData addObjectsFromArray:groupList];
          
-         dispatch_async(dispatch_get_main_queue(), ^{
+                                    dispatch_async(dispatch_get_main_queue(), ^{
              
-             [self.feedTableView reloadData];
-         });
+                                            [self.feedTableView reloadData];
+                                    });
 
      }];
      
@@ -183,7 +188,12 @@
 {}
 
 - (void)lessonCountButtonPressed:(FlyingGroupData*)groupData
-{}
+{
+    FlyingDiscoverContent *discoverContent = [[FlyingDiscoverContent alloc] init];
+    discoverContent.author= groupData.gp_author;
+    
+    [self.navigationController pushViewController:[[FlyingDiscoverContent alloc] init] animated:YES];
+}
 
 - (void)coverImageViewPressed:(FlyingGroupData*)groupData
 {

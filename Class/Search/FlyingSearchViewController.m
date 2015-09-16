@@ -111,22 +111,23 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     {
         self.title=@"搜索内容（课程）";
         self.searchBar.placeholder = @"例如：生活大爆炸  第二季";
-        [self getAllTagListWithCount:1000];
+        [self getAllTagListForAuthor:self.author Count:1000];
     }
     else
     {
         self.title=@"搜索群组";
         self.searchBar.placeholder = @"例如：美剧";
-        [self getAllTagListWithCount:1000];
     }
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark - Download data from Learning center
 //////////////////////////////////////////////////////////////
-- (void)getAllTagListWithCount:(NSInteger) count
+- (void)getAllTagListForAuthor:(NSString*)author Count:(NSInteger) count
 {
-    NSURL *url = [NSString tagListStrByTag:@"" withCount:count];
+    NSURL *url =[NSString tagListStrForAuthor:author
+                              Tag:@""
+                        withCount:count];
     
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     if ([AFNetworkReachabilityManager sharedManager].reachable)
@@ -147,10 +148,12 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 }
 
 
-- (NSArray *)getTagListby:(NSString *) tag withCount:(NSInteger) count
+- (NSArray *)getTagListForAuthor:(NSString*)author Tag:(NSString *) tag withCount:(NSInteger) count
 {
-    
-    NSURL *url = [NSString tagListStrByTag:tag withCount:count];
+    NSURL *url =[NSString tagListStrForAuthor:author
+                                          Tag:tag
+                                    withCount:count];
+
     
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     if ([AFNetworkReachabilityManager sharedManager].reachable)
@@ -234,12 +237,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     }
     else if (self.searchType==BEFindLesson)
     {
-    
-        return [self getTagListby:searchString withCount:10000];
+        return [self getTagListForAuthor:self.author
+                              Tag:searchString
+                        withCount:10000];
     }
     else
     {
-        return [self getTagListby:searchString withCount:10000];
+        //return [self getTagListby:searchString withCount:10000];
     }
 }
 
@@ -548,25 +552,11 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }

@@ -224,16 +224,16 @@
         [self prepairMovie];
     });
     
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
 
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
-    [_statisticDAO initDataForUserID:passport];
+    [_statisticDAO initDataForUserID:openID];
     _touchDAO     = [[FlyingTouchDAO alloc] init];
-    [_touchDAO initDataForUserID:passport LessonID:self.lessonID];
+    [_touchDAO initDataForUserID:openID LessonID:self.lessonID];
     
-    _touchWordCount = [_statisticDAO touchCountWithUserID:passport];
-    _balanceCoin  = [_statisticDAO finalMoneyWithUserID:passport];
+    _touchWordCount = [_statisticDAO touchCountWithUserID:openID];
+    _balanceCoin  = [_statisticDAO finalMoneyWithUserID:openID];
     
     _highLightIndexPath=nil;
 }
@@ -1120,10 +1120,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+            NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
 
             //更新点击次数和课程相关消费记录
-            [_touchDAO countPlusWithUserID:passport LessonID:self.lessonID];
+            [_touchDAO countPlusWithUserID:openID LessonID:self.lessonID];
         });
         
         //纪录点击单词
@@ -1508,12 +1508,6 @@
     
     [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
     [self.view addGestureRecognizer:recognizerLeft];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer

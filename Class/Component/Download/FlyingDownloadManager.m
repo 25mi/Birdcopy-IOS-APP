@@ -63,11 +63,11 @@
     if (_downloadingOperationList.count>0) {
         
         FlyingNowLessonDAO * dao = [FlyingNowLessonDAO new];
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
         
         [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString * leesonID, FlyingDownloader * downloader, BOOL *stop) {
             
-            if (![dao selectWithUserID:passport LessonID:leesonID]) {
+            if (![dao selectWithUserID:openID LessonID:leesonID]) {
                 
                 [downloader cancelDownload];
                 [_downloadingOperationList removeObjectForKey:lessonID];

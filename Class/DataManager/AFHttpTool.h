@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "FlyingStreamData.h"
+
 typedef NS_ENUM(NSInteger, RequestMethodType){
     RequestMethodTypePost = 1,
     RequestMethodTypeGet = 2
@@ -114,16 +116,18 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////////////////////////
 //群相关操作
 //////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
-                        PageNumber:(NSInteger) pageNumber
-                           success:(void (^)(id response))success
-                           failure:(void (^)(NSError* err))failure;
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
+                       Recommend:(BOOL) isRecommend
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
 
 //get groups
 +(void) getMyGroupsSuccess:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
 
-+ (void) getGroupNewsListForGroupID:(NSString*) groupID
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
                          PageNumber:(NSInteger) pageNumber
                             success:(void (^)(id response))success
                             failure:(void (^)(NSError* err))failure;
@@ -185,20 +189,24 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
              failure:(void (^)(NSError* err))failure;
 
 //标签相关
-+ (void) albumListDataForContentType:(NSString*) contentType
++ (void) albumListDataForAuthor:(NSString*) author
+               lessonConcentType:(NSString*) contentType
                       PageNumber:(NSInteger) pageNumber
                        Recommend:(BOOL) isRecommend
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
 //获取课程列表相关
-+ (void) lessonListDataByTagForPageNumber:(NSInteger) pageNumber
-                       lessonConcentType:  (NSString *) contentType
-                            DownloadType:  (NSString *) downloadType
-                                     Tag:  (NSString *) tag
-                              SortbyTime:  (BOOL) time
-                               Recommend:(BOOL) isRecommend
-                                 success:(void (^)(id response))success
-                                 failure:(void (^)(NSError* err))failure;
+
++ (void) lessonListDataByTagForAuthor:(NSString*) author
+                           PageNumber:(NSInteger) pageNumber
+                    lessonConcentType:  (NSString *) contentType
+                         DownloadType:  (NSString *) downloadType
+                                  Tag:  (NSString *) tag
+                           SortbyTime:  (BOOL) time
+                            Recommend:(BOOL) isRecommend
+                              success:(void (^)(id response))success
+                              failure:(void (^)(NSError* err))failure;
+
 //获取课程信息相关
 + (void) lessonDataForLessonID:(NSString*) lessonID
                       success:(void (^)(id response))success

@@ -179,8 +179,8 @@
         providerThumnail.coordinate = CLLocationCoordinate2DMake([providerData.latitude doubleValue], [providerData.longitude doubleValue]);
         providerThumnail.disclosureBlock = ^{
             
-            [UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
-            [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
+            //[UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
+            //[UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
             
             _reselect=YES;
             

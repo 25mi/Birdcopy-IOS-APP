@@ -27,6 +27,7 @@
 
 @property (assign, nonatomic)          BOOL               recommoned;
 
+@property (strong, nonatomic)          NSString           *author;
 
 - (void) downloadMore;
 

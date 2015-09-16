@@ -173,7 +173,18 @@
         )
     {
         
-        [AFHttpTool refreshUesrWithOpenID: [UICKeyChainStore keyChainStore][KOPENUDIDKEY] name:nickName portraitUri:nil br_intro:userAbstract success:^(id response) {
+        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        
+        if (!openID) {
+            
+            return;
+        }
+        
+        [AFHttpTool refreshUesrWithOpenID:openID
+                                     name:nickName
+                              portraitUri:nil
+                                 br_intro:userAbstract
+                                  success:^(id response) {
             //
             RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
             currentUserInfo.name=nickName;
@@ -240,25 +251,11 @@
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }

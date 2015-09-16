@@ -188,7 +188,7 @@
     
     //磁贴背景图
     self.backgroundNotesImageView = [[UIImageView alloc] initWithFrame:thisframe];
-    self.backgroundNotesImageView.image =  [UIImage imageNamed:@"PersonalDefine" ];
+    self.backgroundNotesImageView.image =  [UIImage imageNamed:@"Board" ];
     
     //磁铁以及文字
     self.magnetImageView                 = [[UIImageView alloc] initWithFrame:CGRectMake(thisSize.width*2/5, 0, thisSize.width/5, thisSize.width/5)];

@@ -21,4 +21,6 @@
 
 @property (assign, nonatomic)          BESearchType         searchType;
 
+@property (strong, nonatomic)  NSString                    *author;
+
 @end

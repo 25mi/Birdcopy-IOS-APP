@@ -82,6 +82,8 @@
 - (void) closeMyresource;
 
 - (RESideMenu*) getMenu;
+- (void) setnavigationBarWithClearStyle:(BOOL) clearStyle;
+- (void) resetnavigationBarWithDefaultStyle;
 
 + (NSString *) getUserDataDir;
 + (NSString*) getDownloadsDir;

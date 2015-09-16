@@ -71,7 +71,7 @@
         [self addSubview:_titleLabel];
         [self addSubview:_descriptionLable];
         
-        self.backgroundColor = [UIColor colorWithRed:0.98 green:0.99 blue:0.99 alpha:1];
+        self.backgroundColor = [UIColor whiteColor];
         
         //self.layer.borderWidth = 0.5f;
         //self.layer.borderColor= [[UIColor colorWithRed:207.0f/255.0f green:207.0f/255.0f blue:207.0f/255.0f alpha:1] CGColor];

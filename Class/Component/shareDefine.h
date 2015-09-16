@@ -80,7 +80,6 @@ typedef NSInteger American_Local_Word_Level;
 #define kNavigationBackColor     @"kNavigationBackColor"
 #define kNavigationTextColor     @"kNavigationTextColor"
 
-
 //文件格式和文件名
 #define KUserDBResource           @"userModel"
 #define KDicModelName             @"dicModel"
@@ -125,8 +124,8 @@ typedef NSInteger American_Local_Word_Level;
 #define KBERQloginOK              @"KBERQloginOK"
 
 //作者相关
-#define KLessonOwner              @"KLessonOwner"
-#define KLessonOwnerNickname      @"KLessonOwnerNickname"
+#define KAppOwner                 @"KAppLessonOwner"
+#define KAppOwnerNickname         @"KAppOwnerNickname"
 
 #define KLessonOwnerTempKind      @"t"
 #define KLessonOwnerPersonKind    @"0"

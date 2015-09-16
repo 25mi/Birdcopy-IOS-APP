@@ -36,7 +36,9 @@
 #import "UIView+Toast.h"
 
 #import "FlyingDiscoverContent.h"
-#import "FlyingDIscoverGroups.h"
+#import "FlyingMyGroupsVC.h"
+
+#import "FlyingGroupVC.h"
 
 @interface FlyingProviderListVC ()
 {
@@ -276,21 +278,11 @@
 
 - (void)didSelectFeatureView:(PSCollectionView *)collectionView;
 {
+    FlyingGroupVC *groupVC = [FlyingGroupVC new];
+    //groupVC.groupData=groupData;
     
-    [UICKeyChainStore keyChainStore][KLessonOwner] = NULL;
-    [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = @"官方";
-    
-#ifdef __CLIENT__IS__ENGLISH__
-    FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
-#else
-    FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
-
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                 animated:YES];
-    [self.sideMenuViewController hideMenuViewController];
+    [self.navigationController pushViewController:groupVC animated:YES];
 }
-
 
 - (NSInteger)numberOfRowsInCollectionView:(PSCollectionView *)collectionView
 {
@@ -344,19 +336,13 @@
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                       
-                                      [UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
-                                      [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
+                                      //[UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
+                                      //[UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
                                       
-#ifdef __CLIENT__IS__ENGLISH__
-                                      FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
-#else
-                                      FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
+                                      FlyingGroupVC *groupVC = [FlyingGroupVC new];
+                                      //groupVC.groupData=groupData;
                                       
-                                      [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                                                   animated:YES];
-                                      [self.sideMenuViewController hideMenuViewController];
-                                      
+                                      [self.navigationController pushViewController:groupVC animated:YES];
                                   }];
             alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
             alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
@@ -466,7 +452,7 @@
     if (navigationController.viewControllers.count==1) {
         
 #ifdef __CLIENT__IS__ENGLISH__
-        FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
 #endif
@@ -513,7 +499,7 @@
         if (reselect) {
             
 #ifdef __CLIENT__IS__ENGLISH__
-            FlyingDIscoverGroups  * homeVC = [[FlyingDIscoverGroups alloc] init];
+            FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
             FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
 #endif
@@ -567,25 +553,11 @@
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }

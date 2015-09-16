@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSMutableArray          *coverData;
 @property (strong, nonatomic) NSMutableDictionary     *coverImageViewDic;
 
-@property (weak,nonatomic) id <FlyingCoverViewDelegate> coverViewDelegate;
+@property (weak,   nonatomic) id <FlyingCoverViewDelegate> coverViewDelegate;
 
 -(void) loadData;
 
@@ -33,5 +33,7 @@
 @optional
 - (void) showFeatureContent;
 - (void) touchCover:(id)lessonData;
+
+- (NSString*) getAuthor;
 
 @end

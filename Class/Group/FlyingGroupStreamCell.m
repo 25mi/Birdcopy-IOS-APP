@@ -34,12 +34,12 @@
         _nameLabel.textColor =  mainColor;
         _nameLabel.font = nameLabelFont;
         
-        UIFont *updateLabelFont = [UIFont fontWithName:fontName size:(INTERFACE_IS_PAD ? 26.0f : 13.0f)];
-        _updateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _updateLabel.textColor =  neutralColor;
-        _updateLabel.numberOfLines = 0;
-        _updateLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _updateLabel.font = updateLabelFont;
+        UIFont *descriptionLabelFont = [UIFont fontWithName:fontName size:(INTERFACE_IS_PAD ? 26.0f : 13.0f)];
+        _descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _descriptionLabel.textColor =  neutralColor;
+        _descriptionLabel.numberOfLines = 0;
+        _descriptionLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        _descriptionLabel.font = descriptionLabelFont;
         
         UIFont *dateLabelFont = [UIFont fontWithName:fontName size:(INTERFACE_IS_PAD ? 24.0f : 12.0f)];
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -64,9 +64,9 @@
 #define nameLabelHeight (INTERFACE_IS_PAD ? 42 : 21)
         
         // 内容的
-#define updateLabelY (INTERFACE_IS_PAD ? 64 : 32)
-#define updateLabelWidth (INTERFACE_IS_PAD ? 550 : 238)
-#define updateLabelHeight (INTERFACE_IS_PAD ? 120 : 60)
+#define descriptionLabelY (INTERFACE_IS_PAD ? 64 : 32)
+#define descriptionLabelWidth (INTERFACE_IS_PAD ? 550 : 238)
+#define descriptionLabelHeight (INTERFACE_IS_PAD ? 120 : 60)
         
 #define commentCountLabelY (INTERFACE_IS_PAD ? 186 : 93)
 #define commentCountLabelWidth (INTERFACE_IS_PAD ? 180 : 75)
@@ -84,7 +84,7 @@
             _nameLabel.frame = CGRectMake(nameLabelX, _profileImageView.frame.origin.y, nameLabelWidth, nameLabelHeight);
             
             
-            _updateLabel.frame = CGRectMake(_nameLabel.frame.origin.x, updateLabelY, updateLabelWidth, updateLabelHeight);
+            _descriptionLabel.frame = CGRectMake(_nameLabel.frame.origin.x, descriptionLabelY, descriptionLabelWidth, descriptionLabelHeight);
             
             _commentCountLabel.frame = CGRectMake(_nameLabel.frame.origin.x, commentCountLabelY, commentCountLabelWidth, commentCountLabelHeight);
             
@@ -96,7 +96,7 @@
         } else if (cellType == FlyingGroupStreamCellPictureType) {
             _profileImageView.frame = CGRectMake(profileImageViewX, profileImageViewY, profileImageViewSize, profileImageViewSize);
             _nameLabel.frame = CGRectMake(nameLabelX, _profileImageView.frame.origin.y, nameLabelWidth, nameLabelHeight);
-            _updateLabel.frame = CGRectMake(_nameLabel.frame.origin.x, updateLabelY, updateLabelWidth, updateLabelHeight);
+            _descriptionLabel.frame = CGRectMake(_nameLabel.frame.origin.x, descriptionLabelY, descriptionLabelWidth, descriptionLabelHeight);
             
 #define PicCommentCountLabelY (INTERFACE_IS_PAD ? 430 : 215)
             _commentCountLabel.frame = CGRectMake(_nameLabel.frame.origin.x, PicCommentCountLabelY, commentCountLabelWidth, commentCountLabelHeight);
@@ -129,7 +129,7 @@
         
         [self addSubview:self.profileImageView];
         [self addSubview:self.nameLabel];
-        [self addSubview:self.updateLabel];
+        [self addSubview:self.descriptionLabel];
         [self addSubview:self.commentCountLabel];
         [self addSubview:self.likeCountLabel];
         [self addSubview:self.dateLabel];
@@ -146,11 +146,11 @@
     // Configure the view for the selected state
 }
 
--(void) setStreamCellData:(id)streamCellData
+-(void) setStreamCellData:(FlyingStreamData*)streamCellData
 {
 
     self.nameLabel.text = @"John Keynetown";
-    self.updateLabel.text = @"On the trip to San Fransisco, the Golden gate bridge looked really magnificent. This is a city I would love to visit very often.";
+    self.descriptionLabel.text = @"On the trip to San Fransisco, the Golden gate bridge looked really magnificent. This is a city I would love to visit very often.";
     
     self.dateLabel.text = @"10 小时前";
     self.likeCountLabel.text = @"134 likes";

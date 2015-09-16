@@ -27,6 +27,11 @@
 {
     [super viewDidLoad];
     
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     [self addBackFunction];
     
     //更新欢迎语言
@@ -49,6 +54,15 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
+    image= [UIImage imageNamed:@"refresh"];
+    frame= CGRectMake(0, 0, 24, 24);
+    UIButton* resetButton= [[UIButton alloc] initWithFrame:frame];
+    [resetButton setBackgroundImage:image forState:UIControlStateNormal];
+    [resetButton addTarget:self action:@selector(doReset) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* doResetButtonItem= [[UIBarButtonItem alloc] initWithCustomView:resetButton];
+    
+    self.navigationItem.rightBarButtonItem = doResetButtonItem;
+    
     if (self.cPicker == nil) {
         [self.view setBackgroundColor:[UIColor grayColor]];
         
@@ -63,40 +77,6 @@
         singleRecognizer.numberOfTapsRequired = 1; // 单击
         [self.view addGestureRecognizer:singleRecognizer];
     }
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
-}
-
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
 }
 
 - (void)handleSingleTapFrom: (UITapGestureRecognizer *)recognizer
@@ -109,21 +89,21 @@
     //更改导航条样式
     UIFont* font = [UIFont systemFontOfSize:19.f];
     
-    UIColor *backgroundColorData = [UIColor colorWithWhite:0.98 alpha:1.000];
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     UIColor *textColor= [UIColor blackColor];
     
     if (CGRectContainsPoint(r, touchPoint)) {
-        backgroundColorData = [self getPixelColorAtLocation:touchPoint];
-        const CGFloat *components = CGColorGetComponents(backgroundColorData.CGColor);
+        backgroundColor = [self getPixelColorAtLocation:touchPoint];
+        const CGFloat *components = CGColorGetComponents(backgroundColor.CGColor);
         if (components[3] != 0) {
             
-            textColor = [self readableForegroundColorForBackgroundColor:backgroundColorData];
+            textColor = [self readableForegroundColorForBackgroundColor:backgroundColor];
             
             NSDictionary* textAttributes = @{NSFontAttributeName:font,
                                              NSForegroundColorAttributeName:textColor};
             [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
             [[UINavigationBar appearance] setTintColor:textColor];
-            [[UINavigationBar appearance] setBarTintColor:backgroundColorData];
+            [[UINavigationBar appearance] setBarTintColor:backgroundColor];
             
             self.navigationController.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
             self.navigationController.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
@@ -135,19 +115,18 @@
                                          NSForegroundColorAttributeName:textColor};
         [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
         [[UINavigationBar appearance] setTintColor:textColor];
-        [[UINavigationBar appearance] setBarTintColor:backgroundColorData];
+        [[UINavigationBar appearance] setBarTintColor:backgroundColor];
         
         self.navigationController.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
         self.navigationController.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
     }
     
     NSData *textColorData = [NSKeyedArchiver archivedDataWithRootObject:textColor];
-    NSData *bacgroundColorData = [NSKeyedArchiver archivedDataWithRootObject:backgroundColorData];
+    NSData *backgroundColorData = [NSKeyedArchiver archivedDataWithRootObject:backgroundColor];
     
     [[NSUserDefaults standardUserDefaults] setObject:textColorData forKey:kNavigationTextColor];
-    [[NSUserDefaults standardUserDefaults] setObject:bacgroundColorData forKey:kNavigationBackColor];
+    [[NSUserDefaults standardUserDefaults] setObject:backgroundColorData forKey:kNavigationBackColor];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
 }
 
 -(UIColor *)readableForegroundColorForBackgroundColor:(UIColor*)backgroundColor {
@@ -283,25 +262,12 @@
     [self.sideMenuViewController presentLeftMenuViewController];
 }
 
-- (void) doChat
+- (void) doReset
 {
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"保存二维码失败，再试试了：）"];
-        
-        return;
-    }
-
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    [self.navigationController pushViewController:chatList animated:YES];
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate resetnavigationBarWithDefaultStyle];
 }
 
-- (void) doSearch
-{
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [self.navigationController pushViewController:search animated:YES];
-}
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
@@ -342,25 +308,11 @@
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
-                                                        initWithTarget:self
-                                                        action:@selector(handlePinch:)];
-    
-    [self.view addGestureRecognizer:pinchGestureRecognizer];
 }
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
-    }
-}
-
--(void) handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    if ((recognizer.state ==UIGestureRecognizerStateEnded) || (recognizer.state ==UIGestureRecognizerStateCancelled)) {
         
         [self dismiss];
     }

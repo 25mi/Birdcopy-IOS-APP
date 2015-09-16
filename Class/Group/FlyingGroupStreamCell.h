@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingStreamData.h"
 
 #define GROUPSTREAMCELL_IDENTIFIER @"groiupStreamCell"
-
 
 typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
     FlyingGroupStreamCellPictureType,
@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
 - (id)initWithStyle:(UITableViewCellStyle)style
     ReuseIdentifier:(NSString *)reuseIdentifier
      StreamCellType:(FlyingGroupStreamCellType)cellType;
+
 @property (nonatomic, strong) UIImageView* profileImageView;
 
 @property (nonatomic, strong) UIImageView* picImageView;
@@ -30,7 +31,7 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
 
 @property (nonatomic, strong) UILabel* nameLabel;
 
-@property (nonatomic, strong) UILabel* updateLabel;
+@property (nonatomic, strong) UILabel* descriptionLabel;
 
 @property (nonatomic, strong) UILabel* dateLabel;
 
@@ -39,6 +40,6 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
 @property (nonatomic, strong) UILabel* likeCountLabel;
 
 
--(void) setStreamCellData:(id)streamCellData;
+-(void) setStreamCellData:(FlyingStreamData*)streamCellData;
 
 @end

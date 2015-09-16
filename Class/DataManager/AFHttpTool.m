@@ -319,7 +319,8 @@
 //////////////////////////////////////////////////////////////
 //get groups
 
-+ (void) getAllFlyingGroupForRecommend:(BOOL) isRecommend
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
+                             Recommend:(BOOL) isRecommend
                             PageNumber:(NSInteger) pageNumber
                                success:(void (^)(id response))success
                                failure:(void (^)(NSError* err))failure
@@ -336,11 +337,9 @@
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
     
-    NSString * lessonOwner = [UICKeyChainStore keyChainStore][KLessonOwner];
-    
     if(isRecommend)
     {
-        if(lessonOwner)
+        if(appOwner)
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }
@@ -363,8 +362,14 @@
 +(void) getMyGroupsSuccess:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":passport}];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (!openID) {
+        
+        return;
+    }
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_member_gplist_from_tn.action"
@@ -373,11 +378,11 @@
                           failure:failure];
 }
 
-
-+ (void) getGroupNewsListForGroupID:(NSString*) groupID
-                         PageNumber:(NSInteger) pageNumber
-                            success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
+                       PageNumber:(NSInteger) pageNumber
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
     
@@ -566,11 +571,13 @@
 #pragma  Tag Related
 //////////////////////////////////////////////////////////////
 //标签相关
-+ (void) albumListDataForContentType:(NSString*) contentType
-                             PageNumber:(NSInteger) pageNumber
-                            Recommend:(BOOL) isRecommend
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure
+
++ (void) albumListDataForAuthor:(NSString*) author
+              lessonConcentType:(NSString*) contentType
+                     PageNumber:(NSInteger) pageNumber
+                      Recommend:(BOOL) isRecommend
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
@@ -583,11 +590,9 @@
     [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
-
-    NSString * lessonOwner = [UICKeyChainStore keyChainStore][KLessonOwner];
-    if (lessonOwner)
+    if (author)
     {
-        [params setObject:lessonOwner forKey:@"tag_owner"];
+        [params setObject:author forKey:@"tag_owner"];
     }
     
     if (contentType)
@@ -597,7 +602,7 @@
     
     if(isRecommend)
     {
-        if(lessonOwner)
+        if(author)
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }
@@ -617,7 +622,8 @@
 #pragma  lesson  List Related
 //////////////////////////////////////////////////////////////
 //获取课程列表相关
-+ (void) lessonListDataByTagForPageNumber:(NSInteger) pageNumber
++ (void) lessonListDataByTagForAuthor:(NSString*) author
+                           PageNumber:(NSInteger) pageNumber
                           lessonConcentType:  (NSString *) contentType
                                DownloadType:  (NSString *) downloadType
                                         Tag:  (NSString *) tag
@@ -656,15 +662,14 @@
         
     }
     
-    NSString * lessonOwner = [UICKeyChainStore keyChainStore][KLessonOwner];
-    if (lessonOwner)
+    if (author)
     {
-        [params setObject:lessonOwner forKey:@"ln_owner"];
+        [params setObject:author forKey:@"ln_owner"];
     }
     
     if(isRecommend)
     {
-        if(lessonOwner)
+        if(author)
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }

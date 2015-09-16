@@ -81,6 +81,14 @@
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		C862440E18A49FFD001686B7 /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
+		C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
+		C879599B1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
+		C879599C1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
+		C879599D1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
+		C87959A01BA2F07100D670E2 /* FlyingStreamData.m in Sources */ = {isa = PBXBuildFile; fileRef = C879599F1BA2F07100D670E2 /* FlyingStreamData.m */; settings = {ASSET_TAGS = (); }; };
+		C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */ = {isa = PBXBuildFile; fileRef = C879599F1BA2F07100D670E2 /* FlyingStreamData.m */; settings = {ASSET_TAGS = (); }; };
+		C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */ = {isa = PBXBuildFile; fileRef = C879599F1BA2F07100D670E2 /* FlyingStreamData.m */; settings = {ASSET_TAGS = (); }; };
+		C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */ = {isa = PBXBuildFile; fileRef = C879599F1BA2F07100D670E2 /* FlyingStreamData.m */; settings = {ASSET_TAGS = (); }; };
 		C87CBEF7181E5D5900EDC907 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87CBEF6181E5D5900EDC907 /* Accelerate.framework */; };
 		C88B7661173BFC2200955BC2 /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
 		C88B7665173BFC2200955BC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
@@ -1293,6 +1301,10 @@
 		C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C862440C18A49FFD001686B7 /* FlyingSysWithCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSysWithCenter.h; sourceTree = "<group>"; };
 		C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSysWithCenter.m; sourceTree = "<group>"; };
+		C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBoardUIView.h; sourceTree = "<group>"; };
+		C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBoardUIView.m; sourceTree = "<group>"; };
+		C879599E1BA2F07100D670E2 /* FlyingStreamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingStreamData.h; sourceTree = "<group>"; };
+		C879599F1BA2F07100D670E2 /* FlyingStreamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingStreamData.m; sourceTree = "<group>"; };
 		C87CBEF6181E5D5900EDC907 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C88B7644173BFC2200955BC2 /* FlyingEnglish-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FlyingEnglish-Prefix.pch"; sourceTree = "<group>"; };
 		C88B764D173BFC2200955BC2 /* iFlyingAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iFlyingAppDelegate.h; sourceTree = "<group>"; };
@@ -2514,6 +2526,10 @@
 				FAE0BDD91BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.h */,
 				FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */,
 				FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */,
+				C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */,
+				C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */,
+				C879599E1BA2F07100D670E2 /* FlyingStreamData.h */,
+				C879599F1BA2F07100D670E2 /* FlyingStreamData.m */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -3620,6 +3636,7 @@
 				FA04C0191B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				C85AC381181CD84800B83580 /* CFSharer.m in Sources */,
 				C806575F17FE53BB00CADF4F /* FlyingItemDao.m in Sources */,
+				C87959A01BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4921B26A0F100AA1AFD /* RCDataBaseManager.m in Sources */,
 				C80657CB17FE53BB00CADF4F /* UIBubbleTableViewCell.m in Sources */,
 				FAE5C4311AB7DB4E00E6F748 /* FlyingItemView.m in Sources */,
@@ -3643,6 +3660,7 @@
 				FA0EE1331A6D0736007F89D7 /* JPSThumbnailAnnotationView.m in Sources */,
 				C806576217FE53BB00CADF4F /* FlyingLessonData.m in Sources */,
 				C80657C917FE53BB00CADF4F /* UIBubbleHeaderTableViewCell.m in Sources */,
+				C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */,
 				FA8CDD771B030821004152C2 /* MuAnnotation.m in Sources */,
 				FA0EE1371A6D1DBB007F89D7 /* FlyingProviderListVC.m in Sources */,
 				FA11E7A919CD526200D97FDB /* ReaderConstants.m in Sources */,
@@ -3854,6 +3872,7 @@
 				FA04C01A1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA1BE4E01B27DD5A00AA1AFD /* CFSharer.m in Sources */,
 				FA1BE4E11B27DD5A00AA1AFD /* FlyingItemDao.m in Sources */,
+				C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4E21B27DD5A00AA1AFD /* RCDataBaseManager.m in Sources */,
 				FA1BE4E31B27DD5A00AA1AFD /* UIBubbleTableViewCell.m in Sources */,
 				FA1BE4E41B27DD5A00AA1AFD /* FlyingItemView.m in Sources */,
@@ -3877,6 +3896,7 @@
 				FA1BE4F41B27DD5A00AA1AFD /* JPSThumbnailAnnotationView.m in Sources */,
 				FA1BE4F51B27DD5A00AA1AFD /* FlyingLessonData.m in Sources */,
 				FA1BE4F61B27DD5A00AA1AFD /* UIBubbleHeaderTableViewCell.m in Sources */,
+				C879599B1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */,
 				FA1BE4F81B27DD5A00AA1AFD /* MuAnnotation.m in Sources */,
 				FA1BE4F91B27DD5A00AA1AFD /* FlyingProviderListVC.m in Sources */,
 				FA1BE4FA1B27DD5A00AA1AFD /* ReaderConstants.m in Sources */,
@@ -4088,6 +4108,7 @@
 				FA04C01B1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA6329C31B51091400A1222E /* CFSharer.m in Sources */,
 				FA6329C41B51091400A1222E /* FlyingItemDao.m in Sources */,
+				C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA6329C51B51091400A1222E /* RCDataBaseManager.m in Sources */,
 				FA6329C61B51091400A1222E /* UIBubbleTableViewCell.m in Sources */,
 				FA6329C71B51091400A1222E /* FlyingItemView.m in Sources */,
@@ -4111,6 +4132,7 @@
 				FA6329D71B51091400A1222E /* JPSThumbnailAnnotationView.m in Sources */,
 				FA6329D81B51091400A1222E /* FlyingLessonData.m in Sources */,
 				FA6329D91B51091400A1222E /* UIBubbleHeaderTableViewCell.m in Sources */,
+				C879599C1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */,
 				FA6329DB1B51091400A1222E /* MuAnnotation.m in Sources */,
 				FA6329DC1B51091400A1222E /* FlyingProviderListVC.m in Sources */,
 				FA6329DD1B51091400A1222E /* ReaderConstants.m in Sources */,
@@ -4322,6 +4344,7 @@
 				FA04C01C1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA8C3E1F1B535A1500DEA02D /* CFSharer.m in Sources */,
 				FA8C3E201B535A1500DEA02D /* FlyingItemDao.m in Sources */,
+				C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA8C3E211B535A1500DEA02D /* RCDataBaseManager.m in Sources */,
 				FA8C3E221B535A1500DEA02D /* UIBubbleTableViewCell.m in Sources */,
 				FA8C3E231B535A1500DEA02D /* FlyingItemView.m in Sources */,
@@ -4345,6 +4368,7 @@
 				FA8C3E331B535A1500DEA02D /* JPSThumbnailAnnotationView.m in Sources */,
 				FA8C3E341B535A1500DEA02D /* FlyingLessonData.m in Sources */,
 				FA8C3E351B535A1500DEA02D /* UIBubbleHeaderTableViewCell.m in Sources */,
+				C879599D1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */,
 				FA8C3E371B535A1500DEA02D /* MuAnnotation.m in Sources */,
 				FA8C3E381B535A1500DEA02D /* FlyingProviderListVC.m in Sources */,
 				FA8C3E391B535A1500DEA02D /* ReaderConstants.m in Sources */,
@@ -4619,7 +4643,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
@@ -4660,7 +4684,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "b765c312-b5d8-4860-9694-87cbc9301cbd";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -4676,7 +4700,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
@@ -4716,7 +4740,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

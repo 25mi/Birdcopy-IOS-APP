@@ -53,13 +53,19 @@
     
 #ifdef __CLIENT__IS__ENGLISH__
     
-    NSArray *currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[UICKeyChainStore keyChainStore][KOPENUDIDKEY]];
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
     
-    if (currentData.count>0)
-    {
-        [self.titles addObject:@"魔词"];
-        [self.images addObject:@"Word"];
+    if (openID) {
+        
+        NSArray *currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:openID];
+        
+        if (currentData.count>0)
+        {
+            [self.titles addObject:@"魔词"];
+            [self.images addObject:@"Word"];
+        }
     }
+    
 #endif
     
     [self.titles addObject:@"账户"];

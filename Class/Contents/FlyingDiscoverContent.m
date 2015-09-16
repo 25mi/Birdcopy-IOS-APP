@@ -50,20 +50,15 @@
 {
     [super viewDidLoad];
     
+    [self addBackFunction];
+    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     _refresh=NO;
-    
-    NSString * lessonOwnerNickname = [UICKeyChainStore keyChainStore][KLessonOwnerNickname];
-    
-    if(!lessonOwnerNickname)
-    {
-        lessonOwnerNickname=@"发现";
-    }
-    
-    self.title=lessonOwnerNickname;
+        
+    self.title=@"发现";
     
     //顶部导航
     UIImage* image= [UIImage imageNamed:@"menu"];
@@ -73,35 +68,23 @@
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
+#ifdef __CLIENT__IS__ENGLISH__
+    
+    image= [UIImage imageNamed:@"back"];
+    frame= CGRectMake(0, 0, 28, 28);
+    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:image forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    
+#else
+
     self.navigationItem.leftBarButtonItem = menuBarButtonItem;
     
-    [self reloadAll];
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
-}
+#endif
 
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
     image= [UIImage imageNamed:@"search"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
@@ -109,7 +92,9 @@
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
+    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    
+    [self reloadAll];
 }
 
 - (void)refreshNow:(UIRefreshControl *)refreshControl
@@ -161,6 +146,7 @@
         CGRect  loadingRect  = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*210/320);
         FlyingCoverView* coverFlow = [[FlyingCoverView alloc] initWithFrame:loadingRect];
         [coverFlow setCoverViewDelegate:self];
+        [coverFlow loadData];
         self.homeFeatureTagPSColeectionView.headerView =coverFlow;
         
         //Add a footer view
@@ -198,7 +184,7 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma cover Related
+#pragma FlyingCoverViewDelegate Related
 //////////////////////////////////////////////////////////////
 - (void) touchCover:(FlyingPubLessonData*)lessonData
 {
@@ -215,6 +201,11 @@
     [lessonList setRecommoned:YES];
     [lessonList setTagString:@"精彩内容推荐"];
     [self pushViewController:lessonList animated:YES];
+}
+
+- (NSString*) getAuthor
+{
+    return self.author;
 }
 
 //////////////////////////////////////////////////////////////
@@ -275,7 +266,8 @@
     {
         _currentLodingIndex++;
         
-        [FlyingHttpTool getAlbumListForContentType:nil
+        [FlyingHttpTool getAlbumListForAuthor:self.author
+                                  ContentType:nil
                                         PageNumber:_currentLodingIndex
                                          Recommend:YES
                                         Completion:^(NSArray *albumList,NSInteger allRecordCount) {
@@ -359,6 +351,12 @@
     [self.sideMenuViewController presentLeftMenuViewController];
 }
 
+//LogoDone functions
+- (void)dismiss
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void) doChat
 {
     if (INTERFACE_IS_PAD) {
@@ -404,6 +402,25 @@
     }
 }
 
+- (void) addBackFunction
+{
+    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
+    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(handleSwipeFrom:)];
+        
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
+}
+
+-(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
+{
+    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+        
+        [self dismiss];
+    }
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self resignFirstResponder];
@@ -419,7 +436,6 @@
         if (lessonID) {
             
             [self jumptoLessonforID:lessonID];
-            
         }
         else{
             

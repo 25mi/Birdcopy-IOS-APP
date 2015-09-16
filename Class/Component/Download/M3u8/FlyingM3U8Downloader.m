@@ -377,10 +377,10 @@
         
         FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
         [statisticDAO setUserModle:NO];
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-        NSInteger giftCountNow=[statisticDAO giftCountWithUserID:passport];
+        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
         giftCountNow+=10;
-        [statisticDAO updateWithUserID:passport GiftCount:giftCountNow];
+        [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
         
         [SoundPlayer soundEffect:@"calloutLight"];
 

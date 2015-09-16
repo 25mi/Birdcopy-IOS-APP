@@ -42,7 +42,6 @@
 
 -(void) loadData
 {
-    
     if (!self.coverScrollView) {
         
         self.coverScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0, self.bounds.size.width, self.bounds.size.width*9/16)];
@@ -237,25 +236,31 @@
 
 - (void) loadCoverData
 {
-    [FlyingHttpTool getCoverListWithSuccessCompletion:^(NSArray *LessonList,NSInteger allRecordCount) {
-        //
-        if(LessonList.count!=0)
-        {
-            if (!self.coverData) {
-                
-                self.coverData = [NSMutableArray new];
-            }
-            //重新载入数据
-            [self.coverData removeAllObjects];
-            [self.coverImageViewDic removeAllObjects];
-            [self.coverData addObjectsFromArray:LessonList];
-            
-            [[self.coverScrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            [self paintCoverView:self.coverControl.currentPage];
-        }
-
-    }];
+    if (self.coverViewDelegate && [self.coverViewDelegate respondsToSelector:@selector(getAuthor)])
+    {
+        NSString *author = [self.coverViewDelegate getAuthor];
+        
+        [FlyingHttpTool getCoverListForAuthor:author
+                        WithSuccessCompletion:^(NSArray *LessonList,NSInteger allRecordCount) {
+                            //
+                            if(LessonList.count!=0)
+                            {
+                                if (!self.coverData) {
+                                    
+                                    self.coverData = [NSMutableArray new];
+                                }
+                                //重新载入数据
+                                [self.coverData removeAllObjects];
+                                [self.coverImageViewDic removeAllObjects];
+                                [self.coverData addObjectsFromArray:LessonList];
+                                
+                                [[self.coverScrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                                
+                                [self paintCoverView:self.coverControl.currentPage];
+                            }
+                            
+        }];
+    }
 }
 
 - (void) showFeatureContent

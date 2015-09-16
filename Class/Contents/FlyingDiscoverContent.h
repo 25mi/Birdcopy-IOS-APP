@@ -12,13 +12,14 @@
 
 
 @interface FlyingDiscoverContent : UIViewController<FlyingCoverViewDelegate,
-PSCollectionViewDataSource,
-PSCollectionViewDelegate,
-FlyingLoadingViewDelegate>
+                                                    PSCollectionViewDataSource,
+                                                    PSCollectionViewDelegate,
+                                                    FlyingLoadingViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray     *currentTagData;
 
 @property (strong, nonatomic) PSCollectionView   *homeFeatureTagPSColeectionView;
 
+@property (strong, nonatomic) NSString           *author;
 
 @end

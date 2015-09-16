@@ -54,21 +54,20 @@
 }
 
 
-
-+ (NSURL *) tagListStrByTag:(NSString *) tag withCount:(NSInteger) pagecount
++ (NSURL *) tagListStrForAuthor:(NSString*)author
+                            Tag:(NSString *) tag
+                      withCount:(NSInteger) pagecount
 {
-    
-    NSString * lessonOwner = [UICKeyChainStore keyChainStore][KLessonOwner];
-    if (lessonOwner==nil)
+    if (author==nil)
     {
-        lessonOwner=@"";
+        author=@"";
     }
     
     NSString * urlStr =[NSString stringWithFormat:kTagListStr_URL,[NSString getServerAddress],
                         [@(pagecount) stringValue],
                         [@(1) stringValue],
                         tag,
-                        lessonOwner];
+                        author];
     
     NSString * utf8String = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [NSURL URLWithString:utf8String];
