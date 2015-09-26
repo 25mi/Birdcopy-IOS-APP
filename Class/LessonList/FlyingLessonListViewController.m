@@ -9,7 +9,7 @@
 #import "FlyingLessonViewCell.h"
 #import "FlyingLessonVC.h"
 #import "NSString+FlyingExtention.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "shareDefine.h"
 #import "FlyingLoadingView.h"
 #import "UIView+Autosizing.h"

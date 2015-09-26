@@ -399,7 +399,7 @@ static const UIWindowLevel UIWindowLevelCFShareCircle = 1999.0;  // Don't overla
     
     // Create the intro text layer to help the user.
     self.introTextLayer = [CATextLayer layer];
-    self.introTextLayer.string = @"拖拽\n试试";
+    self.introTextLayer.string = @"拖拽";
     self.introTextLayer.opacity = 1.0;
     self.introTextLayer.wrapped = YES;
     self.introTextLayer.alignmentMode = kCAAlignmentCenter;

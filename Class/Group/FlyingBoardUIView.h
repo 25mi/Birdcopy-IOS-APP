@@ -19,6 +19,9 @@
 
 @interface FlyingBoardUIView : UIView
 
+
+@property (strong, nonatomic)  UIImageView * magnetImageView;
+
 @property (strong, nonatomic)  NSString        *title;
 @property (strong, nonatomic)  NSString        *boardType;
 @property (strong, nonatomic)  NSString        *boardContent;

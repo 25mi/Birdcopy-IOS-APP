@@ -127,29 +127,11 @@
         margin=MARGIN_iphone;
     }
     
-    if (_descriptionLable.text.length>0){
-        
-        CGSize constraint = CGSizeMake(columnWidth-margin, MAXFLOAT);
-        UILabel *gettingSizeLabel = [[UILabel alloc] init];
-        gettingSizeLabel.font = _descriptionLable.font;
-        gettingSizeLabel.text = _descriptionLable.text;
-        gettingSizeLabel.numberOfLines = 0;
-        gettingSizeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        
-        CGSize expectSize = [gettingSizeLabel sizeThatFits:constraint];
-        
-        CGFloat temHight=expectSize.height;
-        
-        if (temHight>columnWidth) {
-            
-            temHight=columnWidth;
-        }
-        
-        [_descriptionLable setFrame:CGRectMake(margin/2.0,
-                                               _titleLabel.frame.size.height+_coverImageView.frame.size.height,
-                                               columnWidth-margin,
-                                               temHight)];
-    }
+    
+    [_descriptionLable setFrame:CGRectMake(margin/2.0,
+                                           _titleLabel.frame.size.height+_coverImageView.frame.size.height,
+                                           columnWidth-margin,
+                                           columnWidth-_titleLabel.frame.size.height-_coverImageView.frame.size.height)];
     
     if (!_coverImageView.image) {
 
@@ -166,65 +148,7 @@
 
 + (CGFloat)rowHeightForObject:(FlyingCoverData *)detailData inColumnWidth:(CGFloat)columnWidth
 {
-    CGFloat height = 0;
-    
-    //标题
-    if (INTERFACE_IS_PAD)
-    {
-        height += TileHeight_ipad;
-    }
-    else{
-        
-        height += TileHeight_iphone;
-    }
-    
-    //课程封面
-    height +=(columnWidth*9/16);
-    
-    //简述
-    CGFloat margin;
-    if (INTERFACE_IS_PAD)
-    {
-        margin=MARGIN_ipad;
-    }
-    else
-    {
-        margin=MARGIN_iphone;
-    }
-    
-    
-    UIFont *font = [UIFont systemFontOfSize:10];
-    
-    if (INTERFACE_IS_PAD){
-        font = [UIFont systemFontOfSize:15];
-    }
-    
-    CGFloat temHight=0;
-
-    if (detailData.desc.length>0) {
-        
-        CGSize constraint = CGSizeMake(columnWidth-margin, MAXFLOAT);
-        UILabel *gettingSizeLabel = [[UILabel alloc] init];
-        gettingSizeLabel.font = font;
-        gettingSizeLabel.text = detailData.desc;
-        gettingSizeLabel.numberOfLines = 0;
-        gettingSizeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        
-        CGSize expectSize = [gettingSizeLabel sizeThatFits:constraint];
-        
-        temHight=expectSize.height;
-        
-        if (temHight>columnWidth) {
-            
-            temHight=columnWidth;
-        }
-        
-        height += margin/2;
-    }
-    
-    height+=temHight;
-    
-    return height;
+    return columnWidth;
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView
@@ -250,7 +174,6 @@
         _descriptionLable.text=detailData.desc;
     }
 }
-
 
 -(void) createActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle
 {

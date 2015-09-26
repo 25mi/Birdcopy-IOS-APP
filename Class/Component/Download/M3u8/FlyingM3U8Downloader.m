@@ -18,7 +18,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "FlyingStatisticDAO.h"
 #import "UICKeyChainStore.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "AFHttpTool.h"
 
 #include <stdio.h>
@@ -382,7 +382,7 @@
         giftCountNow+=10;
         [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
         
-        [SoundPlayer soundEffect:@"calloutLight"];
+        [FlyingSoundPlayer soundEffect:@"calloutLight"];
 
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
      

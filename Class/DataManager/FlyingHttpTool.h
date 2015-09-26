@@ -11,6 +11,7 @@
 #import <RongIMLib/RCGroup.h>
 #import "FlyingUserInfo.h"
 #import "FlyingPubLessonData.h"
+#import "FlyingCalendarEvent.h"
 
 #define FLYINGHTTPTOOL [FlyingHttpTool shareInstance]
 
@@ -73,21 +74,6 @@
 +(void) getUserInfoByRongID:(NSString *) rongID
                  completion:(void (^)(RCUserInfo *user)) completion;
 
-+ (void) getCoverListForAuthor:(NSString*)author
-         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion;
-
-+ (void) getCoverListForAuthor:(NSString*) author
-                    PageNumber:(NSInteger) pageNumber
-                             SortbyTime:  (BOOL) time
-                             Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
-
-+ (void) getLessonForLessonID:(NSString*) lessonID
-                   Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
-
-
-+ (void) getLessonForISBN:(NSString*) ISBN
-               Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
-
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
@@ -98,9 +84,9 @@
                             Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 
 //获取我的群组
-+ (void) getMyGroupsCompletion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
-
-//获取群Post流
++ (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                       Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
+//获取群组Post流
 + (void) getGroupBoardNewsForGroupID:(NSString*) groupID
                          PageNumber:(NSInteger) pageNumber
                             Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
@@ -109,6 +95,16 @@
                          PageNumber:(NSInteger) pageNumber
                          Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
 
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
+
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                       Completion:(void (^)(FlyingCalendarEvent *event)) completion;
+
+//////////////////////////////////////////////////////////////
+#pragma  内容相关
+//////////////////////////////////////////////////////////////
 + (void) getAlbumListForAuthor:(NSString*)author
                         ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
@@ -124,9 +120,35 @@
                       Recommend:(BOOL) isRecommend
                      Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
++ (void) getCoverListForAuthor:(NSString*)author
+         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion;
+
++ (void) getCoverListForAuthor:(NSString*) author
+                    PageNumber:(NSInteger) pageNumber
+                    SortbyTime:  (BOOL) time
+                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
+
++ (void) getLessonForLessonID:(NSString*) lessonID
+                   Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
+
++ (void) getLessonForISBN:(NSString*) ISBN
+               Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
+
++ (void) getCommentListForSreamType:(NSString*) streamType
+                          ContentID:(NSString*) contentID
+                       PageNumber:(NSInteger) pageNumber
+                       Completion:(void (^)(NSArray *commentList,NSInteger allRecordCount)) completion;
+
+//////////////////////////////////////////////////////////////
+#pragma  字典相关
+//////////////////////////////////////////////////////////////
 + (void) getItemsforWord:(NSString *) word
              Completion:(void (^)(NSArray *itemList,NSInteger allRecordCount)) completion;
 
+
+//////////////////////////////////////////////////////////////
+#pragma  供应商（作者）相关
+//////////////////////////////////////////////////////////////
 + (void) getProviderListForlatitude:(NSString*)latitude
                            longitude:(NSString*)longitude
                           PageNumber:(NSInteger) pageNumber

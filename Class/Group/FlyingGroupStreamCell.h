@@ -17,6 +17,22 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
     FlyingGroupStreamCellEventType
 };
 
+
+
+@protocol FlyingGroupStreamCellDelegate <NSObject>
+
+@optional
+
+- (void)profileImageViewPressed:(FlyingStreamData*)groupData;
+
+- (void)commentCountButtonPressed:(FlyingStreamData*)streamData;
+- (void)likeCountButtonPressed:(FlyingStreamData*)streamData;
+
+- (void)coverImageViewPressed:(FlyingStreamData*)groupData;
+
+@end
+
+
 @interface FlyingGroupStreamCell : UITableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -25,7 +41,7 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
 
 @property (nonatomic, strong) UIImageView* profileImageView;
 
-@property (nonatomic, strong) UIImageView* picImageView;
+@property (nonatomic, strong) UIImageView* coverImageView;
 
 @property (nonatomic, strong) UIView* picImageContainer;
 
@@ -35,11 +51,13 @@ typedef NS_ENUM(NSInteger, FlyingGroupStreamCellType) {
 
 @property (nonatomic, strong) UILabel* dateLabel;
 
-@property (nonatomic, strong) UILabel* commentCountLabel;
+@property (nonatomic, strong) UIButton* commentCountButton;
 
-@property (nonatomic, strong) UILabel* likeCountLabel;
+@property (nonatomic, strong) UIButton* likeCountButton;
 
+-(void) loadingStreamCellData:(FlyingStreamData*)streamCellData;
 
--(void) setStreamCellData:(FlyingStreamData*)streamCellData;
+@property (nonatomic,assign) id<FlyingGroupStreamCellDelegate> delegate;
+
 
 @end

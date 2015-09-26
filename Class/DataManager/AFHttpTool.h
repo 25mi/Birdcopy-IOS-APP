@@ -114,43 +114,12 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
             failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////////////////////////
-//群相关操作
-//////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                       Recommend:(BOOL) isRecommend
-                      PageNumber:(NSInteger) pageNumber
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
-
-//get groups
-+(void) getMyGroupsSuccess:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure;
-
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                         PageNumber:(NSInteger) pageNumber
-                            success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure;
-
-//////////////////////////////////////////////////////////////////////////////////
 //以前的API
 //////////////////////////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
                    success:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
-
-
-//供应商选择
-+ (void) providerListDataForlatitude:(NSString*)latitude
-                       longitude:(NSString*)longitude
-                      PageNumber:(NSInteger) pageNumber
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
-
-//App供应商广告
-+ (void) getAccountBroadURLWithSuccess:(void (^)(id response))success
-                               failure:(void (^)(NSError* err))failure;
 
 //帐户同步相关
 + (void) chargingCardSysURLForUserID:(NSString *) userID
@@ -188,15 +157,45 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
              success:(void (^)(id response))success
              failure:(void (^)(NSError* err))failure;
 
-//标签相关
-+ (void) albumListDataForAuthor:(NSString*) author
-               lessonConcentType:(NSString*) contentType
-                      PageNumber:(NSInteger) pageNumber
+//////////////////////////////////////////////////////////////////////////////////
+//群相关操作
+//////////////////////////////////////////////////////////////////////////////////
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
                        Recommend:(BOOL) isRecommend
+                      PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
-//获取课程列表相关
 
+//get groups
++(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                         Success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
+
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
+                       PageNumber:(NSInteger) pageNumber
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+
+
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                           success:(void (^)(id response))success
+                           failure:(void (^)(NSError* err))failure;
+
+//////////////////////////////////////////////////////////////
+#pragma  内容相关
+//////////////////////////////////////////////////////////////
+//标签相关
++ (void) albumListDataForAuthor:(NSString*) author
+              lessonConcentType:(NSString*) contentType
+                     PageNumber:(NSInteger) pageNumber
+                      Recommend:(BOOL) isRecommend
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError* err))failure;
+//获取课程列表相关
 + (void) lessonListDataByTagForAuthor:(NSString*) author
                            PageNumber:(NSInteger) pageNumber
                     lessonConcentType:  (NSString *) contentType
@@ -229,24 +228,49 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                     success:(void (^)(id response))success
                     failure:(void (^)(NSError* err))failure;
 
-//获取基础字典
-+ (void) shareBaseZIP:(NSString *) type
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure;
 
-//反馈错误
+//反馈课程错误
 + (void ) reportLessonErrorType:(NSString*) type
-                      contentURL:(NSString *)contentURL
-                        lessonID:(NSString *) lessonID
+                     contentURL:(NSString *)contentURL
+                       lessonID:(NSString *) lessonID
                         success:(void (^)(id response))success
                         failure:(void (^)(NSError* err))failure;
+
+
+//获取相关评论
++ (void) getCommentListForSreamType:(NSString*) streamType
+                          ContentID:(NSString*) contentID
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure;
+
+//////////////////////////////////////////////////////////////
+#pragma   字典相关
+//////////////////////////////////////////////////////////////
+//获取基础字典
++ (void) getShareBaseZIP:(NSString *) type
+              success:(void (^)(id response))success
+              failure:(void (^)(NSError* err))failure;
 
 //网络字典
 + (void) dicDataforWord:(NSString *) word
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure;
 
+//////////////////////////////////////////////////////////////
+#pragma   供应商相关
+//////////////////////////////////////////////////////////////
 
+//供应商选择
++ (void) providerListDataForlatitude:(NSString*)latitude
+                           longitude:(NSString*)longitude
+                          PageNumber:(NSInteger) pageNumber
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure;
+
+//App供应商广告
++ (void) getAccountBroadURLWithSuccess:(void (^)(id response))success
+                               failure:(void (^)(NSError* err))failure;
 
 @end
 

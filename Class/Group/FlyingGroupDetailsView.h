@@ -11,6 +11,11 @@
 #import "FlyingBoardUIView.h"
 #import "FlyingStreamData.h"
 
+typedef NS_ENUM(NSUInteger, RefreshState) {
+    RefreshStateNormal,//正常
+    RefreshStatePulling,//释放即可刷新
+    RefreshStateLoading,//加载中
+};
 
 @class FlyingGroupDetailsView;
 
@@ -25,10 +30,12 @@
 - (UIViewContentMode)contentModeForImage:(UIImageView*)imageView;
 - (CGPoint)detailsPage:(FlyingGroupDetailsView *)detailsPageView tableViewWillBeginDragging:(UITableView *)tableView;
 
-@optional
-
 - (FlyingStreamData*)getTopBoardNewsData;
 - (CGFloat) getnavigationBarHeight;
+- (void)refreshNow;
+
+@optional
+
 
 - (void)headerImageViewFinishedLoading:(UIImageView*)imageView;
 - (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView tableViewDidLoad:(UITableView *)tableView;
@@ -87,9 +94,9 @@
 ///-------------------------------
 
 /**
- Nav Bar view. This view appears when tableview scrolling offset reaches navBarFadingOffset property value. This property is optional.
+//动态群组入口
  */
-@property (nonatomic, strong) UIView *navBarView;
+@property (nonatomic, strong) UIView *groupAccessView;
 ///-------------------------------
 
 /**
@@ -127,5 +134,9 @@
 @property(nonatomic,strong) FlyingBoardUIView * boardView;
 
 - (void)reloadBoardNews;
+
+-(void) enableKVO:(BOOL) enableKVO;
+
+- (void)setRefreshState:(RefreshState)refreshState;
 
 @end

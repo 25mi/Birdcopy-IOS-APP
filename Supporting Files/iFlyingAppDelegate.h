@@ -100,7 +100,6 @@
 - (void) pushViewController:(UIViewController *)viewController;
 
 //share
-
 + (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL;
 + (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password;
 + (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;

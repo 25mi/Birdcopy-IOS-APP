@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, StreamFilter) {
 
 @interface FlyingStreamData : NSObject
 
-@property (nonatomic, strong) NSString* streamType;
+@property (nonatomic, strong) NSString* contentType;
 @property (nonatomic, strong) NSString* contentID;
 
 @property (nonatomic, strong) NSString* title;
@@ -23,10 +23,11 @@ typedef NS_ENUM(NSInteger, StreamFilter) {
 @property (nonatomic, strong) NSString* coverURL;
 
 @property (nonatomic, strong) NSString* updateTime;
-@property (nonatomic, strong) NSString* relatedNumber;
+@property (nonatomic, strong) NSString* commentNumber;
+@property (nonatomic, strong) NSString* magicNumber;
 
-@property (nonatomic, strong) NSString*  authorName;
-@property (nonatomic, strong) NSString*  authorImageUrl;
-@property (nonatomic, strong) NSString*  openID;
+@property (nonatomic, strong) NSString* authorName;
+@property (nonatomic, strong) NSString* authorImageUrl;
+@property (nonatomic, strong) NSString* openID;
 
 @end

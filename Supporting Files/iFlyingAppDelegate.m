@@ -11,7 +11,7 @@
 #import "NSString+FlyingExtention.h"
 #include "OpenUDID.h"
 
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "UICKeyChainStore.h"
 
 #import "UIImage+localFile.h"
@@ -608,7 +608,7 @@
                 giftCountNow++;
                 [statisticDAO updateWithUserID:passport GiftCount:giftCountNow];
                 
-                [SoundPlayer soundEffect:@"iMoneyDialogClose"];
+                [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
                 
                 NSInteger learnedTimes = [statisticDAO timesWithUserID:passport];
                 learnedTimes = learnedTimes+1;
@@ -864,7 +864,6 @@
 
 - (NSString *) getUserDataPath
 {
-
     if (!_userDataDir) {
         
         NSString  * libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -927,7 +926,6 @@
 
 + (NSString*) getDownloadsDir
 {
-    
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     return [appDelegate getDownloadsDir];
@@ -935,7 +933,6 @@
 
 + (NSString*) getLessonDir:(NSString*) lessonID
 {
-    
     //创建下载内容目录
     NSString *dbDir = [[iFlyingAppDelegate getDownloadsDir] stringByAppendingPathComponent:lessonID];
     
@@ -1255,6 +1252,7 @@
 
 -(void) setnavigationBarWithClearStyle:(BOOL) clearStyle
 {
+    
     UIColor *backgroundColor;
 
     if(clearStyle)
@@ -1275,28 +1273,28 @@
     }
     
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
-    
+    [[UINavigationBar appearance] setBackgroundColor:backgroundColor];
     
     UINavigationController * nowNav = (UINavigationController*)[self getMenu].contentViewController;
     
     nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
-    
+    nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
     
     if (clearStyle)
     {
         [nowNav.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         nowNav.navigationBar.shadowImage = [UIImage new];
-        nowNav.navigationBar.translucent = YES;
     }
     else
     {
-        nowNav.navigationBar.translucent = NO;
+        [nowNav.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        nowNav.navigationBar.shadowImage = nil;
     }
 }
 
 -(void) resetnavigationBarWithDefaultStyle
 {
-    UIColor *backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    UIColor *backgroundColor = [UIColor whiteColor];
     UIColor *textColor= [UIColor blackColor];
     
     //统一导航条样式
@@ -1548,7 +1546,7 @@
     [statisticDAO updateWithUserID:passport GiftCount:giftCountNow];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
-    [SoundPlayer soundEffect:@"iMoneyDialogClose"];
+    [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
 }
 
 - (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;

@@ -33,16 +33,11 @@
 
 
 @interface FlyingBoardUIView ()
-{
-    CGAffineTransform         originalTransform;
-    CFMutableDictionaryRef    touchBeginPoints;
-}
 
 @property (strong,nonatomic) UIImageView * backgroundNotesImageView;
 
 @property (strong,nonatomic) UILabel     * titleLabel;
 @property (strong,nonatomic) UILabel     * typeLabel;
-@property (strong,nonatomic) UIImageView * magnetImageView;
 
 
 @property (assign,nonatomic) BOOL   fullScreenModle;
@@ -60,8 +55,6 @@
         self.backgroundColor = [UIColor clearColor];
         self.opaque=NO;
         self.alpha=0;
-        originalTransform = CGAffineTransformIdentity;
-        touchBeginPoints = CFDictionaryCreateMutable(NULL, 0, NULL, NULL);
         self.userInteractionEnabled = YES;
         self.multipleTouchEnabled = YES;
         self.exclusiveTouch = YES;
@@ -76,7 +69,7 @@
 {
     self.streamData = streamData;
     self.title=streamData.title;
-    self.boardType=streamData.streamType;
+    self.boardType=streamData.contentType;
     self.boardContent=streamData.contentSummary;
     
     [self presentBoardHeader];

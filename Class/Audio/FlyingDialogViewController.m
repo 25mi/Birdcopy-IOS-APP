@@ -17,7 +17,7 @@
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
 #import "UICKeyChainStore.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "NSString+FlyingExtention.h"
 
 #import "UIBubbleTableView.h"
@@ -73,7 +73,7 @@
     int32_t                   _timeScale;
     BOOL                      _autoPlayModle;    //帮助判断是否需要主动播放
     
-    SoundPlayer                *_speechPlayer;
+    FlyingSoundPlayer          *_speechPlayer;
     //后台处理
     dispatch_queue_t            _background_queue;
     
@@ -208,7 +208,7 @@
     //基本辅助信息和工具准备
     _isClosedFlag=NO;
     _lessonData    = [[[FlyingLessonDAO alloc] init] selectWithLessonID:self.lessonID];
-    _speechPlayer = [[SoundPlayer alloc] init];
+    _speechPlayer = [[FlyingSoundPlayer alloc] init];
     _tagTransform=[[FlyingTagTransform alloc] init];
     
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];

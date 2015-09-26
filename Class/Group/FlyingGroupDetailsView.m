@@ -29,7 +29,14 @@
 @interface FlyingGroupDetailsView ()
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIButton* imageButton;
+@property (nonatomic, strong) UIButton    *imageButton;
+
+@property (nonatomic, assign) BOOL         enableKVO;
+
+@property (nonatomic, assign) RefreshState refreshState;
+
+@property (nonatomic, assign) CGFloat       angle;
+@property (nonatomic, assign) CGFloat       lastContentOffset;
 
 @end
 
@@ -67,6 +74,13 @@
 
 - (void)initialize
 {
+    _enableKVO=YES;
+    
+    _angle=0;
+    _lastContentOffset=0;
+
+    _refreshState=RefreshStateNormal;
+    
     _imageHeaderViewHeight = kDefaultImagePagerHeight;
     _imageScalingFactor = kDefaultImageScalingFactor;
     _headerImageAlpha = kDefaultImageAlpha;
@@ -88,7 +102,7 @@
 {
     [super layoutSubviews];
     
-    _navBarFadingOffset = _imageHeaderViewHeight - (CGRectGetHeight(_navBarView.frame) + kDefaultTableViewHeaderMargin);
+    _navBarFadingOffset = _imageHeaderViewHeight - kDefaultTableViewHeaderMargin;
     
     if (!self.tableView)
     {
@@ -232,6 +246,7 @@
             self.boardView.frame =CGRectMake(x, barHeight+y,CGRectGetWidth(self.boardView.frame),CGRectGetHeight(self.boardView.frame)) ;
             
             [self.boardView adjustForAutosizing];
+            self.boardView.alpha=0;
             
             [self insertSubview:self.boardView belowSubview:self.tableView];
             
@@ -263,7 +278,6 @@
     [self setupBoardNews];
 }
 
-
 #pragma mark -
 #pragma mark Tableview Delegate and DataSource setters
 
@@ -290,17 +304,17 @@
 #pragma mark -
 #pragma mark HeaderView Setter
 
-- (void)setNavBarView:(UIView *)headerView
-{
-    _navBarView = headerView;
-    
-    if([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:headerViewDidLoad:)])
-    [self.groupDetailsViewDelegate detailsPage:self headerViewDidLoad:self.navBarView];
-}
-
 - (void)hideHeaderImageView:(BOOL)hidden
 {
     self.imageView.hidden = hidden;
+}
+
+- (void)setGroupAccessView:(UIView *)view
+{
+    _groupAccessView = view;
+    
+    if([self.groupDetailsViewDelegate respondsToSelector:@selector(detailsPage:headerViewDidLoad:)])
+        [self.groupDetailsViewDelegate detailsPage:self headerViewDidLoad:self.groupAccessView];
 }
 
 #pragma mark -
@@ -308,6 +322,11 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    if (!_enableKVO) {
+        
+        return;
+    }
+    
     if (context != (__bridge void *)self)
     {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -319,6 +338,11 @@
         [self scrollViewDidScrollWithOffset:self.tableView.contentOffset.y];
         return;
     }
+}
+
+-(void) enableKVO:(BOOL) enableKVO
+{
+    _enableKVO=enableKVO;
 }
 
 #pragma mark -
@@ -336,13 +360,114 @@
 - (void)scrollViewDidScrollWithOffset:(CGFloat)scrollOffset
 {
     CGPoint scrollViewDragPoint = [self.groupDetailsViewDelegate detailsPage:self tableViewWillBeginDragging:self.tableView];
-    
+        
     if (scrollOffset < 0)
-    self.imageView.transform = CGAffineTransformMakeScale(1 - (scrollOffset / self.imageScalingFactor), 1 - (scrollOffset / self.imageScalingFactor));
+    {
+        self.imageView.transform = CGAffineTransformMakeScale(1 - (scrollOffset / self.imageScalingFactor), 1 - (scrollOffset / self.imageScalingFactor));
+    }
     else
-    self.imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    {
+        self.imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    }
     
     [self animateImageView:scrollOffset draggingPoint:scrollViewDragPoint alpha:self.headerImageAlpha];
+    
+    //聊天入口
+        
+    //加载状态显示
+    if(scrollOffset >=0)
+    {
+        if(self.refreshState == RefreshStateLoading)
+        {
+            [UIView animateWithDuration:3 animations:^{
+                
+                self.boardView.magnetImageView.alpha = 0;
+                
+            } completion:nil];
+        }
+        else
+        {
+            self.refreshState = RefreshStateNormal;
+        }
+    }
+    else
+    {
+        if(self.refreshState == RefreshStateLoading)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.boardView.magnetImageView.alpha = 0;
+                
+            } completion:nil];
+        }
+        else
+        {
+            if (scrollOffset< _lastContentOffset )
+            {
+                self.angle+=M_PI/10;
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    
+                    self.boardView.magnetImageView.transform = CGAffineTransformMakeRotation(self.angle);//箭头旋转180º
+                    
+                } completion:nil];
+            }
+            else if (scrollOffset > _lastContentOffset )
+            {
+                self.angle-=M_PI/10;
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    
+                    self.boardView.magnetImageView.transform = CGAffineTransformMakeRotation(self.angle);//箭头旋转180º
+                    
+                } completion:nil];
+            }
+            
+            if(scrollOffset < -80)
+            {
+                ////手指离开屏幕
+                if(!self.tableView.isDragging)
+                {
+                    [self setRefreshState:RefreshStateLoading];
+                }
+            }
+        }
+      }
+    
+    _lastContentOffset=scrollOffset;
+}
+
+- (void)setRefreshState:(RefreshState)refreshState
+{
+    _refreshState = refreshState;
+    
+    switch (refreshState) {
+        case RefreshStateNormal:
+        {
+            [self.boardView.magnetImageView.layer removeAllAnimations];
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.boardView.magnetImageView.transform = CGAffineTransformIdentity;
+                self.boardView.magnetImageView.alpha = 1;
+                
+            } completion:nil];
+            
+            break;
+
+        }
+        case RefreshStateLoading:
+        {
+            if ([self.groupDetailsViewDelegate respondsToSelector:@selector(refreshNow)])
+            {
+                [self.groupDetailsViewDelegate refreshNow];
+            }
+            
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)animateImageView:(CGFloat)scrollOffset draggingPoint:(CGPoint)scrollViewDragPoint alpha:(float)alpha
@@ -369,95 +494,16 @@
 
 - (void)animateNavigationBar:(CGFloat)scrollOffset draggingPoint:(CGPoint)scrollViewDragPoint
 {
-    
-    if (_navBarView) {
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        if(scrollOffset > _navBarFadingOffset && _navBarView.alpha == 0.0)
-        {
-            _navBarView.alpha = 0;
-            _navBarView.hidden = NO;
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                _navBarView.alpha = 1;
-                
-            }];
-        }
-        else if(scrollOffset < _navBarFadingOffset && _navBarView.alpha == 1.0)
-        {
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                _navBarView.alpha = 0;
-                
-            } completion: ^(BOOL finished) {
-                
-                _navBarView.hidden = YES;
-            }];
-        }
-    }
-    else
+    if(scrollOffset > _navBarFadingOffset)
     {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-        if(scrollOffset > _navBarFadingOffset)
-        {
-            [appDelegate setnavigationBarWithClearStyle:NO];
-        }
-        else if(scrollOffset < _navBarFadingOffset)
-        {
-            [appDelegate setnavigationBarWithClearStyle:YES];
-        }
+        [appDelegate setnavigationBarWithClearStyle:NO];
     }
- }
-
-/*
-
-#pragma mark -
-#pragma mark CollectionView Datasource Setup
-
-- (void)setupCollectionView
-{
-    UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, self.imageHeaderViewHeight*3/4, self.tableView.frame.size.width, self.imageHeaderViewHeight/4) collectionViewLayout:flowLayout];
-
-    UINib *nib = [UINib nibWithNibName:@"FlyingMemberCollectionViewCell" bundle: nil];
-    
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingMemberCollectionViewCell"];
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.delegate = self.collectionViewDelegate;
-    self.collectionView.dataSource = self.collectionViewDataSource;
-    
-    [self.imageView  addSubview:self.collectionView];
-    
-    if([self.delegate respondsToSelector:@selector(detailsPage:collectionViewDidLoad:)])
-        [self.delegate detailsPage:self collectionViewDidLoad:self.collectionView];
+    else if(scrollOffset < _navBarFadingOffset)
+    {
+        [appDelegate setnavigationBarWithClearStyle:YES];
+    }
 }
-
-
-#pragma mark -
-#pragma mark CollectionView Delegate and DataSource setters
-
-- (void)setCollectionViewDataSource:(id<UICollectionViewDataSource>)uicollectionViewDataSource
-{
-    _collectionViewDataSource = uicollectionViewDataSource;
-    
-    self.collectionView.dataSource = _collectionViewDataSource;
-    
-    if (_collectionViewDelegate)
-        [self.collectionView reloadData];
-}
-
-- (void)setCollectionViewDelegaate:(id<UICollectionViewDelegate>)uicollectionViewDelegate
-{
-    _collectionViewDelegate = uicollectionViewDelegate;
-    
-    self.collectionView.delegate = _collectionViewDelegate;
-    
-    if (_collectionViewDataSource)
-        [self.tableView reloadData];
-}
- 
- */
-
 
 @end

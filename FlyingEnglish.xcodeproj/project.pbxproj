@@ -24,8 +24,6 @@
 		C806577C17FE53BB00CADF4F /* FlyingDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C806560817FE53BA00CADF4F /* FlyingDownloader.m */; };
 		C806577D17FE53BB00CADF4F /* FlyingDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C806560A17FE53BA00CADF4F /* FlyingDownloadManager.m */; };
 		C806578017FE53BB00CADF4F /* FlyingTagTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = C806561117FE53BA00CADF4F /* FlyingTagTransform.m */; };
-		C80657B117FE53BB00CADF4F /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */; };
-		C80657C417FE53BB00CADF4F /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B017FE53BA00CADF4F /* SoundPlayer.m */; };
 		C80657C517FE53BB00CADF4F /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		C80657C617FE53BB00CADF4F /* FlyingSubTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B517FE53BA00CADF4F /* FlyingSubTitle.m */; };
 		C80657C817FE53BB00CADF4F /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
@@ -60,7 +58,6 @@
 		C82D8AAC195D76BC001ACB77 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8AA5195D76BC001ACB77 /* libz.a */; };
 		C830C532182FBE87006D9269 /* UIImage+localFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C52D182FBE87006D9269 /* UIImage+localFile.m */; };
 		C830C534182FBE87006D9269 /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C531182FBE87006D9269 /* UIView+Autosizing.m */; };
-		C830C53A182FD535006D9269 /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */; };
 		C8390EB118239D8600E4D056 /* FlyingM3U8Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E7E18239D8500E4D056 /* FlyingM3U8Downloader.m */; };
 		C8390EB218239D8600E4D056 /* FlyingM3U8List.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E8018239D8500E4D056 /* FlyingM3U8List.m */; };
 		C8390EB318239D8600E4D056 /* FlyingM3U8Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E8218239D8500E4D056 /* FlyingM3U8Parser.m */; };
@@ -81,6 +78,136 @@
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		C862440E18A49FFD001686B7 /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
+		C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
+		C87523541BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
+		C87523551BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
+		C87523561BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
+		C875235E1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C875235F1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C87523601BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C87523611BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C87523641BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */; settings = {ASSET_TAGS = (); }; };
+		C87523651BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */; settings = {ASSET_TAGS = (); }; };
+		C87523661BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */; settings = {ASSET_TAGS = (); }; };
+		C87523671BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */; settings = {ASSET_TAGS = (); }; };
+		C87524011BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524021BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524031BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524041BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524051BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524061BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524071BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524081BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524191BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875241A1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875241B1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875241C1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875241D1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C875241E1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C875241F1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524201BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524211BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524221BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524231BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524241BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C87524251BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524261BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524271BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524281BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524291BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875242A1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875242B1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875242C1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C875242D1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C875242E1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C875242F1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524301BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C87524331BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */; settings = {ASSET_TAGS = (); }; };
+		C87524341BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */; settings = {ASSET_TAGS = (); }; };
+		C87524351BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */; settings = {ASSET_TAGS = (); }; };
+		C87524361BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */; settings = {ASSET_TAGS = (); }; };
+		C87524441BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */; settings = {ASSET_TAGS = (); }; };
+		C87524451BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */; settings = {ASSET_TAGS = (); }; };
+		C87524461BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */; settings = {ASSET_TAGS = (); }; };
+		C87524471BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */; settings = {ASSET_TAGS = (); }; };
+		C87524481BB394FC000F86DC /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243B1BB394FC000F86DC /* UIColor+HexString.m */; settings = {ASSET_TAGS = (); }; };
+		C87524491BB394FC000F86DC /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243B1BB394FC000F86DC /* UIColor+HexString.m */; settings = {ASSET_TAGS = (); }; };
+		C875244A1BB394FC000F86DC /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243B1BB394FC000F86DC /* UIColor+HexString.m */; settings = {ASSET_TAGS = (); }; };
+		C875244B1BB394FC000F86DC /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243B1BB394FC000F86DC /* UIColor+HexString.m */; settings = {ASSET_TAGS = (); }; };
+		C875244C1BB394FC000F86DC /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243D1BB394FC000F86DC /* UIColor+RCColor.m */; settings = {ASSET_TAGS = (); }; };
+		C875244D1BB394FC000F86DC /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243D1BB394FC000F86DC /* UIColor+RCColor.m */; settings = {ASSET_TAGS = (); }; };
+		C875244E1BB394FC000F86DC /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243D1BB394FC000F86DC /* UIColor+RCColor.m */; settings = {ASSET_TAGS = (); }; };
+		C875244F1BB394FC000F86DC /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243D1BB394FC000F86DC /* UIColor+RCColor.m */; settings = {ASSET_TAGS = (); }; };
+		C87524501BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */; settings = {ASSET_TAGS = (); }; };
+		C87524511BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */; settings = {ASSET_TAGS = (); }; };
+		C87524521BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */; settings = {ASSET_TAGS = (); }; };
+		C87524531BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */; settings = {ASSET_TAGS = (); }; };
+		C87524541BB394FC000F86DC /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524431BB394FC000F86DC /* UIView+Border.m */; settings = {ASSET_TAGS = (); }; };
+		C87524551BB394FC000F86DC /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524431BB394FC000F86DC /* UIView+Border.m */; settings = {ASSET_TAGS = (); }; };
+		C87524561BB394FC000F86DC /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524431BB394FC000F86DC /* UIView+Border.m */; settings = {ASSET_TAGS = (); }; };
+		C87524571BB394FC000F86DC /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524431BB394FC000F86DC /* UIView+Border.m */; settings = {ASSET_TAGS = (); }; };
+		C87524741BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
+		C87524751BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
+		C87524761BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
+		C87524771BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
+		C87524781BB39674000F86DC /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245C1BB39674000F86DC /* MotionOrientation.m */; settings = {ASSET_TAGS = (); }; };
+		C87524791BB39674000F86DC /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245C1BB39674000F86DC /* MotionOrientation.m */; settings = {ASSET_TAGS = (); }; };
+		C875247A1BB39674000F86DC /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245C1BB39674000F86DC /* MotionOrientation.m */; settings = {ASSET_TAGS = (); }; };
+		C875247B1BB39674000F86DC /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245C1BB39674000F86DC /* MotionOrientation.m */; settings = {ASSET_TAGS = (); }; };
+		C875247C1BB39674000F86DC /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245E1BB39674000F86DC /* NSCalendar+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C875247D1BB39674000F86DC /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245E1BB39674000F86DC /* NSCalendar+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C875247E1BB39674000F86DC /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245E1BB39674000F86DC /* NSCalendar+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C875247F1BB39674000F86DC /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245E1BB39674000F86DC /* NSCalendar+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C87524801BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */; settings = {ASSET_TAGS = (); }; };
+		C87524811BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */; settings = {ASSET_TAGS = (); }; };
+		C87524821BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */; settings = {ASSET_TAGS = (); }; };
+		C87524831BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */; settings = {ASSET_TAGS = (); }; };
+		C87524841BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */; settings = {ASSET_TAGS = (); }; };
+		C87524851BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */; settings = {ASSET_TAGS = (); }; };
+		C87524861BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */; settings = {ASSET_TAGS = (); }; };
+		C87524871BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */; settings = {ASSET_TAGS = (); }; };
+		C87524881BB39674000F86DC /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524641BB39674000F86DC /* NSCalendar+Juncture.m */; settings = {ASSET_TAGS = (); }; };
+		C87524891BB39674000F86DC /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524641BB39674000F86DC /* NSCalendar+Juncture.m */; settings = {ASSET_TAGS = (); }; };
+		C875248A1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524641BB39674000F86DC /* NSCalendar+Juncture.m */; settings = {ASSET_TAGS = (); }; };
+		C875248B1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524641BB39674000F86DC /* NSCalendar+Juncture.m */; settings = {ASSET_TAGS = (); }; };
+		C875248C1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524661BB39674000F86DC /* NSCalendar+Ranges.m */; settings = {ASSET_TAGS = (); }; };
+		C875248D1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524661BB39674000F86DC /* NSCalendar+Ranges.m */; settings = {ASSET_TAGS = (); }; };
+		C875248E1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524661BB39674000F86DC /* NSCalendar+Ranges.m */; settings = {ASSET_TAGS = (); }; };
+		C875248F1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524661BB39674000F86DC /* NSCalendar+Ranges.m */; settings = {ASSET_TAGS = (); }; };
+		C87524901BB39674000F86DC /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524691BB39674000F86DC /* NSDate+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C87524911BB39674000F86DC /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524691BB39674000F86DC /* NSDate+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C87524921BB39674000F86DC /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524691BB39674000F86DC /* NSDate+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C87524931BB39674000F86DC /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524691BB39674000F86DC /* NSDate+Components.m */; settings = {ASSET_TAGS = (); }; };
+		C87524941BB39674000F86DC /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; settings = {ASSET_TAGS = (); }; };
+		C87524951BB39674000F86DC /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; settings = {ASSET_TAGS = (); }; };
+		C87524961BB39674000F86DC /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; settings = {ASSET_TAGS = (); }; };
+		C87524971BB39674000F86DC /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; settings = {ASSET_TAGS = (); }; };
+		C87524981BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */; settings = {ASSET_TAGS = (); }; };
+		C87524991BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */; settings = {ASSET_TAGS = (); }; };
+		C875249A1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */; settings = {ASSET_TAGS = (); }; };
+		C875249B1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */; settings = {ASSET_TAGS = (); }; };
+		C875249C1BB39674000F86DC /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246F1BB39674000F86DC /* NSString+Color.m */; settings = {ASSET_TAGS = (); }; };
+		C875249D1BB39674000F86DC /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246F1BB39674000F86DC /* NSString+Color.m */; settings = {ASSET_TAGS = (); }; };
+		C875249E1BB39674000F86DC /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246F1BB39674000F86DC /* NSString+Color.m */; settings = {ASSET_TAGS = (); }; };
+		C875249F1BB39674000F86DC /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246F1BB39674000F86DC /* NSString+Color.m */; settings = {ASSET_TAGS = (); }; };
+		C87524A41BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */; settings = {ASSET_TAGS = (); }; };
+		C87524A51BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */; settings = {ASSET_TAGS = (); }; };
+		C87524A61BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */; settings = {ASSET_TAGS = (); }; };
+		C87524A71BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B01BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B11BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B21BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B31BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B61BB43D26000F86DC /* KMGillSansLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524B41BB43D26000F86DC /* KMGillSansLabel.m */; settings = {ASSET_TAGS = (); }; };
+		C87524B71BB43D26000F86DC /* UIFont+GillSansFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524B51BB43D26000F86DC /* UIFont+GillSansFonts.m */; settings = {ASSET_TAGS = (); }; };
+		C87524BC1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
+		C87524BD1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
+		C87524BE1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
+		C87524BF1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
+		C87524C21BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
+		C87524C31BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
+		C87524C41BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
+		C87524C51BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
 		C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599B1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599C1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
@@ -105,13 +232,69 @@
 		C8C58B9D18FD667B00FD512F /* libZXingObjC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */; };
 		C8D5A27116A79784002060CC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D5A27016A79782002060CC /* libsqlite3.0.dylib */; };
 		C8DADE3618FD170600954C8D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DADE3518FD170600954C8D /* libWeChatSDK.a */; };
+		C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57D9B1BB69ABF0013527E /* FlyingEventLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E4A1BB6A2370013527E /* FlyingEventPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E4C1BB6A2370013527E /* FlyingEventScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E4D1BB6A2370013527E /* FlyingEventScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E4E1BB6A2780013527E /* FlyingEventScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E4F1BB6A2790013527E /* FlyingEventScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E501BB6A27A0013527E /* FlyingEventScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E511BB6A29C0013527E /* FlyingEventPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E521BB6A29D0013527E /* FlyingEventPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E531BB6A29E0013527E /* FlyingEventPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E571BB6A2AB0013527E /* FlyingEventScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E581BB6A2AC0013527E /* FlyingEventScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E591BB6A2AD0013527E /* FlyingEventScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5A1BB6A2B40013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5B1BB6A2B50013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5C1BB6A2B60013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5D1BB6A2B90013527E /* FlyingEventLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5E1BB6A2BA0013527E /* FlyingEventLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E5F1BB6A2BB0013527E /* FlyingEventLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C8E57E611BB6A4000013527E /* FlyingEventPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E601BB6A4000013527E /* FlyingEventPriceCell.xib */; settings = {ASSET_TAGS = (); }; };
 		C8E93BF216AE11C8003B2EEB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E93BF116AE11C5003B2EEB /* Security.framework */; };
-		C8EF976118505C50005CDA5A /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */; };
 		C8EF9763185062F8005CDA5A /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8EF9762185062F7005CDA5A /* libbz2.dylib */; };
 		C8EF976518506355005CDA5A /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8EF976418506355005CDA5A /* libstdc++.dylib */; };
 		C8EF976718506386005CDA5A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8EF976618506386005CDA5A /* libiconv.dylib */; };
 		C8EF977918506FE0005CDA5A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8EF977818506FE0005CDA5A /* OpenGLES.framework */; };
 		C8EF977B185070D0005CDA5A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8EF977A185070D0005CDA5A /* CoreText.framework */; };
+		C8FE1F941BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F951BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F961BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F971BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F981BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F991BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9A1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9B1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9C1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9E1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1F9F1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA01BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA11BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA21BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA31BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA41BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA51BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA61BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA71BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA81BB1036D009C8D48 /* FlyingCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FA91BB1036D009C8D48 /* FlyingCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FAA1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE1FAB1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20151BB154C8009C8D48 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20161BB154C8009C8D48 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20171BB154C8009C8D48 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20181BB154C8009C8D48 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20191BB154C8009C8D48 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201A1BB154C8009C8D48 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201B1BB154C8009C8D48 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20091BB154C8009C8D48 /* SLKTextView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201C1BB154C8009C8D48 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201D1BB154C8009C8D48 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201E1BB154C8009C8D48 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE201F1BB154C8009C8D48 /* FlyingCommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */; settings = {ASSET_TAGS = (); }; };
+		C8FE20201BB154C8009C8D48 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; settings = {ASSET_TAGS = (); }; };
 		C8FFCEAF1610634900DA6BFA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FFCEAE1610634900DA6BFA /* QuartzCore.framework */; };
 		FA04BEEC1B995722000F29A5 /* FlyingCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04BEE91B995722000F29A5 /* FlyingCoverView.m */; };
 		FA04BEED1B995722000F29A5 /* FlyingCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04BEE91B995722000F29A5 /* FlyingCoverView.m */; };
@@ -169,10 +352,6 @@
 		FA04C0321B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */; };
 		FA04C0331B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */; };
 		FA04C0341B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */; };
-		FA04C0371B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */; };
-		FA04C0381B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */; };
-		FA04C0391B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */; };
-		FA04C03A1B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */; };
 		FA0A618D1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */; };
 		FA0A618F1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */; };
 		FA0A61931B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
@@ -271,7 +450,6 @@
 		FA1BE4C31B27DD5A00AA1AFD /* DAVResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BA1B04B5BA00DCF2AB /* DAVResponse.m */; };
 		FA1BE4C41B27DD5A00AA1AFD /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA1BE4C61B27DD5A00AA1AFD /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
-		FA1BE4C71B27DD5A00AA1AFD /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA95BD551AC2BC2100542081 /* MotionOrientation.m */; };
 		FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA1BE4C91B27DD5A00AA1AFD /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -327,7 +505,6 @@
 		FA1BE5051B27DD5A00AA1AFD /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73819CD526200D97FDB /* FlyingWebViewController.m */; };
 		FA1BE5061B27DD5A00AA1AFD /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		FA1BE5071B27DD5A00AA1AFD /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
-		FA1BE5081B27DD5A00AA1AFD /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */; };
 		FA1BE5091B27DD5A00AA1AFD /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
 		FA1BE50A1B27DD5A00AA1AFD /* FlyingM3U8Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E7E18239D8500E4D056 /* FlyingM3U8Downloader.m */; };
 		FA1BE50B1B27DD5A00AA1AFD /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454C41B04B5BA00DCF2AB /* GCDAsyncUdpSocket.m */; };
@@ -363,10 +540,7 @@
 		FA1BE52B1B27DD5A00AA1AFD /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C531182FBE87006D9269 /* UIView+Autosizing.m */; };
 		FA1BE52C1B27DD5A00AA1AFD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA1BE52D1B27DD5A00AA1AFD /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
-		FA1BE52F1B27DD5A00AA1AFD /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B017FE53BA00CADF4F /* SoundPlayer.m */; };
 		FA1BE5301B27DD5A00AA1AFD /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA1BE5311B27DD5A00AA1AFD /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */; };
-		FA1BE5321B27DD5A00AA1AFD /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */; };
 		FA1BE5331B27DD5A00AA1AFD /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA1BE5341B27DD5A00AA1AFD /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA1BE5351B27DD5A00AA1AFD /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
@@ -417,7 +591,6 @@
 		FA1BE5691B27DD5A00AA1AFD /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA1BE56A1B27DD5A00AA1AFD /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
 		FA1BE56B1B27DD5A00AA1AFD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
-		FA1BE56C1B27DD5A00AA1AFD /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */; };
 		FA1BE56D1B27DD5A00AA1AFD /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA1BE56E1B27DD5A00AA1AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA1BE56F1B27DD5A00AA1AFD /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
@@ -534,7 +707,6 @@
 		FA349F801B8C6C9300DDF56E /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F751B8C5F4700DDF56E /* libSDWebImage.a */; };
 		FA349F811B8C6C9300DDF56E /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F761B8C5F4700DDF56E /* libSIAlertView.a */; };
 		FA388399199B6571001FD710 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FA388398199B6571001FD710 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		FA4210AD1B12D0E500CC4633 /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */; };
 		FA5ACC201B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
 		FA5ACC211B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
 		FA5ACC221B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
@@ -597,7 +769,6 @@
 		FA6329A71B51091400A1222E /* DAVResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BA1B04B5BA00DCF2AB /* DAVResponse.m */; };
 		FA6329A81B51091400A1222E /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA6329AA1B51091400A1222E /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
-		FA6329AB1B51091400A1222E /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA95BD551AC2BC2100542081 /* MotionOrientation.m */; };
 		FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA6329AD1B51091400A1222E /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -655,7 +826,6 @@
 		FA6329E81B51091400A1222E /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		FA6329E91B51091400A1222E /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
 		FA6329EA1B51091400A1222E /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
-		FA6329EB1B51091400A1222E /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */; };
 		FA6329EC1B51091400A1222E /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
 		FA6329ED1B51091400A1222E /* FlyingM3U8Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E7E18239D8500E4D056 /* FlyingM3U8Downloader.m */; };
 		FA6329EE1B51091400A1222E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454C41B04B5BA00DCF2AB /* GCDAsyncUdpSocket.m */; };
@@ -692,10 +862,7 @@
 		FA632A0D1B51091400A1222E /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C531182FBE87006D9269 /* UIView+Autosizing.m */; };
 		FA632A0E1B51091400A1222E /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA632A0F1B51091400A1222E /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
-		FA632A101B51091400A1222E /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B017FE53BA00CADF4F /* SoundPlayer.m */; };
 		FA632A111B51091400A1222E /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA632A121B51091400A1222E /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */; };
-		FA632A131B51091400A1222E /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */; };
 		FA632A141B51091400A1222E /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA632A151B51091400A1222E /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA632A161B51091400A1222E /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
@@ -747,7 +914,6 @@
 		FA632A491B51091400A1222E /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA632A4A1B51091400A1222E /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
 		FA632A4B1B51091400A1222E /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
-		FA632A4C1B51091400A1222E /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */; };
 		FA632A4D1B51091400A1222E /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA632A4E1B51091400A1222E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA632A4F1B51091400A1222E /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
@@ -888,7 +1054,6 @@
 		FA8C3E031B535A1500DEA02D /* DAVResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BA1B04B5BA00DCF2AB /* DAVResponse.m */; };
 		FA8C3E041B535A1500DEA02D /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA8C3E061B535A1500DEA02D /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
-		FA8C3E071B535A1500DEA02D /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA95BD551AC2BC2100542081 /* MotionOrientation.m */; };
 		FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA8C3E091B535A1500DEA02D /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -946,7 +1111,6 @@
 		FA8C3E441B535A1500DEA02D /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		FA8C3E451B535A1500DEA02D /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
 		FA8C3E461B535A1500DEA02D /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
-		FA8C3E471B535A1500DEA02D /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */; };
 		FA8C3E481B535A1500DEA02D /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
 		FA8C3E491B535A1500DEA02D /* FlyingM3U8Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C8390E7E18239D8500E4D056 /* FlyingM3U8Downloader.m */; };
 		FA8C3E4A1B535A1500DEA02D /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454C41B04B5BA00DCF2AB /* GCDAsyncUdpSocket.m */; };
@@ -983,10 +1147,7 @@
 		FA8C3E691B535A1500DEA02D /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C531182FBE87006D9269 /* UIView+Autosizing.m */; };
 		FA8C3E6A1B535A1500DEA02D /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA8C3E6B1B535A1500DEA02D /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
-		FA8C3E6C1B535A1500DEA02D /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B017FE53BA00CADF4F /* SoundPlayer.m */; };
 		FA8C3E6D1B535A1500DEA02D /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA8C3E6E1B535A1500DEA02D /* MHWDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */; };
-		FA8C3E6F1B535A1500DEA02D /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */; };
 		FA8C3E701B535A1500DEA02D /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA8C3E711B535A1500DEA02D /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA8C3E721B535A1500DEA02D /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
@@ -1038,7 +1199,6 @@
 		FA8C3EA51B535A1500DEA02D /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA8C3EA61B535A1500DEA02D /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
 		FA8C3EA71B535A1500DEA02D /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
-		FA8C3EA81B535A1500DEA02D /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */; };
 		FA8C3EA91B535A1500DEA02D /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA8C3EAA1B535A1500DEA02D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA8C3EAB1B535A1500DEA02D /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
@@ -1110,7 +1270,6 @@
 		FA910BD01AE5F43100430DA1 /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA910BD11AE5F43100430DA1 /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA95BD4E1AC2B8CF00542081 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
-		FA95BD561AC2BC2100542081 /* MotionOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA95BD551AC2BC2100542081 /* MotionOrientation.m */; };
 		FA991AB11B2183B4003D8F80 /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA9965C61ACF8EBD00B599D4 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAACD0391ABC20C800781401 /* FlyingScrollView.m */; };
@@ -1138,14 +1297,6 @@
 		FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E31B511345007730B3 /* beiyang.entitlements */; };
 		FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E41B511345007730B3 /* BirdEnglish.entitlements */; };
 		FAD886ED1B511345007730B3 /* IBag.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E51B511345007730B3 /* IBag.entitlements */; };
-		FAE0BDDC1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDDD1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDDE1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDDF1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDE01BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDE11BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDE21BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
-		FAE0BDE31BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		FAE5C3F81AB7D8ED00E6F748 /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
 		FAE5C42D1AB7DB4E00E6F748 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4191AB7DB4E00E6F748 /* DWTagList.m */; };
 		FAE5C42E1AB7DB4E00E6F748 /* FlyingLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41B1AB7DB4E00E6F748 /* FlyingLessonVC.m */; };
@@ -1204,11 +1355,6 @@
 		C806560A17FE53BA00CADF4F /* FlyingDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingDownloadManager.m; sourceTree = "<group>"; };
 		C806561017FE53BA00CADF4F /* FlyingTagTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTagTransform.h; sourceTree = "<group>"; };
 		C806561117FE53BA00CADF4F /* FlyingTagTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTagTransform.m; sourceTree = "<group>"; };
-		C806568217FE53BA00CADF4F /* NSString+FlyingExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FlyingExtention.h"; sourceTree = "<group>"; };
-		C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FlyingExtention.m"; sourceTree = "<group>"; };
-		C80656AA17FE53BA00CADF4F /* shareDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shareDefine.h; sourceTree = "<group>"; };
-		C80656AF17FE53BA00CADF4F /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
-		C80656B017FE53BA00CADF4F /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
 		C80656B217FE53BA00CADF4F /* FlyingSubRipItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSubRipItem.h; sourceTree = "<group>"; };
 		C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSubRipItem.m; sourceTree = "<group>"; };
 		C80656B417FE53BA00CADF4F /* FlyingSubTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSubTitle.h; sourceTree = "<group>"; };
@@ -1266,8 +1412,6 @@
 		C830C52D182FBE87006D9269 /* UIImage+localFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+localFile.m"; sourceTree = "<group>"; };
 		C830C530182FBE87006D9269 /* UIView+Autosizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autosizing.h"; sourceTree = "<group>"; };
 		C830C531182FBE87006D9269 /* UIView+Autosizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Autosizing.m"; sourceTree = "<group>"; };
-		C830C538182FD535006D9269 /* MHWDirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWDirectoryWatcher.h; sourceTree = "<group>"; };
-		C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWDirectoryWatcher.m; sourceTree = "<group>"; };
 		C833315A18CA998B0081B96D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C8390E7D18239D8500E4D056 /* FlyingM3U8Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingM3U8Downloader.h; sourceTree = "<group>"; };
 		C8390E7E18239D8500E4D056 /* FlyingM3U8Downloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingM3U8Downloader.m; sourceTree = "<group>"; };
@@ -1301,6 +1445,71 @@
 		C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C862440C18A49FFD001686B7 /* FlyingSysWithCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSysWithCenter.h; sourceTree = "<group>"; };
 		C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSysWithCenter.m; sourceTree = "<group>"; };
+		C87523511BB29C65000F86DC /* FlyingEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventVC.h; sourceTree = "<group>"; };
+		C87523521BB29C65000F86DC /* FlyingEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventVC.m; sourceTree = "<group>"; };
+		C875235C1BB2A5A9000F86DC /* KMNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMNetworkLoadingViewController.h; sourceTree = "<group>"; };
+		C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNetworkLoadingViewController.m; sourceTree = "<group>"; };
+		C87523621BB2A5FC000F86DC /* KMActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMActivityIndicator.h; sourceTree = "<group>"; };
+		C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMActivityIndicator.m; sourceTree = "<group>"; };
+		C87523DF1BB390A8000F86DC /* FlyingEventAuthorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventAuthorCell.h; sourceTree = "<group>"; };
+		C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventAuthorCell.m; sourceTree = "<group>"; };
+		C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventAuthorCell.xib; sourceTree = "<group>"; };
+		C87523E81BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMMovieDetailsSimilarMoviesCell.h; sourceTree = "<group>"; };
+		C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMMovieDetailsSimilarMoviesCell.m; sourceTree = "<group>"; };
+		C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KMMovieDetailsSimilarMoviesCell.xib; sourceTree = "<group>"; };
+		C87523EB1BB390A8000F86DC /* FlyingEventTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventTitleCell.h; sourceTree = "<group>"; };
+		C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventTitleCell.m; sourceTree = "<group>"; };
+		C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventTitleCell.xib; sourceTree = "<group>"; };
+		C87523EE1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMSimilarMoviesCollectionViewCell.h; sourceTree = "<group>"; };
+		C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMSimilarMoviesCollectionViewCell.m; sourceTree = "<group>"; };
+		C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KMSimilarMoviesCollectionViewCell.xib; sourceTree = "<group>"; };
+		C87524311BB391B3000F86DC /* KMIndexedCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMIndexedCollectionView.h; sourceTree = "<group>"; };
+		C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMIndexedCollectionView.m; sourceTree = "<group>"; };
+		C87524381BB394FC000F86DC /* NSString+FlyingExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FlyingExtention.h"; sourceTree = "<group>"; };
+		C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FlyingExtention.m"; sourceTree = "<group>"; };
+		C875243A1BB394FC000F86DC /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
+		C875243B1BB394FC000F86DC /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
+		C875243C1BB394FC000F86DC /* UIColor+RCColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RCColor.h"; sourceTree = "<group>"; };
+		C875243D1BB394FC000F86DC /* UIColor+RCColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RCColor.m"; sourceTree = "<group>"; };
+		C875243F1BB394FC000F86DC /* UIFont+GillSansFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+GillSansFonts.h"; sourceTree = "<group>"; };
+		C87524401BB394FC000F86DC /* UIView+AnimatedFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimatedFrame.h"; sourceTree = "<group>"; };
+		C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimatedFrame.m"; sourceTree = "<group>"; };
+		C87524421BB394FC000F86DC /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
+		C87524431BB394FC000F86DC /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
+		C87524581BB39635000F86DC /* shareDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shareDefine.h; sourceTree = "<group>"; };
+		C87524591BB39674000F86DC /* MHWDirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWDirectoryWatcher.h; sourceTree = "<group>"; };
+		C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWDirectoryWatcher.m; sourceTree = "<group>"; };
+		C875245B1BB39674000F86DC /* MotionOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionOrientation.h; sourceTree = "<group>"; };
+		C875245C1BB39674000F86DC /* MotionOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionOrientation.m; sourceTree = "<group>"; };
+		C875245D1BB39674000F86DC /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
+		C875245E1BB39674000F86DC /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
+		C875245F1BB39674000F86DC /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
+		C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateComparison.m"; sourceTree = "<group>"; };
+		C87524611BB39674000F86DC /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
+		C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateManipulation.m"; sourceTree = "<group>"; };
+		C87524631BB39674000F86DC /* NSCalendar+Juncture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Juncture.h"; sourceTree = "<group>"; };
+		C87524641BB39674000F86DC /* NSCalendar+Juncture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Juncture.m"; sourceTree = "<group>"; };
+		C87524651BB39674000F86DC /* NSCalendar+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Ranges.h"; sourceTree = "<group>"; };
+		C87524661BB39674000F86DC /* NSCalendar+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Ranges.m"; sourceTree = "<group>"; };
+		C87524671BB39674000F86DC /* NSCalendarCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCalendarCategories.h; sourceTree = "<group>"; };
+		C87524681BB39674000F86DC /* NSDate+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Components.h"; sourceTree = "<group>"; };
+		C87524691BB39674000F86DC /* NSDate+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Components.m"; sourceTree = "<group>"; };
+		C875246A1BB39674000F86DC /* NSDate+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Description.h"; sourceTree = "<group>"; };
+		C875246B1BB39674000F86DC /* NSDate+Description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Description.m"; sourceTree = "<group>"; };
+		C875246C1BB39674000F86DC /* NSDateComponents+AllComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateComponents+AllComponents.h"; sourceTree = "<group>"; };
+		C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateComponents+AllComponents.m"; sourceTree = "<group>"; };
+		C875246E1BB39674000F86DC /* NSString+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Color.h"; sourceTree = "<group>"; };
+		C875246F1BB39674000F86DC /* NSString+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Color.m"; sourceTree = "<group>"; };
+		C87524721BB39674000F86DC /* UIDevice+SpeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SpeedCategory.h"; sourceTree = "<group>"; };
+		C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SpeedCategory.m"; sourceTree = "<group>"; };
+		C87524AE1BB3979D000F86DC /* FlyingSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSoundPlayer.h; sourceTree = "<group>"; };
+		C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSoundPlayer.m; sourceTree = "<group>"; };
+		C87524B41BB43D26000F86DC /* KMGillSansLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMGillSansLabel.m; sourceTree = "<group>"; };
+		C87524B51BB43D26000F86DC /* UIFont+GillSansFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GillSansFonts.m"; sourceTree = "<group>"; };
+		C87524B91BB43ED0000F86DC /* KMGillSansLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMGillSansLabel.h; sourceTree = "<group>"; };
+		C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = KMNetworkLoadingViewController.storyboard; sourceTree = "<group>"; };
+		C87524C01BB52A0F000F86DC /* StoryBoardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryBoardUtilities.h; sourceTree = "<group>"; };
+		C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryBoardUtilities.m; sourceTree = "<group>"; };
 		C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBoardUIView.h; sourceTree = "<group>"; };
 		C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBoardUIView.m; sourceTree = "<group>"; };
 		C879599E1BA2F07100D670E2 /* FlyingStreamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingStreamData.h; sourceTree = "<group>"; };
@@ -1327,14 +1536,59 @@
 		C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libZXingObjC-iOS.a"; path = "libraries/Zxing/libZXingObjC-iOS.a"; sourceTree = "<group>"; };
 		C8D5A27016A79782002060CC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		C8DADE3518FD170600954C8D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = libraries/Social/libWeChatSDK.a; sourceTree = "<group>"; };
+		C8E57D941BB69ABF0013527E /* FlyingEventLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventLocationCell.h; sourceTree = "<group>"; };
+		C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventLocationCell.m; sourceTree = "<group>"; };
+		C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventLocationCell.xib; sourceTree = "<group>"; };
+		C8E57E441BB6A2370013527E /* FlyingEventPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventPriceCell.h; sourceTree = "<group>"; };
+		C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventPriceCell.m; sourceTree = "<group>"; };
+		C8E57E471BB6A2370013527E /* FlyingEventScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventScheduleCell.h; sourceTree = "<group>"; };
+		C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventScheduleCell.m; sourceTree = "<group>"; };
+		C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventScheduleCell.xib; sourceTree = "<group>"; };
+		C8E57E601BB6A4000013527E /* FlyingEventPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventPriceCell.xib; sourceTree = "<group>"; };
 		C8E93BF116AE11C5003B2EEB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		C8EF975F18505C50005CDA5A /* UIDevice+SpeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SpeedCategory.h"; sourceTree = "<group>"; };
-		C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SpeedCategory.m"; sourceTree = "<group>"; };
 		C8EF9762185062F7005CDA5A /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		C8EF976418506355005CDA5A /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		C8EF976618506386005CDA5A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		C8EF977818506FE0005CDA5A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C8EF977A185070D0005CDA5A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C8FE1F881BB1036D009C8D48 /* FlyingCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarCell.h; sourceTree = "<group>"; };
+		C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarCell.m; sourceTree = "<group>"; };
+		C8FE1F8A1BB1036D009C8D48 /* FlyingCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarEvent.h; sourceTree = "<group>"; };
+		C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarEvent.m; sourceTree = "<group>"; };
+		C8FE1F8C1BB1036D009C8D48 /* FlyingCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarHeaderView.h; sourceTree = "<group>"; };
+		C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarHeaderView.m; sourceTree = "<group>"; };
+		C8FE1F8E1BB1036D009C8D48 /* FlyingCalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarTableViewCell.h; sourceTree = "<group>"; };
+		C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarTableViewCell.m; sourceTree = "<group>"; };
+		C8FE1F901BB1036D009C8D48 /* FlyingCalendarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarVC.h; sourceTree = "<group>"; };
+		C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarVC.m; sourceTree = "<group>"; };
+		C8FE1F921BB1036D009C8D48 /* FlyingCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarView.h; sourceTree = "<group>"; };
+		C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarView.m; sourceTree = "<group>"; };
+		C8FE1FFA1BB154C8009C8D48 /* SLKTextView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLKTextView+SLKAdditions.h"; sourceTree = "<group>"; };
+		C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLKTextView+SLKAdditions.m"; sourceTree = "<group>"; };
+		C8FE1FFC1BB154C8009C8D48 /* SLKUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKUIConstants.h; sourceTree = "<group>"; };
+		C8FE1FFD1BB154C8009C8D48 /* UIResponder+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+SLKAdditions.h"; sourceTree = "<group>"; };
+		C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+SLKAdditions.m"; sourceTree = "<group>"; };
+		C8FE1FFF1BB154C8009C8D48 /* UIScrollView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SLKAdditions.h"; sourceTree = "<group>"; };
+		C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SLKAdditions.m"; sourceTree = "<group>"; };
+		C8FE20011BB154C8009C8D48 /* UIView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SLKAdditions.h"; sourceTree = "<group>"; };
+		C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SLKAdditions.m"; sourceTree = "<group>"; };
+		C8FE20041BB154C8009C8D48 /* SLKInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKInputAccessoryView.h; sourceTree = "<group>"; };
+		C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKInputAccessoryView.m; sourceTree = "<group>"; };
+		C8FE20061BB154C8009C8D48 /* SLKTextInputbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextInputbar.h; sourceTree = "<group>"; };
+		C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextInputbar.m; sourceTree = "<group>"; };
+		C8FE20081BB154C8009C8D48 /* SLKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextView.h; sourceTree = "<group>"; };
+		C8FE20091BB154C8009C8D48 /* SLKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextView.m; sourceTree = "<group>"; };
+		C8FE200A1BB154C8009C8D48 /* SLKTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextViewController.h; sourceTree = "<group>"; };
+		C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextViewController.m; sourceTree = "<group>"; };
+		C8FE200C1BB154C8009C8D48 /* SLKTypingIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorProtocol.h; sourceTree = "<group>"; };
+		C8FE200D1BB154C8009C8D48 /* SLKTypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorView.h; sourceTree = "<group>"; };
+		C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTypingIndicatorView.m; sourceTree = "<group>"; };
+		C8FE200F1BB154C8009C8D48 /* FlyingCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentCell.h; sourceTree = "<group>"; };
+		C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentCell.m; sourceTree = "<group>"; };
+		C8FE20111BB154C8009C8D48 /* FlyingCommentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentData.h; sourceTree = "<group>"; };
+		C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentData.m; sourceTree = "<group>"; };
+		C8FE20131BB154C8009C8D48 /* FlyingCommentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentVC.h; sourceTree = "<group>"; };
+		C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentVC.m; sourceTree = "<group>"; };
 		C8FFCEAE1610634900DA6BFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CCE30CC5C9933FD3CBD059DA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FA04BEE81B995722000F29A5 /* FlyingCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCoverView.h; sourceTree = "<group>"; };
@@ -1365,8 +1619,6 @@
 		FA04C0181B9E83B6000F29A5 /* FlyingGroupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupVC.m; sourceTree = "<group>"; };
 		FA04C02F1B9ED8A3000F29A5 /* FlyingGroupStreamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupStreamCell.h; sourceTree = "<group>"; };
 		FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupStreamCell.m; sourceTree = "<group>"; };
-		FA04C0351B9FDDE6000F29A5 /* FlyingCalendarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCalendarVC.h; sourceTree = "<group>"; };
-		FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCalendarVC.m; sourceTree = "<group>"; };
 		FA0A618B1B3006B50022A9E9 /* FlyingUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUserInfo.h; sourceTree = "<group>"; };
 		FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUserInfo.m; sourceTree = "<group>"; };
 		FA0A61911B300AA00022A9E9 /* RCDRCIMDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDRCIMDataSource.h; sourceTree = "<group>"; };
@@ -1573,8 +1825,6 @@
 		FA349F761B8C5F4700DDF56E /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
 		FA388397199B6571001FD710 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		FA388398199B6571001FD710 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		FA4210AB1B12D0E500CC4633 /* UIColor+RCColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RCColor.h"; sourceTree = "<group>"; };
-		FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RCColor.m"; sourceTree = "<group>"; };
 		FA5ACC1A1B6FB7400051A3EA /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		FA5ACC1C1B6FB7400051A3EA /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
@@ -1680,8 +1930,6 @@
 		FA910BCE1AE5F43100430DA1 /* NSData+NSHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSHash.h"; sourceTree = "<group>"; };
 		FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSHash.m"; sourceTree = "<group>"; };
 		FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		FA95BD541AC2BC2100542081 /* MotionOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionOrientation.h; sourceTree = "<group>"; };
-		FA95BD551AC2BC2100542081 /* MotionOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionOrientation.m; sourceTree = "<group>"; };
 		FA991AAF1B2183B4003D8F80 /* FlyingShareWithFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingShareWithFriends.h; sourceTree = "<group>"; };
 		FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareWithFriends.m; sourceTree = "<group>"; };
 		FA9965C41ACF8EBD00B599D4 /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
@@ -1729,9 +1977,6 @@
 		FAD886E31B511345007730B3 /* beiyang.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
 		FAD886E41B511345007730B3 /* BirdEnglish.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BirdEnglish.entitlements; sourceTree = "<group>"; };
 		FAD886E51B511345007730B3 /* IBag.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IBag.entitlements; sourceTree = "<group>"; };
-		FAE0BDD91BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMemberCollectionViewCell.h; sourceTree = "<group>"; };
-		FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMemberCollectionViewCell.m; sourceTree = "<group>"; };
-		FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		FAE5C3F61AB7D8ED00E6F748 /* FlyingFakeHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingFakeHUD.h; sourceTree = "<group>"; };
 		FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingFakeHUD.m; sourceTree = "<group>"; };
 		FAE5C4181AB7DB4E00E6F748 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
@@ -1994,29 +2239,18 @@
 		C80655C217FE53BA00CADF4F /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				FAF553FD1B916C900068BE00 /* Contents */,
+				C87524371BB394FC000F86DC /* UIKit */,
 				FA88BC181B79E5B000604BC2 /* RSKImageCropper */,
-				FA4210AB1B12D0E500CC4633 /* UIColor+RCColor.h */,
-				FA4210AC1B12D0E500CC4633 /* UIColor+RCColor.m */,
 				C80655C317FE53BA00CADF4F /* ActiveRecord */,
 				C80655E817FE53BA00CADF4F /* Cloud Compute */,
 				C806560617FE53BA00CADF4F /* Download */,
 				C806561017FE53BA00CADF4F /* FlyingTagTransform.h */,
 				C806561117FE53BA00CADF4F /* FlyingTagTransform.m */,
 				FA0EE0F81A6CA407007F89D7 /* Map */,
-				C830C538182FD535006D9269 /* MHWDirectoryWatcher.h */,
-				C830C539182FD535006D9269 /* MHWDirectoryWatcher.m */,
-				FA95BD541AC2BC2100542081 /* MotionOrientation.h */,
-				FA95BD551AC2BC2100542081 /* MotionOrientation.m */,
-				C806568217FE53BA00CADF4F /* NSString+FlyingExtention.h */,
-				C806568317FE53BA00CADF4F /* NSString+FlyingExtention.m */,
 				C80656A417FE53BA00CADF4F /* Security */,
-				C80656AA17FE53BA00CADF4F /* shareDefine.h */,
-				C80656AF17FE53BA00CADF4F /* SoundPlayer.h */,
-				C80656B017FE53BA00CADF4F /* SoundPlayer.m */,
 				C80656B117FE53BA00CADF4F /* Subtitle */,
 				C80656B617FE53BA00CADF4F /* UI */,
-				C8EF975F18505C50005CDA5A /* UIDevice+SpeedCategory.h */,
-				C8EF976018505C50005CDA5A /* UIDevice+SpeedCategory.m */,
 				C80656FE17FE53BA00CADF4F /* Zip */,
 			);
 			path = Component;
@@ -2398,11 +2632,13 @@
 			children = (
 				FAB5F9391B1ADA6E0041DF89 /* Account */,
 				FA11E77C19CD526200D97FDB /* Audio */,
+				C8FE1F871BB1036D009C8D48 /* Calendar */,
+				C8FE1FBE1BB15044009C8D48 /* Comment */,
 				C80655C217FE53BA00CADF4F /* Component */,
-				FAF553FD1B916C900068BE00 /* Contents */,
 				FA1BE4831B26A0F100AA1AFD /* DataManager */,
 				FA8BCFE41AD0E0C90092A970 /* Dictionary */,
 				FA11E73419CD526200D97FDB /* Document */,
+				C87522EB1BB29722000F86DC /* Event */,
 				FA04BEF41B995812000F29A5 /* Group */,
 				C806570D17FE53BB00CADF4F /* Home */,
 				FA0C58921B0F6101000D98BA /* IM */,
@@ -2479,9 +2715,105 @@
 			path = Scan;
 			sourceTree = "<group>";
 		};
+		C87522EB1BB29722000F86DC /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */,
+				C87523D81BB390A8000F86DC /* Event Details Cells */,
+				C87523621BB2A5FC000F86DC /* KMActivityIndicator.h */,
+				C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */,
+				C875235C1BB2A5A9000F86DC /* KMNetworkLoadingViewController.h */,
+				C875235D1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m */,
+				C87523511BB29C65000F86DC /* FlyingEventVC.h */,
+				C87523521BB29C65000F86DC /* FlyingEventVC.m */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		C87523D81BB390A8000F86DC /* Event Details Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C87523DF1BB390A8000F86DC /* FlyingEventAuthorCell.h */,
+				C87523E01BB390A8000F86DC /* FlyingEventAuthorCell.m */,
+				C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */,
+				C8E57D941BB69ABF0013527E /* FlyingEventLocationCell.h */,
+				C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */,
+				C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */,
+				C8E57E441BB6A2370013527E /* FlyingEventPriceCell.h */,
+				C8E57E451BB6A2370013527E /* FlyingEventPriceCell.m */,
+				C8E57E601BB6A4000013527E /* FlyingEventPriceCell.xib */,
+				C8E57E471BB6A2370013527E /* FlyingEventScheduleCell.h */,
+				C8E57E481BB6A2370013527E /* FlyingEventScheduleCell.m */,
+				C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */,
+				C87524311BB391B3000F86DC /* KMIndexedCollectionView.h */,
+				C87524321BB391B3000F86DC /* KMIndexedCollectionView.m */,
+				C87523E81BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.h */,
+				C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */,
+				C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */,
+				C87523EB1BB390A8000F86DC /* FlyingEventTitleCell.h */,
+				C87523EC1BB390A8000F86DC /* FlyingEventTitleCell.m */,
+				C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */,
+				C87523EE1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.h */,
+				C87523EF1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m */,
+				C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */,
+			);
+			path = "Event Details Cells";
+			sourceTree = "<group>";
+		};
+		C87524371BB394FC000F86DC /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				C87524C01BB52A0F000F86DC /* StoryBoardUtilities.h */,
+				C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */,
+				C87524B91BB43ED0000F86DC /* KMGillSansLabel.h */,
+				C87524B41BB43D26000F86DC /* KMGillSansLabel.m */,
+				C87524B51BB43D26000F86DC /* UIFont+GillSansFonts.m */,
+				C87524AE1BB3979D000F86DC /* FlyingSoundPlayer.h */,
+				C87524AF1BB3979E000F86DC /* FlyingSoundPlayer.m */,
+				C87524591BB39674000F86DC /* MHWDirectoryWatcher.h */,
+				C875245A1BB39674000F86DC /* MHWDirectoryWatcher.m */,
+				C875245B1BB39674000F86DC /* MotionOrientation.h */,
+				C875245C1BB39674000F86DC /* MotionOrientation.m */,
+				C875245D1BB39674000F86DC /* NSCalendar+Components.h */,
+				C875245E1BB39674000F86DC /* NSCalendar+Components.m */,
+				C875245F1BB39674000F86DC /* NSCalendar+DateComparison.h */,
+				C87524601BB39674000F86DC /* NSCalendar+DateComparison.m */,
+				C87524611BB39674000F86DC /* NSCalendar+DateManipulation.h */,
+				C87524621BB39674000F86DC /* NSCalendar+DateManipulation.m */,
+				C87524631BB39674000F86DC /* NSCalendar+Juncture.h */,
+				C87524641BB39674000F86DC /* NSCalendar+Juncture.m */,
+				C87524651BB39674000F86DC /* NSCalendar+Ranges.h */,
+				C87524661BB39674000F86DC /* NSCalendar+Ranges.m */,
+				C87524671BB39674000F86DC /* NSCalendarCategories.h */,
+				C87524681BB39674000F86DC /* NSDate+Components.h */,
+				C87524691BB39674000F86DC /* NSDate+Components.m */,
+				C875246A1BB39674000F86DC /* NSDate+Description.h */,
+				C875246B1BB39674000F86DC /* NSDate+Description.m */,
+				C875246C1BB39674000F86DC /* NSDateComponents+AllComponents.h */,
+				C875246D1BB39674000F86DC /* NSDateComponents+AllComponents.m */,
+				C875246E1BB39674000F86DC /* NSString+Color.h */,
+				C875246F1BB39674000F86DC /* NSString+Color.m */,
+				C87524381BB394FC000F86DC /* NSString+FlyingExtention.h */,
+				C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */,
+				C875243A1BB394FC000F86DC /* UIColor+HexString.h */,
+				C875243B1BB394FC000F86DC /* UIColor+HexString.m */,
+				C875243C1BB394FC000F86DC /* UIColor+RCColor.h */,
+				C875243D1BB394FC000F86DC /* UIColor+RCColor.m */,
+				C87524721BB39674000F86DC /* UIDevice+SpeedCategory.h */,
+				C87524731BB39674000F86DC /* UIDevice+SpeedCategory.m */,
+				C875243F1BB394FC000F86DC /* UIFont+GillSansFonts.h */,
+				C87524401BB394FC000F86DC /* UIView+AnimatedFrame.h */,
+				C87524411BB394FC000F86DC /* UIView+AnimatedFrame.m */,
+				C87524421BB394FC000F86DC /* UIView+Border.h */,
+				C87524431BB394FC000F86DC /* UIView+Border.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		C88B763E173BFC2200955BC2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C87524581BB39635000F86DC /* shareDefine.h */,
 				FA23C6BE1B14A63200D9E13A /* Images.xcassets */,
 				FA6D51A01A899F6800B2A0BD /* en.lproj */,
 				FA6D51A31A899F6900B2A0BD /* zh-Hans.lproj */,
@@ -2493,6 +2825,74 @@
 				C88DCF721765B95A00C28D74 /* MainStoryboard.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8FE1F871BB1036D009C8D48 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				C8FE1F881BB1036D009C8D48 /* FlyingCalendarCell.h */,
+				C8FE1F891BB1036D009C8D48 /* FlyingCalendarCell.m */,
+				C8FE1F8A1BB1036D009C8D48 /* FlyingCalendarEvent.h */,
+				C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */,
+				C8FE1F8C1BB1036D009C8D48 /* FlyingCalendarHeaderView.h */,
+				C8FE1F8D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m */,
+				C8FE1F8E1BB1036D009C8D48 /* FlyingCalendarTableViewCell.h */,
+				C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */,
+				C8FE1F901BB1036D009C8D48 /* FlyingCalendarVC.h */,
+				C8FE1F911BB1036D009C8D48 /* FlyingCalendarVC.m */,
+				C8FE1F921BB1036D009C8D48 /* FlyingCalendarView.h */,
+				C8FE1F931BB1036D009C8D48 /* FlyingCalendarView.m */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		C8FE1FBE1BB15044009C8D48 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				C8FE1FF91BB154C8009C8D48 /* Additions */,
+				C8FE20031BB154C8009C8D48 /* Classes */,
+				C8FE200F1BB154C8009C8D48 /* FlyingCommentCell.h */,
+				C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */,
+				C8FE20111BB154C8009C8D48 /* FlyingCommentData.h */,
+				C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */,
+				C8FE20131BB154C8009C8D48 /* FlyingCommentVC.h */,
+				C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		C8FE1FF91BB154C8009C8D48 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				C8FE1FFA1BB154C8009C8D48 /* SLKTextView+SLKAdditions.h */,
+				C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */,
+				C8FE1FFC1BB154C8009C8D48 /* SLKUIConstants.h */,
+				C8FE1FFD1BB154C8009C8D48 /* UIResponder+SLKAdditions.h */,
+				C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */,
+				C8FE1FFF1BB154C8009C8D48 /* UIScrollView+SLKAdditions.h */,
+				C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */,
+				C8FE20011BB154C8009C8D48 /* UIView+SLKAdditions.h */,
+				C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		C8FE20031BB154C8009C8D48 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C8FE20041BB154C8009C8D48 /* SLKInputAccessoryView.h */,
+				C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */,
+				C8FE20061BB154C8009C8D48 /* SLKTextInputbar.h */,
+				C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */,
+				C8FE20081BB154C8009C8D48 /* SLKTextView.h */,
+				C8FE20091BB154C8009C8D48 /* SLKTextView.m */,
+				C8FE200A1BB154C8009C8D48 /* SLKTextViewController.h */,
+				C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */,
+				C8FE200C1BB154C8009C8D48 /* SLKTypingIndicatorProtocol.h */,
+				C8FE200D1BB154C8009C8D48 /* SLKTypingIndicatorView.h */,
+				C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		F4F5FD1EDE586B1BC7793805 /* Pods */ = {
@@ -2507,8 +2907,6 @@
 		FA04BEF41B995812000F29A5 /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				FA04C0351B9FDDE6000F29A5 /* FlyingCalendarVC.h */,
-				FA04C0361B9FDDE6000F29A5 /* FlyingCalendarVC.m */,
 				FA04BF8C1B99CE37000F29A5 /* FlyingMyGroupCell.h */,
 				FA04BF8D1B99CE37000F29A5 /* FlyingMyGroupCell.m */,
 				FA04BF921B99CFD1000F29A5 /* FlyingMyGroupsVC.h */,
@@ -2523,9 +2921,6 @@
 				FA04C0301B9ED8A3000F29A5 /* FlyingGroupStreamCell.m */,
 				FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */,
 				FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */,
-				FAE0BDD91BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.h */,
-				FAE0BDDA1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m */,
-				FAE0BDDB1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib */,
 				C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */,
 				C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */,
 				C879599E1BA2F07100D670E2 /* FlyingStreamData.h */,
@@ -3141,7 +3536,8 @@
 				FA04BFFF1B9B37F9000F29A5 /* FlyingDiscoverContent.h */,
 				FA04C0001B9B37F9000F29A5 /* FlyingDiscoverContent.m */,
 			);
-			path = Contents;
+			name = Contents;
+			path = ../Contents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3300,16 +3696,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				C85AC342181CA39D00B83580 /* calloutLight.mp3 in Resources */,
+				C87524051BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA23C6BF1B14A63200D9E13A /* Images.xcassets in Resources */,
 				C88DCF731765B95A00C28D74 /* MainStoryboard.storyboard in Resources */,
 				FAD886E61B511345007730B3 /* beiyang.entitlements in Resources */,
 				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
+				C87524BC1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
 				FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */,
+				C8E57E611BB6A4000013527E /* FlyingEventPriceCell.xib in Resources */,
+				C875241D1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
+				C8E57E4D1BB6A2370013527E /* FlyingEventScheduleCell.xib in Resources */,
+				C875242D1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
 				C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */,
-				FAE0BDE01BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
 				C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */,
+				C8E57D9B1BB69ABF0013527E /* FlyingEventLocationCell.xib in Resources */,
+				C87524251BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
 				C85AC375181CA39D00B83580 /* userModel.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3321,15 +3724,21 @@
 				FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */,
 				FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */,
 				FA1BE5A51B27DD5A00AA1AFD /* MainStoryboard.storyboard in Resources */,
-				FAE0BDE11BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
+				C875242E1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
+				C8E57E5D1BB6A2B90013527E /* FlyingEventLocationCell.xib in Resources */,
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
 				FA1BE5A71B27DD5A00AA1AFD /* dicModel.db in Resources */,
 				FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */,
+				C87524061BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */,
 				FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */,
+				C87524BD1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
+				C8E57E4E1BB6A2780013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */,
 				FAD886ED1B511345007730B3 /* IBag.entitlements in Resources */,
+				C87524261BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
+				C875241E1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3339,16 +3748,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */,
+				C87524071BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
 				FA632A851B51091400A1222E /* MainStoryboard.storyboard in Resources */,
 				FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */,
+				C87524BE1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
+				C875241F1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
+				C875242F1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
 				FA632A871B51091400A1222E /* dicModel.db in Resources */,
-				FAE0BDE21BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
 				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
+				C8E57E4F1BB6A2790013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */,
+				C8E57E5E1BB6A2BA0013527E /* FlyingEventLocationCell.xib in Resources */,
+				C87524271BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
 				FA632A8C1B51091400A1222E /* userModel.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3360,15 +3775,21 @@
 				FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
 				FA8C3EE11B535A1500DEA02D /* MainStoryboard.storyboard in Resources */,
-				FAE0BDE31BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.xib in Resources */,
+				C87524301BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
+				C8E57E5F1BB6A2BB0013527E /* FlyingEventLocationCell.xib in Resources */,
 				FA5ACC331B706A370051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */,
 				FA8C3EFA1B535B9100DEA02D /* InfoPlist.strings in Resources */,
 				FA8C3EE31B535A1500DEA02D /* dicModel.db in Resources */,
+				C87524081BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA8C3EE41B535A1500DEA02D /* LootCoinLarge.wav in Resources */,
 				FA8C3EE61B535A1500DEA02D /* iMoneyDialogOpen.wav in Resources */,
+				C87524BF1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
+				C8E57E501BB6A27A0013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */,
 				FA2B57791B5368FC00371526 /* Inet.entitlements in Resources */,
+				C87524281BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
+				C87524201BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3559,21 +3980,24 @@
 				FA0EE12A1A6CF618007F89D7 /* china_shift.c in Sources */,
 				FA8CDD791B030821004152C2 /* MuDocRef.m in Sources */,
 				FA88BC371B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
-				FAE0BDDC1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA8CDD7F1B030821004152C2 /* MuTapResult.m in Sources */,
 				FA3454F71B04B5BA00DCF2AB /* DDLog.m in Sources */,
+				C8FE1FA01BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA0EE1321A6D0736007F89D7 /* JPSThumbnailAnnotation.m in Sources */,
 				FA04C0011B9B37F9000F29A5 /* FlyingDiscoverContent.m in Sources */,
 				FAE5C3F81AB7D8ED00E6F748 /* FlyingFakeHUD.m in Sources */,
 				FA991AB11B2183B4003D8F80 /* FlyingShareWithFriends.m in Sources */,
 				C806577D17FE53BB00CADF4F /* FlyingDownloadManager.m in Sources */,
 				FA8F2D951B04AB580004C874 /* SSZipArchive.m in Sources */,
+				C875247C1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				FA11E7B619CD526200D97FDB /* ReaderViewController.m in Sources */,
 				FA1BE48C1B26A0F100AA1AFD /* AFHttpTool.m in Sources */,
+				C8FE20181BB154C8009C8D48 /* UIView+SLKAdditions.m in Sources */,
 				FA88BC2B1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				C80657DA17FE53BB00CADF4F /* DSBarChart.m in Sources */,
 				FA11E7A519CD526200D97FDB /* MuTextSelectView.m in Sources */,
 				FA8CDD811B030821004152C2 /* MuWord.m in Sources */,
+				C87524501BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA3454E11B04B5BA00DCF2AB /* HTTPConnection.m in Sources */,
 				FAAD8EDD19FB7FED00784EB4 /* FMResultSet.m in Sources */,
 				FA88BC3B1B79E5B000604BC2 /* UIImage+RSKImageCropper.m in Sources */,
@@ -3598,48 +4022,59 @@
 				FA8F2DA01B04AC080004C874 /* mztools.c in Sources */,
 				C80657CD17FE53BB00CADF4F /* FlyingLoadingView.m in Sources */,
 				FA8BD0051AD0E20D0092A970 /* MAOFlipViewController.m in Sources */,
+				C87524191BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				FA7F814E1B1E8F8800BF1C8A /* RCDGroupInfo.m in Sources */,
 				FA3454DF1B04B5BA00DCF2AB /* DDRange.m in Sources */,
 				FA67FF9E1AF4D656001031FD /* FlyingSubItemParser.m in Sources */,
 				FA8CDD7A1B030821004152C2 /* MuHitView.m in Sources */,
+				C8FE20171BB154C8009C8D48 /* UIScrollView+SLKAdditions.m in Sources */,
 				C81D74EE18B6359F0068FDC7 /* FlyingTouchDAO.m in Sources */,
+				C8E57E4A1BB6A2370013527E /* FlyingEventPriceCell.m in Sources */,
 				C806578017FE53BB00CADF4F /* FlyingTagTransform.m in Sources */,
 				C8390EB418239D8600E4D056 /* FlyingM3U8Segment.m in Sources */,
 				FA3454EF1B04B5BA00DCF2AB /* DAVResponse.m in Sources */,
+				C8FE201A1BB154C8009C8D48 /* SLKTextInputbar.m in Sources */,
 				FA8BCFF91AD0E1500092A970 /* MMParallaxPresenter.m in Sources */,
 				FA8F2D9F1B04AC080004C874 /* ioapi.c in Sources */,
-				FA95BD561AC2BC2100542081 /* MotionOrientation.m in Sources */,
 				C806575E17FE53BB00CADF4F /* FlyingBaseDao.m in Sources */,
 				FA910BD01AE5F43100430DA1 /* FileHash.m in Sources */,
 				FA11E79D19CD526200D97FDB /* MuAnnotSelectView.m in Sources */,
 				FA7F81421B1DC18800BF1C8A /* FlyingPickColorVCViewController.m in Sources */,
+				C87524881BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				C806577C17FE53BB00CADF4F /* FlyingDownloader.m in Sources */,
+				C8FE20151BB154C8009C8D48 /* SLKTextView+SLKAdditions.m in Sources */,
 				FAB5F91B1B172D9E0041DF89 /* RCDChatListViewController.m in Sources */,
 				FA3454E71B04B5BA00DCF2AB /* HTTPAsyncFileResponse.m in Sources */,
 				FA3454F11B04B5BA00DCF2AB /* PUTResponse.m in Sources */,
 				C806577017FE53BB00CADF4F /* AFDownloadRequestOperation.m in Sources */,
 				FA9965C61ACF8EBD00B599D4 /* HCSStarRatingView.m in Sources */,
+				C8FE201C1BB154C8009C8D48 /* SLKTextViewController.m in Sources */,
 				FA3454F01B04B5BA00DCF2AB /* DELETEResponse.m in Sources */,
+				C87524941BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FAB5F9091B16F5A60041DF89 /* ACEExpandableTextCell.m in Sources */,
 				C88B7661173BFC2200955BC2 /* iFlyingAppDelegate.m in Sources */,
 				C806580117FE53BB00CADF4F /* FlyingLessonViewCell.m in Sources */,
+				C8FE1F981BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
+				C87523641BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				C80657C817FE53BB00CADF4F /* NSBubbleData.m in Sources */,
 				FA11E7AC19CD526200D97FDB /* ReaderDocumentOutline.m in Sources */,
 				C806576E17FE53BB00CADF4F /* FlyingTaskWordDAO.m in Sources */,
 				FA388399199B6571001FD710 /* OpenUDID.m in Sources */,
 				FA5ACC241B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FAAD8EDB19FB7FED00784EB4 /* FMDatabasePool.m in Sources */,
-				FA04C0371B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */,
 				FA04C0311B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA8CDD7D1B030821004152C2 /* MuPageViewReflow.m in Sources */,
 				C806580D17FE53BB00CADF4F /* FlyingGuideViewController.m in Sources */,
 				FA04C0191B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
+				C8FE201B1BB154C8009C8D48 /* SLKTextView.m in Sources */,
 				C85AC381181CD84800B83580 /* CFSharer.m in Sources */,
+				C87524B01BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */,
 				C806575F17FE53BB00CADF4F /* FlyingItemDao.m in Sources */,
 				C87959A01BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4921B26A0F100AA1AFD /* RCDataBaseManager.m in Sources */,
 				C80657CB17FE53BB00CADF4F /* UIBubbleTableViewCell.m in Sources */,
 				FAE5C4311AB7DB4E00E6F748 /* FlyingItemView.m in Sources */,
+				C875235E1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
 				FA3454E41B04B5BA00DCF2AB /* MultipartFormDataParser.m in Sources */,
 				C85AC380181CD84800B83580 /* CFShareCircleView.m in Sources */,
 				FA04BF8E1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
@@ -3648,16 +4083,19 @@
 				FA88BC331B79E5B000604BC2 /* RSKTouchView.m in Sources */,
 				FA3454DD1B04B5BA00DCF2AB /* DDData.m in Sources */,
 				FA3454EC1B04B5BA00DCF2AB /* HTTPRedirectResponse.m in Sources */,
+				C8E57E4C1BB6A2370013527E /* FlyingEventScheduleCell.m in Sources */,
 				FAE5C4321AB7DB4E00E6F748 /* FlyingAILearningView.m in Sources */,
 				FAB5F9001B16CC3B0041DF89 /* UICKeyChainStore.m in Sources */,
 				FA0A61931B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
 				FA3454E01B04B5BA00DCF2AB /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF71B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				FA11E7B319CD526200D97FDB /* ReaderThumbRequest.m in Sources */,
+				C8FE1F9C1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FAB5F9481B1ADA6E0041DF89 /* FlyingOpenIDVC.m in Sources */,
 				C806580A17FE53BB00CADF4F /* FlyingSearchBar.m in Sources */,
 				FAED3F1E1A695EA000CC6116 /* FlyingProviderParser.m in Sources */,
 				FA0EE1331A6D0736007F89D7 /* JPSThumbnailAnnotationView.m in Sources */,
+				C87524781BB39674000F86DC /* MotionOrientation.m in Sources */,
 				C806576217FE53BB00CADF4F /* FlyingLessonData.m in Sources */,
 				C80657C917FE53BB00CADF4F /* UIBubbleHeaderTableViewCell.m in Sources */,
 				C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */,
@@ -3667,7 +4105,10 @@
 				FA04BFFB1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				C8390EB318239D8600E4D056 /* FlyingM3U8Parser.m in Sources */,
 				FA11E7B719CD526200D97FDB /* ThumbsMainToolbar.m in Sources */,
+				C87524A41BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
 				FA11E7BC19CD526200D97FDB /* FlyingWordLinguisticData.m in Sources */,
+				C875249C1BB39674000F86DC /* NSString+Color.m in Sources */,
+				C87524481BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA3454F21B04B5BA00DCF2AB /* GCDAsyncSocket.m in Sources */,
 				FA11E7B119CD526200D97FDB /* ReaderThumbQueue.m in Sources */,
 				FAED3F1D1A695EA000CC6116 /* FlyingProvider.m in Sources */,
@@ -3677,11 +4118,13 @@
 				FA11E7B219CD526200D97FDB /* ReaderThumbRender.m in Sources */,
 				FAFA72311B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */,
 				FA88BC271B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
-				C80657B117FE53BB00CADF4F /* NSString+FlyingExtention.m in Sources */,
+				C87524441BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				FA11E7A719CD526200D97FDB /* CGPDFDocument.m in Sources */,
 				C8390EB118239D8600E4D056 /* FlyingM3U8Downloader.m in Sources */,
 				FA3454F31B04B5BA00DCF2AB /* GCDAsyncUdpSocket.m in Sources */,
 				FA11E7BA19CD526200D97FDB /* FlyingDialogViewController.m in Sources */,
+				C8FE1FA81BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
+				C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */,
 				C80657C617FE53BB00CADF4F /* FlyingSubTitle.m in Sources */,
 				C8390EB218239D8600E4D056 /* FlyingM3U8List.m in Sources */,
 				C81D74EB18B634160068FDC7 /* FlyingTouchRecord.m in Sources */,
@@ -3701,6 +4144,7 @@
 				C806580017FE53BB00CADF4F /* FlyingLessonParser.m in Sources */,
 				C80657CA17FE53BB00CADF4F /* UIBubbleTableView.m in Sources */,
 				FA8CDD7B1B030821004152C2 /* MuInkView.m in Sources */,
+				C87524901BB39674000F86DC /* NSDate+Components.m in Sources */,
 				C851199318D92EF60078AEC1 /* ACLoupe.m in Sources */,
 				FA3454EB1B04B5BA00DCF2AB /* HTTPFileResponse.m in Sources */,
 				C80657FF17FE53BB00CADF4F /* FlyingLessonListViewController.m in Sources */,
@@ -3708,43 +4152,54 @@
 				FAAD8EDA19FB7FED00784EB4 /* FMDatabaseAdditions.m in Sources */,
 				FA1BE4901B26A0F100AA1AFD /* FlyingHttpTool.m in Sources */,
 				FA3454FC1B04B5BA00DCF2AB /* DDMultiFormatter.m in Sources */,
+				C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */,
+				C87524211BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				FA3454F61B04B5BA00DCF2AB /* DDFileLogger.m in Sources */,
 				FA6217FF1A7B38AB00BEEDB1 /* FlyingSetDefault.m in Sources */,
+				C87524B61BB43D26000F86DC /* KMGillSansLabel.m in Sources */,
 				C851199518D92EF60078AEC1 /* ACMagnifyingView.m in Sources */,
 				FAFA72371B42A58E00E4FE30 /* UIView+Toast.m in Sources */,
 				FAE5C42D1AB7DB4E00E6F748 /* DWTagList.m in Sources */,
+				C87524981BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
 				C830C534182FBE87006D9269 /* UIView+Autosizing.m in Sources */,
 				FA3454ED1B04B5BA00DCF2AB /* WebSocket.m in Sources */,
 				C80657DC17FE53BB00CADF4F /* CERoundProgressView.m in Sources */,
 				FA04BFF31B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
-				C80657C417FE53BB00CADF4F /* SoundPlayer.m in Sources */,
 				FA11E7B519CD526200D97FDB /* ReaderThumbView.m in Sources */,
 				FA04BFE51B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				C830C53A182FD535006D9269 /* MHWDirectoryWatcher.m in Sources */,
-				C8EF976118505C50005CDA5A /* UIDevice+SpeedCategory.m in Sources */,
+				C8FE20161BB154C8009C8D48 /* UIResponder+SLKAdditions.m in Sources */,
 				FA910BD11AE5F43100430DA1 /* NSData+NSHash.m in Sources */,
 				FA0EE11B1A6CA407007F89D7 /* SVPulsingAnnotationView.m in Sources */,
 				FA8BCFF71AD0E1500092A970 /* MMHeaderUIView.m in Sources */,
 				C8937C14181E2DE8000B4F64 /* BEMenuController.m in Sources */,
 				FAB5F9441B1ADA6E0041DF89 /* FlyingAccountVC.m in Sources */,
+				C87524C21BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA3454DE1B04B5BA00DCF2AB /* DDNumber.m in Sources */,
 				FAE5C4301AB7DB4E00E6F748 /* FlyingSeparateView.m in Sources */,
 				FA3454F81B04B5BA00DCF2AB /* DDTTYLogger.m in Sources */,
 				FA04C0071B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				FAB5F90B1B16F5A60041DF89 /* SZTextView.m in Sources */,
+				C8FE201F1BB154C8009C8D48 /* FlyingCommentData.m in Sources */,
 				C806576F17FE53BB00CADF4F /* FlyingTaskWordData.m in Sources */,
+				C87524801BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
 				FAAD8EDE19FB7FED00784EB4 /* FMDatabase+FTS3.m in Sources */,
 				FA8BCFED1AD0E0FB0092A970 /* FlyingWordDetailVC.m in Sources */,
 				FA8BCFEE1AD0E0FB0092A970 /* FlyingWordItemCell.m in Sources */,
+				C87524011BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
+				C8FE1F941BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
 				FA8BCFF81AD0E1500092A970 /* MMParallaxPage.m in Sources */,
 				FAB5F94C1B1ADA6E0041DF89 /* RCDMessageNotifySettingTableViewController.m in Sources */,
 				FA04BFDD1B9B048B000F29A5 /* FlyingCoverData.m in Sources */,
 				FA3454FD1B04B5BA00DCF2AB /* DispatchQueueLogFormatter.m in Sources */,
+				C87524291BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA11E7AA19CD526200D97FDB /* ReaderContentTile.m in Sources */,
+				C8FE1FA41BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				C806576C17FE53BB00CADF4F /* FlyingStatisticDAO.m in Sources */,
+				C87524741BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				FA3454E21B04B5BA00DCF2AB /* HTTPMessage.m in Sources */,
 				FA8BD0041AD0E20D0092A970 /* MAOFlipTransition.m in Sources */,
 				FA11E79919CD526200D97FDB /* FlyingUIWebView.m in Sources */,
+				C87524331BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */,
 				FA88BC2F1B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0131B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
@@ -3753,6 +4208,7 @@
 				FA8BD0031AD0E20D0092A970 /* MAOFlipInteraction.m in Sources */,
 				FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */,
 				FA11E7B919CD526200D97FDB /* UIXToolbarView.m in Sources */,
+				C87524B71BB43D26000F86DC /* UIFont+GillSansFonts.m in Sources */,
 				FA11E7B819CD526200D97FDB /* ThumbsViewController.m in Sources */,
 				FAE5C42F1AB7DB4E00E6F748 /* FlyingSubtitleTextView.m in Sources */,
 				FA3454FB1B04B5BA00DCF2AB /* DDDispatchQueueLogFormatter.m in Sources */,
@@ -3763,25 +4219,32 @@
 				FA11E7BB19CD526200D97FDB /* FlyingMagView.m in Sources */,
 				FA3454E31B04B5BA00DCF2AB /* HTTPServer.m in Sources */,
 				C80657CC17FE53BB00CADF4F /* UIBubbleTypingTableViewCell.m in Sources */,
+				C8FE201D1BB154C8009C8D48 /* SLKTypingIndicatorView.m in Sources */,
 				C851199418D92EF60078AEC1 /* ACMagnifyingGlass.m in Sources */,
 				FA3454E81B04B5BA00DCF2AB /* HTTPDataResponse.m in Sources */,
+				C8FE201E1BB154C8009C8D48 /* FlyingCommentCell.m in Sources */,
 				C80657DB17FE53BB00CADF4F /* CERoundProgressLayer.m in Sources */,
 				FA3454F51B04B5BA00DCF2AB /* DDASLLogger.m in Sources */,
 				FA3454E51B04B5BA00DCF2AB /* MultipartMessageHeader.m in Sources */,
+				C8FE20191BB154C8009C8D48 /* SLKInputAccessoryView.m in Sources */,
 				C806576117FE53BB00CADF4F /* FlyingLessonDAO.m in Sources */,
 				FAE5C4341AB7DB4E00E6F748 /* FlyingStytleView.m in Sources */,
 				C806576017FE53BB00CADF4F /* FlyingItemData.m in Sources */,
 				FA8F2DA11B04AC080004C874 /* unzip.c in Sources */,
+				C87524841BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA04BFE11B9B048B000F29A5 /* FlyingCoverDataParser.m in Sources */,
+				C8FE20201BB154C8009C8D48 /* FlyingCommentVC.m in Sources */,
 				FA11E7B019CD526200D97FDB /* ReaderThumbFetch.m in Sources */,
 				FA8F2DA21B04AC080004C874 /* zip.c in Sources */,
 				C80657C517FE53BB00CADF4F /* FlyingSubRipItem.m in Sources */,
 				FA2559D41BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				C875244C1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA11E7B419CD526200D97FDB /* ReaderThumbsView.m in Sources */,
 				FA0C58951B0F6101000D98BA /* RCDChatViewController.m in Sources */,
-				FA4210AD1B12D0E500CC4633 /* UIColor+RCColor.m in Sources */,
 				FA8BCFEC1AD0E0FB0092A970 /* FlyingWordCollectVC.m in Sources */,
 				C88B7665173BFC2200955BC2 /* main.m in Sources */,
+				C875248C1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
+				C87524541BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA3454EE1B04B5BA00DCF2AB /* DAVConnection.m in Sources */,
 				FA0EE13A1A6D28D0007F89D7 /* FlyingProviderViewCell.m in Sources */,
 			);
@@ -3791,11 +4254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FE1FA91BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
+				C87524C31BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA1BE4971B27DD5A00AA1AFD /* FlyingSearchViewController.m in Sources */,
 				FA1BE4991B27DD5A00AA1AFD /* china_shift.c in Sources */,
+				C87524751BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				FA1BE49A1B27DD5A00AA1AFD /* MuDocRef.m in Sources */,
 				FA88BC381B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
-				FAE0BDDD1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA1BE49B1B27DD5A00AA1AFD /* MuTapResult.m in Sources */,
 				FA1BE49C1B27DD5A00AA1AFD /* DDLog.m in Sources */,
 				FA1BE49D1B27DD5A00AA1AFD /* JPSThumbnailAnnotation.m in Sources */,
@@ -3803,17 +4268,20 @@
 				FA1BE49E1B27DD5A00AA1AFD /* FlyingFakeHUD.m in Sources */,
 				FA1BE49F1B27DD5A00AA1AFD /* FlyingShareWithFriends.m in Sources */,
 				FA1BE4A01B27DD5A00AA1AFD /* FlyingDownloadManager.m in Sources */,
+				C87524551BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA1BE4A11B27DD5A00AA1AFD /* SSZipArchive.m in Sources */,
 				FA1BE4A21B27DD5A00AA1AFD /* ReaderViewController.m in Sources */,
 				FA1BE4A31B27DD5A00AA1AFD /* AFHttpTool.m in Sources */,
 				FA88BC2C1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA1BE4A41B27DD5A00AA1AFD /* DSBarChart.m in Sources */,
+				C875242A1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA1BE4A51B27DD5A00AA1AFD /* MuTextSelectView.m in Sources */,
 				FA1BE4A61B27DD5A00AA1AFD /* MuWord.m in Sources */,
 				FA1BE4A71B27DD5A00AA1AFD /* HTTPConnection.m in Sources */,
 				FA1BE4A81B27DD5A00AA1AFD /* FMResultSet.m in Sources */,
 				FA88BC3C1B79E5B000604BC2 /* UIImage+RSKImageCropper.m in Sources */,
 				FA1BE4A91B27DD5A00AA1AFD /* FMDatabase.m in Sources */,
+				C87524021BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				FA1BE4AA1B27DD5A00AA1AFD /* MuPageViewNormal.m in Sources */,
 				FA1BE4AB1B27DD5A00AA1AFD /* FlyingPlayerView.m in Sources */,
 				FA1BE4AC1B27DD5A00AA1AFD /* common.m in Sources */,
@@ -3832,19 +4300,22 @@
 				FA1BE4B71B27DD5A00AA1AFD /* FlyingCurrentAnnotation.m in Sources */,
 				FA1BE4B81B27DD5A00AA1AFD /* UIImage+localFile.m in Sources */,
 				FA1BE4B91B27DD5A00AA1AFD /* mztools.c in Sources */,
+				C87524791BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA1BE4BA1B27DD5A00AA1AFD /* FlyingLoadingView.m in Sources */,
+				C8FE1FA11BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA1BE4BB1B27DD5A00AA1AFD /* MAOFlipViewController.m in Sources */,
 				FA1BE4BC1B27DD5A00AA1AFD /* RCDGroupInfo.m in Sources */,
 				FA1BE4BD1B27DD5A00AA1AFD /* DDRange.m in Sources */,
+				C87524491BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA1BE4BE1B27DD5A00AA1AFD /* FlyingSubItemParser.m in Sources */,
 				FA1BE4BF1B27DD5A00AA1AFD /* MuHitView.m in Sources */,
 				FA1BE4C01B27DD5A00AA1AFD /* FlyingTouchDAO.m in Sources */,
 				FA1BE4C11B27DD5A00AA1AFD /* FlyingTagTransform.m in Sources */,
 				FA1BE4C21B27DD5A00AA1AFD /* FlyingM3U8Segment.m in Sources */,
+				C87524811BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
 				FA1BE4C31B27DD5A00AA1AFD /* DAVResponse.m in Sources */,
 				FA1BE4C41B27DD5A00AA1AFD /* MMParallaxPresenter.m in Sources */,
 				FA1BE4C61B27DD5A00AA1AFD /* ioapi.c in Sources */,
-				FA1BE4C71B27DD5A00AA1AFD /* MotionOrientation.m in Sources */,
 				FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */,
 				FA1BE4C91B27DD5A00AA1AFD /* FileHash.m in Sources */,
 				FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */,
@@ -3853,24 +4324,27 @@
 				FA1BE4CD1B27DD5A00AA1AFD /* RCDChatListViewController.m in Sources */,
 				FA1BE4CE1B27DD5A00AA1AFD /* HTTPAsyncFileResponse.m in Sources */,
 				FA1BE4CF1B27DD5A00AA1AFD /* PUTResponse.m in Sources */,
+				C87524221BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				FA1BE4D11B27DD5A00AA1AFD /* AFDownloadRequestOperation.m in Sources */,
 				FA1BE4D21B27DD5A00AA1AFD /* HCSStarRatingView.m in Sources */,
 				FA1BE4D31B27DD5A00AA1AFD /* DELETEResponse.m in Sources */,
+				C875244D1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA1BE4D41B27DD5A00AA1AFD /* ACEExpandableTextCell.m in Sources */,
 				FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */,
 				FA1BE4D61B27DD5A00AA1AFD /* FlyingLessonViewCell.m in Sources */,
 				FA1BE4D71B27DD5A00AA1AFD /* NSBubbleData.m in Sources */,
 				FA1BE4D91B27DD5A00AA1AFD /* ReaderDocumentOutline.m in Sources */,
 				FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */,
+				C87524341BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				FA1BE4DC1B27DD5A00AA1AFD /* OpenUDID.m in Sources */,
 				FA5ACC251B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
-				FA04C0381B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */,
 				FA04C0321B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA1BE4DE1B27DD5A00AA1AFD /* MuPageViewReflow.m in Sources */,
 				FA1BE4DF1B27DD5A00AA1AFD /* FlyingGuideViewController.m in Sources */,
 				FA04C01A1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA1BE4E01B27DD5A00AA1AFD /* CFSharer.m in Sources */,
+				C87524511BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA1BE4E11B27DD5A00AA1AFD /* FlyingItemDao.m in Sources */,
 				C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4E21B27DD5A00AA1AFD /* RCDataBaseManager.m in Sources */,
@@ -3889,6 +4363,8 @@
 				FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
 				FA1BE4ED1B27DD5A00AA1AFD /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF81B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
+				C87524991BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
+				C875247D1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				FA1BE4EE1B27DD5A00AA1AFD /* ReaderThumbRequest.m in Sources */,
 				FA1BE4F01B27DD5A00AA1AFD /* FlyingOpenIDVC.m in Sources */,
 				FA1BE4F11B27DD5A00AA1AFD /* FlyingSearchBar.m in Sources */,
@@ -3901,9 +4377,11 @@
 				FA1BE4F91B27DD5A00AA1AFD /* FlyingProviderListVC.m in Sources */,
 				FA1BE4FA1B27DD5A00AA1AFD /* ReaderConstants.m in Sources */,
 				FA04BFFC1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
+				C87524911BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA1BE4FB1B27DD5A00AA1AFD /* FlyingM3U8Parser.m in Sources */,
 				FA1BE4FC1B27DD5A00AA1AFD /* ThumbsMainToolbar.m in Sources */,
 				FA1BE4FD1B27DD5A00AA1AFD /* FlyingWordLinguisticData.m in Sources */,
+				C875248D1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				FA1BE4FF1B27DD5A00AA1AFD /* GCDAsyncSocket.m in Sources */,
 				FA1BE5011B27DD5A00AA1AFD /* ReaderThumbQueue.m in Sources */,
 				FA1BE5021B27DD5A00AA1AFD /* FlyingProvider.m in Sources */,
@@ -3911,9 +4389,9 @@
 				FA1BE5051B27DD5A00AA1AFD /* FlyingWebViewController.m in Sources */,
 				FA1BE5061B27DD5A00AA1AFD /* FlyingNowLessonDAO.m in Sources */,
 				FA1BE5071B27DD5A00AA1AFD /* ReaderThumbRender.m in Sources */,
+				C875235F1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
 				FAFA72331B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */,
 				FA88BC281B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
-				FA1BE5081B27DD5A00AA1AFD /* NSString+FlyingExtention.m in Sources */,
 				FA1BE5091B27DD5A00AA1AFD /* CGPDFDocument.m in Sources */,
 				FA1BE50A1B27DD5A00AA1AFD /* FlyingM3U8Downloader.m in Sources */,
 				FA1BE50B1B27DD5A00AA1AFD /* GCDAsyncUdpSocket.m in Sources */,
@@ -3934,17 +4412,24 @@
 				FA1BE5191B27DD5A00AA1AFD /* ContextFilterLogFormatter.m in Sources */,
 				FA1BE51A1B27DD5A00AA1AFD /* FlyingNowLessonData.m in Sources */,
 				FA1BE51B1B27DD5A00AA1AFD /* FlyingGestureControlView.m in Sources */,
+				C8E57E511BB6A29C0013527E /* FlyingEventPriceCell.m in Sources */,
 				FA1BE51C1B27DD5A00AA1AFD /* FlyingLessonParser.m in Sources */,
+				C87524451BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
+				C875241A1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				FA1BE51D1B27DD5A00AA1AFD /* UIBubbleTableView.m in Sources */,
 				FA1BE51E1B27DD5A00AA1AFD /* MuInkView.m in Sources */,
 				FA1BE51F1B27DD5A00AA1AFD /* ACLoupe.m in Sources */,
 				FA1BE5201B27DD5A00AA1AFD /* HTTPFileResponse.m in Sources */,
+				C87524851BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA1BE5211B27DD5A00AA1AFD /* FlyingLessonListViewController.m in Sources */,
 				FA1BE5221B27DD5A00AA1AFD /* FlyingLessonVC.m in Sources */,
 				FA1BE5231B27DD5A00AA1AFD /* FMDatabaseAdditions.m in Sources */,
+				C8FE1F9D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA1BE5241B27DD5A00AA1AFD /* FlyingHttpTool.m in Sources */,
+				C87524951BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA1BE5251B27DD5A00AA1AFD /* DDMultiFormatter.m in Sources */,
 				FA1BE5271B27DD5A00AA1AFD /* DDFileLogger.m in Sources */,
+				C87523541BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA1BE5281B27DD5A00AA1AFD /* FlyingSetDefault.m in Sources */,
 				FA1BE5291B27DD5A00AA1AFD /* ACMagnifyingView.m in Sources */,
 				FAFA72391B42A58E00E4FE30 /* UIView+Toast.m in Sources */,
@@ -3953,11 +4438,8 @@
 				FA1BE52C1B27DD5A00AA1AFD /* WebSocket.m in Sources */,
 				FA1BE52D1B27DD5A00AA1AFD /* CERoundProgressView.m in Sources */,
 				FA04BFF41B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
-				FA1BE52F1B27DD5A00AA1AFD /* SoundPlayer.m in Sources */,
 				FA1BE5301B27DD5A00AA1AFD /* ReaderThumbView.m in Sources */,
 				FA04BFE61B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA1BE5311B27DD5A00AA1AFD /* MHWDirectoryWatcher.m in Sources */,
-				FA1BE5321B27DD5A00AA1AFD /* UIDevice+SpeedCategory.m in Sources */,
 				FA1BE5331B27DD5A00AA1AFD /* NSData+NSHash.m in Sources */,
 				FA1BE5341B27DD5A00AA1AFD /* SVPulsingAnnotationView.m in Sources */,
 				FA1BE5351B27DD5A00AA1AFD /* MMHeaderUIView.m in Sources */,
@@ -3976,14 +4458,18 @@
 				FA1BE5421B27DD5A00AA1AFD /* RCDMessageNotifySettingTableViewController.m in Sources */,
 				FA04BFDE1B9B048B000F29A5 /* FlyingCoverData.m in Sources */,
 				FA1BE5441B27DD5A00AA1AFD /* DispatchQueueLogFormatter.m in Sources */,
+				C8E57E571BB6A2AB0013527E /* FlyingEventScheduleCell.m in Sources */,
+				C8FE1F951BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
 				FA1BE5451B27DD5A00AA1AFD /* ReaderContentTile.m in Sources */,
 				FA1BE5471B27DD5A00AA1AFD /* FlyingStatisticDAO.m in Sources */,
 				FA1BE5481B27DD5A00AA1AFD /* HTTPMessage.m in Sources */,
 				FA1BE5491B27DD5A00AA1AFD /* MAOFlipTransition.m in Sources */,
+				C8FE1FA51BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA1BE54A1B27DD5A00AA1AFD /* FlyingUIWebView.m in Sources */,
 				FA1BE54B1B27DD5A00AA1AFD /* FlyingScanViewController.m in Sources */,
 				FA88BC301B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0141B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				C8E57E5A1BB6A2B40013527E /* FlyingEventLocationCell.m in Sources */,
 				FA1BE54C1B27DD5A00AA1AFD /* FlyingProviderMapVC.m in Sources */,
 				FA1BE54D1B27DD5A00AA1AFD /* FlyingNavigationController.m in Sources */,
 				FA1BE54F1B27DD5A00AA1AFD /* MAOFlipInteraction.m in Sources */,
@@ -3991,6 +4477,7 @@
 				FA1BE5531B27DD5A00AA1AFD /* UIXToolbarView.m in Sources */,
 				FA1BE5541B27DD5A00AA1AFD /* ThumbsViewController.m in Sources */,
 				FA1BE5551B27DD5A00AA1AFD /* FlyingSubtitleTextView.m in Sources */,
+				C87524A51BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
 				FA1BE5561B27DD5A00AA1AFD /* DDDispatchQueueLogFormatter.m in Sources */,
 				FA1BE5571B27DD5A00AA1AFD /* ReaderThumbCache.m in Sources */,
 				FA1BE5581B27DD5A00AA1AFD /* FMTokenizers.m in Sources */,
@@ -4002,8 +4489,10 @@
 				FA1BE55D1B27DD5A00AA1AFD /* ACMagnifyingGlass.m in Sources */,
 				FA1BE55E1B27DD5A00AA1AFD /* HTTPDataResponse.m in Sources */,
 				FA1BE55F1B27DD5A00AA1AFD /* CERoundProgressLayer.m in Sources */,
+				C87524B11BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */,
 				FA1BE5601B27DD5A00AA1AFD /* DDASLLogger.m in Sources */,
 				FA1BE5611B27DD5A00AA1AFD /* MultipartMessageHeader.m in Sources */,
+				C875249D1BB39674000F86DC /* NSString+Color.m in Sources */,
 				FA1BE5631B27DD5A00AA1AFD /* FlyingLessonDAO.m in Sources */,
 				FA1BE5641B27DD5A00AA1AFD /* FlyingStytleView.m in Sources */,
 				FA1BE5651B27DD5A00AA1AFD /* FlyingItemData.m in Sources */,
@@ -4013,11 +4502,13 @@
 				FA1BE5681B27DD5A00AA1AFD /* zip.c in Sources */,
 				FA1BE5691B27DD5A00AA1AFD /* FlyingSubRipItem.m in Sources */,
 				FA2559D51BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				C87524891BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA1BE56A1B27DD5A00AA1AFD /* ReaderThumbsView.m in Sources */,
 				FA1BE56B1B27DD5A00AA1AFD /* RCDChatViewController.m in Sources */,
-				FA1BE56C1B27DD5A00AA1AFD /* UIColor+RCColor.m in Sources */,
 				FA1BE56D1B27DD5A00AA1AFD /* FlyingWordCollectVC.m in Sources */,
+				C87523651BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA1BE56E1B27DD5A00AA1AFD /* main.m in Sources */,
+				C8FE1F991BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA1BE56F1B27DD5A00AA1AFD /* DAVConnection.m in Sources */,
 				FA1BE5701B27DD5A00AA1AFD /* FlyingProviderViewCell.m in Sources */,
 			);
@@ -4027,11 +4518,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FE1FAA1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
+				C87524C41BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA63297B1B51091400A1222E /* FlyingSearchViewController.m in Sources */,
 				FA63297D1B51091400A1222E /* china_shift.c in Sources */,
+				C87524761BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				FA63297E1B51091400A1222E /* MuDocRef.m in Sources */,
 				FA88BC391B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
-				FAE0BDDE1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA63297F1B51091400A1222E /* MuTapResult.m in Sources */,
 				FA6329801B51091400A1222E /* DDLog.m in Sources */,
 				FA6329811B51091400A1222E /* JPSThumbnailAnnotation.m in Sources */,
@@ -4039,17 +4532,20 @@
 				FA6329821B51091400A1222E /* FlyingFakeHUD.m in Sources */,
 				FA6329831B51091400A1222E /* FlyingShareWithFriends.m in Sources */,
 				FA6329841B51091400A1222E /* FlyingDownloadManager.m in Sources */,
+				C87524561BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA6329851B51091400A1222E /* SSZipArchive.m in Sources */,
 				FA6329861B51091400A1222E /* ReaderViewController.m in Sources */,
 				FA6329871B51091400A1222E /* AFHttpTool.m in Sources */,
 				FA88BC2D1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA6329881B51091400A1222E /* DSBarChart.m in Sources */,
+				C875242B1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA6329891B51091400A1222E /* MuTextSelectView.m in Sources */,
 				FA63298A1B51091400A1222E /* MuWord.m in Sources */,
 				FA63298B1B51091400A1222E /* HTTPConnection.m in Sources */,
 				FA63298C1B51091400A1222E /* FMResultSet.m in Sources */,
 				FA88BC3D1B79E5B000604BC2 /* UIImage+RSKImageCropper.m in Sources */,
 				FA63298D1B51091400A1222E /* FMDatabase.m in Sources */,
+				C87524031BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				FA63298E1B51091400A1222E /* MuPageViewNormal.m in Sources */,
 				FA63298F1B51091400A1222E /* FlyingPlayerView.m in Sources */,
 				FA6329901B51091400A1222E /* common.m in Sources */,
@@ -4068,19 +4564,22 @@
 				FA63299B1B51091400A1222E /* FlyingCurrentAnnotation.m in Sources */,
 				FA63299C1B51091400A1222E /* UIImage+localFile.m in Sources */,
 				FA63299D1B51091400A1222E /* mztools.c in Sources */,
+				C875247A1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA63299E1B51091400A1222E /* FlyingLoadingView.m in Sources */,
+				C8FE1FA21BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA63299F1B51091400A1222E /* MAOFlipViewController.m in Sources */,
 				FA6329A01B51091400A1222E /* RCDGroupInfo.m in Sources */,
 				FA6329A11B51091400A1222E /* DDRange.m in Sources */,
+				C875244A1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA6329A21B51091400A1222E /* FlyingSubItemParser.m in Sources */,
 				FA6329A31B51091400A1222E /* MuHitView.m in Sources */,
 				FA6329A41B51091400A1222E /* FlyingTouchDAO.m in Sources */,
 				FA6329A51B51091400A1222E /* FlyingTagTransform.m in Sources */,
 				FA6329A61B51091400A1222E /* FlyingM3U8Segment.m in Sources */,
+				C87524821BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
 				FA6329A71B51091400A1222E /* DAVResponse.m in Sources */,
 				FA6329A81B51091400A1222E /* MMParallaxPresenter.m in Sources */,
 				FA6329AA1B51091400A1222E /* ioapi.c in Sources */,
-				FA6329AB1B51091400A1222E /* MotionOrientation.m in Sources */,
 				FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */,
 				FA6329AD1B51091400A1222E /* FileHash.m in Sources */,
 				FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */,
@@ -4089,24 +4588,27 @@
 				FA6329B11B51091400A1222E /* RCDChatListViewController.m in Sources */,
 				FA6329B21B51091400A1222E /* HTTPAsyncFileResponse.m in Sources */,
 				FA6329B31B51091400A1222E /* PUTResponse.m in Sources */,
+				C87524231BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				FA6329B51B51091400A1222E /* AFDownloadRequestOperation.m in Sources */,
 				FA6329B61B51091400A1222E /* HCSStarRatingView.m in Sources */,
 				FA6329B71B51091400A1222E /* DELETEResponse.m in Sources */,
+				C875244E1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA6329B81B51091400A1222E /* ACEExpandableTextCell.m in Sources */,
 				FA6329B91B51091400A1222E /* iFlyingAppDelegate.m in Sources */,
 				FA6329BA1B51091400A1222E /* FlyingLessonViewCell.m in Sources */,
 				FA6329BB1B51091400A1222E /* NSBubbleData.m in Sources */,
 				FA6329BD1B51091400A1222E /* ReaderDocumentOutline.m in Sources */,
 				FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */,
+				C87524351BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				FA6329BF1B51091400A1222E /* OpenUDID.m in Sources */,
 				FA5ACC261B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
-				FA04C0391B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */,
 				FA04C0331B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA6329C11B51091400A1222E /* MuPageViewReflow.m in Sources */,
 				FA6329C21B51091400A1222E /* FlyingGuideViewController.m in Sources */,
 				FA04C01B1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA6329C31B51091400A1222E /* CFSharer.m in Sources */,
+				C87524521BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA6329C41B51091400A1222E /* FlyingItemDao.m in Sources */,
 				C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA6329C51B51091400A1222E /* RCDataBaseManager.m in Sources */,
@@ -4125,6 +4627,8 @@
 				FA6329D01B51091400A1222E /* RCDRCIMDataSource.m in Sources */,
 				FA6329D11B51091400A1222E /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF91B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
+				C875249A1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
+				C875247E1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				FA6329D21B51091400A1222E /* ReaderThumbRequest.m in Sources */,
 				FA6329D41B51091400A1222E /* FlyingOpenIDVC.m in Sources */,
 				FA6329D51B51091400A1222E /* FlyingSearchBar.m in Sources */,
@@ -4137,9 +4641,11 @@
 				FA6329DC1B51091400A1222E /* FlyingProviderListVC.m in Sources */,
 				FA6329DD1B51091400A1222E /* ReaderConstants.m in Sources */,
 				FA04BFFD1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
+				C87524921BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA6329DE1B51091400A1222E /* FlyingM3U8Parser.m in Sources */,
 				FA6329DF1B51091400A1222E /* ThumbsMainToolbar.m in Sources */,
 				FA6329E01B51091400A1222E /* FlyingWordLinguisticData.m in Sources */,
+				C875248E1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				FA6329E21B51091400A1222E /* GCDAsyncSocket.m in Sources */,
 				FA6329E41B51091400A1222E /* ReaderThumbQueue.m in Sources */,
 				FA6329E51B51091400A1222E /* FlyingProvider.m in Sources */,
@@ -4147,9 +4653,9 @@
 				FA6329E71B51091400A1222E /* FlyingWebViewController.m in Sources */,
 				FA6329E81B51091400A1222E /* FlyingNowLessonDAO.m in Sources */,
 				FA6329E91B51091400A1222E /* ReaderThumbRender.m in Sources */,
+				C87523601BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
 				FA6329EA1B51091400A1222E /* FlyingImagePreivewVC.m in Sources */,
 				FA88BC291B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
-				FA6329EB1B51091400A1222E /* NSString+FlyingExtention.m in Sources */,
 				FA6329EC1B51091400A1222E /* CGPDFDocument.m in Sources */,
 				FA6329ED1B51091400A1222E /* FlyingM3U8Downloader.m in Sources */,
 				FA6329EE1B51091400A1222E /* GCDAsyncUdpSocket.m in Sources */,
@@ -4170,17 +4676,24 @@
 				FA6329FB1B51091400A1222E /* ContextFilterLogFormatter.m in Sources */,
 				FA6329FC1B51091400A1222E /* FlyingNowLessonData.m in Sources */,
 				FA6329FD1B51091400A1222E /* FlyingGestureControlView.m in Sources */,
+				C8E57E521BB6A29D0013527E /* FlyingEventPriceCell.m in Sources */,
 				FA6329FE1B51091400A1222E /* FlyingLessonParser.m in Sources */,
+				C87524461BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
+				C875241B1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				FA6329FF1B51091400A1222E /* UIBubbleTableView.m in Sources */,
 				FA632A001B51091400A1222E /* MuInkView.m in Sources */,
 				FA632A011B51091400A1222E /* ACLoupe.m in Sources */,
 				FA632A021B51091400A1222E /* HTTPFileResponse.m in Sources */,
+				C87524861BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA632A031B51091400A1222E /* FlyingLessonListViewController.m in Sources */,
 				FA632A041B51091400A1222E /* FlyingLessonVC.m in Sources */,
 				FA632A051B51091400A1222E /* FMDatabaseAdditions.m in Sources */,
+				C8FE1F9E1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA632A061B51091400A1222E /* FlyingHttpTool.m in Sources */,
+				C87524961BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA632A071B51091400A1222E /* DDMultiFormatter.m in Sources */,
 				FA632A081B51091400A1222E /* DDFileLogger.m in Sources */,
+				C87523551BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA632A091B51091400A1222E /* FlyingSetDefault.m in Sources */,
 				FA632A0A1B51091400A1222E /* ACMagnifyingView.m in Sources */,
 				FA632A0B1B51091400A1222E /* UIView+Toast.m in Sources */,
@@ -4189,11 +4702,8 @@
 				FA632A0E1B51091400A1222E /* WebSocket.m in Sources */,
 				FA632A0F1B51091400A1222E /* CERoundProgressView.m in Sources */,
 				FA04BFF51B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
-				FA632A101B51091400A1222E /* SoundPlayer.m in Sources */,
 				FA632A111B51091400A1222E /* ReaderThumbView.m in Sources */,
 				FA04BFE71B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA632A121B51091400A1222E /* MHWDirectoryWatcher.m in Sources */,
-				FA632A131B51091400A1222E /* UIDevice+SpeedCategory.m in Sources */,
 				FA632A141B51091400A1222E /* NSData+NSHash.m in Sources */,
 				FA632A151B51091400A1222E /* SVPulsingAnnotationView.m in Sources */,
 				FA632A161B51091400A1222E /* MMHeaderUIView.m in Sources */,
@@ -4212,14 +4722,18 @@
 				FA632A231B51091400A1222E /* RCDMessageNotifySettingTableViewController.m in Sources */,
 				FA04BFDF1B9B048B000F29A5 /* FlyingCoverData.m in Sources */,
 				FA632A251B51091400A1222E /* DispatchQueueLogFormatter.m in Sources */,
+				C8E57E581BB6A2AC0013527E /* FlyingEventScheduleCell.m in Sources */,
+				C8FE1F961BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
 				FA632A261B51091400A1222E /* ReaderContentTile.m in Sources */,
 				FA632A271B51091400A1222E /* FlyingStatisticDAO.m in Sources */,
 				FA632A281B51091400A1222E /* HTTPMessage.m in Sources */,
 				FA632A291B51091400A1222E /* MAOFlipTransition.m in Sources */,
+				C8FE1FA61BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA632A2A1B51091400A1222E /* FlyingUIWebView.m in Sources */,
 				FA632A2B1B51091400A1222E /* FlyingScanViewController.m in Sources */,
 				FA88BC311B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0151B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				C8E57E5B1BB6A2B50013527E /* FlyingEventLocationCell.m in Sources */,
 				FA632A2C1B51091400A1222E /* FlyingProviderMapVC.m in Sources */,
 				FA632A2D1B51091400A1222E /* FlyingNavigationController.m in Sources */,
 				FA632A2F1B51091400A1222E /* MAOFlipInteraction.m in Sources */,
@@ -4227,6 +4741,7 @@
 				FA632A321B51091400A1222E /* UIXToolbarView.m in Sources */,
 				FA632A331B51091400A1222E /* ThumbsViewController.m in Sources */,
 				FA632A341B51091400A1222E /* FlyingSubtitleTextView.m in Sources */,
+				C87524A61BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
 				FA632A351B51091400A1222E /* DDDispatchQueueLogFormatter.m in Sources */,
 				FA632A361B51091400A1222E /* ReaderThumbCache.m in Sources */,
 				FA632A371B51091400A1222E /* FMTokenizers.m in Sources */,
@@ -4238,8 +4753,10 @@
 				FA632A3D1B51091400A1222E /* ACMagnifyingGlass.m in Sources */,
 				FA632A3E1B51091400A1222E /* HTTPDataResponse.m in Sources */,
 				FA632A3F1B51091400A1222E /* CERoundProgressLayer.m in Sources */,
+				C87524B21BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */,
 				FA632A401B51091400A1222E /* DDASLLogger.m in Sources */,
 				FA632A411B51091400A1222E /* MultipartMessageHeader.m in Sources */,
+				C875249E1BB39674000F86DC /* NSString+Color.m in Sources */,
 				FA632A431B51091400A1222E /* FlyingLessonDAO.m in Sources */,
 				FA632A441B51091400A1222E /* FlyingStytleView.m in Sources */,
 				FA632A451B51091400A1222E /* FlyingItemData.m in Sources */,
@@ -4249,11 +4766,13 @@
 				FA632A481B51091400A1222E /* zip.c in Sources */,
 				FA632A491B51091400A1222E /* FlyingSubRipItem.m in Sources */,
 				FA2559D61BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				C875248A1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA632A4A1B51091400A1222E /* ReaderThumbsView.m in Sources */,
 				FA632A4B1B51091400A1222E /* RCDChatViewController.m in Sources */,
-				FA632A4C1B51091400A1222E /* UIColor+RCColor.m in Sources */,
 				FA632A4D1B51091400A1222E /* FlyingWordCollectVC.m in Sources */,
+				C87523661BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA632A4E1B51091400A1222E /* main.m in Sources */,
+				C8FE1F9A1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA632A4F1B51091400A1222E /* DAVConnection.m in Sources */,
 				FA632A501B51091400A1222E /* FlyingProviderViewCell.m in Sources */,
 			);
@@ -4263,11 +4782,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FE1FAB1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
+				C87524C51BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA8C3DD71B535A1500DEA02D /* FlyingSearchViewController.m in Sources */,
 				FA8C3DD91B535A1500DEA02D /* china_shift.c in Sources */,
+				C87524771BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				FA8C3DDA1B535A1500DEA02D /* MuDocRef.m in Sources */,
 				FA88BC3A1B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
-				FAE0BDDF1BA1B06F00E1E5C6 /* FlyingMemberCollectionViewCell.m in Sources */,
 				FA8C3DDB1B535A1500DEA02D /* MuTapResult.m in Sources */,
 				FA8C3DDC1B535A1500DEA02D /* DDLog.m in Sources */,
 				FA8C3DDD1B535A1500DEA02D /* JPSThumbnailAnnotation.m in Sources */,
@@ -4275,17 +4796,20 @@
 				FA8C3DDE1B535A1500DEA02D /* FlyingFakeHUD.m in Sources */,
 				FA8C3DDF1B535A1500DEA02D /* FlyingShareWithFriends.m in Sources */,
 				FA8C3DE01B535A1500DEA02D /* FlyingDownloadManager.m in Sources */,
+				C87524571BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA8C3DE11B535A1500DEA02D /* SSZipArchive.m in Sources */,
 				FA8C3DE21B535A1500DEA02D /* ReaderViewController.m in Sources */,
 				FA8C3DE31B535A1500DEA02D /* AFHttpTool.m in Sources */,
 				FA88BC2E1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA8C3DE41B535A1500DEA02D /* DSBarChart.m in Sources */,
+				C875242C1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA8C3DE51B535A1500DEA02D /* MuTextSelectView.m in Sources */,
 				FA8C3DE61B535A1500DEA02D /* MuWord.m in Sources */,
 				FA8C3DE71B535A1500DEA02D /* HTTPConnection.m in Sources */,
 				FA8C3DE81B535A1500DEA02D /* FMResultSet.m in Sources */,
 				FA88BC3E1B79E5B000604BC2 /* UIImage+RSKImageCropper.m in Sources */,
 				FA8C3DE91B535A1500DEA02D /* FMDatabase.m in Sources */,
+				C87524041BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				FA8C3DEA1B535A1500DEA02D /* MuPageViewNormal.m in Sources */,
 				FA8C3DEB1B535A1500DEA02D /* FlyingPlayerView.m in Sources */,
 				FA8C3DEC1B535A1500DEA02D /* common.m in Sources */,
@@ -4304,19 +4828,22 @@
 				FA8C3DF71B535A1500DEA02D /* FlyingCurrentAnnotation.m in Sources */,
 				FA8C3DF81B535A1500DEA02D /* UIImage+localFile.m in Sources */,
 				FA8C3DF91B535A1500DEA02D /* mztools.c in Sources */,
+				C875247B1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA8C3DFA1B535A1500DEA02D /* FlyingLoadingView.m in Sources */,
+				C8FE1FA31BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA8C3DFB1B535A1500DEA02D /* MAOFlipViewController.m in Sources */,
 				FA8C3DFC1B535A1500DEA02D /* RCDGroupInfo.m in Sources */,
 				FA8C3DFD1B535A1500DEA02D /* DDRange.m in Sources */,
+				C875244B1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA8C3DFE1B535A1500DEA02D /* FlyingSubItemParser.m in Sources */,
 				FA8C3DFF1B535A1500DEA02D /* MuHitView.m in Sources */,
 				FA8C3E001B535A1500DEA02D /* FlyingTouchDAO.m in Sources */,
 				FA8C3E011B535A1500DEA02D /* FlyingTagTransform.m in Sources */,
 				FA8C3E021B535A1500DEA02D /* FlyingM3U8Segment.m in Sources */,
+				C87524831BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
 				FA8C3E031B535A1500DEA02D /* DAVResponse.m in Sources */,
 				FA8C3E041B535A1500DEA02D /* MMParallaxPresenter.m in Sources */,
 				FA8C3E061B535A1500DEA02D /* ioapi.c in Sources */,
-				FA8C3E071B535A1500DEA02D /* MotionOrientation.m in Sources */,
 				FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */,
 				FA8C3E091B535A1500DEA02D /* FileHash.m in Sources */,
 				FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */,
@@ -4325,24 +4852,27 @@
 				FA8C3E0D1B535A1500DEA02D /* RCDChatListViewController.m in Sources */,
 				FA8C3E0E1B535A1500DEA02D /* HTTPAsyncFileResponse.m in Sources */,
 				FA8C3E0F1B535A1500DEA02D /* PUTResponse.m in Sources */,
+				C87524241BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				FA8C3E111B535A1500DEA02D /* AFDownloadRequestOperation.m in Sources */,
 				FA8C3E121B535A1500DEA02D /* HCSStarRatingView.m in Sources */,
 				FA8C3E131B535A1500DEA02D /* DELETEResponse.m in Sources */,
+				C875244F1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA8C3E141B535A1500DEA02D /* ACEExpandableTextCell.m in Sources */,
 				FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */,
 				FA8C3E161B535A1500DEA02D /* FlyingLessonViewCell.m in Sources */,
 				FA8C3E171B535A1500DEA02D /* NSBubbleData.m in Sources */,
 				FA8C3E191B535A1500DEA02D /* ReaderDocumentOutline.m in Sources */,
 				FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */,
+				C87524361BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				FA8C3E1B1B535A1500DEA02D /* OpenUDID.m in Sources */,
 				FA5ACC271B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
-				FA04C03A1B9FDDE6000F29A5 /* FlyingCalendarVC.m in Sources */,
 				FA04C0341B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA8C3E1D1B535A1500DEA02D /* MuPageViewReflow.m in Sources */,
 				FA8C3E1E1B535A1500DEA02D /* FlyingGuideViewController.m in Sources */,
 				FA04C01C1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				FA8C3E1F1B535A1500DEA02D /* CFSharer.m in Sources */,
+				C87524531BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA8C3E201B535A1500DEA02D /* FlyingItemDao.m in Sources */,
 				C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA8C3E211B535A1500DEA02D /* RCDataBaseManager.m in Sources */,
@@ -4361,6 +4891,8 @@
 				FA8C3E2C1B535A1500DEA02D /* RCDRCIMDataSource.m in Sources */,
 				FA8C3E2D1B535A1500DEA02D /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFFA1B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
+				C875249B1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
+				C875247F1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				FA8C3E2E1B535A1500DEA02D /* ReaderThumbRequest.m in Sources */,
 				FA8C3E301B535A1500DEA02D /* FlyingOpenIDVC.m in Sources */,
 				FA8C3E311B535A1500DEA02D /* FlyingSearchBar.m in Sources */,
@@ -4373,9 +4905,11 @@
 				FA8C3E381B535A1500DEA02D /* FlyingProviderListVC.m in Sources */,
 				FA8C3E391B535A1500DEA02D /* ReaderConstants.m in Sources */,
 				FA04BFFE1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
+				C87524931BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA8C3E3A1B535A1500DEA02D /* FlyingM3U8Parser.m in Sources */,
 				FA8C3E3B1B535A1500DEA02D /* ThumbsMainToolbar.m in Sources */,
 				FA8C3E3C1B535A1500DEA02D /* FlyingWordLinguisticData.m in Sources */,
+				C875248F1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				FA8C3E3E1B535A1500DEA02D /* GCDAsyncSocket.m in Sources */,
 				FA8C3E401B535A1500DEA02D /* ReaderThumbQueue.m in Sources */,
 				FA8C3E411B535A1500DEA02D /* FlyingProvider.m in Sources */,
@@ -4383,9 +4917,9 @@
 				FA8C3E431B535A1500DEA02D /* FlyingWebViewController.m in Sources */,
 				FA8C3E441B535A1500DEA02D /* FlyingNowLessonDAO.m in Sources */,
 				FA8C3E451B535A1500DEA02D /* ReaderThumbRender.m in Sources */,
+				C87523611BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
 				FA8C3E461B535A1500DEA02D /* FlyingImagePreivewVC.m in Sources */,
 				FA88BC2A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
-				FA8C3E471B535A1500DEA02D /* NSString+FlyingExtention.m in Sources */,
 				FA8C3E481B535A1500DEA02D /* CGPDFDocument.m in Sources */,
 				FA8C3E491B535A1500DEA02D /* FlyingM3U8Downloader.m in Sources */,
 				FA8C3E4A1B535A1500DEA02D /* GCDAsyncUdpSocket.m in Sources */,
@@ -4406,17 +4940,24 @@
 				FA8C3E571B535A1500DEA02D /* ContextFilterLogFormatter.m in Sources */,
 				FA8C3E581B535A1500DEA02D /* FlyingNowLessonData.m in Sources */,
 				FA8C3E591B535A1500DEA02D /* FlyingGestureControlView.m in Sources */,
+				C8E57E531BB6A29E0013527E /* FlyingEventPriceCell.m in Sources */,
 				FA8C3E5A1B535A1500DEA02D /* FlyingLessonParser.m in Sources */,
+				C87524471BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
+				C875241C1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				FA8C3E5B1B535A1500DEA02D /* UIBubbleTableView.m in Sources */,
 				FA8C3E5C1B535A1500DEA02D /* MuInkView.m in Sources */,
 				FA8C3E5D1B535A1500DEA02D /* ACLoupe.m in Sources */,
 				FA8C3E5E1B535A1500DEA02D /* HTTPFileResponse.m in Sources */,
+				C87524871BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA8C3E5F1B535A1500DEA02D /* FlyingLessonListViewController.m in Sources */,
 				FA8C3E601B535A1500DEA02D /* FlyingLessonVC.m in Sources */,
 				FA8C3E611B535A1500DEA02D /* FMDatabaseAdditions.m in Sources */,
+				C8FE1F9F1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA8C3E621B535A1500DEA02D /* FlyingHttpTool.m in Sources */,
+				C87524971BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA8C3E631B535A1500DEA02D /* DDMultiFormatter.m in Sources */,
 				FA8C3E641B535A1500DEA02D /* DDFileLogger.m in Sources */,
+				C87523561BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA8C3E651B535A1500DEA02D /* FlyingSetDefault.m in Sources */,
 				FA8C3E661B535A1500DEA02D /* ACMagnifyingView.m in Sources */,
 				FA8C3E671B535A1500DEA02D /* UIView+Toast.m in Sources */,
@@ -4425,11 +4966,8 @@
 				FA8C3E6A1B535A1500DEA02D /* WebSocket.m in Sources */,
 				FA8C3E6B1B535A1500DEA02D /* CERoundProgressView.m in Sources */,
 				FA04BFF61B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
-				FA8C3E6C1B535A1500DEA02D /* SoundPlayer.m in Sources */,
 				FA8C3E6D1B535A1500DEA02D /* ReaderThumbView.m in Sources */,
 				FA04BFE81B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA8C3E6E1B535A1500DEA02D /* MHWDirectoryWatcher.m in Sources */,
-				FA8C3E6F1B535A1500DEA02D /* UIDevice+SpeedCategory.m in Sources */,
 				FA8C3E701B535A1500DEA02D /* NSData+NSHash.m in Sources */,
 				FA8C3E711B535A1500DEA02D /* SVPulsingAnnotationView.m in Sources */,
 				FA8C3E721B535A1500DEA02D /* MMHeaderUIView.m in Sources */,
@@ -4448,14 +4986,18 @@
 				FA8C3E7F1B535A1500DEA02D /* RCDMessageNotifySettingTableViewController.m in Sources */,
 				FA04BFE01B9B048B000F29A5 /* FlyingCoverData.m in Sources */,
 				FA8C3E811B535A1500DEA02D /* DispatchQueueLogFormatter.m in Sources */,
+				C8E57E591BB6A2AD0013527E /* FlyingEventScheduleCell.m in Sources */,
+				C8FE1F971BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
 				FA8C3E821B535A1500DEA02D /* ReaderContentTile.m in Sources */,
 				FA8C3E831B535A1500DEA02D /* FlyingStatisticDAO.m in Sources */,
 				FA8C3E841B535A1500DEA02D /* HTTPMessage.m in Sources */,
 				FA8C3E851B535A1500DEA02D /* MAOFlipTransition.m in Sources */,
+				C8FE1FA71BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA8C3E861B535A1500DEA02D /* FlyingUIWebView.m in Sources */,
 				FA8C3E871B535A1500DEA02D /* FlyingScanViewController.m in Sources */,
 				FA88BC321B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0161B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				C8E57E5C1BB6A2B60013527E /* FlyingEventLocationCell.m in Sources */,
 				FA8C3E881B535A1500DEA02D /* FlyingProviderMapVC.m in Sources */,
 				FA8C3E891B535A1500DEA02D /* FlyingNavigationController.m in Sources */,
 				FA8C3E8B1B535A1500DEA02D /* MAOFlipInteraction.m in Sources */,
@@ -4463,6 +5005,7 @@
 				FA8C3E8E1B535A1500DEA02D /* UIXToolbarView.m in Sources */,
 				FA8C3E8F1B535A1500DEA02D /* ThumbsViewController.m in Sources */,
 				FA8C3E901B535A1500DEA02D /* FlyingSubtitleTextView.m in Sources */,
+				C87524A71BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
 				FA8C3E911B535A1500DEA02D /* DDDispatchQueueLogFormatter.m in Sources */,
 				FA8C3E921B535A1500DEA02D /* ReaderThumbCache.m in Sources */,
 				FA8C3E931B535A1500DEA02D /* FMTokenizers.m in Sources */,
@@ -4474,8 +5017,10 @@
 				FA8C3E991B535A1500DEA02D /* ACMagnifyingGlass.m in Sources */,
 				FA8C3E9A1B535A1500DEA02D /* HTTPDataResponse.m in Sources */,
 				FA8C3E9B1B535A1500DEA02D /* CERoundProgressLayer.m in Sources */,
+				C87524B31BB3979E000F86DC /* FlyingSoundPlayer.m in Sources */,
 				FA8C3E9C1B535A1500DEA02D /* DDASLLogger.m in Sources */,
 				FA8C3E9D1B535A1500DEA02D /* MultipartMessageHeader.m in Sources */,
+				C875249F1BB39674000F86DC /* NSString+Color.m in Sources */,
 				FA8C3E9F1B535A1500DEA02D /* FlyingLessonDAO.m in Sources */,
 				FA8C3EA01B535A1500DEA02D /* FlyingStytleView.m in Sources */,
 				FA8C3EA11B535A1500DEA02D /* FlyingItemData.m in Sources */,
@@ -4485,11 +5030,13 @@
 				FA8C3EA41B535A1500DEA02D /* zip.c in Sources */,
 				FA8C3EA51B535A1500DEA02D /* FlyingSubRipItem.m in Sources */,
 				FA2559D71BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				C875248B1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA8C3EA61B535A1500DEA02D /* ReaderThumbsView.m in Sources */,
 				FA8C3EA71B535A1500DEA02D /* RCDChatViewController.m in Sources */,
-				FA8C3EA81B535A1500DEA02D /* UIColor+RCColor.m in Sources */,
 				FA8C3EA91B535A1500DEA02D /* FlyingWordCollectVC.m in Sources */,
+				C87523671BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA8C3EAA1B535A1500DEA02D /* main.m in Sources */,
+				C8FE1F9B1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA8C3EAB1B535A1500DEA02D /* DAVConnection.m in Sources */,
 				FA8C3EAC1B535A1500DEA02D /* FlyingProviderViewCell.m in Sources */,
 			);
@@ -4587,7 +5134,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				SDKROOT = iphoneos;

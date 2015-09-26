@@ -32,6 +32,9 @@
         NSString* boldFontName = @"Avenir-Black";
         
         _profileImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _profileImageView.clipsToBounds = YES;
+        _profileImageView.userInteractionEnabled=YES;
         
         UIFont *nameLabelFont = [UIFont fontWithName:boldFontName size:(INTERFACE_IS_PAD ? 35.0f : 17.0f)];
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -151,11 +154,15 @@
 }
 
 
--(void) LoadingGroupData:(FlyingGroupData *)groupData
+-(void) loadingGroupData:(FlyingGroupData *)groupData
 {
     self.groupData=groupData;
     
     [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
+    
+    UITapGestureRecognizer *profileRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageViewPressed:)];
+    profileRecognizer.numberOfTapsRequired = 1; // 单击
+    [self.profileImageView addGestureRecognizer:profileRecognizer];
     
     self.nameLabel.text = groupData.gp_name;
     self.descriptionLabel.text = groupData.gp_desc;
@@ -165,9 +172,7 @@
     NSMutableAttributedString *membercontent = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"成员:33"]];
     NSRange membercontentRange = {0,[membercontent length]};
     [membercontent addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:membercontentRange];
-    
-    [self.memberCountButton setAttributedTitle:membercontent forState:UIControlStateNormal];
-    
+    [self.memberCountButton setAttributedTitle:membercontent forState:UIControlStateNormal];    
     
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"课程:235"]];
     NSRange contentRange = {0,[content length]};
@@ -199,6 +204,14 @@
     }
 }
 
+- (void)profileImageViewPressed:(id)sender
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(profileImageViewPressed:)])
+    {
+        [self.delegate profileImageViewPressed:self.groupData];
+    }
+}
+
 - (void)coverImageViewPressed:(id)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(coverImageViewPressed:)])
@@ -206,6 +219,5 @@
         [self.delegate coverImageViewPressed:self.groupData];
     }
 }
-
 
 @end

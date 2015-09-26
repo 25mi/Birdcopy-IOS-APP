@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FlyingMyGroupCell.h"
 
-
 @interface FlyingMyGroupsVC : UIViewController<UITableViewDataSource,
                                                 UITableViewDelegate,
                                                 FlyingMyGroupCellDelegate>
 
 
-@property (strong, nonatomic) NSMutableArray     *currentGroupData;
-@property (nonatomic, strong) UITableView        *feedTableView;
+@property (strong, nonatomic) NSMutableArray     *currentData;
+@property (strong, nonatomic) UITableView        *groupTableView;
 
 @end

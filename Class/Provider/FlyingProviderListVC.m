@@ -11,7 +11,7 @@
 #import "FlyingProviderViewCell.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingproviderParser.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "shareDefine.h"
 #import "FlyingLoadingView.h"
 #import "UIView+Autosizing.h"

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FlyingGroupDetailsView.h"
+#import "FlyingGroupStreamCell.h"
 
 @class FlyingGroupData;
 @class FlyingStreamData;
@@ -15,6 +16,7 @@
 @interface FlyingGroupVC : UIViewController<UITableViewDataSource,
                                             UITableViewDelegate,
                                             FlyingGroupDetailsViewDelegate,
+                                            FlyingGroupStreamCellDelegate,
                                             UICollectionViewDataSource,
                                             UICollectionViewDelegate>
 
@@ -22,12 +24,12 @@
 @property (weak, nonatomic)   UIView *networkLoadingContainerView;
 @property (weak, nonatomic)   UILabel *navBarTitleLabel;
 
+@property (strong, nonatomic) UIButton *groupAccessbutton;
 
 @property (strong, nonatomic) FlyingGroupDetailsView   *groupView;
 
 @property (strong, nonatomic) NSMutableArray           *currentData;
 @property (strong, nonatomic) FlyingGroupData          *groupData;
 @property (strong, nonatomic) FlyingStreamData         *topBoardNewsData;
-
 
 @end

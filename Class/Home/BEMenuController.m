@@ -25,6 +25,7 @@
 
 #import "FlyingTaskWordDAO.h"
 #import "UICKeyChainStore.h"
+#import "iFlyingAppDelegate.h"
 
 
 #define MENU_IPHONE_HEIGHT  50
@@ -119,11 +120,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:KGodIsComing object:nil userInfo:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setnavigationBarWithClearStyle:NO];
     
     NSString * title=self.titles[indexPath.section];
     

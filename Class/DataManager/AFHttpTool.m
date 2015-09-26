@@ -23,6 +23,7 @@
                   success:(void (^)(id response))success
                   failure:(void (^)(NSError* err))failure
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
     
@@ -42,11 +43,13 @@
             [mgr GET:url parameters:params
              success:^(NSURLSessionDataTask *task, id responseObject) {
                  if (success) {
+                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                      success(responseObject);
                  }
                  
              } failure:^(NSURLSessionDataTask *task, NSError *error) {
                  if (failure) {
+                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                      failure(error);
                  }
              }];
@@ -59,10 +62,12 @@
             [mgr POST:url parameters:params
               success:^(NSURLSessionDataTask *task, id responseObject) {
                   if (success) {
+                      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                       success(responseObject);
                   }
               } failure:^(NSURLSessionDataTask *task, NSError *error) {
                   if (failure) {
+                      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                       failure(error);
                   }
               }];
@@ -78,6 +83,8 @@
                                success:(void (^)(id response))success
                                failure:(void (^)(NSError* err))failure
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
     NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
 
     //获得请求管理者
@@ -92,12 +99,14 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         //
         if (success) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             success(responseObject);
         }
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         //
         if (failure) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             failure(error);
         }
     }];
@@ -315,95 +324,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma  group related (not IM)
-//////////////////////////////////////////////////////////////
-//get groups
-
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                             Recommend:(BOOL) isRecommend
-                            PageNumber:(NSInteger) pageNumber
-                               success:(void (^)(id response))success
-                               failure:(void (^)(NSError* err))failure
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    
-    if(isRecommend)
-    {
-        if(appOwner)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
-    }
-
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_gp_list_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-
-//get groups
-+(void) getMyGroupsSuccess:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure
-{
-    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                       PageNumber:(NSInteger) pageNumber
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure;
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-
-//////////////////////////////////////////////////////////////
 #pragma  old API, not jason
 //////////////////////////////////////////////////////////////
 + (void)requestWithUrl:(NSString*)url
@@ -441,39 +361,6 @@
              failure(error);
          }
      }];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma  provider Related
-//////////////////////////////////////////////////////////////
-//供应商选择
-+ (void) providerListDataForlatitude:(NSString*)latitude
-                          longitude:(NSString*)longitude
-                         PageNumber:(NSInteger) pageNumber
-                            success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure
-{
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [AFHttpTool requestWithUrl:@"pu_get_user_position_list_from_hp.action"
-                           params:@{@"latitude":latitude,@"longitude":longitude,@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}
-                          success:success
-                          failure:failure];
-}
-
-//App供应商广告
-+ (void) getAccountBroadURLWithSuccess:(void (^)(id response))success
-                               failure:(void (^)(NSError* err))failure
-
-{
-    [AFHttpTool requestWithUrl:@"aa_get_app_info_from_hp.action"
-                           params:nil
-                          success:success
-                          failure:failure];
 }
 
 //帐户同步相关
@@ -568,10 +455,123 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma  Tag Related
+#pragma  group related (not IM)
+//////////////////////////////////////////////////////////////
+//get groups
+
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
+                       Recommend:(BOOL) isRecommend
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    if(isRecommend)
+    {
+        if(appOwner)
+        {
+            [params setObject:@"1" forKey:@"owner_recom"];
+        }
+        else
+        {
+            [params setObject:@"1" forKey:@"sys_recom"];
+        }
+    }
+    
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_gp_list_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
+//get groups
++(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                         Success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure
+{
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (!openID) {
+        
+        return;
+    }
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
+                       PageNumber:(NSInteger) pageNumber
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                           success:(void (^)(id response))success
+                           failure:(void (^)(NSError* err))failure;
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"eventID":eventID}];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  内容相关
 //////////////////////////////////////////////////////////////
 //标签相关
-
 + (void) albumListDataForAuthor:(NSString*) author
               lessonConcentType:(NSString*) contentType
                      PageNumber:(NSInteger) pageNumber
@@ -613,33 +613,30 @@
     }
     
     [AFHttpTool requestWithUrl:@"la_get_tag_list_for_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
+                        params:params
+                       success:success
+                       failure:failure];
 }
 
-//////////////////////////////////////////////////////////////
-#pragma  lesson  List Related
-//////////////////////////////////////////////////////////////
 //获取课程列表相关
 + (void) lessonListDataByTagForAuthor:(NSString*) author
                            PageNumber:(NSInteger) pageNumber
-                          lessonConcentType:  (NSString *) contentType
-                               DownloadType:  (NSString *) downloadType
-                                        Tag:  (NSString *) tag
-                                 SortbyTime:  (BOOL) time
-                                  Recommend:(BOOL) isRecommend
-                                    success:(void (^)(id response))success
-                                    failure:(void (^)(NSError* err))failure
+                    lessonConcentType:  (NSString *) contentType
+                         DownloadType:  (NSString *) downloadType
+                                  Tag:  (NSString *) tag
+                           SortbyTime:  (BOOL) time
+                            Recommend:(BOOL) isRecommend
+                              success:(void (^)(id response))success
+                              failure:(void (^)(NSError* err))failure
 {
     NSInteger pagecount=kperpageLessonCount;
     if (INTERFACE_IS_PAD)
     {
         pagecount=kperpageLessonCountPAD;
     }
-
+    
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}];
-
+    
     
     if (contentType && ![contentType isEqualToString:@"0"])
     {
@@ -680,20 +677,16 @@
     }
     
     [AFHttpTool requestWithUrl:@"la_get_ln_list_for_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
+                        params:params
+                       success:success
+                       failure:failure];
 }
 
 
-//////////////////////////////////////////////////////////////
-#pragma  lesson  Related
-//////////////////////////////////////////////////////////////
 //获取课程信息相关
 + (void) lessonDataForLessonID:(NSString*) lessonID
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
-
 {
     [AFHttpTool requestWithUrl:@"la_get_ln_detail_for_hp.action"
                            params:@{@"ln_id":lessonID}
@@ -767,7 +760,52 @@
 
 }
 
-+ (void) shareBaseZIP:(NSString *) type
+//反馈课程错误
++ (void) reportLessonErrorType:(NSString*) type
+                    contentURL:(NSString *)contentURL
+                      lessonID:(NSString *) lessonID
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWithUrl:@"la_echo_from_hp.action"
+                        params:@{@"type":type,@"ln_id":lessonID,@"url":contentURL}
+                       success:success
+                       failure:failure];
+}
+
+//获取相关评论
++ (void) getCommentListForSreamType:(NSString*) streamType
+                          ContentID:(NSString*) contentID
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+
+    [params setObject:streamType forKey:@"streamType"];
+    [params setObject:contentID forKey:@"contentID"];
+
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_comment_list_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma   字典相关
+//////////////////////////////////////////////////////////////
+//获取基础字典
++ (void) getShareBaseZIP:(NSString *) type
               success:(void (^)(id response))success
               failure:(void (^)(NSError* err))failure
 {
@@ -777,19 +815,7 @@
                           failure:failure];
 }
 
-
-+ (void) reportLessonErrorType:(NSString*) type
-                      contentURL:(NSString *)contentURL
-                     lessonID:(NSString *) lessonID
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWithUrl:@"la_echo_from_hp.action"
-                           params:@{@"type":type,@"ln_id":lessonID,@"url":contentURL}
-                          success:success
-                          failure:failure];
-}
-
+//网络字典
 + (void) dicDataforWord:(NSString *) word
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure
@@ -799,4 +825,39 @@
                           success:success
                           failure:failure];
 }
+
+//////////////////////////////////////////////////////////////
+#pragma  供应商相关
+//////////////////////////////////////////////////////////////
+//供应商选择
++ (void) providerListDataForlatitude:(NSString*)latitude
+                           longitude:(NSString*)longitude
+                          PageNumber:(NSInteger) pageNumber
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure
+{
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [AFHttpTool requestWithUrl:@"pu_get_user_position_list_from_hp.action"
+                        params:@{@"latitude":latitude,@"longitude":longitude,@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}
+                       success:success
+                       failure:failure];
+}
+
+//App供应商广告
++ (void) getAccountBroadURLWithSuccess:(void (^)(id response))success
+                               failure:(void (^)(NSError* err))failure
+
+{
+    [AFHttpTool requestWithUrl:@"aa_get_app_info_from_hp.action"
+                        params:nil
+                       success:success
+                       failure:failure];
+}
+
+
 @end

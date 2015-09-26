@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlyingEventAuthorCell" rowHeight="60" id="nVu-Bt-pqZ" customClass="FlyingEventAuthorCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nVu-Bt-pqZ" id="eac-hd-4SC">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One guy says:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tp5-Ay-FAk">
+                        <rect key="frame" x="56" y="14" width="225" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="eWr-bD-Lvf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                        <color key="textColor" red="0.2784313725" green="0.31372549020000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bla bla bla bla bla bla bla bla bla " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="225" translatesAutoresizingMaskIntoConstraints="NO" id="Aol-Zd-c03">
+                        <rect key="frame" x="56" y="35" width="225" height="54"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <color key="textColor" red="0.2784313725" green="0.31372549020000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TmE-0f-lNI">
+                        <rect key="frame" x="10" y="10" width="36" height="36"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="VpA-ug-XGM"/>
+                            <constraint firstAttribute="height" constant="36" id="lFQ-Tm-5Mi"/>
+                        </constraints>
+                    </imageView>
+                    <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utj-N5-fmt" userLabel="Separator View">
+                        <rect key="frame" x="18" y="98" width="302" height="1"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="302" id="7Yw-MP-wA3"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="302" id="Bud-3j-Nr9"/>
+                            <constraint firstAttribute="height" constant="1" id="CWN-7P-W3e"/>
+                            <constraint firstAttribute="width" constant="302" id="KER-NR-7Cn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="TmE-0f-lNI" firstAttribute="leading" secondItem="eac-hd-4SC" secondAttribute="leading" constant="10" id="3lx-fo-K7c"/>
+                    <constraint firstItem="Utj-N5-fmt" firstAttribute="top" secondItem="Aol-Zd-c03" secondAttribute="bottom" constant="9" id="4oD-qr-OS2"/>
+                    <constraint firstItem="Aol-Zd-c03" firstAttribute="leading" secondItem="TmE-0f-lNI" secondAttribute="trailing" constant="10" id="EHZ-5s-0SW"/>
+                    <constraint firstAttribute="trailing" secondItem="Aol-Zd-c03" secondAttribute="trailing" constant="39" id="TS2-fx-tLg"/>
+                    <constraint firstItem="Tp5-Ay-FAk" firstAttribute="top" secondItem="eac-hd-4SC" secondAttribute="top" constant="14" id="UEV-QI-J7T"/>
+                    <constraint firstAttribute="trailing" secondItem="Utj-N5-fmt" secondAttribute="trailing" id="UeC-SG-Flg"/>
+                    <constraint firstAttribute="bottom" secondItem="Utj-N5-fmt" secondAttribute="bottom" id="Y6G-FJ-r6G"/>
+                    <constraint firstItem="Aol-Zd-c03" firstAttribute="top" secondItem="Tp5-Ay-FAk" secondAttribute="bottom" id="b7x-Jf-53F"/>
+                    <constraint firstItem="Tp5-Ay-FAk" firstAttribute="leading" secondItem="TmE-0f-lNI" secondAttribute="trailing" constant="10" id="dqE-1P-1jT"/>
+                    <constraint firstAttribute="trailing" secondItem="Tp5-Ay-FAk" secondAttribute="trailing" constant="39" id="o84-Ix-em3"/>
+                    <constraint firstItem="Utj-N5-fmt" firstAttribute="leading" secondItem="eac-hd-4SC" secondAttribute="leadingMargin" constant="10" id="sCg-kS-BIf"/>
+                    <constraint firstItem="TmE-0f-lNI" firstAttribute="top" secondItem="eac-hd-4SC" secondAttribute="top" constant="10" id="yXc-df-ntT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="cellImageView" destination="TmE-0f-lNI" id="Cof-wd-jIA"/>
+                <outlet property="userInfoLabel" destination="Aol-Zd-c03" id="P8R-8F-nIe"/>
+                <outlet property="usernameLabel" destination="Tp5-Ay-FAk" id="way-Ix-V9B"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

@@ -18,7 +18,7 @@
 #import "FlyingItemParser.h"
 #import "SIAlertView.h"
 #import "FlyingSeparateView.h"
-#import "SoundPlayer.h" 
+#import "FlyingSoundPlayer.h"
 #import "HCSStarRatingView.h"
 #import "FlyingTaskWordDAO.h"
 #import "FlyingWordCollectVC.h"
@@ -179,7 +179,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [[[SoundPlayer alloc] init] speechWord:self.taskWord.BEWORD LessonID:self.taskWord.BELESSONID];
+        [[[FlyingSoundPlayer alloc] init] speechWord:self.taskWord.BEWORD LessonID:self.taskWord.BELESSONID];
         
         self.taskWord.BETIMES = (self.taskWord.BETIMES-1)>0? (self.taskWord.BETIMES-1):0;
         

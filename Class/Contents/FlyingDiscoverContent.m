@@ -54,7 +54,6 @@
     
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     _refresh=NO;
         
@@ -97,24 +96,11 @@
     [self reloadAll];
 }
 
-- (void)refreshNow:(UIRefreshControl *)refreshControl
+- (void)didReceiveMemoryWarning
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
-        
-        _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self reloadAll];
-        });
-    }
-    else
-    {
-        [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
+    [super didReceiveMemoryWarning];
 }
+
 //////////////////////////////////////////////////////////////
 #pragma  Data related
 //////////////////////////////////////////////////////////////
@@ -157,7 +143,7 @@
         
         [self.view addSubview:self.homeFeatureTagPSColeectionView];
         
-        _currentTagData = [NSMutableArray new];
+        _currentData = [NSMutableArray new];
         _currentLodingIndex=0;
         _maxNumOfTags=NSIntegerMax;
         
@@ -170,7 +156,7 @@
         [(FlyingCoverView*)self.homeFeatureTagPSColeectionView.headerView loadData];
         [(FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView showTitle:nil];
         
-        [_currentTagData removeAllObjects];
+        [_currentData removeAllObjects];
         _currentLodingIndex=0;
         _maxNumOfTags=NSIntegerMax;
     }
@@ -178,9 +164,159 @@
     [self downloadMore];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)refreshNow:(UIRefreshControl *)refreshControl
 {
-    [super didReceiveMemoryWarning];
+    if ([AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        _refresh=YES;
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self reloadAll];
+        });
+    }
+    else
+    {
+        [_refreshControl endRefreshing];
+        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+    }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark - Download data from Learning center
+//////////////////////////////////////////////////////////////
+
+- (BOOL)downloadMore
+{
+    if (_currentData.count<_maxNumOfTags)
+    {
+        _currentLodingIndex++;
+        
+        [FlyingHttpTool getAlbumListForAuthor:self.author
+                                  ContentType:nil
+                                   PageNumber:_currentLodingIndex
+                                    Recommend:YES
+                                   Completion:^(NSArray *albumList,NSInteger allRecordCount) {
+                                       [self.currentData addObjectsFromArray:albumList];
+                                       
+                                       _maxNumOfTags=allRecordCount;
+                                       
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [self finishLoadingData];
+                                       });
+                                   }];
+        
+        return true;
+    }
+    else{
+        
+        return false;
+    }
+}
+
+-(void) finishLoadingData
+{
+    //更新下拉刷新
+    if(_refresh)
+    {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
+        
+        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
+        
+        [_refreshControl endRefreshing];
+        _refresh=NO;
+    }
+    
+    //更新界面
+    if (_currentData.count!=0)
+    {
+        [self.homeFeatureTagPSColeectionView reloadData];
+    }
+    else
+    {
+        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+    }
+    
+    //处理footview
+    if (_currentData.count>=_maxNumOfTags) {
+        
+        FlyingLoadingView * loadingView= (FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView;
+        if (loadingView)
+        {
+            [loadingView showTitle:@"点击右上角搜索更多内容!"];
+        }
+    }
+    else
+    {
+        FlyingLoadingView * loadingView= (FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView;
+        
+        if(_currentData.count==0)
+        {
+            if (loadingView)
+            {
+                [loadingView showTitle:@"没有更多内容！"];
+            }
+        }
+        else
+        {
+            if (loadingView)
+            {
+                [loadingView showTitle:@"加载更多内容"];
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark PSCollection
+//////////////////////////////////////////////////////////////
+
+- (NSInteger)numberOfRowsInCollectionView:(PSCollectionView *)collectionView
+{
+    return [_currentData count];
+}
+
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index
+{
+    if (_currentData.count==0) {
+        
+        //[self.messegerLabel  setText:@"没有内容"];
+        return nil;
+    }
+    
+    FlyingCoverViewCell *v = (FlyingCoverViewCell *)[self.homeFeatureTagPSColeectionView dequeueReusableViewForClass:[FlyingCoverViewCell class]];
+    if (!v) {
+        v = [[FlyingCoverViewCell alloc] initWithFrame:CGRectZero];
+    }
+    
+    [v collectionView:self.homeFeatureTagPSColeectionView fillCellWithObject:[_currentData objectAtIndex:index] atIndex:index];
+    
+    [v setMiniShadow];
+    
+    return v;
+}
+
+- (CGFloat)collectionView:(PSCollectionView *)collectionView heightForRowAtIndex:(NSInteger)index
+{
+    FlyingCoverData* coverData = [_currentData objectAtIndex:index];
+    return  [FlyingCoverViewCell  rowHeightForObject:coverData inColumnWidth:self.homeFeatureTagPSColeectionView.colWidth];
+}
+
+- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index
+{
+    if (_currentData.count!=0) {
+        
+        FlyingCoverData* coverData = [_currentData objectAtIndex:index];
+        
+        FlyingLessonListViewController * list=[[FlyingLessonListViewController alloc] init];
+        [list setTagString:coverData.tagString];
+        [list setContentType:coverData.tagtype];
+        
+        [self.navigationController pushViewController:list animated:YES];
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -208,141 +344,10 @@
     return self.author;
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark PSCollection
-//////////////////////////////////////////////////////////////
-
-- (NSInteger)numberOfRowsInCollectionView:(PSCollectionView *)collectionView
+- (void) pushViewController:(UIViewController *)viewController animated:(BOOL) animated
 {
-    return [_currentTagData count];
+    [self.navigationController pushViewController:viewController animated:animated];
 }
-
-- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index
-{
-    if (_currentTagData.count==0) {
-        
-        //[self.messegerLabel  setText:@"没有内容"];
-        return nil;
-    }
-    
-    FlyingCoverViewCell *v = (FlyingCoverViewCell *)[self.homeFeatureTagPSColeectionView dequeueReusableViewForClass:[FlyingCoverViewCell class]];
-    if (!v) {
-        v = [[FlyingCoverViewCell alloc] initWithFrame:CGRectZero];
-    }
-    
-    [v collectionView:self.homeFeatureTagPSColeectionView fillCellWithObject:[_currentTagData objectAtIndex:index] atIndex:index];
-    
-    [v setMiniShadow];
-    
-    return v;
-}
-
-- (CGFloat)collectionView:(PSCollectionView *)collectionView heightForRowAtIndex:(NSInteger)index
-{
-    FlyingCoverData* coverData = [_currentTagData objectAtIndex:index];
-    return  [FlyingCoverViewCell  rowHeightForObject:coverData inColumnWidth:self.homeFeatureTagPSColeectionView.colWidth];
-}
-
-- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index
-{
-    if (_currentTagData.count!=0) {
-        
-        FlyingCoverData* coverData = [_currentTagData objectAtIndex:index];
-        
-        FlyingLessonListViewController * list=[[FlyingLessonListViewController alloc] init];
-        [list setTagString:coverData.tagString];
-        [list setContentType:coverData.tagtype];
-        
-        [self.navigationController pushViewController:list animated:YES];
-    }
-}
-//////////////////////////////////////////////////////////////
-#pragma mark - Download data from Learning center
-//////////////////////////////////////////////////////////////
-
-- (BOOL)downloadMore
-{
-    if (_currentTagData.count<_maxNumOfTags)
-    {
-        _currentLodingIndex++;
-        
-        [FlyingHttpTool getAlbumListForAuthor:self.author
-                                  ContentType:nil
-                                        PageNumber:_currentLodingIndex
-                                         Recommend:YES
-                                        Completion:^(NSArray *albumList,NSInteger allRecordCount) {
-                                            [self.currentTagData addObjectsFromArray:albumList];
-                                            
-                                            _maxNumOfTags=allRecordCount;
-                                            
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                [self finishLoadingData];
-                                            });
-                                        }];
-        
-        return true;
-    }
-    else{
-        
-        return false;
-    }
-}
-
--(void) finishLoadingData
-{
-    //更新下拉刷新
-    if(_refresh)
-    {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
-        
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
-        
-        [_refreshControl endRefreshing];
-        _refresh=NO;
-    }
-    
-    //更新界面
-    if (_currentTagData.count!=0)
-    {
-        [self.homeFeatureTagPSColeectionView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
-    
-    //处理footview
-    if (_currentTagData.count>=_maxNumOfTags) {
-        
-        FlyingLoadingView * loadingView= (FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView;
-        if (loadingView)
-        {
-            [loadingView showTitle:@"点击右上角搜索更多内容!"];
-        }
-    }
-    else
-    {
-        FlyingLoadingView * loadingView= (FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView;
-        
-        if(_currentTagData.count==0)
-        {
-            if (loadingView)
-            {
-                [loadingView showTitle:@"没有更多内容！"];
-            }
-        }
-        else
-        {
-            if (loadingView)
-            {
-                [loadingView showTitle:@"加载更多内容"];
-            }
-        }
-    }
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark socail Related
 //////////////////////////////////////////////////////////////
@@ -351,7 +356,6 @@
     [self.sideMenuViewController presentLeftMenuViewController];
 }
 
-//LogoDone functions
 - (void)dismiss
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -425,73 +429,6 @@
 {
     [self resignFirstResponder];
     [super viewDidDisappear:animated];
-}
-
-- (void) showWebLesson:(NSString*) webURL
-{
-    if (webURL) {
-        
-        NSString * lessonID = [NSString getLessonIDFromOfficalURL:webURL];
-        
-        if (lessonID) {
-            
-            [self jumptoLessonforID:lessonID];
-        }
-        else{
-            
-            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-            [webpage setWebURL:webURL];
-            
-            [self pushViewController:webpage animated:YES];
-        }
-    }
-}
-
-- (BOOL) jumptoLessonforID:(NSString *) lessonID
-{
-    [FlyingHttpTool getLessonForLessonID:lessonID
-                              Completion:^(FlyingPubLessonData *lesson) {
-                                  //
-                                  if (lesson) {
-                                      
-                                      FlyingLessonVC * vc= [[FlyingLessonVC alloc] init];
-                                      vc.theLesson=lesson;
-                                      [self pushViewController:vc animated:YES];
-                                  }
-                              }];
-    
-    return YES;
-}
-
-- (BOOL) jumptoLessonforISBN:(NSString *) ISBN
-{
-    [FlyingHttpTool getLessonForISBN:ISBN
-                          Completion:^(FlyingPubLessonData *lesson) {
-                              //
-                              if (lesson) {
-                                  
-                                  FlyingLessonVC * vc= [[FlyingLessonVC alloc] init];
-                                  vc.theLesson=lesson;
-                                  [self pushViewController:vc animated:YES];
-                              }
-                          }];
-    
-    return YES;
-}
-
-
-- (void) pushViewController:(UIViewController *)viewController animated:(BOOL) animated
-{
-    [self.navigationController pushViewController:viewController animated:animated];
-}
-
-- (void) showCodeLesson:(NSString*) code
-{
-    if(code){
-        
-        [self jumptoLessonforISBN:code];
-    }
 }
 
 @end

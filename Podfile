@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '7.1'
 
 pod 'AFNetworking'
 pod 'SDWebImage'
@@ -9,8 +9,6 @@ pod 'RongCloudIMKit'
 pod 'MBProgressHUD'
 
 pod 'INTULocationManager'
-
-pod 'MBCalendarKit', '~>3.0.4'
 
 
 

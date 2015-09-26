@@ -12,7 +12,7 @@
 #import "SIAlertView.h"
 #import "FlyingWebViewController.h"
 #import "NSString+FlyingExtention.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import  "ZXingObjC.h"
 #import "FlyingNavigationController.h"
 #import "UIView+Toast.h"
@@ -301,7 +301,7 @@
             [_session stopRunning];
             [timer invalidate];
             
-            [SoundPlayer soundEffect:SECalloutLight];
+            [FlyingSoundPlayer soundEffect:SECalloutLight];
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             
             [FlyingScanViewController processingSCanResult:resultStr];
@@ -350,7 +350,7 @@
             [_session stopRunning];
             [timer invalidate];
             
-            [SoundPlayer soundEffect:SECalloutLight];
+            [FlyingSoundPlayer soundEffect:SECalloutLight];
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             
             [FlyingScanViewController processingSCanResult:contents];

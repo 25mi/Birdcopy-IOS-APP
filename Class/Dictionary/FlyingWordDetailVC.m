@@ -18,14 +18,14 @@
 #import "UIView+Autosizing.h"
 #import "RESideMenu.h"
 #import "FlyingSearchViewController.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 
 @interface FlyingWordDetailVC ()
 {
-    SoundPlayer                *_soundPlayer;
+    FlyingSoundPlayer                *_soundPlayer;
 }
 
 @end
@@ -239,7 +239,7 @@
 {
     
     if (!_soundPlayer) {
-        _soundPlayer = [[SoundPlayer alloc] init];
+        _soundPlayer = [[FlyingSoundPlayer alloc] init];
     }
     
     [_soundPlayer speechWord:self.theWord LessonID:nil];

@@ -15,7 +15,7 @@
 #import "FlyingM3U8List.h"
 #import "UIWebView+Clean.h"
 #import "NSString+FlyingExtention.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
 #import "SIAlertView.h"
 

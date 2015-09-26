@@ -16,7 +16,7 @@
 #import "NSString+FlyingExtention.h"
 #import "iFlyingAppDelegate.h"
 #import "UICKeyChainStore.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "AFHttpTool.h"
 #import "SSZipArchive.h"
 
@@ -223,7 +223,7 @@
         
         if (!_dowloadShareDataOperation) {
             
-            [AFHttpTool shareBaseZIP:KBaseDicAllType success:^(id response) {
+            [AFHttpTool getShareBaseZIP:KBaseDicAllType success:^(id response) {
                 NSString * shareBaseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                 
                 //下载目录如果没有就创建一个

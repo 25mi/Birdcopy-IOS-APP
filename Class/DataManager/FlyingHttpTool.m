@@ -349,162 +349,6 @@
     }];
 }
 
-//////////////////////////////////////////////////////////////
-#pragma  group related (not IM)
-//////////////////////////////////////////////////////////////
-
-+ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
-                        Recommend:(BOOL) isRecommend
-                        PageNumber:(NSInteger) pageNumber
-                         Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
-{
-    [AFHttpTool getAllGroupsForAPPOwner:appOwner
-                            Recommend:isRecommend
-                               PageNumber:pageNumber
-                                  success:^(id response) {
-                                      
-                                      NSMutableArray *tempArr = [NSMutableArray new];
-                                      NSArray *allGroups = response[@"rs"];
-                                      
-                                      if (allGroups) {
-                                          
-                                          for (NSDictionary *dic in allGroups)
-                                          {
-                                              FlyingGroupData *group = [[FlyingGroupData alloc] init];
-                                              group.gp_id    = [dic objectForKey:@"gp_id"];
-                                              group.gp_name  = [dic objectForKey:@"gp_name"];
-                                              group.gp_owner = [dic objectForKey:@"gp_owner"];
-                                              group.gp_desc  = [dic objectForKey:@"gp_desc"];
-                                              
-                                              group.logo     = [dic objectForKey:@"logo"];
-                                              group.cover     = [dic objectForKey:@"cover"];
-                                              
-                                              group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                                              group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
-                                              
-                                              group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                                              group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                                              group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                                              
-                                              NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
-                                              
-                                              group.gp_member_sum = [groupSum objectForKey:@"gp_member_sum"];
-                                              group.gp_ln_sum     = [groupSum objectForKey:@"gp_ln_sum"];
-                                              
-                                              [tempArr addObject:group];
-                                          }
-                                      }
-                                      
-                                      if (completion) {
-                                          completion(tempArr,[response[@"allRecordCount"] integerValue]);
-                                      }
-
-                                  } failure:^(NSError *err) {
-                                      //
-                                  }];
-}
-
-+ (void) getMyGroupsCompletion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
-{
-    [AFHttpTool getMyGroupsSuccess:^(id response) {
-       
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"rs"];
-        
-        if (allGroups) {
-            for (NSDictionary *dic in allGroups) {
-                FlyingGroupData *group = [[FlyingGroupData alloc] init];
-                group.gp_id    = [dic objectForKey:@"gp_id"];
-                group.gp_name  = [dic objectForKey:@"gp_name"];
-                group.gp_owner = [dic objectForKey:@"gp_owner"];
-                group.gp_desc  = [dic objectForKey:@"gp_owner"];
-                
-                group.logo     = [dic objectForKey:@"logo"];
-                group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
-                
-                group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                
-                [tempArr addObject:group];
-            }
-        }
-        
-        if (completion) {
-            completion(tempArr,[response[@"allRecordCount"] integerValue]);
-        }
-        
-    } failure:^(NSError *err) {
-        
-    }];
-}
-
-
-
-//获取群公告流
-+ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
-                          PageNumber:(NSInteger) pageNumber
-                          Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
-{
-    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterNewsOnly PageNumber:pageNumber success:^(id response) {
-        //
-        
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"rs"];
-        
-        if (allGroups) {
-            
-            for (NSDictionary *dic in allGroups)
-            {
-                if ([dic objectForKey:@"lessonID"]) {
-                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
-                    [tempArr addObject:lessonData];
-                }
-            }
-        }
-        
-        if (completion) {
-            completion(tempArr,[response[@"allRecordCount"] integerValue]);
-        }
-
-    } failure:^(NSError *err) {
-        //
-    }];
-}
-
-//获取群Post流
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                       PageNumber:(NSInteger) pageNumber
-                       Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
-{
-    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterAllType PageNumber:pageNumber success:^(id response) {
-        //
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"rs"];
-        
-        if (allGroups) {
-            
-            for (NSDictionary *dic in allGroups)
-            {
-                if ([dic objectForKey:@"lessonID"]) {
-                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
-                    [tempArr addObject:lessonData];
-                }
-            }
-        }
-        
-        if (completion) {
-            completion(tempArr,[response[@"allRecordCount"] integerValue]);
-        }
-        
-    } failure:^(NSError *err) {
-        //
-    }];
-}
-
-
-
 +(void) getUserInfoByopenID:(NSString *) openID
                  completion:(void (^)(RCUserInfo *user)) completion
 {
@@ -570,150 +414,188 @@
                               }];
 }
 
-+ (void) getCoverListForAuthor:(NSString*)author
-         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion
+//////////////////////////////////////////////////////////////
+#pragma  group related (not IM)
+//////////////////////////////////////////////////////////////
+
++ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
+                        Recommend:(BOOL) isRecommend
+                        PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
 {
-    
-    [AFHttpTool lessonListDataByTagForAuthor:author
-                                  PageNumber:1
-                           lessonConcentType:nil
-                                DownloadType:nil
-                                         Tag:nil
-                                  SortbyTime:YES
-                                   Recommend:YES
-                                     success:^(id response) {
-        
-        
-        FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
-        [lessonParser SetData:response];
-        
-        lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-        {
-            if(LessonList.count!=0 && completion) {
-                completion(LessonList,allRecordCount);
-            }
-        };
-        
-        lessonParser.failureBlock = ^(NSError *error)
-        {
-            NSLog(@"FlyingLessonParser:%@",error.description);
-        };
-        
-        [lessonParser parse];
-    }
-    failure:^(NSError *err) {
-        //
-        NSLog(@"coverListWithSuccessCompletion %@",err.description);
-    }];
+    [AFHttpTool getAllGroupsForAPPOwner:appOwner
+                            Recommend:isRecommend
+                               PageNumber:pageNumber
+                                  success:^(id response) {
+                                      
+                                      NSMutableArray *tempArr = [NSMutableArray new];
+                                      NSArray *allGroups = response[@"rs"];
+                                      
+                                      if (allGroups) {
+                                          
+                                          for (NSDictionary *dic in allGroups)
+                                          {
+                                              FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                                              group.gp_id    = [dic objectForKey:@"gp_id"];
+                                              group.gp_name  = [dic objectForKey:@"gp_name"];
+                                              group.gp_owner = [dic objectForKey:@"gp_owner"];
+                                              group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                                              
+                                              group.logo     = [dic objectForKey:@"logo"];
+                                              group.cover     = [dic objectForKey:@"cover"];
+                                              
+                                              group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                                              group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                                              
+                                              group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                                              group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                                              group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                                              
+                                              NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
+                                              
+                                              group.gp_member_sum = [groupSum objectForKey:@"gp_member_sum"];
+                                              group.gp_ln_sum     = [groupSum objectForKey:@"gp_ln_sum"];
+                                              
+                                              [tempArr addObject:group];
+                                          }
+                                      }
+                                      
+                                      if (completion) {
+                                          completion(tempArr,[response[@"allRecordCount"] integerValue]);
+                                      }
+
+                                  } failure:^(NSError *err) {
+                                      //
+                                  }];
 }
 
-+ (void) getCoverListForAuthor:(NSString*) author
-                    PageNumber:(NSInteger) pageNumber
-                    SortbyTime:  (BOOL) time
-                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
++ (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                       Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 {
-    [AFHttpTool lessonListDataByTagForAuthor:author
-                                  PageNumber:pageNumber
-                           lessonConcentType:nil
-                                DownloadType:nil
-                                         Tag:nil
-                                  SortbyTime:time
-                                   Recommend:YES
-                                     success:^(id response) {
+    [AFHttpTool getMyGroupsForPageNumber:pageNumber
+    Success:^(id response) {
+       
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
         
-        if (response) {
-            FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
-            [lessonParser SetData:response];
-            
-            lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-            {
-                if(LessonList.count!=0 && completion) {
-                    completion(LessonList,allRecordCount);
-                }
-            };
-            
-            lessonParser.failureBlock = ^(NSError *error)
-            {
-                NSLog(@"FlyingLessonParser:%@",error.description);
-            };
-            
-            [lessonParser parse];
+        if (allGroups) {
+            for (NSDictionary *dic in allGroups) {
+                FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                group.gp_id    = [dic objectForKey:@"gp_id"];
+                group.gp_name  = [dic objectForKey:@"gp_name"];
+                group.gp_owner = [dic objectForKey:@"gp_owner"];
+                group.gp_desc  = [dic objectForKey:@"gp_owner"];
+                
+                group.logo     = [dic objectForKey:@"logo"];
+                group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                
+                group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                
+                [tempArr addObject:group];
+            }
         }
-    }
-                                        failure:^(NSError *err) {
-                                            //
-                                            
-                                            NSLog(@"coverListWithSuccessCompletion %@",err.description);
-                                            
-                                        }];
-}
-
-
-+ (void) getLessonForLessonID:(NSString*) lessonID
-                             Completion:(void (^)(FlyingPubLessonData *lesson)) completion
-{
-
-    [AFHttpTool lessonDataForLessonID:lessonID success:^(id response) {
-        //
         
-        FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
         
-        [lessonParser SetData:response];
-        
-        lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-        {
-            
-            if(LessonList.count!=0 && completion) {
-                completion([LessonList objectAtIndex:0]);
-            }
-        };
-        
-        lessonParser.failureBlock = ^(NSError *error)
-        {
-            NSLog(@"FlyingLessonParser:%@",error.description);
-        };
-        
-        [lessonParser parse];
-
-    } failure:^(NSError *error) {
-        //
-        NSLog(@"getLessonForLessonID:%@",error.description);
-
-    }];
-}
-
-+ (void) getLessonForISBN:(NSString*) ISBN
-               Completion:(void (^)(FlyingPubLessonData *lesson)) completion
-{
-    [AFHttpTool lessonDataForISBN:ISBN success:^(id response) {
-        //
-        
-        FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
-        
-        [lessonParser SetData:response];
-        
-        lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-        {
-            
-            if(LessonList.count!=0 && completion) {
-                completion([LessonList objectAtIndex:0]);
-            }
-        };
-        
-        lessonParser.failureBlock = ^(NSError *error)
-        {
-            NSLog(@"FlyingLessonParser:%@",error.description);
-        };
-        
-        [lessonParser parse];
-        
-    } failure:^(NSError *error) {
-        //
-        NSLog(@"getLessonForISBN:%@",error.description);
+    } failure:^(NSError *err) {
         
     }];
 }
 
+//获取群公告流
++ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
+                          PageNumber:(NSInteger) pageNumber
+                          Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterNewsOnly PageNumber:pageNumber success:^(id response) {
+        //
+        
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            
+            for (NSDictionary *dic in allGroups)
+            {
+                if ([dic objectForKey:@"lessonID"]) {
+                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
+                    [tempArr addObject:lessonData];
+                }
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+
+    } failure:^(NSError *err) {
+        //
+    }];
+}
+
+//获取群Post流
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                       PageNumber:(NSInteger) pageNumber
+                       Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterAllType PageNumber:pageNumber success:^(id response) {
+        //
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            
+            for (NSDictionary *dic in allGroups)
+            {
+                if ([dic objectForKey:@"lessonID"]) {
+                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
+                    [tempArr addObject:lessonData];
+                }
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+        
+    } failure:^(NSError *err) {
+        //
+    }];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
+
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                        Completion:(void (^)(FlyingCalendarEvent *event)) completion
+{
+
+    [AFHttpTool getEventDetailsForEventID:eventID
+                                  success:^(id response) {
+                                      //
+                                      FlyingCalendarEvent *event = [[FlyingCalendarEvent alloc] init];
+                                      event.eventID    = response[@"eventID"];
+                                      
+                                      if (completion) {
+                                          completion(event);
+                                      }
+                                      
+                                  } failure:^(NSError *err) {
+                                      //
+                                  }];
+}
+
+
+
+//////////////////////////////////////////////////////////////
+#pragma  内容相关
+//////////////////////////////////////////////////////////////
 + (void) getAlbumListForAuthor:(NSString*)author
                    ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
@@ -793,6 +675,203 @@
                                         }];
 }
 
++ (void) getCoverListForAuthor:(NSString*)author
+         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion
+{
+    
+    [AFHttpTool lessonListDataByTagForAuthor:author
+                                  PageNumber:1
+                           lessonConcentType:nil
+                                DownloadType:nil
+                                         Tag:nil
+                                  SortbyTime:YES
+                                   Recommend:YES
+                                     success:^(id response) {
+                                         
+                                         
+                                         FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+                                         [lessonParser SetData:response];
+                                         
+                                         lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+                                         {
+                                             if(LessonList.count!=0 && completion) {
+                                                 completion(LessonList,allRecordCount);
+                                             }
+                                         };
+                                         
+                                         lessonParser.failureBlock = ^(NSError *error)
+                                         {
+                                             NSLog(@"FlyingLessonParser:%@",error.description);
+                                         };
+                                         
+                                         [lessonParser parse];
+                                     }
+                                     failure:^(NSError *err) {
+                                         //
+                                         NSLog(@"coverListWithSuccessCompletion %@",err.description);
+                                     }];
+}
+
++ (void) getCoverListForAuthor:(NSString*) author
+                    PageNumber:(NSInteger) pageNumber
+                    SortbyTime:  (BOOL) time
+                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool lessonListDataByTagForAuthor:author
+                                  PageNumber:pageNumber
+                           lessonConcentType:nil
+                                DownloadType:nil
+                                         Tag:nil
+                                  SortbyTime:time
+                                   Recommend:YES
+                                     success:^(id response) {
+                                         
+                                         if (response) {
+                                             FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+                                             [lessonParser SetData:response];
+                                             
+                                             lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+                                             {
+                                                 if(LessonList.count!=0 && completion) {
+                                                     completion(LessonList,allRecordCount);
+                                                 }
+                                             };
+                                             
+                                             lessonParser.failureBlock = ^(NSError *error)
+                                             {
+                                                 NSLog(@"FlyingLessonParser:%@",error.description);
+                                             };
+                                             
+                                             [lessonParser parse];
+                                         }
+                                     }
+                                     failure:^(NSError *err) {
+                                         //
+                                         
+                                         NSLog(@"coverListWithSuccessCompletion %@",err.description);
+                                         
+                                     }];
+}
+
++ (void) getLessonForLessonID:(NSString*) lessonID
+                   Completion:(void (^)(FlyingPubLessonData *lesson)) completion
+{
+    
+    [AFHttpTool lessonDataForLessonID:lessonID success:^(id response) {
+        //
+        
+        FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+        
+        [lessonParser SetData:response];
+        
+        lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+        {
+            
+            if(LessonList.count!=0 && completion) {
+                completion([LessonList objectAtIndex:0]);
+            }
+        };
+        
+        lessonParser.failureBlock = ^(NSError *error)
+        {
+            NSLog(@"FlyingLessonParser:%@",error.description);
+        };
+        
+        [lessonParser parse];
+        
+    } failure:^(NSError *error) {
+        //
+        NSLog(@"getLessonForLessonID:%@",error.description);
+        
+    }];
+}
+
++ (void) getLessonForISBN:(NSString*) ISBN
+               Completion:(void (^)(FlyingPubLessonData *lesson)) completion
+{
+    [AFHttpTool lessonDataForISBN:ISBN success:^(id response) {
+        //
+        
+        FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+        
+        [lessonParser SetData:response];
+        
+        lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+        {
+            
+            if(LessonList.count!=0 && completion) {
+                completion([LessonList objectAtIndex:0]);
+            }
+        };
+        
+        lessonParser.failureBlock = ^(NSError *error)
+        {
+            NSLog(@"FlyingLessonParser:%@",error.description);
+        };
+        
+        [lessonParser parse];
+        
+    } failure:^(NSError *error) {
+        //
+        NSLog(@"getLessonForISBN:%@",error.description);
+        
+    }];
+}
+
++ (void) getCommentListForSreamType:(NSString*) streamType
+                          ContentID:(NSString*) contentID
+                         PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *commentList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getCommentListForSreamType:streamType
+                              ContentID:contentID
+                             PageNumber:pageNumber
+                                success:^(id response) {
+                                    
+                                    NSMutableArray *tempArr = [NSMutableArray new];
+                                    NSArray *allComments = response[@"rs"];
+                                    
+                                    if (allComments) {
+                                        
+                                        for (NSDictionary *dic in allComments)
+                                        {
+                                            FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                                            group.gp_id    = [dic objectForKey:@"gp_id"];
+                                            group.gp_name  = [dic objectForKey:@"gp_name"];
+                                            group.gp_owner = [dic objectForKey:@"gp_owner"];
+                                            group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                                            
+                                            group.logo     = [dic objectForKey:@"logo"];
+                                            group.cover     = [dic objectForKey:@"cover"];
+                                            
+                                            group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                                            group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                                            
+                                            group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                                            group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                                            group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                                            
+                                            NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
+                                            
+                                            group.gp_member_sum = [groupSum objectForKey:@"gp_member_sum"];
+                                            group.gp_ln_sum     = [groupSum objectForKey:@"gp_ln_sum"];
+                                            
+                                            [tempArr addObject:group];
+                                        }
+                                    }
+                                    
+                                    if (completion) {
+                                        completion(tempArr,[response[@"allRecordCount"] integerValue]);
+                                    }
+                                    
+                                } failure:^(NSError *err) {
+                                    //
+                                }];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  字典相关
+//////////////////////////////////////////////////////////////
 + (void) getItemsforWord:(NSString *) word
              Completion:(void (^)(NSArray *itemList,NSInteger allRecordCount)) completion;
 {
@@ -832,6 +911,9 @@
                        }];
 }
 
+//////////////////////////////////////////////////////////////
+#pragma  供应商（作者）相关
+//////////////////////////////////////////////////////////////
 
 + (void) getProviderListForlatitude:(NSString*)latitude
                            longitude:(NSString*)longitude

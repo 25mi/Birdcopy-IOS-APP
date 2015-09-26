@@ -16,7 +16,7 @@
                                                     PSCollectionViewDelegate,
                                                     FlyingLoadingViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray     *currentTagData;
+@property (strong, nonatomic) NSMutableArray     *currentData;
 
 @property (strong, nonatomic) PSCollectionView   *homeFeatureTagPSColeectionView;
 

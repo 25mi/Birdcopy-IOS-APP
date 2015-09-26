@@ -20,7 +20,7 @@
 
 #import "iFlyingAppDelegate.h"
 
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 
 #import "NSString+FlyingExtention.h"
 
@@ -80,7 +80,7 @@
 #import "UICKeyChainStore.h"
 #import "FlyingTagTransform.h"
 #import "NSString+FlyingExtention.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
 #import "FMDatabase.h"
 #import "FMDatabaseAdditions.h"
@@ -161,7 +161,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     //Record NPL managemnet
     dispatch_source_t         _NPLSource;
     
-    SoundPlayer              *_speechPlayer;
+    FlyingSoundPlayer              *_speechPlayer;
     NSTimeInterval            _initialPlaybackTime;
     
     NSInteger                 _balanceCoin;
@@ -1523,7 +1523,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     //基本辅助信息和工具准备
     _tagTransform=[[FlyingTagTransform alloc] init];
     
-    _speechPlayer = [[SoundPlayer alloc] init];
+    _speechPlayer = [[FlyingSoundPlayer alloc] init];
     _lastScreen=nil;
     
     //智能字幕相关

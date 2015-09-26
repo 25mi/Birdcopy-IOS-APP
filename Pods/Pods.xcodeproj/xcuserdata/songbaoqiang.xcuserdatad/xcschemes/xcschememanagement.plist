@@ -6,38 +6,33 @@
 	<dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>INTULocationManager.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>MBCalendarKit.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SIAlertView.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -47,32 +42,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2FD212D8259CED60AC23180AAB3A5725</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5352D432641F0656C90741034E32F31E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F27B337909B50F0352EB646109C34EC</key>
+		<key>76D90861C4752CC318F808444A005083</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE254D98011709562D7FED7630ECE35B</key>
+		<key>8671847EB1FBE2C065885DAB0B22A410</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E5A7F80D9B7E264591891CF659040F8D</key>
+		<key>D178B26CFF9E45E26A2EF29053402C2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E77A16A77EE2E86110956DFE928B5994</key>
+		<key>EE2097081D7681D61B173B23B7873E2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -10,7 +10,7 @@
 #import "RESideMenu.h"
 #import "FlyingItemView.h"
 #import "UIView+Autosizing.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
 #import "iFlyingAppDelegate.h"
@@ -40,7 +40,7 @@
     
     FlyingItemView          *_aWordView;
     
-    SoundPlayer             *_speechPlayer;
+    FlyingSoundPlayer       *_speechPlayer;
     dispatch_queue_t         _background_queue;
     
     FlyingStatisticDAO      *_statisticDAO;
@@ -120,7 +120,7 @@
     //基本辅助信息和工具准备
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     _background_queue = [appDelegate getAIQueue];
-    _speechPlayer = [[SoundPlayer alloc] init];
+    _speechPlayer = [[FlyingSoundPlayer alloc] init];
     [self autoRemoveWordView];
     
     //收费相关
@@ -442,7 +442,7 @@
             }
             else{
             
-                [SoundPlayer soundSentence:word];
+                [FlyingSoundPlayer soundSentence:word];
             }
         }
         else
@@ -451,7 +451,7 @@
             
             if (_balanceCoin<=-500) {
                 
-                [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
+                [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
                 NSString *title = @"付费提醒";
                 NSString *message = [NSString stringWithFormat:@"你的信用额度已经用完,必须在《我的档案》充值才能继续使用!"];
                 SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
@@ -471,7 +471,7 @@
                     
                     [FlyingSysWithCenter uploadUserCenter];
 
-                    [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
+                    [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
                     NSString *title = @"同步提醒";
                     NSString *message = [NSString stringWithFormat:@"你很久没有同步数据了,如果再次提醒请联网使用!"];
                     SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
@@ -488,7 +488,7 @@
                 
                 if (_balanceCoin<0) {
                     
-                    [SoundPlayer soundEffect:@"iMoneyDialogOpen"];
+                    [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
                     [self.view makeToast:@"帐户金币数不足,请尽快在《我的档案》充值!" duration:3 position:CSToastPositionCenter];
                 }
                 

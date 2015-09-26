@@ -41,7 +41,7 @@
 #import "FlyinglessonDAO.h"
 #import "FlyingLessonData.h"
 #import "SIAlertView.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "FlyingStatisticDAO.h"
 #import "FlyingTouchDAO.h"
 #import "UICKeyChainStore.h"
@@ -104,7 +104,7 @@ enum
 	BOOL isVisible;
     
     NSLinguisticTagger       * _flyingNPL;
-    SoundPlayer             *_speechPlayer;
+    FlyingSoundPlayer             *_speechPlayer;
     NSString                *_currentPassport;
     dispatch_queue_t         _background_queue;
     
@@ -211,7 +211,7 @@ enum
     _background_queue = [appDelegate getAIQueue];
     
     _currentPassport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    _speechPlayer = [[SoundPlayer alloc] init];
+    _speechPlayer = [[FlyingSoundPlayer alloc] init];
     [self autoRemoveWordView];
     
     //统计相关
@@ -964,7 +964,7 @@ enum
         
         if (times.count>2)
         {
-            [SoundPlayer soundSentence:word];
+            [FlyingSoundPlayer soundSentence:word];
         }
         else {
             

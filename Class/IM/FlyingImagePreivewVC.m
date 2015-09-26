@@ -12,7 +12,7 @@
 #import "FlyingShareWithFriends.h"
 #import "UIView+Toast.h"
 #import  "ZXingObjC.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingScanViewController.h"
 
@@ -265,7 +265,7 @@
         // The barcode format, such as a QR code or UPC-A
         //ZXBarcodeFormat format = result.barcodeFormat;
         
-        [SoundPlayer soundEffect:SECalloutLight];
+        [FlyingSoundPlayer soundEffect:SECalloutLight];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
         [FlyingScanViewController processingSCanResult:contents];

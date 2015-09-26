@@ -16,7 +16,7 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingItemParser.h"
 #import "FlyingItemDao.h"
-#import "SoundPlayer.h"
+#import "FlyingSoundPlayer.h"
 #import <AFNetworking.h>
 #import "FlyingWordCollectVC.h"
 #import "AFHttpTool.h"
@@ -438,7 +438,7 @@
 
 -(void) touchMagnetImage
 {
-    [[[SoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
+    [[[FlyingSoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
     
     FlyingWordCollectVC * wordVC= [[FlyingWordCollectVC alloc] init];
     wordVC.theWord = self.word;

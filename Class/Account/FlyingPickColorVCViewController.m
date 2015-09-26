@@ -28,10 +28,9 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    
     [self addBackFunction];
     
     //更新欢迎语言
@@ -64,7 +63,6 @@
     self.navigationItem.rightBarButtonItem = doResetButtonItem;
     
     if (self.cPicker == nil) {
-        [self.view setBackgroundColor:[UIColor grayColor]];
         
         self.cPicker = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 202, 202)];
         self.cPicker.image = [UIImage imageNamed:@"colorWheel"];

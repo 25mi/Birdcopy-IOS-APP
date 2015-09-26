@@ -15,6 +15,8 @@
 @protocol FlyingMyGroupCellDelegate <NSObject>
 
 @optional
+- (void)profileImageViewPressed:(FlyingGroupData*)groupData;
+
 - (void)memberCountButtonPressed:(FlyingGroupData*)groupData;
 - (void)lessonCountButtonPressed:(FlyingGroupData*)groupData;
 - (void)coverImageViewPressed:(FlyingGroupData*)groupData;
@@ -41,7 +43,7 @@
 @property(nonatomic,assign) id<FlyingMyGroupCellDelegate> delegate;
 
 
--(void) LoadingGroupData:(FlyingGroupData *)groupData;
+-(void) loadingGroupData:(FlyingGroupData *)groupData;
 
 
 @end
