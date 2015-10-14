@@ -33,6 +33,8 @@
 #import "FlyingDiscoverContent.h"
 #import "FlyingMyGroupsVC.h"
 
+#import "FlyingHelpVC.h"
+
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -225,15 +227,15 @@
         [self.navigationController pushViewController:[[FlyingPickColorVCViewController alloc] init] animated:YES];
 
     }
-    else if (indexPath.section == 3 && indexPath.row == 0) {
-        
+    else if (indexPath.section == 3 && indexPath.row == 0)
+    {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id helpVC = [storyboard instantiateViewControllerWithIdentifier:@"helpinfo"];
-     
+        
         [self.navigationController pushViewController:helpVC animated:YES];
     }
-    else if (indexPath.section == 3 && indexPath.row == 1) {
-        
+    else if (indexPath.section == 3 && indexPath.row == 1)
+    {
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         
         [appDelegate  showWebviewWithURL:@"http://www.birdcopy.com"];

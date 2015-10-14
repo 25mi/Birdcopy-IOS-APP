@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "464346569.234113"
+            timestampString = "466434867.451015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1256"
-            endingLineNumber = "1256"
+            startingLineNumber = "1255"
+            endingLineNumber = "1255"
             landmarkName = "-setnavigationBarWithClearStyle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "464346569.234113"
+            timestampString = "466434867.451015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1297"
-            endingLineNumber = "1297"
+            startingLineNumber = "1296"
+            endingLineNumber = "1296"
             landmarkName = "-resetnavigationBarWithDefaultStyle"
             landmarkType = "5">
          </BreakpointContent>
@@ -1018,11 +1018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Event/FlyingEventVC.m"
-            timestampString = "464967874.532573"
+            timestampString = "465717534.486033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "-reloadAll"
             landmarkType = "5">
          </BreakpointContent>
@@ -1050,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Event/FlyingEventVC.m"
-            timestampString = "464967874.532573"
+            timestampString = "465717534.486033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-requestEventDetails"
             landmarkType = "5">
          </BreakpointContent>
@@ -1066,12 +1066,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Event/FlyingEventVC.m"
-            timestampString = "464967874.532573"
+            timestampString = "466434867.451015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "466"
-            endingLineNumber = "466"
-            landmarkName = "-dismiss"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
+            landmarkName = "-doReset"
             landmarkType = "5">
             <Locations>
                <Location
@@ -1114,12 +1114,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Event/FlyingEventVC.m"
-            timestampString = "464967874.532573"
+            timestampString = "466434867.451015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
-            landmarkName = "-dismiss"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
+            landmarkName = "-doShare"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1194,11 +1194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Event/FlyingEventVC.m"
-            timestampString = "464967874.532573"
+            timestampString = "465717534.486033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "-requestEventDetails"
             landmarkType = "5">
             <Locations>
@@ -1210,11 +1210,11 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "464869098.572026"
+                  timestampString = "466435754.09793"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
                   offsetFromSymbolStart = "128">
                </Location>
                <Location
@@ -1225,11 +1225,11 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "464869098.572264"
+                  timestampString = "466435754.098082"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
                   offsetFromSymbolStart = "40">
                </Location>
             </Locations>
@@ -1249,6 +1249,132 @@
             endingLineNumber = "562"
             landmarkName = "+getEventDetailsForEventID:success:failure:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Calendar/FlyingCalendarView.m"
+            timestampString = "465549970.251546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
+            landmarkName = "-setDate:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Calendar/FlyingCalendarView.m"
+            timestampString = "465552177.359514"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1109"
+            endingLineNumber = "1109"
+            landmarkName = "-_firstVisibleDateForDisplayMode:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Calendar/FlyingCalendarView.m"
+            timestampString = "465553434.800785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
+            landmarkName = "-setDate:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Component/UIKit/NSCalendar+Juncture.m"
+            timestampString = "465555093.299581"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "-firstDayOfTheWeekUsingReferenceDate:andStartDay:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Calendar/FlyingCalendarView.m"
+            timestampString = "465558185.081476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "682"
+            endingLineNumber = "682"
+            landmarkName = "-setDate:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Document/FlyingWebViewController.h"
+            timestampString = "466434867.451015"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FlyingWebViewController webView]"
+                  moduleName = "BirdEnglish"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
+                  timestampString = "466435754.101821"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FlyingWebViewController setWebView:]"
+                  moduleName = "BirdEnglish"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
+                  timestampString = "466435754.101959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
