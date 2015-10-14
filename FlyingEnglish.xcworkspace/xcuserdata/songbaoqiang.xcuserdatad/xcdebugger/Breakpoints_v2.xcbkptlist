@@ -1210,12 +1210,12 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "466482674.429135"
+                  timestampString = "466489875.314467"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "129"
                   endingLineNumber = "129"
-                  offsetFromSymbolStart = "128">
+                  offsetFromSymbolStart = "152">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1225,12 +1225,12 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "466482674.429293"
+                  timestampString = "466489875.314623"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "129"
                   endingLineNumber = "129"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "24">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1352,12 +1352,12 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
-                  timestampString = "466482674.431638"
+                  timestampString = "466489875.317504"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "19"
                   endingLineNumber = "19"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "16">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1367,14 +1367,30 @@
                   moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
-                  timestampString = "466482674.431811"
+                  timestampString = "466489875.317704"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "32">
+                  offsetFromSymbolStart = "22">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Search/FlyingSearchViewController.m"
+            timestampString = "466489668.159515"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "-getListby:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

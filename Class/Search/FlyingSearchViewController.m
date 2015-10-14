@@ -284,11 +284,18 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 -(void) searchByTag:(NSString *) tag
 {
-    /*
     if (![tag isEqualToString:@"暂时没有查询记录，尽快补充：）"]) {
         
-        if (self.presentingClass==BEReviewClass || self.presentingClass==BEHomeFindWordClass ) {
+        if (self.searchType==BEFindLesson) {
             
+            FlyingLessonListViewController *lessonList = [[FlyingLessonListViewController alloc] init];
+            [lessonList setTagString:tag];
+            
+            [self.navigationController pushViewController:lessonList animated:YES];
+
+        }
+        if (self.searchType==BEFindWord) {
+
             FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
             [wordDetail setTheWord:tag];
             [self.navigationController pushViewController:wordDetail animated:YES];
@@ -302,15 +309,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                                                                          LessonID:nil];
                            });
         }
-        else{
-            
-            FlyingLessonListViewController *lessonList = [[FlyingLessonListViewController alloc] init];
-            [lessonList setTagString:tag];
-
-            [self.navigationController pushViewController:lessonList animated:YES];
-        }
     }
-     */
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

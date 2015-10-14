@@ -339,10 +339,15 @@
                                       //[UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
                                       //[UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
                                       
-                                      FlyingGroupVC *groupVC = [FlyingGroupVC new];
+#ifdef __CLIENT__GROUP__VERSION
+                                      FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
+#else
+                                      FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
+                                      
                                       //groupVC.groupData=groupData;
                                       
-                                      [self.navigationController pushViewController:groupVC animated:YES];
+                                      [self.navigationController pushViewController:homeVC animated:YES];
                                   }];
             alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
             alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
@@ -451,7 +456,7 @@
     
     if (navigationController.viewControllers.count==1) {
         
-#ifdef __CLIENT__IS__ENGLISH__
+#ifdef __CLIENT__GROUP__VERSION
         FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
@@ -498,7 +503,7 @@
         //
         if (reselect) {
             
-#ifdef __CLIENT__IS__ENGLISH__
+#ifdef __CLIENT__GROUP__VERSION
             FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
             FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];

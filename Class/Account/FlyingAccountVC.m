@@ -45,6 +45,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *portraitImageView;
 @property (strong, nonatomic) IBOutlet UILabel *accountNikename;
+@property (strong, nonatomic) IBOutlet UILabel *membership;
 
 @end
 
@@ -106,7 +107,6 @@
 
 -(void) loadPortrait
 {
-
     NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
     
     if (portraitUri) {
@@ -217,24 +217,31 @@
         
         [self.navigationController pushViewController:rongCloudSetting animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row == 1) {
+    else if (indexPath.section == 2 && indexPath.row == 0) {
+        
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
+        
+        [self.navigationController pushViewController:rongCloudSetting animated:YES];
+    }
+    else if (indexPath.section == 2 && indexPath.row == 1) {
         
         [self clearCache];
     }
-    else if (indexPath.section == 2 && indexPath.row == 0) {
+    else if (indexPath.section == 3 && indexPath.row == 0) {
         
         //定制导航条背景颜色
         [self.navigationController pushViewController:[[FlyingPickColorVCViewController alloc] init] animated:YES];
 
     }
-    else if (indexPath.section == 3 && indexPath.row == 0)
+    else if (indexPath.section == 4 && indexPath.row == 0)
     {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id helpVC = [storyboard instantiateViewControllerWithIdentifier:@"helpinfo"];
         
         [self.navigationController pushViewController:helpVC animated:YES];
     }
-    else if (indexPath.section == 3 && indexPath.row == 1)
+    else if (indexPath.section == 4 && indexPath.row == 1)
     {
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         

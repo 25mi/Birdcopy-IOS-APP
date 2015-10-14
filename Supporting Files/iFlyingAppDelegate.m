@@ -88,6 +88,9 @@
 #import "FlyingDiscoverContent.h"
 #import "FlyingDIscoverGroups.h"
 
+#import "MKStoreKit.h"
+#import <StoreKit/StoreKit.h>
+
 @interface iFlyingAppDelegate ()
 {
     //loacal DB managemnet
@@ -217,7 +220,7 @@
         screenScale = [[UIScreen mainScreen] scale];
         
         //准备购买环境
-        //[self prepairIAP];
+        [self prepairIAP];
         
         //向微信注册
         [WXApi registerApp:KBEWeixinAPPID];
@@ -1233,7 +1236,7 @@
 {
     if (!_menu) {
         
-#ifdef __CLIENT__IS__ENGLISH__
+#ifdef __CLIENT__GROUP__VERSION
         FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
@@ -1958,6 +1961,92 @@
         [_shareCircleView dismissAnimated:YES];
         [self presentViewController:mailComposer];
     }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark - Buy  Related
+//////////////////////////////////////////////////////////////
+
+-(void) prepairIAP
+
+{
+    [[MKStoreKit sharedKit] startProductRequest];
+}
+
+- (void) presentStoreView
+{
+    if ([SKPaymentQueue canMakePayments])
+    {
+        NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
+        
+        if (availableProducts.count>0) {
+            [self buyAppleIdentify:availableProducts[0]];
+        }
+    }
+    else
+    {
+        [self.window makeToast:@"需要打开应用内购买功能才能继续!" duration:3 position:CSToastPositionCenter];
+    }
+}
+
+- (void) buyAppleIdentify:(SKProduct*) product
+{
+    
+    [[MKStoreKit sharedKit] initiatePaymentRequestForProductWithIdentifier:product.productIdentifier];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
+                                                      object:nil
+                                                       queue:[[NSOperationQueue alloc] init]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      NSLog(@"Purchased/Subscribed to product with id: %@", [note object]);
+                                                      
+                                                      NSInteger cointBuyed=[(NSNumber*)[[MKStoreKit sharedKit] valueForKey:@"purchaseRecord"] integerValue];
+                                                      
+                                                      NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                                                      
+                                                      FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
+                                                      NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:passport];
+                                                      
+                                                      if (cointBuyed==500 ||
+                                                          cointBuyed==2000) {
+                                                          
+                                                          [SoundPlayer soundEffect:@"LootCoinSmall"];
+                                                      }
+                                                      else if (cointBuyed==10000) {
+                                                          
+                                                          [SoundPlayer soundEffect:@"LootCoinLarge"];
+                                                      }
+                                                      
+                                                      appleMoneyCountNow+=cointBuyed;
+                                                      [statisticDAO updateWithUserID:passport AppleMoneyCount:appleMoneyCountNow];
+                                                      
+                                                      
+                                                      NSString *title =  [NSString stringWithFormat:@"购买%@金币成功",[@(cointBuyed) stringValue]];
+                                                      NSString *message = @"好好享受吧：）";
+                                                      SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+                                                      [alertView addButtonWithTitle:@"知道了"
+                                                                               type:SIAlertViewButtonTypeDefault
+                                                                            handler:^(SIAlertView *alertView) {}];
+                                                      alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                                                      alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+                                                      [alertView show];
+                                                      
+                                                      [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
+                                                  }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
+                                                      object:nil
+                                                       queue:[[NSOperationQueue alloc] init]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      NSLog(@"Failed restoring purchases with error: %@", [note object]);
+                                                      
+                                                      NSString *message =[NSString stringWithFormat:@"购买失败，好事耐磨哦：）失败原因：%@",[note object]];
+                                                      
+                                                      [self.window makeToast:message duration:3 position:CSToastPositionCenter];
+                                                  }];
 }
 
 - (void) copylessonLink

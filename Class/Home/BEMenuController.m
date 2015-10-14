@@ -72,7 +72,8 @@
     [self.titles addObject:@"账户"];
     [self.images addObject:@"Profile"];
     
-#ifdef __CLIENT__IS__PLATFORM__
+    
+#if (defined __CLIENT__IS__PLATFORM__) && (defined __CLIENT__GROUP__VERSION)
     [self.titles addObject:@"服务"];
     [self.images addObject:@"location"];
 #endif
@@ -131,7 +132,7 @@
     
     if ([title containsString:@"首页"])
     {
-#ifdef __CLIENT__IS__ENGLISH__
+#ifdef __CLIENT__GROUP__VERSION
         FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];

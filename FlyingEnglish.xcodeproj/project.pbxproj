@@ -208,6 +208,7 @@
 		C87524C31BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
 		C87524C41BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
 		C87524C51BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
+		C877E21E1BCE4E2D00E90448 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
 		C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599B1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599C1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
@@ -1510,6 +1511,8 @@
 		C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = KMNetworkLoadingViewController.storyboard; sourceTree = "<group>"; };
 		C87524C01BB52A0F000F86DC /* StoryBoardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryBoardUtilities.h; sourceTree = "<group>"; };
 		C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryBoardUtilities.m; sourceTree = "<group>"; };
+		C877E21C1BCE4E2D00E90448 /* MKStoreKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKStoreKit.h; sourceTree = "<group>"; };
+		C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKStoreKit.m; sourceTree = "<group>"; };
 		C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBoardUIView.h; sourceTree = "<group>"; };
 		C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBoardUIView.m; sourceTree = "<group>"; };
 		C879599E1BA2F07100D670E2 /* FlyingStreamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingStreamData.h; sourceTree = "<group>"; };
@@ -2319,6 +2322,8 @@
 		C80656A417FE53BA00CADF4F /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				C877E21C1BCE4E2D00E90448 /* MKStoreKit.h */,
+				C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */,
 				FAB5F8FE1B16CC3B0041DF89 /* UICKeyChainStore.h */,
 				FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */,
 				FA910BCC1AE5F43100430DA1 /* FileHash.h */,
@@ -4204,6 +4209,7 @@
 				FA88BC2F1B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0131B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
 				FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */,
+				C877E21E1BCE4E2D00E90448 /* MKStoreKit.m in Sources */,
 				FA7A241B1AB5C89A004AC508 /* FlyingNavigationController.m in Sources */,
 				FA8BD0031AD0E20D0092A970 /* MAOFlipInteraction.m in Sources */,
 				FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */,

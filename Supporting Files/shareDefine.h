@@ -11,9 +11,9 @@
 
 typedef enum BESearchType
 {
-    BEFindGroup,
     BEFindLesson,
     BEFindWord,
+    BEFindGroup
 } BESearchType;
 
 //瀑布布局相关
