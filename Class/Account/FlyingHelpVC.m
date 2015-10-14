@@ -60,18 +60,20 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
 
     if (INTERFACE_IS_PAD ) {
+
+        self.helpTitle.font     = [UIFont systemFontOfSize:32.0];
         
-        self.aboveTitle.font     = [UIFont systemFontOfSize:28.0];
-        self.aboveDes.font   = [UIFont systemFontOfSize:32.0];
+        self.aboveTitle.font     = [UIFont systemFontOfSize:32.0];
+        self.aboveDes.font   = [UIFont systemFontOfSize:28.0];
         
-        self.middleTitle.font     = [UIFont systemFontOfSize:28.0];
-        self.middleDes.font   = [UIFont systemFontOfSize:32.0];
+        self.middleTitle.font     = [UIFont systemFontOfSize:32.0];
+        self.middleDes.font   = [UIFont systemFontOfSize:28.0];
         
-        self.lastTitle.font   = [UIFont systemFontOfSize:28.0];
-        self.lastDes.font = [UIFont systemFontOfSize:32.0];
+        self.lastTitle.font   = [UIFont systemFontOfSize:32.0];
+        self.lastDes.font = [UIFont systemFontOfSize:28.0];
         
         self.finalTitle.font   = [UIFont systemFontOfSize:28.0];
-        self.finalDes.font = [UIFont systemFontOfSize:32.0];
+        self.finalDes.font = [UIFont systemFontOfSize:28.0];
     }
     
     self.pageScroll.delegate = self;

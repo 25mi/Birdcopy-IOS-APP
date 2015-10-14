@@ -163,17 +163,31 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <animations/>
                             </mapView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="5sT-5L-Mpn">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="5sT-5L-Mpn">
                                 <rect key="frame" x="17" y="17" width="40" height="40"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="32I-Oy-Y45"/>
+                                    <constraint firstAttribute="height" constant="40" id="G2W-SY-Kd9"/>
+                                </constraints>
                             </imageView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="zCN-4G-18N">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="zCN-4G-18N">
                                 <rect key="frame" x="256" y="409" width="48" height="48"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Iv4-U9-wDv"/>
+                                    <constraint firstAttribute="height" constant="40" id="W7f-mp-egz"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zCN-4G-18N" secondAttribute="trailing" constant="20" id="DQ4-u5-ULt"/>
+                            <constraint firstItem="5sT-5L-Mpn" firstAttribute="leading" secondItem="n8e-YS-04b" secondAttribute="leading" constant="20" id="Iug-bk-hll"/>
+                            <constraint firstItem="5sT-5L-Mpn" firstAttribute="top" secondItem="Fpb-rl-ULe" secondAttribute="bottom" constant="20" id="JFa-Xa-NCM"/>
+                            <constraint firstItem="78f-H8-btu" firstAttribute="top" secondItem="zCN-4G-18N" secondAttribute="bottom" constant="23" id="Wfc-UO-fug"/>
+                        </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
