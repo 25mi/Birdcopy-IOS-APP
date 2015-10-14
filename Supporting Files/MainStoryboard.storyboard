@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Ptl-Q0-Nx0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Flying HelpVC-->
@@ -16,113 +17,111 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FgX-lQ-Ni2">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FgX-lQ-Ni2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="如何把电影／文档做成课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ez7-fO-YQb">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="如何把电影／文档做成课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ez7-fO-YQb">
+                                        <rect key="frame" x="0.0" y="24" width="320" height="24"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bp-9C-pIx">
-                                        <rect key="frame" x="0.0" y="60" width="320" height="100"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="电影／第一步：准备电影和字幕" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pks-Z6-eRV">
-                                                <rect key="frame" x="10" y="0.0" width="300" height="34"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-&gt;准备电影(MP4格式)&lt;  -&gt;准备字幕(srt格式)&lt; -&gt;重要：电影和字幕文件名必须一致!" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p6-vp-fCz">
-                                                <rect key="frame" x="0.0" y="35" width="320" height="65"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="电影／第一步：准备电影和字幕" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pks-Z6-eRV">
+                                        <rect key="frame" x="16" y="64" width="224" height="19.5"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhL-KJ-rrk">
-                                        <rect key="frame" x="0.0" y="160" width="320" height="100"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="电影／第二步：通过itunes同步电影和字幕" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odU-Mt-nLU">
-                                                <rect key="frame" x="10" y="0.0" width="300" height="34"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="－&gt;打开“ITunes”,点击菜单“应用”(Apps) －&gt;下拉找到文件共享,选中本应用 －&gt;点击“增加”（选择电影和字幕文件）" lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4a-Dg-R7R">
-                                                <rect key="frame" x="0.0" y="35" width="320" height="65"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-&gt;准备电影(MP4格式)&lt;  -&gt;准备字幕(srt格式)&lt; -&gt;重要：电影和字幕文件名必须一致!" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p6-vp-fCz">
+                                        <rect key="frame" x="16" y="91.5" width="262" height="57.5"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Ps-Xcd">
-                                        <rect key="frame" x="0.0" y="260" width="320" height="100"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="文档／如何屏幕取词" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ye-qI-4aU">
-                                                <rect key="frame" x="10" y="0.0" width="300" height="34"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-&gt;原始PDF文档（鼠标可以选中文字）。 -&gt;通过ITunes同步到APP即可。                          " lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIG-mv-ijE">
-                                                <rect key="frame" x="0.0" y="36" width="320" height="65"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="电影／第二步：通过itunes同步电影和字幕" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odU-Mt-nLU">
+                                        <rect key="frame" x="16" y="165" width="300.5" height="19.5"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5IM-uV-AXt">
-                                        <rect key="frame" x="0.0" y="360" width="320" height="100"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="音频／如何屏幕取词" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNU-7Y-e5D">
-                                                <rect key="frame" x="10" y="0.0" width="300" height="34"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-&gt;原始Mp3和srt格式字幕。 -&gt;通过ITunes同步到APP即可。                          " lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVC-P9-ilp">
-                                                <rect key="frame" x="0.0" y="36" width="320" height="65"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="－&gt;打开“ITunes”,点击菜单“应用”(Apps) －&gt;下拉找到文件共享,选中本应用 －&gt;点击“增加”（选择电影和字幕文件）" lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4a-Dg-R7R">
+                                        <rect key="frame" x="16" y="192.5" width="282" height="57.5"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                    </view>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="文档／如何屏幕取词" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ye-qI-4aU">
+                                        <rect key="frame" x="16" y="266" width="144" height="19.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-&gt;原始PDF文档（鼠标可以选中文字）。 -&gt;通过ITunes同步到APP即可。                          " lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIG-mv-ijE">
+                                        <rect key="frame" x="16" y="293.5" width="287.5" height="38.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="音频／如何屏幕取词" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNU-7Y-e5D">
+                                        <rect key="frame" x="16" y="348" width="144" height="19.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-&gt;原始Mp3和srt格式字幕。 -&gt;通过ITunes同步到APP即可。                          " lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVC-P9-ilp">
+                                        <rect key="frame" x="16" y="375.5" width="223.5" height="38.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="bNU-7Y-e5D" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="0No-jy-rXy"/>
+                                    <constraint firstItem="XVC-P9-ilp" firstAttribute="top" secondItem="bNU-7Y-e5D" secondAttribute="bottom" constant="8" id="3ei-fS-zHg"/>
+                                    <constraint firstItem="Pks-Z6-eRV" firstAttribute="top" secondItem="ez7-fO-YQb" secondAttribute="bottom" constant="16" id="6lj-Qq-bg4"/>
+                                    <constraint firstItem="lIG-mv-ijE" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="9o9-4v-IQU"/>
+                                    <constraint firstItem="odU-Mt-nLU" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="A6E-lT-cw5"/>
+                                    <constraint firstItem="ez7-fO-YQb" firstAttribute="top" secondItem="FgX-lQ-Ni2" secondAttribute="topMargin" constant="16" id="EGz-tQ-V7Y"/>
+                                    <constraint firstItem="ez7-fO-YQb" firstAttribute="leading" secondItem="FgX-lQ-Ni2" secondAttribute="leading" id="Fkz-um-VHs"/>
+                                    <constraint firstItem="K4a-Dg-R7R" firstAttribute="top" secondItem="odU-Mt-nLU" secondAttribute="bottom" constant="8" id="KcA-QJ-gat"/>
+                                    <constraint firstItem="odU-Mt-nLU" firstAttribute="top" secondItem="4p6-vp-fCz" secondAttribute="bottom" constant="16" id="OEk-mL-nea"/>
+                                    <constraint firstItem="4ye-qI-4aU" firstAttribute="top" secondItem="K4a-Dg-R7R" secondAttribute="bottom" constant="16" id="SCi-HE-vIy"/>
+                                    <constraint firstAttribute="trailing" secondItem="ez7-fO-YQb" secondAttribute="trailing" id="Sg4-wc-xzc"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="XVC-P9-ilp" secondAttribute="bottom" constant="8" id="Tba-60-Ehw"/>
+                                    <constraint firstItem="lIG-mv-ijE" firstAttribute="top" secondItem="4ye-qI-4aU" secondAttribute="bottom" constant="8" id="Twv-cF-pjC"/>
+                                    <constraint firstItem="XVC-P9-ilp" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="ULA-C7-RwA"/>
+                                    <constraint firstItem="K4a-Dg-R7R" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="azl-KH-PCG"/>
+                                    <constraint firstItem="bNU-7Y-e5D" firstAttribute="top" secondItem="lIG-mv-ijE" secondAttribute="bottom" constant="16" id="gzN-VI-vty"/>
+                                    <constraint firstItem="4p6-vp-fCz" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="mJC-Ze-kfi"/>
+                                    <constraint firstItem="Pks-Z6-eRV" firstAttribute="leading" secondItem="FgX-lQ-Ni2" secondAttribute="leadingMargin" constant="8" id="mqO-2F-qCk"/>
+                                    <constraint firstItem="4ye-qI-4aU" firstAttribute="leading" secondItem="Pks-Z6-eRV" secondAttribute="leading" id="px7-GE-9Wh"/>
+                                    <constraint firstItem="ez7-fO-YQb" firstAttribute="centerX" secondItem="FgX-lQ-Ni2" secondAttribute="centerX" id="xbD-35-Ycp"/>
+                                    <constraint firstItem="4p6-vp-fCz" firstAttribute="top" secondItem="Pks-Z6-eRV" secondAttribute="bottom" constant="8" id="zEx-PY-jPV"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="FgX-lQ-Ni2" firstAttribute="top" secondItem="Qg4-XE-hQA" secondAttribute="bottom" id="FXw-82-wyd"/>
+                            <constraint firstAttribute="trailing" secondItem="FgX-lQ-Ni2" secondAttribute="trailing" id="G8b-UI-ghd"/>
+                            <constraint firstItem="4Ua-BS-W3f" firstAttribute="top" secondItem="FgX-lQ-Ni2" secondAttribute="bottom" id="e8b-5e-hDM"/>
+                            <constraint firstItem="ez7-fO-YQb" firstAttribute="width" secondItem="lnh-g9-Dpj" secondAttribute="width" id="eaj-dN-P8f"/>
+                            <constraint firstItem="FgX-lQ-Ni2" firstAttribute="leading" secondItem="lnh-g9-Dpj" secondAttribute="leading" id="iex-Ml-cEB"/>
+                        </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -317,12 +316,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="jUM-Cd-W7Y">
-                                                    <rect key="frame" x="8" y="12" width="56" height="56"/>
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="jUM-Cd-W7Y">
+                                                    <rect key="frame" x="15" y="18" width="44" height="44"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="PH7-Ks-wuI"/>
+                                                        <constraint firstAttribute="width" constant="44" id="juP-cL-DNI"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我是菜鸟" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwo-uf-0OX">
-                                                    <rect key="frame" x="72" y="29" width="222" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是菜鸟" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwo-uf-0OX">
+                                                    <rect key="frame" x="74" y="29.5" width="68" height="20.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -330,6 +333,12 @@
                                                 </label>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="jUM-Cd-W7Y" firstAttribute="leading" secondItem="She-L5-GeE" secondAttribute="leadingMargin" constant="7" id="SqE-6h-45l"/>
+                                                <constraint firstItem="jUM-Cd-W7Y" firstAttribute="centerY" secondItem="She-L5-GeE" secondAttribute="centerY" id="XnJ-lJ-Ro8"/>
+                                                <constraint firstItem="dwo-uf-0OX" firstAttribute="leading" secondItem="jUM-Cd-W7Y" secondAttribute="trailing" constant="15" id="eCb-Pg-WZB"/>
+                                                <constraint firstItem="dwo-uf-0OX" firstAttribute="centerY" secondItem="She-L5-GeE" secondAttribute="centerY" id="lRm-Mj-0P9"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
