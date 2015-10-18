@@ -15,6 +15,9 @@
 +(void) uploadUserCenter;
 +(void) activeAccount;
 
++(void) sysMembershipWithCenter;
++(void) uploadMembershipWithCenter;
+
 +(void) sysWithCenter;
 +(void) lowCointAlert;
 

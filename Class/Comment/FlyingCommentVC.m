@@ -138,7 +138,9 @@
 - (BOOL)loadMore
 {
     //test only
-    [FlyingHttpTool getAllGroupsForAPPOwner:[UICKeyChainStore keyChainStore][KAppOwner]
+    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+
+    [FlyingHttpTool getAllGroupsForAPPOwner:author
                                   Recommend:YES
                                  PageNumber:1
                                  Completion:^(NSArray *groupList, NSInteger allRecordCount) {

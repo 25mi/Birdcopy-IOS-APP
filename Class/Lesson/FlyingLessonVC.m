@@ -136,7 +136,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     
     //后台处理
     dispatch_queue_t   _background_queue;
-    dispatch_source_t  _UpdateDownlonaSource;
+    //dispatch_source_t  _UpdateDownlonaSource;
     
     CGFloat            _margin;
     float              _width;
@@ -204,6 +204,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 @property (strong, nonatomic) UIView              *contentView;
 @property (strong, nonatomic) UIImageView         *lessonCoverImageView;
 @property (strong, nonatomic) UIImageView         *playImageView;
+@property (strong, nonatomic) UIImageView         *contentTypeImageView;
 
 @property (strong, nonatomic) FlyingScrollView    *otherScroll;
 
@@ -455,7 +456,57 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         }
     }
     
+    [self initMembershipMark];
     [self initPlayButton];
+}
+
+-(void) initMembershipMark
+{
+    if (self.theLesson.coinPrice>0) {
+        
+        if (!self.contentTypeImageView) {
+            
+            CGFloat coverWidth= CGRectGetWidth(self.contentView.frame);
+            
+            CGRect contentTypeFrame = CGRectMake(0, 0, coverWidth*9/(16*4), coverWidth*9/(16*4));
+            self.contentTypeImageView = [[UIImageView alloc] initWithFrame:contentTypeFrame];
+            self.contentTypeImageView.userInteractionEnabled=YES;
+            UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(membershipNow)];
+            singleRecognizer.numberOfTapsRequired = 1; // 单击
+            [self.contentTypeImageView addGestureRecognizer:singleRecognizer];
+            
+            [self.contentTypeImageView setImage:[UIImage imageNamed:@"People"]];
+
+            
+            [self.contentView addSubview:self.contentTypeImageView];
+        }
+    }
+    else
+    {
+        if (self.contentTypeImageView) {
+            [self.contentTypeImageView setHidden:YES];
+        }
+    }
+}
+-(void) membershipNow
+{
+    NSString *title = @"年费会员专享课程";
+    NSString *message =@"你确认购买年费会员?";
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeCancel
+                          handler:^(SIAlertView *alertView) {
+                          }];
+    
+    [alertView addButtonWithTitle:@"确认"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                              [appDelegate presentStoreView];
+                          }];
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+    [alertView show];
 }
 
 -(void) initPlayButton
@@ -1107,6 +1158,33 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 //////////////////////////////////////////////////////////////
 - (void)playNow:(id)sender
 {
+    if (self.theLesson.coinPrice>0) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        //NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
+        NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+        
+        if (endDateStr) {
+            //NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+            NSDate *endDate = [dateFormatter dateFromString:endDateStr];
+            
+            NSDate *nowDate = [NSDate date];
+            
+            if ([nowDate compare:endDate] == NSOrderedDescending) {
+                
+                [self membershipNow];
+                return;
+            }
+        }
+        else
+        {
+            [self membershipNow];
+            return;
+        }
+    }
+
     if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
     {
         [self playLesson:self.theLesson.lessonID];
@@ -1282,6 +1360,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 - (void) updateDownloadState:(NSNotification*) aNotification
 {
+    /*
     if (!_UpdateDownlonaSource) {
         
         _UpdateDownlonaSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
@@ -1295,7 +1374,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
                 if (_lessonData.BEDLPERCENT<1)
                 {
-                    [self.contentView makeToast:@"加载中..." duration:3 position:CSToastPositionCenter];
+                    [self.contentView makeToast:@"加载中..."];
                 }
             }
         });
@@ -1303,6 +1382,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     }
     
     dispatch_source_merge_data(_UpdateDownlonaSource, 1);
+     */
 }
 
 - (void) updateDownloadOk:(NSNotification*) aNotification
@@ -1312,7 +1392,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     if([lessonID isEqualToString:self.theLesson.lessonID])
     {
         //如果是直接播放的文本
-        if([self.theLesson.contentType isEqualToString:KContentTypeText])
+        if([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
         {
         }
         else
@@ -1405,7 +1485,6 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setSearchType:BEFindLesson];
 
     [self.navigationController pushViewController:search animated:YES];
 }
@@ -3401,9 +3480,10 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
     }
 }
 
-
 -(void)showHintHelp
 {
+#ifdef __CLIENT__IS__ENGLISH__
+    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
         
@@ -3414,6 +3494,8 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
         
         [self.contentView makeToast:@"右划跳转到上一个场景!" duration:3 position:CSToastPositionCenter];
     }
+#endif
+
 }
 
 -(void) screenCopy

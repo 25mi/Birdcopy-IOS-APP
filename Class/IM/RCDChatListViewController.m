@@ -380,8 +380,7 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setSearchType:BEFindGroup];
-    
+        
     [self.navigationController pushViewController:search animated:YES];
 }
 

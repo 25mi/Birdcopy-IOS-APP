@@ -34,7 +34,8 @@
 #import "FlyingMyGroupsVC.h"
 
 #import "FlyingHelpVC.h"
-
+#import "MKStoreKit.h"
+#import "FlyingSysWithCenter.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -78,6 +79,16 @@
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    
+    image= [UIImage imageNamed:@"search"];
+    frame= CGRectMake(0, 0, 24, 24);
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
+    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    
+    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+
       
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     //self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
@@ -88,13 +99,14 @@
     
     dispatch_async(dispatch_get_main_queue() , ^{
         [self loadPortrait];
-        [self updateChatIcon];
     });
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [FlyingSysWithCenter sysWithCenter];
     
     NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
     
@@ -103,6 +115,17 @@
     }
     
     self.accountNikename.text=nickName;
+    
+    NSString * endTimeStr=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+
+    if (endTimeStr)
+    {
+        self.membership.text=[NSString stringWithFormat:@"会员有效期:%@",endTimeStr];
+    }
+    else
+    {
+        self.membership.text=@"现在购买会员";
+    }
 }
 
 -(void) loadPortrait
@@ -167,36 +190,6 @@
 
 }
 
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -206,19 +199,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        
+    if (indexPath.section == 0 && indexPath.row == 0)
+    {
         [self.navigationController pushViewController:[[FlyingOpenIDVC alloc] init] animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row == 0) {
-        
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
-        
-        [self.navigationController pushViewController:rongCloudSetting animated:YES];
+    else if (indexPath.section == 1 && indexPath.row == 0)
+    {
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate presentStoreView];
     }
-    else if (indexPath.section == 2 && indexPath.row == 0) {
-        
+    else if (indexPath.section == 2 && indexPath.row == 0)
+    {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
         
@@ -644,6 +635,7 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    
     [self.navigationController pushViewController:search animated:YES];
 }
 
@@ -659,6 +651,15 @@
 {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
+                                                      object:nil
+                                                       queue:[[NSOperationQueue alloc] init]
+                                                  usingBlock:^(NSNotification *note) {
+                                                  
+                                                      [self.tableView reloadData];
+                                                  }];
+
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -674,6 +675,8 @@
 {
     [self resignFirstResponder];
     [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMKStoreKitProductPurchasedNotification object:nil];
 }
 
 - (void) addBackFunction
@@ -702,7 +705,7 @@
     
     if (navigationController.viewControllers.count==1) {
         
-#ifdef __CLIENT__IS__ENGLISH__
+#ifdef __CLIENT__GROUP__VERSION
         FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
 #else
         FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];

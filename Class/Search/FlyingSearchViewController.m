@@ -59,9 +59,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
     [self addBackFunction];
     
-    //更新欢迎语言
-    [self initDefultData];
-    
     //顶部导航
     UIImage* image= [UIImage imageNamed:@"menu"];
     CGRect frame= CGRectMake(0, 0, 28, 28);
@@ -97,6 +94,24 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:scanButton];
     
     self.navigationItem.rightBarButtonItem = scanBarButtonItem;
+    
+    
+    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    if (author) {
+        
+        [self setAuthor:author];
+    }
+    
+    if (!self.searchType) {
+#ifdef __CLIENT__GROUP__VERSION
+        [self setSearchType:BEFindGroup];
+#else
+        [self setSearchType:BEFindLesson];
+#endif
+    }
+    
+    //初始化相关数据
+    [self initDefultData];
 }
 
 - (void)initDefultData

@@ -153,9 +153,7 @@
 {
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    
-    [UICKeyChainStore keyChainStore][KAppOwner] = nil;
-    
+        
 #ifndef __CLIENT__IS__PLATFORM__
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     NSArray *strings = [bundleIdentifier componentsSeparatedByString:@"."];
@@ -166,8 +164,8 @@
         temp=@"beiyang";
     }
  
-    [UICKeyChainStore keyChainStore][KLessonOwner] = temp;
-    [UICKeyChainStore keyChainStore][KLessonOwnerNickname] = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
+    [[NSUserDefaults standardUserDefaults] setValue:temp forKey:KAppOwner];
+    [[NSUserDefaults standardUserDefaults] setValue:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] forKey:KAppOwnerNickname];
 
 #endif
 
@@ -319,7 +317,6 @@
 
 - (void) initIM
 {
-        
     NSString* rongAPPkey=[NSString getRongAppKey];
     
     //初始化融云SDK
@@ -392,7 +389,6 @@
 }
 
 -(void)  connectWithRongCloud:(NSString*)rongDeviceKoken
-
 {
     //连接融云服务器
     [[RCIM sharedRCIM] connectWithToken:rongDeviceKoken
@@ -1966,73 +1962,75 @@
 //////////////////////////////////////////////////////////////
 #pragma mark - Buy  Related
 //////////////////////////////////////////////////////////////
-
 -(void) prepairIAP
-
 {
     [[MKStoreKit sharedKit] startProductRequest];
 }
 
 - (void) presentStoreView
 {
-    if ([SKPaymentQueue canMakePayments])
-    {
-        NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
+    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+    
+    //NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+    NSDate *endDate = [dateFormatter dateFromString:endDateStr];
+
+    NSDate *nowDate = [NSDate date];
+    
+    if ([nowDate compare:endDate] == NSOrderedAscending) {
         
-        if (availableProducts.count>0) {
-            [self buyAppleIdentify:availableProducts[0]];
-        }
+        [self.window makeToast:@"你已经是会员，无需购买会员资格!" duration:3 position:CSToastPositionCenter];
     }
     else
     {
-        [self.window makeToast:@"需要打开应用内购买功能才能继续!" duration:3 position:CSToastPositionCenter];
+        if ([SKPaymentQueue canMakePayments])
+        {
+            NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
+            
+            if (availableProducts.count>0) {
+                [self buyAppleIdentify:availableProducts[0]];
+            }
+        }
+        else
+        {
+            [self.window makeToast:@"需要打开应用内购买功能才能继续!" duration:3 position:CSToastPositionCenter];
+        }
     }
 }
 
 - (void) buyAppleIdentify:(SKProduct*) product
 {
-    
     [[MKStoreKit sharedKit] initiatePaymentRequestForProductWithIdentifier:product.productIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
                                                       object:nil
                                                        queue:[[NSOperationQueue alloc] init]
                                                   usingBlock:^(NSNotification *note) {
+                                                                                                            
+                                                      NSCalendar *calendar = [NSCalendar currentCalendar];
+                                                      NSDate *startDate = [NSDate date];
                                                       
-                                                      NSLog(@"Purchased/Subscribed to product with id: %@", [note object]);
+                                                      NSDateComponents *components = [[NSDateComponents alloc] init];
+                                                      [components setYear:1];
                                                       
-                                                      NSInteger cointBuyed=[(NSNumber*)[[MKStoreKit sharedKit] valueForKey:@"purchaseRecord"] integerValue];
+                                                      NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
                                                       
-                                                      NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-                                                      
-                                                      FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
-                                                      NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:passport];
-                                                      
-                                                      if (cointBuyed==500 ||
-                                                          cointBuyed==2000) {
-                                                          
-                                                          [SoundPlayer soundEffect:@"LootCoinSmall"];
-                                                      }
-                                                      else if (cointBuyed==10000) {
-                                                          
-                                                          [SoundPlayer soundEffect:@"LootCoinLarge"];
-                                                      }
-                                                      
-                                                      appleMoneyCountNow+=cointBuyed;
-                                                      [statisticDAO updateWithUserID:passport AppleMoneyCount:appleMoneyCountNow];
-                                                      
-                                                      
-                                                      NSString *title =  [NSString stringWithFormat:@"购买%@金币成功",[@(cointBuyed) stringValue]];
-                                                      NSString *message = @"好好享受吧：）";
-                                                      SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                                                      [alertView addButtonWithTitle:@"知道了"
-                                                                               type:SIAlertViewButtonTypeDefault
-                                                                            handler:^(SIAlertView *alertView) {}];
-                                                      alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                                                      alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                                                      [alertView show];
-                                                      
-                                                      [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
+                                                      NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                      [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+
+                                                      NSString *startDateStr = [dateFormatter stringFromDate:startDate];
+                                                      NSString *endDateStr = [dateFormatter stringFromDate:endDate];
+
+                                                      [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
+                                                      [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
+                                                      [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sysMembership"];
+
+                                                      [[NSUserDefaults standardUserDefaults] synchronize];
+
+                                                      [FlyingSysWithCenter  uploadMembershipWithCenter];
                                                   }];
     
     
@@ -2043,11 +2041,12 @@
                                                       
                                                       NSLog(@"Failed restoring purchases with error: %@", [note object]);
                                                       
-                                                      NSString *message =[NSString stringWithFormat:@"购买失败，好事耐磨哦：）失败原因：%@",[note object]];
-                                                      
+                                                      NSString *message =@"购买失败，好事耐磨哦：）";                                                      
                                                       [self.window makeToast:message duration:3 position:CSToastPositionCenter];
                                                   }];
 }
+
+
 
 - (void) copylessonLink
 {
@@ -2106,10 +2105,8 @@
     return YES;
 }
 
-
 + (void) updataDBForLocal
 {
-    
     FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
     
     NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];

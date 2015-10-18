@@ -21,6 +21,9 @@
 #import "FlyingTouchRecord.h"
 #import "AFHttpTool.h"
 
+#import "MKStoreKit.h"
+#import "FlyingHttpTool.h"
+
 @implementation FlyingSysWithCenter
 
 - (void) chargingCrad:(NSString*) cardID
@@ -270,7 +273,7 @@
                                   }];
 }
 
-//向服务器获获取备份数据和最新充值数据，在本地激活用户ID
+//向服务器获取备份数据和最新充值数据，在本地激活用户ID
 +(void) activeAccount
 {
     NSString *openUDID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
@@ -280,9 +283,10 @@
         return;
     }
     
+    [FlyingSysWithCenter sysMembershipWithCenter];
+    
     [AFHttpTool getMoneyDataWithOpenID:openUDID success:^(id response) {
         //
-        
         if (response) {
             
             NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
@@ -385,6 +389,72 @@
     }
 }
 
++(void) sysMembershipWithCenter
+{
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if(!openID)
+    {
+        return;
+    }
+
+    NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
+    
+    if (availableProducts.count>0) {
+        
+        if ([[MKStoreKit sharedKit] isProductPurchased:availableProducts[0]]) {
+
+            //向服务器获取最新会员数据
+            [FlyingHttpTool getMembershipForAccount:openID
+                                              AppID:nil
+                                         Completion:^(NSDate *startDate, NSDate *endDate) {
+                                             //
+                                             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                             
+                                             NSString *startDateStr = [dateFormatter stringFromDate:startDate];
+                                             NSString *endDateStr = [dateFormatter stringFromDate:endDate];
+                                             
+                                             [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
+                                             [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
+                                             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
+                                             
+                                             [[NSUserDefaults standardUserDefaults] synchronize];
+                                         }];
+        }
+    }
+}
+
++(void) uploadMembershipWithCenter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
+    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+
+    NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+    NSDate *endDate = [dateFormatter dateFromString:endDateStr];
+    
+    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (passport) {
+        
+        [FlyingHttpTool updateMembershipForAccount:passport
+                                             AppID:nil
+                                         StartDate:startDate
+                                           EndDate:endDate
+                                        Completion:^(BOOL result) {
+                                            //
+                                            if (result) {
+                                                
+                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                            }
+                                        }];
+    }
+}
+
 +(void) sysWithCenter
 {
     //获取充值卡数据
@@ -395,6 +465,21 @@
 
         //向服务器备份消费数据
         [FlyingSysWithCenter uploadUserCenter];
+    }
+    
+    //如果买了会员没有同步到服务器
+    NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
+    
+    if (availableProducts.count>0) {
+        
+        if ([[MKStoreKit sharedKit] isProductPurchased:availableProducts[0]]) {
+            
+            if(![[NSUserDefaults standardUserDefaults] boolForKey:@"sysMembership"])
+            {
+                //
+                [FlyingSysWithCenter uploadMembershipWithCenter];
+            }
+        }
     }
 }
 

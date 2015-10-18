@@ -81,33 +81,6 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
-    [self reloadAll];
-
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
-}
-
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
     image= [UIImage imageNamed:@"search"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
@@ -115,7 +88,9 @@
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
+    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    
+    [self reloadAll];
 }
 
 - (void)refreshNow:(UIRefreshControl *)refreshControl

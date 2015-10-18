@@ -78,6 +78,8 @@
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		C862440E18A49FFD001686B7 /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
+		C874EC371BD20F08006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; settings = {ASSET_TAGS = (); }; };
+		C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */; settings = {ASSET_TAGS = (); }; };
 		C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
 		C87523541BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
 		C87523551BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
@@ -231,6 +233,51 @@
 		C8ACF249164DF876005937FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8ACF247164DF825005937FD /* AudioToolbox.framework */; };
 		C8B21C90168B58AD001D3BD9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B21C8F168B58AC001D3BD9 /* SystemConfiguration.framework */; };
 		C8C58B9D18FD667B00FD512F /* libZXingObjC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */; };
+		C8C805231BD21494009F3712 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805241BD21495009F3712 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805251BD21495009F3712 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805261BD21590009F3712 /* FlyingCommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805271BD21591009F3712 /* FlyingCommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805281BD21592009F3712 /* FlyingCommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052C1BD215C2009F3712 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052D1BD215C3009F3712 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052E1BD215C4009F3712 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFB1BB154C8009C8D48 /* SLKTextView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8052F1BD215CB009F3712 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805301BD215CB009F3712 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805311BD215CC009F3712 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1FFE1BB154C8009C8D48 /* UIResponder+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805321BD215D1009F3712 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805331BD215D2009F3712 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805341BD215D2009F3712 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20001BB154C8009C8D48 /* UIScrollView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805351BD215D5009F3712 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805361BD215D8009F3712 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805371BD215DA009F3712 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20021BB154C8009C8D48 /* UIView+SLKAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805381BD215E1009F3712 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805391BD215E2009F3712 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053A1BD215E3009F3712 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20051BB154C8009C8D48 /* SLKInputAccessoryView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053B1BD215E8009F3712 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053C1BD215E8009F3712 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053D1BD215E9009F3712 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20071BB154C8009C8D48 /* SLKTextInputbar.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053E1BD215EC009F3712 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20091BB154C8009C8D48 /* SLKTextView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8053F1BD215ED009F3712 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20091BB154C8009C8D48 /* SLKTextView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805401BD215EE009F3712 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20091BB154C8009C8D48 /* SLKTextView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805411BD215F1009F3712 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805421BD215F2009F3712 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805431BD215F3009F3712 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200B1BB154C8009C8D48 /* SLKTextViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805441BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805451BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805461BD215F9009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805471BD217F3009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805481BD217F4009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805491BD217F5009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C8C8054B1BD3BC7F009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
+		C8C8054C1BD3BD62009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
+		C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		C8D5A27116A79784002060CC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D5A27016A79782002060CC /* libsqlite3.0.dylib */; };
 		C8DADE3618FD170600954C8D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DADE3518FD170600954C8D /* libWeChatSDK.a */; };
 		C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -1446,6 +1493,7 @@
 		C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C862440C18A49FFD001686B7 /* FlyingSysWithCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSysWithCenter.h; sourceTree = "<group>"; };
 		C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSysWithCenter.m; sourceTree = "<group>"; };
+		C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		C87523511BB29C65000F86DC /* FlyingEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventVC.h; sourceTree = "<group>"; };
 		C87523521BB29C65000F86DC /* FlyingEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventVC.m; sourceTree = "<group>"; };
 		C875235C1BB2A5A9000F86DC /* KMNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMNetworkLoadingViewController.h; sourceTree = "<group>"; };
@@ -1537,6 +1585,9 @@
 		C8ACF247164DF825005937FD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C8B21C8F168B58AC001D3BD9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libZXingObjC-iOS.a"; path = "libraries/Zxing/libZXingObjC-iOS.a"; sourceTree = "<group>"; };
+		C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingRCLocationPickerViewController.h; sourceTree = "<group>"; };
+		C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingRCLocationPickerViewController.m; sourceTree = "<group>"; };
 		C8D5A27016A79782002060CC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		C8DADE3518FD170600954C8D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = libraries/Social/libWeChatSDK.a; sourceTree = "<group>"; };
 		C8E57D941BB69ABF0013527E /* FlyingEventLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventLocationCell.h; sourceTree = "<group>"; };
@@ -2035,6 +2086,7 @@
 				FAD37FAC1A121BB300704F04 /* libc++.dylib in Frameworks */,
 				FAD37FAA1A121B8400704F04 /* CoreTelephony.framework in Frameworks */,
 				FAD37FA91A121B5F00704F04 /* CoreImage.framework in Frameworks */,
+				C8C8054B1BD3BC7F009F3712 /* StoreKit.framework in Frameworks */,
 				FAD37FA71A121B4600704F04 /* CoreAudio.framework in Frameworks */,
 				FA11E7CC19CDC6CE00D97FDB /* QuickLook.framework in Frameworks */,
 				C82D8AA6195D76BC001ACB77 /* libfreetype.a in Frameworks */,
@@ -2200,6 +2252,7 @@
 				FA8C3EB91B535A1500DEA02D /* libc++.dylib in Frameworks */,
 				FA8C3EBA1B535A1500DEA02D /* CoreTelephony.framework in Frameworks */,
 				FA8C3EBB1B535A1500DEA02D /* CoreImage.framework in Frameworks */,
+				C8C8054C1BD3BD62009F3712 /* StoreKit.framework in Frameworks */,
 				FA8C3EBC1B535A1500DEA02D /* CoreAudio.framework in Frameworks */,
 				FA8C3EBD1B535A1500DEA02D /* QuickLook.framework in Frameworks */,
 				FA8C3EBE1B535A1500DEA02D /* libfreetype.a in Frameworks */,
@@ -2565,6 +2618,7 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */,
 				FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */,
 				FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */,
 				FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */,
@@ -2818,6 +2872,7 @@
 		C88B763E173BFC2200955BC2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */,
 				C87524581BB39635000F86DC /* shareDefine.h */,
 				FA23C6BE1B14A63200D9E13A /* Images.xcassets */,
 				FA6D51A01A899F6800B2A0BD /* en.lproj */,
@@ -2947,6 +3002,8 @@
 				FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */,
 				FAFA722F1B42713100E4FE30 /* FlyingImagePreivewVC.h */,
 				FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */,
+				C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */,
+				C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -3645,9 +3702,12 @@
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -3670,6 +3730,17 @@
 					};
 					FA8C3DD41B535A1500DEA02D = {
 						DevelopmentTeam = K93QTN9HY2;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3715,6 +3786,7 @@
 				C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
+				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
 				C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */,
 				C8E57D9B1BB69ABF0013527E /* FlyingEventLocationCell.xib in Resources */,
 				C87524251BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
@@ -3752,6 +3824,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C874EC371BD20F08006F276E /* MKStoreKitConfigs.plist in Resources */,
 				FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */,
 				C87524071BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
@@ -4220,6 +4293,7 @@
 				FA3454FB1B04B5BA00DCF2AB /* DDDispatchQueueLogFormatter.m in Sources */,
 				FA11E7AF19CD526200D97FDB /* ReaderThumbCache.m in Sources */,
 				FAAD8EDF19FB7FED00784EB4 /* FMTokenizers.m in Sources */,
+				C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				FAAD8EDC19FB7FED00784EB4 /* FMDatabaseQueue.m in Sources */,
 				FA0A618D1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */,
 				FA11E7BB19CD526200D97FDB /* FlyingMagView.m in Sources */,
@@ -4292,6 +4366,7 @@
 				FA1BE4AB1B27DD5A00AA1AFD /* FlyingPlayerView.m in Sources */,
 				FA1BE4AC1B27DD5A00AA1AFD /* common.m in Sources */,
 				FA1BE4AD1B27DD5A00AA1AFD /* ReaderMainPagebar.m in Sources */,
+				C8C805261BD21590009F3712 /* FlyingCommentData.m in Sources */,
 				FA04BF951B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC291B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA1BE4AE1B27DD5A00AA1AFD /* FlyingWordAbstractVC.m in Sources */,
@@ -4305,6 +4380,7 @@
 				FA1BE4B61B27DD5A00AA1AFD /* FlyingPubLessonData.m in Sources */,
 				FA1BE4B71B27DD5A00AA1AFD /* FlyingCurrentAnnotation.m in Sources */,
 				FA1BE4B81B27DD5A00AA1AFD /* UIImage+localFile.m in Sources */,
+				C8C805471BD217F3009F3712 /* MKStoreKit.m in Sources */,
 				FA1BE4B91B27DD5A00AA1AFD /* mztools.c in Sources */,
 				C87524791BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA1BE4BA1B27DD5A00AA1AFD /* FlyingLoadingView.m in Sources */,
@@ -4314,6 +4390,7 @@
 				FA1BE4BD1B27DD5A00AA1AFD /* DDRange.m in Sources */,
 				C87524491BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA1BE4BE1B27DD5A00AA1AFD /* FlyingSubItemParser.m in Sources */,
+				C8C805311BD215CC009F3712 /* UIResponder+SLKAdditions.m in Sources */,
 				FA1BE4BF1B27DD5A00AA1AFD /* MuHitView.m in Sources */,
 				FA1BE4C01B27DD5A00AA1AFD /* FlyingTouchDAO.m in Sources */,
 				FA1BE4C11B27DD5A00AA1AFD /* FlyingTagTransform.m in Sources */,
@@ -4338,10 +4415,12 @@
 				FA1BE4D41B27DD5A00AA1AFD /* ACEExpandableTextCell.m in Sources */,
 				FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */,
 				FA1BE4D61B27DD5A00AA1AFD /* FlyingLessonViewCell.m in Sources */,
+				C8C805411BD215F1009F3712 /* SLKTextViewController.m in Sources */,
 				FA1BE4D71B27DD5A00AA1AFD /* NSBubbleData.m in Sources */,
 				FA1BE4D91B27DD5A00AA1AFD /* ReaderDocumentOutline.m in Sources */,
 				FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */,
 				C87524341BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
+				C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				FA1BE4DC1B27DD5A00AA1AFD /* OpenUDID.m in Sources */,
 				FA5ACC251B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
@@ -4359,6 +4438,7 @@
 				FA1BE4E51B27DD5A00AA1AFD /* MultipartFormDataParser.m in Sources */,
 				FA1BE4E61B27DD5A00AA1AFD /* CFShareCircleView.m in Sources */,
 				FA04BF8F1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
+				C8C805381BD215E1009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA1BE4E71B27DD5A00AA1AFD /* HTTPErrorResponse.m in Sources */,
 				FA1BE4E81B27DD5A00AA1AFD /* HTTPDynamicFileResponse.m in Sources */,
 				FA88BC341B79E5B000604BC2 /* RSKTouchView.m in Sources */,
@@ -4367,6 +4447,7 @@
 				FA1BE4EB1B27DD5A00AA1AFD /* FlyingAILearningView.m in Sources */,
 				FA1BE4EC1B27DD5A00AA1AFD /* UICKeyChainStore.m in Sources */,
 				FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
+				C8C805351BD215D5009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA1BE4ED1B27DD5A00AA1AFD /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF81B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				C87524991BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
@@ -4402,9 +4483,11 @@
 				FA1BE50A1B27DD5A00AA1AFD /* FlyingM3U8Downloader.m in Sources */,
 				FA1BE50B1B27DD5A00AA1AFD /* GCDAsyncUdpSocket.m in Sources */,
 				FA1BE50C1B27DD5A00AA1AFD /* FlyingDialogViewController.m in Sources */,
+				C8C8052C1BD215C2009F3712 /* SLKTextView+SLKAdditions.m in Sources */,
 				FA1BE50D1B27DD5A00AA1AFD /* FlyingSubTitle.m in Sources */,
 				FA1BE50E1B27DD5A00AA1AFD /* FlyingM3U8List.m in Sources */,
 				FA1BE50F1B27DD5A00AA1AFD /* FlyingTouchRecord.m in Sources */,
+				C8C8053B1BD215E8009F3712 /* SLKTextInputbar.m in Sources */,
 				FA1BE5101B27DD5A00AA1AFD /* UIWebView+Clean.m in Sources */,
 				FA1BE5111B27DD5A00AA1AFD /* FlyingStatisticData.m in Sources */,
 				FA1BE5121B27DD5A00AA1AFD /* MAOPanGestureRecognizer.m in Sources */,
@@ -4429,12 +4512,14 @@
 				C87524851BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA1BE5211B27DD5A00AA1AFD /* FlyingLessonListViewController.m in Sources */,
 				FA1BE5221B27DD5A00AA1AFD /* FlyingLessonVC.m in Sources */,
+				C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */,
 				FA1BE5231B27DD5A00AA1AFD /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA1BE5241B27DD5A00AA1AFD /* FlyingHttpTool.m in Sources */,
 				C87524951BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA1BE5251B27DD5A00AA1AFD /* DDMultiFormatter.m in Sources */,
 				FA1BE5271B27DD5A00AA1AFD /* DDFileLogger.m in Sources */,
+				C8C805231BD21494009F3712 /* FlyingCommentVC.m in Sources */,
 				C87523541BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA1BE5281B27DD5A00AA1AFD /* FlyingSetDefault.m in Sources */,
 				FA1BE5291B27DD5A00AA1AFD /* ACMagnifyingView.m in Sources */,
@@ -4451,6 +4536,7 @@
 				FA1BE5351B27DD5A00AA1AFD /* MMHeaderUIView.m in Sources */,
 				FA1BE5361B27DD5A00AA1AFD /* BEMenuController.m in Sources */,
 				FA1BE5371B27DD5A00AA1AFD /* FlyingAccountVC.m in Sources */,
+				C8C805441BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */,
 				FA1BE5381B27DD5A00AA1AFD /* DDNumber.m in Sources */,
 				FA1BE5391B27DD5A00AA1AFD /* FlyingSeparateView.m in Sources */,
 				FA1BE53A1B27DD5A00AA1AFD /* DDTTYLogger.m in Sources */,
@@ -4458,6 +4544,7 @@
 				FA1BE53B1B27DD5A00AA1AFD /* SZTextView.m in Sources */,
 				FA1BE53C1B27DD5A00AA1AFD /* FlyingTaskWordData.m in Sources */,
 				FA1BE53D1B27DD5A00AA1AFD /* FMDatabase+FTS3.m in Sources */,
+				C8C805321BD215D1009F3712 /* UIScrollView+SLKAdditions.m in Sources */,
 				FA1BE53E1B27DD5A00AA1AFD /* FlyingWordDetailVC.m in Sources */,
 				FA1BE53F1B27DD5A00AA1AFD /* FlyingWordItemCell.m in Sources */,
 				FA1BE5401B27DD5A00AA1AFD /* MMParallaxPage.m in Sources */,
@@ -4472,6 +4559,7 @@
 				FA1BE5491B27DD5A00AA1AFD /* MAOFlipTransition.m in Sources */,
 				C8FE1FA51BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA1BE54A1B27DD5A00AA1AFD /* FlyingUIWebView.m in Sources */,
+				C8C8053E1BD215EC009F3712 /* SLKTextView.m in Sources */,
 				FA1BE54B1B27DD5A00AA1AFD /* FlyingScanViewController.m in Sources */,
 				FA88BC301B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0141B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
@@ -4556,6 +4644,7 @@
 				FA63298F1B51091400A1222E /* FlyingPlayerView.m in Sources */,
 				FA6329901B51091400A1222E /* common.m in Sources */,
 				FA6329911B51091400A1222E /* ReaderMainPagebar.m in Sources */,
+				C8C805271BD21591009F3712 /* FlyingCommentData.m in Sources */,
 				FA04BF961B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC2A1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA6329921B51091400A1222E /* FlyingWordAbstractVC.m in Sources */,
@@ -4569,6 +4658,7 @@
 				FA63299A1B51091400A1222E /* FlyingPubLessonData.m in Sources */,
 				FA63299B1B51091400A1222E /* FlyingCurrentAnnotation.m in Sources */,
 				FA63299C1B51091400A1222E /* UIImage+localFile.m in Sources */,
+				C8C805481BD217F4009F3712 /* MKStoreKit.m in Sources */,
 				FA63299D1B51091400A1222E /* mztools.c in Sources */,
 				C875247A1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA63299E1B51091400A1222E /* FlyingLoadingView.m in Sources */,
@@ -4578,6 +4668,7 @@
 				FA6329A11B51091400A1222E /* DDRange.m in Sources */,
 				C875244A1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA6329A21B51091400A1222E /* FlyingSubItemParser.m in Sources */,
+				C8C805301BD215CB009F3712 /* UIResponder+SLKAdditions.m in Sources */,
 				FA6329A31B51091400A1222E /* MuHitView.m in Sources */,
 				FA6329A41B51091400A1222E /* FlyingTouchDAO.m in Sources */,
 				FA6329A51B51091400A1222E /* FlyingTagTransform.m in Sources */,
@@ -4602,10 +4693,12 @@
 				FA6329B81B51091400A1222E /* ACEExpandableTextCell.m in Sources */,
 				FA6329B91B51091400A1222E /* iFlyingAppDelegate.m in Sources */,
 				FA6329BA1B51091400A1222E /* FlyingLessonViewCell.m in Sources */,
+				C8C805421BD215F2009F3712 /* SLKTextViewController.m in Sources */,
 				FA6329BB1B51091400A1222E /* NSBubbleData.m in Sources */,
 				FA6329BD1B51091400A1222E /* ReaderDocumentOutline.m in Sources */,
 				FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */,
 				C87524351BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
+				C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				FA6329BF1B51091400A1222E /* OpenUDID.m in Sources */,
 				FA5ACC261B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
@@ -4623,6 +4716,7 @@
 				FA6329C81B51091400A1222E /* MultipartFormDataParser.m in Sources */,
 				FA6329C91B51091400A1222E /* CFShareCircleView.m in Sources */,
 				FA04BF901B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
+				C8C805391BD215E2009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA6329CA1B51091400A1222E /* HTTPErrorResponse.m in Sources */,
 				FA6329CB1B51091400A1222E /* HTTPDynamicFileResponse.m in Sources */,
 				FA88BC351B79E5B000604BC2 /* RSKTouchView.m in Sources */,
@@ -4631,6 +4725,7 @@
 				FA6329CE1B51091400A1222E /* FlyingAILearningView.m in Sources */,
 				FA6329CF1B51091400A1222E /* UICKeyChainStore.m in Sources */,
 				FA6329D01B51091400A1222E /* RCDRCIMDataSource.m in Sources */,
+				C8C805361BD215D8009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA6329D11B51091400A1222E /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF91B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				C875249A1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
@@ -4666,9 +4761,11 @@
 				FA6329ED1B51091400A1222E /* FlyingM3U8Downloader.m in Sources */,
 				FA6329EE1B51091400A1222E /* GCDAsyncUdpSocket.m in Sources */,
 				FA6329EF1B51091400A1222E /* FlyingDialogViewController.m in Sources */,
+				C8C8052D1BD215C3009F3712 /* SLKTextView+SLKAdditions.m in Sources */,
 				FA6329F01B51091400A1222E /* FlyingSubTitle.m in Sources */,
 				FA6329F11B51091400A1222E /* FlyingM3U8List.m in Sources */,
 				FA6329F21B51091400A1222E /* FlyingTouchRecord.m in Sources */,
+				C8C8053C1BD215E8009F3712 /* SLKTextInputbar.m in Sources */,
 				FA6329F31B51091400A1222E /* UIWebView+Clean.m in Sources */,
 				FA6329F41B51091400A1222E /* FlyingStatisticData.m in Sources */,
 				FA6329F51B51091400A1222E /* MAOPanGestureRecognizer.m in Sources */,
@@ -4693,12 +4790,14 @@
 				C87524861BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA632A031B51091400A1222E /* FlyingLessonListViewController.m in Sources */,
 				FA632A041B51091400A1222E /* FlyingLessonVC.m in Sources */,
+				C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */,
 				FA632A051B51091400A1222E /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9E1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA632A061B51091400A1222E /* FlyingHttpTool.m in Sources */,
 				C87524961BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA632A071B51091400A1222E /* DDMultiFormatter.m in Sources */,
 				FA632A081B51091400A1222E /* DDFileLogger.m in Sources */,
+				C8C805241BD21495009F3712 /* FlyingCommentVC.m in Sources */,
 				C87523551BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA632A091B51091400A1222E /* FlyingSetDefault.m in Sources */,
 				FA632A0A1B51091400A1222E /* ACMagnifyingView.m in Sources */,
@@ -4715,6 +4814,7 @@
 				FA632A161B51091400A1222E /* MMHeaderUIView.m in Sources */,
 				FA632A171B51091400A1222E /* BEMenuController.m in Sources */,
 				FA632A181B51091400A1222E /* FlyingAccountVC.m in Sources */,
+				C8C805451BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */,
 				FA632A191B51091400A1222E /* DDNumber.m in Sources */,
 				FA632A1A1B51091400A1222E /* FlyingSeparateView.m in Sources */,
 				FA632A1B1B51091400A1222E /* DDTTYLogger.m in Sources */,
@@ -4722,6 +4822,7 @@
 				FA632A1C1B51091400A1222E /* SZTextView.m in Sources */,
 				FA632A1D1B51091400A1222E /* FlyingTaskWordData.m in Sources */,
 				FA632A1E1B51091400A1222E /* FMDatabase+FTS3.m in Sources */,
+				C8C805331BD215D2009F3712 /* UIScrollView+SLKAdditions.m in Sources */,
 				FA632A1F1B51091400A1222E /* FlyingWordDetailVC.m in Sources */,
 				FA632A201B51091400A1222E /* FlyingWordItemCell.m in Sources */,
 				FA632A211B51091400A1222E /* MMParallaxPage.m in Sources */,
@@ -4736,6 +4837,7 @@
 				FA632A291B51091400A1222E /* MAOFlipTransition.m in Sources */,
 				C8FE1FA61BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA632A2A1B51091400A1222E /* FlyingUIWebView.m in Sources */,
+				C8C8053F1BD215ED009F3712 /* SLKTextView.m in Sources */,
 				FA632A2B1B51091400A1222E /* FlyingScanViewController.m in Sources */,
 				FA88BC311B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0151B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
@@ -4820,6 +4922,7 @@
 				FA8C3DEB1B535A1500DEA02D /* FlyingPlayerView.m in Sources */,
 				FA8C3DEC1B535A1500DEA02D /* common.m in Sources */,
 				FA8C3DED1B535A1500DEA02D /* ReaderMainPagebar.m in Sources */,
+				C8C805281BD21592009F3712 /* FlyingCommentData.m in Sources */,
 				FA04BF971B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC2B1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA8C3DEE1B535A1500DEA02D /* FlyingWordAbstractVC.m in Sources */,
@@ -4833,6 +4936,7 @@
 				FA8C3DF61B535A1500DEA02D /* FlyingPubLessonData.m in Sources */,
 				FA8C3DF71B535A1500DEA02D /* FlyingCurrentAnnotation.m in Sources */,
 				FA8C3DF81B535A1500DEA02D /* UIImage+localFile.m in Sources */,
+				C8C805491BD217F5009F3712 /* MKStoreKit.m in Sources */,
 				FA8C3DF91B535A1500DEA02D /* mztools.c in Sources */,
 				C875247B1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA8C3DFA1B535A1500DEA02D /* FlyingLoadingView.m in Sources */,
@@ -4842,6 +4946,7 @@
 				FA8C3DFD1B535A1500DEA02D /* DDRange.m in Sources */,
 				C875244B1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
 				FA8C3DFE1B535A1500DEA02D /* FlyingSubItemParser.m in Sources */,
+				C8C8052F1BD215CB009F3712 /* UIResponder+SLKAdditions.m in Sources */,
 				FA8C3DFF1B535A1500DEA02D /* MuHitView.m in Sources */,
 				FA8C3E001B535A1500DEA02D /* FlyingTouchDAO.m in Sources */,
 				FA8C3E011B535A1500DEA02D /* FlyingTagTransform.m in Sources */,
@@ -4866,10 +4971,12 @@
 				FA8C3E141B535A1500DEA02D /* ACEExpandableTextCell.m in Sources */,
 				FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */,
 				FA8C3E161B535A1500DEA02D /* FlyingLessonViewCell.m in Sources */,
+				C8C805431BD215F3009F3712 /* SLKTextViewController.m in Sources */,
 				FA8C3E171B535A1500DEA02D /* NSBubbleData.m in Sources */,
 				FA8C3E191B535A1500DEA02D /* ReaderDocumentOutline.m in Sources */,
 				FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */,
 				C87524361BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
+				C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				FA8C3E1B1B535A1500DEA02D /* OpenUDID.m in Sources */,
 				FA5ACC271B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
@@ -4887,6 +4994,7 @@
 				FA8C3E241B535A1500DEA02D /* MultipartFormDataParser.m in Sources */,
 				FA8C3E251B535A1500DEA02D /* CFShareCircleView.m in Sources */,
 				FA04BF911B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
+				C8C8053A1BD215E3009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA8C3E261B535A1500DEA02D /* HTTPErrorResponse.m in Sources */,
 				FA8C3E271B535A1500DEA02D /* HTTPDynamicFileResponse.m in Sources */,
 				FA88BC361B79E5B000604BC2 /* RSKTouchView.m in Sources */,
@@ -4895,6 +5003,7 @@
 				FA8C3E2A1B535A1500DEA02D /* FlyingAILearningView.m in Sources */,
 				FA8C3E2B1B535A1500DEA02D /* UICKeyChainStore.m in Sources */,
 				FA8C3E2C1B535A1500DEA02D /* RCDRCIMDataSource.m in Sources */,
+				C8C805371BD215DA009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA8C3E2D1B535A1500DEA02D /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFFA1B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				C875249B1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
@@ -4930,9 +5039,11 @@
 				FA8C3E491B535A1500DEA02D /* FlyingM3U8Downloader.m in Sources */,
 				FA8C3E4A1B535A1500DEA02D /* GCDAsyncUdpSocket.m in Sources */,
 				FA8C3E4B1B535A1500DEA02D /* FlyingDialogViewController.m in Sources */,
+				C8C8052E1BD215C4009F3712 /* SLKTextView+SLKAdditions.m in Sources */,
 				FA8C3E4C1B535A1500DEA02D /* FlyingSubTitle.m in Sources */,
 				FA8C3E4D1B535A1500DEA02D /* FlyingM3U8List.m in Sources */,
 				FA8C3E4E1B535A1500DEA02D /* FlyingTouchRecord.m in Sources */,
+				C8C8053D1BD215E9009F3712 /* SLKTextInputbar.m in Sources */,
 				FA8C3E4F1B535A1500DEA02D /* UIWebView+Clean.m in Sources */,
 				FA8C3E501B535A1500DEA02D /* FlyingStatisticData.m in Sources */,
 				FA8C3E511B535A1500DEA02D /* MAOPanGestureRecognizer.m in Sources */,
@@ -4957,12 +5068,14 @@
 				C87524871BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
 				FA8C3E5F1B535A1500DEA02D /* FlyingLessonListViewController.m in Sources */,
 				FA8C3E601B535A1500DEA02D /* FlyingLessonVC.m in Sources */,
+				C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */,
 				FA8C3E611B535A1500DEA02D /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9F1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				FA8C3E621B535A1500DEA02D /* FlyingHttpTool.m in Sources */,
 				C87524971BB39674000F86DC /* NSDate+Description.m in Sources */,
 				FA8C3E631B535A1500DEA02D /* DDMultiFormatter.m in Sources */,
 				FA8C3E641B535A1500DEA02D /* DDFileLogger.m in Sources */,
+				C8C805251BD21495009F3712 /* FlyingCommentVC.m in Sources */,
 				C87523561BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				FA8C3E651B535A1500DEA02D /* FlyingSetDefault.m in Sources */,
 				FA8C3E661B535A1500DEA02D /* ACMagnifyingView.m in Sources */,
@@ -4979,6 +5092,7 @@
 				FA8C3E721B535A1500DEA02D /* MMHeaderUIView.m in Sources */,
 				FA8C3E731B535A1500DEA02D /* BEMenuController.m in Sources */,
 				FA8C3E741B535A1500DEA02D /* FlyingAccountVC.m in Sources */,
+				C8C805461BD215F9009F3712 /* SLKTypingIndicatorView.m in Sources */,
 				FA8C3E751B535A1500DEA02D /* DDNumber.m in Sources */,
 				FA8C3E761B535A1500DEA02D /* FlyingSeparateView.m in Sources */,
 				FA8C3E771B535A1500DEA02D /* DDTTYLogger.m in Sources */,
@@ -4986,6 +5100,7 @@
 				FA8C3E781B535A1500DEA02D /* SZTextView.m in Sources */,
 				FA8C3E791B535A1500DEA02D /* FlyingTaskWordData.m in Sources */,
 				FA8C3E7A1B535A1500DEA02D /* FMDatabase+FTS3.m in Sources */,
+				C8C805341BD215D2009F3712 /* UIScrollView+SLKAdditions.m in Sources */,
 				FA8C3E7B1B535A1500DEA02D /* FlyingWordDetailVC.m in Sources */,
 				FA8C3E7C1B535A1500DEA02D /* FlyingWordItemCell.m in Sources */,
 				FA8C3E7D1B535A1500DEA02D /* MMParallaxPage.m in Sources */,
@@ -5000,6 +5115,7 @@
 				FA8C3E851B535A1500DEA02D /* MAOFlipTransition.m in Sources */,
 				C8FE1FA71BB1036D009C8D48 /* FlyingCalendarVC.m in Sources */,
 				FA8C3E861B535A1500DEA02D /* FlyingUIWebView.m in Sources */,
+				C8C805401BD215EE009F3712 /* SLKTextView.m in Sources */,
 				FA8C3E871B535A1500DEA02D /* FlyingScanViewController.m in Sources */,
 				FA88BC321B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0161B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
@@ -5195,6 +5311,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5237,7 +5354,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "67833cce-253f-44b9-a5bc-9c9f0cf1073f";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -5252,6 +5369,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/BirdEnglish.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5293,7 +5411,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fdc890cb-217b-466e-8b2f-dc1e6f7175e4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5309,6 +5427,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/IBag.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5366,6 +5485,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/IBag.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5423,6 +5543,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/beiyang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5479,6 +5600,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/beiyang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -5533,9 +5655,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/Inet.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ziran du (Q232Q254JS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ziran du (Q232Q254JS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5575,7 +5698,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "b9c162fe-86e4-41a1-b43d-0d26b2e6549f";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -5590,9 +5713,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/Inet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ziran du (K93QTN9HY2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ziran du (K93QTN9HY2)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5631,8 +5754,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "94bb4882-f154-4ae9-bb8b-b6ec3fc29b1d";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "94bb4882-f154-4ae9-bb8b-b6ec3fc29b1d";
+				PROVISIONING_PROFILE = "890e2fab-05a8-4914-894a-d6f54bacab29";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";

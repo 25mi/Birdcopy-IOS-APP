@@ -113,15 +113,59 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
             success:(void (^)(id response))success
             failure:(void (^)(NSError* err))failure;
 
+
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 群相关操作
+//////////////////////////////////////////////////////////////////////////////////
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
+                       Recommend:(BOOL) isRecommend
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
+
++(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                         Success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
+
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
+                       PageNumber:(NSInteger) pageNumber
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+
+
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                           success:(void (^)(id response))success
+                           failure:(void (^)(NSError* err))failure;
+
 //////////////////////////////////////////////////////////////////////////////////
 //以前的API
 //////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+#pragma  账户信息
+//////////////////////////////////////////////////////////////
+
++ (void) getMembershipForAccount:(NSString*) account
+                           AppID:(NSString*) appID
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
+
++ (void)  updateMembershipForAccount:account
+                               AppID:appID
+                           StartDate:(NSDate *)startDate
+                             EndDate:(NSDate *)endDate
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure;
+
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
                    success:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
 
-//帐户同步相关
 + (void) chargingCardSysURLForUserID:(NSString *) userID
                               CardID:(NSString *) cardNo
                              success:(void (^)(id response))success
@@ -156,34 +200,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
              Account:(NSString*) passport
              success:(void (^)(id response))success
              failure:(void (^)(NSError* err))failure;
-
-//////////////////////////////////////////////////////////////////////////////////
-//群相关操作
-//////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                       Recommend:(BOOL) isRecommend
-                      PageNumber:(NSInteger) pageNumber
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
-
-//get groups
-+(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
-                         Success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
-
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                       PageNumber:(NSInteger) pageNumber
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure;
-
-
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                           success:(void (^)(id response))success
-                           failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
 #pragma  内容相关

@@ -101,20 +101,23 @@
         offset_y=0;
     }
     
-    self.tableView = ({
-        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(offset_x, offset_y, self.view.frame.size.width, menuHight)
-                                                              style:UITableViewStylePlain];
-        tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        tableView.opaque = NO;
-        tableView.backgroundColor = [UIColor clearColor];
-        tableView.backgroundView = nil;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tableView.bounces = YES;
-        tableView;
-    });
-    [self.view addSubview:self.tableView];
+    if (!self.tableView) {
+        self.tableView = ({
+            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(offset_x, offset_y, self.view.frame.size.width, menuHight)
+                                                                  style:UITableViewStylePlain];
+            tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+            tableView.delegate = self;
+            tableView.dataSource = self;
+            tableView.opaque = NO;
+            tableView.backgroundColor = [UIColor clearColor];
+            tableView.backgroundView = nil;
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            tableView.bounces = YES;
+            tableView;
+        });
+        
+        [self.view addSubview:self.tableView];
+    }
 }
 
 #pragma mark UITableView Delegate

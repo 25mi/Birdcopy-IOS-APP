@@ -74,9 +74,9 @@
 +(void) getUserInfoByRongID:(NSString *) rongID
                  completion:(void (^)(RCUserInfo *user)) completion;
 
-//////////////////////////////////////////////////////////////
-#pragma  group related (not IM)
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 群相关操作
+//////////////////////////////////////////////////////////////////////////////////
 //获取所有群组
 + (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
                         Recommend:(BOOL) isRecommend
@@ -101,6 +101,19 @@
 
 + (void) getEventDetailsForEventID:(NSString*) eventID
                        Completion:(void (^)(FlyingCalendarEvent *event)) completion;
+
+//////////////////////////////////////////////////////////////
+#pragma  会员相关
+//////////////////////////////////////////////////////////////
++ (void) getMembershipForAccount:(NSString*) account
+                           AppID:(NSString*) appID
+                      Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion;
+
++ (void) updateMembershipForAccount:(NSString*) account
+                           AppID:(NSString*) appID
+                          StartDate:(NSDate *)startDate
+                          EndDate:(NSDate *)endDate
+                      Completion:(void (^)(BOOL result)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  内容相关

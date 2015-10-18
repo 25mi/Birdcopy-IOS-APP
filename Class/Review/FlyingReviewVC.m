@@ -21,6 +21,7 @@
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
 #import "FlyingMyGroupsVC.h"
+#import "FlyingDiscoverContent.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate>
 
@@ -63,6 +64,15 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
+    image= [UIImage imageNamed:@"search"];
+    frame= CGRectMake(0, 0, 24, 24);
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
+    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    
+    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    
     self.currentPassPort = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
     
     self.currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:self.currentPassPort];
@@ -80,40 +90,6 @@
         [self.view addSubview:self.flipViewController.view];
         [self.flipViewController didMoveToParentViewController:self];
     }
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
-}
-
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,8 +135,12 @@
     
     if (navigationController.viewControllers.count==1) {
         
-        FlyingMyGroupsVC * homeVC = [[FlyingMyGroupsVC alloc] init];
-        
+#ifdef __CLIENT__GROUP__VERSION
+        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
+#else
+        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
+#endif
+
         [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
                                                        animated:YES];
         [[self sideMenuViewController] hideMenuViewController];

@@ -30,6 +30,8 @@
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 
+#import "FlyingRCLocationPickerViewController.h"
+
 
 @interface RCDChatViewController ()<CFShareCircleViewDelegate>
 
@@ -164,17 +166,35 @@
 
 - (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag
 {
-    [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
     
     switch (tag) {
+        
         case 101: {
             //这里加你自己的事件处理
             
             [self showSurvey];
             
-        } break;
-        default:
             break;
+        }
+            
+        case PLUGIN_BOARD_ITEM_LOCATION_TAG: {
+            
+            FlyingRCLocationPickerViewController* locationPicker = [[FlyingRCLocationPickerViewController alloc] init];
+            
+            [locationPicker setDelegate:self];
+            
+            [self.navigationController pushViewController:locationPicker animated:YES];
+            
+            
+            break;
+        }
+            
+            
+        default:
+        {
+            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
+            break;
+        }
     }
 }
 

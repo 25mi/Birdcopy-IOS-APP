@@ -323,6 +323,116 @@
                           failure:failure];
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 群相关操作
+//////////////////////////////////////////////////////////////////////////////////
++ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
+                       Recommend:(BOOL) isRecommend
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    if(isRecommend)
+    {
+        if(appOwner)
+        {
+            [params setObject:@"1" forKey:@"owner_recom"];
+        }
+        else
+        {
+            [params setObject:@"1" forKey:@"sys_recom"];
+        }
+    }
+    
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_gp_list_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
+                         Success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure
+{
+    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    if (!openID) {
+        
+        return;
+    }
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++ (void) getGroupStreamForGroupID:(NSString*) groupID
+                     StreamFilter:(StreamFilter) streamFilter
+                       PageNumber:(NSInteger) pageNumber
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
+//////////////////////////////////////////////////////////////
+#pragma  活动相关
+//////////////////////////////////////////////////////////////
++ (void) getEventDetailsForEventID:(NSString*) eventID
+                           success:(void (^)(id response))success
+                           failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"eventID":eventID}];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_gplist_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
 //////////////////////////////////////////////////////////////
 #pragma  old API, not jason
 //////////////////////////////////////////////////////////////
@@ -363,7 +473,58 @@
      }];
 }
 
-//帐户同步相关
+
+//////////////////////////////////////////////////////////////
+#pragma  账户信息
+//////////////////////////////////////////////////////////////
++ (void) getMembershipForAccount:(NSString*) account
+                           AppID:(NSString*) appID
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":account}];
+    
+    [params setObject:appID forKey:@"app_id"];
+    [params setObject:@"validth" forKey:@"type"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_get_user_info_from_hp.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++ (void)  updateMembershipForAccount:account
+                               AppID:appID
+                           StartDate:(NSDate *)startDate
+                             EndDate:(NSDate *)endDate
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
+    
+    [params setObject:appID forKey:@"app_id"];
+    
+    //苹果渠道
+    [params setObject:@"11" forKey:@"vthg_type"];
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *startDateString = [formatter stringFromDate:startDate];
+    NSString *endDateString = [formatter stringFromDate:endDate];
+    
+    [params setObject:startDateString forKey:@"start_time"];
+    [params setObject:endDateString forKey:@"end_time"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_sync_validth_from_hp.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
 + (void) chargingCardSysURLForUserID:(NSString *) userID
                                  CardID:(NSString *) cardNo
                              success:(void (^)(id response))success
@@ -452,120 +613,6 @@
                         params:@{@"user_key":openudid,@"type":@"accobk"}
                        success:success
                        failure:failure];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma  group related (not IM)
-//////////////////////////////////////////////////////////////
-//get groups
-
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                       Recommend:(BOOL) isRecommend
-                      PageNumber:(NSInteger) pageNumber
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    if(isRecommend)
-    {
-        if(appOwner)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
-    }
-    
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_gp_list_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-
-//get groups
-+(void) getMyGroupsForPageNumber:(NSInteger) pageNumber
-                         Success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure
-{
-    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                       PageNumber:(NSInteger) pageNumber
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure;
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                           success:(void (^)(id response))success
-                           failure:(void (^)(NSError* err))failure;
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"eventID":eventID}];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
 }
 
 //////////////////////////////////////////////////////////////

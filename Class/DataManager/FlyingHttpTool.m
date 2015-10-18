@@ -575,7 +575,6 @@
 + (void) getEventDetailsForEventID:(NSString*) eventID
                         Completion:(void (^)(FlyingCalendarEvent *event)) completion
 {
-
     [AFHttpTool getEventDetailsForEventID:eventID
                                   success:^(id response) {
                                       //
@@ -591,7 +590,74 @@
                                   }];
 }
 
+//////////////////////////////////////////////////////////////
+#pragma  会员相关
+//////////////////////////////////////////////////////////////
++ (void) getMembershipForAccount:(NSString*) account
+                           AppID:(NSString*) appID
+                      Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion
+{
+    [AFHttpTool getMembershipForAccount:account
+                                  AppID:appID
+                                success:^(id response) {
+                                    //
+                                    if (response) {
+                                        
+                                        NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                        
+                                        NSArray *tempArray = [tempStr componentsSeparatedByString:@";"];
+                                        
+                                        if (tempArray.count==3) {
+                                            
+                                            NSString* startDateStr = [tempArray[0] stringValue];
+                                            NSString* endDateStr  = [tempArray[1] stringValue];
+                                            
+                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                            
+                                            NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+                                            NSDate *endDate = [dateFormatter dateFromString:endDateStr];
 
+                                            if (completion) {
+                                                completion(startDate,endDate);
+                                            }
+                                        }
+                                    }
+
+                                } failure:^(NSError *err) {
+                                    //
+                                }];
+}
+
++ (void) updateMembershipForAccount:(NSString*) account
+                              AppID:(NSString*) appID
+                          StartDate:(NSDate *)startDate
+                            EndDate:(NSDate *)endDate
+                         Completion:(void (^)(BOOL result)) completion
+{
+    [AFHttpTool updateMembershipForAccount:account
+                                  AppID:appID
+                                 StartDate:(NSDate *)startDate
+                                   EndDate:(NSDate *)endDate
+                                success:^(id response) {
+                                    //
+                                    if (response) {
+                                        
+                                        NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                        
+                                        BOOL result =false;
+                                        
+                                        if ([tempStr isEqualToString:@"1"]) {
+                                            result =true;
+                                        }
+                                        if (completion) {
+                                            completion(result);
+                                        }
+                                    }
+                                } failure:^(NSError *err) {
+                                    //
+                                }];
+}
 
 //////////////////////////////////////////////////////////////
 #pragma  内容相关

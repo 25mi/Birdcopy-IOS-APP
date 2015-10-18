@@ -3,31 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>Consumables</key>
-	<dict>
-		<key>500coin.birdit.com</key>
-		<dict>
-			<key>ConsumableCount</key>
-			<integer>500</integer>
-			<key>ConsumableId</key>
-			<string>goldcion</string>
-		</dict>
-		<key>2000coin.birdit.com</key>
-		<dict>
-			<key>ConsumableCount</key>
-			<integer>2000</integer>
-			<key>ConsumableId</key>
-			<string>goldcion</string>
-		</dict>
-		<key>10000coin.birdit.com</key>
-		<dict>
-			<key>ConsumableCount</key>
-			<integer>10000</integer>
-			<key>ConsumableId</key>
-			<string>goldcion</string>
-		</dict>
-	</dict>
+	<dict/>
 	<key>Others</key>
-	<array/>
+	<array>
+		<string>oneyear.birdcopy.it</string>
+	</array>
 	<key>SharedSecret</key>
 	<string>57de52dc0bcf4b9a8c83678cd72a6927</string>
 </dict>
