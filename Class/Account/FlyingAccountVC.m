@@ -138,7 +138,8 @@
     }
     else
     {
-        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         
         if (!openID) {
             
@@ -271,7 +272,8 @@
                        }
                        
                        //清楚缓存课程文件
-                       NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                       UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+                       NSString *openID = keychain[KOPENUDIDKEY];
                        
                        if (!openID) {
                            
@@ -387,7 +389,8 @@
 {
     NSData *imageData = UIImageJPEGRepresentation(editedImage, 0.7); // 0.7 is JPG quality
     
-    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
     if (!openID) {
         

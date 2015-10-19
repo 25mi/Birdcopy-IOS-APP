@@ -126,13 +126,14 @@
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
     
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
-    [_statisticDAO initDataForUserID:passport];
+    [_statisticDAO initDataForUserID:openID];
     _touchDAO     = [[FlyingTouchDAO alloc] init];
     
-    _touchWordCount = [_statisticDAO touchCountWithUserID:passport];
-    _balanceCoin  = [_statisticDAO finalMoneyWithUserID:passport];
+    _touchWordCount = [_statisticDAO touchCountWithUserID:openID];
+    _balanceCoin  = [_statisticDAO finalMoneyWithUserID:openID];
     
     //
     [self prepairNLP];
@@ -501,9 +502,10 @@
                         currentLessonID =@"BirdCopyCommonID";
                     }
                     
-                    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+                    NSString *openID = keychain[KOPENUDIDKEY];
 
-                    [_touchDAO countPlusWithUserID:passport LessonID:currentLessonID];
+                    [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
                 });
                 
                 //纪录点击单词
@@ -595,9 +597,10 @@
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
         [taskWordDAO setUserModle:NO];
         
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
 
-        [taskWordDAO insertWithUesrID:passport
+        [taskWordDAO insertWithUesrID:openID
                                  Word:[touchWord lowercaseString]
                            Sentence:nil
                              LessonID:self.lessonID];

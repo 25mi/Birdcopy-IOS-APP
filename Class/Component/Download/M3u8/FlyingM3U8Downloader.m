@@ -377,7 +377,8 @@
         
         FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
         [statisticDAO setUserModle:NO];
-        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
         giftCountNow+=10;
         [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];

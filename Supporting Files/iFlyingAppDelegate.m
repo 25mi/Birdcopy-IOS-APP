@@ -168,14 +168,15 @@
     [[NSUserDefaults standardUserDefaults] setValue:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] forKey:KAppOwnerNickname];
 
 #endif
-
-    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
     if(openID==nil)
     {
         //从本地终端生成账号
         openID = [OpenUDID value];
-        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=openID;
+        keychain[KOPENUDIDKEY]=openID;
     }
     //如果有旧账号
     else if (openID && openID.length==32)
@@ -194,7 +195,7 @@
         
         //从本地终端生成账号
         openID = [OpenUDID value];
-        [UICKeyChainStore keyChainStore][KOPENUDIDKEY]=openID;
+        keychain[KOPENUDIDKEY]=openID;
     }
 
     [self jumpToNext];
@@ -338,7 +339,8 @@
     
     if(rongDeviceKoken.length==0)
     {
-        NSString * openID =[UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         
         if (!openID) {
             
@@ -496,14 +498,15 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         FlyingStatisticDAO * statistic = [[FlyingStatisticDAO alloc] init];
         [statistic setUserModle:NO];
         
         //学习次数加一
-        NSInteger learnedTimes = [statistic timesWithUserID:passport];
+        NSInteger learnedTimes = [statistic timesWithUserID:openID];
         learnedTimes = learnedTimes+1;
-        [statistic updateWithUserID:passport Times:learnedTimes];
+        [statistic updateWithUserID:openID Times:learnedTimes];
     });
 }
 
@@ -534,12 +537,13 @@
     NSArray * lessonsBeResumeDownload=[dao selectWithWaittingDownload];
     
     FlyingNowLessonDAO * nowDao=[[FlyingNowLessonDAO alloc] init];
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
     //清理因为异常造成的伪下载任务
     [lessonsBeResumeDownload enumerateObjectsUsingBlock:^(FlyingLessonData * lessonData, NSUInteger idx, BOOL *stop) {
         
-        if (![nowDao selectWithUserID:passport LessonID:lessonData.BELESSONID]) {
+        if (![nowDao selectWithUserID:openID LessonID:lessonData.BELESSONID]) {
             
             [dao deleteWithLessonID:lessonData.BELESSONID];
         }
@@ -592,9 +596,10 @@
         
         if(now-before>600.0){
             
-            NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+            NSString *openID = keychain[KOPENUDIDKEY];
             
-            if (passport) {
+            if (openID) {
 
                 [[NSUserDefaults standardUserDefaults] setDouble:now forKey:@"BELunchTimeBefore"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -603,15 +608,15 @@
                 [statisticDAO setUserModle:NO];
                 
                 //学习次数加一
-                NSInteger giftCountNow=[statisticDAO giftCountWithUserID:passport];
+                NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
                 giftCountNow++;
-                [statisticDAO updateWithUserID:passport GiftCount:giftCountNow];
+                [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
                 
                 [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
                 
-                NSInteger learnedTimes = [statisticDAO timesWithUserID:passport];
+                NSInteger learnedTimes = [statisticDAO timesWithUserID:openID];
                 learnedTimes = learnedTimes+1;
-                [statisticDAO updateWithUserID:passport Times:learnedTimes];
+                [statisticDAO updateWithUserID:openID Times:learnedTimes];
             }
         }
     });
@@ -1346,16 +1351,17 @@
     
         [statistic insertQRCount];
         [statistic insertTimeStamp];
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-        [statistic updateUserID:passport];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
+        [statistic updateUserID:openID];
         
         //课程相关数据
         FlyingNowLessonDAO * currentNowLessonDAO= [[FlyingNowLessonDAO alloc] init];
-        [currentNowLessonDAO updateUserID:passport];
+        [currentNowLessonDAO updateUserID:openID];
         
         //生词数据
         FlyingTaskWordDAO * currentTaskDAO= [[FlyingTaskWordDAO alloc] init];
-        [currentTaskDAO updateUserID:passport];
+        [currentTaskDAO updateUserID:openID];
     }
     
     //建立点击记录表
@@ -1534,15 +1540,16 @@
 
 -(void)  awardGold:(int) MoneyCount
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
     //奖励金币
     FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
     [statisticDAO setUserModle:NO];
     
-    NSInteger giftCountNow=[statisticDAO giftCountWithUserID:passport];
+    NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
     giftCountNow+=KBEGoldAwardCount;
-    [statisticDAO updateWithUserID:passport GiftCount:giftCountNow];
+    [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
     [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
@@ -1972,7 +1979,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
+    //NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
     NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
     
     //NSDate *startDate = [dateFormatter dateFromString:startDateStr];
@@ -2109,9 +2116,10 @@
 {
     FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
     
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
-    [nowLessonDAO updateDBFromLocal:passport];
+    [nowLessonDAO updateDBFromLocal:openID];
     
     //得到本地课程详细信息
     NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
@@ -2216,11 +2224,12 @@
                     
                 }
                 
-                NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+                UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+                NSString *openID = keychain[KOPENUDIDKEY];
                 
-                if (![nowLessonDAO selectWithUserID:passport LessonID:lessonID]) {
+                if (![nowLessonDAO selectWithUserID:openID LessonID:lessonID]) {
                     
-                    FlyingNowLessonData * data = [[FlyingNowLessonData alloc] initWithUserID:passport
+                    FlyingNowLessonData * data = [[FlyingNowLessonData alloc] initWithUserID:openID
                                                                                     LessonID:lessonID
                                                                                    TimeStamp:0
                                                                                   LocalCover:pubLessondata.localURLOfCover];

@@ -196,9 +196,10 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (void) getWordList
 {
 
-    NSString *passport = [UICKeyChainStore  keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
-    _famousTags =[[FlyingTaskWordDAO  alloc] selectWordsWithUserID:passport];
+    _famousTags =[[FlyingTaskWordDAO  alloc] selectWordsWithUserID:openID];
 
     [self.tableView  reloadData];
 }
@@ -317,8 +318,10 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
             
             dispatch_async(dispatch_get_main_queue(), ^
                            {
-                               NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-                               [[[FlyingTaskWordDAO alloc] init] insertWithUesrID:passport
+                               UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+                               NSString *openID = keychain[KOPENUDIDKEY];
+
+                               [[[FlyingTaskWordDAO alloc] init] insertWithUesrID:openID
                                                                              Word:tag
                                                                          Sentence:nil
                                                                          LessonID:nil];

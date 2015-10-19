@@ -42,12 +42,34 @@
 		C806580B17FE53BB00CADF4F /* FlyingSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575717FE53BB00CADF4F /* FlyingSearchViewController.m */; };
 		C806580D17FE53BB00CADF4F /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
 		C80ECBC8175391BB00AAF5B7 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C80ECBC6175387F100AAF5B7 /* libxml2.2.dylib */; };
+		C80EF7481BD4A553006D57AC /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF73F1BD4A553006D57AC /* FileHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7491BD4A553006D57AC /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74A1BD4A553006D57AC /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7431BD4A553006D57AC /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74B1BD4A553006D57AC /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7451BD4A553006D57AC /* NSData+NSHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74C1BD4A553006D57AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7471BD4A553006D57AC /* OpenUDID.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74D1BD4A564006D57AC /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF73F1BD4A553006D57AC /* FileHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74E1BD4A564006D57AC /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF73F1BD4A553006D57AC /* FileHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF74F1BD4A565006D57AC /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF73F1BD4A553006D57AC /* FileHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7501BD4A568006D57AC /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7511BD4A569006D57AC /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7521BD4A56A006D57AC /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7531BD4A56D006D57AC /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7431BD4A553006D57AC /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7541BD4A56E006D57AC /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7431BD4A553006D57AC /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7551BD4A56F006D57AC /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7431BD4A553006D57AC /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7561BD4A571006D57AC /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7451BD4A553006D57AC /* NSData+NSHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7571BD4A572006D57AC /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7451BD4A553006D57AC /* NSData+NSHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7581BD4A573006D57AC /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7451BD4A553006D57AC /* NSData+NSHash.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF7591BD4A576006D57AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7471BD4A553006D57AC /* OpenUDID.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF75A1BD4A577006D57AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7471BD4A553006D57AC /* OpenUDID.m */; settings = {ASSET_TAGS = (); }; };
+		C80EF75B1BD4A578006D57AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7471BD4A553006D57AC /* OpenUDID.m */; settings = {ASSET_TAGS = (); }; };
 		C810716618842B2200A3CF11 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C810716518842B2200A3CF11 /* CoreVideo.framework */; };
 		C8113954168B5935009E93E5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8113953168B5935009E93E5 /* MobileCoreServices.framework */; };
 		C81C2BC515F4E2DA00754FE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC415F4E2DA00754FE2 /* Foundation.framework */; };
 		C81C2BC715F4E2DA00754FE2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
 		C81D74EB18B634160068FDC7 /* FlyingTouchRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74EA18B634160068FDC7 /* FlyingTouchRecord.m */; };
 		C81D74EE18B6359F0068FDC7 /* FlyingTouchDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */; };
+		C827C6671BD4E3BB0088EF2B /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */; };
+		C827C6691BD4E3C60088EF2B /* libUICKeyChainStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */; };
 		C82A5AED17DABA2B003CA0C3 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C82A5AEC17DABA2B003CA0C3 /* libicucore.dylib */; };
 		C82D8AA6195D76BC001ACB77 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8A9F195D76BC001ACB77 /* libfreetype.a */; };
 		C82D8AA7195D76BC001ACB77 /* libjbig2dec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8AA0195D76BC001ACB77 /* libjbig2dec.a */; };
@@ -77,7 +99,6 @@
 		C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
-		C862440E18A49FFD001686B7 /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
 		C874EC371BD20F08006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; settings = {ASSET_TAGS = (); }; };
 		C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */; settings = {ASSET_TAGS = (); }; };
 		C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; settings = {ASSET_TAGS = (); }; };
@@ -210,7 +231,6 @@
 		C87524C31BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
 		C87524C41BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
 		C87524C51BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */; settings = {ASSET_TAGS = (); }; };
-		C877E21E1BCE4E2D00E90448 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
 		C879599A1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599B1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
 		C879599C1BA2E0C700D670E2 /* FlyingBoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */; settings = {ASSET_TAGS = (); }; };
@@ -269,9 +289,6 @@
 		C8C805441BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
 		C8C805451BD215F7009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
 		C8C805461BD215F9009F3712 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE200E1BB154C8009C8D48 /* SLKTypingIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
-		C8C805471BD217F3009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
-		C8C805481BD217F4009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
-		C8C805491BD217F5009F3712 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */; settings = {ASSET_TAGS = (); }; };
 		C8C8054B1BD3BC7F009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
 		C8C8054C1BD3BD62009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
 		C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -404,7 +421,6 @@
 		FA0A618F1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */; };
 		FA0A61931B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
 		FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
-		FA0AF8071B904C1900E24EF6 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */; };
 		FA0AF8081B904C1900E24EF6 /* libINTULocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */; };
 		FA0AF8091B904C1900E24EF6 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */; };
 		FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8041B904C1900E24EF6 /* libPods.a */; };
@@ -478,7 +494,6 @@
 		FA1BE4AF1B27DD5A00AA1AFD /* FlyingReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1EEC851ACE908500BBA0FA /* FlyingReviewVC.m */; };
 		FA1BE4B01B27DD5A00AA1AFD /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D51B04B5BA00DCF2AB /* DDContextFilterLogFormatter.m */; };
 		FA1BE4B11B27DD5A00AA1AFD /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */; };
-		FA1BE4B21B27DD5A00AA1AFD /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
 		FA1BE4B31B27DD5A00AA1AFD /* ReaderDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75F19CD526200D97FDB /* ReaderDocument.m */; };
 		FA1BE4B41B27DD5A00AA1AFD /* JPSThumnail.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1311A6D0736007F89D7 /* JPSThumnail.m */; };
 		FA1BE4B51B27DD5A00AA1AFD /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454A51B04B5BA00DCF2AB /* MultipartMessageHeaderField.m */; };
@@ -499,7 +514,6 @@
 		FA1BE4C41B27DD5A00AA1AFD /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA1BE4C61B27DD5A00AA1AFD /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
 		FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
-		FA1BE4C91B27DD5A00AA1AFD /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE4CB1B27DD5A00AA1AFD /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
 		FA1BE4CC1B27DD5A00AA1AFD /* FlyingDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C806560817FE53BA00CADF4F /* FlyingDownloader.m */; };
@@ -515,7 +529,6 @@
 		FA1BE4D71B27DD5A00AA1AFD /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA1BE4D91B27DD5A00AA1AFD /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
-		FA1BE4DC1B27DD5A00AA1AFD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FA388398199B6571001FD710 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC819FB7FED00784EB4 /* FMDatabasePool.m */; };
 		FA1BE4DE1B27DD5A00AA1AFD /* MuPageViewReflow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD6D1B030821004152C2 /* MuPageViewReflow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE4DF1B27DD5A00AA1AFD /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
@@ -531,7 +544,6 @@
 		FA1BE4E91B27DD5A00AA1AFD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454901B04B5BA00DCF2AB /* DDData.m */; };
 		FA1BE4EA1B27DD5A00AA1AFD /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B21B04B5BA00DCF2AB /* HTTPRedirectResponse.m */; };
 		FA1BE4EB1B27DD5A00AA1AFD /* FlyingAILearningView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4201AB7DB4E00E6F748 /* FlyingAILearningView.m */; };
-		FA1BE4EC1B27DD5A00AA1AFD /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */; };
 		FA1BE4ED1B27DD5A00AA1AFD /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454961B04B5BA00DCF2AB /* HTTPAuthenticationRequest.m */; };
 		FA1BE4EE1B27DD5A00AA1AFD /* ReaderThumbRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76F19CD526200D97FDB /* ReaderThumbRequest.m */; };
 		FA1BE4F01B27DD5A00AA1AFD /* FlyingOpenIDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F93F1B1ADA6E0041DF89 /* FlyingOpenIDVC.m */; };
@@ -589,7 +601,6 @@
 		FA1BE52C1B27DD5A00AA1AFD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA1BE52D1B27DD5A00AA1AFD /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
 		FA1BE5301B27DD5A00AA1AFD /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA1BE5331B27DD5A00AA1AFD /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA1BE5341B27DD5A00AA1AFD /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA1BE5351B27DD5A00AA1AFD /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
 		FA1BE5361B27DD5A00AA1AFD /* BEMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8937C13181E2DE8000B4F64 /* BEMenuController.m */; };
@@ -702,7 +713,6 @@
 		FA2559D51BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */; settings = {ASSET_TAGS = (); }; };
 		FA2559D61BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */; settings = {ASSET_TAGS = (); }; };
 		FA2559D71BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */; settings = {ASSET_TAGS = (); }; };
-		FA2B57791B5368FC00371526 /* Inet.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FA2B57781B5368FC00371526 /* Inet.entitlements */; };
 		FA3454DD1B04B5BA00DCF2AB /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454901B04B5BA00DCF2AB /* DDData.m */; };
 		FA3454DE1B04B5BA00DCF2AB /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454921B04B5BA00DCF2AB /* DDNumber.m */; };
 		FA3454DF1B04B5BA00DCF2AB /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454941B04B5BA00DCF2AB /* DDRange.m */; };
@@ -754,7 +764,6 @@
 		FA349F7F1B8C6C9300DDF56E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B78710A6B62E33FAD31163C /* libPods.a */; };
 		FA349F801B8C6C9300DDF56E /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F751B8C5F4700DDF56E /* libSDWebImage.a */; };
 		FA349F811B8C6C9300DDF56E /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F761B8C5F4700DDF56E /* libSIAlertView.a */; };
-		FA388399199B6571001FD710 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FA388398199B6571001FD710 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA5ACC201B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
 		FA5ACC211B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
 		FA5ACC221B6FB7400051A3EA /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
@@ -797,7 +806,6 @@
 		FA6329931B51091400A1222E /* FlyingReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1EEC851ACE908500BBA0FA /* FlyingReviewVC.m */; };
 		FA6329941B51091400A1222E /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D51B04B5BA00DCF2AB /* DDContextFilterLogFormatter.m */; };
 		FA6329951B51091400A1222E /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */; };
-		FA6329961B51091400A1222E /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
 		FA6329971B51091400A1222E /* ReaderDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75F19CD526200D97FDB /* ReaderDocument.m */; };
 		FA6329981B51091400A1222E /* JPSThumnail.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1311A6D0736007F89D7 /* JPSThumnail.m */; };
 		FA6329991B51091400A1222E /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454A51B04B5BA00DCF2AB /* MultipartMessageHeaderField.m */; };
@@ -818,7 +826,6 @@
 		FA6329A81B51091400A1222E /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA6329AA1B51091400A1222E /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
 		FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
-		FA6329AD1B51091400A1222E /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329AF1B51091400A1222E /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
 		FA6329B01B51091400A1222E /* FlyingDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C806560817FE53BA00CADF4F /* FlyingDownloader.m */; };
@@ -834,7 +841,6 @@
 		FA6329BB1B51091400A1222E /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA6329BD1B51091400A1222E /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
-		FA6329BF1B51091400A1222E /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FA388398199B6571001FD710 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC819FB7FED00784EB4 /* FMDatabasePool.m */; };
 		FA6329C11B51091400A1222E /* MuPageViewReflow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD6D1B030821004152C2 /* MuPageViewReflow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329C21B51091400A1222E /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
@@ -850,7 +856,6 @@
 		FA6329CC1B51091400A1222E /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454901B04B5BA00DCF2AB /* DDData.m */; };
 		FA6329CD1B51091400A1222E /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B21B04B5BA00DCF2AB /* HTTPRedirectResponse.m */; };
 		FA6329CE1B51091400A1222E /* FlyingAILearningView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4201AB7DB4E00E6F748 /* FlyingAILearningView.m */; };
-		FA6329CF1B51091400A1222E /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */; };
 		FA6329D01B51091400A1222E /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
 		FA6329D11B51091400A1222E /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454961B04B5BA00DCF2AB /* HTTPAuthenticationRequest.m */; };
 		FA6329D21B51091400A1222E /* ReaderThumbRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76F19CD526200D97FDB /* ReaderThumbRequest.m */; };
@@ -911,7 +916,6 @@
 		FA632A0E1B51091400A1222E /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA632A0F1B51091400A1222E /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
 		FA632A111B51091400A1222E /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA632A141B51091400A1222E /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA632A151B51091400A1222E /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA632A161B51091400A1222E /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
 		FA632A171B51091400A1222E /* BEMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8937C13181E2DE8000B4F64 /* BEMenuController.m */; };
@@ -1082,7 +1086,6 @@
 		FA8C3DEF1B535A1500DEA02D /* FlyingReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1EEC851ACE908500BBA0FA /* FlyingReviewVC.m */; };
 		FA8C3DF01B535A1500DEA02D /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D51B04B5BA00DCF2AB /* DDContextFilterLogFormatter.m */; };
 		FA8C3DF11B535A1500DEA02D /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */; };
-		FA8C3DF21B535A1500DEA02D /* FlyingSysWithCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */; };
 		FA8C3DF31B535A1500DEA02D /* ReaderDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75F19CD526200D97FDB /* ReaderDocument.m */; };
 		FA8C3DF41B535A1500DEA02D /* JPSThumnail.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1311A6D0736007F89D7 /* JPSThumnail.m */; };
 		FA8C3DF51B535A1500DEA02D /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454A51B04B5BA00DCF2AB /* MultipartMessageHeaderField.m */; };
@@ -1103,7 +1106,6 @@
 		FA8C3E041B535A1500DEA02D /* MMParallaxPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF61AD0E1500092A970 /* MMParallaxPresenter.m */; };
 		FA8C3E061B535A1500DEA02D /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D971B04AC080004C874 /* ioapi.c */; };
 		FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
-		FA8C3E091B535A1500DEA02D /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
 		FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E0B1B535A1500DEA02D /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
 		FA8C3E0C1B535A1500DEA02D /* FlyingDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C806560817FE53BA00CADF4F /* FlyingDownloader.m */; };
@@ -1119,7 +1121,6 @@
 		FA8C3E171B535A1500DEA02D /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA8C3E191B535A1500DEA02D /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
-		FA8C3E1B1B535A1500DEA02D /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FA388398199B6571001FD710 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC819FB7FED00784EB4 /* FMDatabasePool.m */; };
 		FA8C3E1D1B535A1500DEA02D /* MuPageViewReflow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD6D1B030821004152C2 /* MuPageViewReflow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E1E1B535A1500DEA02D /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
@@ -1135,7 +1136,6 @@
 		FA8C3E281B535A1500DEA02D /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454901B04B5BA00DCF2AB /* DDData.m */; };
 		FA8C3E291B535A1500DEA02D /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B21B04B5BA00DCF2AB /* HTTPRedirectResponse.m */; };
 		FA8C3E2A1B535A1500DEA02D /* FlyingAILearningView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4201AB7DB4E00E6F748 /* FlyingAILearningView.m */; };
-		FA8C3E2B1B535A1500DEA02D /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */; };
 		FA8C3E2C1B535A1500DEA02D /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */; };
 		FA8C3E2D1B535A1500DEA02D /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454961B04B5BA00DCF2AB /* HTTPAuthenticationRequest.m */; };
 		FA8C3E2E1B535A1500DEA02D /* ReaderThumbRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76F19CD526200D97FDB /* ReaderThumbRequest.m */; };
@@ -1196,7 +1196,6 @@
 		FA8C3E6A1B535A1500DEA02D /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B41B04B5BA00DCF2AB /* WebSocket.m */; };
 		FA8C3E6B1B535A1500DEA02D /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */; };
 		FA8C3E6D1B535A1500DEA02D /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
-		FA8C3E701B535A1500DEA02D /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA8C3E711B535A1500DEA02D /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA8C3E721B535A1500DEA02D /* MMHeaderUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFF21AD0E1500092A970 /* MMHeaderUIView.m */; };
 		FA8C3E731B535A1500DEA02D /* BEMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8937C13181E2DE8000B4F64 /* BEMenuController.m */; };
@@ -1315,8 +1314,6 @@
 		FA8F2DA01B04AC080004C874 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D991B04AC080004C874 /* mztools.c */; };
 		FA8F2DA11B04AC080004C874 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9B1B04AC080004C874 /* unzip.c */; };
 		FA8F2DA21B04AC080004C874 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9D1B04AC080004C874 /* zip.c */; };
-		FA910BD01AE5F43100430DA1 /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCD1AE5F43100430DA1 /* FileHash.m */; };
-		FA910BD11AE5F43100430DA1 /* NSData+NSHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */; };
 		FA95BD4E1AC2B8CF00542081 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
 		FA991AB11B2183B4003D8F80 /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA9965C61ACF8EBD00B599D4 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
@@ -1329,7 +1326,6 @@
 		FAAD8EDE19FB7FED00784EB4 /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED019FB7FED00784EB4 /* FMDatabase+FTS3.m */; };
 		FAAD8EDF19FB7FED00784EB4 /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED219FB7FED00784EB4 /* FMTokenizers.m */; };
 		FAAD8EE019FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */; };
-		FAB5F9001B16CC3B0041DF89 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */; };
 		FAB5F9091B16F5A60041DF89 /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FAB5F90B1B16F5A60041DF89 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9081B16F5A60041DF89 /* SZTextView.m */; };
 		FAB5F91B1B172D9E0041DF89 /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
@@ -1341,10 +1337,6 @@
 		FAD37FA91A121B5F00704F04 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD37FA81A121B5F00704F04 /* CoreImage.framework */; };
 		FAD37FAA1A121B8400704F04 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C833315A18CA998B0081B96D /* CoreTelephony.framework */; };
 		FAD37FAC1A121BB300704F04 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD37FAB1A121BB300704F04 /* libc++.dylib */; };
-		FAD886E61B511345007730B3 /* beiyang.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E31B511345007730B3 /* beiyang.entitlements */; };
-		FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E31B511345007730B3 /* beiyang.entitlements */; };
-		FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E41B511345007730B3 /* BirdEnglish.entitlements */; };
-		FAD886ED1B511345007730B3 /* IBag.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = FAD886E51B511345007730B3 /* IBag.entitlements */; };
 		FAE5C3F81AB7D8ED00E6F748 /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
 		FAE5C42D1AB7DB4E00E6F748 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C4191AB7DB4E00E6F748 /* DWTagList.m */; };
 		FAE5C42E1AB7DB4E00E6F748 /* FlyingLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C41B1AB7DB4E00E6F748 /* FlyingLessonVC.m */; };
@@ -1439,6 +1431,16 @@
 		C806575C17FE53BB00CADF4F /* FlyingGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGuideViewController.h; sourceTree = "<group>"; };
 		C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGuideViewController.m; sourceTree = "<group>"; };
 		C80ECBC6175387F100AAF5B7 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		C80EF73E1BD4A553006D57AC /* FileHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHash.h; sourceTree = "<group>"; };
+		C80EF73F1BD4A553006D57AC /* FileHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHash.m; sourceTree = "<group>"; };
+		C80EF7401BD4A553006D57AC /* FlyingSysWithCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSysWithCenter.h; sourceTree = "<group>"; };
+		C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSysWithCenter.m; sourceTree = "<group>"; };
+		C80EF7421BD4A553006D57AC /* MKStoreKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKStoreKit.h; sourceTree = "<group>"; };
+		C80EF7431BD4A553006D57AC /* MKStoreKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKStoreKit.m; sourceTree = "<group>"; };
+		C80EF7441BD4A553006D57AC /* NSData+NSHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSHash.h"; sourceTree = "<group>"; };
+		C80EF7451BD4A553006D57AC /* NSData+NSHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSHash.m"; sourceTree = "<group>"; };
+		C80EF7461BD4A553006D57AC /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		C80EF7471BD4A553006D57AC /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		C810716518842B2200A3CF11 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		C8113953168B5935009E93E5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C81C2BBE15F4E2DA00754FE2 /* BirdEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BirdEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1448,6 +1450,9 @@
 		C81D74EA18B634160068FDC7 /* FlyingTouchRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTouchRecord.m; sourceTree = "<group>"; };
 		C81D74EC18B6359F0068FDC7 /* FlyingTouchDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTouchDAO.h; sourceTree = "<group>"; };
 		C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTouchDAO.m; sourceTree = "<group>"; };
+		C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Release-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Release-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
+		C827C66A1BD4EEFC0088EF2B /* inet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = inet.entitlements; sourceTree = "<group>"; };
 		C82A5AEC17DABA2B003CA0C3 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		C82D8A9F195D76BC001ACB77 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Mupdf/libfreetype.a; sourceTree = "<group>"; };
 		C82D8AA0195D76BC001ACB77 /* libjbig2dec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjbig2dec.a; path = libraries/Mupdf/libjbig2dec.a; sourceTree = "<group>"; };
@@ -1491,8 +1496,6 @@
 		C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingScanViewController.m; sourceTree = "<group>"; };
 		C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		C862440C18A49FFD001686B7 /* FlyingSysWithCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSysWithCenter.h; sourceTree = "<group>"; };
-		C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSysWithCenter.m; sourceTree = "<group>"; };
 		C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		C87523511BB29C65000F86DC /* FlyingEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventVC.h; sourceTree = "<group>"; };
 		C87523521BB29C65000F86DC /* FlyingEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventVC.m; sourceTree = "<group>"; };
@@ -1559,8 +1562,6 @@
 		C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = KMNetworkLoadingViewController.storyboard; sourceTree = "<group>"; };
 		C87524C01BB52A0F000F86DC /* StoryBoardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryBoardUtilities.h; sourceTree = "<group>"; };
 		C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryBoardUtilities.m; sourceTree = "<group>"; };
-		C877E21C1BCE4E2D00E90448 /* MKStoreKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKStoreKit.h; sourceTree = "<group>"; };
-		C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKStoreKit.m; sourceTree = "<group>"; };
 		C87959981BA2E0C700D670E2 /* FlyingBoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBoardUIView.h; sourceTree = "<group>"; };
 		C87959991BA2E0C700D670E2 /* FlyingBoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBoardUIView.m; sourceTree = "<group>"; };
 		C879599E1BA2F07100D670E2 /* FlyingStreamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingStreamData.h; sourceTree = "<group>"; };
@@ -1795,7 +1796,6 @@
 		FA23C6BE1B14A63200D9E13A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupData.h; sourceTree = "<group>"; };
 		FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupData.m; sourceTree = "<group>"; };
-		FA2B57781B5368FC00371526 /* Inet.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Inet.entitlements; sourceTree = "<group>"; };
 		FA34548F1B04B5BA00DCF2AB /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		FA3454901B04B5BA00DCF2AB /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
 		FA3454911B04B5BA00DCF2AB /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
@@ -1877,8 +1877,6 @@
 		FA349F741B8C5F4700DDF56E /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
 		FA349F751B8C5F4700DDF56E /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos/libSDWebImage.a"; sourceTree = "<group>"; };
 		FA349F761B8C5F4700DDF56E /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
-		FA388397199B6571001FD710 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		FA388398199B6571001FD710 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		FA5ACC1A1B6FB7400051A3EA /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		FA5ACC1C1B6FB7400051A3EA /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
@@ -1979,10 +1977,6 @@
 		FA8F2D9C1B04AC080004C874 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
 		FA8F2D9D1B04AC080004C874 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		FA8F2D9E1B04AC080004C874 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		FA910BCC1AE5F43100430DA1 /* FileHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHash.h; sourceTree = "<group>"; };
-		FA910BCD1AE5F43100430DA1 /* FileHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHash.m; sourceTree = "<group>"; };
-		FA910BCE1AE5F43100430DA1 /* NSData+NSHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSHash.h"; sourceTree = "<group>"; };
-		FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSHash.m"; sourceTree = "<group>"; };
 		FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		FA991AAF1B2183B4003D8F80 /* FlyingShareWithFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingShareWithFriends.h; sourceTree = "<group>"; };
 		FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareWithFriends.m; sourceTree = "<group>"; };
@@ -2008,8 +2002,6 @@
 		FAAD8ED319FB7FED00784EB4 /* fts3_tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
 		FAAD8ED519FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
 		FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
-		FAB5F8FE1B16CC3B0041DF89 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
-		FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 		FAB5F9051B16F5A60041DF89 /* ACEExpandableTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEExpandableTextCell.h; sourceTree = "<group>"; };
 		FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEExpandableTextCell.m; sourceTree = "<group>"; };
 		FAB5F9071B16F5A60041DF89 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
@@ -2028,9 +2020,6 @@
 		FAD37FA81A121B5F00704F04 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		FAD37FAB1A121BB300704F04 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		FAD37FAD1A121CE000704F04 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		FAD886E31B511345007730B3 /* beiyang.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
-		FAD886E41B511345007730B3 /* BirdEnglish.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BirdEnglish.entitlements; sourceTree = "<group>"; };
-		FAD886E51B511345007730B3 /* IBag.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IBag.entitlements; sourceTree = "<group>"; };
 		FAE5C3F61AB7D8ED00E6F748 /* FlyingFakeHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingFakeHUD.h; sourceTree = "<group>"; };
 		FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingFakeHUD.m; sourceTree = "<group>"; };
 		FAE5C4181AB7DB4E00E6F748 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
@@ -2237,7 +2226,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA0AF8071B904C1900E24EF6 /* libAFNetworking.a in Frameworks */,
+				C827C6691BD4E3C60088EF2B /* libUICKeyChainStore.a in Frameworks */,
+				C827C6671BD4E3BB0088EF2B /* libAFNetworking.a in Frameworks */,
 				FA0AF8081B904C1900E24EF6 /* libINTULocationManager.a in Frameworks */,
 				FA0AF8091B904C1900E24EF6 /* libMBProgressHUD.a in Frameworks */,
 				FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */,
@@ -2304,7 +2294,6 @@
 				C806561017FE53BA00CADF4F /* FlyingTagTransform.h */,
 				C806561117FE53BA00CADF4F /* FlyingTagTransform.m */,
 				FA0EE0F81A6CA407007F89D7 /* Map */,
-				C80656A417FE53BA00CADF4F /* Security */,
 				C80656B117FE53BA00CADF4F /* Subtitle */,
 				C80656B617FE53BA00CADF4F /* UI */,
 				C80656FE17FE53BA00CADF4F /* Zip */,
@@ -2370,25 +2359,6 @@
 				C806560A17FE53BA00CADF4F /* FlyingDownloadManager.m */,
 			);
 			path = Download;
-			sourceTree = "<group>";
-		};
-		C80656A417FE53BA00CADF4F /* Security */ = {
-			isa = PBXGroup;
-			children = (
-				C877E21C1BCE4E2D00E90448 /* MKStoreKit.h */,
-				C877E21D1BCE4E2D00E90448 /* MKStoreKit.m */,
-				FAB5F8FE1B16CC3B0041DF89 /* UICKeyChainStore.h */,
-				FAB5F8FF1B16CC3B0041DF89 /* UICKeyChainStore.m */,
-				FA910BCC1AE5F43100430DA1 /* FileHash.h */,
-				FA910BCD1AE5F43100430DA1 /* FileHash.m */,
-				FA910BCE1AE5F43100430DA1 /* NSData+NSHash.h */,
-				FA910BCF1AE5F43100430DA1 /* NSData+NSHash.m */,
-				FA388397199B6571001FD710 /* OpenUDID.h */,
-				FA388398199B6571001FD710 /* OpenUDID.m */,
-				C862440C18A49FFD001686B7 /* FlyingSysWithCenter.h */,
-				C862440D18A49FFD001686B7 /* FlyingSysWithCenter.m */,
-			);
-			path = Security;
 			sourceTree = "<group>";
 		};
 		C80656B117FE53BA00CADF4F /* Subtitle */ = {
@@ -2593,7 +2563,7 @@
 		C81C2BB315F4E2DA00754FE2 = {
 			isa = PBXGroup;
 			children = (
-				FAD886E21B511345007730B3 /* Entitlements */,
+				C827C66A1BD4EEFC0088EF2B /* inet.entitlements */,
 				FA1BE5B41B27DE9B00AA1AFD /* App */,
 				C88B763E173BFC2200955BC2 /* Supporting Files */,
 				C823137D173520930087B3E1 /* Class */,
@@ -2618,6 +2588,8 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */,
+				C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */,
 				C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */,
 				FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */,
 				FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */,
@@ -3162,6 +3134,16 @@
 		FA1BE4831B26A0F100AA1AFD /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				C80EF73E1BD4A553006D57AC /* FileHash.h */,
+				C80EF73F1BD4A553006D57AC /* FileHash.m */,
+				C80EF7401BD4A553006D57AC /* FlyingSysWithCenter.h */,
+				C80EF7411BD4A553006D57AC /* FlyingSysWithCenter.m */,
+				C80EF7421BD4A553006D57AC /* MKStoreKit.h */,
+				C80EF7431BD4A553006D57AC /* MKStoreKit.m */,
+				C80EF7441BD4A553006D57AC /* NSData+NSHash.h */,
+				C80EF7451BD4A553006D57AC /* NSData+NSHash.m */,
+				C80EF7461BD4A553006D57AC /* OpenUDID.h */,
+				C80EF7471BD4A553006D57AC /* OpenUDID.m */,
 				FA0A61911B300AA00022A9E9 /* RCDRCIMDataSource.h */,
 				FA0A61921B300AA00022A9E9 /* RCDRCIMDataSource.m */,
 				FA1BE4841B26A0F100AA1AFD /* AFHttpTool.h */,
@@ -3556,17 +3538,6 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
-		FAD886E21B511345007730B3 /* Entitlements */ = {
-			isa = PBXGroup;
-			children = (
-				FA2B57781B5368FC00371526 /* Inet.entitlements */,
-				FAD886E31B511345007730B3 /* beiyang.entitlements */,
-				FAD886E41B511345007730B3 /* BirdEnglish.entitlements */,
-				FAD886E51B511345007730B3 /* IBag.entitlements */,
-			);
-			path = Entitlements;
-			sourceTree = "<group>";
-		};
 		FAED3F141A695EA000CC6116 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
@@ -3737,6 +3708,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -3775,10 +3749,8 @@
 				C87524051BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA23C6BF1B14A63200D9E13A /* Images.xcassets in Resources */,
 				C88DCF731765B95A00C28D74 /* MainStoryboard.storyboard in Resources */,
-				FAD886E61B511345007730B3 /* beiyang.entitlements in Resources */,
 				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
 				C87524BC1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
-				FAD886E91B511345007730B3 /* BirdEnglish.entitlements in Resources */,
 				C8E57E611BB6A4000013527E /* FlyingEventPriceCell.xib in Resources */,
 				C875241D1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				C8E57E4D1BB6A2370013527E /* FlyingEventScheduleCell.xib in Resources */,
@@ -3813,7 +3785,6 @@
 				C87524BD1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
 				C8E57E4E1BB6A2780013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */,
-				FAD886ED1B511345007730B3 /* IBag.entitlements in Resources */,
 				C87524261BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
 				C875241E1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */,
@@ -3830,7 +3801,6 @@
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
 				FA632A851B51091400A1222E /* MainStoryboard.storyboard in Resources */,
-				FAD886E81B511345007730B3 /* beiyang.entitlements in Resources */,
 				C87524BE1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
 				C875241F1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
@@ -3865,7 +3835,6 @@
 				C87524BF1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
 				C8E57E501BB6A27A0013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */,
-				FA2B57791B5368FC00371526 /* Inet.entitlements in Resources */,
 				C87524281BB390A8000F86DC /* FlyingEventTitleCell.xib in Resources */,
 				C87524201BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */,
@@ -4079,6 +4048,7 @@
 				FA3454E11B04B5BA00DCF2AB /* HTTPConnection.m in Sources */,
 				FAAD8EDD19FB7FED00784EB4 /* FMResultSet.m in Sources */,
 				FA88BC3B1B79E5B000604BC2 /* UIImage+RSKImageCropper.m in Sources */,
+				C80EF7491BD4A553006D57AC /* FlyingSysWithCenter.m in Sources */,
 				FAAD8ED919FB7FED00784EB4 /* FMDatabase.m in Sources */,
 				FA11E7A119CD526200D97FDB /* MuPageViewNormal.m in Sources */,
 				FAE5C4361AB7DB4E00E6F748 /* FlyingPlayerView.m in Sources */,
@@ -4090,7 +4060,6 @@
 				FA1EEC861ACE908500BBA0FA /* FlyingReviewVC.m in Sources */,
 				FA3454FA1B04B5BA00DCF2AB /* DDContextFilterLogFormatter.m in Sources */,
 				FAAD8EE019FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				C862440E18A49FFD001686B7 /* FlyingSysWithCenter.m in Sources */,
 				FA11E7AB19CD526200D97FDB /* ReaderDocument.m in Sources */,
 				FA0EE1341A6D0736007F89D7 /* JPSThumnail.m in Sources */,
 				FA3454E61B04B5BA00DCF2AB /* MultipartMessageHeaderField.m in Sources */,
@@ -4100,6 +4069,7 @@
 				FA8F2DA01B04AC080004C874 /* mztools.c in Sources */,
 				C80657CD17FE53BB00CADF4F /* FlyingLoadingView.m in Sources */,
 				FA8BD0051AD0E20D0092A970 /* MAOFlipViewController.m in Sources */,
+				C80EF74A1BD4A553006D57AC /* MKStoreKit.m in Sources */,
 				C87524191BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				FA7F814E1B1E8F8800BF1C8A /* RCDGroupInfo.m in Sources */,
 				FA3454DF1B04B5BA00DCF2AB /* DDRange.m in Sources */,
@@ -4115,7 +4085,6 @@
 				FA8BCFF91AD0E1500092A970 /* MMParallaxPresenter.m in Sources */,
 				FA8F2D9F1B04AC080004C874 /* ioapi.c in Sources */,
 				C806575E17FE53BB00CADF4F /* FlyingBaseDao.m in Sources */,
-				FA910BD01AE5F43100430DA1 /* FileHash.m in Sources */,
 				FA11E79D19CD526200D97FDB /* MuAnnotSelectView.m in Sources */,
 				FA7F81421B1DC18800BF1C8A /* FlyingPickColorVCViewController.m in Sources */,
 				C87524881BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
@@ -4135,13 +4104,14 @@
 				C8FE1F981BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				C87523641BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				C80657C817FE53BB00CADF4F /* NSBubbleData.m in Sources */,
+				C80EF74B1BD4A553006D57AC /* NSData+NSHash.m in Sources */,
 				FA11E7AC19CD526200D97FDB /* ReaderDocumentOutline.m in Sources */,
 				C806576E17FE53BB00CADF4F /* FlyingTaskWordDAO.m in Sources */,
-				FA388399199B6571001FD710 /* OpenUDID.m in Sources */,
 				FA5ACC241B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FAAD8EDB19FB7FED00784EB4 /* FMDatabasePool.m in Sources */,
 				FA04C0311B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA8CDD7D1B030821004152C2 /* MuPageViewReflow.m in Sources */,
+				C80EF7481BD4A553006D57AC /* FileHash.m in Sources */,
 				C806580D17FE53BB00CADF4F /* FlyingGuideViewController.m in Sources */,
 				FA04C0191B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
 				C8FE201B1BB154C8009C8D48 /* SLKTextView.m in Sources */,
@@ -4163,7 +4133,6 @@
 				FA3454EC1B04B5BA00DCF2AB /* HTTPRedirectResponse.m in Sources */,
 				C8E57E4C1BB6A2370013527E /* FlyingEventScheduleCell.m in Sources */,
 				FAE5C4321AB7DB4E00E6F748 /* FlyingAILearningView.m in Sources */,
-				FAB5F9001B16CC3B0041DF89 /* UICKeyChainStore.m in Sources */,
 				FA0A61931B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
 				FA3454E01B04B5BA00DCF2AB /* HTTPAuthenticationRequest.m in Sources */,
 				FA04BFF71B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
@@ -4211,6 +4180,7 @@
 				FA8BD0061AD0E20D0092A970 /* MAOPanGestureRecognizer.m in Sources */,
 				C83F536B184D692F00E23436 /* UIImageView+thumnail.m in Sources */,
 				FA1BE48E1B26A0F100AA1AFD /* DBHelper.m in Sources */,
+				C80EF74C1BD4A553006D57AC /* OpenUDID.m in Sources */,
 				FA3454F41B04B5BA00DCF2AB /* DDAbstractDatabaseLogger.m in Sources */,
 				FA11E7AE19CD526200D97FDB /* ReaderMainToolbar.m in Sources */,
 				FA04BEEC1B995722000F29A5 /* FlyingCoverView.m in Sources */,
@@ -4246,7 +4216,6 @@
 				FA11E7B519CD526200D97FDB /* ReaderThumbView.m in Sources */,
 				FA04BFE51B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
 				C8FE20161BB154C8009C8D48 /* UIResponder+SLKAdditions.m in Sources */,
-				FA910BD11AE5F43100430DA1 /* NSData+NSHash.m in Sources */,
 				FA0EE11B1A6CA407007F89D7 /* SVPulsingAnnotationView.m in Sources */,
 				FA8BCFF71AD0E1500092A970 /* MMHeaderUIView.m in Sources */,
 				C8937C14181E2DE8000B4F64 /* BEMenuController.m in Sources */,
@@ -4282,7 +4251,6 @@
 				FA88BC2F1B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0131B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
 				FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */,
-				C877E21E1BCE4E2D00E90448 /* MKStoreKit.m in Sources */,
 				FA7A241B1AB5C89A004AC508 /* FlyingNavigationController.m in Sources */,
 				FA8BD0031AD0E20D0092A970 /* MAOFlipInteraction.m in Sources */,
 				FAACD03A1ABC20C800781401 /* FlyingScrollView.m in Sources */,
@@ -4373,14 +4341,12 @@
 				FA1BE4AF1B27DD5A00AA1AFD /* FlyingReviewVC.m in Sources */,
 				FA1BE4B01B27DD5A00AA1AFD /* DDContextFilterLogFormatter.m in Sources */,
 				FA1BE4B11B27DD5A00AA1AFD /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				FA1BE4B21B27DD5A00AA1AFD /* FlyingSysWithCenter.m in Sources */,
 				FA1BE4B31B27DD5A00AA1AFD /* ReaderDocument.m in Sources */,
 				FA1BE4B41B27DD5A00AA1AFD /* JPSThumnail.m in Sources */,
 				FA1BE4B51B27DD5A00AA1AFD /* MultipartMessageHeaderField.m in Sources */,
 				FA1BE4B61B27DD5A00AA1AFD /* FlyingPubLessonData.m in Sources */,
 				FA1BE4B71B27DD5A00AA1AFD /* FlyingCurrentAnnotation.m in Sources */,
 				FA1BE4B81B27DD5A00AA1AFD /* UIImage+localFile.m in Sources */,
-				C8C805471BD217F3009F3712 /* MKStoreKit.m in Sources */,
 				FA1BE4B91B27DD5A00AA1AFD /* mztools.c in Sources */,
 				C87524791BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA1BE4BA1B27DD5A00AA1AFD /* FlyingLoadingView.m in Sources */,
@@ -4400,7 +4366,6 @@
 				FA1BE4C41B27DD5A00AA1AFD /* MMParallaxPresenter.m in Sources */,
 				FA1BE4C61B27DD5A00AA1AFD /* ioapi.c in Sources */,
 				FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */,
-				FA1BE4C91B27DD5A00AA1AFD /* FileHash.m in Sources */,
 				FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */,
 				FA1BE4CB1B27DD5A00AA1AFD /* FlyingPickColorVCViewController.m in Sources */,
 				FA1BE4CC1B27DD5A00AA1AFD /* FlyingDownloader.m in Sources */,
@@ -4421,7 +4386,6 @@
 				FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */,
 				C87524341BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
-				FA1BE4DC1B27DD5A00AA1AFD /* OpenUDID.m in Sources */,
 				FA5ACC251B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
 				FA04C0321B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
@@ -4431,12 +4395,14 @@
 				FA1BE4E01B27DD5A00AA1AFD /* CFSharer.m in Sources */,
 				C87524511BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA1BE4E11B27DD5A00AA1AFD /* FlyingItemDao.m in Sources */,
+				C80EF7501BD4A568006D57AC /* FlyingSysWithCenter.m in Sources */,
 				C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4E21B27DD5A00AA1AFD /* RCDataBaseManager.m in Sources */,
 				FA1BE4E31B27DD5A00AA1AFD /* UIBubbleTableViewCell.m in Sources */,
 				FA1BE4E41B27DD5A00AA1AFD /* FlyingItemView.m in Sources */,
 				FA1BE4E51B27DD5A00AA1AFD /* MultipartFormDataParser.m in Sources */,
 				FA1BE4E61B27DD5A00AA1AFD /* CFShareCircleView.m in Sources */,
+				C80EF7531BD4A56D006D57AC /* MKStoreKit.m in Sources */,
 				FA04BF8F1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				C8C805381BD215E1009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA1BE4E71B27DD5A00AA1AFD /* HTTPErrorResponse.m in Sources */,
@@ -4445,7 +4411,6 @@
 				FA1BE4E91B27DD5A00AA1AFD /* DDData.m in Sources */,
 				FA1BE4EA1B27DD5A00AA1AFD /* HTTPRedirectResponse.m in Sources */,
 				FA1BE4EB1B27DD5A00AA1AFD /* FlyingAILearningView.m in Sources */,
-				FA1BE4EC1B27DD5A00AA1AFD /* UICKeyChainStore.m in Sources */,
 				FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
 				C8C805351BD215D5009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA1BE4ED1B27DD5A00AA1AFD /* HTTPAuthenticationRequest.m in Sources */,
@@ -4466,6 +4431,7 @@
 				FA04BFFC1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				C87524911BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA1BE4FB1B27DD5A00AA1AFD /* FlyingM3U8Parser.m in Sources */,
+				C80EF7591BD4A576006D57AC /* OpenUDID.m in Sources */,
 				FA1BE4FC1B27DD5A00AA1AFD /* ThumbsMainToolbar.m in Sources */,
 				FA1BE4FD1B27DD5A00AA1AFD /* FlyingWordLinguisticData.m in Sources */,
 				C875248D1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
@@ -4474,6 +4440,7 @@
 				FA1BE5021B27DD5A00AA1AFD /* FlyingProvider.m in Sources */,
 				FA1BE5031B27DD5A00AA1AFD /* FlyingHelpVC.m in Sources */,
 				FA1BE5051B27DD5A00AA1AFD /* FlyingWebViewController.m in Sources */,
+				C80EF74D1BD4A564006D57AC /* FileHash.m in Sources */,
 				FA1BE5061B27DD5A00AA1AFD /* FlyingNowLessonDAO.m in Sources */,
 				FA1BE5071B27DD5A00AA1AFD /* ReaderThumbRender.m in Sources */,
 				C875235F1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
@@ -4505,6 +4472,7 @@
 				FA1BE51C1B27DD5A00AA1AFD /* FlyingLessonParser.m in Sources */,
 				C87524451BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241A1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
+				C80EF7561BD4A571006D57AC /* NSData+NSHash.m in Sources */,
 				FA1BE51D1B27DD5A00AA1AFD /* UIBubbleTableView.m in Sources */,
 				FA1BE51E1B27DD5A00AA1AFD /* MuInkView.m in Sources */,
 				FA1BE51F1B27DD5A00AA1AFD /* ACLoupe.m in Sources */,
@@ -4531,7 +4499,6 @@
 				FA04BFF41B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
 				FA1BE5301B27DD5A00AA1AFD /* ReaderThumbView.m in Sources */,
 				FA04BFE61B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA1BE5331B27DD5A00AA1AFD /* NSData+NSHash.m in Sources */,
 				FA1BE5341B27DD5A00AA1AFD /* SVPulsingAnnotationView.m in Sources */,
 				FA1BE5351B27DD5A00AA1AFD /* MMHeaderUIView.m in Sources */,
 				FA1BE5361B27DD5A00AA1AFD /* BEMenuController.m in Sources */,
@@ -4651,14 +4618,12 @@
 				FA6329931B51091400A1222E /* FlyingReviewVC.m in Sources */,
 				FA6329941B51091400A1222E /* DDContextFilterLogFormatter.m in Sources */,
 				FA6329951B51091400A1222E /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				FA6329961B51091400A1222E /* FlyingSysWithCenter.m in Sources */,
 				FA6329971B51091400A1222E /* ReaderDocument.m in Sources */,
 				FA6329981B51091400A1222E /* JPSThumnail.m in Sources */,
 				FA6329991B51091400A1222E /* MultipartMessageHeaderField.m in Sources */,
 				FA63299A1B51091400A1222E /* FlyingPubLessonData.m in Sources */,
 				FA63299B1B51091400A1222E /* FlyingCurrentAnnotation.m in Sources */,
 				FA63299C1B51091400A1222E /* UIImage+localFile.m in Sources */,
-				C8C805481BD217F4009F3712 /* MKStoreKit.m in Sources */,
 				FA63299D1B51091400A1222E /* mztools.c in Sources */,
 				C875247A1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA63299E1B51091400A1222E /* FlyingLoadingView.m in Sources */,
@@ -4678,7 +4643,6 @@
 				FA6329A81B51091400A1222E /* MMParallaxPresenter.m in Sources */,
 				FA6329AA1B51091400A1222E /* ioapi.c in Sources */,
 				FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */,
-				FA6329AD1B51091400A1222E /* FileHash.m in Sources */,
 				FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */,
 				FA6329AF1B51091400A1222E /* FlyingPickColorVCViewController.m in Sources */,
 				FA6329B01B51091400A1222E /* FlyingDownloader.m in Sources */,
@@ -4699,7 +4663,6 @@
 				FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */,
 				C87524351BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
-				FA6329BF1B51091400A1222E /* OpenUDID.m in Sources */,
 				FA5ACC261B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
 				FA04C0331B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
@@ -4709,12 +4672,14 @@
 				FA6329C31B51091400A1222E /* CFSharer.m in Sources */,
 				C87524521BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA6329C41B51091400A1222E /* FlyingItemDao.m in Sources */,
+				C80EF7511BD4A569006D57AC /* FlyingSysWithCenter.m in Sources */,
 				C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA6329C51B51091400A1222E /* RCDataBaseManager.m in Sources */,
 				FA6329C61B51091400A1222E /* UIBubbleTableViewCell.m in Sources */,
 				FA6329C71B51091400A1222E /* FlyingItemView.m in Sources */,
 				FA6329C81B51091400A1222E /* MultipartFormDataParser.m in Sources */,
 				FA6329C91B51091400A1222E /* CFShareCircleView.m in Sources */,
+				C80EF7541BD4A56E006D57AC /* MKStoreKit.m in Sources */,
 				FA04BF901B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				C8C805391BD215E2009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA6329CA1B51091400A1222E /* HTTPErrorResponse.m in Sources */,
@@ -4723,7 +4688,6 @@
 				FA6329CC1B51091400A1222E /* DDData.m in Sources */,
 				FA6329CD1B51091400A1222E /* HTTPRedirectResponse.m in Sources */,
 				FA6329CE1B51091400A1222E /* FlyingAILearningView.m in Sources */,
-				FA6329CF1B51091400A1222E /* UICKeyChainStore.m in Sources */,
 				FA6329D01B51091400A1222E /* RCDRCIMDataSource.m in Sources */,
 				C8C805361BD215D8009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA6329D11B51091400A1222E /* HTTPAuthenticationRequest.m in Sources */,
@@ -4744,6 +4708,7 @@
 				FA04BFFD1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				C87524921BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA6329DE1B51091400A1222E /* FlyingM3U8Parser.m in Sources */,
+				C80EF75A1BD4A577006D57AC /* OpenUDID.m in Sources */,
 				FA6329DF1B51091400A1222E /* ThumbsMainToolbar.m in Sources */,
 				FA6329E01B51091400A1222E /* FlyingWordLinguisticData.m in Sources */,
 				C875248E1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
@@ -4752,6 +4717,7 @@
 				FA6329E51B51091400A1222E /* FlyingProvider.m in Sources */,
 				FA6329E61B51091400A1222E /* FlyingHelpVC.m in Sources */,
 				FA6329E71B51091400A1222E /* FlyingWebViewController.m in Sources */,
+				C80EF74E1BD4A564006D57AC /* FileHash.m in Sources */,
 				FA6329E81B51091400A1222E /* FlyingNowLessonDAO.m in Sources */,
 				FA6329E91B51091400A1222E /* ReaderThumbRender.m in Sources */,
 				C87523601BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
@@ -4783,6 +4749,7 @@
 				FA6329FE1B51091400A1222E /* FlyingLessonParser.m in Sources */,
 				C87524461BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241B1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
+				C80EF7571BD4A572006D57AC /* NSData+NSHash.m in Sources */,
 				FA6329FF1B51091400A1222E /* UIBubbleTableView.m in Sources */,
 				FA632A001B51091400A1222E /* MuInkView.m in Sources */,
 				FA632A011B51091400A1222E /* ACLoupe.m in Sources */,
@@ -4809,7 +4776,6 @@
 				FA04BFF51B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
 				FA632A111B51091400A1222E /* ReaderThumbView.m in Sources */,
 				FA04BFE71B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA632A141B51091400A1222E /* NSData+NSHash.m in Sources */,
 				FA632A151B51091400A1222E /* SVPulsingAnnotationView.m in Sources */,
 				FA632A161B51091400A1222E /* MMHeaderUIView.m in Sources */,
 				FA632A171B51091400A1222E /* BEMenuController.m in Sources */,
@@ -4929,14 +4895,12 @@
 				FA8C3DEF1B535A1500DEA02D /* FlyingReviewVC.m in Sources */,
 				FA8C3DF01B535A1500DEA02D /* DDContextFilterLogFormatter.m in Sources */,
 				FA8C3DF11B535A1500DEA02D /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				FA8C3DF21B535A1500DEA02D /* FlyingSysWithCenter.m in Sources */,
 				FA8C3DF31B535A1500DEA02D /* ReaderDocument.m in Sources */,
 				FA8C3DF41B535A1500DEA02D /* JPSThumnail.m in Sources */,
 				FA8C3DF51B535A1500DEA02D /* MultipartMessageHeaderField.m in Sources */,
 				FA8C3DF61B535A1500DEA02D /* FlyingPubLessonData.m in Sources */,
 				FA8C3DF71B535A1500DEA02D /* FlyingCurrentAnnotation.m in Sources */,
 				FA8C3DF81B535A1500DEA02D /* UIImage+localFile.m in Sources */,
-				C8C805491BD217F5009F3712 /* MKStoreKit.m in Sources */,
 				FA8C3DF91B535A1500DEA02D /* mztools.c in Sources */,
 				C875247B1BB39674000F86DC /* MotionOrientation.m in Sources */,
 				FA8C3DFA1B535A1500DEA02D /* FlyingLoadingView.m in Sources */,
@@ -4956,7 +4920,6 @@
 				FA8C3E041B535A1500DEA02D /* MMParallaxPresenter.m in Sources */,
 				FA8C3E061B535A1500DEA02D /* ioapi.c in Sources */,
 				FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */,
-				FA8C3E091B535A1500DEA02D /* FileHash.m in Sources */,
 				FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */,
 				FA8C3E0B1B535A1500DEA02D /* FlyingPickColorVCViewController.m in Sources */,
 				FA8C3E0C1B535A1500DEA02D /* FlyingDownloader.m in Sources */,
@@ -4977,7 +4940,6 @@
 				FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */,
 				C87524361BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
-				FA8C3E1B1B535A1500DEA02D /* OpenUDID.m in Sources */,
 				FA5ACC271B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
 				FA04C0341B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
@@ -4987,12 +4949,14 @@
 				FA8C3E1F1B535A1500DEA02D /* CFSharer.m in Sources */,
 				C87524531BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				FA8C3E201B535A1500DEA02D /* FlyingItemDao.m in Sources */,
+				C80EF7521BD4A56A006D57AC /* FlyingSysWithCenter.m in Sources */,
 				C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA8C3E211B535A1500DEA02D /* RCDataBaseManager.m in Sources */,
 				FA8C3E221B535A1500DEA02D /* UIBubbleTableViewCell.m in Sources */,
 				FA8C3E231B535A1500DEA02D /* FlyingItemView.m in Sources */,
 				FA8C3E241B535A1500DEA02D /* MultipartFormDataParser.m in Sources */,
 				FA8C3E251B535A1500DEA02D /* CFShareCircleView.m in Sources */,
+				C80EF7551BD4A56F006D57AC /* MKStoreKit.m in Sources */,
 				FA04BF911B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				C8C8053A1BD215E3009F3712 /* SLKInputAccessoryView.m in Sources */,
 				FA8C3E261B535A1500DEA02D /* HTTPErrorResponse.m in Sources */,
@@ -5001,7 +4965,6 @@
 				FA8C3E281B535A1500DEA02D /* DDData.m in Sources */,
 				FA8C3E291B535A1500DEA02D /* HTTPRedirectResponse.m in Sources */,
 				FA8C3E2A1B535A1500DEA02D /* FlyingAILearningView.m in Sources */,
-				FA8C3E2B1B535A1500DEA02D /* UICKeyChainStore.m in Sources */,
 				FA8C3E2C1B535A1500DEA02D /* RCDRCIMDataSource.m in Sources */,
 				C8C805371BD215DA009F3712 /* UIView+SLKAdditions.m in Sources */,
 				FA8C3E2D1B535A1500DEA02D /* HTTPAuthenticationRequest.m in Sources */,
@@ -5022,6 +4985,7 @@
 				FA04BFFE1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				C87524931BB39674000F86DC /* NSDate+Components.m in Sources */,
 				FA8C3E3A1B535A1500DEA02D /* FlyingM3U8Parser.m in Sources */,
+				C80EF75B1BD4A578006D57AC /* OpenUDID.m in Sources */,
 				FA8C3E3B1B535A1500DEA02D /* ThumbsMainToolbar.m in Sources */,
 				FA8C3E3C1B535A1500DEA02D /* FlyingWordLinguisticData.m in Sources */,
 				C875248F1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
@@ -5030,6 +4994,7 @@
 				FA8C3E411B535A1500DEA02D /* FlyingProvider.m in Sources */,
 				FA8C3E421B535A1500DEA02D /* FlyingHelpVC.m in Sources */,
 				FA8C3E431B535A1500DEA02D /* FlyingWebViewController.m in Sources */,
+				C80EF74F1BD4A565006D57AC /* FileHash.m in Sources */,
 				FA8C3E441B535A1500DEA02D /* FlyingNowLessonDAO.m in Sources */,
 				FA8C3E451B535A1500DEA02D /* ReaderThumbRender.m in Sources */,
 				C87523611BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
@@ -5061,6 +5026,7 @@
 				FA8C3E5A1B535A1500DEA02D /* FlyingLessonParser.m in Sources */,
 				C87524471BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241C1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
+				C80EF7581BD4A573006D57AC /* NSData+NSHash.m in Sources */,
 				FA8C3E5B1B535A1500DEA02D /* UIBubbleTableView.m in Sources */,
 				FA8C3E5C1B535A1500DEA02D /* MuInkView.m in Sources */,
 				FA8C3E5D1B535A1500DEA02D /* ACLoupe.m in Sources */,
@@ -5087,7 +5053,6 @@
 				FA04BFF61B9B04A4000F29A5 /* PSCollectionView.m in Sources */,
 				FA8C3E6D1B535A1500DEA02D /* ReaderThumbView.m in Sources */,
 				FA04BFE81B9B048B000F29A5 /* FlyingCoverViewCell.m in Sources */,
-				FA8C3E701B535A1500DEA02D /* NSData+NSHash.m in Sources */,
 				FA8C3E711B535A1500DEA02D /* SVPulsingAnnotationView.m in Sources */,
 				FA8C3E721B535A1500DEA02D /* MMHeaderUIView.m in Sources */,
 				FA8C3E731B535A1500DEA02D /* BEMenuController.m in Sources */,
@@ -5452,7 +5417,7 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/ibag/ibag-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5509,7 +5474,7 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/ibag/ibag-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5567,7 +5532,7 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/beiyang/beiyang.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5621,7 +5586,7 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/beiyang/beiyang.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5656,7 +5621,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/Inet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = inet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -5680,14 +5645,13 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Inet/inet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/libraries/Social/**",
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -5714,8 +5678,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/Inet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = inet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ziran du (K93QTN9HY2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ziran du (K93QTN9HY2)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5736,14 +5701,13 @@
 					"$(SRCROOT)/libraries/Zxing/include/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Inet/inet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/libraries/Social/**",
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

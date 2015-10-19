@@ -173,7 +173,8 @@
         )
     {
         
-        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         
         if (!openID) {
             

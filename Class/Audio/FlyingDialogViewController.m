@@ -224,7 +224,8 @@
         [self prepairMovie];
     });
     
-    NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
 
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
@@ -1120,7 +1121,8 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+            NSString *openID = keychain[KOPENUDIDKEY];
 
             //更新点击次数和课程相关消费记录
             [_touchDAO countPlusWithUserID:openID LessonID:self.lessonID];
@@ -1277,9 +1279,10 @@
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
         [taskWordDAO setUserModle:NO];
         
-        NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
 
-        [taskWordDAO insertWithUesrID:passport
+        [taskWordDAO insertWithUesrID:openID
                                  Word:touchWord.getLemma
                            Sentence:sentence
                              LessonID:self.lessonID];
@@ -1326,8 +1329,9 @@
         if (_contentType==BEWebM3U8Vedio || _contentType==BEWebMp4Vedio || _contentType==BEWebMp3Audio) {
             
             //删除数据库本地纪录，资源自动释放
-            NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
-            [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:passport LessonID:self.lessonID];
+            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+            NSString *openID = keychain[KOPENUDIDKEY];
+            [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:openID LessonID:self.lessonID];
         }
     });
 }
@@ -1400,9 +1404,10 @@
 -(void) getNewLessonList
 {
     
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
 
-    NSArray * tempArrayID =  [[ [[FlyingNowLessonDAO alloc] init] selectIDWithUserID:passport] mutableCopy] ;
+    NSArray * tempArrayID =  [[ [[FlyingNowLessonDAO alloc] init] selectIDWithUserID:openID] mutableCopy] ;
     
     FlyingLessonDAO * lessonDAO= [[FlyingLessonDAO alloc] init];
     

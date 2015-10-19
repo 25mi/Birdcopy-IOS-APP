@@ -17,11 +17,12 @@
 
 - (id)initWithLessonData:(FlyingLessonData *) lessonData;
 {
-    NSString *passport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
     
     if(self = [super init]){
         
-        self.BEUSERID    = passport;
+        self.BEUSERID    = openID;
         self.BELESSONID  = lessonData.BELESSONID;
         self.BESTAMP     = 0;
         self.BELOCALCOVER= lessonData.localURLOfCover;

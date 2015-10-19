@@ -73,7 +73,10 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    self.currentPassPort = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
+
+    self.currentPassPort = openID;
     
     self.currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:self.currentPassPort];
     

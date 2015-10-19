@@ -210,7 +210,10 @@ enum
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     _background_queue = [appDelegate getAIQueue];
     
-    _currentPassport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
+
+    _currentPassport = openID;
     _speechPlayer = [[FlyingSoundPlayer alloc] init];
     [self autoRemoveWordView];
     

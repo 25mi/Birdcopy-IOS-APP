@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "656"
             endingLineNumber = "656"
-            landmarkName = "+getAlbumListForAuthor:ContentType:PageNumber:Recommend:Completion:"
+            landmarkName = "+updateMembershipForAccount:AppID:StartDate:EndDate:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "660"
             endingLineNumber = "660"
-            landmarkName = "+getLessonListForAuthor:PageNumber:lessonConcentType:DownloadType:Tag:SortbyTime:Recommend:Completion:"
+            landmarkName = "+updateMembershipForAccount:AppID:StartDate:EndDate:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1630,22 +1630,6 @@
             startingLineNumber = "168"
             endingLineNumber = "168"
             landmarkName = "-getTagListForAuthor:Tag:withCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/Search/FlyingSearchViewController.m"
-            timestampString = "466838964.41165"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "-getWordList"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

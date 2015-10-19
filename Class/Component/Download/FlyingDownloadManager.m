@@ -63,7 +63,8 @@
     if (_downloadingOperationList.count>0) {
         
         FlyingNowLessonDAO * dao = [FlyingNowLessonDAO new];
-        NSString *openID = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+        NSString *openID = keychain[KOPENUDIDKEY];
         
         [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString * leesonID, FlyingDownloader * downloader, BOOL *stop) {
             

@@ -384,7 +384,10 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 -(void) initData
 {
-    _currentPassport = [UICKeyChainStore keyChainStore][KOPENUDIDKEY];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
+
+    _currentPassport = openID;
 
     if(!_background_queue){
         
