@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Finance Education.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>FlyingEnglish.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C81C2BBD15F4E2DA00754FE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C81F8A6C1BD7B488004146F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

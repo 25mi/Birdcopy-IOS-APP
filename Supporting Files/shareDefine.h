@@ -46,7 +46,15 @@ typedef enum BESearchType
 //社会化管理
 #define kBELoginWeixin_URL        @"weixin://qr/QnWWjkvEjhbxrQ-t9yBQ"
 #define kBEAppstore_China_URL     @"https://itunes.apple.com/cn/app/cai-niao-ying-yu/id622328549?mt=8"
+
 #define KBEWeixinAPPID            @"wx6ff0856d58d6e397"
+#define KBYWeixinAPPID            @"wx120047123f35e00e"
+
+#define KBDWeixinAPPID            @"wx2eeb16e9571e3c88"
+
+#define KINETWeixinAPPID          @"wx9f8b646d050ff6d2"
+#define KFDWeixinAPPID            @"wx73a97518db1cff0f"
+
 
 // IM管理
 #define RONGCLOUD_IM_ENGLISH_APPKEY      @"e5t4ouvptjtsa"
@@ -117,14 +125,14 @@ typedef enum BESearchType
 #define KLessonOwnerPersonKind    @"0"
 #define KLessonOwnerCompanyKind   @"1"
 
-
 //搜索相关
 #define kTagListStr_URL           @"%@/la_get_tag_string_for_hp.action?vc=3&perPageCount=%@&page=%@&ln_tag=%@&ln_owner=%@"
 #define kWordListStr_URL          @"%@/la_get_word_string_for_hp.action?word=%@"
 
-#define KEnglishServerAddress     @"http://www.birdenglish.com:9999"
+#define KEnglishServerAddress     @"http://e.birdcopy.com"
 #define KDoctorServerAddress      @"http://d.birdcopy.com"
 #define KITServerAddress          @"http://it.birdcopy.com"
+#define KFDServerAddress          @"http://fd.birdcopy.com"
 
 #define KUpdateM3U8FileURL        @"la_access_file_from_hp.action"
 

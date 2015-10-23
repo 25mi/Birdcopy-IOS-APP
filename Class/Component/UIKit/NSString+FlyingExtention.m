@@ -30,6 +30,10 @@
 #ifdef __CLIENT__IS__IT__
     serverNetAddress=KITServerAddress;
 #endif
+    
+#ifdef __CLIENT__IS__FD__
+    serverNetAddress=KFDServerAddress;
+#endif
 
     return serverNetAddress;
 }

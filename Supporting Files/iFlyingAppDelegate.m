@@ -222,7 +222,27 @@
         [self prepairIAP];
         
         //向微信注册
-        [WXApi registerApp:KBEWeixinAPPID];
+        
+        NSString* weixinAPPID=KBEWeixinAPPID;
+        
+#ifdef __CLIENT__IS__ENGLISH__
+        
+        weixinAPPID=KBEWeixinAPPID;
+#endif
+
+#ifdef __CLIENT__IS__IT__
+        weixinAPPID =KINETWeixinAPPID;
+#endif
+
+#ifdef __CLIENT__IS__DOCTOR__
+        weixinAPPID =KBDWeixinAPPID;
+#endif
+
+#ifdef __CLIENT__IS__FD__
+        weixinAPPID =KFDWeixinAPPID;
+#endif
+        
+        [WXApi registerApp:weixinAPPID];
         
         //准备字典
         [self prepareDictionary];
