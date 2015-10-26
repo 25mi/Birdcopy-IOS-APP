@@ -31,10 +31,12 @@ Birdcopy是菜鸟微云提供的一个手机应用,旨在帮助小微社群提�
 [birdenglish]: http://e.birdcopy.com
 [ibag]: http://v.birdcopy.com
 [inet]: http://it.birdcopy.com
+[fd]: http://fd.birdcopy.com
 
 - 医学、健康行业使用案例[会议包][ibag]
 - 英语行业使用案例[北阳英语][birdenglish]
 - IT培训行业使用案例[艾奈特][inet]
+- 学历教育使用案例[社科金博][fd]
 
 ## License
 
