@@ -11,7 +11,9 @@
 @interface NSString (FlyingExtention)
 
 + (NSString*) getServerAddress;
++ (NSString*) getWeixinID;
 + (NSString*) getRongAppKey;
++ (NSString*) getOfficalURL;
 
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;

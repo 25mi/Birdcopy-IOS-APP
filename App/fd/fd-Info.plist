@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
-	<string>Inet</string>
+	<string>FinanceEducation</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
@@ -24,7 +24,7 @@
 		<string>zh_CN</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>Inet</string>
+	<string>FinanceEducation</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

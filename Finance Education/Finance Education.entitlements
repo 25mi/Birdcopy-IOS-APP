@@ -2,13 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Consumables</key>
-	<dict/>
-	<key>Others</key>
+	<key>keychain-access-groups</key>
 	<array>
-		<string>financemembership</string>
+		<string>$(AppIdentifierPrefix)com.birdcopy.finance</string>
 	</array>
-	<key>SharedSecret</key>
-	<string>657f7836819241b48074e5d261d87df1</string>
 </dict>
 </plist>

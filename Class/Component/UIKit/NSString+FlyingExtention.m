@@ -38,6 +38,31 @@
     return serverNetAddress;
 }
 
++ (NSString*) getWeixinID
+{
+    NSString* weixinAPPID=KBEWeixinAPPID;
+    
+#ifdef __CLIENT__IS__ENGLISH__
+    
+    weixinAPPID=KBEWeixinAPPID;
+#endif
+    
+#ifdef __CLIENT__IS__IT__
+    weixinAPPID =KINETWeixinAPPID;
+#endif
+    
+#ifdef __CLIENT__IS__DOCTOR__
+    weixinAPPID =KBDWeixinAPPID;
+#endif
+    
+#ifdef __CLIENT__IS__FD__
+    weixinAPPID =KFDWeixinAPPID;
+#endif
+
+    return weixinAPPID;
+}
+
+
 + (NSString*) getRongAppKey
 {
     NSString* rongAPPkey=nil;
@@ -53,8 +78,35 @@
 #ifdef __CLIENT__IS__IT__
     rongAPPkey=RONGCLOUD_IM_IT_APPKEY;
 #endif
+    
+#ifdef __CLIENT__IS__FD__
+    rongAPPkey=RONGCLOUD_IM_FD_APPKEY;
+#endif
 
     return rongAPPkey;
+}
+
++ (NSString*) getOfficalURL
+{
+    NSString* officalURL=@"http://www.birdcopy.com";
+    
+#ifdef __CLIENT__IS__ENGLISH__
+    officalURL=@"http://e.birdcopy.com";
+#endif
+    
+#ifdef __CLIENT__IS__DOCTOR__
+    officalURL=@"http://d.birdcopy.com";
+#endif
+    
+#ifdef __CLIENT__IS__IT__
+    officalURL=@"http://it.birdcopy.com";
+#endif
+    
+#ifdef __CLIENT__IS__FD__
+    officalURL=@"http://fd.birdcopy.com";
+#endif
+    
+    return officalURL;
 }
 
 

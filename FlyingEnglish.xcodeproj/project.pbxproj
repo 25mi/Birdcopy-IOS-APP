@@ -391,7 +391,6 @@
 		C81F8BB01BD7B488004146F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
 		C81F8BB21BD7B488004146F0 /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
 		C81F8BB31BD7B488004146F0 /* FlyingEventAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523E11BB390A8000F86DC /* FlyingEventAuthorCell.xib */; };
-		C81F8BB41BD7B488004146F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA23C6BE1B14A63200D9E13A /* Images.xcassets */; };
 		C81F8BB51BD7B488004146F0 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88DCF721765B95A00C28D74 /* MainStoryboard.storyboard */; };
 		C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
 		C81F8BB71BD7B488004146F0 /* KMNetworkLoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87524BB1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard */; };
@@ -409,7 +408,6 @@
 		C81F8BC31BD7B488004146F0 /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		C81F8BD71BD7E47A004146F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BCC1BD7B552004146F0 /* InfoPlist.strings */; };
 		C81F8BD81BD7E482004146F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BCE1BD7B552004146F0 /* Images.xcassets */; };
-		C81F8BD91BD7E49C004146F0 /* fd-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BCF1BD7B552004146F0 /* fd-Info.plist */; };
 		C81F8BDA1BD7E4A2004146F0 /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BD01BD7B552004146F0 /* MKStoreKitConfigs.plist */; };
 		C827C6671BD4E3BB0088EF2B /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */; };
 		C827C6691BD4E3C60088EF2B /* libUICKeyChainStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */; };
@@ -442,7 +440,6 @@
 		C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C85F1F9F15FB1C56004A99CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
-		C874EC371BD20F08006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; };
 		C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */; };
 		C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; };
 		C87523541BB29C65000F86DC /* FlyingEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523521BB29C65000F86DC /* FlyingEventVC.m */; };
@@ -1795,13 +1792,11 @@
 		C81D74EC18B6359F0068FDC7 /* FlyingTouchDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTouchDAO.h; sourceTree = "<group>"; };
 		C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTouchDAO.m; sourceTree = "<group>"; };
 		C81F8BC91BD7B488004146F0 /* Finance Education.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Finance Education.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C81F8BCA1BD7B488004146F0 /* FlyingEnglish copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlyingEnglish copy-Info.plist"; path = "/Users/songbaoqiang/Documents/Birdcopy-IOS-APP/FlyingEnglish copy-Info.plist"; sourceTree = "<absolute>"; };
 		C81F8BCD1BD7B552004146F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81F8BCE1BD7B552004146F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C81F8BCF1BD7B552004146F0 /* fd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "fd-Info.plist"; sourceTree = "<group>"; };
 		C81F8BD01BD7B552004146F0 /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		C81F8BD11BD7B552004146F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		C81F8BD61BD7CBBB004146F0 /* Finance Education.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Finance Education.entitlements"; sourceTree = "<group>"; };
 		C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Release-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Release-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		C827C66A1BD4EEFC0088EF2B /* inet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = inet.entitlements; sourceTree = "<group>"; };
@@ -1945,6 +1940,7 @@
 		C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
 		C8D5A27016A79782002060CC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		C8DADE3518FD170600954C8D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = libraries/Social/libWeChatSDK.a; sourceTree = "<group>"; };
+		C8E492D51BDDEDB8007B8F23 /* Finance Education.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Finance Education.entitlements"; path = "Finance Education/Finance Education.entitlements"; sourceTree = "<group>"; };
 		C8E57D941BB69ABF0013527E /* FlyingEventLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEventLocationCell.h; sourceTree = "<group>"; };
 		C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEventLocationCell.m; sourceTree = "<group>"; };
 		C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingEventLocationCell.xib; sourceTree = "<group>"; };
@@ -2974,7 +2970,7 @@
 		C81C2BB315F4E2DA00754FE2 = {
 			isa = PBXGroup;
 			children = (
-				C81F8BD61BD7CBBB004146F0 /* Finance Education.entitlements */,
+				C8E492D51BDDEDB8007B8F23 /* Finance Education.entitlements */,
 				C85E8AB21BD63FC900650D00 /* BirdEnglish.entitlements */,
 				C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */,
 				C827C66A1BD4EEFC0088EF2B /* inet.entitlements */,
@@ -2985,7 +2981,6 @@
 				C81C2BC115F4E2DA00754FE2 /* Frameworks */,
 				C81C2BBF15F4E2DA00754FE2 /* Products */,
 				F4F5FD1EDE586B1BC7793805 /* Pods */,
-				C81F8BCA1BD7B488004146F0 /* FlyingEnglish copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4111,7 +4106,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = iFlying;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = BirdEngish;
 				TargetAttributes = {
 					C81C2BBD15F4E2DA00754FE2 = {
@@ -4132,7 +4127,7 @@
 						};
 					};
 					C81F8A6C1BD7B488004146F0 = {
-						DevelopmentTeam = 8AS3ML95SH;
+						DevelopmentTeam = V483NATPWH;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -4239,8 +4234,6 @@
 				C81F8BB21BD7B488004146F0 /* calloutLight.mp3 in Resources */,
 				C81F8BD81BD7E482004146F0 /* Images.xcassets in Resources */,
 				C81F8BB31BD7B488004146F0 /* FlyingEventAuthorCell.xib in Resources */,
-				C81F8BD91BD7E49C004146F0 /* fd-Info.plist in Resources */,
-				C81F8BB41BD7B488004146F0 /* Images.xcassets in Resources */,
 				C81F8BDA1BD7E4A2004146F0 /* MKStoreKitConfigs.plist in Resources */,
 				C81F8BB51BD7B488004146F0 /* MainStoryboard.storyboard in Resources */,
 				C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */,
@@ -4290,7 +4283,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C874EC371BD20F08006F276E /* MKStoreKitConfigs.plist in Resources */,
 				FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */,
 				C87524071BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
@@ -6046,8 +6038,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				SDKROOT = iphoneos;
@@ -6083,7 +6075,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "DE26DF99-C4C9-40F2-BE84-B1E69B050931";
@@ -6216,7 +6208,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6256,7 +6248,7 @@
 					"-lz",
 					"-objc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.fd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -6274,7 +6266,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6313,7 +6305,7 @@
 					"-lz",
 					"-objc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.fd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;

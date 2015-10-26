@@ -228,16 +228,9 @@
     }
     else if (indexPath.section == 4 && indexPath.row == 0)
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id helpVC = [storyboard instantiateViewControllerWithIdentifier:@"helpinfo"];
-        
-        [self.navigationController pushViewController:helpVC animated:YES];
-    }
-    else if (indexPath.section == 4 && indexPath.row == 1)
-    {
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        [appDelegate  showWebviewWithURL:@"http://www.birdcopy.com"];
+        [appDelegate  showWebviewWithURL:[NSString getOfficalURL]];
     }
 
         /*
