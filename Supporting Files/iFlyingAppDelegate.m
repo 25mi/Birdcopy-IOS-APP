@@ -163,6 +163,13 @@
         
         temp=@"beiyang";
     }
+    else
+    {
+        if ([temp isEqualToString:@"finance"]) {
+            
+            temp=@"fd";
+        }
+    }
  
     [[NSUserDefaults standardUserDefaults] setValue:temp forKey:KAppOwner];
     [[NSUserDefaults standardUserDefaults] setValue:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] forKey:KAppOwnerNickname];

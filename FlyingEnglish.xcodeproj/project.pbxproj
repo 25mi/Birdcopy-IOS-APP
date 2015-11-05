@@ -340,12 +340,6 @@
 		C81F8B7C1BD7B488004146F0 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524431BB394FC000F86DC /* UIView+Border.m */; };
 		C81F8B7D1BD7B488004146F0 /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B81B04B5BA00DCF2AB /* DAVConnection.m */; };
 		C81F8B7E1BD7B488004146F0 /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
-		C81F8B801BD7B488004146F0 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F721B8C5F4700DDF56E /* libAFNetworking.a */; };
-		C81F8B811BD7B488004146F0 /* libINTULocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F731B8C5F4700DDF56E /* libINTULocationManager.a */; };
-		C81F8B821BD7B488004146F0 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F741B8C5F4700DDF56E /* libMBProgressHUD.a */; };
-		C81F8B831BD7B488004146F0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B78710A6B62E33FAD31163C /* libPods.a */; };
-		C81F8B841BD7B488004146F0 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F751B8C5F4700DDF56E /* libSDWebImage.a */; };
-		C81F8B851BD7B488004146F0 /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA349F761B8C5F4700DDF56E /* libSIAlertView.a */; };
 		C81F8B861BD7B488004146F0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
 		C81F8B871BD7B488004146F0 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9E15FB1C56004A99CE /* MediaPlayer.framework */; };
 		C81F8B881BD7B488004146F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5F24EC1A84FFEF00FC6617 /* UIKit.framework */; };
@@ -592,6 +586,13 @@
 		C8A4FD0517114D1A00EBA4F4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A4FD0417114D1900EBA4F4 /* CFNetwork.framework */; };
 		C8ACF249164DF876005937FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8ACF247164DF825005937FD /* AudioToolbox.framework */; };
 		C8B21C90168B58AD001D3BD9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B21C8F168B58AC001D3BD9 /* SystemConfiguration.framework */; };
+		C8C390EE1BDF7A7A00F6AC9B /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390E71BDF7A7A00F6AC9B /* libAFNetworking.a */; };
+		C8C390EF1BDF7A7A00F6AC9B /* libINTULocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390E81BDF7A7A00F6AC9B /* libINTULocationManager.a */; };
+		C8C390F01BDF7A7A00F6AC9B /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390E91BDF7A7A00F6AC9B /* libMBProgressHUD.a */; };
+		C8C390F11BDF7A7A00F6AC9B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390EA1BDF7A7A00F6AC9B /* libPods.a */; };
+		C8C390F21BDF7A7A00F6AC9B /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390EB1BDF7A7A00F6AC9B /* libSDWebImage.a */; };
+		C8C390F31BDF7A7A00F6AC9B /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390EC1BDF7A7A00F6AC9B /* libSIAlertView.a */; };
+		C8C390F41BDF7A7A00F6AC9B /* libUICKeyChainStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C390ED1BDF7A7A00F6AC9B /* libUICKeyChainStore.a */; };
 		C8C58B9D18FD667B00FD512F /* libZXingObjC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */; };
 		C8C805231BD21494009F3712 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; };
 		C8C805241BD21495009F3712 /* FlyingCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */; };
@@ -1829,6 +1830,7 @@
 		C851199018D92EF60078AEC1 /* ACMagnifyingGlass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMagnifyingGlass.m; sourceTree = "<group>"; };
 		C851199118D92EF60078AEC1 /* ACMagnifyingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMagnifyingView.h; sourceTree = "<group>"; };
 		C851199218D92EF60078AEC1 /* ACMagnifyingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMagnifyingView.m; sourceTree = "<group>"; };
+		C85A70291BDE525B003E8AF8 /* ibag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ibag.entitlements; sourceTree = "<group>"; };
 		C85AC307181CA39D00B83580 /* calloutLight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = calloutLight.mp3; sourceTree = "<group>"; };
 		C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = iMoneyDialogClose.wav; sourceTree = "<group>"; };
 		C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = iMoneyDialogOpen.wav; sourceTree = "<group>"; };
@@ -1933,11 +1935,20 @@
 		C8A8D21116DCBC6D00BA2891 /* libiconv.2.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.2.4.0.dylib; path = usr/lib/libiconv.2.4.0.dylib; sourceTree = SDKROOT; };
 		C8ACF247164DF825005937FD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C8B21C8F168B58AC001D3BD9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C8C390E71BDF7A7A00F6AC9B /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		C8C390E81BDF7A7A00F6AC9B /* libINTULocationManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libINTULocationManager.a; path = "Pods/../build/Debug-iphoneos/libINTULocationManager.a"; sourceTree = "<group>"; };
+		C8C390E91BDF7A7A00F6AC9B /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		C8C390EA1BDF7A7A00F6AC9B /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		C8C390EB1BDF7A7A00F6AC9B /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "Pods/../build/Debug-iphoneos/libSDWebImage.a"; sourceTree = "<group>"; };
+		C8C390EC1BDF7A7A00F6AC9B /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "Pods/../build/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
+		C8C390ED1BDF7A7A00F6AC9B /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Debug-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libZXingObjC-iOS.a"; path = "libraries/Zxing/libZXingObjC-iOS.a"; sourceTree = "<group>"; };
 		C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingRCLocationPickerViewController.h; sourceTree = "<group>"; };
 		C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingRCLocationPickerViewController.m; sourceTree = "<group>"; };
 		C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
+		C8D396B81BDF76A000525299 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Release-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		C8D396BA1BDF76A500525299 /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Release-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		C8D5A27016A79782002060CC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		C8DADE3518FD170600954C8D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = libraries/Social/libWeChatSDK.a; sourceTree = "<group>"; };
 		C8E492D51BDDEDB8007B8F23 /* Finance Education.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Finance Education.entitlements"; path = "Finance Education/Finance Education.entitlements"; sourceTree = "<group>"; };
@@ -2466,12 +2477,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C81F8B801BD7B488004146F0 /* libAFNetworking.a in Frameworks */,
-				C81F8B811BD7B488004146F0 /* libINTULocationManager.a in Frameworks */,
-				C81F8B821BD7B488004146F0 /* libMBProgressHUD.a in Frameworks */,
-				C81F8B831BD7B488004146F0 /* libPods.a in Frameworks */,
-				C81F8B841BD7B488004146F0 /* libSDWebImage.a in Frameworks */,
-				C81F8B851BD7B488004146F0 /* libSIAlertView.a in Frameworks */,
+				C8C390EE1BDF7A7A00F6AC9B /* libAFNetworking.a in Frameworks */,
+				C8C390EF1BDF7A7A00F6AC9B /* libINTULocationManager.a in Frameworks */,
+				C8C390F01BDF7A7A00F6AC9B /* libMBProgressHUD.a in Frameworks */,
+				C8C390F11BDF7A7A00F6AC9B /* libPods.a in Frameworks */,
+				C8C390F21BDF7A7A00F6AC9B /* libSDWebImage.a in Frameworks */,
+				C8C390F31BDF7A7A00F6AC9B /* libSIAlertView.a in Frameworks */,
+				C8C390F41BDF7A7A00F6AC9B /* libUICKeyChainStore.a in Frameworks */,
 				C81F8B861BD7B488004146F0 /* CoreMotion.framework in Frameworks */,
 				C81F8B871BD7B488004146F0 /* MediaPlayer.framework in Frameworks */,
 				C81F8B881BD7B488004146F0 /* UIKit.framework in Frameworks */,
@@ -2970,6 +2982,7 @@
 		C81C2BB315F4E2DA00754FE2 = {
 			isa = PBXGroup;
 			children = (
+				C85A70291BDE525B003E8AF8 /* ibag.entitlements */,
 				C8E492D51BDDEDB8007B8F23 /* Finance Education.entitlements */,
 				C85E8AB21BD63FC900650D00 /* BirdEnglish.entitlements */,
 				C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */,
@@ -2999,6 +3012,15 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8C390E71BDF7A7A00F6AC9B /* libAFNetworking.a */,
+				C8C390E81BDF7A7A00F6AC9B /* libINTULocationManager.a */,
+				C8C390E91BDF7A7A00F6AC9B /* libMBProgressHUD.a */,
+				C8C390EA1BDF7A7A00F6AC9B /* libPods.a */,
+				C8C390EB1BDF7A7A00F6AC9B /* libSDWebImage.a */,
+				C8C390EC1BDF7A7A00F6AC9B /* libSIAlertView.a */,
+				C8C390ED1BDF7A7A00F6AC9B /* libUICKeyChainStore.a */,
+				C8D396BA1BDF76A500525299 /* libUICKeyChainStore.a */,
+				C8D396B81BDF76A000525299 /* libAFNetworking.a */,
 				C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */,
 				C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */,
 				C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */,
@@ -4141,6 +4163,9 @@
 						DevelopmentTeam = V483NATPWH;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -6221,7 +6246,6 @@
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__CLIENT__IS__FD__=1",
-					"__CLIENT__IS__PLATFORM__=1",
 					"DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -6240,6 +6264,8 @@
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -6250,7 +6276,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7d61a04a-2c29-45fd-8491-602bccdec6fb";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6267,8 +6293,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6277,10 +6303,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__FD__=1",
-					"__CLIENT__IS__PLATFORM__=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__FD__=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6297,6 +6320,8 @@
 					"$(SRCROOT)/libraries/Mupdf",
 					"$(SRCROOT)/libraries/Zxing/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FlyingEnglish-dfjmcrpquxgdkoczehckzostgeto/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -6307,7 +6332,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ea0489c1-c7d1-47ab-8601-3016c622c04b";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6323,7 +6348,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/IBag.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ibag.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6365,7 +6390,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
 				PRODUCT_NAME = ibag;
-				PROVISIONING_PROFILE = "53a51057-9f6a-4838-a7c6-28b6a345bbc7";
+				PROVISIONING_PROFILE = "c059359d-db83-40bf-be72-f42d14adfbd1";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6381,9 +6406,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/IBag.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = ibag.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6422,8 +6447,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
 				PRODUCT_NAME = ibag;
-				PROVISIONING_PROFILE = "83b4b677-03fc-496a-8f23-108e456318fd";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "83b4b677-03fc-496a-8f23-108e456318fd";
+				PROVISIONING_PROFILE = "40ac924d-a8e0-4d86-bd58-41d1a3791d66";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6589,6 +6613,7 @@
 					"-lcurl",
 					"-lz",
 					"-objc",
+					"$(OTHER_LDFLAGS)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
@@ -6645,6 +6670,7 @@
 					"-lcurl",
 					"-lz",
 					"-objc",
+					"$(OTHER_LDFLAGS)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;

@@ -8,65 +8,51 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>INTULocationManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>SIAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>UICKeyChainStore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>11A8C0546C13256CAFCDF0464AF4D173</key>
+		<key>04F07D828BA0FE61E18ABC6DA3540D79</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0E393E62DA184662FB5FA7D2E2F9DF5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>21632E092CC1558F2471E6961975EB34</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>47347F53BF5A1522955B3F947E4B08D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -81,7 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>802581DD6030A7D50C05771D9A62FDF2</key>
+		<key>5844AFEC8BBE871106DDC7BBF5D2B03B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
