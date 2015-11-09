@@ -1207,10 +1207,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__36-[FlyingEventVC requestEventDetails]_block_invoke"
-                  moduleName = "Finance Education"
+                  moduleName = "beiyang"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "467769988.617381"
+                  timestampString = "468730833.069511"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "129"
@@ -1222,10 +1222,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__36-[FlyingEventVC requestEventDetails]_block_invoke_2"
-                  moduleName = "Finance Education"
+                  moduleName = "beiyang"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Event/FlyingEventVC.m"
-                  timestampString = "467769988.6176"
+                  timestampString = "468730833.069738"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "129"
@@ -1333,10 +1333,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[FlyingWebViewController webView]"
-                  moduleName = "Finance Education"
+                  moduleName = "beiyang"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
-                  timestampString = "467769988.620382"
+                  timestampString = "468730833.073765"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "19"
@@ -1348,10 +1348,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[FlyingWebViewController setWebView:]"
-                  moduleName = "Finance Education"
+                  moduleName = "beiyang"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/songbaoqiang/Documents/Birdcopy-IOS-APP/Class/Document/FlyingWebViewController.h"
-                  timestampString = "467769988.620677"
+                  timestampString = "468730833.074004"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -1710,6 +1710,102 @@
             startingLineNumber = "134"
             endingLineNumber = "134"
             landmarkName = "-dismiss"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Supporting Files/iFlyingAppDelegate.m"
+            timestampString = "468727664.399925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1986"
+            endingLineNumber = "1986"
+            landmarkName = "-presentStoreView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Account/FlyingAccountVC.m"
+            timestampString = "468730292.146301"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "-updateAccountState"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Supporting Files/iFlyingAppDelegate.m"
+            timestampString = "468730558.772353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2027"
+            endingLineNumber = "2027"
+            landmarkName = "-buyAppleIdentify:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/DataManager/FlyingSysWithCenter.m"
+            timestampString = "468730564.772584"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
+            landmarkName = "+uploadMembershipWithCenter"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/DataManager/FlyingSysWithCenter.m"
+            timestampString = "468730569.378623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "+uploadMembershipWithCenter"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/DataManager/FlyingSysWithCenter.m"
+            timestampString = "468730604.225257"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "+uploadMembershipWithCenter"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

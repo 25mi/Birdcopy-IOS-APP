@@ -108,6 +108,23 @@
     
     [FlyingSysWithCenter sysWithCenter];
     
+    [self updateAccountState];
+    
+    //监控账户更新
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateAccountState)
+                                                 name:KBEAccountChange
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //关闭实时监控
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountChange    object:nil];
+}
+
+- (void) updateAccountState
+{
     NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
     
     if (nickName.length==0) {
@@ -117,10 +134,10 @@
     self.accountNikename.text=nickName;
     
     NSString * endTimeStr=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
-
+    
     if (endTimeStr)
     {
-        self.membership.text=[NSString stringWithFormat:@"会员有效期:%@",endTimeStr];
+        self.membership.text=[NSString stringWithFormat:@"会员至:%@",endTimeStr];
     }
     else
     {

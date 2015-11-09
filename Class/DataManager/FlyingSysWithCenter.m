@@ -456,6 +456,8 @@
                                                 
                                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
                                                 [[NSUserDefaults standardUserDefaults] synchronize];
+                                                
+                                                [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
                                             }
                                         }];
     }

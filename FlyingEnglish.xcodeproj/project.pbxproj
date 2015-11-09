@@ -580,6 +580,7 @@
 		C88F3153185D5BFC00548B84 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88F3152185D5BFB00548B84 /* Social.framework */; };
 		C88F315D185D6EAC00548B84 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88F315C185D6EAC00548B84 /* MessageUI.framework */; };
 		C8937C14181E2DE8000B4F64 /* BEMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8937C13181E2DE8000B4F64 /* BEMenuController.m */; };
+		C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; };
 		C8A0E48A177D91AF002667EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A0E489177D91AE002667EC /* ImageIO.framework */; };
 		C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		C8A3A6A6167A07D60013FA4D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A3A6A5167A07D60013FA4D /* AVFoundation.framework */; };
@@ -4317,6 +4318,7 @@
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
 				C875241F1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				C875242F1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
+				C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */,
 				FA632A871B51091400A1222E /* dicModel.db in Resources */,
 				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
@@ -6464,7 +6466,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
@@ -6504,7 +6506,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f8af4b02-2c59-40bd-b801-9d6358c4a6cb";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6521,8 +6523,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6558,8 +6559,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "7339ca32-040d-4061-80d7-becb3f3a99d2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
