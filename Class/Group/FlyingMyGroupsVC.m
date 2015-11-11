@@ -26,7 +26,10 @@
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
 
-#import <RCIMClient.h>
+#import <RongIMKit/RongIMKit.h>
+#import <RongIMLib/RongIMLib.h>
+
+//#import <RCIMClient.h>
 #import "RCDChatViewController.h"
 #import "RCDataBaseManager.h"
 

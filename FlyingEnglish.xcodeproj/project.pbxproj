@@ -395,7 +395,6 @@
 		C81F8BBC1BD7B488004146F0 /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
 		C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		C81F8BBF1BD7B488004146F0 /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C874EC381BD20F4C006F276E /* MKStoreKitConfigs.plist */; };
 		C81F8BC01BD7B488004146F0 /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		C81F8BC11BD7B488004146F0 /* FlyingEventLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57D961BB69ABF0013527E /* FlyingEventLocationCell.xib */; };
 		C81F8BC21BD7B488004146F0 /* FlyingEventTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523ED1BB390A8000F86DC /* FlyingEventTitleCell.xib */; };
@@ -4032,6 +4031,7 @@
 				C81C2BBC15F4E2DA00754FE2 /* Resources */,
 				D48F9B8202B6E772CE0283E6 /* Copy Pods Resources */,
 				FAB5F8FD1B16CA6D0041DF89 /* ShellScript */,
+				8DBABB48649C664AF59BF5A6 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4272,7 +4272,6 @@
 				C81F8BBC1BD7B488004146F0 /* dicModel.db in Resources */,
 				C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */,
 				C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */,
-				C81F8BBF1BD7B488004146F0 /* MKStoreKitConfigs.plist in Resources */,
 				C81F8BC01BD7B488004146F0 /* LootCoinSmall.wav in Resources */,
 				C81F8BC11BD7B488004146F0 /* FlyingEventLocationCell.xib in Resources */,
 				C81F8BC21BD7B488004146F0 /* FlyingEventTitleCell.xib in Resources */,
@@ -4371,6 +4370,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8DBABB48649C664AF59BF5A6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C81F8A6D1BD7B488004146F0 /* Check Pods Manifest.lock */ = {
@@ -6066,7 +6080,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				SDKROOT = iphoneos;
@@ -6163,7 +6177,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b91d1248-5db5-4ce0-9fa1-95603e669a95";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6219,7 +6233,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.flyingenglish;
 				PRODUCT_NAME = BirdEnglish;
-				PROVISIONING_PROFILE = "2da22fba-53dd-46a0-90d6-36c41a1b795e";
+				PROVISIONING_PROFILE = "ff71aaf6-416a-4029-bbf9-158099193364";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6247,6 +6261,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__CLIENT__IS__PLATFORM__=1",
 					"__CLIENT__IS__FD__=1",
 					"DEBUG=1",
 				);
@@ -6278,10 +6293,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7d61a04a-2c29-45fd-8491-602bccdec6fb";
+				PROVISIONING_PROFILE = "89ee7ab7-58a3-4937-8dd1-69b1ede46398";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6296,7 +6311,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6305,7 +6319,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__FD__=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__CLIENT__IS__PLATFORM__=1",
+					"__CLIENT__IS__FD__=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6334,10 +6351,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ea0489c1-c7d1-47ab-8601-3016c622c04b";
+				PROVISIONING_PROFILE = "94ed69b9-8495-4e9f-8ff5-b203afce4937";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -6392,7 +6409,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
 				PRODUCT_NAME = ibag;
-				PROVISIONING_PROFILE = "c059359d-db83-40bf-be72-f42d14adfbd1";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6409,8 +6426,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ibag.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ling lu (V483NATPWH)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6449,7 +6466,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.ibag;
 				PRODUCT_NAME = ibag;
-				PROVISIONING_PROFILE = "40ac924d-a8e0-4d86-bd58-41d1a3791d66";
+				PROVISIONING_PROFILE = "3c1ad20f-8c6c-4511-89f3-bae9b790b56a";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6506,7 +6523,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "f8af4b02-2c59-40bd-b801-9d6358c4a6cb";
+				PROVISIONING_PROFILE = "7c1851c3-0dac-4f29-a5fd-9ace391c2b66";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6524,6 +6541,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6559,7 +6577,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "7339ca32-040d-4061-80d7-becb3f3a99d2";
+				PROVISIONING_PROFILE = "bd17d5c0-1efb-4f16-89d4-6ca90acc1463";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6617,7 +6635,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87bfbc06-d074-446b-8dc1-0c9ac0019e76";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6635,7 +6653,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = inet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ziran du (K93QTN9HY2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ziran du (K93QTN9HY2)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6674,7 +6691,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "890e2fab-05a8-4914-894a-d6f54bacab29";
+				PROVISIONING_PROFILE = "da13f826-c091-4189-9795-68f14f878bd3";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";

@@ -1902,9 +1902,7 @@
 
 - (void) shareToWeiXinIsSession:(BOOL) isSession
 {
-    
-    if(! ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] ||
-          [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]]) )
+    if (![WXApi isWXAppInstalled]) 
     {
         [self.window makeToast:@"抱歉：只有安装微信才能使用此功能" duration:3 position:CSToastPositionCenter];
 

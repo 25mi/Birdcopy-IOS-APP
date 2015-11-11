@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Finance Education.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>FlyingEnglish.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>beiyang.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>ibag.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>inet.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>C81C2BBD15F4E2DA00754FE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C81F8A6C1BD7B488004146F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA1BE4941B27DD5A00AA1AFD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA6329781B51091400A1222E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA8C3DD41B535A1500DEA02D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

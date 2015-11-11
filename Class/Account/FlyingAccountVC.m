@@ -119,6 +119,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     //关闭实时监控
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountChange    object:nil];
 }
