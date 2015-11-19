@@ -26,7 +26,7 @@
 #import "FlyingTaskWordDAO.h"
 #import "UICKeyChainStore.h"
 #import "iFlyingAppDelegate.h"
-
+#import "NSString+FlyingExtention.h"
 
 #define MENU_IPHONE_HEIGHT  50
 #define MENU_IPAD_HEIGHT    MENU_IPHONE_HEIGHT*2
@@ -54,8 +54,7 @@
     
 #ifdef __CLIENT__IS__ENGLISH__
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (openID) {
         

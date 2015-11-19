@@ -126,8 +126,7 @@
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     [_statisticDAO initDataForUserID:openID];
     _touchDAO     = [[FlyingTouchDAO alloc] init];
@@ -502,8 +501,7 @@
                         currentLessonID =@"BirdCopyCommonID";
                     }
                     
-                    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-                    NSString *openID = keychain[KOPENUDIDKEY];
+                    NSString *openID = [NSString getOpenUDID];
 
                     [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
                 });
@@ -597,8 +595,7 @@
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
         [taskWordDAO setUserModle:NO];
         
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-        NSString *openID = keychain[KOPENUDIDKEY];
+        NSString *openID = [NSString getOpenUDID];
 
         [taskWordDAO insertWithUesrID:openID
                                  Word:[touchWord lowercaseString]

@@ -11,14 +11,14 @@
 #import "FlyingLessonData.h"
 #import "UICKeyChainStore.h"
 #import "OpenUDID.h"
+#import "NSString+FlyingExtention.h"
 
 
 @implementation FlyingNowLessonData
 
 - (id)initWithLessonData:(FlyingLessonData *) lessonData;
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(self = [super init]){
         

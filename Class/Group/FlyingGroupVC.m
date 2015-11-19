@@ -32,6 +32,7 @@
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
 #import "RCDataBaseManager.h"
+#import "NSString+FlyingExtention.h"
 
 @interface FlyingGroupVC ()<UIGestureRecognizerDelegate>
 {
@@ -519,8 +520,7 @@
 - (void)profileImageViewPressed:(FlyingStreamData*)streamData
 {
 
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
         

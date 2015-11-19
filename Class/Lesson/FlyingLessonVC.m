@@ -384,8 +384,7 @@ static void *FlyingViewControllerTrackObservationContext         = &FlyingViewCo
 
 -(void) initData
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
 
     _currentPassport = openID;
 

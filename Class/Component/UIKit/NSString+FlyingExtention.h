@@ -14,6 +14,8 @@
 + (NSString*) getWeixinID;
 + (NSString*) getRongAppKey;
 + (NSString*) getOfficalURL;
++ (NSString*) getAppID;
++ (NSString*) getOpenUDID;
 
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;

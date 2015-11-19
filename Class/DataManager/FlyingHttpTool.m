@@ -609,8 +609,8 @@
                                         
                                         if (tempArray.count==3) {
                                             
-                                            NSString* startDateStr = [tempArray[0] stringValue];
-                                            NSString* endDateStr  = [tempArray[1] stringValue];
+                                            NSString* startDateStr = tempArray[0];
+                                            NSString* endDateStr  = tempArray[1];
                                             
                                             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                                             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -626,6 +626,7 @@
 
                                 } failure:^(NSError *err) {
                                     //
+                                    NSLog(@"错误是：%@",err.description);
                                 }];
 }
 
@@ -656,6 +657,7 @@
                                     }
                                 } failure:^(NSError *err) {
                                     //
+                                    NSLog(@"错误");
                                 }];
 }
 

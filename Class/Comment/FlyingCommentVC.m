@@ -32,6 +32,8 @@
 #import "RCDChatViewController.h"
 #import "RCDataBaseManager.h"
 
+#import "NSString+FlyingExtention.h"
+
 @interface FlyingCommentVC ()
 {
     NSInteger            _maxNumOfComments;
@@ -338,8 +340,7 @@
 //////////////////////////////////////////////////////////////
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
         

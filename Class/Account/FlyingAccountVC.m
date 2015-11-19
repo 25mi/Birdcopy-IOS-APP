@@ -100,16 +100,14 @@
     dispatch_async(dispatch_get_main_queue() , ^{
         [self loadPortrait];
     });
+    
+    [self updateAccountState];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [FlyingSysWithCenter sysWithCenter];
-    
-    [self updateAccountState];
-    
+        
     //监控账户更新
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateAccountState)
@@ -156,8 +154,7 @@
     }
     else
     {
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-        NSString *openID = keychain[KOPENUDIDKEY];
+        NSString *openID = [NSString getOpenUDID];
         
         if (!openID) {
             
@@ -283,8 +280,7 @@
                        }
                        
                        //清楚缓存课程文件
-                       UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-                       NSString *openID = keychain[KOPENUDIDKEY];
+                       NSString *openID = [NSString getOpenUDID];
                        
                        if (!openID) {
                            
@@ -400,8 +396,7 @@
 {
     NSData *imageData = UIImageJPEGRepresentation(editedImage, 0.7); // 0.7 is JPG quality
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
         
@@ -668,10 +663,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
                                                       object:nil
-                                                       queue:[[NSOperationQueue alloc] init]
+                                                       queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                   
-                                                      [self.tableView reloadData];
+                                                      [self updateAccountState];
+                                                      //[self.tableView reloadData];
                                                   }];
 
 }

@@ -367,8 +367,7 @@
                          Success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
         
@@ -487,12 +486,11 @@
     
     [params setObject:appID forKey:@"app_id"];
     [params setObject:@"validth" forKey:@"type"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ua_get_user_info_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
+        
+    [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
+                        params:params
+                       success:success
+                       failure:failure];
 }
 
 + (void)  updateMembershipForAccount:account
@@ -518,12 +516,11 @@
     
     [params setObject:startDateString forKey:@"start_time"];
     [params setObject:endDateString forKey:@"end_time"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ua_sync_validth_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
+        
+    [AFHttpTool requestWithUrl:@"ua_sync_validth_from_hp.action"
+                        params:params
+                       success:success
+                       failure:failure];
 }
 
 + (void) chargingCardSysURLForUserID:(NSString *) userID

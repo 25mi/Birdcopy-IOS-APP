@@ -224,8 +224,7 @@
         [self prepairMovie];
     });
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
 
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
@@ -1121,8 +1120,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-            NSString *openID = keychain[KOPENUDIDKEY];
+            NSString *openID = [NSString getOpenUDID];
 
             //更新点击次数和课程相关消费记录
             [_touchDAO countPlusWithUserID:openID LessonID:self.lessonID];
@@ -1279,8 +1277,7 @@
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
         [taskWordDAO setUserModle:NO];
         
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-        NSString *openID = keychain[KOPENUDIDKEY];
+        NSString *openID = [NSString getOpenUDID];
 
         [taskWordDAO insertWithUesrID:openID
                                  Word:touchWord.getLemma
@@ -1329,8 +1326,7 @@
         if (_contentType==BEWebM3U8Vedio || _contentType==BEWebMp4Vedio || _contentType==BEWebMp3Audio) {
             
             //删除数据库本地纪录，资源自动释放
-            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-            NSString *openID = keychain[KOPENUDIDKEY];
+            NSString *openID = [NSString getOpenUDID];
             [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:openID LessonID:self.lessonID];
         }
     });
@@ -1403,9 +1399,7 @@
 
 -(void) getNewLessonList
 {
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
 
     NSArray * tempArrayID =  [[ [[FlyingNowLessonDAO alloc] init] selectIDWithUserID:openID] mutableCopy] ;
     

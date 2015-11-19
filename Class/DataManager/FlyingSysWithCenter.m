@@ -30,8 +30,7 @@
 {
     @synchronized(self)
     {
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-        NSString *openID = keychain[KOPENUDIDKEY];
+        NSString *openID = [NSString getOpenUDID];
         
         if (!openID) {
             
@@ -132,8 +131,7 @@
 //获取充值卡数据
 +(void) sysQRMoneyWithCenter
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(!openID)
     {
@@ -188,8 +186,7 @@
 //向服务器获备份消费以及其其它非充值数据
 +(void) uploadUserCenter
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(!openID)
     {
@@ -279,8 +276,7 @@
 //向服务器获取备份数据和最新充值数据，在本地激活用户ID
 +(void) activeAccount
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
         
@@ -395,39 +391,30 @@
 
 +(void) sysMembershipWithCenter
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(!openID)
     {
         return;
     }
 
-    NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
-    
-    if (availableProducts.count>0) {
-        
-        if ([[MKStoreKit sharedKit] isProductPurchased:availableProducts[0]]) {
-
-            //向服务器获取最新会员数据
-            [FlyingHttpTool getMembershipForAccount:openID
-                                              AppID:nil
-                                         Completion:^(NSDate *startDate, NSDate *endDate) {
-                                             //
-                                             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                                             
-                                             NSString *startDateStr = [dateFormatter stringFromDate:startDate];
-                                             NSString *endDateStr = [dateFormatter stringFromDate:endDate];
-                                             
-                                             [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
-                                             [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
-                                             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
-                                             
-                                             [[NSUserDefaults standardUserDefaults] synchronize];
-                                         }];
-        }
-    }
+    //向服务器获取最新会员数据
+    [FlyingHttpTool getMembershipForAccount:openID
+                                      AppID:[NSString getAppID]
+                                 Completion:^(NSDate *startDate, NSDate *endDate) {
+                                     //
+                                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                     
+                                     NSString *startDateStr = [dateFormatter stringFromDate:startDate];
+                                     NSString *endDateStr = [dateFormatter stringFromDate:endDate];
+                                     
+                                     [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
+                                     [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
+                                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
+                                     
+                                     [[NSUserDefaults standardUserDefaults] synchronize];
+                                 }];
 }
 
 +(void) uploadMembershipWithCenter
@@ -441,13 +428,12 @@
     NSDate *startDate = [dateFormatter dateFromString:startDateStr];
     NSDate *endDate = [dateFormatter dateFromString:endDateStr];
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if (openID) {
         
         [FlyingHttpTool updateMembershipForAccount:openID
-                                             AppID:nil
+                                             AppID:[NSString getAppID]
                                          StartDate:startDate
                                            EndDate:endDate
                                         Completion:^(BOOL result) {
@@ -493,8 +479,7 @@
 
 +(void) lowCointAlert
 {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(!openID)
     {
@@ -519,8 +504,7 @@
 //用终端登录官网后台
 +(void) loginWithQR:(NSString*)loginID
 {    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
     
     if(!openID)
     {

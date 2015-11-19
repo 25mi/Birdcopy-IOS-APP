@@ -109,6 +109,41 @@
     return officalURL;
 }
 
++ (NSString*) getAppID
+{
+    NSString* appID=nil;
+    
+#ifdef __CLIENT__IS__ENGLISH__
+    appID=BIRDENGLISH_APPKEY;
+#endif
+    
+#ifdef __CLIENT__IS__DOCTOR__
+    appID=DOCTOR_APPKEY;
+#endif
+    
+#ifdef __CLIENT__IS__IT__
+    appID=IT_APPKEY;
+#endif
+    
+#ifdef __CLIENT__IS__FD__
+    appID=FD_APPKEY;
+#endif
+    
+    return appID;
+}
+
++ (NSString*) getOpenUDID
+{
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
+    NSString *openID = keychain[KOPENUDIDKEY];
+    
+    if(!openID)
+    {
+        openID=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KOPENUDIDKEY];
+    }
+    
+    return openID;
+}
 
 + (NSURL *) tagListStrForAuthor:(NSString*)author
                             Tag:(NSString *) tag

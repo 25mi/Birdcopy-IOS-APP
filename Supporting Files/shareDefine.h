@@ -62,6 +62,12 @@ typedef enum BESearchType
 #define RONGCLOUD_IM_IT_APPKEY           @"pgyu6atqykgju"
 #define RONGCLOUD_IM_FD_APPKEY           @"x18ywvqf8uxzc"
 
+// APP管理
+#define BIRDENGLISH_APPKEY      @"BIRDENGLISH_APPKEY"
+#define BEIYANG_APPKEY          @"BEIYANG_APPKEY"
+#define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
+#define IT_APPKEY               @"IT_APPKEY"
+#define FD_APPKEY               @"FD_APPKEY"
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 #define kUserNickName             @"kUserNickName"

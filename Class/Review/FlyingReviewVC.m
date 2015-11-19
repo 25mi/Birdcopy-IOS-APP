@@ -22,6 +22,7 @@
 #import "UIView+Toast.h"
 #import "FlyingMyGroupsVC.h"
 #import "FlyingDiscoverContent.h"
+#import "NSString+FlyingExtention.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate>
 
@@ -73,8 +74,7 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
+    NSString *openID = [NSString getOpenUDID];
 
     self.currentPassPort = openID;
     
