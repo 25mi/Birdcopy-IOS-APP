@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #import "FlyingStreamData.h"
+#import "FlyingCommentData.h"
 
 typedef NS_ENUM(NSInteger, RequestMethodType){
     RequestMethodTypePost = 1,
@@ -141,6 +142,21 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure;
 
+
+//////////////////////////////////////////////////////////////
+#pragma  评论相关
+//////////////////////////////////////////////////////////////
++ (void) getCommentListForContentID:(NSString*) contentID
+                        ContentType:(NSString*) contentType
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure;
+
+
++ (void) updateComment:(FlyingCommentData*) commentData
+               success:(void (^)(id response))success
+               failure:(void (^)(NSError* err))failure;
+
 //////////////////////////////////////////////////////////////////////////////////
 //以前的API
 //////////////////////////////////////////////////////////////////////////////////
@@ -251,15 +267,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                        lessonID:(NSString *) lessonID
                         success:(void (^)(id response))success
                         failure:(void (^)(NSError* err))failure;
-
-
-//获取相关评论
-+ (void) getCommentListForSreamType:(NSString*) streamType
-                          ContentID:(NSString*) contentID
-                         PageNumber:(NSInteger) pageNumber
-                            success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure;
-
 //////////////////////////////////////////////////////////////
 #pragma   字典相关
 //////////////////////////////////////////////////////////////

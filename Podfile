@@ -8,6 +8,12 @@ pod 'MBProgressHUD'
 pod 'INTULocationManager'
 pod 'UICKeyChainStore'
 
+pod 'SlackTextViewController'
+
+pod 'UITableView+FDTemplateLayoutCell'
+
+
+
 
 
 

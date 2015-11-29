@@ -63,13 +63,8 @@
     
     self.navigationItem.rightBarButtonItem=saveButtonItem;
     
-    NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
+    NSString *nickName=[NSString getNickName];
     NSString *userAbstract=[UICKeyChainStore keyChainStore][kUserAbstract];
-    
-    if (!nickName || nickName.length==0) {
-        
-        nickName =[[UIDevice currentDevice] name];
-    }
     
     if (!userAbstract || userAbstract.length==0) {
         
@@ -162,7 +157,7 @@
     NSString * nickName = [self.cellData objectAtIndex:0];
     NSString * userAbstract = [self.cellData objectAtIndex:1];
 
-    NSString *oldNickName =[UICKeyChainStore keyChainStore][kUserNickName];
+    NSString *oldNickName =[NSString getNickName];
     NSString *oldUserAbstract=[UICKeyChainStore keyChainStore][kUserAbstract];
 
     [UICKeyChainStore keyChainStore][kUserNickName] = nickName;

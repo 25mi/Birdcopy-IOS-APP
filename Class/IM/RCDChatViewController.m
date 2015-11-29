@@ -18,7 +18,7 @@
 #import "FlyingWebViewController.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingLessonParser.h"
-#import "FlyingLessonVC.h"
+#import "FlyingContentVC.h"
 #import "RCDataBaseManager.h"
 #import <AFNetworking.h>
 #import  "ZXingObjC.h"
@@ -368,7 +368,7 @@
     [FlyingHttpTool getLessonForLessonID:lesssonID Completion:^(FlyingPubLessonData *lesson) {
         //
         if (lesson) {
-            FlyingLessonVC * vc= [[FlyingLessonVC alloc] init];
+            FlyingContentVC * vc= [[FlyingContentVC alloc] init];
             [vc setTheLesson:lesson];
             
             [self.navigationController pushViewController:vc animated:YES];

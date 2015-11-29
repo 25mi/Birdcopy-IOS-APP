@@ -16,6 +16,7 @@
 + (NSString*) getOfficalURL;
 + (NSString*) getAppID;
 + (NSString*) getOpenUDID;
++ (NSString*) getNickName;
 
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;
@@ -60,6 +61,10 @@
 
 + (BOOL)isPureInt:(NSString*)toCheck;
 
+
++ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
+
+
 - (NSUInteger) numberOfWordsInString;
 - (NSString *) localSrtURL;
 - (NSString *) localCoverURL;
@@ -79,5 +84,7 @@
 
 - (NSString *)relativePathFromDocumentDirectory:(NSString *) lessonID;
 - (NSString *)absolutePathFromDocumentDirectory:(NSString *) lessonID;
+
+
 
 @end

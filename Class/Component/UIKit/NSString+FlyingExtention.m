@@ -145,6 +145,17 @@
     return openID;
 }
 
++ (NSString*) getNickName
+{
+    NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
+    
+    if (nickName.length==0) {
+        nickName =[[UIDevice currentDevice] name];
+    }
+
+    return nickName;
+}
+
 + (NSURL *) tagListStrForAuthor:(NSString*)author
                             Tag:(NSString *) tag
                       withCount:(NSInteger) pagecount
@@ -567,6 +578,33 @@
     NSScanner* scan = [NSScanner scannerWithString:toCheck];
     int val;
     return [scan scanInt:&val] && [scan isAtEnd];
+}
+
++ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval
+{
+    NSInteger ti = (NSInteger)interval;
+    
+    NSInteger seconds = ti % 60;
+    NSInteger minutes = (ti / 60) % 60;
+    NSInteger hours = (ti / 3600);
+    NSInteger days = (ti / (3600*24));
+    
+    if (days>0)
+    {
+        return [NSString stringWithFormat:@"%ld天前",(long)days];
+    }
+    else if(hours>0)
+    {
+        return [NSString stringWithFormat:@"%ld小时前",(long)hours];
+    }
+    else if(minutes>0)
+    {
+        return [NSString stringWithFormat:@"%ld分钟前",(long)minutes];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%ld秒前",(long)seconds];
+    }
 }
 
 - (NSUInteger)numberOfWordsInString

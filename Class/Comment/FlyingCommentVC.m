@@ -34,6 +34,10 @@
 
 #import "NSString+FlyingExtention.h"
 
+#import <UITableView+FDTemplateLayoutCell.h>
+#import "FlyingLoadingCell.h"
+#import "FlyingContentSummaryCell.h"
+
 @interface FlyingCommentVC ()
 {
     NSInteger            _maxNumOfComments;
@@ -41,6 +45,10 @@
     
     NSInteger           kLoadMoreIndicatorTag;
 }
+
+@property (strong, nonatomic) FlyingLoadingCell *loadingCommentIndicatorCell;
+
+
 @end
 
 @implementation FlyingCommentVC
@@ -70,15 +78,30 @@
 
 - (void)commonInit
 {
+    
+    UINib *nib = [UINib nibWithNibName:@"FlyingCommentCell" bundle: nil];
+    [self.tableView registerNib:nib  forCellReuseIdentifier:@"FlyingCommentCell"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"FlyingLoadingCell" bundle: nil]
+         forCellReuseIdentifier:@"FlyingLoadingCell"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentSummaryCell" bundle: nil]
+         forCellReuseIdentifier:@"FlyingContentSummaryCell"];
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor grayColor];
+    [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
     /*
     // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
-    [self registerClassForTextView:[MessageTextView class]];
     
 #if DEBUG_CUSTOM_TYPING_INDICATOR
     // Register a UIView subclass, conforming to SLKTypingIndicatorProtocol, to use a custom typing indicator view.
     [self registerClassForTypingIndicatorView:[TypingIndicatorView class]];
 #endif
      */
+    
+    self.inverted=false;
 }
 
 - (void)viewDidLoad
@@ -140,72 +163,53 @@
 
 - (BOOL)loadMore
 {
-    //test only
-    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
-
-    [FlyingHttpTool getAllGroupsForAPPOwner:author
-                                  Recommend:YES
-                                 PageNumber:1
-                                 Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-                                     
-                                     if (groupList.count!=0) {
-                                         
-                                         [self.currentData addObjectsFromArray:groupList];
-                                         _maxNumOfComments=allRecordCount;
-                                         
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             
-                                             [self finishLoadingData];
-                                         });
-                                     }
-                                 }];
-    
-    
-    return true;
-    
-    /*
-     if (_currentData.count<_maxNumOfComments)
-     {
-     _currentLodingIndex++;
-     
-     [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
-     Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-     //
-     [self.currentData addObjectsFromArray:groupList];
-     _maxNumOfComments=allRecordCount;
-     
-     dispatch_async(dispatch_get_main_queue(), ^{
-     [self finishLoadingData];
-     });
-     }];
-     return true;
-     }
-     else{
-     
-     return false;
-     }
-     */
+    if (_currentData.count<_maxNumOfComments)
+    {
+        _currentLodingIndex++;
+        
+        [FlyingHttpTool getCommentListForContentID:self.contentID
+                                       ContentType:self.contentType
+                                        PageNumber:_currentLodingIndex
+                                        Completion:^(NSArray *commentList, NSInteger allRecordCount) {
+                                            
+                                            if (commentList.count!=0) {
+                                                
+                                                [self.currentData addObjectsFromArray:commentList];
+                                                _maxNumOfComments=allRecordCount;
+                                                
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    
+                                                    [self.tableView reloadData];
+                                                });
+                                            }
+                                        }];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 -(void) finishLoadingData
 {
-    //更新界面
-    if (_currentData.count>0)
-    {
-        [self.tableView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
+    [self.tableView reloadData];
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Datasource
 //////////////////////////////////////////////////////////////
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return CGFLOAT_MIN;
+    
+    return CGFLOAT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentData.count && _currentData.count<_maxNumOfComments)
+    if (_currentData.count && _currentData.count<_maxNumOfComments)
     {
         return 2; // 增加一个加载更多
     }
@@ -217,11 +221,8 @@
 {
     if (section == 0)
     {
-        //test
-        
-        return 8;
-        
-        //return [self.currentData count];
+        NSInteger actualNumberOfRows = [self.currentData count];
+        return (actualNumberOfRows  == 0) ? 1 : actualNumberOfRows;
     }
     
     // 加载更多
@@ -230,70 +231,93 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell* cell = nil;
+
     if (indexPath.section == 0)
     {
-        // 普通Cell
-        FlyingCommentCell* cell = [tableView dequeueReusableCellWithIdentifier:COMMENTCELL_IDENTIFIER];
-        
-        if (!cell) {
-            cell = [[FlyingCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:COMMENTCELL_IDENTIFIER];
+        NSInteger actualNumberOfRows = [self.currentData count];
+
+        if (actualNumberOfRows == 0) {
+            // Produce a special cell with the "list is now empty" message
+            FlyingContentSummaryCell *contentSummaryCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentSummaryCell"];
+            
+            if(contentSummaryCell == nil)
+                contentSummaryCell = [FlyingContentSummaryCell contentSummaryCell];
+            
+            [self configureCell:contentSummaryCell atIndexPath:indexPath];
+            cell = contentSummaryCell;
         }
-        
-        //Test
-        FlyingCommentData* commentData =  [[FlyingCommentData alloc] init];
-        
-        commentData.nickName=@"测试用户";
-        commentData.commentContent=@"这个是简单的评论内容，或者说是聊天的文本内容。";
-        commentData.portraitURL=@"http://www.birdenglish.com:9999/public/puu/3/pu_logo_3.png";
-        
-        
-        //FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
-        [cell loadingCommentData:commentData];
-        cell.delegate =self;
-        
-        cell.transform = self.tableView.transform;
-
-        return cell;
+        else
+        {
+            FlyingCommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingCommentCell"];
+            
+            if(commentCell == nil)
+                commentCell = [FlyingCommentCell commentCell];
+            
+            [self configureCell:commentCell atIndexPath:indexPath];
+            
+            cell = commentCell;
+        }
     }
-    
-    // 加载更多
-    static NSString *CellIdentifierLoadMore = @"CellIdentifierLoadMore";
-    
-    UITableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierLoadMore];
-    if (!loadCell)
+    else
     {
-        loadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierLoadMore];
-        loadCell.backgroundColor = [UIColor clearColor];
-        loadCell.contentView.backgroundColor = [UIColor clearColor];
+        FlyingLoadingCell *loadingCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingLoadingCell"];
         
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicator.tag = kLoadMoreIndicatorTag;
-        indicator.hidesWhenStopped = YES;
-        indicator.center =loadCell.center;
-        indicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|
-        UIViewAutoresizingFlexibleRightMargin|
-        UIViewAutoresizingFlexibleTopMargin|
-        UIViewAutoresizingFlexibleBottomMargin;
-        [loadCell.contentView addSubview:indicator];
+        if(loadingCell == nil)
+            loadingCell = [FlyingLoadingCell loadingCell];
+        
+        cell = loadingCell;
+        self.loadingCommentIndicatorCell=loadingCell;
     }
     
-    loadCell.transform = self.tableView.transform;
-
-    
-    return loadCell;
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == 0)
     {
-        // 普通Cell的高度
-        return (INTERFACE_IS_PAD ? 250 : 100) ;
+        NSInteger actualNumberOfRows = [self.currentData count];
+        
+        if (actualNumberOfRows == 0) {
+            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell" configuration:^(FlyingContentSummaryCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+            }];
+        }
+        else
+        {
+            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentCell" configuration:^(FlyingCommentCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+            }];
+        }
     }
-    
-    // 加载更多
-    return 44;
+    else
+    {
+        return [self.tableView fd_heightForCellWithIdentifier:@"FlyingLoadingCell" configuration:^(FlyingLoadingCell *cell) {
+            //[self configureCell:cell atIndexPath:indexPath];
+        }];
+    }
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+    {
+        NSInteger actualNumberOfRows = [self.currentData count];
+        
+        if (actualNumberOfRows == 0) {
+            
+            [(FlyingContentSummaryCell*)cell setSummaryText:@"骄傲的去做第一个评论者吧!"];
+            [(FlyingContentSummaryCell*)cell setTextAlignment:NSTextAlignmentCenter];
+            
+            self.tableView.separatorColor = [UIColor clearColor];
+        }
+        else
+        {
+            FlyingCommentData *commentData = self.currentData[indexPath.row];
+            [(FlyingCommentCell*)cell setCommentData:commentData];
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -307,8 +331,7 @@
     }
     
     // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator startAnimating];
+    [self.loadingCommentIndicatorCell startAnimating:@"尝试加载更多..."];
     
     // 加载下一页
     [self loadMore];
@@ -321,15 +344,11 @@
         return;
     }
     
-    // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator stopAnimating];
+    [self.loadingCommentIndicatorCell stopAnimating];
 }
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
 
     [self profileImageViewPressed:commentData];
@@ -364,6 +383,60 @@
         chatService.title = chatService.userName;
         [self.navigationController pushViewController:chatService animated:YES];
     }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma SLKTextViewController related
+//////////////////////////////////////////////////////////////
+- (void)didPressRightButton:(id)sender
+{
+    // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
+    
+    // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
+    [self.textView refreshFirstResponder];
+    
+    FlyingCommentData *commentData=[[FlyingCommentData alloc] init];
+    commentData.contentID=self.contentID;
+    commentData.contentType=self.contentType;
+    
+    NSString *openID = [NSString getOpenUDID];
+    
+    commentData.userID=openID;
+    
+    NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
+    commentData.portraitURL=portraitUri;
+    
+    commentData.nickName=[NSString getNickName];
+    commentData.commentContent=self.textView.text;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *commentTime = [formatter stringFromDate:[NSDate date]];
+    commentData.commentTime=commentTime;
+    
+    [FlyingHttpTool updateComment:commentData Completion:^(BOOL result) {
+        
+        if (result) {
+                        
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
+            UITableViewScrollPosition scrollPosition = self.inverted ? UITableViewScrollPositionBottom : UITableViewScrollPositionTop;
+            
+            [self.tableView beginUpdates];
+            [self.currentData insertObject:commentData atIndex:0];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
+            [self.tableView endUpdates];
+            
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:YES];
+            
+            // Fixes the cell from blinking (because of the transform, when using translucent cells)
+            // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
+    
+    [super didPressRightButton:sender];
 }
 
 //////////////////////////////////////////////////////////////

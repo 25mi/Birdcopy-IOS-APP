@@ -23,7 +23,7 @@
 
 #import "FlyingDiscoverContent.h"
 
-#import "FlyingLessonVC.h"
+#import "FlyingContentVC.h"
 #import <AFNetworking/AFNetworking.h>
 
 #import "FlyingCommentVC.h"
@@ -486,7 +486,7 @@
         [FlyingHttpTool getLessonForLessonID:lessonID
                                   Completion:^(FlyingPubLessonData *lesson) {
                                       //
-                                      FlyingLessonVC * vc=[[FlyingLessonVC alloc] init];
+                                      FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                                       vc.theLesson=lesson;
                                       
                                       dispatch_async(dispatch_get_main_queue(), ^{
@@ -508,6 +508,13 @@
 - (void)commentCountButtonPressed:(FlyingStreamData*)streamData
 {
     FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
+    
+    //commentVC.contentID=streamData.contentID;
+    //commentVC.contentType=streamData.contentType;
+    
+    //Test only
+    commentVC.contentID=@"testid";
+    commentVC.contentType=KContentTypeVideo;
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }

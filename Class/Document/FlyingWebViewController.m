@@ -24,7 +24,6 @@
 #import "FlyingTouchDAO.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingLessonParser.h"
-#import "FlyingLessonVC.h"
 #import "FlyingSysWithCenter.h"
 #import "FlyingPubLessonData.h"
 #import "UIImageView+WebCache.h"

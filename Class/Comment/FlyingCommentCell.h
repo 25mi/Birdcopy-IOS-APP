@@ -2,14 +2,13 @@
 //  FlyingCommentCell.h
 //  FlyingEnglish
 //
-//  Created by vincent sung on 9/19/15.
+//  Created by vincent sung on 11/20/15.
 //  Copyright © 2015 BirdEngish. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "FlyingCommentData.h"
 
-#define COMMENTCELL_IDENTIFIER @"commentCell"
+#import "FlyingCommentData.h"
 
 @protocol FlyingCommentCellDelegate <NSObject>
 
@@ -20,21 +19,17 @@
 
 @interface FlyingCommentCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView* profileImageView;
-
-@property (nonatomic, strong) UILabel* nameLabel;
-
-@property (nonatomic, strong) UILabel* descriptionLabel;
-
-@property (nonatomic, strong) UILabel* dateLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *commentLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 
 
-@property (nonatomic, strong) FlyingCommentData* commentData;
+@property (strong, nonatomic) FlyingCommentData *commentData;
 
 @property(nonatomic,assign) id<FlyingCommentCellDelegate> delegate;
 
 
--(void) loadingCommentData:(FlyingCommentData *)commentData;
-
++ (FlyingCommentCell*) commentCell;
 
 @end

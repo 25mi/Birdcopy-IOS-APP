@@ -60,7 +60,7 @@
 #include "common.h"
 
 #import "FlyingMyGroupsVC.h"
-#import "FlyingLessonVC.h"
+#import "FlyingContentVC.h"
 
 #import "FlyingNavigationController.h"
 #import "FlyingProviderListVC.h"
@@ -181,13 +181,9 @@
     
     if(openID==nil)
     {
-        openID=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KOPENUDIDKEY];
-        
-        if (!openID) {
-            //从本地终端生成账号
-            openID = [OpenUDID value];
-            keychain[KOPENUDIDKEY]=openID;
-        }
+        //从本地终端生成账号
+        openID = [OpenUDID value];
+        keychain[KOPENUDIDKEY]=openID;
     }
     //如果有旧账号
     else if (openID && openID.length==32)
@@ -209,15 +205,10 @@
         keychain[KOPENUDIDKEY]=openID;
     }
     
-    if(openID)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:openID forKey:KOPENUDIDKEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    //Bug Fix ios
+    [[NSUserDefaults standardUserDefaults] setObject:openID forKey:KOPENUDIDKEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    //准备和同步购买环境
-    [self prepairIAP];
-
     [self jumpToNext];
     
     dispatch_async([self getBackPubQueue], ^{
@@ -237,6 +228,9 @@
         ctx = fz_new_context(NULL, NULL, ResourceCacheMaxSize);
         fz_register_document_handlers(ctx);
         screenScale = [[UIScreen mainScreen] scale];
+        
+        //准备购买环境
+        [self prepairIAP];
         
         //向微信注册
         [WXApi registerApp:[NSString getWeixinID]];
@@ -602,14 +596,13 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        /*
         //同步重要数据
         [self sysWithCenter];
         
         double before=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BELunchTimeBefore"];
         double now= [[NSDate date] timeIntervalSince1970];
         
-        if(now-before>6000.0){
+        if(now-before>600.0){
             
             NSString *openID = [NSString getOpenUDID];
             
@@ -620,7 +613,7 @@
 
                 FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
                 [statisticDAO setUserModle:NO];
-        
+                
                 //学习次数加一
                 NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
                 giftCountNow++;
@@ -633,7 +626,6 @@
                 [statisticDAO updateWithUserID:openID Times:learnedTimes];
             }
         }
-         */
     });
 }
 
@@ -1106,7 +1098,7 @@
     [FlyingHttpTool getLessonForLessonID:lessonID
                               Completion:^(FlyingPubLessonData *lesson) {
                                   //
-                                  FlyingLessonVC * vc=[[FlyingLessonVC alloc] init];
+                                  FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                                   vc.theLesson=lesson;
                                   
                                   [self pushViewController:vc];
@@ -1117,7 +1109,7 @@
 {
     [FlyingHttpTool getLessonForISBN:code
                           Completion:^(FlyingPubLessonData *lesson) {
-                              FlyingLessonVC * vc=[[FlyingLessonVC alloc] init];
+                              FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                               vc.theLesson=lesson;
                               
                               [self pushViewController:vc];
@@ -2009,7 +2001,6 @@
             NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
             
             if (availableProducts.count>0) {
-                                
                 [self buyAppleIdentify:availableProducts[0]];
             }
         }
@@ -2052,21 +2043,10 @@
                                                       [FlyingSysWithCenter  uploadMembershipWithCenter];
                                                   }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitRestoredPurchasesNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      NSLog(@"Failed restoring purchases with error: %@", [note object]);
-                                                      
-                                                      NSString *message =@"购买失败，好事耐磨哦：）";
-                                                      [self.window makeToast:message duration:3 position:CSToastPositionCenter];
-                                                  }];
-    
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
                                                       object:nil
-                                                       queue:[NSOperationQueue mainQueue]
+                                                       queue:[[NSOperationQueue alloc] init]
                                                   usingBlock:^(NSNotification *note) {
                                                       
                                                       NSLog(@"Failed restoring purchases with error: %@", [note object]);

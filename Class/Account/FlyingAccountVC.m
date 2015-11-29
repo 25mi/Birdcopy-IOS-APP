@@ -124,11 +124,7 @@
 
 - (void) updateAccountState
 {
-    NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
-    
-    if (nickName.length==0) {
-        nickName =[[UIDevice currentDevice] name];
-    }
+    NSString *nickName=[NSString getNickName];
     
     self.accountNikename.text=nickName;
     

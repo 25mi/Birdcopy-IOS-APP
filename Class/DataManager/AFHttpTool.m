@@ -13,7 +13,7 @@
 #import "NSString+FlyingExtention.h"
 
 //#define ContentType @"text/plain"
-#define ContentType @"text/html"
+//#define ContentType @"text/html"
 
 @implementation AFHttpTool
 
@@ -434,6 +434,62 @@
 }
 
 //////////////////////////////////////////////////////////////
+#pragma  评论相关
+//////////////////////////////////////////////////////////////
++ (void) getCommentListForContentID:(NSString*) contentID
+                        ContentType:(NSString*) contentType
+                         PageNumber:(NSInteger) pageNumber
+                            success:(void (^)(id response))success
+                            failure:(void (^)(NSError* err))failure;
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"ins_time desc"}];
+    
+    [params setObject:contentID forKey:@"ct_id"];
+    [params setObject:contentType forKey:@"ct_type"];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_cm_get_ct_list_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
++ (void) updateComment:(FlyingCommentData*) commentData
+               success:(void (^)(id response))success
+               failure:(void (^)(NSError* err))failure
+{
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
+    
+    [params setObject:commentData.contentID forKey:@"ct_id"];
+    [params setObject:commentData.contentType forKey:@"ct_type"];
+
+    [params setObject:commentData.nickName forKey:@"name"];
+    [params setObject:commentData.commentContent forKey:@"content"];
+
+    
+    [params setObject:[NSString getAppID] forKey:@"app_id"];
+
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_add_ct_from_tn.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
+
+//////////////////////////////////////////////////////////////
 #pragma  old API, not jason
 //////////////////////////////////////////////////////////////
 + (void)requestWithUrl:(NSString*)url
@@ -486,7 +542,7 @@
     
     [params setObject:appID forKey:@"app_id"];
     [params setObject:@"validth" forKey:@"type"];
-        
+    
     [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
                         params:params
                        success:success
@@ -516,7 +572,7 @@
     
     [params setObject:startDateString forKey:@"start_time"];
     [params setObject:endDateString forKey:@"end_time"];
-        
+    
     [AFHttpTool requestWithUrl:@"ua_sync_validth_from_hp.action"
                         params:params
                        success:success
@@ -727,7 +783,6 @@
                        failure:failure];
 }
 
-
 //获取课程信息相关
 + (void) lessonDataForLessonID:(NSString*) lessonID
                          success:(void (^)(id response))success
@@ -816,34 +871,6 @@
                         params:@{@"type":type,@"ln_id":lessonID,@"url":contentURL}
                        success:success
                        failure:failure];
-}
-
-//获取相关评论
-+ (void) getCommentListForSreamType:(NSString*) streamType
-                          ContentID:(NSString*) contentID
-                         PageNumber:(NSInteger) pageNumber
-                            success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
-
-    [params setObject:streamType forKey:@"streamType"];
-    [params setObject:contentID forKey:@"contentID"];
-
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_comment_list_from_tn.action"
-                           params:params
-                          success:success
-                          failure:failure];
 }
 
 //////////////////////////////////////////////////////////////

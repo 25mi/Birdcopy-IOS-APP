@@ -12,6 +12,7 @@
 #import "FlyingUserInfo.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingCalendarEvent.h"
+#import "FlyingCommentData.h"
 
 #define FLYINGHTTPTOOL [FlyingHttpTool shareInstance]
 
@@ -147,10 +148,16 @@
 + (void) getLessonForISBN:(NSString*) ISBN
                Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
 
-+ (void) getCommentListForSreamType:(NSString*) streamType
-                          ContentID:(NSString*) contentID
-                       PageNumber:(NSInteger) pageNumber
-                       Completion:(void (^)(NSArray *commentList,NSInteger allRecordCount)) completion;
+//////////////////////////////////////////////////////////////
+#pragma  内容的评论相关
+//////////////////////////////////////////////////////////////
++ (void) getCommentListForContentID:(NSString*) contentID
+                        ContentType:(NSString*) contentType
+                         PageNumber:(NSInteger) pageNumber
+                         Completion:(void (^)(NSArray *commentList,NSInteger allRecordCount)) completion;
+
++ (void) updateComment:(FlyingCommentData*) commentData
+                         Completion:(void (^)(BOOL result)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  字典相关

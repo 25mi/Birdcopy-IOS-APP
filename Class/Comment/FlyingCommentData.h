@@ -10,13 +10,16 @@
 
 @interface FlyingCommentData : NSObject
 
-@property (nonatomic, strong) NSString *userType;     //用户类型
 @property (nonatomic, strong) NSString *userID;       //用户ID
 
 @property (nonatomic, strong) NSString *nickName;     //用户昵称
 @property (nonatomic, strong) NSString *portraitURL;  //用户头像
 
+@property (nonatomic, strong) NSString *commentTime;  //评论时间
+
 @property (nonatomic, strong) NSString *commentContent; //评论
 
+@property (nonatomic, strong) NSString *contentID;      //课程ID
+@property (nonatomic, strong) NSString *contentType;    //课程类型
 
 @end

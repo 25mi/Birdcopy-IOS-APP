@@ -57,10 +57,11 @@ typedef enum BESearchType
 
 
 // IM管理
-#define RONGCLOUD_IM_ENGLISH_APPKEY      @"e5t4ouvptjtsa"
+#define RONGCLOUD_IM_ENGLISH_APPKEY      @"0a41bf851eaa4386e7e94a383e5ac6a2"
 #define RONGCLOUD_IM_DOCTOR_APPKEY       @"6tnym1brndn27"
 #define RONGCLOUD_IM_IT_APPKEY           @"pgyu6atqykgju"
 #define RONGCLOUD_IM_FD_APPKEY           @"x18ywvqf8uxzc"
+
 
 // APP管理
 #define BIRDENGLISH_APPKEY      @"BIRDENGLISH_APPKEY"
@@ -68,6 +69,7 @@ typedef enum BESearchType
 #define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
 #define IT_APPKEY               @"IT_APPKEY"
 #define FD_APPKEY               @"FD_APPKEY"
+
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 #define kUserNickName             @"kUserNickName"
@@ -345,6 +347,12 @@ enum
 
 #define kCalendarColorCellBorder [@"#9da0a9" toColor]
 #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+
+
+//字体
+#define KLargeFontSize  (INTERFACE_IS_PAD ? 32.0f : 16.0f)
+#define KNormalFontSize  (INTERFACE_IS_PAD ? 26.0f : 13.0f)
+#define KLittleFontSize  (INTERFACE_IS_PAD ? 24.0f : 12.0f)
 
 
 // 常见系数

@@ -17,4 +17,7 @@
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 
+@property (strong, nonatomic) NSString     *contentID;
+@property (strong, nonatomic) NSString     *contentType;
+
 @end

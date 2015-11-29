@@ -601,6 +601,9 @@
                                   AppID:appID
                                 success:^(id response) {
                                     //
+                                    NSDate *startDate = nil;
+                                    NSDate *endDate =nil;
+
                                     if (response) {
                                         
                                         NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
@@ -609,24 +612,31 @@
                                         
                                         if (tempArray.count==3) {
                                             
-                                            NSString* startDateStr = tempArray[0];
-                                            NSString* endDateStr  = tempArray[1];
+                                            NSString *startDateStr = tempArray[0];
+                                            NSString *endDateStr  = tempArray[1];
                                             
-                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                                            
-                                            NSDate *startDate = [dateFormatter dateFromString:startDateStr];
-                                            NSDate *endDate = [dateFormatter dateFromString:endDateStr];
-
-                                            if (completion) {
-                                                completion(startDate,endDate);
+                                            if([startDateStr containsString:@"-"] && [endDateStr containsString:@"-"])
+                                            {
+                                                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                                
+                                                startDate = [dateFormatter dateFromString:startDateStr];
+                                                endDate = [dateFormatter dateFromString:endDateStr];
                                             }
                                         }
                                     }
+                                    
+                                    if (completion) {
+                                        completion(startDate,endDate);
+                                    }
+
 
                                 } failure:^(NSError *err) {
                                     //
-                                    NSLog(@"错误是：%@",err.description);
+                                    if (completion) {
+                                        completion(nil,nil);
+                                    }
+
                                 }];
 }
 
@@ -657,7 +667,6 @@
                                     }
                                 } failure:^(NSError *err) {
                                     //
-                                    NSLog(@"错误");
                                 }];
 }
 
@@ -886,13 +895,16 @@
     }];
 }
 
-+ (void) getCommentListForSreamType:(NSString*) streamType
-                          ContentID:(NSString*) contentID
+//////////////////////////////////////////////////////////////
+#pragma  内容的评论相关
+//////////////////////////////////////////////////////////////
++ (void) getCommentListForContentID:(NSString*) contentID
+                        ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
                          Completion:(void (^)(NSArray *commentList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool getCommentListForSreamType:streamType
-                              ContentID:contentID
+    [AFHttpTool getCommentListForContentID:contentID
+                                 ContentType:contentType
                              PageNumber:pageNumber
                                 success:^(id response) {
                                     
@@ -903,28 +915,17 @@
                                         
                                         for (NSDictionary *dic in allComments)
                                         {
-                                            FlyingGroupData *group = [[FlyingGroupData alloc] init];
-                                            group.gp_id    = [dic objectForKey:@"gp_id"];
-                                            group.gp_name  = [dic objectForKey:@"gp_name"];
-                                            group.gp_owner = [dic objectForKey:@"gp_owner"];
-                                            group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                                            FlyingCommentData  *commentDate = [[FlyingCommentData alloc] init];
                                             
-                                            group.logo     = [dic objectForKey:@"logo"];
-                                            group.cover     = [dic objectForKey:@"cover"];
+                                            commentDate.contentID      = [dic objectForKey:@"contentID"];
+                                            commentDate.contentType    = [dic objectForKey:@"contentType"];
+                                            commentDate.userID         = [dic objectForKey:@"userID"];
+                                            commentDate.nickName       = [dic objectForKey:@"nickName"];
+                                            commentDate.portraitURL    = [dic objectForKey:@"portraitURL"];
+                                            commentDate.commentContent = [dic objectForKey:@"commentContent"];
+                                            commentDate.commentTime = [dic objectForKey:@"commentTime"];
                                             
-                                            group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                                            group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
-                                            
-                                            group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                                            group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                                            group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                                            
-                                            NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
-                                            
-                                            group.gp_member_sum = [groupSum objectForKey:@"gp_member_sum"];
-                                            group.gp_ln_sum     = [groupSum objectForKey:@"gp_ln_sum"];
-                                            
-                                            [tempArr addObject:group];
+                                            [tempArr addObject:commentDate];
                                         }
                                     }
                                     
@@ -936,6 +937,37 @@
                                     //
                                 }];
 }
+
+
++ (void) updateComment:(FlyingCommentData*) commentData
+            Completion:(void (^)(BOOL result)) completion
+{
+    [AFHttpTool updateComment:commentData
+                      success:^(id response) {
+                          //
+                          
+                          if (response) {
+                              
+                              BOOL result =false;
+                              
+                              NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                              
+                              if ([code isEqualToString:@"1"]) {
+                                  result =true;
+                              }
+                              
+                              if (completion) {
+                                  completion(result);
+                              }
+                          }
+                      } failure:^(NSError *err) {
+                          //
+                          if (completion) {
+                              completion(false);
+                          }
+                      }];
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma  字典相关
