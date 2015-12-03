@@ -8,6 +8,13 @@
 
 #import "FlyingContentTitleAndTypeCell.h"
 
+
+@interface FlyingContentTitleAndTypeCell()
+
+@property (nonatomic,readwrite) BOOL access;
+
+@end
+
 @implementation FlyingContentTitleAndTypeCell
 
 - (void)awakeFromNib {
@@ -46,15 +53,16 @@
     // Configure the view for the selected state
 }
 
-
 -(void) setTitle:(NSString*) title
 {
     self.contentTitle.text=title;
 }
 
--(void) setPrice:(NSInteger) price
+-(void) setAccessRight:(BOOL) accessRight
 {
-    if (price==0) {
+    self.access=accessRight;
+    
+    if (self.access) {
         
         [self.accessButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
     }
@@ -64,5 +72,12 @@
     }
 }
 
+- (IBAction)accessButtonPressed:(id)sender
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(accessButtonPressed)])
+    {
+        [self.delegate accessButtonPressed];
+    }
+}
 
 @end

@@ -93,7 +93,6 @@
 #import "FlyingM3U8Downloader.h"
 
 #import "FlyingPlayerView.h"
-#import "FlyingStytleView.h"
 
 #import "NSString+FlyingExtention.h"
 #import "FlyingSysWithCenter.h"
@@ -214,7 +213,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
 @property (strong, nonatomic) IBOutlet UIImageView              *magicImageView;
 @property (strong, nonatomic) IBOutlet UIImageView              *fullImageView;
 
-@property (strong, nonatomic) IBOutlet FlyingStytleView         *stytleView;
 @property (strong, nonatomic) IBOutlet FlyingSubtitleTextView   *subtitleTextView;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView  *indicatorView;
@@ -292,12 +290,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self.player pause];
     }
 }
-
--(void)adjustRelayout
-{
-    [self.stytleView reDrawStytle];
-}
-
 
 //////////////////////////////////////////////////////////////
 #pragma  准备有关数据
@@ -455,28 +447,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
     fullImageViewSingleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.fullImageView addGestureRecognizer:fullImageViewSingleRecognizer];
     self.fullImageView.hidden=NO;
-
-    self.stytleView.userInteractionEnabled=YES;
-    self.stytleView.backgroundColor=[UIColor blackColor];
-    self.stytleView.alpha=0.5;
-    self.stytleView.hidden=YES;
-    
-    
-    self.subtitleTextView.userInteractionEnabled=YES;
-    self.subtitleTextView.multipleTouchEnabled=YES;
-    self.subtitleTextView.backgroundColor=[UIColor clearColor];
-    self.subtitleTextView.textColor= [UIColor whiteColor];
-    self.subtitleTextView.textAlignment=NSTextAlignmentCenter;
     
     //字幕基本设置|默认黑底风格字幕
     self.subtitleTextView.text=@"Welcome!";
-    
-    if (INTERFACE_IS_PAD) {
-        self.subtitleTextView.font = [UIFont systemFontOfSize:24.0];
-    }
-    else{
-        self.subtitleTextView.font = [UIFont systemFontOfSize:12];
-    }
     self.subtitleTextView.hidden=YES;
 
     //设置智能字幕和控制
@@ -1138,7 +1111,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     float systemVolume = volumeViewSlider.value;
     
     // change system volume, the value is between 0.0f and 1.0f
-    [volumeViewSlider setValue:(systemVolume+0.1) animated:NO];
+    [volumeViewSlider setValue:(systemVolume+0.15) animated:NO];
     
     // send UI control event to make the change effect right now.
     [volumeViewSlider sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -1412,17 +1385,13 @@ static void *TrackObservationContext         = &TrackObservationContext;
             
             //准备词法分析工具
             [self prepareNLP];
-            self.stytleView.subStyle=BEAISubHideBackgroundStyle;
-            [self.stytleView reDrawStytle];
             
             _enableAISub=YES;
-            self.stytleView.hidden=NO;
             self.subtitleTextView.hidden=NO;
             self.magicImageView.hidden=NO;
         }
         else{
             _enableAISub=NO;
-            self.stytleView.hidden=YES;
             self.subtitleTextView.hidden=YES;
             self.magicImageView.hidden=YES;
         }
@@ -1584,6 +1553,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
             //取得更新字幕内容
             FlyingSubRipItem * currentSubItem =[_subtitleFile getSubItemForIndex:freshIndex];
             [self.subtitleTextView setText:currentSubItem.text];
+            //[self.subtitleTextView magicStytle];
         }
         //空白字幕区
         else{
@@ -1733,18 +1703,22 @@ static void *TrackObservationContext         = &TrackObservationContext;
 
 -(void) showViewForWord: (FlyingWordLinguisticData *) tagWord
 {
-    
     FlyingItemView * aTagWordView = [_annotationWordViews objectForKey:[tagWord getIDKey]];
     
     if (!aTagWordView) {
         
         CGRect frame=CGRectMake(0, 0, 100, 100);
-        if (INTERFACE_IS_PAD ) {
+        
+        if (INTERFACE_IS_PAD || !self.toFullScreen) {
             
             frame=CGRectMake(0, 0, 200, 200);
         }
         
         aTagWordView =[[FlyingItemView alloc] initWithFrame:frame];
+        if (!self.toFullScreen) {
+            
+            aTagWordView.fullScreenModle=YES;
+        }
         
         [aTagWordView setLessonID:self.theLesson.lessonID];
         
@@ -1878,7 +1852,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         _enableAISub=YES;
         [self.subtitleTextView setHidden:NO];
-        [self.stytleView setHidden:NO];
         
         [self.aiLearningView setAImagnifyEnabled:YES];
     }
@@ -1887,7 +1860,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         _enableAISub=NO;
         
         [self.subtitleTextView setHidden:YES];
-        [self.stytleView setHidden:YES];
         
         [self.aiLearningView setAImagnifyEnabled:NO];
     }
@@ -2097,17 +2069,13 @@ static void *TrackObservationContext         = &TrackObservationContext;
             
             //准备词法分析工具
             [self prepareNLP];
-            self.stytleView.subStyle=BEAISubHideBackgroundStyle;
-            [self.stytleView reDrawStytle];
             
             _enableAISub=YES;
-            self.stytleView.hidden=NO;
             self.subtitleTextView.hidden=NO;
             self.magicImageView.hidden=NO;
         }
         else{
             _enableAISub=NO;
-            self.stytleView.hidden=YES;
             self.subtitleTextView.hidden=YES;
             self.magicImageView.hidden=YES;
         }

@@ -18,7 +18,7 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingCoverDataParser.h"
 
-
+#import "NSString+Emoji.h"
 #import "FlyingGroupData.h"
 #import "FlyingPubLessonData.h"
 
@@ -922,7 +922,9 @@
                                             commentDate.userID         = [dic objectForKey:@"userID"];
                                             commentDate.nickName       = [dic objectForKey:@"nickName"];
                                             commentDate.portraitURL    = [dic objectForKey:@"portraitURL"];
+                                            
                                             commentDate.commentContent = [dic objectForKey:@"commentContent"];
+                                            
                                             commentDate.commentTime = [dic objectForKey:@"commentTime"];
                                             
                                             [tempArr addObject:commentDate];
@@ -935,6 +937,7 @@
                                     
                                 } failure:^(NSError *err) {
                                     //
+                                    NSLog(@"Error:%@",err.description);
                                 }];
 }
 

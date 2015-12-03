@@ -57,7 +57,7 @@ typedef enum BESearchType
 
 
 // IM管理
-#define RONGCLOUD_IM_ENGLISH_APPKEY      @"0a41bf851eaa4386e7e94a383e5ac6a2"
+#define RONGCLOUD_IM_ENGLISH_APPKEY      @"e5t4ouvptjtsa"
 #define RONGCLOUD_IM_DOCTOR_APPKEY       @"6tnym1brndn27"
 #define RONGCLOUD_IM_IT_APPKEY           @"pgyu6atqykgju"
 #define RONGCLOUD_IM_FD_APPKEY           @"x18ywvqf8uxzc"

@@ -146,7 +146,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void) showMenu
 {
     [self.sideMenuViewController presentLeftMenuViewController];
@@ -160,14 +159,13 @@
     NSString *oldNickName =[NSString getNickName];
     NSString *oldUserAbstract=[UICKeyChainStore keyChainStore][kUserAbstract];
 
-    [UICKeyChainStore keyChainStore][kUserNickName] = nickName;
-    [UICKeyChainStore keyChainStore][kUserAbstract] = userAbstract;
+    [NSString setNickName:nickName];
+    [NSString setUserAbstract:userAbstract];
     
     if (![nickName  isEqualToString:oldNickName]||
         ![userAbstract  isEqualToString:oldUserAbstract]
         )
     {
-        
         NSString *openID = [NSString getOpenUDID];
         
         if (!openID) {
@@ -180,7 +178,7 @@
                               portraitUri:nil
                                  br_intro:userAbstract
                                   success:^(id response) {
-            //
+            //更新本地用户信息（IM）
             RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
             currentUserInfo.name=nickName;
             [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
@@ -189,13 +187,18 @@
             [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
             
             [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
+                                      
+            //更新本地用户信息（系统）
+                                      [NSString setNickName:nickName];
+                                      [NSString setUserAbstract:userAbstract];
+                                      
             
         } failure:^(NSError *err) {
             //
             
-            [UICKeyChainStore keyChainStore][kUserNickName] = oldNickName;
-            [UICKeyChainStore keyChainStore][kUserAbstract] = oldUserAbstract;
-            
+            [NSString setNickName:oldNickName];
+            [NSString setUserAbstract:oldUserAbstract];
+                        
             RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
             currentUserInfo.name=oldNickName;
             [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;

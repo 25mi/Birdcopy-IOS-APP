@@ -11,7 +11,11 @@
 #import "FlyingCommentCell.h"
 #import "SLKTextViewController.h"
 
-@class FlyingStreamData;
+@protocol FlyingCommentVCDelegate <NSObject>
+
+@optional
+- (void)reloadCommentData;
+@end
 
 @interface FlyingCommentVC : SLKTextViewController<FlyingCommentCellDelegate>
 
@@ -19,5 +23,9 @@
 
 @property (strong, nonatomic) NSString     *contentID;
 @property (strong, nonatomic) NSString     *contentType;
+@property (strong, nonatomic) NSString     *commentTitle;
+
+
+@property(nonatomic,assign) id<FlyingCommentVCDelegate> reloadDatadelegate;
 
 @end

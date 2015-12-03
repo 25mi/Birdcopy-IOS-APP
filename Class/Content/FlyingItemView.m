@@ -355,67 +355,70 @@
                 
                 _parser.completionBlock = ^(NSArray *itemList,NSInteger allRecordCount)
                 {
-                    [weakSelf removeActivityIndicator];
-                    
-                    if (itemList.count>=1) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+
+                        [weakSelf removeActivityIndicator];
                         
-                        [itemList enumerateObjectsUsingBlock:^(FlyingItemData  *item, NSUInteger idx, BOOL *stop) {
+                        if (itemList.count>=1) {
                             
-                            [dao insertWithData:item];
-                        }];
-                        
-                        NSArray * itmeDataArry;
-                        if(weakSelf.appTag==nil)
-                        {
-                            itmeDataArry = [dao selectWithWord:weakSelf.lemma];
-                        }
-                        else{
-                            
-                            itmeDataArry = [dao selectWithWord:weakSelf.lemma index:[weakSelf.tagTrasform indexforTag:weakSelf.appTag]];
-                        }
-                        
-                        weakSelf.desc= [[NSMutableString alloc] init];
-                        
-                        
-                        //词性偏差
-                        if (itmeDataArry.count==0) {
-                            
-                            itmeDataArry = [dao selectWithWord:weakSelf.lemma];
-                        }
-                        
-                        if (itmeDataArry.count==1) {
-                            
-                            
-                            NSString * str = [itmeDataArry[0] descriptionOnly];
-                            if (str) {
+                            [itemList enumerateObjectsUsingBlock:^(FlyingItemData  *item, NSUInteger idx, BOOL *stop) {
                                 
-                                [weakSelf.desc appendString:str];
-                            }
-                        }
-                        else{
-                            
-                            __block int i=1;
-                            
-                            [itmeDataArry enumerateObjectsUsingBlock:^(FlyingItemData * obj, NSUInteger idx, BOOL *stop) {
-                                
-                                if (i>3) {
-                                    
-                                    [weakSelf.desc appendFormat:@"*点击磁贴获取更多*"];
-                                    *stop=YES;
-                                }
-                                else{
-                                    
-                                    if (obj.descriptionOnly) {
-                                        
-                                        [weakSelf.desc appendFormat:@"%d.%@\r\n",i,obj.descriptionOnly];
-                                        i++;
-                                    }
-                                }
+                                [dao insertWithData:item];
                             }];
+                            
+                            NSArray * itmeDataArry;
+                            if(weakSelf.appTag==nil)
+                            {
+                                itmeDataArry = [dao selectWithWord:weakSelf.lemma];
+                            }
+                            else{
+                                
+                                itmeDataArry = [dao selectWithWord:weakSelf.lemma index:[weakSelf.tagTrasform indexforTag:weakSelf.appTag]];
+                            }
+                            
+                            weakSelf.desc= [[NSMutableString alloc] init];
+                            
+                            
+                            //词性偏差
+                            if (itmeDataArry.count==0) {
+                                
+                                itmeDataArry = [dao selectWithWord:weakSelf.lemma];
+                            }
+                            
+                            if (itmeDataArry.count==1) {
+                                
+                                
+                                NSString * str = [itmeDataArry[0] descriptionOnly];
+                                if (str) {
+                                    
+                                    [weakSelf.desc appendString:str];
+                                }
+                            }
+                            else{
+                                
+                                __block int i=1;
+                                
+                                [itmeDataArry enumerateObjectsUsingBlock:^(FlyingItemData * obj, NSUInteger idx, BOOL *stop) {
+                                    
+                                    if (i>3) {
+                                        
+                                        [weakSelf.desc appendFormat:@"*点击磁贴获取更多*"];
+                                        *stop=YES;
+                                    }
+                                    else{
+                                        
+                                        if (obj.descriptionOnly) {
+                                            
+                                            [weakSelf.desc appendFormat:@"%d.%@\r\n",i,obj.descriptionOnly];
+                                            i++;
+                                        }
+                                    }
+                                }];
+                            }
+                            
+                            [weakSelf presentDesc];
                         }
-                        
-                        [weakSelf presentDesc];
-                    }
+                    });
                 };
                 
                 [_parser parse];

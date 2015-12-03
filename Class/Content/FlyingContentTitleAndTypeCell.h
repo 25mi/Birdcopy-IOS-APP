@@ -8,14 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol FlyingContentTitleAndTypeCellDelegate <NSObject>
+
+@optional
+- (void)accessButtonPressed;
+@end
+
 @interface FlyingContentTitleAndTypeCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIButton *accessButton;
 @property (strong, nonatomic) IBOutlet UILabel *contentTitle;
 
 + (FlyingContentTitleAndTypeCell*) contentTitleAndTypeCell;
 
--(void) setTitle:(NSString*) title;
+@property(nonatomic,assign) id<FlyingContentTitleAndTypeCellDelegate> delegate;
 
--(void) setPrice:(NSInteger) price;
+-(void) setTitle:(NSString*) title;
+-(void) setAccessRight:(BOOL) accessRight;
 
 @end

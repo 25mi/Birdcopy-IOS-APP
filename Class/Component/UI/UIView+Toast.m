@@ -74,6 +74,7 @@ NSString * const CSToastPositionBottom          = @"bottom";
 #pragma mark - Toast Methods
 
 - (void)makeToast:(NSString *)message {
+    
     [self makeToast:message duration:CSToastDefaultDuration position:nil];
 }
 
@@ -138,6 +139,7 @@ NSString * const CSToastPositionBottom          = @"bottom";
 
 
 - (void)hideToast:(UIView *)toast {
+    
     [UIView animateWithDuration:CSToastFadeDuration
                           delay:0.0
                         options:(UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState)

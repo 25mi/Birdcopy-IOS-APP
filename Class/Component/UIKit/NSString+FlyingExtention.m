@@ -150,10 +150,66 @@
     NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
     
     if (nickName.length==0) {
-        nickName =[[UIDevice currentDevice] name];
+        
+        nickName=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserNickName];
+        
+        if (nickName.length==0) {
+            
+            nickName =[[UIDevice currentDevice] name];
+        }
     }
 
     return nickName;
+}
+
++ (void) setNickName:(NSString*) nickName
+{
+    [UICKeyChainStore keyChainStore][kUserNickName]=nickName;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:kUserNickName];
+}
+
++ (NSString*) getUserAbstract
+{
+    NSString *userAbstract=[UICKeyChainStore keyChainStore][kUserAbstract];
+    
+    if (userAbstract.length==0) {
+        
+        userAbstract=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserAbstract];
+        
+        if (userAbstract.length==0) {
+            
+            userAbstract =@"我的简介";
+        }
+    }
+    
+    return userAbstract;
+}
+
++ (void)  setUserAbstract:(NSString*) userAbstract;
+{
+    [UICKeyChainStore keyChainStore][kUserAbstract]=userAbstract;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:userAbstract forKey:kUserAbstract];
+}
+
++ (NSString*) getUserPortraitUri
+{
+    NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
+    
+    if (portraitUri.length==0) {
+        
+        portraitUri=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserPortraitUri];
+    }
+    
+    return portraitUri;
+}
+
++ (void)      setUserPortraitUri:(NSString*) portraitUri;
+{
+    [UICKeyChainStore keyChainStore][kUserPortraitUri]=portraitUri;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:portraitUri forKey:kUserPortraitUri];
 }
 
 + (NSURL *) tagListStrForAuthor:(NSString*)author

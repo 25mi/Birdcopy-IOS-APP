@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FlyingCommentHeader">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="相关评论" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0Y-Sq-cCs">
+                        <rect key="frame" x="8" y="8" width="68" height="27.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGe-2m-III">
+                        <rect key="frame" x="288" y="10" width="24" height="24"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="BMW-yB-qMN"/>
+                            <constraint firstAttribute="width" constant="24" id="D2Z-RQ-OAA"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="chat_b"/>
+                        <connections>
+                            <action selector="toCommentVC:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="e3J-Jw-En4"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="F0Y-Sq-cCs" secondAttribute="bottom" id="9h0-It-MDo"/>
+                    <constraint firstItem="CGe-2m-III" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="H2K-hq-hGu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="CGe-2m-III" secondAttribute="trailing" id="Zhd-xK-ng6"/>
+                    <constraint firstItem="F0Y-Sq-cCs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="o2V-fg-3Rg"/>
+                    <constraint firstItem="F0Y-Sq-cCs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="pSe-x7-Fbg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="accessButton" destination="CGe-2m-III" id="t00-l2-EKQ"/>
+                <outlet property="contentTitle" destination="F0Y-Sq-cCs" id="MzY-x3-yIA"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chat_b" width="96" height="96"/>
+    </resources>
+</document>

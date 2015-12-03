@@ -19,13 +19,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 
 @interface AFHttpTool : NSObject
 
-
-//上传用户头像专用API
-+ (void)requestUploadPotraitWithOpenID:(NSString *) openId
-                                  data:(NSData*)upData
-                               success:(void (^)(id response))success
-                               failure:(void (^)(NSError* err))failure;
-
 /**
  *  发送一个请求
  *
@@ -40,28 +33,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                    params:(NSDictionary *)params
                   success:(void (^)(id response))success
                   failure:(void (^)(NSError *err))failure;
-
-//get Rong token
-+(void) getTokenWithOpenID:(NSString *) openId
-                   success:(void (^)(id response))success
-                   failure:(void (^)(NSError* err))failure;
-
-//Fresh user data
-+(void) refreshUesrWithOpenID:(NSString *) openId
-                         name:(NSString *) name
-                  portraitUri:(NSString *) portraitUri
-                     br_intro:(NSString*) br_intro
-                      success:(void (^)(id response))success
-                      failure:(void (^)(NSError* err))failure;
-
-//Get User info
-+(void)getUserInfoWithRongID:(NSString*) rongUserId
-            success:(void (^)(id response))success
-            failure:(void (^)(NSError* err))failure;
-
-+(void)getUserInfoWithOpenID:(NSString*) openId
-                     success:(void (^)(id response))success
-                     failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////////////////////////
 //get group by id
@@ -114,6 +85,36 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
             success:(void (^)(id response))success
             failure:(void (^)(NSError* err))failure;
 
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 用户信息操作
+//////////////////////////////////////////////////////////////////////////////////
+//get Rong token
++(void) getTokenWithOpenID:(NSString *) openId
+                   success:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure;
+
+//上传用户头像专用API
++ (void)requestUploadPotraitWithOpenID:(NSString *) openId
+                                  data:(NSData*)upData
+                               success:(void (^)(id response))success
+                               failure:(void (^)(NSError* err))failure;
+
+//Fresh user data
++(void) refreshUesrWithOpenID:(NSString *) openId
+                         name:(NSString *) name
+                  portraitUri:(NSString *) portraitUri
+                     br_intro:(NSString*) br_intro
+                      success:(void (^)(id response))success
+                      failure:(void (^)(NSError* err))failure;
+
+//Get User info
++(void)getUserInfoWithRongID:(NSString*) rongUserId
+                     success:(void (^)(id response))success
+                     failure:(void (^)(NSError* err))failure;
+
++(void)getUserInfoWithOpenID:(NSString*) openId
+                     success:(void (^)(id response))success
+                     failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
@@ -133,8 +134,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                        PageNumber:(NSInteger) pageNumber
                           success:(void (^)(id response))success
                           failure:(void (^)(NSError* err))failure;
-
-
 //////////////////////////////////////////////////////////////
 #pragma  活动相关
 //////////////////////////////////////////////////////////////

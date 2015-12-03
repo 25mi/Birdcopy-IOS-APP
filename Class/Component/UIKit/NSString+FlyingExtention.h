@@ -16,7 +16,13 @@
 + (NSString*) getOfficalURL;
 + (NSString*) getAppID;
 + (NSString*) getOpenUDID;
+
 + (NSString*) getNickName;
++ (void)      setNickName:(NSString*) nickName;
++ (NSString*) getUserAbstract;
++ (void)      setUserAbstract:(NSString*) userAbstract;
++ (NSString*) getUserPortraitUri;
++ (void)      setUserPortraitUri:(NSString*) portraitUri;
 
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;
@@ -84,7 +90,5 @@
 
 - (NSString *)relativePathFromDocumentDirectory:(NSString *) lessonID;
 - (NSString *)absolutePathFromDocumentDirectory:(NSString *) lessonID;
-
-
 
 @end

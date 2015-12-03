@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		820827D31C0DA708005C1753 /* FlyingSeparateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940841C08036B000A2306 /* FlyingSeparateView.m */; };
 		82493F9A1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
 		82493F9B1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
 		82493F9C1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
@@ -36,11 +37,6 @@
 		82493FC61C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FB91C07F54D000A2306 /* FlyingLessonViewCell.m */; };
 		82493FC71C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FB91C07F54D000A2306 /* FlyingLessonViewCell.m */; };
 		82493FC81C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FB91C07F54D000A2306 /* FlyingLessonViewCell.m */; };
-		82493FCA1C07F584000A2306 /* Finance Education.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 82493FC91C07F584000A2306 /* Finance Education.entitlements */; };
-		82493FCB1C07F584000A2306 /* Finance Education.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 82493FC91C07F584000A2306 /* Finance Education.entitlements */; };
-		82493FCC1C07F584000A2306 /* Finance Education.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 82493FC91C07F584000A2306 /* Finance Education.entitlements */; };
-		82493FCD1C07F584000A2306 /* Finance Education.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 82493FC91C07F584000A2306 /* Finance Education.entitlements */; };
-		82493FCE1C07F584000A2306 /* Finance Education.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 82493FC91C07F584000A2306 /* Finance Education.entitlements */; };
 		82493FDA1C07F67D000A2306 /* FlyingCoverData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FD11C07F67D000A2306 /* FlyingCoverData.m */; };
 		82493FDB1C07F67D000A2306 /* FlyingCoverData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FD11C07F67D000A2306 /* FlyingCoverData.m */; };
 		82493FDC1C07F67D000A2306 /* FlyingCoverData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493FD11C07F67D000A2306 /* FlyingCoverData.m */; };
@@ -131,11 +127,6 @@
 		824940711C07FCBB000A2306 /* FlyingPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940561C07FCBB000A2306 /* FlyingPlayerView.m */; };
 		824940721C07FCBB000A2306 /* FlyingPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940561C07FCBB000A2306 /* FlyingPlayerView.m */; };
 		824940731C07FCBB000A2306 /* FlyingPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940561C07FCBB000A2306 /* FlyingPlayerView.m */; };
-		824940741C07FCBB000A2306 /* FlyingStytleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940581C07FCBB000A2306 /* FlyingStytleView.m */; };
-		824940751C07FCBB000A2306 /* FlyingStytleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940581C07FCBB000A2306 /* FlyingStytleView.m */; };
-		824940761C07FCBB000A2306 /* FlyingStytleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940581C07FCBB000A2306 /* FlyingStytleView.m */; };
-		824940771C07FCBB000A2306 /* FlyingStytleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940581C07FCBB000A2306 /* FlyingStytleView.m */; };
-		824940781C07FCBB000A2306 /* FlyingStytleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940581C07FCBB000A2306 /* FlyingStytleView.m */; };
 		824940791C07FCBB000A2306 /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8249405A1C07FCBB000A2306 /* FlyingSubtitleTextView.m */; };
 		8249407A1C07FCBB000A2306 /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8249405A1C07FCBB000A2306 /* FlyingSubtitleTextView.m */; };
 		8249407B1C07FCBB000A2306 /* FlyingSubtitleTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8249405A1C07FCBB000A2306 /* FlyingSubtitleTextView.m */; };
@@ -153,6 +144,27 @@
 		8249408C1C080953000A2306 /* FlyingTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824940801C07FFEF000A2306 /* FlyingTagCell.xib */; };
 		8249408D1C080954000A2306 /* FlyingTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824940801C07FFEF000A2306 /* FlyingTagCell.xib */; };
 		8249408E1C080955000A2306 /* FlyingTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824940801C07FFEF000A2306 /* FlyingTagCell.xib */; };
+		82501C811C0D8F6E00C58789 /* beiyang.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */; };
+		82501C821C0D8F7500C58789 /* BirdEnglish.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C85E8AB21BD63FC900650D00 /* BirdEnglish.entitlements */; };
+		82501C831C0D8F7900C58789 /* inet.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C827C66A1BD4EEFC0088EF2B /* inet.entitlements */; };
+		82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C85A70291BDE525B003E8AF8 /* ibag.entitlements */; };
+		82501C871C0D90D400C58789 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
+		82501C881C0D913B00C58789 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
+		8262B4B91C0E980A00B41597 /* FlyingSeparateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940841C08036B000A2306 /* FlyingSeparateView.m */; };
+		826D3FBA1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */; };
+		826D3FBB1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */; };
+		826D3FBC1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */; };
+		826D3FBD1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */; };
+		826D3FBE1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */; };
+		826D3FBF1C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		826D3FC01C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		826D3FC31C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		826D3FC51C0AE6F700F8E76E /* FlyingSeparateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940841C08036B000A2306 /* FlyingSeparateView.m */; };
+		826D3FC81C0C941100F8E76E /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FC71C0C941100F8E76E /* NSString+Emoji.m */; };
+		82EF473E1C0DEB8200837752 /* FlyingSeparateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 824940841C08036B000A2306 /* FlyingSeparateView.m */; };
+		82EF473F1C0E830300837752 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 826D3FC71C0C941100F8E76E /* NSString+Emoji.m */; };
 		C806575E17FE53BB00CADF4F /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		C806575F17FE53BB00CADF4F /* FlyingItemDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C717FE53BA00CADF4F /* FlyingItemDao.m */; };
 		C806576017FE53BB00CADF4F /* FlyingItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C917FE53BA00CADF4F /* FlyingItemData.m */; };
@@ -281,7 +293,6 @@
 		C81F8AB91BD7B488004146F0 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; };
 		C81F8ABA1BD7B488004146F0 /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		C81F8ABB1BD7B488004146F0 /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
-		C81F8ABC1BD7B488004146F0 /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */; };
 		C81F8ABD1BD7B488004146F0 /* FlyingCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8B1BB1036D009C8D48 /* FlyingCalendarEvent.m */; };
 		C81F8ABE1BD7B488004146F0 /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523631BB2A5FC000F86DC /* KMActivityIndicator.m */; };
 		C81F8ABF1BD7B488004146F0 /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
@@ -364,13 +375,11 @@
 		C81F8B101BD7B488004146F0 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5ACC1B1B6FB7400051A3EA /* RECommonFunctions.m */; };
 		C81F8B121BD7B488004146F0 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D31B04B5BA00DCF2AB /* ContextFilterLogFormatter.m */; };
 		C81F8B131BD7B488004146F0 /* FlyingNowLessonData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655D117FE53BA00CADF4F /* FlyingNowLessonData.m */; };
-		C81F8B151BD7B488004146F0 /* FlyingLessonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */; };
 		C81F8B161BD7B488004146F0 /* UIBubbleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BF17FE53BA00CADF4F /* UIBubbleTableView.m */; };
 		C81F8B171BD7B488004146F0 /* MuInkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD681B030821004152C2 /* MuInkView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C81F8B181BD7B488004146F0 /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524691BB39674000F86DC /* NSDate+Components.m */; };
 		C81F8B191BD7B488004146F0 /* ACLoupe.m in Sources */ = {isa = PBXBuildFile; fileRef = C851198E18D92EF60078AEC1 /* ACLoupe.m */; };
 		C81F8B1A1BD7B488004146F0 /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B01B04B5BA00DCF2AB /* HTTPFileResponse.m */; };
-		C81F8B1B1BD7B488004146F0 /* FlyingLessonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */; };
 		C81F8B1D1BD7B488004146F0 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
 		C81F8B1E1BD7B488004146F0 /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BE4891B26A0F100AA1AFD /* FlyingHttpTool.m */; };
 		C81F8B1F1BD7B488004146F0 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D91B04B5BA00DCF2AB /* DDMultiFormatter.m */; };
@@ -467,7 +476,6 @@
 		C81F8B8C1BD7B488004146F0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD37FAB1A121BB300704F04 /* libc++.dylib */; };
 		C81F8B8D1BD7B488004146F0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C833315A18CA998B0081B96D /* CoreTelephony.framework */; };
 		C81F8B8E1BD7B488004146F0 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD37FA81A121B5F00704F04 /* CoreImage.framework */; };
-		C81F8B8F1BD7B488004146F0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
 		C81F8B901BD7B488004146F0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD37FA61A121B4600704F04 /* CoreAudio.framework */; };
 		C81F8B911BD7B488004146F0 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA11E7CB19CDC6CE00D97FDB /* QuickLook.framework */; };
 		C81F8B921BD7B488004146F0 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8A9F195D76BC001ACB77 /* libfreetype.a */; };
@@ -721,13 +729,10 @@
 		C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
 		C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
 		C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
-		C8C8054B1BD3BC7F009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
-		C8C8054C1BD3BD62009F3712 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
 		C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
 		C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
 		C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
 		C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
-		C8CD49CC1BD5DDBF00242B98 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */; };
 		C8D5A27116A79784002060CC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D5A27016A79782002060CC /* libsqlite3.0.dylib */; };
 		C8DADE3618FD170600954C8D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DADE3518FD170600954C8D /* libWeChatSDK.a */; };
 		C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; };
@@ -928,7 +933,6 @@
 		FA1BE4D31B27DD5A00AA1AFD /* DELETEResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BC1B04B5BA00DCF2AB /* DELETEResponse.m */; };
 		FA1BE4D41B27DD5A00AA1AFD /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
-		FA1BE4D61B27DD5A00AA1AFD /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */; };
 		FA1BE4D71B27DD5A00AA1AFD /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA1BE4D91B27DD5A00AA1AFD /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
@@ -982,12 +986,10 @@
 		FA1BE5171B27DD5A00AA1AFD /* ReaderMainToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76519CD526200D97FDB /* ReaderMainToolbar.m */; };
 		FA1BE5191B27DD5A00AA1AFD /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D31B04B5BA00DCF2AB /* ContextFilterLogFormatter.m */; };
 		FA1BE51A1B27DD5A00AA1AFD /* FlyingNowLessonData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655D117FE53BA00CADF4F /* FlyingNowLessonData.m */; };
-		FA1BE51C1B27DD5A00AA1AFD /* FlyingLessonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */; };
 		FA1BE51D1B27DD5A00AA1AFD /* UIBubbleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BF17FE53BA00CADF4F /* UIBubbleTableView.m */; };
 		FA1BE51E1B27DD5A00AA1AFD /* MuInkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD681B030821004152C2 /* MuInkView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE51F1B27DD5A00AA1AFD /* ACLoupe.m in Sources */ = {isa = PBXBuildFile; fileRef = C851198E18D92EF60078AEC1 /* ACLoupe.m */; };
 		FA1BE5201B27DD5A00AA1AFD /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B01B04B5BA00DCF2AB /* HTTPFileResponse.m */; };
-		FA1BE5211B27DD5A00AA1AFD /* FlyingLessonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */; };
 		FA1BE5231B27DD5A00AA1AFD /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
 		FA1BE5241B27DD5A00AA1AFD /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BE4891B26A0F100AA1AFD /* FlyingHttpTool.m */; };
 		FA1BE5251B27DD5A00AA1AFD /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D91B04B5BA00DCF2AB /* DDMultiFormatter.m */; };
@@ -1229,7 +1231,6 @@
 		FA6329B71B51091400A1222E /* DELETEResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BC1B04B5BA00DCF2AB /* DELETEResponse.m */; };
 		FA6329B81B51091400A1222E /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA6329B91B51091400A1222E /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
-		FA6329BA1B51091400A1222E /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */; };
 		FA6329BB1B51091400A1222E /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA6329BD1B51091400A1222E /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
@@ -1285,12 +1286,10 @@
 		FA6329F91B51091400A1222E /* ReaderMainToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76519CD526200D97FDB /* ReaderMainToolbar.m */; };
 		FA6329FB1B51091400A1222E /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D31B04B5BA00DCF2AB /* ContextFilterLogFormatter.m */; };
 		FA6329FC1B51091400A1222E /* FlyingNowLessonData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655D117FE53BA00CADF4F /* FlyingNowLessonData.m */; };
-		FA6329FE1B51091400A1222E /* FlyingLessonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */; };
 		FA6329FF1B51091400A1222E /* UIBubbleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BF17FE53BA00CADF4F /* UIBubbleTableView.m */; };
 		FA632A001B51091400A1222E /* MuInkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD681B030821004152C2 /* MuInkView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA632A011B51091400A1222E /* ACLoupe.m in Sources */ = {isa = PBXBuildFile; fileRef = C851198E18D92EF60078AEC1 /* ACLoupe.m */; };
 		FA632A021B51091400A1222E /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B01B04B5BA00DCF2AB /* HTTPFileResponse.m */; };
-		FA632A031B51091400A1222E /* FlyingLessonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */; };
 		FA632A051B51091400A1222E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
 		FA632A061B51091400A1222E /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BE4891B26A0F100AA1AFD /* FlyingHttpTool.m */; };
 		FA632A071B51091400A1222E /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D91B04B5BA00DCF2AB /* DDMultiFormatter.m */; };
@@ -1498,7 +1497,6 @@
 		FA8C3E131B535A1500DEA02D /* DELETEResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454BC1B04B5BA00DCF2AB /* DELETEResponse.m */; };
 		FA8C3E141B535A1500DEA02D /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
-		FA8C3E161B535A1500DEA02D /* FlyingLessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */; };
 		FA8C3E171B535A1500DEA02D /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BB17FE53BA00CADF4F /* NSBubbleData.m */; };
 		FA8C3E191B535A1500DEA02D /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76119CD526200D97FDB /* ReaderDocumentOutline.m */; };
 		FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655E517FE53BA00CADF4F /* FlyingTaskWordDAO.m */; };
@@ -1554,12 +1552,10 @@
 		FA8C3E551B535A1500DEA02D /* ReaderMainToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76519CD526200D97FDB /* ReaderMainToolbar.m */; };
 		FA8C3E571B535A1500DEA02D /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D31B04B5BA00DCF2AB /* ContextFilterLogFormatter.m */; };
 		FA8C3E581B535A1500DEA02D /* FlyingNowLessonData.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655D117FE53BA00CADF4F /* FlyingNowLessonData.m */; };
-		FA8C3E5A1B535A1500DEA02D /* FlyingLessonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */; };
 		FA8C3E5B1B535A1500DEA02D /* UIBubbleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656BF17FE53BA00CADF4F /* UIBubbleTableView.m */; };
 		FA8C3E5C1B535A1500DEA02D /* MuInkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD681B030821004152C2 /* MuInkView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E5D1B535A1500DEA02D /* ACLoupe.m in Sources */ = {isa = PBXBuildFile; fileRef = C851198E18D92EF60078AEC1 /* ACLoupe.m */; };
 		FA8C3E5E1B535A1500DEA02D /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454B01B04B5BA00DCF2AB /* HTTPFileResponse.m */; };
-		FA8C3E5F1B535A1500DEA02D /* FlyingLessonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */; };
 		FA8C3E611B535A1500DEA02D /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
 		FA8C3E621B535A1500DEA02D /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BE4891B26A0F100AA1AFD /* FlyingHttpTool.m */; };
 		FA8C3E631B535A1500DEA02D /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3454D91B04B5BA00DCF2AB /* DDMultiFormatter.m */; };
@@ -1733,7 +1729,6 @@
 		82493FB71C07F54D000A2306 /* FlyingLessonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonParser.m; sourceTree = "<group>"; };
 		82493FB81C07F54D000A2306 /* FlyingLessonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLessonViewCell.h; sourceTree = "<group>"; };
 		82493FB91C07F54D000A2306 /* FlyingLessonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonViewCell.m; sourceTree = "<group>"; };
-		82493FC91C07F584000A2306 /* Finance Education.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Finance Education.entitlements"; sourceTree = "<group>"; };
 		82493FD01C07F67D000A2306 /* FlyingCoverData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCoverData.h; sourceTree = "<group>"; };
 		82493FD11C07F67D000A2306 /* FlyingCoverData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCoverData.m; sourceTree = "<group>"; };
 		82493FD21C07F67D000A2306 /* FlyingCoverDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCoverDataParser.h; sourceTree = "<group>"; };
@@ -1766,8 +1761,6 @@
 		824940541C07FCBB000A2306 /* FlyingMediaVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingMediaVC.xib; sourceTree = "<group>"; };
 		824940551C07FCBB000A2306 /* FlyingPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingPlayerView.h; sourceTree = "<group>"; };
 		824940561C07FCBB000A2306 /* FlyingPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingPlayerView.m; sourceTree = "<group>"; };
-		824940571C07FCBB000A2306 /* FlyingStytleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingStytleView.h; sourceTree = "<group>"; };
-		824940581C07FCBB000A2306 /* FlyingStytleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingStytleView.m; sourceTree = "<group>"; };
 		824940591C07FCBB000A2306 /* FlyingSubtitleTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSubtitleTextView.h; sourceTree = "<group>"; };
 		8249405A1C07FCBB000A2306 /* FlyingSubtitleTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSubtitleTextView.m; sourceTree = "<group>"; };
 		8249407E1C07FFEF000A2306 /* FlyingTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTagCell.h; sourceTree = "<group>"; };
@@ -1775,6 +1768,13 @@
 		824940801C07FFEF000A2306 /* FlyingTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingTagCell.xib; sourceTree = "<group>"; };
 		824940831C08036B000A2306 /* FlyingSeparateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSeparateView.h; sourceTree = "<group>"; };
 		824940841C08036B000A2306 /* FlyingSeparateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSeparateView.m; sourceTree = "<group>"; };
+		82501C851C0D902000C58789 /* Finance Education.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Finance Education.entitlements"; sourceTree = "<group>"; };
+		82501C861C0D90D400C58789 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentHeader.h; sourceTree = "<group>"; };
+		826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentHeader.m; sourceTree = "<group>"; };
+		826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingCommentHeader.xib; sourceTree = "<group>"; };
+		826D3FC61C0C941100F8E76E /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		826D3FC71C0C941100F8E76E /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
 		C80655C417FE53BA00CADF4F /* FlyingBaseDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBaseDao.h; sourceTree = "<group>"; };
 		C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBaseDao.m; sourceTree = "<group>"; };
 		C80655C617FE53BA00CADF4F /* FlyingItemDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemDao.h; sourceTree = "<group>"; };
@@ -1832,12 +1832,6 @@
 		C80656E817FE53BA00CADF4F /* CERoundProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CERoundProgressLayer.m; sourceTree = "<group>"; };
 		C80656E917FE53BA00CADF4F /* CERoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CERoundProgressView.h; sourceTree = "<group>"; };
 		C80656EA17FE53BA00CADF4F /* CERoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CERoundProgressView.m; sourceTree = "<group>"; };
-		C806573A17FE53BB00CADF4F /* FlyingLessonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLessonListViewController.h; sourceTree = "<group>"; };
-		C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonListViewController.m; sourceTree = "<group>"; };
-		C806573C17FE53BB00CADF4F /* FlyingLessonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLessonParser.h; sourceTree = "<group>"; };
-		C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonParser.m; sourceTree = "<group>"; };
-		C806573E17FE53BB00CADF4F /* FlyingLessonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLessonViewCell.h; sourceTree = "<group>"; };
-		C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLessonViewCell.m; sourceTree = "<group>"; };
 		C806575417FE53BB00CADF4F /* FlyingSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchBar.h; sourceTree = "<group>"; };
 		C806575517FE53BB00CADF4F /* FlyingSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSearchBar.m; sourceTree = "<group>"; };
 		C806575617FE53BB00CADF4F /* FlyingSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchViewController.h; sourceTree = "<group>"; };
@@ -2015,7 +2009,6 @@
 		C8C390EC1BDF7A7A00F6AC9B /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "Pods/../build/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
 		C8C390ED1BDF7A7A00F6AC9B /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Debug-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libZXingObjC-iOS.a"; path = "libraries/Zxing/libZXingObjC-iOS.a"; sourceTree = "<group>"; };
-		C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingRCLocationPickerViewController.h; sourceTree = "<group>"; };
 		C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingRCLocationPickerViewController.m; sourceTree = "<group>"; };
 		C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
@@ -2454,7 +2447,7 @@
 				FAD37FAC1A121BB300704F04 /* libc++.dylib in Frameworks */,
 				FAD37FAA1A121B8400704F04 /* CoreTelephony.framework in Frameworks */,
 				FAD37FA91A121B5F00704F04 /* CoreImage.framework in Frameworks */,
-				C8C8054B1BD3BC7F009F3712 /* StoreKit.framework in Frameworks */,
+				82501C881C0D913B00C58789 /* StoreKit.framework in Frameworks */,
 				FAD37FA71A121B4600704F04 /* CoreAudio.framework in Frameworks */,
 				FA11E7CC19CDC6CE00D97FDB /* QuickLook.framework in Frameworks */,
 				C82D8AA6195D76BC001ACB77 /* libfreetype.a in Frameworks */,
@@ -2511,8 +2504,8 @@
 				C81F8B8C1BD7B488004146F0 /* libc++.dylib in Frameworks */,
 				C81F8B8D1BD7B488004146F0 /* CoreTelephony.framework in Frameworks */,
 				C81F8B8E1BD7B488004146F0 /* CoreImage.framework in Frameworks */,
-				C81F8B8F1BD7B488004146F0 /* StoreKit.framework in Frameworks */,
 				C81F8B901BD7B488004146F0 /* CoreAudio.framework in Frameworks */,
+				82501C871C0D90D400C58789 /* StoreKit.framework in Frameworks */,
 				C81F8B911BD7B488004146F0 /* QuickLook.framework in Frameworks */,
 				C81F8B921BD7B488004146F0 /* libfreetype.a in Frameworks */,
 				C81F8B931BD7B488004146F0 /* libjbig2dec.a in Frameworks */,
@@ -2622,7 +2615,6 @@
 				FA632A5C1B51091400A1222E /* libc++.dylib in Frameworks */,
 				FA632A5D1B51091400A1222E /* CoreTelephony.framework in Frameworks */,
 				FA632A5E1B51091400A1222E /* CoreImage.framework in Frameworks */,
-				C8CD49CC1BD5DDBF00242B98 /* StoreKit.framework in Frameworks */,
 				FA632A5F1B51091400A1222E /* CoreAudio.framework in Frameworks */,
 				FA632A601B51091400A1222E /* QuickLook.framework in Frameworks */,
 				FA632A611B51091400A1222E /* libfreetype.a in Frameworks */,
@@ -2679,7 +2671,6 @@
 				FA8C3EB91B535A1500DEA02D /* libc++.dylib in Frameworks */,
 				FA8C3EBA1B535A1500DEA02D /* CoreTelephony.framework in Frameworks */,
 				FA8C3EBB1B535A1500DEA02D /* CoreImage.framework in Frameworks */,
-				C8C8054C1BD3BD62009F3712 /* StoreKit.framework in Frameworks */,
 				FA8C3EBC1B535A1500DEA02D /* CoreAudio.framework in Frameworks */,
 				FA8C3EBD1B535A1500DEA02D /* QuickLook.framework in Frameworks */,
 				FA8C3EBE1B535A1500DEA02D /* libfreetype.a in Frameworks */,
@@ -2739,6 +2730,9 @@
 				82493F931C07F53E000A2306 /* FlyingItemParser.m */,
 				82493F941C07F53E000A2306 /* FlyingItemView.h */,
 				82493F951C07F53E000A2306 /* FlyingItemView.m */,
+				826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */,
+				826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */,
+				826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -2786,8 +2780,6 @@
 				824940541C07FCBB000A2306 /* FlyingMediaVC.xib */,
 				824940551C07FCBB000A2306 /* FlyingPlayerView.h */,
 				824940561C07FCBB000A2306 /* FlyingPlayerView.m */,
-				824940571C07FCBB000A2306 /* FlyingStytleView.h */,
-				824940581C07FCBB000A2306 /* FlyingStytleView.m */,
 				824940591C07FCBB000A2306 /* FlyingSubtitleTextView.h */,
 				8249405A1C07FCBB000A2306 /* FlyingSubtitleTextView.m */,
 			);
@@ -2996,19 +2988,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		C806573917FE53BB00CADF4F /* LessonList */ = {
-			isa = PBXGroup;
-			children = (
-				C806573A17FE53BB00CADF4F /* FlyingLessonListViewController.h */,
-				C806573B17FE53BB00CADF4F /* FlyingLessonListViewController.m */,
-				C806573C17FE53BB00CADF4F /* FlyingLessonParser.h */,
-				C806573D17FE53BB00CADF4F /* FlyingLessonParser.m */,
-				C806573E17FE53BB00CADF4F /* FlyingLessonViewCell.h */,
-				C806573F17FE53BB00CADF4F /* FlyingLessonViewCell.m */,
-			);
-			path = LessonList;
-			sourceTree = "<group>";
-		};
 		C806574A17FE53BB00CADF4F /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -3046,8 +3025,8 @@
 		C81C2BB315F4E2DA00754FE2 = {
 			isa = PBXGroup;
 			children = (
+				82501C851C0D902000C58789 /* Finance Education.entitlements */,
 				C85A70291BDE525B003E8AF8 /* ibag.entitlements */,
-				82493FC91C07F584000A2306 /* Finance Education.entitlements */,
 				C85E8AB21BD63FC900650D00 /* BirdEnglish.entitlements */,
 				C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */,
 				C827C66A1BD4EEFC0088EF2B /* inet.entitlements */,
@@ -3076,6 +3055,7 @@
 		C81C2BC115F4E2DA00754FE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82501C861C0D90D400C58789 /* StoreKit.framework */,
 				C8C390E71BDF7A7A00F6AC9B /* libAFNetworking.a */,
 				C8C390E81BDF7A7A00F6AC9B /* libINTULocationManager.a */,
 				C8C390E91BDF7A7A00F6AC9B /* libMBProgressHUD.a */,
@@ -3087,7 +3067,6 @@
 				C8D396B81BDF76A000525299 /* libAFNetworking.a */,
 				C827C6681BD4E3C60088EF2B /* libUICKeyChainStore.a */,
 				C827C6661BD4E3BB0088EF2B /* libAFNetworking.a */,
-				C8C8054A1BD3BC7F009F3712 /* StoreKit.framework */,
 				FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */,
 				FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */,
 				FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */,
@@ -3184,7 +3163,6 @@
 				FA04BEF41B995812000F29A5 /* Group */,
 				C806570D17FE53BB00CADF4F /* Home */,
 				FA0C58921B0F6101000D98BA /* IM */,
-				C806573917FE53BB00CADF4F /* LessonList */,
 				FAED3F141A695EA000CC6116 /* Provider */,
 				C806574A17FE53BB00CADF4F /* Review */,
 				C85D91A718CDB71000A02B21 /* Scan */,
@@ -3305,6 +3283,8 @@
 		C87524371BB394FC000F86DC /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				826D3FC61C0C941100F8E76E /* NSString+Emoji.h */,
+				826D3FC71C0C941100F8E76E /* NSString+Emoji.m */,
 				C87524C01BB52A0F000F86DC /* StoryBoardUtilities.h */,
 				C87524C11BB52A0F000F86DC /* StoryBoardUtilities.m */,
 				C87524B91BB43ED0000F86DC /* KMGillSansLabel.h */,
@@ -4169,6 +4149,9 @@
 					C81F8A6C1BD7B488004146F0 = {
 						DevelopmentTeam = V483NATPWH;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -4250,6 +4233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C85AC342181CA39D00B83580 /* calloutLight.mp3 in Resources */,
+				826D3FBF1C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				824940381C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				C87524051BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA23C6BF1B14A63200D9E13A /* Images.xcassets in Resources */,
@@ -4257,6 +4241,7 @@
 				C88DCF731765B95A00C28D74 /* MainStoryboard.storyboard in Resources */,
 				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
 				C87524BC1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
+				82501C821C0D8F7500C58789 /* BirdEnglish.entitlements in Resources */,
 				C8E57E611BB6A4000013527E /* FlyingEventPriceCell.xib in Resources */,
 				C875241D1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				824940421C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
@@ -4267,7 +4252,6 @@
 				C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
-				82493FCA1C07F584000A2306 /* Finance Education.entitlements in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
 				C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */,
 				824940261C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
@@ -4287,8 +4271,8 @@
 				C81F8BB31BD7B488004146F0 /* FlyingEventAuthorCell.xib in Resources */,
 				8249402A1C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				C81F8BDA1BD7E4A2004146F0 /* MKStoreKitConfigs.plist in Resources */,
-				82493FCE1C07F584000A2306 /* Finance Education.entitlements in Resources */,
 				C81F8BB51BD7B488004146F0 /* MainStoryboard.storyboard in Resources */,
+				826D3FC31C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */,
 				C81F8BB71BD7B488004146F0 /* KMNetworkLoadingViewController.storyboard in Resources */,
 				C81F8BB81BD7B488004146F0 /* FlyingEventPriceCell.xib in Resources */,
@@ -4315,6 +4299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */,
+				826D3FC01C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				824940391C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */,
 				FA1BE5A51B27DD5A00AA1AFD /* MainStoryboard.storyboard in Resources */,
@@ -4323,6 +4308,7 @@
 				C8E57E5D1BB6A2B90013527E /* FlyingEventLocationCell.xib in Resources */,
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
+				82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */,
 				FA1BE5A71B27DD5A00AA1AFD /* dicModel.db in Resources */,
 				824940431C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */,
@@ -4332,7 +4318,6 @@
 				FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */,
 				FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */,
 				C87524BD1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
-				82493FCB1C07F584000A2306 /* Finance Education.entitlements in Resources */,
 				C8E57E4E1BB6A2780013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */,
 				824940271C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
@@ -4347,6 +4332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */,
+				826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403A1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				C87524071BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
@@ -4354,6 +4340,7 @@
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
 				FA632A851B51091400A1222E /* MainStoryboard.storyboard in Resources */,
 				C87524BE1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
+				82501C811C0D8F6E00C58789 /* beiyang.entitlements in Resources */,
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
 				C875241F1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib in Resources */,
 				824940441C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
@@ -4364,7 +4351,6 @@
 				FA632A871B51091400A1222E /* dicModel.db in Resources */,
 				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
-				82493FCC1C07F584000A2306 /* Finance Education.entitlements in Resources */,
 				C8E57E4F1BB6A2790013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */,
 				824940281C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
@@ -4379,7 +4365,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */,
+				826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403B1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
+				82501C831C0D8F7900C58789 /* inet.entitlements in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
 				FA8C3EE11B535A1500DEA02D /* MainStoryboard.storyboard in Resources */,
 				8249406D1C07FCBB000A2306 /* FlyingMediaVC.xib in Resources */,
@@ -4396,7 +4384,6 @@
 				FA8C3EE41B535A1500DEA02D /* LootCoinLarge.wav in Resources */,
 				FA8C3EE61B535A1500DEA02D /* iMoneyDialogOpen.wav in Resources */,
 				C87524BF1BB525EA000F86DC /* KMNetworkLoadingViewController.storyboard in Resources */,
-				82493FCD1C07F584000A2306 /* Finance Education.entitlements in Resources */,
 				C8E57E501BB6A27A0013527E /* FlyingEventScheduleCell.xib in Resources */,
 				FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */,
 				824940291C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
@@ -4698,7 +4685,6 @@
 				FA3454DF1B04B5BA00DCF2AB /* DDRange.m in Sources */,
 				FA67FF9E1AF4D656001031FD /* FlyingSubItemParser.m in Sources */,
 				FA8CDD7A1B030821004152C2 /* MuHitView.m in Sources */,
-				824940741C07FCBB000A2306 /* FlyingStytleView.m in Sources */,
 				C81D74EE18B6359F0068FDC7 /* FlyingTouchDAO.m in Sources */,
 				C8E57E4A1BB6A2370013527E /* FlyingEventPriceCell.m in Sources */,
 				C806578017FE53BB00CADF4F /* FlyingTagTransform.m in Sources */,
@@ -4809,6 +4795,7 @@
 				FA5ACC201B6FB7400051A3EA /* RECommonFunctions.m in Sources */,
 				FA3454F91B04B5BA00DCF2AB /* ContextFilterLogFormatter.m in Sources */,
 				C806576417FE53BB00CADF4F /* FlyingNowLessonData.m in Sources */,
+				826D3FC81C0C941100F8E76E /* NSString+Emoji.m in Sources */,
 				C80657CA17FE53BB00CADF4F /* UIBubbleTableView.m in Sources */,
 				FA8CDD7B1B030821004152C2 /* MuInkView.m in Sources */,
 				C87524901BB39674000F86DC /* NSDate+Components.m in Sources */,
@@ -4827,6 +4814,7 @@
 				C87524B61BB43D26000F86DC /* KMGillSansLabel.m in Sources */,
 				C851199518D92EF60078AEC1 /* ACMagnifyingView.m in Sources */,
 				FAFA72371B42A58E00E4FE30 /* UIView+Toast.m in Sources */,
+				826D3FBA1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C87524981BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
 				C830C534182FBE87006D9269 /* UIView+Autosizing.m in Sources */,
 				82493FA41C07F53E000A2306 /* FlyingItemView.m in Sources */,
@@ -4920,6 +4908,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820827D31C0DA708005C1753 /* FlyingSeparateView.m in Sources */,
 				C81F8A6F1BD7B488004146F0 /* FlyingSearchViewController.m in Sources */,
 				824940731C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
 				C81F8A701BD7B488004146F0 /* china_shift.c in Sources */,
@@ -4962,7 +4951,6 @@
 				82493FE31C07F67D000A2306 /* FlyingCoverDataParser.m in Sources */,
 				C81F8A971BD7B488004146F0 /* FlyingPubLessonData.m in Sources */,
 				C81F8A981BD7B488004146F0 /* FlyingCurrentAnnotation.m in Sources */,
-				824940781C07FCBB000A2306 /* FlyingStytleView.m in Sources */,
 				C81F8A991BD7B488004146F0 /* UIImage+localFile.m in Sources */,
 				C81F8A9A1BD7B488004146F0 /* mztools.c in Sources */,
 				C81F8A9B1BD7B488004146F0 /* FlyingLoadingView.m in Sources */,
@@ -4995,7 +4983,6 @@
 				C81F8AB91BD7B488004146F0 /* NSDate+Description.m in Sources */,
 				C81F8ABA1BD7B488004146F0 /* ACEExpandableTextCell.m in Sources */,
 				C81F8ABB1BD7B488004146F0 /* iFlyingAppDelegate.m in Sources */,
-				C81F8ABC1BD7B488004146F0 /* FlyingLessonViewCell.m in Sources */,
 				C81F8ABD1BD7B488004146F0 /* FlyingCalendarEvent.m in Sources */,
 				C81F8ABE1BD7B488004146F0 /* KMActivityIndicator.m in Sources */,
 				C81F8ABF1BD7B488004146F0 /* NSBubbleData.m in Sources */,
@@ -5086,14 +5073,12 @@
 				C81F8B101BD7B488004146F0 /* RECommonFunctions.m in Sources */,
 				C81F8B121BD7B488004146F0 /* ContextFilterLogFormatter.m in Sources */,
 				C81F8B131BD7B488004146F0 /* FlyingNowLessonData.m in Sources */,
-				C81F8B151BD7B488004146F0 /* FlyingLessonParser.m in Sources */,
 				C81F8B161BD7B488004146F0 /* UIBubbleTableView.m in Sources */,
 				C81F8B171BD7B488004146F0 /* MuInkView.m in Sources */,
 				C81F8B181BD7B488004146F0 /* NSDate+Components.m in Sources */,
 				C81F8B191BD7B488004146F0 /* ACLoupe.m in Sources */,
 				C81F8B1A1BD7B488004146F0 /* HTTPFileResponse.m in Sources */,
 				82493FED1C07F67D000A2306 /* FlyingCoverViewCell.m in Sources */,
-				C81F8B1B1BD7B488004146F0 /* FlyingLessonListViewController.m in Sources */,
 				C81F8B1D1BD7B488004146F0 /* FMDatabaseAdditions.m in Sources */,
 				C81F8B1E1BD7B488004146F0 /* FlyingHttpTool.m in Sources */,
 				C81F8B1F1BD7B488004146F0 /* DDMultiFormatter.m in Sources */,
@@ -5171,6 +5156,7 @@
 				82493FBE1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				C81F8B6B1BD7B488004146F0 /* FlyingLessonDAO.m in Sources */,
 				C81F8B6D1BD7B488004146F0 /* FlyingItemData.m in Sources */,
+				826D3FBE1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C81F8B6E1BD7B488004146F0 /* unzip.c in Sources */,
 				C81F8B6F1BD7B488004146F0 /* NSCalendar+DateManipulation.m in Sources */,
 				C81F8B711BD7B488004146F0 /* FlyingCommentVC.m in Sources */,
@@ -5196,6 +5182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8262B4B91C0E980A00B41597 /* FlyingSeparateView.m in Sources */,
 				C8FE1FA91BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
 				C87524C31BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA1BE4971B27DD5A00AA1AFD /* FlyingSearchViewController.m in Sources */,
@@ -5275,7 +5262,6 @@
 				C875244D1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA1BE4D41B27DD5A00AA1AFD /* ACEExpandableTextCell.m in Sources */,
 				FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */,
-				FA1BE4D61B27DD5A00AA1AFD /* FlyingLessonViewCell.m in Sources */,
 				FA1BE4D71B27DD5A00AA1AFD /* NSBubbleData.m in Sources */,
 				FA1BE4D91B27DD5A00AA1AFD /* ReaderDocumentOutline.m in Sources */,
 				FA1BE4DB1B27DD5A00AA1AFD /* FlyingTaskWordDAO.m in Sources */,
@@ -5286,7 +5272,6 @@
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
 				82493FC51C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
 				FA04C0321B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
-				824940751C07FCBB000A2306 /* FlyingStytleView.m in Sources */,
 				FA1BE4DE1B27DD5A00AA1AFD /* MuPageViewReflow.m in Sources */,
 				FA1BE4DF1B27DD5A00AA1AFD /* FlyingGuideViewController.m in Sources */,
 				FA04C01A1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
@@ -5368,7 +5353,6 @@
 				FA1BE5191B27DD5A00AA1AFD /* ContextFilterLogFormatter.m in Sources */,
 				FA1BE51A1B27DD5A00AA1AFD /* FlyingNowLessonData.m in Sources */,
 				C8E57E511BB6A29C0013527E /* FlyingEventPriceCell.m in Sources */,
-				FA1BE51C1B27DD5A00AA1AFD /* FlyingLessonParser.m in Sources */,
 				C87524451BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241A1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				C80EF7561BD4A571006D57AC /* NSData+NSHash.m in Sources */,
@@ -5377,7 +5361,7 @@
 				FA1BE51F1B27DD5A00AA1AFD /* ACLoupe.m in Sources */,
 				FA1BE5201B27DD5A00AA1AFD /* HTTPFileResponse.m in Sources */,
 				C87524851BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
-				FA1BE5211B27DD5A00AA1AFD /* FlyingLessonListViewController.m in Sources */,
+				826D3FBB1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */,
 				FA1BE5231B27DD5A00AA1AFD /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9D1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
@@ -5470,6 +5454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826D3FC51C0AE6F700F8E76E /* FlyingSeparateView.m in Sources */,
 				C8FE1FAA1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
 				C87524C41BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA63297B1B51091400A1222E /* FlyingSearchViewController.m in Sources */,
@@ -5549,7 +5534,6 @@
 				C875244E1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA6329B81B51091400A1222E /* ACEExpandableTextCell.m in Sources */,
 				FA6329B91B51091400A1222E /* iFlyingAppDelegate.m in Sources */,
-				FA6329BA1B51091400A1222E /* FlyingLessonViewCell.m in Sources */,
 				FA6329BB1B51091400A1222E /* NSBubbleData.m in Sources */,
 				FA6329BD1B51091400A1222E /* ReaderDocumentOutline.m in Sources */,
 				FA6329BE1B51091400A1222E /* FlyingTaskWordDAO.m in Sources */,
@@ -5560,7 +5544,6 @@
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
 				82493FC61C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
 				FA04C0331B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
-				824940761C07FCBB000A2306 /* FlyingStytleView.m in Sources */,
 				FA6329C11B51091400A1222E /* MuPageViewReflow.m in Sources */,
 				FA6329C21B51091400A1222E /* FlyingGuideViewController.m in Sources */,
 				FA04C01B1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
@@ -5642,7 +5625,6 @@
 				FA6329FB1B51091400A1222E /* ContextFilterLogFormatter.m in Sources */,
 				FA6329FC1B51091400A1222E /* FlyingNowLessonData.m in Sources */,
 				C8E57E521BB6A29D0013527E /* FlyingEventPriceCell.m in Sources */,
-				FA6329FE1B51091400A1222E /* FlyingLessonParser.m in Sources */,
 				C87524461BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241B1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				C80EF7571BD4A572006D57AC /* NSData+NSHash.m in Sources */,
@@ -5651,7 +5633,7 @@
 				FA632A011B51091400A1222E /* ACLoupe.m in Sources */,
 				FA632A021B51091400A1222E /* HTTPFileResponse.m in Sources */,
 				C87524861BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
-				FA632A031B51091400A1222E /* FlyingLessonListViewController.m in Sources */,
+				826D3FBC1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */,
 				FA632A051B51091400A1222E /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9E1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
@@ -5744,6 +5726,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82EF473F1C0E830300837752 /* NSString+Emoji.m in Sources */,
+				82EF473E1C0DEB8200837752 /* FlyingSeparateView.m in Sources */,
 				C8FE1FAB1BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
 				C87524C51BB52A0F000F86DC /* StoryBoardUtilities.m in Sources */,
 				FA8C3DD71B535A1500DEA02D /* FlyingSearchViewController.m in Sources */,
@@ -5823,7 +5807,6 @@
 				C875244F1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
 				FA8C3E141B535A1500DEA02D /* ACEExpandableTextCell.m in Sources */,
 				FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */,
-				FA8C3E161B535A1500DEA02D /* FlyingLessonViewCell.m in Sources */,
 				FA8C3E171B535A1500DEA02D /* NSBubbleData.m in Sources */,
 				FA8C3E191B535A1500DEA02D /* ReaderDocumentOutline.m in Sources */,
 				FA8C3E1A1B535A1500DEA02D /* FlyingTaskWordDAO.m in Sources */,
@@ -5834,7 +5817,6 @@
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
 				82493FC71C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
 				FA04C0341B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
-				824940771C07FCBB000A2306 /* FlyingStytleView.m in Sources */,
 				FA8C3E1D1B535A1500DEA02D /* MuPageViewReflow.m in Sources */,
 				FA8C3E1E1B535A1500DEA02D /* FlyingGuideViewController.m in Sources */,
 				FA04C01C1B9E83B6000F29A5 /* FlyingGroupVC.m in Sources */,
@@ -5916,7 +5898,6 @@
 				FA8C3E571B535A1500DEA02D /* ContextFilterLogFormatter.m in Sources */,
 				FA8C3E581B535A1500DEA02D /* FlyingNowLessonData.m in Sources */,
 				C8E57E531BB6A29E0013527E /* FlyingEventPriceCell.m in Sources */,
-				FA8C3E5A1B535A1500DEA02D /* FlyingLessonParser.m in Sources */,
 				C87524471BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				C875241C1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
 				C80EF7581BD4A573006D57AC /* NSData+NSHash.m in Sources */,
@@ -5925,7 +5906,7 @@
 				FA8C3E5D1B535A1500DEA02D /* ACLoupe.m in Sources */,
 				FA8C3E5E1B535A1500DEA02D /* HTTPFileResponse.m in Sources */,
 				C87524871BB39674000F86DC /* NSCalendar+DateManipulation.m in Sources */,
-				FA8C3E5F1B535A1500DEA02D /* FlyingLessonListViewController.m in Sources */,
+				826D3FBD1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */,
 				FA8C3E611B535A1500DEA02D /* FMDatabaseAdditions.m in Sources */,
 				C8FE1F9F1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
@@ -6115,7 +6096,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				SDKROOT = iphoneos;
@@ -6284,7 +6265,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6344,7 +6325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Finance Education/Finance Education.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;

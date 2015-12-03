@@ -30,6 +30,9 @@
 #import "FlyingNowLessonDAO.h"
 #import "FlyingNowLessonData.h"
 
+#import "FlyingLessonDAO.h"
+#import "FlyingLessonData.h"
+
 #import "FlyingDiscoverContent.h"
 #import "FlyingMyGroupsVC.h"
 
@@ -142,14 +145,10 @@
 
 -(void) loadPortrait
 {
-    NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
+    NSString *portraitUri=[NSString getUserPortraitUri];
     
-    if (portraitUri) {
+    if (portraitUri.length==0) {
         
-        [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
-    }
-    else
-    {
         NSString *openID = [NSString getOpenUDID];
         
         if (!openID) {
@@ -165,13 +164,24 @@
                                           
                                           if ([code isEqualToString:@"1"]) {
                                               
-                                              RCUserInfo *userInfo = [RCUserInfo new];
+                                              NSString *portraitUri=response[@"portraitUri"];
                                               
-                                              userInfo.userId= [openID MD5];
-                                              userInfo.name=response[@"name"];
-                                              userInfo.portraitUri=response[@"portraitUri"];
-                                              
-                                              [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+                                              if (portraitUri.length==0) {
+                                                  
+                                                  [_portraitImageView setImage:[UIImage imageNamed:@"Icon"]];
+                                                  [self.view makeToast:@"请点击头像图片更新！"];
+                                              }
+                                              else{
+                                                  
+                                                  RCUserInfo *userInfo = [RCUserInfo new];
+                                                  
+                                                  userInfo.userId= [openID MD5];
+                                                  userInfo.name=response[@"name"];
+                                                  userInfo.portraitUri=response[@"portraitUri"];
+                                                  
+                                                  [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+                                                  self.accountNikename.text=userInfo.name;
+                                              }
                                           }
                                           else
                                           {
@@ -184,6 +194,10 @@
                                       NSLog(@"Get rongcloud Toke %@",err.description);
                                       
                                   }];
+    }
+    else
+    {
+        [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     
     [_portraitImageView.layer setCornerRadius:(_portraitImageView.frame.size.height/2)];
@@ -199,7 +213,6 @@
     
     UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editPortrait)];
     [_portraitImageView addGestureRecognizer:portraitTap];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -243,7 +256,9 @@
         
         [appDelegate  showWebviewWithURL:[NSString getOfficalURL]];
     }
-
+    
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
         /*
 #define SERVICE_ID @"kefu114"
         RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
@@ -295,6 +310,19 @@
                            //删除数据库本地纪录，资源自动释放
                            [[FlyingNowLessonDAO new] deleteWithUserID:openID LessonID:nowLessonData.BELESSONID];
                        }];
+                       
+                       tempArray =  [[[FlyingLessonDAO new] select] mutableCopy] ;
+                                              
+                       [tempArray enumerateObjectsUsingBlock:^(FlyingLessonData* lessonData, NSUInteger idx, BOOL *stop) {
+                           //
+                           
+                           //通知下载中心关闭相关资源，没有下载就是无意义操作
+                           [delegate closeAndReleaseDownloaderForID:lessonData.BELESSONID];
+                           
+                           //删除数据库本地纪录，资源自动释放
+                           [[FlyingLessonDAO new]  deleteWithLessonID:lessonData.BELESSONID];
+                       }];
+
                        
                        [self performSelectorOnMainThread:@selector(clearCacheSuccess)
                                               withObject:nil waitUntilDone:YES];});
@@ -399,7 +427,6 @@
         return;
     }
 
-    
     [AFHttpTool requestUploadPotraitWithOpenID:openID
                                           data:imageData
                                        success:^(id response) {
@@ -417,7 +444,8 @@
                     
                     [AFHttpTool refreshUesrWithOpenID:openID
                                                  name:nil
-                                          portraitUri:portraitUri br_intro:nil
+                                          portraitUri:portraitUri
+                                             br_intro:nil
                                               success:^(id response) {
                         
                         NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
@@ -426,7 +454,7 @@
                         if ([code isEqualToString:@"1"])
                         {
                             //更新本地信息
-                            [UICKeyChainStore keyChainStore][kUserPortraitUri] = portraitUri;
+                            [NSString setUserPortraitUri:portraitUri];
                             
                             RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
                             currentUserInfo.portraitUri=portraitUri;

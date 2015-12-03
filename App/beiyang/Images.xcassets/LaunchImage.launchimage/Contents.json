@@ -56,6 +56,13 @@
       "filename" : "320x460.png",
       "scale" : "1x"
     },
+   {
+      "orientation" : "portrait",
+      "idiom" : "ipad",
+      "filename" : "768x1004.png",
+      "extent" : "full-screen",
+      "scale" : "1x"
+    },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",

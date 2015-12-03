@@ -38,12 +38,14 @@
 #import "FlyingLoadingCell.h"
 #import "FlyingContentSummaryCell.h"
 
+#import "NSString+Emoji.h"
+
 @interface FlyingCommentVC ()
 {
     NSInteger            _maxNumOfComments;
     NSInteger            _currentLodingIndex;
     
-    NSInteger           kLoadMoreIndicatorTag;
+    BOOL                 _refresh;
 }
 
 @property (strong, nonatomic) FlyingLoadingCell *loadingCommentIndicatorCell;
@@ -102,6 +104,8 @@
      */
     
     self.inverted=false;
+    
+    _refresh=NO;
 }
 
 - (void)viewDidLoad
@@ -115,7 +119,10 @@
     [self addBackFunction];
         
     //更新欢迎语言
-    //self.title =self.streamData.title;
+    if(self.commentTitle)
+    {
+        self.title =self.commentTitle;
+    }
     
     //顶部导航
     UIImage* image= [UIImage imageNamed:@"menu"];
@@ -254,6 +261,8 @@
             if(commentCell == nil)
                 commentCell = [FlyingCommentCell commentCell];
             
+            commentCell.delegate=self;
+            
             [self configureCell:commentCell atIndexPath:indexPath];
             
             cell = commentCell;
@@ -349,9 +358,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
-
-    [self profileImageViewPressed:commentData];
+    NSInteger actualNumberOfRows = [self.currentData count];
+    
+    if (actualNumberOfRows == 0) {
+    
+        [self.textView becomeFirstResponder];
+    }
+    else
+    {
+        FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
+        
+        [self profileImageViewPressed:commentData];
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -359,22 +377,26 @@
 //////////////////////////////////////////////////////////////
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
-    NSString *openID = [NSString getOpenUDID];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    if ([openID isEqualToString:commentData.userID])
+    if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:[commentData.userID MD5]])
     {
-        //个人档案页
+        
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        
+        [self.navigationController pushViewController:myProfileVC animated:YES];
     }
     else
     {
+        if (INTERFACE_IS_PAD) {
+            
+            [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
+            
+            return;
+        }
+        
         RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
         
-        NSString* userID = commentData.userID;
+        NSString* userID = [commentData.userID MD5];
         
         RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
         chatService.userName = userInfo.name;
@@ -383,6 +405,22 @@
         chatService.title = chatService.userName;
         [self.navigationController pushViewController:chatService animated:YES];
     }
+    /*
+     NSString *openID = [NSString getOpenUDID];
+     
+     if (!openID) {
+     
+     return;
+     }
+     
+     if ([openID isEqualToString:commentData.userID])
+     {
+     //个人档案页
+     }
+     else
+     {
+     }
+     */
 }
 
 //////////////////////////////////////////////////////////////
@@ -391,8 +429,8 @@
 - (void)didPressRightButton:(id)sender
 {
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
-    
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
+    
     [self.textView refreshFirstResponder];
     
     FlyingCommentData *commentData=[[FlyingCommentData alloc] init];
@@ -403,11 +441,13 @@
     
     commentData.userID=openID;
     
-    NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
+    NSString *portraitUri=[NSString getUserPortraitUri];
     commentData.portraitURL=portraitUri;
     
     commentData.nickName=[NSString getNickName];
-    commentData.commentContent=self.textView.text;
+    
+    NSString * inputString=self.textView.text;
+    commentData.commentContent=[inputString stringByReplacingEmojiCheatCodesWithUnicode];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -418,21 +458,31 @@
     [FlyingHttpTool updateComment:commentData Completion:^(BOOL result) {
         
         if (result) {
-                        
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
-            UITableViewScrollPosition scrollPosition = self.inverted ? UITableViewScrollPositionBottom : UITableViewScrollPositionTop;
             
-            [self.tableView beginUpdates];
-            [self.currentData insertObject:commentData atIndex:0];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-            [self.tableView endUpdates];
+            if (self.currentData.count==0) {
+                
+                //[self.currentData addObject:commentData];
+                [self reloadAll];
+            }
+            else
+            {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
+                UITableViewScrollPosition scrollPosition = self.inverted ? UITableViewScrollPositionBottom : UITableViewScrollPositionTop;
+                                
+                [self.tableView beginUpdates];
+                [self.currentData insertObject:commentData atIndex:0];
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
+                [self.tableView endUpdates];
+                
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:YES];
+                
+                // Fixes the cell from blinking (because of the transform, when using translucent cells)
+                // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
             
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:YES];
-            
-            // Fixes the cell from blinking (because of the transform, when using translucent cells)
-            // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            _refresh=YES;
         }
     }];
     
@@ -450,6 +500,11 @@
 
 - (void)dismiss
 {
+    if (_refresh && self.reloadDatadelegate && [self.reloadDatadelegate respondsToSelector:@selector(reloadCommentData)])
+    {
+        [self.reloadDatadelegate reloadCommentData];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -463,6 +518,7 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
 }

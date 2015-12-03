@@ -369,8 +369,18 @@
                                            
                                            //保存默认用户
                                            [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
+                                           
+                                           [AFHttpTool refreshUesrWithOpenID:openID
+                                                                        name:[NSString getNickName]
+                                                                 portraitUri:nil
+                                                                    br_intro:[NSString getUserAbstract]
+                                                                     success:^(id response) {
+                                                                         //
+                                                                         [self connectWithRongCloud:rongDeviceKoken];
 
-                                           [self connectWithRongCloud:rongDeviceKoken];
+                                                                     } failure:^(NSError *err) {
+                                                                         //
+                                                                     }];
                                        }
                                        else
                                        {
@@ -414,14 +424,13 @@
                                                                      
                                                                      if (user) {
                                                                          
-                                                                         //设置当前的用户信息
+                                                                         //保存当前的用户信息（IM本地）
                                                                          [RCIMClient sharedRCIMClient].currentUserInfo = user;
-                                                                         
                                                                          [[RCDataBaseManager shareInstance] insertUserToDB:user];
                                                                          
-                                                                         [UICKeyChainStore keyChainStore][kUserNickName] = user.name;
-                                                                         [UICKeyChainStore keyChainStore][kUserPortraitUri] = user.portraitUri;
-
+                                                                         //保存当前的用户信息（系统本地）
+                                                                         [NSString setNickName:user.name];
+                                                                         [NSString setUserPortraitUri:user.portraitUri];
                                                                      }
                                                                  }];
                                     }
@@ -2017,7 +2026,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
                                                       object:nil
-                                                       queue:[[NSOperationQueue alloc] init]
+                                                       queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                                                                             
                                                       NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -2046,7 +2055,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
                                                       object:nil
-                                                       queue:[[NSOperationQueue alloc] init]
+                                                       queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
                                                       NSLog(@"Failed restoring purchases with error: %@", [note object]);

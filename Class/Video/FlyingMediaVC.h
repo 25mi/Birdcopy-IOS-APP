@@ -29,8 +29,6 @@
 -(void)play;
 -(void)pause;
 
--(void)adjustRelayout;
-
 - (void)dismiss;
 
 @end

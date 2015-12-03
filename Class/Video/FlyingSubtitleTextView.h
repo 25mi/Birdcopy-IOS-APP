@@ -14,6 +14,8 @@
 
 @property (assign,nonatomic) NSUInteger currentSubtitleIndex;
 
+-(void) magicStytle;
+
 @end
 
 

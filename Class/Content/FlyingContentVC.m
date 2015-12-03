@@ -35,7 +35,6 @@
 
 #import "StoryBoardUtilities.h"
 #import "UIView+Toast.h"
-#import "FlyingContentTitleAndTypeCell.h"
 #import "FlyingContentSummaryCell.h"
 #import "FlyingTagCell.h"
 #import "FlyingCommentCell.h"
@@ -58,7 +57,7 @@
 #import "FlyingWebViewController.h"
 #import "ReaderViewController.h"
 
-#import "FlyingCommentVC.h"
+#import "UIImage+localFile.h"
 
 @interface FlyingContentVC ()
 {
@@ -86,7 +85,6 @@
 @property (strong, nonatomic) UIActivityIndicatorView  *loadingCoverConntentIndicatorView;
 
 @end
-
 
 @implementation FlyingContentVC
 
@@ -180,6 +178,9 @@
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingLoadingCell" bundle: nil]
              forCellReuseIdentifier:@"FlyingLoadingCell"];
 
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingCommentHeader" bundle: nil]
+             forCellReuseIdentifier:@"FlyingCommentHeader"];
+        
         [self.view addSubview:self.tableView];
     }
         
@@ -268,7 +269,7 @@
 
 -(void)showAccessRightInfo
 {
-    NSString * infoStr=@"抱歉，你没有相关权限。";
+    NSString * infoStr=@"抱歉，你没有相关权限。请在个人帐户购买会员或者直接点击课程标题的购买图标！";
     
     if(self.accessRight==YES)
     {
@@ -410,7 +411,7 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     
-    if([self.theLesson.contentType isEqualToString:KContentTypeVideo] || [self.theLesson.contentType isEqualToString:KContentTypeAudio])
+    if([self.theLesson.contentType isEqualToString:KContentTypeVideo])
     {
         if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.theLesson.contentURL])
         {
@@ -425,6 +426,10 @@
                 [self.navigationController pushViewController:webVC animated:YES];
             }
         }
+    }
+    else if([self.theLesson.contentType isEqualToString:KContentTypeAudio])
+    {
+        [self playVedio];
     }
     else if ([self.theLesson.contentType isEqualToString:KContentTypeText])
     {
@@ -553,12 +558,40 @@
 //////////////////////////////////////////////////////////////
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 1)
+    {
+        CGFloat height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentHeader" configuration:^(FlyingCommentHeader *cell) {
+
+            [cell setTitle:@"相关评论"];
+        }];
+
+        return height;
+    }
+    else
+    {
         return CGFLOAT_MIN;
-    
-    return CGFLOAT_MIN;
+    }
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 1)
+    {
+        FlyingCommentHeader *commentHeader = [tableView dequeueReusableCellWithIdentifier:@"FlyingCommentHeader"];
+        
+        if(commentHeader == nil)
+            commentHeader = [FlyingCommentHeader commentHeaderCell];
+        
+        [commentHeader setTitle:@"相关评论"];
+        commentHeader.delegate=self;
+        
+        return commentHeader;
+    }
+    else
+    {
+        return nil;
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -601,6 +634,8 @@
                 
                 if(contentTitleCell == nil)
                     contentTitleCell = [FlyingContentTitleAndTypeCell contentTitleAndTypeCell];
+                
+                contentTitleCell.delegate=self;
                 
                 [self configureCell:contentTitleCell atIndexPath:indexPath];
                 cell = contentTitleCell;
@@ -753,7 +788,7 @@
             case 0:
             {
                 [(FlyingContentTitleAndTypeCell *)cell setTitle:self.theLesson.title];
-                [(FlyingContentTitleAndTypeCell *)cell setPrice:self.theLesson.coinPrice];
+                [(FlyingContentTitleAndTypeCell *)cell setAccessRight:self.accessRight];
                 
                 break;
             }
@@ -832,9 +867,19 @@
     }
     else if (indexPath.section == 1)
     {
-        FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
         
-        [self profileImageViewPressed:commentData];
+        NSInteger actualNumberOfRows = [self.currentData count];
+        
+        if (actualNumberOfRows == 0) {
+            
+            [self commentHeaderPressed];
+        }
+        else
+        {
+            FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
+            
+            [self profileImageViewPressed:commentData];
+        }
     }
 }
 
@@ -856,6 +901,37 @@
 
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
+    
+    if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:[commentData.userID MD5]])
+    {
+    
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        
+        [self.navigationController pushViewController:myProfileVC animated:YES];
+    }
+    else
+    {
+        if ([NSString getUserPortraitUri].length==0) {
+            
+            [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
+        }
+        else
+        {
+            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+            
+            NSString* userID = [commentData.userID MD5];
+            
+            RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
+            chatService.userName = userInfo.name;
+            chatService.targetId = userID;
+            chatService.conversationType = ConversationType_PRIVATE;
+            chatService.title = chatService.userName;
+            [self.navigationController pushViewController:chatService animated:YES];
+        }
+    }
+
+    /*
     NSString *openID = [NSString getOpenUDID];
     
     if (!openID) {
@@ -869,19 +945,40 @@
     }
     else
     {
-        RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+    }
+     */
+}
+
+- (void)accessButtonPressed
+{
+    if (!self.accessRight) {
         
-        NSString* userID = commentData.userID;
-        
-        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.userName = userInfo.name;
-        chatService.targetId = userID;
-        chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = chatService.userName;
-        [self.navigationController pushViewController:chatService animated:YES];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate presentStoreView];
     }
 }
 
+- (void)commentHeaderPressed
+{
+    FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
+    
+    commentVC.contentID=self.theLesson.lessonID;
+    commentVC.contentType=self.theLesson.contentType;
+    commentVC.commentTitle=self.theLesson.title;
+    
+    commentVC.reloadDatadelegate=self;
+    
+    [self.navigationController pushViewController:commentVC animated:YES];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma FlyingCommentVCDelegate related
+//////////////////////////////////////////////////////////////
+
+-(void)reloadCommentData
+{
+    [self requestRelatedComments];
+}
 
 #pragma mark -
 #pragma mark KMNetworkLoadingViewController Methods
@@ -945,7 +1042,6 @@
     }
 }
 
-
 #pragma mark -
 #pragma mark KMNetworkLoadingViewDelegate
 
@@ -953,7 +1049,6 @@
 {
     [self checkUserAccessRight];
 }
-
 
 #pragma mark - QLPreviewControllerDataSource
 
@@ -973,8 +1068,6 @@
 {
     return [NSURL fileURLWithPath:[(FlyingLessonData*)[[[FlyingLessonDAO alloc] init] selectWithLessonID:self.theLesson.lessonID] localURLOfContent]];
 }
-
-
 //////////////////////////////////////////////////////////////
 #pragma mark get data from offical website
 //////////////////////////////////////////////////////////////
@@ -1009,7 +1102,6 @@
 + (void) getSrtForLessonID: (NSString *) lessonID
                      Title:(NSString *) title
 {
-    
     [AFHttpTool lessonResourceType:kResource_Sub
                           lessonID:lessonID
                         contentURL:nil
@@ -1032,7 +1124,6 @@
                                //
                            }];
 }
-
 
 + (void) getDicWithURL: (NSString *) baseURLStr
               LessonID: (NSString *) lessonID
@@ -1210,12 +1301,17 @@
 
 -(void)doShare
 {
-    FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    commentVC.contentID=self.theLesson.lessonID;
-    commentVC.contentType=self.theLesson.contentType;
     
-    [self.navigationController pushViewController:commentVC animated:YES];
+    if (self.theLesson.weburl)
+    {
+        [appDelegate shareImageURL:self.theLesson.imageURL
+                           withURL:self.theLesson.weburl
+                             Title:self.theLesson.title
+                              Text:self.theLesson.desc
+                             Image:[self.contentCoverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
+    }
 }
 
 - (void)doSwitchToFullScreen:(BOOL) toFullScreen;
@@ -1232,7 +1328,6 @@
             [self presentViewController:self.mediaVC animated:YES completion:^{
                 //
                 [self.mediaVC play];
-                [self.mediaVC adjustRelayout];
             }];
         });
     }

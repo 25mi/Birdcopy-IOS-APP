@@ -16,7 +16,9 @@
 #import <QuickLook/QuickLook.h>
 
 #import "FlyingMediaVC.h"
-
+#import "FlyingCommentHeader.h"
+#import "FlyingContentTitleAndTypeCell.h"
+#import "FlyingCommentVC.h"
 
 @interface FlyingContentVC :  UIViewController<
                                                 DWTagListDelegate,
@@ -26,7 +28,10 @@
                                                 FlyingCommentCellDelegate,
                                                 QLPreviewControllerDataSource,
                                                 QLPreviewControllerDelegate,
-                                                FlyingMediaVCDelegate>
+                                                FlyingMediaVCDelegate,
+                                                FlyingCommentHeaderDelegate,
+                                                FlyingContentTitleAndTypeCellDelegate,
+                                                FlyingCommentVCDelegate>
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 

@@ -7,6 +7,7 @@
 //
 
 #import "FlyingSubtitleTextView.h"
+#import "shareDefine.h"
 
 
 @implementation FlyingSubtitleTextView
@@ -18,27 +19,34 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self setCurrentSubtitleIndex:NSNotFound]; //片头字幕空白区
-        [self setDataDetectorTypes:UIDataDetectorTypeNone];
-
-        self.editable=NO;
-        self.selectable=YES;
-        
-        // Initialization code
-        [self addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
-
+        [self prepareForMagic];
     }
     return self;
 }
 
 - (void)awakeFromNib
 {
+    [self prepareForMagic];
+}
+
+-(void) prepareForMagic
+{
+    self.userInteractionEnabled=YES;
+    self.multipleTouchEnabled=YES;
+    self.backgroundColor=[UIColor blackColor];
+    self.alpha=0.75;
+    self.textColor= [UIColor whiteColor];
+    self.textAlignment=NSTextAlignmentCenter;
+    
+    self.font = [UIFont systemFontOfSize:KNormalFontSize];
+    
     [self setCurrentSubtitleIndex:NSNotFound]; //片头字幕空白区
     [self setDataDetectorTypes:UIDataDetectorTypeNone];
     
     self.editable=NO;
     self.selectable=YES;
-    
+        
+    // Initialization code
     [self addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
 }
 
@@ -49,6 +57,24 @@
     topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
     tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
 }
+
+
+-(void) magicStytle
+{
+     CAGradientLayer *l = [CAGradientLayer layer];
+     self.alpha=0.9;
+     l.frame = self.bounds;
+     l.colors = [NSArray arrayWithObjects:(id)[UIColor clearColor].CGColor,
+     (id)[UIColor lightGrayColor].CGColor,
+     (id)[UIColor blackColor ].CGColor,
+     (id)[UIColor lightGrayColor].CGColor,
+     (id)[UIColor clearColor].CGColor, nil];
+     l.startPoint = CGPointMake(0.0f, 0.5f);
+     l.endPoint = CGPointMake(1.0f, 0.5f);
+     
+     self.layer.mask = l;
+}
+
 
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender

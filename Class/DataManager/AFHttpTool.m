@@ -78,119 +78,6 @@
     }
 }
 
-+ (void)requestUploadPotraitWithOpenID:(NSString *) openId
-                                  data:(NSData*)upData
-                               success:(void (^)(id response))success
-                               failure:(void (^)(NSError* err))failure
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
-    NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
-
-    //获得请求管理者
-    AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
-    mgr.responseSerializer = [AFJSONResponseSerializer serializer];
-
-   [mgr POST:@"tu_rc_sync_urp_from_hp.action" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        //
-       [formData appendPartWithFormData:[openId dataUsingEncoding:NSUTF8StringEncoding] name:@"tuser_key"];
-
-       [formData appendPartWithFileData:upData name:@"portrait" fileName:@"portrait.jpg" mimeType:@"application/octet-stream"];
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        //
-        if (success) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            success(responseObject);
-        }
-
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        //
-        if (failure) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            failure(error);
-        }
-    }];
-}
-
-//get token
-+(void) getTokenWithOpenID:(NSString *) openId
-                  success:(void (^)(id response))success
-                  failure:(void (^)(NSError* err))failure
-{
-    NSDictionary *params = @{@"tuser_key":openId};
-
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"tu_rc_get_urt_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-//Fresh RongCLoud Account Info
-+(void) refreshUesrWithOpenID:(NSString *) openId
-                    name:(NSString *) name
-                   portraitUri:(NSString *) portraitUri
-                     br_intro:(NSString*) br_intro
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure
-
-{
-    if (!openId) {
-        
-        return;
-    }
-    
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openId}];
-    
-    
-    if (name.length!=0) {
-        [params setObject:name forKey:@"name"];
-    }
-    
-    if (portraitUri.length!=0) {
-        
-        [params setObject:portraitUri forKey:@"portrait_uri"];
-    }
-    
-    if (br_intro.length!=0) {
-        
-        [params setObject:br_intro forKey:@"br_intro"];
-    }
-
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"tu_rc_sync_urb_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-+(void)getUserInfoWithRongID:(NSString*) rongUserId
-                     success:(void (^)(id response))success
-                     failure:(void (^)(NSError* err))failure
-{
-
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_id":rongUserId}];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"tu_rc_get_usr_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
-+(void)getUserInfoWithOpenID:(NSString*) openId
-                     success:(void (^)(id response))success
-                     failure:(void (^)(NSError* err))failure
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openId}];
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"tu_rc_get_usr_from_hp.action"
-                           params:params
-                          success:success
-                          failure:failure];
-}
-
 //get group by id
 +(void) getGroupByID:(int) groupID
              success:(void (^)(id response))success
@@ -319,6 +206,122 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"delete_friend"
                            params:@{@"id":userId}
+                          success:success
+                          failure:failure];
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 用户信息操作
+//////////////////////////////////////////////////////////////////////////////////
+//get token
++(void) getTokenWithOpenID:(NSString *) openId
+                   success:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure
+{
+    NSDictionary *params = @{@"tuser_key":openId};
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_rc_get_urt_from_hp.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++ (void)requestUploadPotraitWithOpenID:(NSString *) openId
+                                  data:(NSData*)upData
+                               success:(void (^)(id response))success
+                               failure:(void (^)(NSError* err))failure
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
+    
+    //获得请求管理者
+    AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    mgr.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [mgr POST:@"tu_rc_sync_urp_from_hp.action" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        [formData appendPartWithFormData:[openId dataUsingEncoding:NSUTF8StringEncoding] name:@"tuser_key"];
+        
+        [formData appendPartWithFileData:upData name:@"portrait" fileName:@"portrait.jpg" mimeType:@"application/octet-stream"];
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        //
+        if (success) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            success(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        //
+        if (failure) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            failure(error);
+        }
+    }];
+}
+
+//Fresh RongCLoud Account Info
++(void) refreshUesrWithOpenID:(NSString *) openId
+                         name:(NSString *) name
+                  portraitUri:(NSString *) portraitUri
+                     br_intro:(NSString*) br_intro
+                      success:(void (^)(id response))success
+                      failure:(void (^)(NSError* err))failure
+
+{
+    if (!openId) {
+        
+        return;
+    }
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openId}];
+    
+    
+    if (name.length!=0) {
+        [params setObject:name forKey:@"name"];
+    }
+    
+    if (portraitUri.length!=0) {
+        
+        [params setObject:portraitUri forKey:@"portrait_uri"];
+    }
+    
+    if (br_intro.length!=0) {
+        
+        [params setObject:br_intro forKey:@"br_intro"];
+    }
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_rc_sync_urb_from_hp.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++(void)getUserInfoWithRongID:(NSString*) rongUserId
+                     success:(void (^)(id response))success
+                     failure:(void (^)(NSError* err))failure
+{
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_id":rongUserId}];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_rc_get_usr_from_hp.action"
+                           params:params
+                          success:success
+                          failure:failure];
+}
+
++(void)getUserInfoWithOpenID:(NSString*) openId
+                     success:(void (^)(id response))success
+                     failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openId}];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_rc_get_usr_from_hp.action"
+                           params:params
                           success:success
                           failure:failure];
 }
@@ -468,19 +471,35 @@
                success:(void (^)(id response))success
                failure:(void (^)(NSError* err))failure
 {
-    
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
     
-    [params setObject:commentData.contentID forKey:@"ct_id"];
-    [params setObject:commentData.contentType forKey:@"ct_type"];
+    if (commentData.contentID.length!=0) {
+        
+        [params setObject:commentData.contentID forKey:@"ct_id"];
+    }
+    
+    if (commentData.contentType.length!=0) {
+        
+        [params setObject:commentData.contentType forKey:@"ct_type"];
+    }
+    
+    if (commentData.nickName.length!=0) {
+        
+        [params setObject:commentData.nickName forKey:@"name"];
+    }
+    
+    if (commentData.portraitURL.length!=0) {
+        
+        [params setObject:commentData.portraitURL forKey:@"portrait_url"];
+    }
 
-    [params setObject:commentData.nickName forKey:@"name"];
-    [params setObject:commentData.commentContent forKey:@"content"];
-
+    if (commentData.commentContent.length!=0) {
+        
+        [params setObject:commentData.commentContent forKey:@"content"];
+    }
     
     [params setObject:[NSString getAppID] forKey:@"app_id"];
 
-    
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_add_ct_from_tn.action"
                            params:params
@@ -691,19 +710,19 @@
     [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
-    if (author)
+    if (author.length!=0)
     {
         [params setObject:author forKey:@"tag_owner"];
     }
     
-    if (contentType)
+    if (contentType.length!=0)
     {
         [params setObject:contentType forKey:@"res_type"];
     }
     
     if(isRecommend)
     {
-        if(author)
+        if(author.length!=0)
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }
@@ -739,17 +758,17 @@
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}];
     
     
-    if (contentType && ![contentType isEqualToString:@"0"])
+    if (contentType.length!=0 && ![contentType isEqualToString:@"0"])
     {
         [params setObject:contentType forKey:@"res_type"];
     }
     
-    if (downloadType)
+    if (downloadType.length!=0)
     {
         [params setObject:downloadType forKey:@"url_2_type"];
     }
     
-    if (tag)
+    if (tag.length!=0)
     {
         [params setObject:tag forKey:@"ln_tag"];
     }
@@ -760,7 +779,7 @@
         
     }
     
-    if (author)
+    if (author.length!=0)
     {
         [params setObject:author forKey:@"ln_owner"];
     }
@@ -829,7 +848,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionary];
     
-    if (resourceType)
+    if (resourceType.length!=0)
     {
         [params setObject:resourceType forKey:@"type"];
     }
@@ -843,12 +862,12 @@
         [params setObject:@"content" forKey:@"getType"];
     }
 
-    if (lessonID)
+    if (lessonID.length!=0)
     {
         [params setObject:lessonID forKey:@"md5_value"];
     }
     
-    if (contentURL) {
+    if (contentURL.length!=0) {
         
         [params setObject:contentURL forKey:@"req_url"];
     }
