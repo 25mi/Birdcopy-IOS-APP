@@ -31,4 +31,6 @@
 
 - (BOOL)       cleanTaskWithUSerID:(NSString *) userID;
 
+-(void)  clearAll;
+
 @end

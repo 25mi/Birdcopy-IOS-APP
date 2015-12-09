@@ -7,16 +7,13 @@
 
 #import "FlyingGuideViewController.h"
 #import "shareDefine.h"
-#import "UICKeyChainStore.h"
-#import "FlyingStatisticDAO.h"
-#import "UIImage+localFile.h"
-#import "NSString+FlyingExtention.h"
-#import "iFlyingAppDelegate.h"
-#import  <AFNetworking/AFNetworking.h>
-#import "SIAlertView.h"
-#import "FlyingSysWithCenter.h"
-#import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
+
+#import "FlyingHttpTool.h"
+#import "iFlyingAppDelegate.h"
+#import "NSString+FlyingExtention.h"
+#import "FlyingDataManager.h"
+#import "iFlyingAppDelegate.h"
 
 @interface FlyingGuideViewController()
 {
@@ -46,9 +43,6 @@
                                               selector:@selector(timerFired)
                                               userInfo:nil
                                                repeats:NO];
-    /*
-    [self loadBroadPic];
-     */
 }
 
 -(void)timerFired
@@ -56,119 +50,41 @@
     [self BeginMagic];
 }
 
--(void)loadBroadPic
-{
-    /*
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSString getAccountBroadURL]];
-    Reachability *r = [Reachability reachabilityWithHostname:KServerNetAddress];
-    if ([r currentReachabilityStatus]!=NotReachable)
-    {
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    }
-    [request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-    
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         if (INTERFACE_IS_PAD) {
-             
-             [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-         }
-         else{
-             
-             [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-         }
-         
-         NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         
-         [self.logoImageView setContentMode:UIViewContentModeScaleAspectFit];
-         [self.logoImageView sd_setImageWithURL:[NSURL URLWithString:newStr]
-                                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                           [self removeActivityIndicator];
-                                       }];
-     }];
-     */
-}
-
 - (void)BeginMagic
 {
     if (!hud) {
 
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"第一次登陆，激活设备中...";
+        hud.labelText = @"激活设备中...";
     }
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"activeBEAccount"]&&
-        [[NSUserDefaults standardUserDefaults] boolForKey:@"activeBETouchAccount"])
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        appDelegate.window.rootViewController = [appDelegate getMenu];
-        [appDelegate.window makeKeyAndVisible];
-        
-        [self.timer invalidate];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [hud hide:YES];
-        });
-    }
-    else
-    {
-        if ( [AFNetworkReachabilityManager sharedManager].reachable) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [FlyingSysWithCenter activeAccount];
-            });
-        }
-    }
+    [FlyingDataManager clearAllUserDate];
+    
+    //注册终端设备
+    [FlyingHttpTool regOpenUDID:[NSString getOpenUDID]
+                             Completion:^(BOOL result) {
+                                 
+                                 //注册成功
+                                 if (result) {
+                                     
+                                     [self accountActive];
+                                 }
+                             }];
 }
 
 - (void)accountActive
 {
-    [self BeginMagic];
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate preparelocalEnvironment];
     
-    [super viewWillAppear:animated];
+    appDelegate.window.rootViewController = [appDelegate getMenu];
+    [appDelegate.window makeKeyAndVisible];
     
-    //监控激活信息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(accountActive)
-                                                 name:KBEAccountActive
-                                               object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    //关闭监控激活信息
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountActive  object:nil];    
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [self my_viewDidUnload];
-}
-
-- (void)my_viewDidUnload
-{
-    //[self setLogoImageView:nil];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    [self.timer invalidate];
     
-    // Dispose of any resources that can be recreated.
-    if ([self isViewLoaded] && ([self.view window] == nil) ) {
-        self.view = nil;
-        [self my_viewDidUnload];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [hud hide:YES];
+    });
 }
 
 //屏幕单击
@@ -177,28 +93,4 @@
     [self BeginMagic];
 }
 
-/*
--(void) createActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle
-{
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-    
-    //calculate the correct position
-    float width = _activityIndicator.frame.size.width;
-    float height = _activityIndicator.frame.size.height;
-    float x = (self.logoImageView.frame.size.width / 2.0) - width/2;
-    float y = (self.logoImageView.frame.size.height / 2.0) - height/2;
-    _activityIndicator.frame = CGRectMake(x, y, width, height);
-    _activityIndicator.color=[UIColor grayColor];
-    
-    _activityIndicator.hidesWhenStopped = YES;
-    [self.logoImageView addSubview:_activityIndicator];
-    
-    [_activityIndicator startAnimating];
-}
-
--(void) removeActivityIndicator
-{
-    [[self.logoImageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-}
-*/
 @end

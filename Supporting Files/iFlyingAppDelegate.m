@@ -48,7 +48,6 @@
 
 #import "BEMenuController.h"
 
-#import "FlyingSysWithCenter.h"
 #import "FlyingTouchDAO.h"
 
 #import <Social/Social.h>
@@ -88,6 +87,10 @@
 #import "FlyingDiscoverContent.h"
 #import "FlyingDIscoverGroups.h"
 
+
+#import "FlyingDataManager.h"
+#import "FlyingHttpTool.h"
+
 #import "MKStoreKit.h"
 #import <StoreKit/StoreKit.h>
 
@@ -104,7 +107,6 @@
     //本地Document管理
     MHWDirectoryWatcher         *_docWatcher;
     dispatch_source_t            _source;
-
     
     //M3U8相关
     HTTPServer                  *_httpServer;
@@ -123,7 +125,6 @@
     RESideMenu                  *_menu;
     
     //充值、同步、帐户管理
-    FlyingSysWithCenter         *_sysWithCenter;
     FlyingLessonParser          *_parser;
     
     //发音管理
@@ -153,104 +154,12 @@
 {
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-        
-#ifndef __CLIENT__IS__PLATFORM__
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    NSArray *strings = [bundleIdentifier componentsSeparatedByString:@"."];
-    NSString * temp =  (NSString*)[strings lastObject];
     
-    if ([temp isEqualToString:@"beyond"]) {
-        
-        temp=@"beiyang";
-    }
-    else
-    {
-        if ([temp isEqualToString:@"finance"]) {
-            
-            temp=@"fd";
-        }
-    }
- 
-    [[NSUserDefaults standardUserDefaults] setValue:temp forKey:KAppOwner];
-    [[NSUserDefaults standardUserDefaults] setValue:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] forKey:KAppOwnerNickname];
-
-#endif
+    //验证OPenUDID
+    [FlyingDataManager getOpenUDIDFromLocal];
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
-    NSString *openID = keychain[KOPENUDIDKEY];
-    
-    if(openID==nil)
-    {
-        //从本地终端生成账号
-        openID = [OpenUDID value];
-        keychain[KOPENUDIDKEY]=openID;
-    }
-    //如果有旧账号
-    else if (openID && openID.length==32)
-    {
-        //dbPath： 数据库路径，在dbDire中。
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [iFlyingAppDelegate getUserDataDir];
-        
-        NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
-        NSEnumerator *e = [contents objectEnumerator];
-        NSString *filename;
-        while ((filename = [e nextObject]))
-        {
-            [fileManager removeItemAtPath:[documentsDirectory stringByAppendingPathComponent:filename] error:NULL];
-        }
-        
-        //从本地终端生成账号
-        openID = [OpenUDID value];
-        keychain[KOPENUDIDKEY]=openID;
-    }
-    
-    //Bug Fix ios
-    [[NSUserDefaults standardUserDefaults] setObject:openID forKey:KOPENUDIDKEY];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    //检查是否有效登录决定是否注册激活
     [self jumpToNext];
-    
-    dispatch_async([self getBackPubQueue], ^{
-        
-        //缓存设置
-        int cacheSizeMemory = 8*1024*1024; // 8MB
-        int cacheSizeDisk   = 64*1024*1024; // 64MB
-        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
-        [NSURLCache setSharedURLCache:sharedCache];
-        
-        //[UIApplication sharedApplication].applicationIconBadgeNumber=0;
-        
-        [self setNotBackUp];
-        
-        //准备PDF环境
-        queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
-        ctx = fz_new_context(NULL, NULL, ResourceCacheMaxSize);
-        fz_register_document_handlers(ctx);
-        screenScale = [[UIScreen mainScreen] scale];
-        
-        //准备购买环境
-        [self prepairIAP];
-        
-        //向微信注册
-        [WXApi registerApp:[NSString getWeixinID]];
-        
-        //准备字典
-        [self prepareDictionary];
-        
-        //监控本地文件夹状态
-        [self watchDocumentStateNow];
-        
-        //同步没有完成的内容
-        [self downloadDataIfpossible];
-        
-        //监控下载更新
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(CalledToJumpToLessinID:)
-                                                     name:KBEJumpToLesson
-                                                   object:nil];
-        
-    });
     
     return YES;
 }
@@ -316,6 +225,77 @@
 {
     
 }
+
+-(void) jumpToNext
+{
+    [FlyingHttpTool verifyOpenUDID:[NSString getOpenUDID]
+                             AppID:[NSString getAppID]
+                        Completion:^(BOOL result) {
+                                 //有注册记录
+                                 if (result) {
+                                                                         
+                                     [self preparelocalEnvironment];
+                                     
+                                     self.window = [UIWindow new];
+                                     [self.window makeKeyAndVisible];
+                                     self.window.frame = [[UIScreen mainScreen] bounds];
+                                     self.window.rootViewController = [self getMenu];
+                                 }
+                                 else
+                                 {
+                                     self.window = [UIWindow new];
+                                     [self.window makeKeyAndVisible];
+                                     self.window.frame = [[UIScreen mainScreen] bounds];
+                                     self.window.rootViewController = [[FlyingGuideViewController alloc] init];
+                                 }
+                             }];
+
+}
+
+//本地环境准备
+-(void) preparelocalEnvironment
+{
+    dispatch_async([self getBackPubQueue], ^{
+        
+        //缓存设置
+        int cacheSizeMemory = 8*1024*1024; // 8MB
+        int cacheSizeDisk   = 64*1024*1024; // 64MB
+        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+        [NSURLCache setSharedURLCache:sharedCache];
+        
+        [self setNotBackUp];
+        
+        //准备PDF环境
+        queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
+        ctx = fz_new_context(NULL, NULL, ResourceCacheMaxSize);
+        fz_register_document_handlers(ctx);
+        screenScale = [[UIScreen mainScreen] scale];
+        
+        //准备购买环境
+        [self prepairIAP];
+        
+        //向微信注册
+        [WXApi registerApp:[NSString getWeixinID]];
+        
+        //准备字典
+        [self prepareDictionary];
+        
+        //监控本地文件夹状态
+        [self watchDocumentStateNow];
+        
+        //同步没有完成的内容
+        [self downloadDataIfpossible];
+        
+        //监控下载更新
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(CalledToJumpToLessinID:)
+                                                     name:KBEJumpToLesson
+                                                   object:nil];
+        [FlyingDataManager doStatisticJob];
+        
+    });
+}
+
 
 - (void) CalledToJumpToLessinID:(NSNotification*) aNotification
 {
@@ -468,77 +448,7 @@
     }
 }
 
-
--(void) jumpToNext
-{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunchedNewVersion"]) {
-        
-        //增加标识，用于判断是否是第一次启动应用...
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunchedNewVersion"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"activeBEAccount"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"activeBETouchAccount"];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[[UIDevice currentDevice] name] forKey:KLoginNickName];
-    }
-    else{
-        
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
-        //默认每次必须登录
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"defaultLoginFirst"];
-    }
-    
-    //第一次安装或者重装或者没有激活
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"] ||
-        ![[NSUserDefaults standardUserDefaults] boolForKey:@"activeBEAccount"] ||
-        ![[NSUserDefaults standardUserDefaults] boolForKey:@"activeBETouchAccount"]) {
-    
-        //从服务器获取用户数据
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            [FlyingSysWithCenter activeAccount];
-        });
-        
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = [[FlyingGuideViewController alloc] init];
-    }
-    else{
-
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = [self getMenu];
-    }
-    
-    [self doStatisticJob];
-}
-
 #pragma mark -
-
--(void) doStatisticJob
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSString *openID = [NSString getOpenUDID];
-        FlyingStatisticDAO * statistic = [[FlyingStatisticDAO alloc] init];
-        [statistic setUserModle:NO];
-        
-        //学习次数加一
-        NSInteger learnedTimes = [statistic timesWithUserID:openID];
-        learnedTimes = learnedTimes+1;
-        [statistic updateWithUserID:openID Times:learnedTimes];
-    });
-}
-
--(void) sysWithCenter
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        //和服务器同步数据
-        [FlyingSysWithCenter sysWithCenter];
-        
-        //数据告警
-        [FlyingSysWithCenter lowCointAlert];
-    });
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -550,6 +460,28 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //同步重要遗漏数据
+    if([[NSUserDefaults standardUserDefaults] boolForKey:KShouldSysMembership])
+    {
+        NSString *startDateStr =[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipStartTime];
+        NSString *endDateStr   =[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+        NSDate *endDate = [dateFormatter dateFromString:endDateStr];
+        
+        [FlyingHttpTool updateMembershipForAccount:[NSString getOpenUDID]
+                                             AppID:[NSString getAppID]
+                                         StartDate:startDate
+                                           EndDate:endDate
+                                        Completion:^(BOOL result) {
+                                            //
+                                            
+                                            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KShouldSysMembership];
+                                        }];
+    }
     
     FlyingLessonDAO * dao=[[FlyingLessonDAO alloc] init];
     NSArray * lessonsBeResumeDownload=[dao selectWithWaittingDownload];
@@ -584,8 +516,7 @@
 
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
-    [self closePubBaseDBQueue];
-    [self closePubUserDBQueue];
+    [self closeMyresource];
     
     int success = fz_shrink_store(ctx, 50);
 	NSLog(@"fz_shrink_store: success = %d", success);
@@ -603,39 +534,6 @@
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        //同步重要数据
-        [self sysWithCenter];
-        
-        double before=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BELunchTimeBefore"];
-        double now= [[NSDate date] timeIntervalSince1970];
-        
-        if(now-before>600.0){
-            
-            NSString *openID = [NSString getOpenUDID];
-            
-            if (openID) {
-
-                [[NSUserDefaults standardUserDefaults] setDouble:now forKey:@"BELunchTimeBefore"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-
-                FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
-                [statisticDAO setUserModle:NO];
-                
-                //学习次数加一
-                NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
-                giftCountNow++;
-                [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
-                
-                [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
-                
-                NSInteger learnedTimes = [statisticDAO timesWithUserID:openID];
-                learnedTimes = learnedTimes+1;
-                [statisticDAO updateWithUserID:openID Times:learnedTimes];
-            }
-        }
-    });
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -755,7 +653,6 @@
 
 - (FMDatabaseQueue *) sharePubBaseDBQueue
 {
-
     if (!_pubBaseDBQueue) {
         
         /*
@@ -803,7 +700,6 @@
 
 - (void)setNotBackUp
 {
-    
     NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     
     NSURL *url = [NSURL fileURLWithPath:documentDirectory];
@@ -980,7 +876,7 @@
         
         _docWatcher = [MHWDirectoryWatcher directoryWatcherAtPath:documentDirectory callback:^{
             
-            NSLog(@"dispatch_source_merge_data:updateNow");
+            NSLog(@"watchDocumentStateNow");
             
             if (!_source) {
                 
@@ -1348,16 +1244,6 @@
 #pragma mark - Account and Coin  Related
 //////////////////////////////////////////////////////////////
 
-- (FlyingSysWithCenter*) getSysWithCenter
-{
-    if(!_sysWithCenter){
-        
-        _sysWithCenter =[[FlyingSysWithCenter alloc] init];
-    }
-    
-    return _sysWithCenter;
-}
-
 - (void) upgrade
 {
     //金币
@@ -1539,7 +1425,7 @@
             [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [self awardGold:KBEGoldAwardCount];
+            [FlyingDataManager awardGold:KBEGoldAwardCount];
         }
         
         SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
@@ -1551,22 +1437,6 @@
         alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
         [alertView show];
     }
-}
-
--(void)  awardGold:(int) MoneyCount
-{
-    NSString *openID = [NSString getOpenUDID];
-    
-    //奖励金币
-    FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
-    [statisticDAO setUserModle:NO];
-    
-    NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
-    giftCountNow+=KBEGoldAwardCount;
-    [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil];
-    [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
 }
 
 - (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
@@ -1698,7 +1568,7 @@
         [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self awardGold:KBEGoldAwardCount];
+        [FlyingDataManager awardGold:KBEGoldAwardCount];
     }
     
     SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
@@ -1747,8 +1617,6 @@
         [_slComposerSheet addImage:_sharingImage];
         [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.weibo.com/"]];
         
-        __weak __typeof(self)weakSelf = self;
-
         [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
             
             NSString*msg,*title;
@@ -1772,7 +1640,7 @@
                 [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                [weakSelf awardGold:KBEGoldAwardCount];
+                [FlyingDataManager awardGold:KBEGoldAwardCount];
             }
             
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
@@ -1792,7 +1660,6 @@
 
 - (void)shareToFacebook
 {
-    
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
         _slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -1801,8 +1668,6 @@
         [_slComposerSheet addImage:_sharingImage];
         [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.facebook.com/"]];
         
-        __weak __typeof(self)weakSelf = self;
-
         [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
             
             NSString*msg,*title;
@@ -1826,7 +1691,7 @@
                 [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                [weakSelf awardGold:KBEGoldAwardCount];
+                [FlyingDataManager awardGold:KBEGoldAwardCount];
             }
 
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
@@ -1844,15 +1709,6 @@
     }
 }
 
-- (void)shareToWifi
-{
-    [_shareCircleView dismissAnimated:YES];
-    
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UIViewController *shareLessons = [storyboard instantiateViewControllerWithIdentifier:@"share"];
-    [self presentViewController:shareLessons];
-}
-
 - (void)shareToTwitter
 {
     
@@ -1864,8 +1720,6 @@
         [_slComposerSheet addImage:_sharingImage];
         [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.twitter.com/"]];
         
-        __weak __typeof(self)weakSelf = self;
-
         [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
             
             NSString*msg,*title;
@@ -1889,7 +1743,7 @@
                 [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                [weakSelf awardGold:KBEGoldAwardCount];
+                [FlyingDataManager awardGold:KBEGoldAwardCount];
             }
             
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
@@ -1991,8 +1845,8 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    //NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipStartTime"];
-    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+    //NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipStartTime];
+    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
     
     //NSDate *startDate = [dateFormatter dateFromString:startDateStr];
     NSDate *endDate = [dateFormatter dateFromString:endDateStr];
@@ -2010,7 +1864,8 @@
             NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
             
             if (availableProducts.count>0) {
-                [self buyAppleIdentify:availableProducts[0]];
+                
+                [FlyingDataManager buyAppleIdentify:availableProducts[0]];
             }
         }
         else
@@ -2019,53 +1874,6 @@
         }
     }
 }
-
-- (void) buyAppleIdentify:(SKProduct*) product
-{
-    [[MKStoreKit sharedKit] initiatePaymentRequestForProductWithIdentifier:product.productIdentifier];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                                                                            
-                                                      NSCalendar *calendar = [NSCalendar currentCalendar];
-                                                      NSDate *startDate = [NSDate date];
-                                                      
-                                                      NSDateComponents *components = [[NSDateComponents alloc] init];
-                                                      [components setYear:1];
-                                                      
-                                                      NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
-                                                      
-                                                      NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                                      [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
-                                                      NSString *startDateStr = [dateFormatter stringFromDate:startDate];
-                                                      NSString *endDateStr = [dateFormatter stringFromDate:endDate];
-
-                                                      [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
-                                                      [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
-                                                      [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sysMembership"];
-
-                                                      [[NSUserDefaults standardUserDefaults] synchronize];
-
-                                                      [FlyingSysWithCenter  uploadMembershipWithCenter];
-                                                  }];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      NSLog(@"Failed restoring purchases with error: %@", [note object]);
-                                                      
-                                                      NSString *message =@"购买失败，好事耐磨哦：）";                                                      
-                                                      [self.window makeToast:message duration:3 position:CSToastPositionCenter];
-                                                  }];
-}
-
-
 
 - (void) copylessonLink
 {

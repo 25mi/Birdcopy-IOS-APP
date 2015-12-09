@@ -76,6 +76,8 @@
 
 @property (strong, nonatomic) FlyingLoadingCell *loadingCommentIndicatorCell;
 
+@property (strong, nonatomic) FlyingContentTitleAndTypeCell *contentTitleAndTypeCellcell;
+
 @property (strong, nonatomic) UITableView       *tableView;
 
 @property (assign, nonatomic) BOOL              accessRight;
@@ -83,6 +85,7 @@
 @property (strong, nonatomic) FlyingMediaVC     *mediaVC;
 
 @property (strong, nonatomic) UIActivityIndicatorView  *loadingCoverConntentIndicatorView;
+
 
 @end
 
@@ -145,7 +148,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"membershipEndTime"];
+    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
     NSDate *endDate = [dateFormatter dateFromString:endDateStr];
     NSDate *nowDate = [NSDate date];
     if ([nowDate compare:endDate] == NSOrderedAscending || self.theLesson.coinPrice==0)
@@ -158,12 +161,8 @@
     if (!self.tableView)
     {
         self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, CGRectGetHeight(self.coverContentView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetHeight(self.coverContentView.frame)-44) style:UITableViewStyleGrouped];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        self.tableView.backgroundColor = [UIColor clearColor];
-        self.tableView.separatorColor = [UIColor grayColor];
-        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         
+        //必须在设置delegate之前
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentTitleAndTypeCell" bundle: nil] forCellReuseIdentifier:@"FlyingContentTitleAndTypeCell"];
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentSummaryCell" bundle: nil]
@@ -177,9 +176,17 @@
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingLoadingCell" bundle: nil]
              forCellReuseIdentifier:@"FlyingLoadingCell"];
-
+        
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingCommentHeader" bundle: nil]
              forCellReuseIdentifier:@"FlyingCommentHeader"];
+        
+        
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.separatorColor = [UIColor grayColor];
+        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
         
         [self.view addSubview:self.tableView];
     }
@@ -237,28 +244,12 @@
                                          {
                                              NSDate *nowDate = [NSDate date];
                                              
-                                             if ([nowDate compare:endDate] == NSOrderedAscending)
+                                             if ([nowDate compare:endDate] == NSOrderedAscending || self.theLesson.coinPrice==0)
                                              {
                                                  self.accessRight=YES;
-                                                 
-                                                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                                                 
-                                                 NSString *startDateStr = [dateFormatter stringFromDate:startDate];
-                                                 NSString *endDateStr = [dateFormatter stringFromDate:endDate];
-                                                 
-                                                 [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:@"membershipStartTime"];
-                                                 [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:@"membershipEndTime"];
-                                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sysMembership"];
-                                                 
-                                                 [[NSUserDefaults standardUserDefaults] synchronize];
-                                                 
-                                                 if ([nowDate compare:endDate] == NSOrderedAscending || self.theLesson.coinPrice==0)
-                                                 {
-                                                     self.accessRight=YES;
-                                                     [self showContent:nil];
-                                                 }
+                                                 [self showContent:nil];
                                              }
+
                                          }
                                          
                                          [self hideLoadingView];
@@ -273,7 +264,8 @@
     
     if(self.accessRight==YES)
     {
-        infoStr=@"同步权限成功，请重试！";
+        infoStr=@"同步权限成功！";
+        [self.contentTitleAndTypeCellcell setAccessRight:self.accessRight];
     }
     
     [self.view makeToast:infoStr];
@@ -640,6 +632,8 @@
                 [self configureCell:contentTitleCell atIndexPath:indexPath];
                 cell = contentTitleCell;
                 
+                self.contentTitleAndTypeCellcell=contentTitleCell;
+                
                 break;
             }
             case 1:
@@ -795,6 +789,7 @@
             case 1:
             {
                 [(FlyingContentSummaryCell*)cell setSummaryText:self.theLesson.desc];
+
                 break;
             }
             case 2:
@@ -906,7 +901,7 @@
     {
     
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         
         [self.navigationController pushViewController:myProfileVC animated:YES];
     }

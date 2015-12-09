@@ -21,7 +21,6 @@
 @class FMDatabase;
 @class FlyingBonjourServer;
 @class FlyingPubLessonData;
-@class FlyingSysWithCenter;
 
 
 @interface iFlyingAppDelegate : UIResponder <UIApplicationDelegate,
@@ -41,16 +40,15 @@
 
 - (void) continueDownloadingWork;
 
+//本地环境准备
+-(void) preparelocalEnvironment;
+
 //社会化资源管理
 - (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
 - (void) shakeNow;
 
 //购买管理
 - (void)presentStoreView;
-
-//帐户、充值管理
-- (FlyingSysWithCenter*) getSysWithCenter;
--(void)  awardGold:(int) MoneyCount;
 
 //个人数据库用户管理
 - (FMDatabaseQueue *) shareUserDBQueue;

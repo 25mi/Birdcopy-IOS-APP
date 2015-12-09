@@ -24,7 +24,6 @@
 #import "FlyingTouchDAO.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingLessonParser.h"
-#import "FlyingSysWithCenter.h"
 #import "FlyingPubLessonData.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+localFile.h"
@@ -448,66 +447,24 @@
         {
             NSString * newWord = [self NLPTheString:word];
             
-            if (_balanceCoin<=-500) {
+            [self showWordView:newWord];
+                        
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
-                NSString *title = @"付费提醒";
-                NSString *message = [NSString stringWithFormat:@"你的信用额度已经用完,必须在《我的档案》充值才能继续使用!"];
-                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                [alertView addButtonWithTitle:@"知道了"
-                                         type:SIAlertViewButtonTypeCancel
-                                      handler:^(SIAlertView *alertView) {
-                                      }];
-                alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                [alertView show];
-            }
-            else{
-                
-                NSInteger sysTouchCount =[[NSUserDefaults standardUserDefaults] integerForKey:@"sysTouchAccount"];
-                
-                if (_touchWordCount-sysTouchCount>1000) {
+                //更新点击次数和课程相关记录
+                NSString * currentLessonID = self.lessonID;
+                if(!currentLessonID){
                     
-                    [FlyingSysWithCenter uploadUserCenter];
-
-                    [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
-                    NSString *title = @"同步提醒";
-                    NSString *message = [NSString stringWithFormat:@"你很久没有同步数据了,如果再次提醒请联网使用!"];
-                    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                    [alertView addButtonWithTitle:@"知道了"
-                                             type:SIAlertViewButtonTypeCancel
-                                          handler:^(SIAlertView *alertView) {
-                                          }];
-                    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                    [alertView show];
+                    currentLessonID =@"BirdCopyCommonID";
                 }
                 
-                [self showWordView:newWord];
+                NSString *openID = [NSString getOpenUDID];
                 
-                if (_balanceCoin<0) {
-                    
-                    [FlyingSoundPlayer soundEffect:@"iMoneyDialogOpen"];
-                    [self.view makeToast:@"帐户金币数不足,请尽快在《我的档案》充值!" duration:3 position:CSToastPositionCenter];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    //更新点击次数和课程相关记录
-                    NSString * currentLessonID = self.lessonID;
-                    if(!currentLessonID){
-                    
-                        currentLessonID =@"BirdCopyCommonID";
-                    }
-                    
-                    NSString *openID = [NSString getOpenUDID];
-
-                    [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
-                });
-                
-                //纪录点击单词
-                [self addToucLammaRecord:newWord];
-            }
+                [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
+            });
+            
+            //纪录点击单词
+            [self addToucLammaRecord:newWord];
         }
     }
 }

@@ -26,4 +26,6 @@
 - (void) updateDBFromLocal:(NSString *) userID;
 - (void) updateUserID:(NSString*) newUserID;
 
+-(void)  clearAll;
+
 @end

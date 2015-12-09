@@ -26,8 +26,8 @@
                 <animations/>
                 <constraints>
                     <constraint firstItem="2NN-Xr-Evu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1C9-HQ-a2Y"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="2NN-Xr-Evu" secondAttribute="bottom" id="E3G-Kt-mNg"/>
-                    <constraint firstItem="2NN-Xr-Evu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fbg-mh-95v"/>
+                    <constraint firstAttribute="bottom" secondItem="2NN-Xr-Evu" secondAttribute="bottom" constant="8" id="NZn-GN-gHD"/>
+                    <constraint firstItem="2NN-Xr-Evu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="cvp-8R-ChD"/>
                     <constraint firstAttribute="trailingMargin" secondItem="2NN-Xr-Evu" secondAttribute="trailing" id="iL1-a4-LAR"/>
                 </constraints>
             </tableViewCellContentView>

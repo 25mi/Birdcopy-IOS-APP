@@ -147,10 +147,10 @@
     }
     else
     {
-        // Test
+        // Test only
         eventData.coverURL=@"http://mmbiz.qpic.cn/mmbiz/v6uP0lGcBZ7wII3OBibpLY53YQVribKGrgYEFmNkiaVXcmGRM6kicIYIWyGuwG1v8fW4r7QqSIIFO83hBtZEYp0l6Q/640?wx_fmt=jpeg&wxfrom=5";
         self.membersDataSource=[[NSMutableArray alloc] initWithObjects:@"123", nil];
-        // Test
+        // Test only
 
         self.eventData = eventData;
         

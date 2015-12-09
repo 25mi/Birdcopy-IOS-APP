@@ -252,7 +252,7 @@
     if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:userId])
     {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         [self.navigationController pushViewController:myProfileVC animated:YES];
     }
     else

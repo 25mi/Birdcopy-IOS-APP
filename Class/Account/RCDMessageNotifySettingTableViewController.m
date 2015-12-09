@@ -33,7 +33,7 @@
     
     [self addBackFunction];
     
-    self.title=@"我的账户";
+    self.title=@"聊天设置";
     //顶部导航
     UIImage* image= [UIImage imageNamed:@"menu"];
     CGRect frame= CGRectMake(0, 0, 28, 28);

@@ -25,14 +25,16 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
  *  @param methodType   请求方法
  *  @param url          请求路径
  *  @param params       请求参数
+ *  @param responseSerializerIsJson       返回形式
  *  @param success      请求成功后的回调（请将请求成功后想做的事情写到这个block中）
  *  @param failure      请求失败后的回调（请将请求失败后想做的事情写到这个block中）
  */
-+(void) requestWihtMethod:(RequestMethodType)
-          methodType url : (NSString *)url
-                   params:(NSDictionary *)params
++ (void)requestWihtMethod:(RequestMethodType)methodType
+                      url:(NSString*)url
+                   params:(NSDictionary*)params
+                   responseSerializerIsJson:(BOOL) isJson
                   success:(void (^)(id response))success
-                  failure:(void (^)(NSError *err))failure;
+                  failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////////////////////////
 //get group by id
@@ -141,7 +143,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure;
 
-
 //////////////////////////////////////////////////////////////
 #pragma  评论相关
 //////////////////////////////////////////////////////////////
@@ -156,14 +157,33 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                success:(void (^)(id response))success
                failure:(void (^)(NSError* err))failure;
 
-//////////////////////////////////////////////////////////////////////////////////
-//以前的API
-//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+#pragma  用户注册、激活相关
+//////////////////////////////////////////////////////////////
++ (void) regOpenUDID:(NSString*) openUDID
+               AppID:(NSString*) appID
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure;
+
+
++ (void) verifyOpenUDID:(NSString*) openUDID
+                  AppID:(NSString*) appID
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError* err))failure;
+
++ (void) updateCurrentID:(NSString*) currentID
+            withSourceID:(NSString*) sourceID
+                 success:(void (^)(id response))success
+                 failure:(void (^)(NSError* err))failure;
+
++ (void) loginWithQR:(NSString*) loginQR
+             Account:(NSString*) passport
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
-#pragma  账户信息
+#pragma  会员相关
 //////////////////////////////////////////////////////////////
-
 + (void) getMembershipForAccount:(NSString*) account
                            AppID:(NSString*) appID
                          success:(void (^)(id response))success
@@ -176,45 +196,47 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure;
 
+//////////////////////////////////////////////////////////////
+#pragma  金币相关
+//////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
+                         AppID:(NSString*) appID
                    success:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
 
-+ (void) chargingCardSysURLForUserID:(NSString *) userID
-                              CardID:(NSString *) cardNo
-                             success:(void (^)(id response))success
-                             failure:(void (^)(NSError* err))failure;
-
-+ (void) getAccountDataForUserID:(NSString *) userID
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
-
-+ (void) getQRCountForUserID:(NSString *) userID
-                     success:(void (^)(id response))success
-                     failure:(void (^)(NSError* err))failure;
-
-+ (void) getTouchDataForUserID:(NSString *) userID
-                      lessonID:(NSString *) leesonID
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure;
-
-+ (void) sysOtherMoneyWithAccount:(NSString*)passport
++(void) uploadMoneyDataWithOpenID:(NSString*) openudid
+                            AppID:(NSString*) appID
                        MoneyCount:(NSInteger) moneycount
                         GiftCount:(NSInteger) giftCount
                        TouchCount:(NSInteger) touchCount
                           success:(void (^)(id response))success
                           failure:(void (^)(NSError* err))failure;
 
-+ (void) sysLessonTouchWithAccount:(NSString*)passport
++ (void) getQRCountForUserID:(NSString *) userID
+                       AppID:(NSString*) appID
+                     success:(void (^)(id response))success
+                     failure:(void (^)(NSError* err))failure;
+
++ (void) chargingCardSysURLForUserID:(NSString *) userID
+                               AppID:(NSString*) appID
+                              CardID:(NSString *) cardNo
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure;
+
+
++ (void) getTouchDataForUserID:(NSString *) userID
+                         AppID:(NSString*) appID
+                      lessonID:(NSString *) leesonID
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError* err))failure;
+
+
++ (void) upadteLessonTouchWithAccount:(NSString*)passport
+                                AppID:(NSString*) appID
                     lessonAndTouch:(NSString*) orgnizedStr
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure;
-
-+ (void) loginWithQR:(NSString*) loginQR
-             Account:(NSString*) passport
-             success:(void (^)(id response))success
-             failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
 #pragma  内容相关

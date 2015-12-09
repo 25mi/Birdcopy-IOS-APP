@@ -104,6 +104,22 @@
                        Completion:(void (^)(FlyingCalendarEvent *event)) completion;
 
 //////////////////////////////////////////////////////////////
+#pragma  用户注册、登录、激活相关
+//////////////////////////////////////////////////////////////
++ (void) regOpenUDID:(NSString*) openUDID
+                  Completion:(void (^)(BOOL result)) completion;
+
++ (void) verifyOpenUDID:(NSString*) openUDID
+                  AppID:(NSString*) appID
+                  Completion:(void (^)(BOOL result)) completion;
+
++ (void) updateCurrentID:(NSString*) currentID
+            withSourceID:(NSString*) sourceID
+              Completion:(void (^)(BOOL result)) completion;
+
++(void) loginWebsiteWithQR:(NSString*)loginID;
+
+//////////////////////////////////////////////////////////////
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
@@ -115,6 +131,36 @@
                           StartDate:(NSDate *)startDate
                           EndDate:(NSDate *)endDate
                       Completion:(void (^)(BOOL result)) completion;
+//////////////////////////////////////////////////////////////
+#pragma  金币相关
+//////////////////////////////////////////////////////////////
+
++(void) getMoneyDataWithOpenID:(NSString*) openudid
+                         AppID:(NSString*) appID
+                    Completion:(void (^)(BOOL result)) completion;
+
+//向服务器保存金币信息
++(void) uploadMoneyDataWithOpenID:(NSString*) openudid
+                            AppID:(NSString*) appID
+                       Completion:(void (^)(BOOL result)) completion;
+
++(void) getQRDataForUserID:(NSString*) openudid
+                     AppID:(NSString*) appID
+                    Completion:(void (^)(BOOL result)) completion;
+
++(void) chargingCrad:(NSString*) cardID
+               AppID:(NSString*) appID
+           WithOpenID:(NSString*) openudid
+           Completion:(void (^)(BOOL result)) completion;
+
+//向服务器获课程统计数据
++(void) getStatisticDetailWithOpenID:(NSString*) openudid
+                               AppID:(NSString*) appID
+                                 Completion:(void (^)(BOOL result)) completion;
+
++(void) uploadStatisticDetailWithOpenID:(NSString*) openudid
+                                  AppID:(NSString*) appID
+                                    Completion:(void (^)(BOOL result)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  内容相关

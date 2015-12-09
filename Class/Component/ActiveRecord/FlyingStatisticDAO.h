@@ -46,4 +46,6 @@
 
 - (void) updateUserID:(NSString*) newUserID;
 
+-(void)  clearAll;
+
 @end

@@ -45,7 +45,6 @@
 #import "FlyingTouchDAO.h"
 #import "FlyingTouchRecord.h"
 #import "FlyingStatisticDAO.h"
-#import "FlyingSysWithCenter.h"
 #import "FlyingLessonListViewController.h"
 
 #import <ZXMultiFormatWriter.h>
@@ -95,7 +94,6 @@
 #import "FlyingPlayerView.h"
 
 #import "NSString+FlyingExtention.h"
-#import "FlyingSysWithCenter.h"
 
 #import "FlyingItemView.h"
 #import "FlyingItemData.h"

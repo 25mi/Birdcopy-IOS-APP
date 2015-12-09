@@ -64,11 +64,12 @@ typedef enum BESearchType
 
 
 // APP管理
-#define BIRDENGLISH_APPKEY      @"BIRDENGLISH_APPKEY"
-#define BEIYANG_APPKEY          @"BEIYANG_APPKEY"
+#define BIRDENGLISH_APPKEY      @"972dc79932c43552c32664250675dcaa"
+#define BEIYANG_APPKEY          @"9c8f510fd01e443a7182ed2fb3e2f554"
 #define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
-#define IT_APPKEY               @"IT_APPKEY"
-#define FD_APPKEY               @"FD_APPKEY"
+#define IT_APPKEY               @"ec27ffb39fb36b6855b2fd9c56f67a23"
+#define FINANCE_APPKEY          @"ba62b8b09c95dd999f0044616ba58099"
+#define FD_APPKEY               @"ec683e46661687a6c7425de52ea0d8e9"
 
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
@@ -78,10 +79,17 @@ typedef enum BESearchType
 
 #define Rong_SERVER               @"https://api.cn.rong.io/"
 
-//UI
+//同步任务相关
+#define KShouldSysMembership      @"KShouldSysMembership"
+#define KEverLaunchedRecord       @"KEverLaunchedRecord"
 
-#define kNavigationBackColor     @"kNavigationBackColor"
-#define kNavigationTextColor     @"kNavigationTextColor"
+//会员相关
+#define KMembershipStartTime      @"KMembershipStartTime"
+#define KMembershipEndTime        @"KMembershipEndTime"
+
+//UI
+#define kNavigationBackColor      @"kNavigationBackColor"
+#define kNavigationTextColor      @"kNavigationTextColor"
 
 //文件格式和文件名
 #define KUserDBResource           @"userModel"
@@ -238,6 +246,7 @@ typedef NSInteger BE_Item_Content_Type;
 
 //本地文件操作相关
 #define KDocumentStateChange      @"KDocumentStateChange"
+#define KBELocalCacheClearOK      @"KBELocalCacheClearOK"
 
 //网页跳转到内部相关
 #define KBEJumpToLesson          @"KBEJumpToLesson"

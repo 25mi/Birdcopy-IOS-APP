@@ -7,13 +7,14 @@
 //
 
 #import "FlyingContentSummaryCell.h"
+#import "shareDefine.h"
 
 @implementation FlyingContentSummaryCell
 
 - (void)awakeFromNib {
     // Initialization code
     
-    self.contentSummaryLabel.font= [UIFont systemFontOfSize:(INTERFACE_IS_PAD ? 24.0f : 12.0f)];
+    self.contentSummaryLabel.font= [UIFont systemFontOfSize:KLittleFontSize];
     
     self.contentSummaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.contentSummaryLabel.textAlignment = NSTextAlignmentLeft;

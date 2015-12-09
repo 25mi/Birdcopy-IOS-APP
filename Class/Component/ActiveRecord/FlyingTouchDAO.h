@@ -38,4 +38,6 @@
                    LessonID:(NSString*) lessonID
                    touchTimes:(NSInteger) tochTimes;
 
+-(void)  clearAll;
+
 @end

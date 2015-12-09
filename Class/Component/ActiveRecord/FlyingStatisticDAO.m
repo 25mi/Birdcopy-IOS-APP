@@ -416,4 +416,17 @@
     }];
 }
 
+
+-(void)  clearAll
+{
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        
+        [db executeUpdate:[self setTable:@"DELETE FROM %@"]];
+        
+        if ([db hadError]) {
+            NSLog(@"Err clearAll %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+        }
+    }];
+}
+
 @end

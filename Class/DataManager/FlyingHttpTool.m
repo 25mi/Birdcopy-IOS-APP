@@ -7,7 +7,9 @@
 //  Copyright (c) 2015 BirdEngish. All rights reserved.
 //
 
+
 #import "FlyingHttpTool.h"
+#import "shareDefine.h"
 #import "AFHttpTool.h"
 #import "RCDGroupInfo.h"
 #import "FlyingUserInfo.h"
@@ -18,9 +20,22 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingCoverDataParser.h"
 
-#import "NSString+Emoji.h"
 #import "FlyingGroupData.h"
 #import "FlyingPubLessonData.h"
+
+#import "FlyingStatisticData.h"
+#import "FlyingStatisticDAO.h"
+
+#import "FlyingTouchDAO.h"
+#import "FlyingTouchRecord.h"
+
+#import "FlyingNowLessonDAO.h"
+#import "FlyingLessonData.h"
+
+#import "FlyingLessonDAO.h"
+#import "FlyingLessonData.h"
+
+#import "SIAlertView.h"
 
 @implementation FlyingHttpTool
 
@@ -591,6 +606,137 @@
 }
 
 //////////////////////////////////////////////////////////////
+#pragma  用户注册、登录、激活相关
+//////////////////////////////////////////////////////////////
+
++ (void) regOpenUDID:(NSString*) openUDID
+                  Completion:(void (^)(BOOL result)) completion;
+{
+    [AFHttpTool regOpenUDID:openUDID
+                      AppID:[NSString getAppID]
+                    success:^(id response) {
+                                //
+                                if (response) {
+                                    
+                                    NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                    
+                                    BOOL result =false;
+                                    
+                                    if ([tempStr isEqualToString:@"1"]) {
+                                        result =true;
+                                    }
+                                    if (completion) {
+                                        completion(result);
+                                    }
+                                }
+
+                            } failure:^(NSError *err) {
+                                //
+                            }];
+}
+
++ (void) verifyOpenUDID:(NSString*) openUDID
+                  AppID:(NSString*) appID
+             Completion:(void (^)(BOOL result)) completion
+{
+    [AFHttpTool verifyOpenUDID:openUDID
+                         AppID:(NSString*) appID
+                       success:^(id response) {
+                           //
+                           if (response) {
+                               
+                               BOOL result =false;
+                               
+                               NSString *code = [NSString stringWithFormat:@"%@",response[@"rs"]];
+                               
+                               if (![code isEqualToString:@"-1"]) {
+                                   result =true ;
+                               }
+                               
+                               if (completion) {
+                                   completion(result);
+                               }
+                           }
+
+                       } failure:^(NSError *err) {
+                           //
+                       }];
+}
+
++ (void) updateCurrentID:(NSString*) currentID
+            withSourceID:(NSString*) sourceID
+              Completion:(void (^)(BOOL result)) completion
+{
+
+    
+    [AFHttpTool updateCurrentID:currentID
+                   withSourceID:sourceID
+                        success:^(id response) {
+                            //
+                            
+                            if (response) {
+                                
+                                BOOL result =false;
+                                
+                                NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                
+                                if ([code isEqualToString:@"1"]) {
+                                    result =true;
+                                }
+                                
+                                if (completion) {
+                                    completion(result);
+                                }
+                            }
+
+                        } failure:^(NSError *err) {
+                            //
+                            if (completion) {
+                                completion(false);
+                            }
+
+                        }];
+}
+
+//用终端登录官网后台
++(void) loginWebsiteWithQR:(NSString*)loginID
+{
+    NSString *openID = [NSString getOpenUDID];
+    
+    if(!openID)
+    {
+        return;
+    }
+    
+    [AFHttpTool loginWithQR:loginID
+                    Account:openID
+                    success:^(id response) {
+                        //
+                        if (response) {
+                            
+                            NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                            
+                            if([NSString isPureInt:tempStr]){
+                                
+                                NSInteger resultNum =[tempStr integerValue];
+                                
+                                // 登录成功
+                                if(resultNum==1){
+                                    
+                                    NSLog(@"扫描登录成功");
+                                    
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:KBERQloginOK object:nil];
+                                }
+                            }
+                        }
+                        
+                    } failure:^(NSError *err) {
+                        //
+                        NSLog(@"loginWithQR:%@",err.description);
+                        
+                    }];
+}
+//////////////////////////////////////////////////////////////
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
@@ -622,6 +768,11 @@
                                                 
                                                 startDate = [dateFormatter dateFromString:startDateStr];
                                                 endDate = [dateFormatter dateFromString:endDateStr];
+                                                
+                                                [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:KMembershipStartTime];
+                                                [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:KMembershipEndTime];
+                                                
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
                                             }
                                         }
                                     }
@@ -629,7 +780,6 @@
                                     if (completion) {
                                         completion(startDate,endDate);
                                     }
-
 
                                 } failure:^(NSError *err) {
                                     //
@@ -651,23 +801,454 @@
                                  StartDate:(NSDate *)startDate
                                    EndDate:(NSDate *)endDate
                                 success:^(id response) {
-                                    //
+                                    
                                     if (response) {
-                                        
-                                        NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                                         
                                         BOOL result =false;
                                         
-                                        if ([tempStr isEqualToString:@"1"]) {
+                                        NSString *code = response[@"rc"];
+                                        
+                                        if ([code isEqualToString:@"1"]) {
+                                            
                                             result =true;
+                                            
+                                            //本地记录
+                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                            
+                                            NSString *startDateStr = [dateFormatter stringFromDate:startDate];
+                                            NSString *endDateStr = [dateFormatter stringFromDate:endDate];
+                                            
+                                            [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:KMembershipStartTime];
+                                            [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:KMembershipEndTime];
+                                            
+                                            [[NSUserDefaults standardUserDefaults]  synchronize];
+                                            
+                                            //提醒系统备份没有备份成功的重要数据
+                                            if (result) {
+                                                
+                                                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KShouldSysMembership];
+                                                
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                            }
+                                            else
+                                            {
+                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KShouldSysMembership];
+                                                
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                            }
                                         }
+                                        
                                         if (completion) {
                                             completion(result);
                                         }
                                     }
+                                    
                                 } failure:^(NSError *err) {
                                     //
                                 }];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  金币相关
+//////////////////////////////////////////////////////////////
+
++(void) getMoneyDataWithOpenID:(NSString*) openudid
+                         AppID:(NSString*) appID
+                    Completion:(void (^)(BOOL result)) completion
+{
+    [AFHttpTool getMoneyDataWithOpenID:openudid
+                                 AppID:(NSString*) appID
+                               success:^(id response) {
+        //
+        if (response) {
+            
+            NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+            
+            NSArray *tempArray = [tempStr componentsSeparatedByString:@";"];
+            
+            
+            BOOL result =false;
+
+            if (tempArray.count==4) {
+                
+                result =true;
+                
+                NSInteger BEMONEYCOUNT = [tempArray[0] integerValue];
+                NSInteger BEGIFTCOUNT  = [tempArray[1] integerValue];
+                NSInteger BETOUCHCOUNT = [tempArray[2] integerValue];
+                NSInteger BEQRCOUNT    = [tempArray[3] integerValue];
+                
+                //查询现有数据库是否初始化
+                FlyingStatisticDAO * statDAO = [[FlyingStatisticDAO alloc] init];
+                FlyingStatisticData *userData = [statDAO selectWithUserID:openudid];
+                
+                if(!userData){
+                    
+                    userData = [[FlyingStatisticData alloc] initWithUserID:openudid
+                                                                MoneyCount:0
+                                                                TouchCount:0
+                                                              LearnedTimes:0
+                                                                 GiftCount:0
+                                                                   QRCount:0
+                                                                 TimeStamp:0];
+                }
+                
+                //更新本地数据
+                userData.BEQRCOUNT    = BEQRCOUNT;
+                userData.BEMONEYCOUNT = BEMONEYCOUNT;
+                userData.BETOUCHCOUNT = BETOUCHCOUNT;
+                userData.BEGIFTCOUNT  = BEGIFTCOUNT;
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+                NSString *destDateString = [dateFormatter stringFromDate:[NSDate date]];
+                userData.BETIMESTAMP = destDateString;
+                
+                [statDAO insertWithData:userData];
+            }
+            
+            if (completion) {
+                completion(result);
+            }
+        }
+        
+    } failure:^(NSError *err) {
+        //
+        NSLog(@"getMoneyDataWithOpenID:%@",err.description);
+    }];
+}
+
+//向服务器保存金币信息
++(void) uploadMoneyDataWithOpenID:(NSString*) openudid
+                            AppID:(NSString*) appID
+                       Completion:(void (^)(BOOL result)) completion;
+{
+    FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:openudid];
+    
+    [AFHttpTool uploadMoneyDataWithOpenID:openudid
+                                   AppID:appID
+                              MoneyCount:staticDat.BEMONEYCOUNT
+                               GiftCount:staticDat.BEGIFTCOUNT
+                              TouchCount:staticDat.BETOUCHCOUNT
+                                 success:^(id response) {
+                                     //
+                                     if (response) {
+                                         
+                                         BOOL result =false;
+                                         
+                                         NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                         
+                                         if([NSString isPureInt:tempStr]){
+                                             
+                                             NSInteger resultNum =[tempStr integerValue];
+                                             
+                                             //上传消费值成功
+                                             if(resultNum==1){
+                                                 
+                                                 result =true;
+                                                 
+                                                 NSLog(@"上传备份消费值成功");
+                                             }
+                                         }
+                                         
+                                         if (completion) {
+                                             completion(result);
+                                         }
+                                     }
+                                     
+                                 } failure:^(NSError *err) {
+                                     //
+                                     NSLog(@"sysOtherMoneyWithAccount:%@",err.description);
+                                 }];
+}
+
++(void) getQRDataForUserID:(NSString*) openudid
+                     AppID:(NSString*) appID
+                Completion:(void (^)(BOOL result)) completion
+{
+    //向服务器获取最新QR数据
+    [AFHttpTool getQRCountForUserID:openudid
+                              AppID:(NSString*) appID
+                            success:^(id response) {
+                                //
+                                if (response) {
+                                    
+                                    BOOL result =false;
+                                    
+                                    NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                    
+                                    if([NSString isPureInt:tempStr]){
+                                        
+                                        NSInteger resultNum =[tempStr integerValue];
+                                        
+                                        if(resultNum>=0){
+                                            
+                                            result =true;
+                                            
+                                            FlyingStatisticDAO * statDAO = [[FlyingStatisticDAO alloc] init];
+                                            FlyingStatisticData *userData = [statDAO selectWithUserID:openudid];
+                                            
+                                            if(!userData){
+                                                
+                                                userData = [[FlyingStatisticData alloc] initWithUserID:openudid
+                                                                                            MoneyCount:0
+                                                                                            TouchCount:0
+                                                                                          LearnedTimes:0
+                                                                                             GiftCount:0
+                                                                                               QRCount:0
+                                                                                             TimeStamp:0];
+                                            }
+                                            
+                                            userData.BEQRCOUNT = resultNum;
+                                            
+                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+                                            NSString *destDateString = [dateFormatter stringFromDate:[NSDate date]];
+                                            userData.BETIMESTAMP = destDateString;
+                                            
+                                            [statDAO insertWithData:userData];
+                                        }
+                                    }
+                                    
+                                    if (completion) {
+                                        completion(result);
+                                    }
+                                }
+                                
+                            } failure:^(NSError *err) {
+                                //
+                                NSLog(@"getQRCountForUserID:%@",err.description);
+                            }];
+}
+
++(void) chargingCrad:(NSString*) cardID
+               AppID:(NSString*) appID
+           WithOpenID:(NSString*) openudid
+           Completion:(void (^)(BOOL result)) completion;
+{
+    @synchronized(self)
+    {
+        //向服务器帐户进行充值
+        [AFHttpTool chargingCardSysURLForUserID:openudid
+                                          AppID:(NSString*) appID
+                                         CardID:cardID
+                                        success:^(id response) {
+                                            //
+                                            if (response) {
+                                                
+                                                BOOL result =false;
+                                                
+                                                NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                                
+                                                if([NSString isPureInt:tempStr]){
+                                                    
+                                                    NSInteger resultNum =[tempStr integerValue];
+                                                    
+                                                    NSString * responseStr=nil;
+                                                    FlyingStatisticDAO * statDAO = [[FlyingStatisticDAO alloc] init];
+                                                    FlyingStatisticData *userData = [statDAO selectWithUserID:openudid];
+                                                    
+                                                    switch (resultNum) {
+                                                        case -1:
+                                                            responseStr = @"必须参数缺少";
+                                                            break;
+                                                        case -11:
+                                                            responseStr = @"充值卡无效";
+                                                            break;
+                                                        case -12:
+                                                            responseStr = @"充值卡无效";
+                                                            break;
+                                                        case -13:
+                                                            responseStr = @"充值卡无效";
+                                                            break;
+                                                        case -21:
+                                                            responseStr = @"充值卡无效";
+                                                            break;
+                                                        case -22:
+                                                            responseStr = @"充值卡未出售";
+                                                            break;
+                                                        case -23:
+                                                            responseStr = @"充值卡被锁定";
+                                                            break;
+                                                        case -24:
+                                                            responseStr = @"充值卡失效";
+                                                            break;
+                                                        case -31:
+                                                            responseStr = @"充值卡已充值";
+                                                            break;
+                                                        case -32:
+                                                            responseStr = @"充值卡已充值";
+                                                            break;
+                                                        case -99:
+                                                            responseStr = @"中途出错(系统原因)";
+                                                            break;
+                                                        default:
+                                                            
+                                                            result =true;
+
+                                                            [statDAO updateWithUserID:openudid QRMoneyCount:resultNum];
+                                                            
+                                                            responseStr = [NSString stringWithFormat:@"充值成功:充值金币数目:%@",[@(resultNum-userData.BEQRCOUNT) stringValue]];
+                                                    }
+                                                    
+                                                    NSString *title = @"充值提醒";
+                                                    
+                                                    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title
+                                                                                                     andMessage:responseStr];
+                                                    [alertView addButtonWithTitle:@"知道了"
+                                                                             type:SIAlertViewButtonTypeDefault
+                                                                          handler:^(SIAlertView *alertView) {}];
+                                                    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                                                    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+                                                    [alertView show];
+                                                }
+                                                
+                                                if (completion) {
+                                                    completion(result);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                NSString *title = @"充值提醒！";
+                                                NSString *message = @"服务器繁忙或者网络故障请稍后再试！";
+                                                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+                                                [alertView addButtonWithTitle:@"知道了"
+                                                                         type:SIAlertViewButtonTypeDefault
+                                                                      handler:^(SIAlertView *alertView) {}];
+                                                alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                                                alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+                                                [alertView show];
+                                                
+                                                
+                                                if (completion) {
+                                                    completion(false);
+                                                }
+                                            }
+                                            
+                                        } failure:^(NSError *err) {
+                                            //
+                                            if (completion) {
+                                                completion(false);
+                                            }
+                                            NSLog(@"chargingCardSysURLForUserID:%@",err.description);
+                                        }];
+    }
+}
+
++(void) getStatisticDetailWithOpenID:(NSString*) openudid
+                               AppID:(NSString*) appID
+                                 Completion:(void (^)(BOOL result)) completion;
+{
+    NSArray *lessonIDlist = [[[FlyingNowLessonDAO alloc] init] selectIDWithUserID:openudid];
+    
+    FlyingLessonDAO * lessonDao= [[FlyingLessonDAO alloc] init];
+    FlyingTouchDAO * touchDAO = [[FlyingTouchDAO alloc] init];
+    
+    if (lessonIDlist.count==0) {
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"activeBETouchAccount"];
+    }
+    else{
+        
+        [lessonIDlist enumerateObjectsUsingBlock:^(NSString* lessonID, NSUInteger idx, BOOL *stop) {
+            
+            FlyingLessonData * lessonData=[lessonDao selectWithLessonID:lessonID];
+            
+            if (lessonData.BEOFFICIAL==YES) {
+                
+                //向服务器获取最新课程相关统计数据
+                [AFHttpTool getTouchDataForUserID:openudid
+                                            AppID:(NSString*) appID
+                                         lessonID:lessonID
+                                          success:^(id response) {
+                                              //
+                                              if (response) {
+                                                  
+                                                  NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                                  
+                                                  [touchDAO insertDataForUserID:openudid
+                                                                       LessonID:lessonID
+                                                                     touchTimes:[tempStr integerValue]];
+                                              }
+                                              
+                                              if (idx==lessonIDlist.count-1) {
+                                                  
+                                                  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"activeBETouchAccount"];
+                                              }
+                                              
+                                          } failure:^(NSError *err) {
+                                              //
+                                              NSLog(@"getTouchDataForUserID:%@",err.description);
+                                              
+                                          }];
+            }
+        }];
+    }
+}
+
+//向服务器获备份课程消费数据
++(void) uploadStatisticDetailWithOpenID:(NSString*) openudid
+                                  AppID:(NSString*) appID
+                                    Completion:(void (^)(BOOL result)) completion;
+{
+    FlyingTouchDAO * touchDAO = [[FlyingTouchDAO alloc] init];
+    NSArray *recordList = [touchDAO selectWithUserID:openudid];
+    
+    __block NSMutableString * updateStr =[NSMutableString new];
+    
+    __block BOOL first=YES;
+    
+    [recordList enumerateObjectsUsingBlock:^(FlyingTouchRecord* toucRecord, NSUInteger idx, BOOL *stop) {
+        
+        if (first) {
+            
+            [updateStr appendFormat:@"%@;%d",toucRecord.BELESSONID,toucRecord.BETOUCHTIMES];
+            
+            first=NO;
+        }
+        else{
+            
+            [updateStr appendFormat:@"|%@;%d",toucRecord.BELESSONID,toucRecord.BETOUCHTIMES];
+        }
+    }];
+    
+    
+    [AFHttpTool upadteLessonTouchWithAccount:openudid
+                                       AppID:appID
+                           lessonAndTouch:updateStr
+                                  success:^(id response) {
+                                      //
+                                      if (response) {
+                                          
+                                          NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                          
+                                          if([NSString isPureInt:tempStr]){
+                                              
+                                              NSInteger resultNum =[tempStr integerValue];
+                                              
+                                              //上传课程具体消费值成功
+                                              if(resultNum==1){
+                                                  
+                                                  NSLog(@"上传课程具体消费值成功");
+                                              }
+                                          }
+                                          
+                                          
+                                          if (completion) {
+                                              completion(true);
+                                          }
+                                      }
+                                      
+                                  } failure:^(NSError *err) {
+                                      //
+                                      
+                                      if (completion) {
+                                          completion(false);
+                                      }
+
+                                      NSLog(@"sysLessonTouchWithAccount:%@",err.description);
+                                  }];
 }
 
 //////////////////////////////////////////////////////////////

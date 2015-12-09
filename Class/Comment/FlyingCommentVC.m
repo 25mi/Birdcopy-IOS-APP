@@ -38,8 +38,6 @@
 #import "FlyingLoadingCell.h"
 #import "FlyingContentSummaryCell.h"
 
-#import "NSString+Emoji.h"
-
 @interface FlyingCommentVC ()
 {
     NSInteger            _maxNumOfComments;
@@ -214,6 +212,11 @@
     return CGFLOAT_MIN;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return CGFLOAT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (_currentData.count && _currentData.count<_maxNumOfComments)
@@ -318,8 +321,6 @@
             
             [(FlyingContentSummaryCell*)cell setSummaryText:@"骄傲的去做第一个评论者吧!"];
             [(FlyingContentSummaryCell*)cell setTextAlignment:NSTextAlignmentCenter];
-            
-            self.tableView.separatorColor = [UIColor clearColor];
         }
         else
         {
@@ -381,7 +382,7 @@
     {
         
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         
         [self.navigationController pushViewController:myProfileVC animated:YES];
     }
@@ -445,9 +446,7 @@
     commentData.portraitURL=portraitUri;
     
     commentData.nickName=[NSString getNickName];
-    
-    NSString * inputString=self.textView.text;
-    commentData.commentContent=[inputString stringByReplacingEmojiCheatCodesWithUnicode];
+    commentData.commentContent=self.textView.text;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

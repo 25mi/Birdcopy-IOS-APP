@@ -10,7 +10,6 @@
 
 @interface FlyingGuideViewController : UIViewController
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (weak,nonatomic)    NSTimer                 *timer;
 
 @end

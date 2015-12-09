@@ -164,9 +164,9 @@
     else if([title containsString:@"账户"])
     {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"myAccount"];
+        id settingVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         
-        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:myProfileVC]
+        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:settingVC]
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }

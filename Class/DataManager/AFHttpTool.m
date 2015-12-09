@@ -20,6 +20,7 @@
 + (void)requestWihtMethod:(RequestMethodType)methodType
                       url:(NSString*)url
                    params:(NSDictionary*)params
+ responseSerializerIsJson:(BOOL) isJson
                   success:(void (^)(id response))success
                   failure:(void (^)(NSError* err))failure
 {
@@ -29,7 +30,18 @@
     
     //获得请求管理者
     AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
-    mgr.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    if (isJson) {
+        
+        mgr.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    else
+    {
+        mgr.responseSerializer= [[AFHTTPResponseSerializer alloc] init];
+        
+        AFHTTPResponseSerializer *responseSerializer = [[AFHTTPResponseSerializer alloc] init];
+        responseSerializer.acceptableContentTypes= [NSSet setWithObject:@"text/html"];
+    }
     
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
@@ -86,6 +98,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"get_group"
                            params:@{@"id":[NSNumber numberWithInt:groupID]}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 
@@ -99,6 +112,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"create_group"
                            params:@{@"name":name}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -111,6 +125,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"join_group"
                            params:@{@"id":[NSNumber numberWithInt:groupID]}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -123,6 +138,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"quit_group"
                            params:@{@"id":[NSNumber numberWithInt:groupID]}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -137,6 +153,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"update_group"
                            params:@{@"id":[NSNumber numberWithInt:groupID],@"name":groupName,@"introduce":introduce}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -148,6 +165,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"get_friend"
                            params:nil
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -158,6 +176,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"seach_email"
                            params:@{@"email":email}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -169,6 +188,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"seach_name"
                            params:@{@"username":name}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -181,6 +201,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"request_friend"
                            params:@{@"id":userId, @"message": NSLocalizedStringFromTable(@"Request_Friends_extra", @"RongCloudKit", nil)} //Request_Friends_extra
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -195,6 +216,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"process_request_friend"
                            params:@{@"id":userId,@"is_access":isAcept}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -206,6 +228,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"delete_friend"
                            params:@{@"id":userId}
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -223,6 +246,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rc_get_urt_from_hp.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -295,6 +319,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rc_sync_urb_from_hp.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -309,6 +334,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rc_get_usr_from_hp.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -322,6 +348,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rc_get_usr_from_hp.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -362,6 +389,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_gp_list_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -391,6 +419,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_member_gplist_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -415,6 +444,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_member_gplist_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -432,6 +462,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_member_gplist_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -462,6 +493,7 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_cm_get_ct_list_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
@@ -503,52 +535,83 @@
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_add_ct_from_tn.action"
                            params:params
+         responseSerializerIsJson:true
+                          success:success
+                          failure:failure];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  用户激活相关
+//////////////////////////////////////////////////////////////
++ (void) regOpenUDID:(NSString*) openUDID
+               AppID:(NSString*) appID
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openUDID}];
+    
+    [params setObject:@"reg" forKey:@"type"];
+    
+    [params setObject:appID forKey:@"app_id"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_reg_user_from_hp.action"
+                           params:params
+         responseSerializerIsJson:false
+                          success:success
+                          failure:failure];
+}
+
++ (void) verifyOpenUDID:(NSString*) openUDID
+                  AppID:(NSString*) appID
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openUDID}];
+    
+    [params setObject:appID forKey:@"app_id"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_ua_get_status_from_tn.action"
+                           params:params
+         responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
 
 
-//////////////////////////////////////////////////////////////
-#pragma  old API, not jason
-//////////////////////////////////////////////////////////////
-+ (void)requestWithUrl:(NSString*)url
-                params:(NSDictionary*)params
-               success:(void (^)(id response))success
-               failure:(void (^)(NSError* err))failure
++ (void) updateCurrentID:(NSString*) currentID
+            withSourceID:(NSString*) sourceID
+                 success:(void (^)(id response))success
+                 failure:(void (^)(NSError* err))failure
 {
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key_d":currentID}];
     
-    NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
-    
-    //获得请求管理者
-    AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
-    
-    mgr.responseSerializer= [[AFHTTPResponseSerializer alloc] init];
-    
-    AFHTTPResponseSerializer *responseSerializer = [[AFHTTPResponseSerializer alloc] init];
-    responseSerializer.acceptableContentTypes= [NSSet setWithObject:@"text/html"];
-
-    mgr.responseSerializer = responseSerializer;
-    
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        [mgr.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    if (sourceID.length!=0) {
+        
+        [params setObject:sourceID forKey:@"tuser_key_s"];
     }
-    
-    //GET请求
-    [mgr GET:url parameters:params
-     success:^(NSURLSessionDataTask *task, id responseObject) {
-         if (success) {
-             success(responseObject);
-         }
-         
-     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-         if (failure) {
-             failure(error);
-         }
-     }];
+        
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_rk_replace_from_tn.action"
+                           params:params
+         responseSerializerIsJson:true
+                          success:success
+                          failure:failure];
 }
 
-
++ (void) loginWithQR:(NSString*) loginQR
+             Account:(NSString*) passport
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_send_prelogin_info_from_hp.action"
+                           params:@{@"user_key":passport,@"oth1":loginQR}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
 //////////////////////////////////////////////////////////////
 #pragma  账户信息
 //////////////////////////////////////////////////////////////
@@ -562,10 +625,12 @@
     [params setObject:appID forKey:@"app_id"];
     [params setObject:@"validth" forKey:@"type"];
     
-    [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
-                        params:params
-                       success:success
-                       failure:failure];
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_get_user_info_from_hp.action"
+                           params:params
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
 }
 
 + (void)  updateMembershipForAccount:account
@@ -592,100 +657,102 @@
     [params setObject:startDateString forKey:@"start_time"];
     [params setObject:endDateString forKey:@"end_time"];
     
-    [AFHttpTool requestWithUrl:@"ua_sync_validth_from_hp.action"
-                        params:params
-                       success:success
-                       failure:failure];
-}
-
-+ (void) chargingCardSysURLForUserID:(NSString *) userID
-                                 CardID:(NSString *) cardNo
-                             success:(void (^)(id response))success
-                             failure:(void (^)(NSError* err))failure
-
-{
-    [AFHttpTool requestWithUrl:@"la_topup_pwd_from_hp.action"
-                        params:@{@"user_key":userID,@"topup_pwd":cardNo}
-                       success:success
-                       failure:failure];
-}
-
-+ (void) getAccountDataForUserID:(NSString *) userID
-                         success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
-                        params:@{@"user_key":userID}
-                       success:success
-                       failure:failure];
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_sync_validth_from_hp.action"
+                           params:params
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
 
 }
 
-+ (void) getQRCountForUserID:(NSString *) userID
+//////////////////////////////////////////////////////////////
+#pragma  金币相关
+//////////////////////////////////////////////////////////////
+
++(void) getMoneyDataWithOpenID:(NSString*) openudid
+                         AppID:(NSString*) appID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"la_get_user_info_from_hp.action"
-                        params:@{@"user_key":userID,@"type":@"topup_pwd_total"}
-                       success:success
-                       failure:failure];
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_get_user_info_from_hp.action"
+                           params:@{@"user_key":openudid,@"type":@"accobk"}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
+
++(void) uploadMoneyDataWithOpenID:(NSString*) openudid
+                            AppID:(NSString*) appID
+                       MoneyCount:(NSInteger) moneycount
+                        GiftCount:(NSInteger) giftCount
+                       TouchCount:(NSInteger) touchCount
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_sync_accobk_from_hp.action"
+                           params:@{@"user_key":openudid,@"appletpp_sum":[@(moneycount) stringValue],@"reward_sum":[@(giftCount) stringValue],@"consume_sum":[@(touchCount) stringValue]}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
+
++ (void) getQRCountForUserID:(NSString *) userID
+                       AppID:(NSString*) appID
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_user_info_from_hp.action"
+                           params:@{@"user_key":userID,@"type":@"topup_pwd_total"}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
+
++ (void) chargingCardSysURLForUserID:(NSString *) userID
+                               AppID:(NSString*) appID
+                              CardID:(NSString *) cardNo
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_topup_pwd_from_hp.action"
+                           params:@{@"user_key":userID,@"topup_pwd":cardNo}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
 }
 
 + (void) getTouchDataForUserID:(NSString *) userID
+                         AppID:(NSString*) appID
                       lessonID:(NSString *) leesonID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure
 
 {
-    [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
-                        params:@{@"user_key":userID,@"type":@"lnclick",@"ln_id":leesonID}
-                       success:success
-                       failure:failure];
-}
-
-+ (void) sysOtherMoneyWithAccount:(NSString*)passport
-                          MoneyCount:(NSInteger) moneycount
-                           GiftCount:(NSInteger) giftCount
-                          TouchCount:(NSInteger) touchCount
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWithUrl:@"ua_sync_accobk_from_hp.action"
-                           params:@{@"user_key":passport,@"appletpp_sum":[@(moneycount) stringValue],@"reward_sum":[@(giftCount) stringValue],@"consume_sum":[@(touchCount) stringValue]}
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_get_user_info_from_hp.action"
+                           params:@{@"user_key":userID,@"type":@"lnclick",@"ln_id":leesonID}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
-+ (void) sysLessonTouchWithAccount:(NSString*)passport
++ (void) upadteLessonTouchWithAccount:(NSString*)passport
+                                AppID:(NSString*) appID
                        lessonAndTouch:(NSString*) orgnizedStr
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"ua_sync_lnclick_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ua_sync_lnclick_from_hp.action"
                            params:@{@"user_key":passport,@"lncks":orgnizedStr}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
-}
-
-+ (void) loginWithQR:(NSString*) loginQR
-                Account:(NSString*) passport
-             success:(void (^)(id response))success
-             failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWithUrl:@"ua_send_prelogin_info_from_hp.action"
-                           params:@{@"user_key":passport,@"oth1":loginQR}
-                          success:success
-                          failure:failure];
-}
-
-+(void) getMoneyDataWithOpenID:(NSString*) openudid
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWithUrl:@"ua_get_user_info_from_hp.action"
-                        params:@{@"user_key":openudid,@"type":@"accobk"}
-                       success:success
-                       failure:failure];
 }
 
 //////////////////////////////////////////////////////////////
@@ -732,9 +799,11 @@
         }
     }
     
-    [AFHttpTool requestWithUrl:@"la_get_tag_list_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_tag_list_for_hp.action"
                         params:params
-                       success:success
+         responseSerializerIsJson:NO
+                          success:success
                        failure:failure];
 }
 
@@ -796,9 +865,11 @@
         }
     }
     
-    [AFHttpTool requestWithUrl:@"la_get_ln_list_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_ln_list_for_hp.action"
                         params:params
-                       success:success
+         responseSerializerIsJson:NO
+                          success:success
                        failure:failure];
 }
 
@@ -807,8 +878,10 @@
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"la_get_ln_detail_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_ln_detail_for_hp.action"
                            params:@{@"ln_id":lessonID}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 
@@ -819,8 +892,10 @@
                       failure:(void (^)(NSError* err))failure
 
 {
-    [AFHttpTool requestWithUrl:@"la_get_ln_detail_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_ln_detail_for_hp.action"
                            params:@{@"ln_isbn":ISBN}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
@@ -832,8 +907,10 @@
                  failure:(void (^)(NSError* err))failure
 
 {
-    [AFHttpTool requestWithUrl:@"la_access_url_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_access_url_from_hp.action"
                            params:@{@"ln_id":lessonID,@"type":contentType,@"url":contentURL}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 
@@ -872,8 +949,10 @@
         [params setObject:contentURL forKey:@"req_url"];
     }
     
-    [AFHttpTool requestWithUrl:@"la_get_ln_rel_url_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_ln_rel_url_for_hp.action"
                            params:params
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 
@@ -886,9 +965,11 @@
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"la_echo_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_echo_from_hp.action"
                         params:@{@"type":type,@"ln_id":lessonID,@"url":contentURL}
-                       success:success
+         responseSerializerIsJson:NO
+                          success:success
                        failure:failure];
 }
 
@@ -900,8 +981,10 @@
               success:(void (^)(id response))success
               failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"la_get_res_url_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_res_url_from_hp.action"
                            params:@{@"type":type}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
@@ -911,8 +994,10 @@
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure
 {
-    [AFHttpTool requestWithUrl:@"la_get_dic_list_for_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_dic_list_for_hp.action"
                            params:@{@"word":word}
+         responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
@@ -933,9 +1018,11 @@
         pagecount=kperpageLessonCountPAD;
     }
     
-    [AFHttpTool requestWithUrl:@"pu_get_user_position_list_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"pu_get_user_position_list_from_hp.action"
                         params:@{@"latitude":latitude,@"longitude":longitude,@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}
-                       success:success
+         responseSerializerIsJson:NO
+                          success:success
                        failure:failure];
 }
 
@@ -944,9 +1031,11 @@
                                failure:(void (^)(NSError* err))failure
 
 {
-    [AFHttpTool requestWithUrl:@"aa_get_app_info_from_hp.action"
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"aa_get_app_info_from_hp.action"
                         params:nil
-                       success:success
+         responseSerializerIsJson:NO
+                          success:success
                        failure:failure];
 }
 

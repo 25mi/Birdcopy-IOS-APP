@@ -7,7 +7,6 @@
 //
 
 #import "FlyingScanViewController.h"
-#import "FlyingSysWithCenter.h"
 #import "iFlyingAppDelegate.h"
 #import "SIAlertView.h"
 #import "FlyingWebViewController.h"
@@ -17,6 +16,8 @@
 #import "FlyingNavigationController.h"
 #import "UIView+Toast.h"
 #import "FlyingMyGroupsVC.h"
+
+#import "FlyingHttpTool.h"
 
 @interface FlyingScanViewController ()
 {
@@ -231,8 +232,21 @@
 {
     if (cardID) {
         
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [[appDelegate getSysWithCenter] chargingCrad:cardID];
+        [FlyingHttpTool chargingCrad:cardID
+                               AppID:[NSString getAppID]
+                          WithOpenID:[NSString getOpenUDID]
+                          Completion:^(BOOL result) {
+                              //
+                              NSString *title = @"友情提醒！";
+                              NSString *message = @"登录网站成功！";
+                              SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+                              [alertView addButtonWithTitle:@"知道了"
+                                                       type:SIAlertViewButtonTypeDefault
+                                                    handler:^(SIAlertView *alertView) {}];
+                              alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                              alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+                              [alertView show];
+                          }];
     }
 }
 
@@ -262,7 +276,7 @@
         
         if (loginID) {
             
-            [FlyingSysWithCenter loginWithQR:loginID];
+            [FlyingHttpTool loginWebsiteWithQR:loginID];
         }
     }
 }

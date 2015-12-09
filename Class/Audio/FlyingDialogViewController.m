@@ -36,7 +36,6 @@
 #import "FlyingStatisticDAO.h"
 #import "FlyingTouchDAO.h"
 #import "UIImageView+WebCache.h"
-#import "FlyingSysWithCenter.h"
 
 #import "RESideMenu.h"
 #import <AFNetworking.h>

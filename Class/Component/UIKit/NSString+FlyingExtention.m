@@ -82,7 +82,7 @@
 #ifdef __CLIENT__IS__FD__
     rongAPPkey=RONGCLOUD_IM_FD_APPKEY;
 #endif
-
+    
     return rongAPPkey;
 }
 
@@ -126,8 +126,19 @@
 #endif
     
 #ifdef __CLIENT__IS__FD__
-    appID=FD_APPKEY;
+    appID=FINANCE_APPKEY;
 #endif
+    
+    NSString * appOwner = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    
+    if ([appOwner isEqualToString:@"beiyang"]) {
+        
+        appID=BEIYANG_APPKEY;
+    }
+    else  if ([appOwner isEqualToString:@"fd"]) {
+        
+        appID=FD_APPKEY;
+    }
     
     return appID;
 }

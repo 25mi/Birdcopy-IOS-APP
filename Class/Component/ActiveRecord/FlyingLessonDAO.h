@@ -44,6 +44,7 @@
 
 - (BOOL) hasRelativeURL;
 - (BOOL) insertRelativeURL;
+-(void)  clearAll;
 
 @end
 

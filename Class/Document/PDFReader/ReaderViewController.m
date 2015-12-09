@@ -51,7 +51,6 @@
 #import "FlyingItemView.h"
 #import "UIView+Autosizing.h"
 #import "NSString+FlyingExtention.h"
-#import "FlyingSysWithCenter.h"
 
 #import "MuPageViewNormal.h"
 #import "MuPageViewReflow.h"

@@ -37,22 +37,23 @@ static NSString * const friendTableName = @"FRIENDTABLE";
             NSString *createTableSQL = @"CREATE TABLE USERTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
             [db executeUpdate:createTableSQL];
             NSString *createIndexSQL=@"CREATE unique INDEX idx_userid ON USERTABLE(userid);";
+            
             [db executeUpdate:createIndexSQL];
         }
         if (![DBHelper isTableOK: groupTableName withDB:db]) {
             NSString *createTableSQL = @"CREATE TABLE GROUPTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
             [db executeUpdate:createTableSQL];
-            NSString *createIndexSQL=@"CREATE unique INDEX idx_userid ON USERTABLE(userid);";
+            NSString *createIndexSQL=@"CREATE unique INDEX idx_groupid ON GROUPTABLE(userid);";
+
             [db executeUpdate:createIndexSQL];
         }
         if (![DBHelper isTableOK: friendTableName withDB:db]) {
             NSString *createTableSQL = @"CREATE TABLE FRIENDTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
             [db executeUpdate:createTableSQL];
-            NSString *createIndexSQL=@"CREATE unique INDEX idx_userid ON USERTABLE(userid);";
+            NSString *createIndexSQL=@"CREATE unique INDEX idx_friendId ON FRIENDTABLE(userid);";
             [db executeUpdate:createIndexSQL];
         }
     }];
-    
 }
 
 //存储用户信息
