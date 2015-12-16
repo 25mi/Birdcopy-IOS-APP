@@ -156,6 +156,39 @@
     return openID;
 }
 
++ (NSString*) getUserName
+{
+    NSString *userName=[UICKeyChainStore keyChainStore][kUserName];
+    
+    if (userName.length==0) {
+        
+        userName=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+    }
+    
+    return userName;
+}
+
++ (void) setUserName:(NSString*) userName
+{
+    [UICKeyChainStore keyChainStore][kUserName]=userName;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:userName forKey:kUserName];
+}
+
+
++ (NSString*) getUserPassword
+{
+    NSString *passWord=[UICKeyChainStore keyChainStore][kUserPassWord];
+    
+    return passWord;
+}
+
++ (void) setUserPassword:(NSString*) passWord
+{
+    [UICKeyChainStore keyChainStore][kUserPassWord]=passWord;
+    
+}
+
 + (NSString*) getNickName
 {
     NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];

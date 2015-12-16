@@ -664,13 +664,15 @@
 }
 
 + (void) updateCurrentID:(NSString*) currentID
-            withSourceID:(NSString*) sourceID
+            withUserName:(NSString*) userName
+                     pwd:(NSString*) password
               Completion:(void (^)(BOOL result)) completion
 {
 
     
     [AFHttpTool updateCurrentID:currentID
-                   withSourceID:sourceID
+                   withUserName:(NSString*) userName
+                            pwd:(NSString*) password
                         success:^(id response) {
                             //
                             

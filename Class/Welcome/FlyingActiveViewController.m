@@ -27,7 +27,7 @@
     if (!hud) {
         
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"激活设备中...";
+        hud.labelText = @"登录中...";
     }
 }
 

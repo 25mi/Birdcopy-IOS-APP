@@ -17,6 +17,11 @@
 + (NSString*) getAppID;
 + (NSString*) getOpenUDID;
 
++ (NSString*) getUserName;
++ (void)      setUserName:(NSString*) userName;
++ (NSString*) getUserPassword;
++ (void)      setUserPassword:(NSString*) passWord;
+
 + (NSString*) getNickName;
 + (void)      setNickName:(NSString*) nickName;
 + (NSString*) getUserAbstract;

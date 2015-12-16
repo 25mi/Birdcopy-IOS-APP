@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_3_7_stable/RongIMKit.framework/Headers/RCTipMessageCell.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/RongIMKit.framework/Headers/RCTipMessageCell.h

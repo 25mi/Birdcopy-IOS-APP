@@ -581,17 +581,24 @@
 
 
 + (void) updateCurrentID:(NSString*) currentID
-            withSourceID:(NSString*) sourceID
+            withUserName:(NSString*) userName
+                     pwd:(NSString*) password
                  success:(void (^)(id response))success
                  failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key_d":currentID}];
     
-    if (sourceID.length!=0) {
+    if (userName.length!=0) {
         
-        [params setObject:sourceID forKey:@"tuser_key_s"];
+        [params setObject:userName forKey:@"tuser_uid_s"];
     }
+
+    if (password.length!=0) {
         
+        [params setObject:password forKey:@"tuser_pwd_s"];
+    }
+
+    
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_rk_replace_from_tn.action"
                            params:params

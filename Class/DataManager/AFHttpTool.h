@@ -172,7 +172,8 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                 failure:(void (^)(NSError* err))failure;
 
 + (void) updateCurrentID:(NSString*) currentID
-            withSourceID:(NSString*) sourceID
+            withUserName:(NSString*) userName
+                     pwd:(NSString*) password
                  success:(void (^)(id response))success
                  failure:(void (^)(NSError* err))failure;
 

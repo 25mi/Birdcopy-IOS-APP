@@ -1393,7 +1393,14 @@
 {
     [self finishLearning];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 -(void) getNewLessonList

@@ -23,6 +23,7 @@
 #import "FlyingNavigationController.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingMyGroupsVC.h"
+#import "NSString+FlyingExtention.h"
 
 @interface RCDChatListViewController ()
 
@@ -56,11 +57,11 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
     
-    image= [UIImage imageNamed:@"search"];
+    image= [UIImage imageNamed:@"People"];
     frame= CGRectMake(0, 0, 24, 24);
     UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
     [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
+    [searchButton addTarget:self action:@selector(chatWithPeople) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
     self.navigationItem.rightBarButtonItem= searchBarButtonItem;
@@ -354,15 +355,9 @@
 //////////////////////////////////////////////////////////////
 -(void) dismiss
 {
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
+    if ([self.navigationController.viewControllers count]==1) {
         
-        FlyingMyGroupsVC* homeVC = [[FlyingMyGroupsVC alloc] init];
-        
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
+        [self showMenu];
     }
     else
     {
@@ -376,12 +371,14 @@
 }
 
 
-- (void) doSearch
+- (void) chatWithPeople
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-        
-    [self.navigationController pushViewController:search animated:YES];
+    RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+    chatService.targetId = [NSString getAppID];
+    chatService.conversationType = ConversationType_CHATROOM;
+    chatService.title = @"公共聊天室";
+
+    [self.navigationController pushViewController:chatService animated:YES];
 }
 
 //////////////////////////////////////////////////////////////

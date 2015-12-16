@@ -372,7 +372,6 @@
                                    NSLog(@"Get rongcloud Token %@",err.description);
 
                                }];
-        
     }
     else
     {
@@ -1180,11 +1179,14 @@
     {
         NSData * backgroundColorData = [[NSUserDefaults standardUserDefaults] objectForKey:kNavigationBackColor];
         
-        backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:backgroundColorData];
-        
-        if (!backgroundColor) {
+        if(backgroundColorData)
+        {
+            backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:backgroundColorData];
             
-            backgroundColor = [UIColor whiteColor];
+            if (!backgroundColor) {
+                
+                backgroundColor = [UIColor whiteColor];
+            }
         }
     }
     

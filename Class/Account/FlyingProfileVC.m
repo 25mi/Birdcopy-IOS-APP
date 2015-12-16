@@ -19,6 +19,7 @@
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
 #import "FlyingActiveViewController.h"
+#import "FlyingLoginVC.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -32,7 +33,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *userAbstractLabel;
 
-@property (strong, nonatomic) IBOutlet UILabel *openUDIDLabel;
+@property (strong, nonatomic) IBOutlet UILabel *loginLabel;
 
 
 @end
@@ -73,7 +74,14 @@
     self.nickNameLabel.text=[NSString getNickName];
     self.userAbstractLabel.text=[NSString getUserAbstract];
     
-    self.openUDIDLabel.text=[NSString getOpenUDID];
+    if([NSString getUserName].length>1)
+    {
+        self.loginLabel.text=@"退出，以其它帐号登录";
+    }
+    else
+    {
+        self.loginLabel.text=@"注册｜登录";
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,9 +131,12 @@
         }
     }
     else if (indexPath.section == 1 )
-
     {
-        [self changeMyOPENUDID];
+        [self.navigationController presentViewController:[[FlyingLoginVC alloc] init]
+                                                 animated:YES
+                                               completion:^{
+                                                   //
+                                               }];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -138,121 +149,46 @@
                                                     cancelButtonTitle:@"取消"
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:@"拍照", @"从相册中选取", nil];
-    [choiceSheet setTag:0];
-    [choiceSheet showInView:self.view];
-}
-
--(void) changeMyOPENUDID
-{
-    
-    UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"取消"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制ID", @"从旧设备同步数据", nil];
-    [choiceSheet setTag:1];
     [choiceSheet showInView:self.view];
 }
 
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
-    if (actionSheet.tag==0) {
-        
-        if (buttonIndex == 0) {
-            // 拍照
-            if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
-                UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-                controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-                if ([self isFrontCameraAvailable]) {
-                    controller.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-                }
-                NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-                [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-                controller.mediaTypes = mediaTypes;
-                controller.delegate = self;
-                [self presentViewController:controller
-                                   animated:YES
-                                 completion:^(void){
-                                     NSLog(@"Picker View Controller is presented");
-                                 }];
+    if (buttonIndex == 0) {
+        // 拍照
+        if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
+            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+            controller.sourceType = UIImagePickerControllerSourceTypeCamera;
+            if ([self isFrontCameraAvailable]) {
+                controller.cameraDevice = UIImagePickerControllerCameraDeviceFront;
             }
-            
-        } else if (buttonIndex == 1) {
-            // 从相册中选取
-            if ([self isPhotoLibraryAvailable]) {
-                UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-                controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-                [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-                controller.mediaTypes = mediaTypes;
-                controller.delegate = self;
-                [self presentViewController:controller
-                                   animated:YES
-                                 completion:^(void){
-                                     NSLog(@"Picker View Controller is presented");
-                                 }];
-            }
-        }
-    }
-    else
-    {
-        if (buttonIndex == 0) {
-            //复制openUDID到剪切板
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            pasteboard.string = [NSString getOpenUDID];
-
-            [self.view makeToast:@"已经成功复制ID到剪贴板！"];
-            
-        } else if (buttonIndex == 1) {
-            //输入旧设备openUDID，准备恢复帐号数据
-            
-            
-            UIAlertView *shakingAlert = [[UIAlertView alloc] initWithTitle:@"输入ID"
-                                                       message:@"输入从旧设备复制的相关ID"
-                                                      delegate:self
-                                             cancelButtonTitle:@"取消"
-                                             otherButtonTitles:@"确定", nil];
-            [shakingAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            [shakingAlert show];
-        }
-    }
-}
-
-// Called when a button is clicked. The view will be automatically dismissed after this call returns
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    UITextField *textfield =  [alertView textFieldAtIndex: 0];
-    
-    NSString * sourceOenUDID=textfield.text;
-    
-    if (sourceOenUDID.length==40 && ![sourceOenUDID isEqualToString:[NSString getOpenUDID]]) {
-        
-        
-        [FlyingHttpTool updateCurrentID:[NSString getOpenUDID]
-                           withSourceID:sourceOenUDID
-                             Completion:^(BOOL result) {
-                                 
-                                 if(result)
-                                 {
-                                     FlyingActiveViewController *activeVC= [[FlyingActiveViewController alloc] init];
-                                     
-                                     //切换账户
-                                     [self.navigationController presentViewController:activeVC animated:YES completion:^{
-                                         //
-                                     }];
-                                 }
-                                 else
-                                 {
-                                     [self.view makeToast:@"迁移失败，重新来了：）"];
-                                 }
-
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            controller.mediaTypes = mediaTypes;
+            controller.delegate = self;
+            [self presentViewController:controller
+                               animated:YES
+                             completion:^(void){
+                                 NSLog(@"Picker View Controller is presented");
                              }];
-    }
-    else
-    {
-        [self.view makeToast:@"旧设备的ID不合法或者重复！"];
+        }
+        
+    } else if (buttonIndex == 1) {
+        // 从相册中选取
+        if ([self isPhotoLibraryAvailable]) {
+            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            controller.mediaTypes = mediaTypes;
+            controller.delegate = self;
+            [self presentViewController:controller
+                               animated:YES
+                             completion:^(void){
+                                 NSLog(@"Picker View Controller is presented");
+                             }];
+        }
     }
 }
 
@@ -514,7 +450,14 @@
 
 - (void)dismiss
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void) showMenu

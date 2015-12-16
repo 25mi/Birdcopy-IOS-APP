@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471267493.63326"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1779"
-            endingLineNumber = "1779"
+            startingLineNumber = "1781"
+            endingLineNumber = "1781"
             landmarkName = "-shareToWeiXinIsSession:"
             landmarkType = "5">
          </BreakpointContent>
@@ -137,11 +137,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471267493.63326"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1862"
-            endingLineNumber = "1862"
+            startingLineNumber = "1864"
+            endingLineNumber = "1864"
             landmarkName = "-presentStoreView"
             landmarkType = "5">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "851"
             endingLineNumber = "851"
-            landmarkName = "@implementation FlyingHttpTool"
-            landmarkType = "3">
+            landmarkName = "+updateMembershipForAccount:AppID:StartDate:EndDate:Completion:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -201,11 +201,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471267493.63326"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1882"
-            endingLineNumber = "1882"
+            startingLineNumber = "1884"
+            endingLineNumber = "1884"
             landmarkName = "-copylessonLink"
             landmarkType = "5">
          </BreakpointContent>
@@ -217,11 +217,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471267493.63326"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1894"
-            endingLineNumber = "1894"
+            startingLineNumber = "1896"
+            endingLineNumber = "1896"
             landmarkName = "-copylessonLink"
             landmarkType = "5">
          </BreakpointContent>
@@ -238,7 +238,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
             endingLineNumber = "210"
-            landmarkName = "-checkUserAccessRight"
+            landmarkName = "-commonInit"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -366,8 +366,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "497"
             endingLineNumber = "497"
-            landmarkName = "@implementation FlyingContentVC"
-            landmarkType = "3">
+            landmarkName = "-updateDownloadOk:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -633,11 +633,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471267493.63326"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1940"
-            endingLineNumber = "1940"
+            startingLineNumber = "1942"
+            endingLineNumber = "1942"
             landmarkName = "+updataDBForLocal"
             landmarkType = "5">
          </BreakpointContent>
@@ -713,12 +713,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Component/UIKit/NSString+FlyingExtention.m"
-            timestampString = "471185984.384378"
+            timestampString = "471501440.851368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "652"
-            endingLineNumber = "652"
-            landmarkName = "+stringFromTimeInterval:"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
+            landmarkName = "+checkOfficialURL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -761,11 +761,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471171185.232061"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "-connectWithRongCloud:"
             landmarkType = "5">
          </BreakpointContent>
@@ -777,11 +777,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471171185.232061"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "-connectWithRongCloud:"
             landmarkType = "5">
          </BreakpointContent>
@@ -854,10 +854,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[FlyingItemView showWebData]"
-                  moduleName = "Finance Education"
+                  moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vincentsung/Documents/Birdcopy-IOS-APP/Class/Content/FlyingItemView.m"
-                  timestampString = "471317219.435781"
+                  timestampString = "471410283.516822"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "338"
@@ -869,10 +869,10 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__29-[FlyingItemView showWebData]_block_invoke"
-                  moduleName = "Finance Education"
+                  moduleName = "BirdEnglish"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vincentsung/Documents/Birdcopy-IOS-APP/Class/Content/FlyingItemView.m"
-                  timestampString = "471317219.436099"
+                  timestampString = "471410283.516998"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "338"
@@ -901,7 +901,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/DataManager/RCDRCIMDataSource.m"
@@ -1230,7 +1230,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "398"
             endingLineNumber = "398"
-            landmarkName = "-playLesson:"
+            landmarkName = "-showContent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1246,23 +1246,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "353"
             endingLineNumber = "353"
-            landmarkName = "@implementation FlyingContentVC"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/Component/UIKit/NSString+Emoji.m"
-            timestampString = "470674446.991616"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "870"
-            endingLineNumber = "870"
-            landmarkName = "-stringByReplacingEmojiCheatCodesWithUnicode"
+            landmarkName = "-prepareCoverView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1310,7 +1294,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
             endingLineNumber = "161"
-            landmarkName = "+getNickName"
+            landmarkName = "+getUserName"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1385,11 +1369,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471171185.232061"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "-applicationDidBecomeActive:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,22 +1464,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Class/Account/FlyingProfileVC.m"
-            timestampString = "471237232.956122"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Class/Content/FlyingContentVC.m"
             timestampString = "471148219.447772"
             startingColumnNumber = "9223372036854775807"
@@ -1529,11 +1497,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471229507.574812"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "811"
-            endingLineNumber = "811"
+            startingLineNumber = "810"
+            endingLineNumber = "810"
             landmarkName = "+getUserDataDir"
             landmarkType = "5">
          </BreakpointContent>
@@ -1545,11 +1513,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471229507.574812"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "783"
-            endingLineNumber = "783"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
             landmarkName = "-getUserDataPath"
             landmarkType = "5">
          </BreakpointContent>
@@ -1817,11 +1785,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Supporting Files/iFlyingAppDelegate.m"
-            timestampString = "471234498.622321"
+            timestampString = "471515938.919315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "717"
-            endingLineNumber = "717"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
             landmarkName = "-addSkipBackupAttributeToItemAtURL:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1854,7 +1822,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "588"
             endingLineNumber = "588"
-            landmarkName = "+updateCurrentID:withSourceID:success:failure:"
+            landmarkName = "+updateCurrentID:withUserName:pwd:success:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1870,7 +1838,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "672"
             endingLineNumber = "672"
-            landmarkName = "+updateCurrentID:withSourceID:Completion:"
+            landmarkName = "+updateCurrentID:withUserName:pwd:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1886,39 +1854,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "677"
             endingLineNumber = "677"
-            landmarkName = "+updateCurrentID:withSourceID:Completion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/Account/FlyingProfileVC.m"
-            timestampString = "471237227.96514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/Account/FlyingProfileVC.m"
-            timestampString = "471237233.939654"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
+            landmarkName = "+updateCurrentID:withUserName:pwd:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1934,8 +1870,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "775"
             endingLineNumber = "775"
-            landmarkName = "-configureCell:atIndexPath:"
-            landmarkType = "5">
+            landmarkName = "@implementation FlyingContentVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1952,6 +1888,48 @@
             endingLineNumber = "42"
             landmarkName = "-setSummaryText:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Supporting Files/iFlyingAppDelegate.m"
+            timestampString = "471515938.919315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1182"
+            endingLineNumber = "1182"
+            landmarkName = "-setnavigationBarWithClearStyle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Supporting Files/iFlyingAppDelegate.m"
+            timestampString = "471515938.919315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1181"
+            endingLineNumber = "1181"
+            landmarkName = "-setnavigationBarWithClearStyle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -300,6 +300,7 @@ typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadReque
 #pragma mark - Static
 
 + (NSString *)cacheFolder {
+    
     NSFileManager *filemgr = [NSFileManager new];
     static NSString *cacheFolder;
 

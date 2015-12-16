@@ -114,7 +114,8 @@
                   Completion:(void (^)(BOOL result)) completion;
 
 + (void) updateCurrentID:(NSString*) currentID
-            withSourceID:(NSString*) sourceID
+            withUserName:(NSString*) userName
+                     pwd:(NSString*) password
               Completion:(void (^)(BOOL result)) completion;
 
 +(void) loginWebsiteWithQR:(NSString*)loginID;

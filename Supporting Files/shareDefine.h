@@ -73,6 +73,10 @@ typedef enum BESearchType
 
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
+
+#define kUserName                 @"kUserName"
+#define kUserPassWord             @"kUserPassWord"
+
 #define kUserNickName             @"kUserNickName"
 #define kUserPortraitUri          @"kUserPortraitUri"
 #define kUserAbstract             @"kUserAbstract"

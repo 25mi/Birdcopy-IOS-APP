@@ -13,6 +13,26 @@
 		8210AE7D1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7E1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7F1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
+		823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
+		823E177B1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
+		823E177C1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
+		823E177D1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
+		823E177E1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
+		823E17811C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */; };
+		823E17821C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */; };
+		823E17831C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */; };
+		823E17841C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */; };
+		823E17851C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */; };
+		823E17881C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */; };
+		823E17891C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */; };
+		823E178A1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */; };
+		823E178B1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */; };
+		823E178C1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */; };
+		823E178F1C19D43900E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
+		823E17901C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
+		823E17911C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
+		823E17921C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
+		823E17931C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
 		82493F9A1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
 		82493F9B1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
 		82493F9C1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
@@ -1729,6 +1749,14 @@
 		7B78710A6B62E33FAD31163C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8210AE791C151C97009EBD76 /* FlyingActiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingActiveViewController.h; sourceTree = "<group>"; };
 		8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingActiveViewController.m; sourceTree = "<group>"; };
+		823E17781C19C4B600E08A5F /* FlyingLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLoginVC.h; sourceTree = "<group>"; };
+		823E17791C19C4B600E08A5F /* FlyingLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLoginVC.m; sourceTree = "<group>"; };
+		823E177F1C19C8BA00E08A5F /* FlyingAnimatedImagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAnimatedImagesView.h; sourceTree = "<group>"; };
+		823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingAnimatedImagesView.m; sourceTree = "<group>"; };
+		823E17861C19CC2A00E08A5F /* FlyingUnderlineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUnderlineTextField.h; sourceTree = "<group>"; };
+		823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUnderlineTextField.m; sourceTree = "<group>"; };
+		823E178D1C19D43900E08A5F /* UITextFiled+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextFiled+Shake.h"; sourceTree = "<group>"; };
+		823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextFiled+Shake.m"; sourceTree = "<group>"; };
 		82493F901C07F53E000A2306 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
 		82493F911C07F53E000A2306 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTagList.m; sourceTree = "<group>"; };
 		82493F921C07F53E000A2306 /* FlyingItemParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemParser.h; sourceTree = "<group>"; };
@@ -3030,10 +3058,18 @@
 		C806575B17FE53BB00CADF4F /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				823E178D1C19D43900E08A5F /* UITextFiled+Shake.h */,
+				823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */,
 				C806575C17FE53BB00CADF4F /* FlyingGuideViewController.h */,
 				C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */,
 				8210AE791C151C97009EBD76 /* FlyingActiveViewController.h */,
 				8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */,
+				823E17781C19C4B600E08A5F /* FlyingLoginVC.h */,
+				823E17791C19C4B600E08A5F /* FlyingLoginVC.m */,
+				823E177F1C19C8BA00E08A5F /* FlyingAnimatedImagesView.h */,
+				823E17801C19C8BA00E08A5F /* FlyingAnimatedImagesView.m */,
+				823E17861C19CC2A00E08A5F /* FlyingUnderlineTextField.h */,
+				823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -4707,6 +4743,7 @@
 				C8390EB418239D8600E4D056 /* FlyingM3U8Segment.m in Sources */,
 				FA3454EF1B04B5BA00DCF2AB /* DAVResponse.m in Sources */,
 				FA8BCFF91AD0E1500092A970 /* MMParallaxPresenter.m in Sources */,
+				823E17811C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				FA8F2D9F1B04AC080004C874 /* ioapi.c in Sources */,
 				C806575E17FE53BB00CADF4F /* FlyingBaseDao.m in Sources */,
 				FA11E79D19CD526200D97FDB /* MuAnnotSelectView.m in Sources */,
@@ -4830,6 +4867,7 @@
 				C851199518D92EF60078AEC1 /* ACMagnifyingView.m in Sources */,
 				FAFA72371B42A58E00E4FE30 /* UIView+Toast.m in Sources */,
 				826D3FBA1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
+				823E178F1C19D43900E08A5F /* UITextFiled+Shake.m in Sources */,
 				C87524981BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
 				C830C534182FBE87006D9269 /* UIView+Autosizing.m in Sources */,
 				82493FA41C07F53E000A2306 /* FlyingItemView.m in Sources */,
@@ -4852,6 +4890,7 @@
 				82E91CB91C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				C87524801BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
 				FAAD8EDE19FB7FED00784EB4 /* FMDatabase+FTS3.m in Sources */,
+				823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA8BCFED1AD0E0FB0092A970 /* FlyingWordDetailVC.m in Sources */,
 				FA8BCFEE1AD0E0FB0092A970 /* FlyingWordItemCell.m in Sources */,
 				82493FEE1C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
@@ -4868,6 +4907,7 @@
 				C87524741BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				FA3454E21B04B5BA00DCF2AB /* HTTPMessage.m in Sources */,
 				FA8BD0041AD0E20D0092A970 /* MAOFlipTransition.m in Sources */,
+				823E17881C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				FA11E79919CD526200D97FDB /* FlyingUIWebView.m in Sources */,
 				C87524331BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */,
@@ -4983,6 +5023,7 @@
 				C81F8AA51BD7B488004146F0 /* FlyingEventPriceCell.m in Sources */,
 				C81F8AA61BD7B488004146F0 /* FlyingTagTransform.m in Sources */,
 				C81F8AA71BD7B488004146F0 /* FlyingM3U8Segment.m in Sources */,
+				823E17851C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				C81F8AA81BD7B488004146F0 /* DAVResponse.m in Sources */,
 				C81F8AAA1BD7B488004146F0 /* MMParallaxPresenter.m in Sources */,
 				C81F8AAB1BD7B488004146F0 /* ioapi.c in Sources */,
@@ -5106,6 +5147,7 @@
 				C81F8B231BD7B488004146F0 /* FlyingSetDefault.m in Sources */,
 				824940371C07FB5D000A2306 /* FlyingContentSummaryCell.m in Sources */,
 				C81F8B241BD7B488004146F0 /* KMGillSansLabel.m in Sources */,
+				823E17931C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				C81F8B251BD7B488004146F0 /* ACMagnifyingView.m in Sources */,
 				C81F8B261BD7B488004146F0 /* UIView+Toast.m in Sources */,
 				C81F8B281BD7B488004146F0 /* NSDateComponents+AllComponents.m in Sources */,
@@ -5128,6 +5170,7 @@
 				C81F8B3B1BD7B488004146F0 /* FlyingTaskWordData.m in Sources */,
 				C81F8B3C1BD7B488004146F0 /* NSCalendar+DateComparison.m in Sources */,
 				C81F8B3D1BD7B488004146F0 /* FMDatabase+FTS3.m in Sources */,
+				823E177E1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				C81F8B3E1BD7B488004146F0 /* FlyingWordDetailVC.m in Sources */,
 				C81F8B3F1BD7B488004146F0 /* FlyingWordItemCell.m in Sources */,
 				82493FF21C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
@@ -5144,6 +5187,7 @@
 				824940691C07FCBB000A2306 /* FlyingMediaVC.m in Sources */,
 				C81F8B491BD7B488004146F0 /* FlyingStatisticDAO.m in Sources */,
 				C81F8B4A1BD7B488004146F0 /* MHWDirectoryWatcher.m in Sources */,
+				823E178C1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				C81F8B4B1BD7B488004146F0 /* HTTPMessage.m in Sources */,
 				C81F8B4C1BD7B488004146F0 /* MAOFlipTransition.m in Sources */,
 				C81F8B4D1BD7B488004146F0 /* FlyingUIWebView.m in Sources */,
@@ -5221,11 +5265,13 @@
 				FA1BE4A21B27DD5A00AA1AFD /* ReaderViewController.m in Sources */,
 				FA1BE4A31B27DD5A00AA1AFD /* AFHttpTool.m in Sources */,
 				82493FE51C07F67D000A2306 /* FlyingCoverView.m in Sources */,
+				823E17901C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2C1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA1BE4A41B27DD5A00AA1AFD /* DSBarChart.m in Sources */,
 				C875242A1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA1BE4A51B27DD5A00AA1AFD /* MuTextSelectView.m in Sources */,
 				82493FC01C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
+				823E17891C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBB1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				FA1BE4A61B27DD5A00AA1AFD /* MuWord.m in Sources */,
 				FA1BE4A71B27DD5A00AA1AFD /* HTTPConnection.m in Sources */,
@@ -5289,6 +5335,7 @@
 				C87524341BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				82493FEF1C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
+				823E17821C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				FA5ACC251B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
 				82493FC51C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5434,6 +5481,7 @@
 				FA1BE54C1B27DD5A00AA1AFD /* FlyingProviderMapVC.m in Sources */,
 				FA1BE54D1B27DD5A00AA1AFD /* FlyingNavigationController.m in Sources */,
 				FA1BE54F1B27DD5A00AA1AFD /* MAOFlipInteraction.m in Sources */,
+				823E177B1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA1BE5531B27DD5A00AA1AFD /* UIXToolbarView.m in Sources */,
 				FA1BE5541B27DD5A00AA1AFD /* ThumbsViewController.m in Sources */,
 				C87524A51BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
@@ -5495,11 +5543,13 @@
 				FA6329861B51091400A1222E /* ReaderViewController.m in Sources */,
 				FA6329871B51091400A1222E /* AFHttpTool.m in Sources */,
 				82493FE61C07F67D000A2306 /* FlyingCoverView.m in Sources */,
+				823E17911C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2D1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA6329881B51091400A1222E /* DSBarChart.m in Sources */,
 				C875242B1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA6329891B51091400A1222E /* MuTextSelectView.m in Sources */,
 				82493FC11C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
+				823E178A1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBC1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				FA63298A1B51091400A1222E /* MuWord.m in Sources */,
 				FA63298B1B51091400A1222E /* HTTPConnection.m in Sources */,
@@ -5563,6 +5613,7 @@
 				C87524351BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				82493FF01C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
+				823E17831C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				FA5ACC261B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
 				82493FC61C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5708,6 +5759,7 @@
 				FA632A2C1B51091400A1222E /* FlyingProviderMapVC.m in Sources */,
 				FA632A2D1B51091400A1222E /* FlyingNavigationController.m in Sources */,
 				FA632A2F1B51091400A1222E /* MAOFlipInteraction.m in Sources */,
+				823E177C1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA632A321B51091400A1222E /* UIXToolbarView.m in Sources */,
 				FA632A331B51091400A1222E /* ThumbsViewController.m in Sources */,
 				C87524A61BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
@@ -5769,11 +5821,13 @@
 				FA8C3DE21B535A1500DEA02D /* ReaderViewController.m in Sources */,
 				FA8C3DE31B535A1500DEA02D /* AFHttpTool.m in Sources */,
 				82493FE71C07F67D000A2306 /* FlyingCoverView.m in Sources */,
+				823E17921C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2E1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA8C3DE41B535A1500DEA02D /* DSBarChart.m in Sources */,
 				C875242C1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA8C3DE51B535A1500DEA02D /* MuTextSelectView.m in Sources */,
 				82493FC21C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
+				823E178B1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBD1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				8210AE7E1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
 				FA8C3DE61B535A1500DEA02D /* MuWord.m in Sources */,
@@ -5837,6 +5891,7 @@
 				C87524361BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
 				82493FF11C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
+				823E17841C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				FA5ACC271B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
 				82493FC71C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5982,6 +6037,7 @@
 				FA8C3E881B535A1500DEA02D /* FlyingProviderMapVC.m in Sources */,
 				FA8C3E891B535A1500DEA02D /* FlyingNavigationController.m in Sources */,
 				FA8C3E8B1B535A1500DEA02D /* MAOFlipInteraction.m in Sources */,
+				823E177D1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA8C3E8E1B535A1500DEA02D /* UIXToolbarView.m in Sources */,
 				FA8C3E8F1B535A1500DEA02D /* ThumbsViewController.m in Sources */,
 				C87524A71BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,

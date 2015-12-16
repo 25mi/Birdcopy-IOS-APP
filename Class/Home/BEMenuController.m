@@ -15,6 +15,7 @@
 #import "FlyingReviewVC.h"
 #import "FlyingScanViewController.h"
 #import "RCDChatListViewController.h"
+#import "RCDChatViewController.h"
 #import "FlyingNavigationController.h"
 
 #import "FlyingDiscoverContent.h"
@@ -72,6 +73,9 @@
     [self.titles addObject:@"账户"];
     [self.images addObject:@"Profile"];
     
+    [self.titles addObject:@"人们"];
+    [self.images addObject:@"wPeople"];
+
     
 #if (defined __CLIENT__IS__PLATFORM__) && (defined __CLIENT__GROUP__VERSION)
     [self.titles addObject:@"服务"];
@@ -180,18 +184,33 @@
     }
     else if([title containsString:@"扫描"])
     {
-        
         FlyingScanViewController * scan=[[FlyingScanViewController alloc] init];
         [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:scan]
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
-    else if([title containsString:@"聊天"])
+    else if([title containsString:@"人们"])
     {
-        RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
+        
+        int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
+        
+        if(unreadMsgCount>1){
+            
+            RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
+            [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]
+                                                         animated:YES];
+        }
+        else{
+        
+            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+            chatService.targetId = [NSString getAppID];
+            chatService.conversationType = ConversationType_CHATROOM;
+            chatService.title = @"广场";
+            
+            [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatService]
+                                                         animated:YES];
+        }
 
-        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]
-                                                     animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
 }
