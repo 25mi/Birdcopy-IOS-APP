@@ -127,6 +127,13 @@
                                       Completion:^(BOOL result) {
                                            //
     }];
+    
+    
+    //个人头像和昵称
+    [FlyingHttpTool getUserInfoByopenID:openID
+                             completion:^(RCUserInfo *user) {
+                                 //
+                             }];
 }
 
 

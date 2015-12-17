@@ -233,6 +233,23 @@
                         Completion:^(BOOL result) {
                                  //有注册记录
                                  if (result) {
+                                     
+                                     [[NSUserDefaults standardUserDefaults] boolForKey:KBEFIRSTLAUNCH];
+                                     
+                                     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+                                         
+                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+                                     }
+                                     else{
+                                         
+                                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+                                     }
+
+                                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
+                                         //从服务器获取新数据
+                                         [FlyingDataManager creatLocalUSerProfileWithServer];
+                                     }
                                                                          
                                      [self preparelocalEnvironment];
                                      

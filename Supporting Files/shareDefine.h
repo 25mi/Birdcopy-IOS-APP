@@ -32,7 +32,7 @@ typedef enum BESearchType
 
 
 #define KBEAccountChange          @"KBEAccountChange"
-#define KBEAccountActive          @"KBEAccountActive"
+#define KBEFIRSTLAUNCH            @"KBEFIRSTLAUNCH"
 
 #define KBELoadingCount           6
 
