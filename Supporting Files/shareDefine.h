@@ -65,10 +65,11 @@ typedef enum BESearchType
 
 // APP管理
 #define BIRDENGLISH_APPKEY      @"972dc79932c43552c32664250675dcaa"
-#define BEIYANG_APPKEY          @"9c8f510fd01e443a7182ed2fb3e2f554"
 #define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
-#define IT_APPKEY               @"ec27ffb39fb36b6855b2fd9c56f67a23"
-#define FINANCE_APPKEY          @"ba62b8b09c95dd999f0044616ba58099"
+#define IT_APPKEY               @"fa75cf6337ee7a88ec32d7502904642e"
+#define FINANCE_APPKEY          @"FINANCE_APPKEY"
+
+#define BEIYANG_APPKEY          @"9c8f510fd01e443a7182ed2fb3e2f554"
 #define FD_APPKEY               @"ec683e46661687a6c7425de52ea0d8e9"
 
 
@@ -139,8 +140,7 @@ typedef enum BESearchType
 #define KBERQloginOK              @"KBERQloginOK"
 
 //作者相关
-#define KAppOwner                 @"KAppLessonOwner"
-#define KAppOwnerNickname         @"KAppOwnerNickname"
+#define KContentOwner             @"KContentOwner"
 
 #define KLessonOwnerTempKind      @"t"
 #define KLessonOwnerPersonKind    @"0"

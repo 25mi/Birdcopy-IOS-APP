@@ -78,6 +78,11 @@
 +(void) getUserInfoByRongID:(NSString *) rongID
                  completion:(void (^)(RCUserInfo *user)) completion;
 
+//上传用户头像图片
++ (void) requestUploadPotraitWithOpenID:openID
+                                      data:imageData
+                                Completion:(void (^)(BOOL result)) completion;
+
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////

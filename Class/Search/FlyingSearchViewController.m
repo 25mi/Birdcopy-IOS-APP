@@ -96,7 +96,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     self.navigationItem.rightBarButtonItem = scanBarButtonItem;
     
     
-    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    NSString *author = [NSString getContentOwner];
     if (author) {
         
         [self setAuthor:author];

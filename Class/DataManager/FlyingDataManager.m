@@ -32,28 +32,6 @@
 {
     //check openUDID
     
-#ifndef __CLIENT__IS__PLATFORM__
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    NSArray *strings = [bundleIdentifier componentsSeparatedByString:@"."];
-    NSString * temp =  (NSString*)[strings lastObject];
-    
-    if ([temp isEqualToString:@"beyond"]) {
-        
-        temp=@"beiyang";
-    }
-    else
-    {
-        if ([temp isEqualToString:@"finance"]) {
-            
-            temp=@"fd";
-        }
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setValue:temp forKey:KAppOwner];
-    [[NSUserDefaults standardUserDefaults] setValue:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] forKey:KAppOwnerNickname];
-    
-#endif
-    
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:KKEYCHAINServiceName];
     NSString *openID = keychain[KOPENUDIDKEY];
     

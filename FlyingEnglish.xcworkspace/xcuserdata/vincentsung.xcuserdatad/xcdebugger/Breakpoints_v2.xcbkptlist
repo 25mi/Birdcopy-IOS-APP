@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1781"
             endingLineNumber = "1781"
-            landmarkName = "-shareToWeiXinIsSession:"
+            landmarkName = "-shareToTwitter"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,7 +206,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1884"
             endingLineNumber = "1884"
-            landmarkName = "-copylessonLink"
+            landmarkName = "-presentStoreView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -606,7 +606,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "318"
             endingLineNumber = "318"
-            landmarkName = "-initIM"
+            landmarkName = "-CalledToJumpToLessinID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -638,7 +638,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1942"
             endingLineNumber = "1942"
-            landmarkName = "+updataDBForLocal"
+            landmarkName = "-mailComposeController:didFinishWithResult:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -766,7 +766,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "400"
             endingLineNumber = "400"
-            landmarkName = "-connectWithRongCloud:"
+            landmarkName = "-getRongDataSource"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -782,7 +782,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
             endingLineNumber = "396"
-            landmarkName = "-connectWithRongCloud:"
+            landmarkName = "-initIM"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1374,7 +1374,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "533"
             endingLineNumber = "533"
-            landmarkName = "-applicationDidBecomeActive:"
+            landmarkName = "-applicationDidReceiveMemoryWarning:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1502,7 +1502,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "810"
             endingLineNumber = "810"
-            landmarkName = "+getUserDataDir"
+            landmarkName = "-getUserDataPath"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1518,7 +1518,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "782"
             endingLineNumber = "782"
-            landmarkName = "-getUserDataPath"
+            landmarkName = "-getAIQueue"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1631,22 +1631,6 @@
             startingLineNumber = "646"
             endingLineNumber = "646"
             landmarkName = "+verifyOpenUDID:AppID:Completion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/DataManager/FlyingDataManager.m"
-            timestampString = "471185361.820584"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "+getOpenUDIDFromLocal"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1790,7 +1774,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "716"
             endingLineNumber = "716"
-            landmarkName = "-addSkipBackupAttributeToItemAtURL:"
+            landmarkName = "-setNotBackUp"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1806,7 +1790,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
             endingLineNumber = "261"
-            landmarkName = "-preparelocalEnvironment"
+            landmarkName = "-jumpToNext"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1902,7 +1886,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1182"
             endingLineNumber = "1182"
-            landmarkName = "-setnavigationBarWithClearStyle:"
+            landmarkName = "-getMenu"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1918,7 +1902,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1181"
             endingLineNumber = "1181"
-            landmarkName = "-setnavigationBarWithClearStyle:"
+            landmarkName = "-getMenu"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

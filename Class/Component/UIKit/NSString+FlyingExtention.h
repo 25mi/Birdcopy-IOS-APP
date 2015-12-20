@@ -16,6 +16,7 @@
 + (NSString*) getOfficalURL;
 + (NSString*) getAppID;
 + (NSString*) getOpenUDID;
++ (NSString*) getContentOwner;
 
 + (NSString*) getUserName;
 + (void)      setUserName:(NSString*) userName;

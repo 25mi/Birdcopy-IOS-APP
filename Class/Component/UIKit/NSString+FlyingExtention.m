@@ -129,13 +129,13 @@
     appID=FINANCE_APPKEY;
 #endif
     
-    NSString * appOwner = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    NSString * contentOwner = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KContentOwner];
     
-    if ([appOwner isEqualToString:@"beiyang"]) {
+    if ([contentOwner isEqualToString:@"beiyang"]) {
         
         appID=BEIYANG_APPKEY;
     }
-    else  if ([appOwner isEqualToString:@"fd"]) {
+    else  if ([contentOwner isEqualToString:@"fd"]) {
         
         appID=FD_APPKEY;
     }
@@ -154,6 +154,34 @@
     }
     
     return openID;
+}
+
++ (NSString*) getContentOwner
+{
+    NSString * contentOwner=nil;
+    
+#ifndef __CLIENT__IS__PLATFORM__
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSArray *strings = [bundleIdentifier componentsSeparatedByString:@"."];
+    NSString * temp =  (NSString*)[strings lastObject];
+    
+    if ([temp isEqualToString:@"beyond"]) {
+        
+        temp=@"beiyang";
+    }
+    else
+    {
+        if ([temp isEqualToString:@"finance"]) {
+            
+            temp=@"fd";
+        }
+    }
+    
+    contentOwner=temp;
+    
+#endif
+
+    return contentOwner;
 }
 
 + (NSString*) getUserName

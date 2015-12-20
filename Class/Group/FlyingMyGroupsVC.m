@@ -184,7 +184,7 @@
 - (BOOL)loadMore
 {
     //test only
-    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    NSString *author = [NSString getContentOwner];
 
     [FlyingHttpTool getAllGroupsForAPPOwner:author
                                   Recommend:YES

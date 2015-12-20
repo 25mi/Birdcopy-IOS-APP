@@ -93,7 +93,7 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    NSString *author = [[NSUserDefaults standardUserDefaults] objectForKey:KAppOwner];
+    NSString *author = [NSString getContentOwner];
 
     if (author) {
         

@@ -12,7 +12,6 @@
 #import "iFlyingAppDelegate.h"
 #import "AFHttpTool.h"
 #import "RSKImageCropViewController.h"
-#import "RCDataBaseManager.h"
 #import "FlyingEditVC.h"
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
@@ -233,63 +232,15 @@
         return;
     }
     
-    [AFHttpTool requestUploadPotraitWithOpenID:openID
-                                          data:imageData
-                                       success:^(id response) {
-                                           //
-                                           if (response)
-                                           {
-                                               NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
-                                               
-                                               //上传图片到服务器，成功后通知融云服务器更新用户信息
-                                               if ([code isEqualToString:@"1"])
-                                               {
-                                                   NSString *portraitUri = [NSString stringWithFormat:@"%@",response[@"portraitUri"]];
-                                                   
-                                                   if (portraitUri.length!=0) {
-                                                       
-                                                       [AFHttpTool refreshUesrWithOpenID:openID
-                                                                                    name:nil
-                                                                             portraitUri:portraitUri
-                                                                                br_intro:nil
-                                                                                 success:^(id response) {
-                                                                                     
-                                                                                     NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
-                                                                                     
-                                                                                     //上传图片到服务器，成功后通知融云服务器更新用户信息
-                                                                                     if ([code isEqualToString:@"1"])
-                                                                                     {
-                                                                                         //更新本地信息
-                                                                                         [NSString setUserPortraitUri:portraitUri];
-                                                                                         
-                                                                                         RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                                                                                         currentUserInfo.portraitUri=portraitUri;
-                                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
-                                                                                         
-                                                                                         //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                                                                         [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
-                                                                                         
-                                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
-                                                                                         
-                                                                                     }
-                                                                                 }
-                                                                                 failure:^(NSError *err) {
-                                                                                     //
-                                                                                     NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
-                                                                                 }];
-                                                   }
-                                               }
-                                               else
-                                               {
-                                                   NSLog(@"requestUploadPotraitWithOpenID:%@",response[@"rm"]);
-                                               }
-                                           }
-                                       }
-                                       failure:^(NSError *err) {
-                                           //
-                                           NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
-                                       }];
-    
+    [FlyingHttpTool requestUploadPotraitWithOpenID:openID
+                                              data:imageData
+                                        Completion:^(BOOL result) {
+                                            //
+                                            if (result) {
+                                                //
+                                                [self.view makeToast:@"上传头像成功！" duration:3 position:CSToastPositionCenter];
+                                            }
+                                        }];
 }
 
 // Crop image has been canceled.

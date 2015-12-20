@@ -203,7 +203,7 @@
         else{
         
             RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-            chatService.targetId = [NSString getAppID];
+            chatService.targetId = [NSString getContentOwner];
             chatService.conversationType = ConversationType_CHATROOM;
             chatService.title = @"广场";
             

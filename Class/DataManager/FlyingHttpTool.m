@@ -14,6 +14,8 @@
 #import "RCDGroupInfo.h"
 #import "FlyingUserInfo.h"
 #import "RCDRCIMDataSource.h"
+#import "RCDataBaseManager.h"
+
 #import "FlyingLessonParser.h"
 #import "FlyingItemParser.h"
 #import "FlyingProviderParser.h"
@@ -428,6 +430,79 @@
                                   
                               }];
 }
+
++ (void) requestUploadPotraitWithOpenID:openID
+                                   data:imageData
+                             Completion:(void (^)(BOOL result)) completion
+{
+    [AFHttpTool requestUploadPotraitWithOpenID:openID
+                                          data:imageData
+                                       success:^(id response) {
+                                           //
+                                           if (response)
+                                           {
+                                               NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                               
+                                               //上传图片到服务器，成功后通知融云服务器更新用户信息
+                                               if ([code isEqualToString:@"1"])
+                                               {
+                                                   NSString *portraitUri = [NSString stringWithFormat:@"%@",response[@"portraitUri"]];
+                                                   
+                                                   if (portraitUri.length!=0) {
+                                                       
+                                                       [AFHttpTool refreshUesrWithOpenID:openID
+                                                                                    name:nil
+                                                                             portraitUri:portraitUri
+                                                                                br_intro:nil
+                                                                                 success:^(id response) {
+                                                                                     
+                                                                                     NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                                                                     
+                                                                                     BOOL result=false;
+                                                                                     
+                                                                                     //上传图片到服务器，成功后通知融云服务器更新用户信息
+                                                                                     if ([code isEqualToString:@"1"])
+                                                                                     {
+                                                                                         result=true;
+                                                                                         
+                                                                                         //更新本地信息
+                                                                                         [NSString setUserPortraitUri:portraitUri];
+                                                                                         
+                                                                                         //更新融云信息
+                                                                                         RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
+                                                                                         currentUserInfo.portraitUri=portraitUri;
+                                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
+                                                                                         
+                                                                                         //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                                                                         [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
+                                                                                         
+                                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
+                                                                                     }
+                                                                                     
+                                                                                     completion(result);
+                                                                                 }
+                                                                                 failure:^(NSError *err) {
+                                                                                     //
+                                                                                     NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
+                                                                                     completion(false);
+                                                                                 }];
+                                                   }
+                                               }
+                                               else
+                                               {
+                                                   NSLog(@"requestUploadPotraitWithOpenID:%@",response[@"rm"]);
+                                                   completion(false);
+                                               }
+                                           }
+                                       }
+                                       failure:^(NSError *err) {
+                                           //
+                                           NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
+                                           completion(false);
+                                       }];
+
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
