@@ -62,6 +62,9 @@
 #import "FlyingNowLessonDAO.h"
 
 #import "AFHttpTool.h"
+#import "FlyingDownloadManager.h"
+
+#import "CGPDFDocument.h"
 
 enum
 {
@@ -206,8 +209,7 @@ enum
     //lastHideTime = [NSDate date];
     
     //基本辅助信息和工具准备
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    _background_queue = [appDelegate getAIQueue];
+    _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
     
     NSString *openID = [NSString getOpenUDID];
 
@@ -691,7 +693,7 @@ enum
                                    if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
                                        
                                        UIImage * coverImage=
-                                       [iFlyingAppDelegate thumbnailImageForPDF:[NSURL fileURLWithPath:lesson.localURLOfContent]
+                                       [ReaderViewController thumbnailImageForPDF:[NSURL fileURLWithPath:lesson.localURLOfContent]
                                                                                   passWord:phrase];
                                        
                                        if (coverImage) {
@@ -1269,7 +1271,7 @@ enum
     
     if ([(FlyingLessonData*)[[FlyingLessonDAO alloc] selectWithLessonID:self.lessonID] BEOFFICIAL]) {
         
-        localPath = [iFlyingAppDelegate getLessonDir:self.lessonID];
+        localPath = [FlyingDownloadManager getLessonDir:self.lessonID];
     }
     
     NSString *filePath = [localPath stringByAppendingPathComponent:fileName];
@@ -1459,5 +1461,28 @@ enum
 {
     return document;
 }
+
++ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password
+{
+    
+    CGPDFDocumentRef documentRef = CGPDFDocumentCreateX((__bridge CFURLRef)pdfURL, password);
+    CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, 1);
+    CGRect pageRect = CGPDFPageGetBoxRect(pageRef, kCGPDFCropBox);
+    
+    UIGraphicsBeginImageContext(pageRect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, CGRectGetMinX(pageRect),CGRectGetMaxY(pageRect));
+    CGContextScaleCTM(context, 1, -1);
+    CGContextTranslateCTM(context, -(pageRect.origin.x), -(pageRect.origin.y));
+    CGContextDrawPDFPage(context, pageRef);
+    
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGPDFDocumentRelease(documentRef), documentRef = NULL;
+    
+    return finalImage;
+}
+
 
 @end

@@ -37,4 +37,6 @@
 
 -(ReaderDocument *) getDocument;
 
++ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password;
+
 @end

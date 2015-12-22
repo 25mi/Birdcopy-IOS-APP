@@ -33,15 +33,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
-//下载资源管理
-- (void) startDownloaderForID:(NSString *)lessonID;
-- (void) closeAndReleaseDownloaderForID:(NSString *)lessonID;
-- (BOOL) isWaitting:(NSString*) lessonID;
-
-- (void) continueDownloadingWork;
-
 //本地环境准备
--(void) preparelocalEnvironment;
++(void) preparelocalEnvironment;
 
 //社会化资源管理
 - (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
@@ -49,24 +42,6 @@
 
 //购买管理
 - (void)presentStoreView;
-
-//个人数据库用户管理
-- (FMDatabaseQueue *) shareUserDBQueue;
-- (void)              closeUserDBQueue;
-
--(RCDRCIMDataSource*) getRongDataSource;
-
-//个人数据库公用管理
-- (FMDatabaseQueue *) sharePubUserDBQueue;
-- (void) closePubUserDBQueue;
-
-//大字典数据库用户管理
-- (FMDatabaseQueue *) shareBaseDBQueue;
-- (void)              closeBaseDBQueue;
-
-//大字典数据库公用管理
-- (FMDatabaseQueue *) sharePubBaseDBQueue;
-- (void)              closePubBaseDBQueue;
 
 //发音管理
 - (NSOperationQueue    *) get_flyingSoundPlayer_queue;
@@ -76,19 +51,11 @@
 - (void) startLocalHttpserver;
 - (void) closeLocalHttpserver;
 
-//后台进程管理
--(dispatch_queue_t) getAIQueue;
--(dispatch_queue_t) getBackPubQueue;
-
 - (void) closeMyresource;
 
 - (RESideMenu*) getMenu;
 - (void) setnavigationBarWithClearStyle:(BOOL) clearStyle;
 - (void) resetnavigationBarWithDefaultStyle;
-
-+ (NSString *) getUserDataDir;
-+ (NSString*) getDownloadsDir;
-+ (NSString*) getLessonDir:(NSString*) lessonID;
 
 //界面跳转管理
 - (BOOL) handleOpenURL:(NSURL *)url;
@@ -99,11 +66,5 @@
 
 - (void) presentViewController:(UIViewController *)viewController;
 - (void) pushViewController:(UIViewController *)viewController;
-
-//share
-+ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL;
-+ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password;
-+ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
-
 
 @end

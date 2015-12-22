@@ -31,4 +31,9 @@
 
 - (void)dismiss;
 
+
++ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL;
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+
+
 @end

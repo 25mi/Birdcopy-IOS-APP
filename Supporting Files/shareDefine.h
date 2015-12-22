@@ -246,8 +246,6 @@ typedef NSInteger BE_Item_Content_Type;
 #define KlessonFinishTask         @"KlessonFinishTask"
 #define KGodIsComing             @"KGodIsComing"
 
-#define KMaxDownloadLessonThread  5
-
 //本地文件操作相关
 #define KDocumentStateChange      @"KDocumentStateChange"
 #define KBELocalCacheClearOK      @"KBELocalCacheClearOK"

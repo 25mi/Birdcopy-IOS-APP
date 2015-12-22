@@ -7,8 +7,7 @@
 //
 
 #import "FlyingBaseDao.h"
-#import "iFlyingAppDelegate.h"
-#import "FMDatabaseQueue.h"
+#import "FlyingDBManager.h"
 
 @implementation FlyingBaseDao
 
@@ -23,30 +22,22 @@
 
 - (FMDatabaseQueue *) userDBQueue
 {
-
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return [appDelegate shareUserDBQueue];
+    return [[FlyingDBManager shareInstance] shareUserDBQueue];
 }
 
 - (FMDatabaseQueue *) pubUserDBQueue
 {
-
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return [appDelegate sharePubUserDBQueue];
+    return [[FlyingDBManager shareInstance] sharePubUserDBQueue];
 }
 
 - (FMDatabaseQueue *) baseDBQueue
 {
-    
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return [appDelegate shareBaseDBQueue];
+    return [[FlyingDBManager shareInstance] shareBaseDBQueue];
 }
 
 - (FMDatabaseQueue *) pubBaseDBQueue
 {
-
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return [appDelegate sharePubBaseDBQueue];
+    return [[FlyingDBManager shareInstance] sharePubBaseDBQueue];
 }
 
 // 子类中实现

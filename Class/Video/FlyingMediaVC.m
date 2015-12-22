@@ -83,7 +83,6 @@
 #import "iFlyingAppDelegate.h"
 #import "FMDatabase.h"
 #import "FMDatabaseAdditions.h"
-#import "AFDownloadRequestOperation.h"
 #import "FlyingStatisticDAO.h"
 #import "FlyingTouchDAO.h"
 #import "UIView+Autosizing.h"
@@ -115,6 +114,7 @@
 #import "SSZipArchive.h"
 
 #import "FlyingContentVC.h"
+#import "FlyingDownloadManager.h"
 
 static void *PlayerItemStatusObserverContext = &PlayerItemStatusObserverContext;
 static void *SubtitlStatusObserverContext    = &SubtitlStatusObserverContext;
@@ -300,8 +300,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     if(!_background_queue){
         
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        _background_queue = [appDelegate getAIQueue];
+        _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
     }
     
     if (!_lessonDAO) {
@@ -376,9 +375,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     //播放器准备
     [self prepareMovie];
-    
-    //准备相关内容
-    [FlyingContentVC downloadRelated:self.theLesson];
 }
 
 -(void) preparePlayAndControlView
@@ -2258,5 +2254,53 @@ static void *TrackObservationContext         = &TrackObservationContext;
     return scaledImage;
 }
 
+
++ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL
+{
+    
+    AVAsset *assest = [AVURLAsset URLAssetWithURL:mp3fURL options:nil];
+    
+    for (NSString *format in [assest availableMetadataFormats]) {
+        
+        for (AVMetadataItem *item in [assest metadataForFormat:format]) {
+            
+            if ([[item commonKey] isEqualToString:@"artwork"]) {
+                UIImage *img = nil;
+                if ([item.keySpace isEqualToString:AVMetadataKeySpaceiTunes]) {
+                    img = [UIImage imageWithData:[item.value copyWithZone:nil]];
+                }
+                else { // if ([item.keySpace isEqualToString:AVMetadataKeySpaceID3]) {
+                    NSData *data = [(NSDictionary *)[item value] objectForKey:@"data"];
+                    img = [UIImage imageWithData:data]  ;
+                }
+                
+                return img;
+            }
+        }
+    }
+    
+    return nil;
+}
+
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
+    NSParameterAssert(asset);
+    AVAssetImageGenerator *assetImageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    assetImageGenerator.appliesPreferredTrackTransform = YES;
+    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels;
+    
+    CGImageRef thumbnailImageRef = NULL;
+    CFTimeInterval thumbnailImageTime = time;
+    NSError *thumbnailImageGenerationError = nil;
+    thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 60) actualTime:NULL error:&thumbnailImageGenerationError];
+    
+    if (!thumbnailImageRef)
+        NSLog(@"thumbnailImageGenerationError %@", thumbnailImageGenerationError);
+    
+    UIImage *thumbnailImage = thumbnailImageRef ? [UIImage imageWithCGImage:thumbnailImageRef] : nil;
+    
+    return thumbnailImage;
+}
 
 @end

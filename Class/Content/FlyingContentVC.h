@@ -37,19 +37,4 @@
 
 @property (strong, nonatomic) FlyingPubLessonData * theLesson;
 
-+(void) downloadRelated:(FlyingPubLessonData *) theLesson;
-
-+ (void) getSrtForLessonID: (NSString *) lessonID
-                     Title:(NSString *) title;
-
-+ (void) getDicWithURL: (NSString *) baseURLStr
-              LessonID: (NSString *) lessonID;
-
-+ (void) getRelativeWithURL: (NSString *) relativeURLStr
-                   LessonID: (NSString *) lessonID;
-
-+ (void) updateBaseDic:(NSString *) lessonID;
-
-+ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title;
-
 @end

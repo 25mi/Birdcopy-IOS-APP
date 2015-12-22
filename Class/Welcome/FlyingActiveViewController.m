@@ -45,10 +45,11 @@
     
     hud.labelText = @"准备新数据...";
 
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate preparelocalEnvironment];
+    [iFlyingAppDelegate preparelocalEnvironment];
     
     [hud hide:YES];
+    
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = [appDelegate getMenu];
     [appDelegate.window makeKeyAndVisible];
 }

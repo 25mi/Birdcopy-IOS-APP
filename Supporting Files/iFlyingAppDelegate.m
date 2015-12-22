@@ -23,11 +23,6 @@
 
 #import "UIView+Autosizing.h"
 
-#import "MHWDirectoryWatcher.h"
-
-#import "FMDatabase.h"
-#import "FMDatabaseQueue.h"
-
 #import "FlyingFakeHUD.h"
 
 #import "FlyingLessonDAO.h"
@@ -94,37 +89,16 @@
 #import "MKStoreKit.h"
 #import <StoreKit/StoreKit.h>
 
+#import "FlyingDBManager.h"
+
 @interface iFlyingAppDelegate ()
 {
-    //loacal DB managemnet
-    FMDatabaseQueue *_userDBQueue;
-    FMDatabaseQueue *_pubUserDBQueue;
-    FMDatabaseQueue *_baseDBQueue;
-    FMDatabaseQueue *_pubBaseDBQueue;
-    FMDatabaseQueue *_oldDBQueue;
-    FMDatabaseQueue *_oldDicDBQueue;
-    
-    //本地Document管理
-    MHWDirectoryWatcher         *_docWatcher;
-    dispatch_source_t            _source;
-    
     //M3U8相关
     HTTPServer                  *_httpServer;
-    
-    //后台处理
-    dispatch_queue_t             _background_Pub_queue;
-    dispatch_queue_t             _background_AI_queue;
-    
-    //下载管理
-    FlyingDownloadManager       *_downloadManager;
-    
-    NSString                    *_userDataDir;
-    NSString                    *_userDownloadDir;
     
     //界面UI
     RESideMenu                  *_menu;
     
-    //充值、同步、帐户管理
     FlyingLessonParser          *_parser;
     
     //发音管理
@@ -141,9 +115,6 @@
     NSString                    *_sharingImageURL;
     NSString                    *_sharingURL;
     UIImage                     *_sharingImage;
-    
-    //
-    RCDRCIMDataSource           *_rongDataSource;
 }
 @end
 
@@ -251,7 +222,7 @@
                                          [FlyingDataManager creatLocalUSerProfileWithServer];
                                      }
                                                                          
-                                     [self preparelocalEnvironment];
+                                     [iFlyingAppDelegate preparelocalEnvironment];
                                      
                                      self.window = [UIWindow new];
                                      [self.window makeKeyAndVisible];
@@ -270,9 +241,9 @@
 }
 
 //本地环境准备
--(void) preparelocalEnvironment
++(void) preparelocalEnvironment
 {
-    dispatch_async([self getBackPubQueue], ^{
+    dispatch_async(dispatch_queue_create("com.birdcopy.background.prepare", NULL), ^{
         
         //缓存设置
         int cacheSizeMemory = 8*1024*1024; // 8MB
@@ -280,7 +251,7 @@
         NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
         [NSURLCache setSharedURLCache:sharedCache];
         
-        [self setNotBackUp];
+        [FlyingDownloadManager setNotBackUp];
         
         //准备PDF环境
         queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
@@ -289,19 +260,19 @@
         screenScale = [[UIScreen mainScreen] scale];
         
         //准备购买环境
-        [self prepairIAP];
+        [[MKStoreKit sharedKit] startProductRequest];
         
         //向微信注册
         [WXApi registerApp:[NSString getWeixinID]];
         
         //准备字典
-        [self prepareDictionary];
+        [FlyingDownloadManager prepareDictionary];
         
         //监控本地文件夹状态
-        [self watchDocumentStateNow];
+        [[FlyingDownloadManager shareInstance] watchDocumentStateNow];
         
-        //同步没有完成的内容
-        [self downloadDataIfpossible];
+        //下载没有完成的内容
+        [[FlyingDownloadManager shareInstance] downloadDataIfpossible];
         
         //监控下载更新
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -331,8 +302,8 @@
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
     
-    [[RCIM sharedRCIM] setUserInfoDataSource:[self getRongDataSource]];
-    [[RCIM sharedRCIM] setGroupInfoDataSource:[self getRongDataSource]];
+    [[RCIM sharedRCIM] setUserInfoDataSource:[RCDRCIMDataSource shareInstance]];
+    [[RCIM sharedRCIM] setGroupInfoDataSource:[RCDRCIMDataSource shareInstance]];
     
     //设置会话列表头像和会话界面头像
     [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
@@ -394,16 +365,6 @@
     {
         [self connectWithRongCloud:rongDeviceKoken];
     }
-}
-
--(RCDRCIMDataSource*) getRongDataSource
-{
-    if (!_rongDataSource) {
-        
-        _rongDataSource = [RCDRCIMDataSource shareInstance];
-    }
-    
-    return _rongDataSource;
 }
 
 -(void)  connectWithRongCloud:(NSString*)rongDeviceKoken
@@ -563,182 +524,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RCKitDispatchMessageNotification object:nil];
 }
 
-- (FMDatabaseQueue *) shareUserDBQueue
-{
-    if (!_userDBQueue) {
-        
-        //dbPath： 数据库路径，在dbDir中。
-        NSString *dbPath = [[iFlyingAppDelegate getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
-        
-        //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:dbPath]){
-            
-            NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KUserDBResource ofType:KDBType];
-            NSError* error=nil;
-            [fileManager copyItemAtPath:soureDbpath toPath:dbPath error:&error ];
-            if (error!=nil) {
-                NSLog(@"%@", error);
-                NSLog(@"%@", [error userInfo]);
-            }
-        }
-        
-        _userDBQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-    }
-    
-    return _userDBQueue;
-}
-
-- (void) closeUserDBQueue
-{
-    if (_userDBQueue) {
-        
-        [_userDBQueue close];
-        _userDBQueue=nil;
-    }
-}
-
-- (FMDatabaseQueue *) sharePubUserDBQueue
-{
-    if (!_pubUserDBQueue) {
-        
-        //dbPath： 数据库路径，在dbDire中。
-        NSString *dbPath = [[iFlyingAppDelegate getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
-        
-        //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:dbPath]){
-            
-            NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KUserDBResource ofType:KDBType];
-            NSError* error=nil;
-            [fileManager copyItemAtPath:soureDbpath toPath:dbPath error:&error ];
-            if (error!=nil) {
-                NSLog(@"%@", error);
-                NSLog(@"%@", [error userInfo]);
-            }
-        }
-
-        _pubUserDBQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-    }
-    
-    return _pubUserDBQueue;
-}
-
-- (void) closePubUserDBQueue
-{
-    if (_pubUserDBQueue) {
-        
-        [_pubUserDBQueue close];
-        _pubUserDBQueue=nil;
-    }
-}
-
-- (FMDatabaseQueue *) shareBaseDBQueue
-{
-    if (!_baseDBQueue) {
-        
-        /*
-        NSString * downloadDir = [iFlyingAppDelegate getDownloadsDir];
-        NSString * baseDir =[downloadDir stringByAppendingPathComponent:kShareBaseDir];
-        
-        NSString *path = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-                
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:path]){
-            
-            [self startDownloadShareData];
-        }
-         */
-        
-        NSString* path = [self prepareDictionary];
-
-        _baseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
-    }
-    
-    return _baseDBQueue;
-}
-
-- (void) closeBaseDBQueue
-{
-    if (_baseDBQueue) {
-        
-        [_baseDBQueue close];
-        _baseDBQueue=nil;
-    }
-}
-
-- (FMDatabaseQueue *) sharePubBaseDBQueue
-{
-    if (!_pubBaseDBQueue) {
-        
-        /*
-        NSString * downloadDir = [iFlyingAppDelegate getDownloadsDir];
-        NSString * baseDir =[downloadDir stringByAppendingPathComponent:kShareBaseDir];
-        
-        NSString *path = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:path]){
-            
-            [self startDownloadShareData];
-        }
-         */
-        
-        NSString* path = [self prepareDictionary];
-
-        _pubBaseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
-    }
-    
-    return _pubBaseDBQueue;
-}
-
-- (void) closePubBaseDBQueue
-{
-    if (_pubBaseDBQueue) {
-        
-        [_pubBaseDBQueue close];
-        _pubBaseDBQueue=nil;
-    }
-}
-
 - (void) closeMyresource
 {
-    [self closeBaseDBQueue];
-    [self closeUserDBQueue];
-    [self closePubBaseDBQueue];
-    [self closePubUserDBQueue];
-    [self closeDownloadResource];
+    [[FlyingDBManager shareInstance] closeDBQueue];
+    [[FlyingDownloadManager shareInstance] closeAllDownloader];
     [self closeLocalHttpserver];
-    [self closeBackgroundQueue];
     [self close_flyingSoundPlayer_queue];
     [self closeSpeechSynthesizer];
-}
-
-- (void)setNotBackUp
-{
-    NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    
-    NSURL *url = [NSURL fileURLWithPath:documentDirectory];
-    
-    [self addSkipBackupAttributeToItemAtURL:url];
-    
-    NSString *myDataDir = [iFlyingAppDelegate getUserDataDir];
-    url = [NSURL fileURLWithPath:myDataDir];
-    
-    [self addSkipBackupAttributeToItemAtURL:url];
-}
-
-- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
-{
-    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
-    
-    NSError *error = nil;
-    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
-                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
-    if(!success){
-        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
-    }
-    return success;
 }
 
 - (void) startLocalHttpserver
@@ -750,7 +542,7 @@
         
         [_httpServer setPort:12345];
         
-        [_httpServer setDocumentRoot:[self getDownloadsDir]];
+        [_httpServer setDocumentRoot:[FlyingDownloadManager getDownloadsDir]];
         
         // Start the server (and check for problems)
         NSError *error;
@@ -770,231 +562,9 @@
     }
 }
 
--(dispatch_queue_t) getBackPubQueue
-{
-    if (!_background_Pub_queue) {
-        _background_Pub_queue =dispatch_queue_create("com.birdcopy.background.processing", NULL);
-    }
-    
-    return _background_Pub_queue;
-}
-
--(dispatch_queue_t) getAIQueue
-{
-    if (!_background_AI_queue) {
-        _background_AI_queue =dispatch_queue_create("com.birdengcopy.background.processing", NULL);
-    }
-    
-    return _background_AI_queue;
-}
-
--(void)closeBackgroundQueue
-{
-    _background_AI_queue=nil;
-    _background_Pub_queue=nil;
-}
-
-- (NSString *) getUserDataPath
-{
-    if (!_userDataDir) {
-        
-        NSString  * libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString  *   dbDir = [libPath stringByAppendingPathComponent:KUSerDataFoldName];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = FALSE;
-        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
-        
-        if(!(isDirExist && isDir))
-        {
-            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-            if(!bCreateDir){
-                NSLog(@"Create Directory Failed.");
-                
-                return nil;
-            }
-        }
-        
-        _userDataDir=dbDir;
-    }
-    
-    return _userDataDir;
-}
-
-+ (NSString *) getUserDataDir
-{
-    
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    return [appDelegate getUserDataPath];
-}
-
-- (NSString*) getDownloadsDir
-{
-    
-    if (!_userDownloadDir) {
-        
-        NSString  *   dbDir = [[iFlyingAppDelegate getUserDataDir]  stringByAppendingPathComponent:KUserDownloadsDir];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = FALSE;
-        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
-        
-        if(!(isDirExist && isDir))
-        {
-            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-            if(!bCreateDir){
-                NSLog(@"Create Directory Failed.");
-                
-                return nil;
-            }
-        }
-        
-        _userDownloadDir=dbDir;
-    }
-    
-    return _userDownloadDir;
-}
-
-+ (NSString*) getDownloadsDir
-{
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    return [appDelegate getDownloadsDir];
-}
-
-+ (NSString*) getLessonDir:(NSString*) lessonID
-{
-    //创建下载内容目录
-    NSString *dbDir = [[iFlyingAppDelegate getDownloadsDir] stringByAppendingPathComponent:lessonID];
-    
-    BOOL isDir = NO;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    if(!([fm fileExistsAtPath:dbDir isDirectory:&isDir] && isDir))
-    {
-        [fm createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    return dbDir;
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark - Document Related
-//////////////////////////////////////////////////////////////
-- (void) watchDocumentStateNow
-{
-    //开启文件夹监控
-    [iFlyingAppDelegate updataDBForLocal];
-    
-    if (!_docWatcher) {
-        
-        NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        
-        _docWatcher = [MHWDirectoryWatcher directoryWatcherAtPath:documentDirectory callback:^{
-            
-            NSLog(@"watchDocumentStateNow");
-            
-            if (!_source) {
-                
-                _source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
-                dispatch_source_set_event_handler(_source, ^{
-                    
-                    [iFlyingAppDelegate updataDBForLocal];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KDocumentStateChange object:nil];
-                });
-                dispatch_resume(_source);
-            }
-            
-            dispatch_source_merge_data(_source, 1);
-        }];
-        
-        [_docWatcher startWatching];
-    }
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark - Network Related
 //////////////////////////////////////////////////////////////
-- (void) downloadDataIfpossible
-{
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
-        NSLog(@"Reachability changed: %@", AFStringFromNetworkReachabilityStatus(status));
-        
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                // -- Reachable -- //
-                if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
-                    
-                    [self resumeAllDownloader];
-                }
-
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                
-                [[[FlyingLessonDAO alloc] init] updateDowloadStateOffine];
-
-                break;
-            default:
-                // -- Not reachable -- //
-                NSLog(@"Not Reachable");
-                break;
-        }
-        
-    }];
-}
-
-// 准备英文字典
-- (NSString *)prepareDictionary
-{
-    //判断是否后台加载基础字典（MP3+DB）
-    NSString * baseDir     = [[iFlyingAppDelegate getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
-    NSString  * newDicpath = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-
-    //分享目录如果没有就创建一个
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    if(!([fileManager fileExistsAtPath:baseDir isDirectory:&isDir] && isDir))
-    {
-        [fileManager createDirectoryAtPath:baseDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    NSString * result=nil;
-    if ([fileManager fileExistsAtPath:newDicpath])
-    {
-        result=newDicpath;
-    }
-    else
-    {
-        NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KDicModelName ofType:KDBType];
-        NSError* error=nil;
-        [fileManager copyItemAtPath:soureDbpath toPath:newDicpath error:&error ];
-        if (error!=nil) {
-            NSLog(@"%@", error);
-            NSLog(@"%@", [error userInfo]);
-            
-            result=nil;
-        }
-        else
-        {
-            result=newDicpath;
-        }
-    }
-    
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everDownloadBaseDictionary"])
-    {
-        
-        if ([AFNetworkReachabilityManager sharedManager].isReachableViaWiFi)
-        {
-            
-            [self startDownloadShareData];
-        }
-    }
-    
-    return result;
-}
-
-
 + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
 {
     NSDate *fromDate;
@@ -1082,85 +652,7 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma mark - Download  Related
 //////////////////////////////////////////////////////////////
-
--(void) startDownloadShareData
-{
-    if (!_downloadManager) {
-        
-        _downloadManager = [[FlyingDownloadManager alloc] init];
-    }
-    
-    [_downloadManager startDownloadShareData];
-}
-
-- (void) startDownloaderForID:(NSString *)lessonID
-{
-    if (!_downloadManager) {
-        
-        _downloadManager = [[FlyingDownloadManager alloc] init];
-    }
-    
-    [_downloadManager startDownloaderForID:lessonID];
-}
-
--(void) continueDownloadingWork
-{
-    if (!_downloadManager) {
-        
-        _downloadManager = [[FlyingDownloadManager alloc] init];
-    }
-
-    [_downloadManager continueDownloadingWork];
-}
-
-- (BOOL) isWaitting:(NSString*) lessonID
-{
-    if (_downloadManager) {
-        
-        return [_downloadManager isWaitting:lessonID];
-    }
-    else{
-        return NO;
-    }
-}
-
-- (void) resumeAllDownloader
-{
-    if (!_downloadManager) {
-        
-        _downloadManager = [[FlyingDownloadManager alloc] init];
-    }
-    
-    [_downloadManager resumeAllDownloader];
-}
-
-- (void) closeAllDownloader
-{
-    if (_downloadManager) {
-        
-        [_downloadManager closeAllDownloader];
-    }
-}
-
-- (void) closeAndReleaseDownloaderForID:(NSString *)lessonID
-{
-    if (_downloadManager) {
-        
-        [_downloadManager closeAndReleaseDownloaderForID:lessonID];
-    }
-}
-
-- (void) closeDownloadResource
-{
-    if (_downloadManager) {
-        
-        [_downloadManager closeAllDownloader];
-        [_downloadManager closeDownloadShareData];
-    }
-}
-
 - (RESideMenu*) getMenu
 {
     if (!_menu) {
@@ -1854,11 +1346,6 @@
 //////////////////////////////////////////////////////////////
 #pragma mark - Buy  Related
 //////////////////////////////////////////////////////////////
--(void) prepairIAP
-{
-    [[MKStoreKit sharedKit] startProductRequest];
-}
-
 - (void) presentStoreView
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1951,202 +1438,8 @@
     return YES;
 }
 
-+ (void) updataDBForLocal
-{
-    FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
-    
-    NSString *openID = [NSString getOpenUDID];
-    
-    [nowLessonDAO updateDBFromLocal:openID];
-    
-    //得到本地课程详细信息
-    NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    NSFileManager* mgr = [NSFileManager defaultManager];
-    
-    //用户目录包含的可读内容
-    
-    NSArray* contents = [mgr contentsOfDirectoryAtPath:path error:nil];
-    
-    FlyingLessonDAO * lessonDAO =[[FlyingLessonDAO alloc] init];
-    
-    for (NSString *fileName in contents) {
-        
-        @autoreleasepool {
-            
-            BOOL isMp3 = [NSString checkMp3URL:fileName];
-            BOOL isMp4 = [NSString checkMp4URL:fileName];
-            BOOL isdoc = [NSString checkDocumentURL:fileName];
-            
-            if(isMp4
-               || [NSString checkOtherVedioURL:fileName]
-               || isdoc
-               || isMp3){
-                
-                NSString* filePath = [path stringByAppendingPathComponent:fileName];
-                
-                //本地文件统一这么处理，最关键是保持和官方lessonID的唯一性。
-                NSString * lessonID= [FileHash md5HashOfFileAtPath:filePath];
-                
-                FlyingLessonData * pubLessondata =[lessonDAO   selectWithLessonID:lessonID];
-                
-                //如果没有相关纪录
-                if (!pubLessondata)
-                {
-                    NSString* lessontitle =[[filePath lastPathComponent] stringByDeletingPathExtension];
-                    
-                    NSString * localSrtPath = [lessontitle localSrtURL];
-                    NSString * localCoverPath = [lessontitle localCoverURL];
-                    
-                    UIImage * coverImage=nil;
-                    if (isMp3) {
-                        
-                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
-                            
-                            coverImage = [iFlyingAppDelegate thumbnailImageForMp3:[NSURL fileURLWithPath:filePath]];
-                            
-                            if (coverImage) {
-                                
-                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
-                            }
-                        }
-                    }
-                    else if(isMp4){
-                        
-                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
-                            
-                            coverImage = [iFlyingAppDelegate thumbnailImageForVideo:[NSURL fileURLWithPath:filePath] atTime:10];
-                            
-                            if (coverImage) {
-                                
-                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
-                            }
-                        }
-                    }
-                    else if(isdoc)
-                    {
-                        if (![[NSFileManager defaultManager] fileExistsAtPath:localCoverPath]){
-                            
-                            NSString *phrase=@"";
-                            
-                            if ( [NSString checkPDFURL:fileName])
-                            {
-                                coverImage =[iFlyingAppDelegate thumbnailImageForPDF:[NSURL fileURLWithPath:filePath]
-                                                                                       passWord:phrase];
-                            }
-                            if (coverImage)
-                            {
-                                [UIImagePNGRepresentation(coverImage) writeToFile:localCoverPath atomically:YES];
-                            }
-                        }
-                    }
-                    
-                    NSString * contentType = KContentTypeVideo;
-                    if(isMp3){
-                        
-                        contentType = KContentTypeAudio;
-                    }
-                    else if (isdoc) {
-                        
-                        contentType = KContentTypeText;
-                    }
-                    
-                    pubLessondata =[[FlyingLessonData alloc] initWithLessonID:lessonID
-                                                                   LocalTitle:lessontitle
-                                                              LocalContentURL:filePath
-                                                                  LocalSubURL:localSrtPath
-                                                                LocalCoverURL:localCoverPath
-                                                                  ContentType:contentType
-                                                                 DownloadType:KDownloadTypeNormal
-                                                                          Tag:nil];
-                    [lessonDAO insertWithData:pubLessondata];
-                    
-                }
-                
-                NSString *openID = [NSString getOpenUDID];
-                
-                if (![nowLessonDAO selectWithUserID:openID LessonID:lessonID]) {
-                    
-                    FlyingNowLessonData * data = [[FlyingNowLessonData alloc] initWithUserID:openID
-                                                                                    LessonID:lessonID
-                                                                                   TimeStamp:0
-                                                                                  LocalCover:pubLessondata.localURLOfCover];
-                    [nowLessonDAO insertWithData:data];
-                }
-            }
-        }
-    }
-}
 
 
-+ (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL
-{
-    
-    AVAsset *assest = [AVURLAsset URLAssetWithURL:mp3fURL options:nil];
-    
-    for (NSString *format in [assest availableMetadataFormats]) {
-        
-        for (AVMetadataItem *item in [assest metadataForFormat:format]) {
-            
-            if ([[item commonKey] isEqualToString:@"artwork"]) {
-                UIImage *img = nil;
-                if ([item.keySpace isEqualToString:AVMetadataKeySpaceiTunes]) {
-                    img = [UIImage imageWithData:[item.value copyWithZone:nil]];
-                }
-                else { // if ([item.keySpace isEqualToString:AVMetadataKeySpaceID3]) {
-                    NSData *data = [(NSDictionary *)[item value] objectForKey:@"data"];
-                    img = [UIImage imageWithData:data]  ;
-                }
-                
-                return img;
-            }
-        }
-    }
-    
-    return nil;
-}
 
-+ (UIImage*) thumbnailImageForPDF:(NSURL *)pdfURL  passWord:(NSString*) password
-{
-    
-    CGPDFDocumentRef documentRef = CGPDFDocumentCreateX((__bridge CFURLRef)pdfURL, password);
-    CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, 1);
-    CGRect pageRect = CGPDFPageGetBoxRect(pageRef, kCGPDFCropBox);
-    
-    UIGraphicsBeginImageContext(pageRect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, CGRectGetMinX(pageRect),CGRectGetMaxY(pageRect));
-    CGContextScaleCTM(context, 1, -1);
-    CGContextTranslateCTM(context, -(pageRect.origin.x), -(pageRect.origin.y));
-    CGContextDrawPDFPage(context, pageRef);
-    
-    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CGPDFDocumentRelease(documentRef), documentRef = NULL;
-    
-    return finalImage;
-}
-
-
-+ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time
-{
-    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
-    NSParameterAssert(asset);
-    AVAssetImageGenerator *assetImageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    assetImageGenerator.appliesPreferredTrackTransform = YES;
-    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels;
-    
-    CGImageRef thumbnailImageRef = NULL;
-    CFTimeInterval thumbnailImageTime = time;
-    NSError *thumbnailImageGenerationError = nil;
-    thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 60) actualTime:NULL error:&thumbnailImageGenerationError];
-    
-    if (!thumbnailImageRef)
-        NSLog(@"thumbnailImageGenerationError %@", thumbnailImageGenerationError);
-    
-    UIImage *thumbnailImage = thumbnailImageRef ? [UIImage imageWithCGImage:thumbnailImageRef] : nil;
-    
-    return thumbnailImage;
-}
 
 @end

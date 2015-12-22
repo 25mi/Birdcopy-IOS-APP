@@ -24,6 +24,7 @@
 
 #import "FlyingTaskWordDAO.h"
 #import "FlyingTouchDAO.h"
+#import "FlyingDownloadManager.h"
 
 @implementation FlyingDataManager
 
@@ -46,7 +47,7 @@
     {
         //dbPath： 数据库路径，在dbDire中。
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [iFlyingAppDelegate getUserDataDir];
+        NSString *documentsDirectory = [FlyingDownloadManager getUserDataDir];
         
         NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
         NSEnumerator *e = [contents objectEnumerator];
@@ -163,14 +164,12 @@
                            return;
                        }
                        NSArray * tempArray =  [[[FlyingNowLessonDAO new] selectWithUserID:openID] mutableCopy] ;
-                       
-                       iFlyingAppDelegate *delegate = (iFlyingAppDelegate *)[UIApplication sharedApplication].delegate;
-                       
+                                              
                        [tempArray enumerateObjectsUsingBlock:^(FlyingNowLessonData* nowLessonData, NSUInteger idx, BOOL *stop) {
                            //
                            
                            //通知下载中心关闭相关资源，没有下载就是无意义操作
-                           [delegate closeAndReleaseDownloaderForID:nowLessonData.BELESSONID];
+                           [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:nowLessonData.BELESSONID];
                            
                            //删除数据库本地纪录，资源自动释放
                            [[FlyingNowLessonDAO new] deleteWithUserID:openID LessonID:nowLessonData.BELESSONID];
@@ -182,7 +181,7 @@
                            //
                            
                            //通知下载中心关闭相关资源，没有下载就是无意义操作
-                           [delegate closeAndReleaseDownloaderForID:lessonData.BELESSONID];
+                           [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonData.BELESSONID];
                            
                            //删除数据库本地纪录，资源自动释放
                            [[FlyingLessonDAO new]  deleteWithLessonID:lessonData.BELESSONID];

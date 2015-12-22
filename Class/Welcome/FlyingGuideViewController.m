@@ -74,9 +74,9 @@
 
 - (void)accountActive
 {
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate preparelocalEnvironment];
+    [iFlyingAppDelegate preparelocalEnvironment];
     
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = [appDelegate getMenu];
     [appDelegate.window makeKeyAndVisible];
     

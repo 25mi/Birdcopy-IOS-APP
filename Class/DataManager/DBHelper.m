@@ -10,7 +10,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 #import <RongIMKit/RongIMKit.h>
-#import "iFlyingAppDelegate.h"
+#import "FlyingDownloadManager.h"
 
 @implementation DBHelper
 
@@ -19,7 +19,7 @@ static FMDatabaseQueue *databaseQueue = nil;
 +(FMDatabaseQueue *) getDatabaseQueue
 {
     if (!databaseQueue) {
-        NSString *documentDirectory = [iFlyingAppDelegate getUserDataDir];
+        NSString *documentDirectory = [FlyingDownloadManager getUserDataDir];
         NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"RongIMDB"];
         databaseQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
     }

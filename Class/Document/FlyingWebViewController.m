@@ -116,8 +116,7 @@
     [self loadWebview];
     
     //基本辅助信息和工具准备
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    _background_queue = [appDelegate getAIQueue];
+    _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
     _speechPlayer = [[FlyingSoundPlayer alloc] init];
     [self autoRemoveWordView];
     

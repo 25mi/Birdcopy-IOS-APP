@@ -210,8 +210,7 @@
     _speechPlayer = [[FlyingSoundPlayer alloc] init];
     _tagTransform=[[FlyingTagTransform alloc] init];
     
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    _background_queue = [appDelegate getAIQueue];
+    _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
     
     _autoPlayModle=YES;
     

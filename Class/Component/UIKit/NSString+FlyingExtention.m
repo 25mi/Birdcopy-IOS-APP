@@ -11,6 +11,7 @@
 #import "shareDefine.h"
 #import "iFlyingAppDelegate.h"
 #import "UICKeyChainStore.h"
+#import "FlyingDownloadManager.h"
 
 @implementation NSString (FlyingExtention)
 
@@ -331,7 +332,7 @@
 
 +(NSString*) picPathForWord:(NSString*) word
 {
-    NSString *dbDir = [iFlyingAppDelegate  getLessonDir:@"shareLessonPic"];
+    NSString *dbDir = [FlyingDownloadManager  getLessonDir:@"shareLessonPic"];
     NSString* coverImageFileName     = [word stringByAppendingPathExtension:KJPGType];
     
     return [dbDir stringByAppendingPathComponent:coverImageFileName];
@@ -896,12 +897,12 @@
 
 - (NSString *)relativePathFromDocumentDirectory:(NSString *) lessonID
 {
-    return [self relativePathFromBaseDirPath:[iFlyingAppDelegate getLessonDir:lessonID]];
+    return [self relativePathFromBaseDirPath:[FlyingDownloadManager getLessonDir:lessonID]];
 }
 
 - (NSString *)absolutePathFromDocumentDirectory:(NSString *) lessonID
 {
-    return [self absolutePathFromBaseDirPath:[iFlyingAppDelegate getLessonDir:lessonID]];
+    return [self absolutePathFromBaseDirPath:[FlyingDownloadManager getLessonDir:lessonID]];
 }
 
 

@@ -9,8 +9,9 @@
 #import "FlyingSoundPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AFNetworking.h>
-#import "iFlyingAppDelegate.h"
+#import "FlyingDownloadManager.h"
 #import "shareDefine.h"
+#import "iFlyingAppDelegate.h"
 
 @interface FlyingSoundPlayer ()
 {
@@ -82,7 +83,7 @@
 {
     NSString *type = @"mp3";
     
-    NSString * downloadDir = [iFlyingAppDelegate getDownloadsDir];
+    NSString * downloadDir = [FlyingDownloadManager getDownloadsDir];
     NSString * mp3Dir = [downloadDir stringByAppendingPathComponent:kShareBaseDir];
     
     NSString *wordMP3File = [mp3Dir stringByAppendingPathComponent:[word stringByAppendingPathExtension:type]];
@@ -163,7 +164,7 @@
                                    
                                    NSString * fileName =[_textToSpeech stringByAppendingString:@".mp3"];
                                    
-                                   NSString * downloadDir = [iFlyingAppDelegate getDownloadsDir];
+                                   NSString * downloadDir = [FlyingDownloadManager getDownloadsDir];
                                    NSString * lessonDir = [downloadDir stringByAppendingPathComponent:_lessonID];
                                    
                                    NSString * filePath= [lessonDir stringByAppendingPathComponent:fileName];
