@@ -38,109 +38,114 @@
 @implementation FlyingDownloader
 
 
-- (void) prepareWithLessonID:(NSString *)lessonID
+- (id) initWithLessonID:(NSString *)lessonID
 {
     
-    self.lessonID=lessonID;
-    _dao=[[FlyingLessonDAO  alloc] init];
-    FlyingLessonData * lessonData = [_dao  selectWithLessonID:lessonID];
+    self = [super init];
+    if (self)
+    {
+        self.lessonID=lessonID;
+        _dao=[[FlyingLessonDAO  alloc] init];
+        FlyingLessonData * lessonData = [_dao  selectWithLessonID:lessonID];
+        
+        _downloadType = lessonData.BEDOWNLOADTYPE;
+        
+        NSString * contentURL=lessonData.BECONTENTURL;
+        
+        if ([_downloadType isEqualToString:KDownloadTypeNormal]){
+            
+            __block float percent=0;
+            __block float percentDone=0;
+            
+            _downloader = [AFHttpTool downloadUrl:contentURL destinationPath:lessonData.localURLOfContent
+                                         progress:^(NSProgress *downloadProgress) {
+                                             //
+                                             
+                                             percentDone = (downloadProgress.completedUnitCount*100/downloadProgress.totalUnitCount)/100.0;
 
-    _downloadType = lessonData.BEDOWNLOADTYPE;
-    
-    NSString * contentURL=lessonData.BECONTENTURL;
-    
-    if ([_downloadType isEqualToString:KDownloadTypeNormal]){
-        
-        __block float percent=0;
-        __block float percentDone=0;
-        
-        _downloader = [AFHttpTool downloadUrl:contentURL destinationPath:lessonData.localURLOfContent
-                       progress:^(NSProgress *downloadProgress) {
-                           //
-                           
-                           if (!_source) {
-                               
-                               _source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
-                               
-                               dispatch_source_set_event_handler(_source, ^{
-                                   
-                                   @autoreleasepool {
-                                       
-                                       percentDone = (downloadProgress.completedUnitCount*100/downloadProgress.totalUnitCount)/100.0;
-                                       
-                                       [_dao setUserModle:NO];
-                                       [_dao updateDowloadPercent:percentDone LessonID:lessonID];
-                                       [_dao updateDowloadState:YES LessonID:lessonID];
-                                       [[NSNotificationCenter defaultCenter] postNotificationName:KlessonStateChange object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
-                                   }
-                                   
-                               });
-                               dispatch_resume(_source);
-                           }
-                           
-                           if (percentDone-percent>=0.01) {
-                               dispatch_source_merge_data(_source, 1);
-                               percent=percentDone;
-                           }
-
-                       } success:^(id response) {
-                           //
-                           FlyingLessonDAO * dao=[[FlyingLessonDAO  alloc] init];
-                           
-                           [dao updateDowloadPercent:1 LessonID:lessonID];
-                           [dao updateDowloadState:YES LessonID:lessonID];
-                           
-                           [[NSNotificationCenter defaultCenter] postNotificationName:KlessonFinishTask object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
-                           
-                           [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
-
-                       } failure:^(NSError *err) {
-                           //
-                           [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
-                       }];
-    }
-    else if ([_downloadType isEqualToString:KDownloadTypeMagnet]) {
-        
-        
+                                             if (!_source) {
+                                                 
+                                                 _source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+                                                 
+                                                 dispatch_source_set_event_handler(_source, ^{
+                                                     
+                                                     @autoreleasepool {
+                                                         
+                                                         [_dao setUserModle:NO];
+                                                         [_dao updateDowloadPercent:percentDone LessonID:lessonID];
+                                                         [_dao updateDowloadState:YES LessonID:lessonID];
+                                                         [[NSNotificationCenter defaultCenter] postNotificationName:KlessonStateChange object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
+                                                     }
+                                                     
+                                                 });
+                                                 dispatch_resume(_source);
+                                             }
+                                             
+                                             if (percentDone-percent>=0.01) {
+                                                 dispatch_source_merge_data(_source, 1);
+                                                 percent=percentDone;
+                                             }
+                                             
+                                         } success:^(id response) {
+                                             //
+                                             FlyingLessonDAO * dao=[[FlyingLessonDAO  alloc] init];
+                                             
+                                             [dao updateDowloadPercent:1 LessonID:lessonID];
+                                             [dao updateDowloadState:YES LessonID:lessonID];
+                                             
+                                             [[NSNotificationCenter defaultCenter] postNotificationName:KlessonFinishTask object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
+                                             
+                                             [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
+                                             
+                                         } failure:^(NSError *err) {
+                                             //
+                                             [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
+                                         }];
+        }
+        else if ([_downloadType isEqualToString:KDownloadTypeMagnet]) {
+            
             /*
-            FlyingMagnetDownloader * magnetDownloader= [[FlyingMagnetDownloader alloc] init];
+             FlyingMagnetDownloader * magnetDownloader= [[FlyingMagnetDownloader alloc] init];
+             
+             [magnetDownloader setThelessonID:lessonID];
+             
+             NSError* err=[magnetDownloader addTorrentFromManget:contentURL];
+             
+             if(!err){
+             
+             _downloader=magnetDownloader;
+             }
+             else{
+             
+             _downloader=nil;
+             }
+             */
             
-            [magnetDownloader setThelessonID:lessonID];
+            NSString *title = @"版本提醒";
+            NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+            [alertView addButtonWithTitle:@"知道了"
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alertView) {
+                                  }];
+            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+            [alertView show];
+        }
+        else if ([_downloadType isEqualToString:KDownloadTypeM3U8]) {
             
-            NSError* err=[magnetDownloader addTorrentFromManget:contentURL];
-            
-            if(!err){
+            if ([NSString checkM3U8URL:contentURL]) {
                 
-                _downloader=magnetDownloader;
+                [self initDownloadM3u8Content];
             }
             else{
                 
-                _downloader=nil;
+                [self getM8U8AndDownload];
             }
-             */
-        
-        NSString *title = @"版本提醒";
-        NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
-    }
-    else if ([_downloadType isEqualToString:KDownloadTypeM3U8]) {
-     
-        if ([NSString checkM3U8URL:contentURL]) {
-            
-            [self initDownloadM3u8Content];
-        }
-        else{
-
-            [self getM8U8AndDownload];
         }
     }
+    
+    return self;
 }
 
 -(void) resumeDownload

@@ -228,7 +228,7 @@
 //////////////////////////////////////////////////////////////
 #pragma mark get data from offical website
 //////////////////////////////////////////////////////////////
-+(void) downloadRelated:(FlyingPubLessonData *) theLesson
++(void) downloadRelated:(FlyingLessonData *) lessonData;
 {
     dispatch_queue_t _background_queue =dispatch_queue_create("com.birdengcopy.background.downloadRelated", NULL);
     
@@ -238,19 +238,19 @@
     //缓存字幕
     dispatch_async(_background_queue, ^{
         
-        [FlyingDownloadManager getSrtForLessonID:theLesson.lessonID Title:theLesson.title];
+        [FlyingDownloadManager getSrtForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
     
     //缓存课程字典
     dispatch_async(_background_queue, ^{
         
-        [FlyingDownloadManager getDicWithURL:theLesson.pronunciationURL LessonID:theLesson.lessonID];
+        [FlyingDownloadManager getDicWithURL:lessonData.BEPROURL LessonID:lessonData.BELESSONID];
     });
     
     //缓存课程辅助资源
     dispatch_async(_background_queue, ^{
         
-        [FlyingDownloadManager getRelativeWithURL:theLesson.relativeURL LessonID:theLesson.lessonID];
+        [FlyingDownloadManager getRelativeWithURL:lessonData.BERELATIVEURL LessonID:lessonData.BELESSONID];
     });
 }
 
@@ -409,7 +409,8 @@
         
         if(!downloader){
             
-            downloader=[[FlyingDownloader alloc] init];
+            downloader=[[FlyingDownloader alloc] initWithLessonID:lessonID];
+        
             
             [_downloadingOperationList setObject:downloader forKey:lessonID];
         }

@@ -21,7 +21,7 @@
 // 准备英文字典
 + (NSString *)prepareDictionary;
 
-+(void) downloadRelated:(FlyingPubLessonData *) theLesson;
++(void) downloadRelated:(FlyingLessonData *) lessonData;
 
 + (void) getSrtForLessonID: (NSString *) lessonID
                      Title:(NSString *) title;

@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong) NSString * lessonID;
 
-- (void) prepareWithLessonID:(NSString *)lessonID;
+- (id) initWithLessonID:(NSString *)lessonID;
 
 -(void) resumeDownload;
 -(void) cancelDownload;

@@ -116,13 +116,8 @@
         //
         downloadProgressBlock(downloadProgress);
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        
-        //
-        /*NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-        */
-        
-        return [NSURL URLWithString:destinationPath];
+                
+        return [NSURL fileURLWithPath:destinationPath];
         //
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         
@@ -133,11 +128,17 @@
         }
         else{
         
-            success(filePath);
+            BOOL isDir = NO;
+            NSFileManager *fm = [NSFileManager defaultManager];
+            if(!([fm fileExistsAtPath:filePath.absoluteString isDirectory:&isDir] && isDir))
+            {
+                success(filePath);
+            }
+            else
+            {
+                NSLog(@"can't open file downloaded to: %@", filePath);
+            }
         }
-        
-        NSLog(@"File downloaded to: %@", filePath);
-
     }];
 }
 
