@@ -11,6 +11,7 @@
 @interface FlyingDownloader : NSObject<UIWebViewDelegate>
 
 @property (nonatomic,strong) id downloader;
+@property (nonatomic,strong) NSData *resumeData;
 
 @property (nonatomic,strong) NSString * lessonID;
 

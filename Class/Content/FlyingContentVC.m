@@ -105,26 +105,20 @@
     self.title =@"详情";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
-    image= [UIImage imageNamed:@"share"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* shareButton= [[UIButton alloc] initWithFrame:frame];
-    [shareButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
@@ -132,6 +126,74 @@
     
     [self commonInit];
 }
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    //监控通知信息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notifyUpdateUnreadMessageCount)
+                                                 name:KNotificationMessage
+                                               object:nil];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+}
+
+/**
+ *  更新左上角未读消息数
+ */
+- (void)notifyUpdateUnreadMessageCount
+{
+
+    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                @(ConversationType_PRIVATE),
+                                                                @(ConversationType_DISCUSSION),
+                                                                @(ConversationType_APPSERVICE),
+                                                                @(ConversationType_PUBLICSERVICE),
+                                                                @(ConversationType_GROUP)
+                                                                ]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSString *backString = nil;
+        if (count > 0 && count < 1000) {
+            
+            backString = [NSString stringWithFormat:@"(%d)", count];
+        
+        } else if (count >= 1000) {
+            
+            backString = @"返回(...)";
+        } else {
+
+            return;
+        }
+        UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [menuBtn addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+
+        menuBtn.frame = CGRectMake(0, 6, 87, 23);
+        
+        UIImageView *menuImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu"]];
+        menuImg.frame = CGRectMake(-10, 0, 22, 22);
+        
+        [menuBtn addSubview:menuImg];
+        UILabel *menuText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 85, 22)];
+        menuText.text = backString;//NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
+        //   backText.font = [UIFont systemFontOfSize:17];
+        [menuText setBackgroundColor:[UIColor clearColor]];
+        [menuText setTextColor:[UIColor whiteColor]];
+        [menuBtn addSubview:menuText];
+        UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
+        
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+
+        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    });
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -374,7 +436,7 @@
             {
                 [self showLoadingCoverContentIndicator];
                 
-                //监控缓存结束
+                //监控下载是否完成
                 [[NSNotificationCenter defaultCenter] addObserver:self
                                                          selector:@selector(updateDownloadOk:)
                                                              name:KlessonFinishTask
@@ -768,7 +830,6 @@
     }
 }
 
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
@@ -902,6 +963,13 @@
     }
     else
     {
+        if (INTERFACE_IS_PAD) {
+            
+            [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
+            
+            return;
+        }
+        
         if ([NSString getUserPortraitUri].length==0) {
             
             [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
@@ -910,13 +978,9 @@
         {
             RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
             
-            NSString* userID = [commentData.userID MD5];
-            
-            RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-            chatService.userName = userInfo.name;
-            chatService.targetId = userID;
+            chatService.targetId = [commentData.userID MD5];
             chatService.conversationType = ConversationType_PRIVATE;
-            chatService.title = chatService.userName;
+            chatService.title = commentData.nickName;
             [self.navigationController pushViewController:chatService animated:YES];
         }
     }

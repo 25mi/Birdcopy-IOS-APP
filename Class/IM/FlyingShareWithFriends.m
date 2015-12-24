@@ -103,7 +103,6 @@
         RCDChatViewController *_conversationVC = [[RCDChatViewController alloc]init];
         _conversationVC.conversationType = model.conversationType;
         _conversationVC.targetId = model.targetId;
-        _conversationVC.userName = model.conversationTitle;
         _conversationVC.title = model.conversationTitle;
         
         [_conversationVC sendMessage:self.message pushContent:@""];

@@ -81,12 +81,16 @@
         return;
     
     RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
+    
     if (userInfo==nil) {
-        //开发者调自己的服务器接口根据groupID异步请求数据
+
         [FlyingHttpTool getUserInfoByRongID:userId
                               completion:^(RCUserInfo *user) {
+                                  
                                   if (user) {
                                       [[RCDataBaseManager shareInstance] insertUserToDB:user];
+                                      [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:user.userId];
+
                                       completion(user);
                                   }
                               }];

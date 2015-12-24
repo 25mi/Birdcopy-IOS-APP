@@ -223,6 +223,181 @@
 		8214E9A61C2995460014B6BD /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E99E1C2995460014B6BD /* FlyingHttpTool.m */; };
 		8214E9A71C2995460014B6BD /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E99E1C2995460014B6BD /* FlyingHttpTool.m */; };
 		8214E9A81C2995460014B6BD /* FlyingHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E99E1C2995460014B6BD /* FlyingHttpTool.m */; };
+		8214E9EE1C2AAA8B0014B6BD /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */; };
+		8214EB931C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */; };
+		8214EB941C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */; };
+		8214EB951C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */; };
+		8214EB961C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */; };
+		8214EB971C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */; };
+		8214EB981C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */; };
+		8214EB991C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */; };
+		8214EB9A1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */; };
+		8214EB9B1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */; };
+		8214EB9C1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */; };
+		8214EB9D1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */; };
+		8214EB9E1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */; };
+		8214EB9F1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */; };
+		8214EBA01C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */; };
+		8214EBA11C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */; };
+		8214EBA21C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */; };
+		8214EBA31C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */; };
+		8214EBA41C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */; };
+		8214EBA51C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */; };
+		8214EBA61C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */; };
+		8214EBA71C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */; };
+		8214EBA81C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */; };
+		8214EBA91C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */; };
+		8214EBAA1C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */; };
+		8214EBAB1C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */; };
+		8214EBAC1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */; };
+		8214EBAD1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */; };
+		8214EBAE1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */; };
+		8214EBAF1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */; };
+		8214EBB01C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */; };
+		8214EBB11C2AE8D20014B6BD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */; };
+		8214EBB21C2AE8D20014B6BD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */; };
+		8214EBB31C2AE8D20014B6BD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */; };
+		8214EBB41C2AE8D20014B6BD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */; };
+		8214EBB51C2AE8D20014B6BD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */; };
+		8214EBB61C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */; };
+		8214EBB71C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */; };
+		8214EBB81C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */; };
+		8214EBB91C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */; };
+		8214EBBA1C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */; };
+		8214EBBB1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */; };
+		8214EBBC1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */; };
+		8214EBBD1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */; };
+		8214EBBE1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */; };
+		8214EBBF1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */; };
+		8214EBC01C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */; };
+		8214EBC11C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */; };
+		8214EBC21C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */; };
+		8214EBC31C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */; };
+		8214EBC41C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */; };
+		8214EBC51C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */; };
+		8214EBC61C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */; };
+		8214EBC71C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */; };
+		8214EBC81C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */; };
+		8214EBC91C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */; };
+		8214EBCA1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */; };
+		8214EBCB1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */; };
+		8214EBCC1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */; };
+		8214EBCD1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */; };
+		8214EBCE1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */; };
+		8214EBCF1C2AE8D20014B6BD /* HeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */; };
+		8214EBD01C2AE8D20014B6BD /* HeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */; };
+		8214EBD11C2AE8D20014B6BD /* HeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */; };
+		8214EBD21C2AE8D20014B6BD /* HeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */; };
+		8214EBD31C2AE8D20014B6BD /* HeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */; };
+		8214EBD41C2AE8D20014B6BD /* RCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */; };
+		8214EBD51C2AE8D20014B6BD /* RCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */; };
+		8214EBD61C2AE8D20014B6BD /* RCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */; };
+		8214EBD71C2AE8D20014B6BD /* RCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */; };
+		8214EBD81C2AE8D20014B6BD /* RCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */; };
+		8214EBD91C2AE8D20014B6BD /* RCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */; };
+		8214EBDA1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */; };
+		8214EBDB1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */; };
+		8214EBDC1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */; };
+		8214EBDD1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */; };
+		8214EBDE1C2AE8D20014B6BD /* RCLocationConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */; };
+		8214EBDF1C2AE8D20014B6BD /* RCLocationConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */; };
+		8214EBE01C2AE8D20014B6BD /* RCLocationConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */; };
+		8214EBE11C2AE8D20014B6BD /* RCLocationConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */; };
+		8214EBE21C2AE8D20014B6BD /* RCLocationConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */; };
+		8214EBE31C2AE8D20014B6BD /* RCLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB711C2AE8D20014B6BD /* RCLocationView.m */; };
+		8214EBE41C2AE8D20014B6BD /* RCLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB711C2AE8D20014B6BD /* RCLocationView.m */; };
+		8214EBE51C2AE8D20014B6BD /* RCLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB711C2AE8D20014B6BD /* RCLocationView.m */; };
+		8214EBE61C2AE8D20014B6BD /* RCLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB711C2AE8D20014B6BD /* RCLocationView.m */; };
+		8214EBE71C2AE8D20014B6BD /* RCLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB711C2AE8D20014B6BD /* RCLocationView.m */; };
+		8214EBE81C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */; };
+		8214EBE91C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */; };
+		8214EBEA1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */; };
+		8214EBEB1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */; };
+		8214EBEC1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */; };
+		8214EBED1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */; };
+		8214EBEE1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */; };
+		8214EBEF1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */; };
+		8214EBF01C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */; };
+		8214EBF11C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */; };
+		8214EBF21C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */; };
+		8214EBF31C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */; };
+		8214EBF41C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */; };
+		8214EBF51C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */; };
+		8214EBF61C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */; };
+		8214EBF71C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */; };
+		8214EBF81C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */; };
+		8214EBF91C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */; };
+		8214EBFA1C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */; };
+		8214EBFB1C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */; };
+		8214EBFC1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */; };
+		8214EBFD1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */; };
+		8214EBFE1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */; };
+		8214EBFF1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */; };
+		8214EC001C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */; };
+		8214EC011C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */; };
+		8214EC021C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */; };
+		8214EC031C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */; };
+		8214EC041C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */; };
+		8214EC051C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */; };
+		8214EC061C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */; };
+		8214EC071C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */; };
+		8214EC081C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */; };
+		8214EC091C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */; };
+		8214EC0A1C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */; };
+		8214EC0B1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */; };
+		8214EC0C1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */; };
+		8214EC0D1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */; };
+		8214EC0E1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */; };
+		8214EC0F1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */; };
+		8214EC101C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */; };
+		8214EC111C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */; };
+		8214EC121C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */; };
+		8214EC131C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */; };
+		8214EC141C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */; };
+		8214EC151C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */; };
+		8214EC161C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */; };
+		8214EC171C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */; };
+		8214EC181C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */; };
+		8214EC191C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */; };
+		8214EC1A1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */; };
+		8214EC1B1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */; };
+		8214EC1C1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */; };
+		8214EC1D1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */; };
+		8214EC1E1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */; };
+		8214EC1F1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */; };
+		8214EC201C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */; };
+		8214EC211C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */; };
+		8214EC221C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */; };
+		8214EC231C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */; };
+		8214EC241C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */; };
+		8214EC251C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */; };
+		8214EC261C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */; };
+		8214EC271C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */; };
+		8214EC281C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */; };
+		8214EC291C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */; };
+		8214EC2A1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */; };
+		8214EC2B1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */; };
+		8214EC2C1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */; };
+		8214EC2D1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */; };
+		8214EC2E1C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */; };
+		8214EC2F1C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */; };
+		8214EC301C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */; };
+		8214EC311C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */; };
+		8214EC321C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */; };
+		8214EC331C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */; };
+		8214EC341C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */; };
+		8214EC351C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */; };
+		8214EC361C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */; };
+		8214EC371C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */; };
+		8214EC731C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */; };
+		8214EC741C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */; };
+		8214EC751C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */; };
+		8214EC761C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */; };
+		8214EC771C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */; };
+		8214ECE11C2AEE1B0014B6BD /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */; };
+		8214ECE21C2AEE1B0014B6BD /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */; };
+		8214ECE31C2AEE1C0014B6BD /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */; };
+		8214ECE41C2AEE1D0014B6BD /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */; };
 		823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
 		823E177B1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
 		823E177C1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
@@ -474,7 +649,6 @@
 		C81F8A751BD7B488004146F0 /* FlyingCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE1F8F1BB1036D009C8D48 /* FlyingCalendarTableViewCell.m */; };
 		C81F8A761BD7B488004146F0 /* JPSThumbnailAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE12E1A6D0736007F89D7 /* JPSThumbnailAnnotation.m */; };
 		C81F8A781BD7B488004146F0 /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
-		C81F8A791BD7B488004146F0 /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		C81F8A7B1BD7B488004146F0 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D931B04AB580004C874 /* SSZipArchive.m */; };
 		C81F8A7C1BD7B488004146F0 /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C875245E1BB39674000F86DC /* NSCalendar+Components.m */; };
 		C81F8A7D1BD7B488004146F0 /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77519CD526200D97FDB /* ReaderViewController.m */; };
@@ -504,7 +678,6 @@
 		C81F8A9C1BD7B488004146F0 /* MAOFlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BD0001AD0E20D0092A970 /* MAOFlipViewController.m */; };
 		C81F8A9D1BD7B488004146F0 /* MKStoreKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C80EF7431BD4A553006D57AC /* MKStoreKit.m */; };
 		C81F8A9E1BD7B488004146F0 /* KMMovieDetailsSimilarMoviesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C87523E91BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m */; };
-		C81F8A9F1BD7B488004146F0 /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */; };
 		C81F8AA11BD7B488004146F0 /* FlyingSubItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA67FF9D1AF4D656001031FD /* FlyingSubItemParser.m */; };
 		C81F8AA21BD7B488004146F0 /* MuHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD661B030821004152C2 /* MuHitView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C81F8AA41BD7B488004146F0 /* FlyingTouchDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */; };
@@ -516,7 +689,6 @@
 		C81F8AAD1BD7B488004146F0 /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C81F8AAE1BD7B488004146F0 /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
 		C81F8AAF1BD7B488004146F0 /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524641BB39674000F86DC /* NSCalendar+Juncture.m */; };
-		C81F8AB21BD7B488004146F0 /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
 		C81F8AB61BD7B488004146F0 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		C81F8AB91BD7B488004146F0 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = C875246B1BB39674000F86DC /* NSDate+Description.m */; };
 		C81F8ABA1BD7B488004146F0 /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
@@ -571,7 +743,6 @@
 		C81F8AF81BD7B488004146F0 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73819CD526200D97FDB /* FlyingWebViewController.m */; };
 		C81F8AF91BD7B488004146F0 /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		C81F8AFA1BD7B488004146F0 /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
-		C81F8AFB1BD7B488004146F0 /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
 		C81F8AFC1BD7B488004146F0 /* CGGeometry+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA88BC1A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m */; };
 		C81F8AFD1BD7B488004146F0 /* NSString+FlyingExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524391BB394FC000F86DC /* NSString+FlyingExtention.m */; };
 		C81F8AFE1BD7B488004146F0 /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
@@ -641,7 +812,6 @@
 		C81F8B581BD7B488004146F0 /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77919CD526200D97FDB /* ThumbsViewController.m */; };
 		C81F8B5B1BD7B488004146F0 /* ReaderThumbCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76719CD526200D97FDB /* ReaderThumbCache.m */; };
 		C81F8B5C1BD7B488004146F0 /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED219FB7FED00784EB4 /* FMTokenizers.m */; };
-		C81F8B5D1BD7B488004146F0 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
 		C81F8B5E1BD7B488004146F0 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ECA19FB7FED00784EB4 /* FMDatabaseQueue.m */; };
 		C81F8B5F1BD7B488004146F0 /* FlyingUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A618C1B3006B50022A9E9 /* FlyingUserInfo.m */; };
 		C81F8B601BD7B488004146F0 /* FlyingMagView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E78019CD526200D97FDB /* FlyingMagView.m */; };
@@ -660,7 +830,6 @@
 		C81F8B751BD7B488004146F0 /* FlyingGroupData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */; };
 		C81F8B761BD7B488004146F0 /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C875243D1BB394FC000F86DC /* UIColor+RCColor.m */; };
 		C81F8B771BD7B488004146F0 /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
-		C81F8B781BD7B488004146F0 /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		C81F8B791BD7B488004146F0 /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		C81F8B7A1BD7B488004146F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		C81F8B7B1BD7B488004146F0 /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = C87524661BB39674000F86DC /* NSCalendar+Ranges.m */; };
@@ -924,10 +1093,6 @@
 		C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
 		C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
 		C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20101BB154C8009C8D48 /* FlyingCommentCell.m */; };
-		C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
-		C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
-		C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
-		C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */; };
 		C8D5A27116A79784002060CC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D5A27016A79782002060CC /* libsqlite3.0.dylib */; };
 		C8DADE3618FD170600954C8D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DADE3518FD170600954C8D /* libWeChatSDK.a */; };
 		C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E57D951BB69ABF0013527E /* FlyingEventLocationCell.m */; };
@@ -1030,7 +1195,6 @@
 		FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8041B904C1900E24EF6 /* libPods.a */; };
 		FA0AF80B1B904C1900E24EF6 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8051B904C1900E24EF6 /* libSDWebImage.a */; };
 		FA0AF80C1B904C1900E24EF6 /* libSIAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8061B904C1900E24EF6 /* libSIAlertView.a */; };
-		FA0C58951B0F6101000D98BA /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		FA0EE11B1A6CA407007F89D7 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */; };
 		FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE11D1A6CA4E9007F89D7 /* FlyingProviderMapVC.m */; };
 		FA0EE1271A6CABE6007F89D7 /* FlyingCurrentAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1261A6CABE6007F89D7 /* FlyingCurrentAnnotation.m */; };
@@ -1076,7 +1240,6 @@
 		FA1BE49B1B27DD5A00AA1AFD /* MuTapResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD711B030821004152C2 /* MuTapResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE49D1B27DD5A00AA1AFD /* JPSThumbnailAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE12E1A6D0736007F89D7 /* JPSThumbnailAnnotation.m */; };
 		FA1BE49E1B27DD5A00AA1AFD /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
-		FA1BE49F1B27DD5A00AA1AFD /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA1BE4A11B27DD5A00AA1AFD /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D931B04AB580004C874 /* SSZipArchive.m */; };
 		FA1BE4A21B27DD5A00AA1AFD /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77519CD526200D97FDB /* ReaderViewController.m */; };
 		FA1BE4A41B27DD5A00AA1AFD /* DSBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656E517FE53BA00CADF4F /* DSBarChart.m */; };
@@ -1098,7 +1261,6 @@
 		FA1BE4B91B27DD5A00AA1AFD /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D991B04AC080004C874 /* mztools.c */; };
 		FA1BE4BA1B27DD5A00AA1AFD /* FlyingLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656C717FE53BA00CADF4F /* FlyingLoadingView.m */; };
 		FA1BE4BB1B27DD5A00AA1AFD /* MAOFlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BD0001AD0E20D0092A970 /* MAOFlipViewController.m */; };
-		FA1BE4BC1B27DD5A00AA1AFD /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */; };
 		FA1BE4BE1B27DD5A00AA1AFD /* FlyingSubItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA67FF9D1AF4D656001031FD /* FlyingSubItemParser.m */; };
 		FA1BE4BF1B27DD5A00AA1AFD /* MuHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD661B030821004152C2 /* MuHitView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE4C01B27DD5A00AA1AFD /* FlyingTouchDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */; };
@@ -1108,7 +1270,6 @@
 		FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA1BE4CB1B27DD5A00AA1AFD /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
-		FA1BE4CD1B27DD5A00AA1AFD /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
 		FA1BE4D21B27DD5A00AA1AFD /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		FA1BE4D41B27DD5A00AA1AFD /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
@@ -1195,7 +1356,6 @@
 		FA1BE5681B27DD5A00AA1AFD /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9D1B04AC080004C874 /* zip.c */; };
 		FA1BE5691B27DD5A00AA1AFD /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA1BE56A1B27DD5A00AA1AFD /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
-		FA1BE56B1B27DD5A00AA1AFD /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		FA1BE56D1B27DD5A00AA1AFD /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA1BE56E1B27DD5A00AA1AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA1BE5701B27DD5A00AA1AFD /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
@@ -1298,7 +1458,6 @@
 		FA63297F1B51091400A1222E /* MuTapResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD711B030821004152C2 /* MuTapResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329811B51091400A1222E /* JPSThumbnailAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE12E1A6D0736007F89D7 /* JPSThumbnailAnnotation.m */; };
 		FA6329821B51091400A1222E /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
-		FA6329831B51091400A1222E /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA6329851B51091400A1222E /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D931B04AB580004C874 /* SSZipArchive.m */; };
 		FA6329861B51091400A1222E /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77519CD526200D97FDB /* ReaderViewController.m */; };
 		FA6329881B51091400A1222E /* DSBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656E517FE53BA00CADF4F /* DSBarChart.m */; };
@@ -1320,7 +1479,6 @@
 		FA63299D1B51091400A1222E /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D991B04AC080004C874 /* mztools.c */; };
 		FA63299E1B51091400A1222E /* FlyingLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656C717FE53BA00CADF4F /* FlyingLoadingView.m */; };
 		FA63299F1B51091400A1222E /* MAOFlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BD0001AD0E20D0092A970 /* MAOFlipViewController.m */; };
-		FA6329A01B51091400A1222E /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */; };
 		FA6329A21B51091400A1222E /* FlyingSubItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA67FF9D1AF4D656001031FD /* FlyingSubItemParser.m */; };
 		FA6329A31B51091400A1222E /* MuHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD661B030821004152C2 /* MuHitView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329A41B51091400A1222E /* FlyingTouchDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */; };
@@ -1330,7 +1488,6 @@
 		FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6329AF1B51091400A1222E /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
-		FA6329B11B51091400A1222E /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
 		FA6329B61B51091400A1222E /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		FA6329B81B51091400A1222E /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA6329B91B51091400A1222E /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
@@ -1363,7 +1520,6 @@
 		FA6329E71B51091400A1222E /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73819CD526200D97FDB /* FlyingWebViewController.m */; };
 		FA6329E81B51091400A1222E /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		FA6329E91B51091400A1222E /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
-		FA6329EA1B51091400A1222E /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
 		FA6329EC1B51091400A1222E /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
 		FA6329EF1B51091400A1222E /* FlyingDialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77E19CD526200D97FDB /* FlyingDialogViewController.m */; };
 		FA6329F01B51091400A1222E /* FlyingSubTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B517FE53BA00CADF4F /* FlyingSubTitle.m */; };
@@ -1421,7 +1577,6 @@
 		FA632A481B51091400A1222E /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9D1B04AC080004C874 /* zip.c */; };
 		FA632A491B51091400A1222E /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA632A4A1B51091400A1222E /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
-		FA632A4B1B51091400A1222E /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		FA632A4D1B51091400A1222E /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA632A4E1B51091400A1222E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA632A501B51091400A1222E /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
@@ -1480,7 +1635,6 @@
 		FA67FF9E1AF4D656001031FD /* FlyingSubItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA67FF9D1AF4D656001031FD /* FlyingSubItemParser.m */; };
 		FA7A241B1AB5C89A004AC508 /* FlyingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A241A1AB5C89A004AC508 /* FlyingNavigationController.m */; };
 		FA7F81421B1DC18800BF1C8A /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
-		FA7F814E1B1E8F8800BF1C8A /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */; };
 		FA88BC271B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA88BC1A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m */; };
 		FA88BC281B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA88BC1A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m */; };
 		FA88BC291B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA88BC1A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m */; };
@@ -1521,7 +1675,6 @@
 		FA8C3DDB1B535A1500DEA02D /* MuTapResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD711B030821004152C2 /* MuTapResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3DDD1B535A1500DEA02D /* JPSThumbnailAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE12E1A6D0736007F89D7 /* JPSThumbnailAnnotation.m */; };
 		FA8C3DDE1B535A1500DEA02D /* FlyingFakeHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5C3F71AB7D8ED00E6F748 /* FlyingFakeHUD.m */; };
-		FA8C3DDF1B535A1500DEA02D /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA8C3DE11B535A1500DEA02D /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D931B04AB580004C874 /* SSZipArchive.m */; };
 		FA8C3DE21B535A1500DEA02D /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77519CD526200D97FDB /* ReaderViewController.m */; };
 		FA8C3DE41B535A1500DEA02D /* DSBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656E517FE53BA00CADF4F /* DSBarChart.m */; };
@@ -1543,7 +1696,6 @@
 		FA8C3DF91B535A1500DEA02D /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D991B04AC080004C874 /* mztools.c */; };
 		FA8C3DFA1B535A1500DEA02D /* FlyingLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656C717FE53BA00CADF4F /* FlyingLoadingView.m */; };
 		FA8C3DFB1B535A1500DEA02D /* MAOFlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BD0001AD0E20D0092A970 /* MAOFlipViewController.m */; };
-		FA8C3DFC1B535A1500DEA02D /* RCDGroupInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */; };
 		FA8C3DFE1B535A1500DEA02D /* FlyingSubItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA67FF9D1AF4D656001031FD /* FlyingSubItemParser.m */; };
 		FA8C3DFF1B535A1500DEA02D /* MuHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD661B030821004152C2 /* MuHitView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E001B535A1500DEA02D /* FlyingTouchDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C81D74ED18B6359F0068FDC7 /* FlyingTouchDAO.m */; };
@@ -1553,7 +1705,6 @@
 		FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655C517FE53BA00CADF4F /* FlyingBaseDao.m */; };
 		FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73F19CD526200D97FDB /* MuAnnotSelectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA8C3E0B1B535A1500DEA02D /* FlyingPickColorVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */; };
-		FA8C3E0D1B535A1500DEA02D /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
 		FA8C3E121B535A1500DEA02D /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		FA8C3E141B535A1500DEA02D /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */; };
@@ -1586,7 +1737,6 @@
 		FA8C3E431B535A1500DEA02D /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E73819CD526200D97FDB /* FlyingWebViewController.m */; };
 		FA8C3E441B535A1500DEA02D /* FlyingNowLessonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = C80655CF17FE53BA00CADF4F /* FlyingNowLessonDAO.m */; };
 		FA8C3E451B535A1500DEA02D /* ReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E76D19CD526200D97FDB /* ReaderThumbRender.m */; };
-		FA8C3E461B535A1500DEA02D /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
 		FA8C3E481B535A1500DEA02D /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E75719CD526200D97FDB /* CGPDFDocument.m */; };
 		FA8C3E4B1B535A1500DEA02D /* FlyingDialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77E19CD526200D97FDB /* FlyingDialogViewController.m */; };
 		FA8C3E4C1B535A1500DEA02D /* FlyingSubTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B517FE53BA00CADF4F /* FlyingSubTitle.m */; };
@@ -1644,7 +1794,6 @@
 		FA8C3EA41B535A1500DEA02D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9D1B04AC080004C874 /* zip.c */; };
 		FA8C3EA51B535A1500DEA02D /* FlyingSubRipItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C80656B317FE53BA00CADF4F /* FlyingSubRipItem.m */; };
 		FA8C3EA61B535A1500DEA02D /* ReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77119CD526200D97FDB /* ReaderThumbsView.m */; };
-		FA8C3EA71B535A1500DEA02D /* RCDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0C58941B0F6101000D98BA /* RCDChatViewController.m */; };
 		FA8C3EA91B535A1500DEA02D /* FlyingWordCollectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE61AD0E0FB0092A970 /* FlyingWordCollectVC.m */; };
 		FA8C3EAA1B535A1500DEA02D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C88B7652173BFC2200955BC2 /* main.m */; };
 		FA8C3EAC1B535A1500DEA02D /* FlyingProviderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE1391A6D28D0007F89D7 /* FlyingProviderViewCell.m */; };
@@ -1713,7 +1862,6 @@
 		FA8F2DA11B04AC080004C874 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9B1B04AC080004C874 /* unzip.c */; };
 		FA8F2DA21B04AC080004C874 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = FA8F2D9D1B04AC080004C874 /* zip.c */; };
 		FA95BD4E1AC2B8CF00542081 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */; };
-		FA991AB11B2183B4003D8F80 /* FlyingShareWithFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */; };
 		FA9965C61ACF8EBD00B599D4 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */; };
 		FAAD8ED919FB7FED00784EB4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC419FB7FED00784EB4 /* FMDatabase.m */; };
 		FAAD8EDA19FB7FED00784EB4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8EC619FB7FED00784EB4 /* FMDatabaseAdditions.m */; };
@@ -1725,7 +1873,6 @@
 		FAAD8EE019FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAD8ED619FB7FED00784EB4 /* FMDatabase+InMemoryOnDiskIO.m */; };
 		FAB5F9091B16F5A60041DF89 /* ACEExpandableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */; };
 		FAB5F90B1B16F5A60041DF89 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9081B16F5A60041DF89 /* SZTextView.m */; };
-		FAB5F91B1B172D9E0041DF89 /* RCDChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */; };
 		FAB5F9441B1ADA6E0041DF89 /* FlyingAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F93B1B1ADA6E0041DF89 /* FlyingAccountVC.m */; };
 		FAB5F9461B1ADA6E0041DF89 /* FlyingHelpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F93D1B1ADA6E0041DF89 /* FlyingHelpVC.m */; };
 		FAB5F94C1B1ADA6E0041DF89 /* RCDMessageNotifySettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F9431B1ADA6E0041DF89 /* RCDMessageNotifySettingTableViewController.m */; };
@@ -1738,8 +1885,6 @@
 		FAED3F021A69467800CC6116 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAED3F011A69467800CC6116 /* MapKit.framework */; };
 		FAED3F1D1A695EA000CC6116 /* FlyingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = FAED3F181A695EA000CC6116 /* FlyingProvider.m */; };
 		FAED3F1E1A695EA000CC6116 /* FlyingProviderParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FAED3F1A1A695EA000CC6116 /* FlyingProviderParser.m */; };
-		FAFA72311B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
-		FAFA72331B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */; };
 		FAFA72371B42A58E00E4FE30 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72361B42A58E00E4FE30 /* UIView+Toast.m */; };
 		FAFA72391B42A58E00E4FE30 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA72361B42A58E00E4FE30 /* UIView+Toast.m */; };
 /* End PBXBuildFile section */
@@ -1836,6 +1981,76 @@
 		8214E99C1C2995460014B6BD /* AFHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHttpTool.m; sourceTree = "<group>"; };
 		8214E99D1C2995460014B6BD /* FlyingHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingHttpTool.h; sourceTree = "<group>"; };
 		8214E99E1C2995460014B6BD /* FlyingHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingHttpTool.m; sourceTree = "<group>"; };
+		8214E9EC1C2AAA8B0014B6BD /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
+		8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
+		8214EB4E1C2AE8D20014B6BD /* FlyingImagePreivewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingImagePreivewVC.h; sourceTree = "<group>"; };
+		8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingImagePreivewVC.m; sourceTree = "<group>"; };
+		8214EB501C2AE8D20014B6BD /* FlyingShareWithFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingShareWithFriends.h; sourceTree = "<group>"; };
+		8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareWithFriends.m; sourceTree = "<group>"; };
+		8214EB521C2AE8D20014B6BD /* RCDAddressBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDAddressBookTableViewCell.h; sourceTree = "<group>"; };
+		8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDAddressBookTableViewCell.m; sourceTree = "<group>"; };
+		8214EB541C2AE8D20014B6BD /* RCDAddressBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDAddressBookViewController.h; sourceTree = "<group>"; };
+		8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDAddressBookViewController.m; sourceTree = "<group>"; };
+		8214EB561C2AE8D20014B6BD /* RCDChatListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatListCell.h; sourceTree = "<group>"; };
+		8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatListCell.h.m; sourceTree = "<group>"; };
+		8214EB581C2AE8D20014B6BD /* RCDChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatListViewController.h; sourceTree = "<group>"; };
+		8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatListViewController.m; sourceTree = "<group>"; };
+		8214EB5A1C2AE8D20014B6BD /* RCDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatViewController.h; sourceTree = "<group>"; };
+		8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatViewController.m; sourceTree = "<group>"; };
+		8214EB5C1C2AE8D20014B6BD /* RCDGroupInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDGroupInfo.h; sourceTree = "<group>"; };
+		8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDGroupInfo.m; sourceTree = "<group>"; };
+		8214EB5E1C2AE8D20014B6BD /* RCDSearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSearchFriendViewController.h; sourceTree = "<group>"; };
+		8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSearchFriendViewController.m; sourceTree = "<group>"; };
+		8214EB601C2AE8D20014B6BD /* RCDSearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSearchResultTableViewCell.h; sourceTree = "<group>"; };
+		8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSearchResultTableViewCell.m; sourceTree = "<group>"; };
+		8214EB621C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSelectPersonTableViewCell.h; sourceTree = "<group>"; };
+		8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSelectPersonTableViewCell.m; sourceTree = "<group>"; };
+		8214EB641C2AE8D20014B6BD /* RCDSelectPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSelectPersonViewController.h; sourceTree = "<group>"; };
+		8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSelectPersonViewController.m; sourceTree = "<group>"; };
+		8214EB671C2AE8D20014B6BD /* HeadCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadCollectionView.h; sourceTree = "<group>"; };
+		8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadCollectionView.m; sourceTree = "<group>"; };
+		8214EB6A1C2AE8D20014B6BD /* RCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCAnnotation.h; sourceTree = "<group>"; };
+		8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCAnnotation.m; sourceTree = "<group>"; };
+		8214EB6C1C2AE8D20014B6BD /* RCAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCAnnotationView.h; sourceTree = "<group>"; };
+		8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCAnnotationView.m; sourceTree = "<group>"; };
+		8214EB6E1C2AE8D20014B6BD /* RCLocationConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLocationConvert.h; sourceTree = "<group>"; };
+		8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCLocationConvert.m; sourceTree = "<group>"; };
+		8214EB701C2AE8D20014B6BD /* RCLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLocationView.h; sourceTree = "<group>"; };
+		8214EB711C2AE8D20014B6BD /* RCLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCLocationView.m; sourceTree = "<group>"; };
+		8214EB721C2AE8D20014B6BD /* RealTimeLocationEndCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationEndCell.h; sourceTree = "<group>"; };
+		8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationEndCell.m; sourceTree = "<group>"; };
+		8214EB741C2AE8D20014B6BD /* RealTimeLocationStartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStartCell.h; sourceTree = "<group>"; };
+		8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationStartCell.m; sourceTree = "<group>"; };
+		8214EB761C2AE8D20014B6BD /* RealTimeLocationStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStatusView.h; sourceTree = "<group>"; };
+		8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationStatusView.m; sourceTree = "<group>"; };
+		8214EB781C2AE8D20014B6BD /* RealTimeLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationViewController.h; sourceTree = "<group>"; };
+		8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationViewController.m; sourceTree = "<group>"; };
+		8214EB7B1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDConversationSettingBaseViewController.h; sourceTree = "<group>"; };
+		8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDConversationSettingBaseViewController.m; sourceTree = "<group>"; };
+		8214EB7D1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDConversationSettingClearMessageCell.h; sourceTree = "<group>"; };
+		8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDConversationSettingClearMessageCell.m; sourceTree = "<group>"; };
+		8214EB7F1C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDConversationSettingTableViewCell.h; sourceTree = "<group>"; };
+		8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDConversationSettingTableViewCell.m; sourceTree = "<group>"; };
+		8214EB811C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDConversationSettingTableViewHeader.h; sourceTree = "<group>"; };
+		8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDConversationSettingTableViewHeader.m; sourceTree = "<group>"; };
+		8214EB831C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDConversationSettingTableViewHeaderItem.h; sourceTree = "<group>"; };
+		8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDConversationSettingTableViewHeaderItem.m; sourceTree = "<group>"; };
+		8214EB851C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDDiscussGroupSettingViewController.h; sourceTree = "<group>"; };
+		8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDDiscussGroupSettingViewController.m; sourceTree = "<group>"; };
+		8214EB871C2AE8D20014B6BD /* RCDDiscussSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDDiscussSettingCell.h; sourceTree = "<group>"; };
+		8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDDiscussSettingCell.m; sourceTree = "<group>"; };
+		8214EB891C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDDiscussSettingSwitchCell.h; sourceTree = "<group>"; };
+		8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDDiscussSettingSwitchCell.m; sourceTree = "<group>"; };
+		8214EB8B1C2AE8D20014B6BD /* RCDGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDGroupDetailViewController.h; sourceTree = "<group>"; };
+		8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDGroupDetailViewController.m; sourceTree = "<group>"; };
+		8214EB8D1C2AE8D20014B6BD /* RCDPrivateSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDPrivateSettingViewController.h; sourceTree = "<group>"; };
+		8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDPrivateSettingViewController.m; sourceTree = "<group>"; };
+		8214EB8F1C2AE8D20014B6BD /* RCDRoomSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDRoomSettingViewController.h; sourceTree = "<group>"; };
+		8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDRoomSettingViewController.m; sourceTree = "<group>"; };
+		8214EB911C2AE8D20014B6BD /* RCDSettingBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSettingBaseViewController.h; sourceTree = "<group>"; };
+		8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSettingBaseViewController.m; sourceTree = "<group>"; };
+		8214EC3A1C2AEC200014B6BD /* RCDUpdateNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDUpdateNameViewController.h; sourceTree = "<group>"; };
+		8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDUpdateNameViewController.m; sourceTree = "<group>"; };
 		823E17781C19C4B600E08A5F /* FlyingLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLoginVC.h; sourceTree = "<group>"; };
 		823E17791C19C4B600E08A5F /* FlyingLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLoginVC.m; sourceTree = "<group>"; };
 		823E177F1C19C8BA00E08A5F /* FlyingAnimatedImagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAnimatedImagesView.h; sourceTree = "<group>"; };
@@ -2124,8 +2339,6 @@
 		C8C390EC1BDF7A7A00F6AC9B /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "Pods/../build/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
 		C8C390ED1BDF7A7A00F6AC9B /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Debug-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		C8C58B9C18FD667B00FD512F /* libZXingObjC-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libZXingObjC-iOS.a"; path = "libraries/Zxing/libZXingObjC-iOS.a"; sourceTree = "<group>"; };
-		C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingRCLocationPickerViewController.h; sourceTree = "<group>"; };
-		C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingRCLocationPickerViewController.m; sourceTree = "<group>"; };
 		C8CD49CD1BD5DDC800242B98 /* beiyang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = beiyang.entitlements; sourceTree = "<group>"; };
 		C8D396B81BDF76A000525299 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Release-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		C8D396BA1BDF76A500525299 /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "Pods/../build/Release-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
@@ -2194,8 +2407,6 @@
 		FA0AF8041B904C1900E24EF6 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		FA0AF8051B904C1900E24EF6 /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "Pods/../build/Debug-iphoneos/libSDWebImage.a"; sourceTree = "<group>"; };
 		FA0AF8061B904C1900E24EF6 /* libSIAlertView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSIAlertView.a; path = "Pods/../build/Debug-iphoneos/libSIAlertView.a"; sourceTree = "<group>"; };
-		FA0C58931B0F6101000D98BA /* RCDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatViewController.h; sourceTree = "<group>"; };
-		FA0C58941B0F6101000D98BA /* RCDChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatViewController.m; sourceTree = "<group>"; };
 		FA0EE1101A6CA407007F89D7 /* SVPulsingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPulsingAnnotationView.h; sourceTree = "<group>"; };
 		FA0EE1111A6CA407007F89D7 /* SVPulsingAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPulsingAnnotationView.m; sourceTree = "<group>"; };
 		FA0EE11C1A6CA4E9007F89D7 /* FlyingProviderMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingProviderMapVC.h; sourceTree = "<group>"; };
@@ -2338,8 +2549,6 @@
 		FA7A241A1AB5C89A004AC508 /* FlyingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingNavigationController.m; sourceTree = "<group>"; };
 		FA7F81401B1DC18800BF1C8A /* FlyingPickColorVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingPickColorVCViewController.h; sourceTree = "<group>"; };
 		FA7F81411B1DC18800BF1C8A /* FlyingPickColorVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingPickColorVCViewController.m; sourceTree = "<group>"; };
-		FA7F814C1B1E8F8800BF1C8A /* RCDGroupInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDGroupInfo.h; sourceTree = "<group>"; };
-		FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDGroupInfo.m; sourceTree = "<group>"; };
 		FA88BC191B79E5B000604BC2 /* CGGeometry+RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry+RSKImageCropper.h"; sourceTree = "<group>"; };
 		FA88BC1A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGGeometry+RSKImageCropper.m"; sourceTree = "<group>"; };
 		FA88BC1B1B79E5B000604BC2 /* RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageCropper.h; sourceTree = "<group>"; };
@@ -2414,8 +2623,6 @@
 		FA8F2D9D1B04AC080004C874 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		FA8F2D9E1B04AC080004C874 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		FA95BD4D1AC2B8CF00542081 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		FA991AAF1B2183B4003D8F80 /* FlyingShareWithFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingShareWithFriends.h; sourceTree = "<group>"; };
-		FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareWithFriends.m; sourceTree = "<group>"; };
 		FA9965C41ACF8EBD00B599D4 /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
 		FA9965C51ACF8EBD00B599D4 /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
 		FAAD8EC319FB7FED00784EB4 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -2440,8 +2647,6 @@
 		FAB5F9061B16F5A60041DF89 /* ACEExpandableTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEExpandableTextCell.m; sourceTree = "<group>"; };
 		FAB5F9071B16F5A60041DF89 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		FAB5F9081B16F5A60041DF89 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
-		FAB5F9191B172D9E0041DF89 /* RCDChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDChatListViewController.h; sourceTree = "<group>"; };
-		FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDChatListViewController.m; sourceTree = "<group>"; };
 		FAB5F93A1B1ADA6E0041DF89 /* FlyingAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAccountVC.h; sourceTree = "<group>"; };
 		FAB5F93B1B1ADA6E0041DF89 /* FlyingAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingAccountVC.m; sourceTree = "<group>"; };
 		FAB5F93C1B1ADA6E0041DF89 /* FlyingHelpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingHelpVC.h; sourceTree = "<group>"; };
@@ -2460,8 +2665,6 @@
 		FAED3F181A695EA000CC6116 /* FlyingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingProvider.m; sourceTree = "<group>"; };
 		FAED3F191A695EA000CC6116 /* FlyingProviderParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingProviderParser.h; sourceTree = "<group>"; };
 		FAED3F1A1A695EA000CC6116 /* FlyingProviderParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingProviderParser.m; sourceTree = "<group>"; };
-		FAFA722F1B42713100E4FE30 /* FlyingImagePreivewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingImagePreivewVC.h; sourceTree = "<group>"; };
-		FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingImagePreivewVC.m; sourceTree = "<group>"; };
 		FAFA72351B42A58E00E4FE30 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		FAFA72361B42A58E00E4FE30 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2946,6 +3149,79 @@
 			path = HTTP;
 			sourceTree = "<group>";
 		};
+		8214E9EB1C2AAA8B0014B6BD /* KxMenu */ = {
+			isa = PBXGroup;
+			children = (
+				8214E9EC1C2AAA8B0014B6BD /* KxMenu.h */,
+				8214E9ED1C2AAA8B0014B6BD /* KxMenu.m */,
+			);
+			path = KxMenu;
+			sourceTree = "<group>";
+		};
+		8214EB661C2AE8D20014B6BD /* RealTimeLocation */ = {
+			isa = PBXGroup;
+			children = (
+				8214EB671C2AE8D20014B6BD /* HeadCollectionView.h */,
+				8214EB681C2AE8D20014B6BD /* HeadCollectionView.m */,
+				8214EB691C2AE8D20014B6BD /* RCAnnotation */,
+				8214EB721C2AE8D20014B6BD /* RealTimeLocationEndCell.h */,
+				8214EB731C2AE8D20014B6BD /* RealTimeLocationEndCell.m */,
+				8214EB741C2AE8D20014B6BD /* RealTimeLocationStartCell.h */,
+				8214EB751C2AE8D20014B6BD /* RealTimeLocationStartCell.m */,
+				8214EB761C2AE8D20014B6BD /* RealTimeLocationStatusView.h */,
+				8214EB771C2AE8D20014B6BD /* RealTimeLocationStatusView.m */,
+				8214EB781C2AE8D20014B6BD /* RealTimeLocationViewController.h */,
+				8214EB791C2AE8D20014B6BD /* RealTimeLocationViewController.m */,
+			);
+			path = RealTimeLocation;
+			sourceTree = "<group>";
+		};
+		8214EB691C2AE8D20014B6BD /* RCAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				8214EB6A1C2AE8D20014B6BD /* RCAnnotation.h */,
+				8214EB6B1C2AE8D20014B6BD /* RCAnnotation.m */,
+				8214EB6C1C2AE8D20014B6BD /* RCAnnotationView.h */,
+				8214EB6D1C2AE8D20014B6BD /* RCAnnotationView.m */,
+				8214EB6E1C2AE8D20014B6BD /* RCLocationConvert.h */,
+				8214EB6F1C2AE8D20014B6BD /* RCLocationConvert.m */,
+				8214EB701C2AE8D20014B6BD /* RCLocationView.h */,
+				8214EB711C2AE8D20014B6BD /* RCLocationView.m */,
+			);
+			path = RCAnnotation;
+			sourceTree = "<group>";
+		};
+		8214EB7A1C2AE8D20014B6BD /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				8214EB7B1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.h */,
+				8214EB7C1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m */,
+				8214EB7D1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.h */,
+				8214EB7E1C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m */,
+				8214EB7F1C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.h */,
+				8214EB801C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m */,
+				8214EB811C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.h */,
+				8214EB821C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m */,
+				8214EB831C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.h */,
+				8214EB841C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m */,
+				8214EB851C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.h */,
+				8214EB861C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m */,
+				8214EB871C2AE8D20014B6BD /* RCDDiscussSettingCell.h */,
+				8214EB881C2AE8D20014B6BD /* RCDDiscussSettingCell.m */,
+				8214EB891C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.h */,
+				8214EB8A1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m */,
+				8214EB8B1C2AE8D20014B6BD /* RCDGroupDetailViewController.h */,
+				8214EB8C1C2AE8D20014B6BD /* RCDGroupDetailViewController.m */,
+				8214EB8D1C2AE8D20014B6BD /* RCDPrivateSettingViewController.h */,
+				8214EB8E1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m */,
+				8214EB8F1C2AE8D20014B6BD /* RCDRoomSettingViewController.h */,
+				8214EB901C2AE8D20014B6BD /* RCDRoomSettingViewController.m */,
+				8214EB911C2AE8D20014B6BD /* RCDSettingBaseViewController.h */,
+				8214EB921C2AE8D20014B6BD /* RCDSettingBaseViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		82493F8F1C07F53E000A2306 /* Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -3102,6 +3378,7 @@
 		C80656B617FE53BA00CADF4F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8214E9EB1C2AAA8B0014B6BD /* KxMenu */,
 				824940831C08036B000A2306 /* FlyingSeparateView.h */,
 				824940841C08036B000A2306 /* FlyingSeparateView.m */,
 				FA5ACC191B6FB7400051A3EA /* RESideMenu */,
@@ -3640,18 +3917,34 @@
 		FA0C58921B0F6101000D98BA /* IM */ = {
 			isa = PBXGroup;
 			children = (
-				FA7F814C1B1E8F8800BF1C8A /* RCDGroupInfo.h */,
-				FA7F814D1B1E8F8800BF1C8A /* RCDGroupInfo.m */,
-				FAB5F9191B172D9E0041DF89 /* RCDChatListViewController.h */,
-				FAB5F91A1B172D9E0041DF89 /* RCDChatListViewController.m */,
-				FA0C58931B0F6101000D98BA /* RCDChatViewController.h */,
-				FA0C58941B0F6101000D98BA /* RCDChatViewController.m */,
-				FA991AAF1B2183B4003D8F80 /* FlyingShareWithFriends.h */,
-				FA991AB01B2183B4003D8F80 /* FlyingShareWithFriends.m */,
-				FAFA722F1B42713100E4FE30 /* FlyingImagePreivewVC.h */,
-				FAFA72301B42713100E4FE30 /* FlyingImagePreivewVC.m */,
-				C8C8054D1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.h */,
-				C8C8054E1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m */,
+				8214EB4E1C2AE8D20014B6BD /* FlyingImagePreivewVC.h */,
+				8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */,
+				8214EB501C2AE8D20014B6BD /* FlyingShareWithFriends.h */,
+				8214EB511C2AE8D20014B6BD /* FlyingShareWithFriends.m */,
+				8214EB521C2AE8D20014B6BD /* RCDAddressBookTableViewCell.h */,
+				8214EB531C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m */,
+				8214EB541C2AE8D20014B6BD /* RCDAddressBookViewController.h */,
+				8214EB551C2AE8D20014B6BD /* RCDAddressBookViewController.m */,
+				8214EB561C2AE8D20014B6BD /* RCDChatListCell.h */,
+				8214EB571C2AE8D20014B6BD /* RCDChatListCell.h.m */,
+				8214EB581C2AE8D20014B6BD /* RCDChatListViewController.h */,
+				8214EB591C2AE8D20014B6BD /* RCDChatListViewController.m */,
+				8214EB5A1C2AE8D20014B6BD /* RCDChatViewController.h */,
+				8214EB5B1C2AE8D20014B6BD /* RCDChatViewController.m */,
+				8214EB5C1C2AE8D20014B6BD /* RCDGroupInfo.h */,
+				8214EB5D1C2AE8D20014B6BD /* RCDGroupInfo.m */,
+				8214EB5E1C2AE8D20014B6BD /* RCDSearchFriendViewController.h */,
+				8214EB5F1C2AE8D20014B6BD /* RCDSearchFriendViewController.m */,
+				8214EB601C2AE8D20014B6BD /* RCDSearchResultTableViewCell.h */,
+				8214EB611C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m */,
+				8214EB621C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.h */,
+				8214EB631C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m */,
+				8214EB641C2AE8D20014B6BD /* RCDSelectPersonViewController.h */,
+				8214EB651C2AE8D20014B6BD /* RCDSelectPersonViewController.m */,
+				8214EC3A1C2AEC200014B6BD /* RCDUpdateNameViewController.h */,
+				8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */,
+				8214EB661C2AE8D20014B6BD /* RealTimeLocation */,
+				8214EB7A1C2AE8D20014B6BD /* Setting */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -4696,14 +4989,15 @@
 				8214E9951C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				FA8CDD791B030821004152C2 /* MuDocRef.m in Sources */,
 				FA88BC371B79E5B000604BC2 /* UIApplication+RSKImageCropper.m in Sources */,
+				8214EBD91C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
 				FA8CDD7F1B030821004152C2 /* MuTapResult.m in Sources */,
 				C8FE1FA01BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA0EE1321A6D0736007F89D7 /* JPSThumbnailAnnotation.m in Sources */,
 				FAE5C3F81AB7D8ED00E6F748 /* FlyingFakeHUD.m in Sources */,
 				8214E91D1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				824940471C07FB5D000A2306 /* FlyingContentVC.m in Sources */,
-				FA991AB11B2183B4003D8F80 /* FlyingShareWithFriends.m in Sources */,
 				FA8F2D951B04AB580004C874 /* SSZipArchive.m in Sources */,
+				8214EC331C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */,
 				C875247C1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				FA11E7B619CD526200D97FDB /* ReaderViewController.m in Sources */,
 				FA88BC2B1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
@@ -4742,7 +5036,6 @@
 				8210AE7B1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
 				C80EF74A1BD4A553006D57AC /* MKStoreKit.m in Sources */,
 				C87524191BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
-				FA7F814E1B1E8F8800BF1C8A /* RCDGroupInfo.m in Sources */,
 				FA67FF9E1AF4D656001031FD /* FlyingSubItemParser.m in Sources */,
 				FA8CDD7A1B030821004152C2 /* MuHitView.m in Sources */,
 				8214E96D1C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
@@ -4752,6 +5045,7 @@
 				8214E94A1C298BF40014B6BD /* GCDAsyncSocket.m in Sources */,
 				FA8BCFF91AD0E1500092A970 /* MMParallaxPresenter.m in Sources */,
 				823E17811C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
+				8214E9EE1C2AAA8B0014B6BD /* KxMenu.m in Sources */,
 				FA8F2D9F1B04AC080004C874 /* ioapi.c in Sources */,
 				C806575E17FE53BB00CADF4F /* FlyingBaseDao.m in Sources */,
 				8214E9271C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
@@ -4759,7 +5053,6 @@
 				FA7F81421B1DC18800BF1C8A /* FlyingPickColorVCViewController.m in Sources */,
 				8214E9721C298BF40014B6BD /* DDContextFilterLogFormatter.m in Sources */,
 				C87524881BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
-				FAB5F91B1B172D9E0041DF89 /* RCDChatListViewController.m in Sources */,
 				8214E9361C298BF40014B6BD /* DAVConnection.m in Sources */,
 				FA9965C61ACF8EBD00B599D4 /* HCSStarRatingView.m in Sources */,
 				C87524941BB39674000F86DC /* NSDate+Description.m in Sources */,
@@ -4773,10 +5066,14 @@
 				C80EF74B1BD4A553006D57AC /* NSData+NSHash.m in Sources */,
 				8214E9541C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				8214E94F1C298BF40014B6BD /* GCDAsyncUdpSocket.m in Sources */,
+				8214EBED1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
+				8214EBE81C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				FA11E7AC19CD526200D97FDB /* ReaderDocumentOutline.m in Sources */,
 				C806576E17FE53BB00CADF4F /* FlyingTaskWordDAO.m in Sources */,
 				FA5ACC241B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				8214E9681C298BF40014B6BD /* DDTTYLogger.m in Sources */,
+				8214EBFC1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
+				8214EC2E1C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */,
 				FAAD8EDB19FB7FED00784EB4 /* FMDatabasePool.m in Sources */,
 				FA04C0311B9ED8A3000F29A5 /* FlyingGroupStreamCell.m in Sources */,
 				FA8CDD7D1B030821004152C2 /* MuPageViewReflow.m in Sources */,
@@ -4788,13 +5085,18 @@
 				8214E97C1C298BF40014B6BD /* DDMultiFormatter.m in Sources */,
 				C806575F17FE53BB00CADF4F /* FlyingItemDao.m in Sources */,
 				82493FE41C07F67D000A2306 /* FlyingCoverView.m in Sources */,
+				8214EBB61C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */,
 				8214E8E61C298BF40014B6BD /* DDNumber.m in Sources */,
 				C87959A01BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
 				FA1BE4921B26A0F100AA1AFD /* RCDataBaseManager.m in Sources */,
+				8214EBCF1C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
+				8214EBA21C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */,
 				C80657CB17FE53BB00CADF4F /* UIBubbleTableViewCell.m in Sources */,
 				C875235E1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
 				8249405B1C07FCBB000A2306 /* FlyingAILearningView.m in Sources */,
 				C85AC380181CD84800B83580 /* CFShareCircleView.m in Sources */,
+				8214EC101C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */,
+				8214EBB11C2AE8D20014B6BD /* RCDChatViewController.m in Sources */,
 				FA04BF8E1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				FA88BC331B79E5B000604BC2 /* RSKTouchView.m in Sources */,
 				C8E57E4C1BB6A2370013527E /* FlyingEventScheduleCell.m in Sources */,
@@ -4804,11 +5106,17 @@
 				FA11E7B319CD526200D97FDB /* ReaderThumbRequest.m in Sources */,
 				82E91CC01C12933000B0EC70 /* FlyingDataManager.m in Sources */,
 				C8FE1F9C1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
+				8214EC1F1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
 				82493F9A1C07F53E000A2306 /* DWTagList.m in Sources */,
 				C806580A17FE53BB00CADF4F /* FlyingSearchBar.m in Sources */,
 				FAED3F1E1A695EA000CC6116 /* FlyingProviderParser.m in Sources */,
+				8214EC011C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				8214E8D71C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				FA0EE1331A6D0736007F89D7 /* JPSThumbnailAnnotationView.m in Sources */,
+				8214EC241C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */,
+				8214EC731C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
+				8214EB931C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
+				8214EC1A1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				C87524781BB39674000F86DC /* MotionOrientation.m in Sources */,
 				C806576217FE53BB00CADF4F /* FlyingLessonData.m in Sources */,
 				8214E9771C298BF40014B6BD /* DDDispatchQueueLogFormatter.m in Sources */,
@@ -4818,6 +5126,7 @@
 				8214E8F51C298BF40014B6BD /* HTTPConnection.m in Sources */,
 				FA0EE1371A6D1DBB007F89D7 /* FlyingProviderListVC.m in Sources */,
 				FA11E7A919CD526200D97FDB /* ReaderConstants.m in Sources */,
+				8214EBCA1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */,
 				FA04BFFB1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				FA11E7B719CD526200D97FDB /* ThumbsMainToolbar.m in Sources */,
 				C87524A41BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
@@ -4833,23 +5142,28 @@
 				8214E9041C298BF40014B6BD /* MultipartFormDataParser.m in Sources */,
 				C806576317FE53BB00CADF4F /* FlyingNowLessonDAO.m in Sources */,
 				FA11E7B219CD526200D97FDB /* ReaderThumbRender.m in Sources */,
-				FAFA72311B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */,
 				8214E9091C298BF40014B6BD /* MultipartMessageHeader.m in Sources */,
 				824940791C07FCBB000A2306 /* FlyingSubtitleTextView.m in Sources */,
 				FA88BC271B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
 				C87524441BB394FC000F86DC /* NSString+FlyingExtention.m in Sources */,
 				FA11E7A719CD526200D97FDB /* CGPDFDocument.m in Sources */,
 				8249403D1C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
+				8214EC151C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
+				8214EBAC1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */,
 				FA11E7BA19CD526200D97FDB /* FlyingDialogViewController.m in Sources */,
 				C8FE1FA81BB1036D009C8D48 /* FlyingCalendarView.m in Sources */,
 				C8E57D9A1BB69ABF0013527E /* FlyingEventLocationCell.m in Sources */,
 				C80657C617FE53BB00CADF4F /* FlyingSubTitle.m in Sources */,
 				C81D74EB18B634160068FDC7 /* FlyingTouchRecord.m in Sources */,
 				C806577B17FE53BB00CADF4F /* UIWebView+Clean.m in Sources */,
+				8214EBF21C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				C806576D17FE53BB00CADF4F /* FlyingStatisticData.m in Sources */,
 				FA8BD0061AD0E20D0092A970 /* MAOPanGestureRecognizer.m in Sources */,
+				8214EC0B1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				C83F536B184D692F00E23436 /* UIImageView+thumnail.m in Sources */,
+				8214EB981C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */,
 				FA1BE48E1B26A0F100AA1AFD /* DBHelper.m in Sources */,
+				8214EB9D1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
 				C80EF74C1BD4A553006D57AC /* OpenUDID.m in Sources */,
 				82493F9F1C07F53E000A2306 /* FlyingItemParser.m in Sources */,
 				FA11E7AE19CD526200D97FDB /* ReaderMainToolbar.m in Sources */,
@@ -4857,6 +5171,7 @@
 				C806576417FE53BB00CADF4F /* FlyingNowLessonData.m in Sources */,
 				C80657CA17FE53BB00CADF4F /* UIBubbleTableView.m in Sources */,
 				8214E8E11C298BF40014B6BD /* DDData.m in Sources */,
+				8214EBC51C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */,
 				FA8CDD7B1B030821004152C2 /* MuInkView.m in Sources */,
 				C87524901BB39674000F86DC /* NSDate+Components.m in Sources */,
 				8214E93B1C298BF40014B6BD /* DAVResponse.m in Sources */,
@@ -4867,7 +5182,9 @@
 				824940811C07FFEF000A2306 /* FlyingTagCell.m in Sources */,
 				C87523531BB29C65000F86DC /* FlyingEventVC.m in Sources */,
 				C87524211BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
+				8214EBD41C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				FA6217FF1A7B38AB00BEEDB1 /* FlyingSetDefault.m in Sources */,
+				8214EBBB1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */,
 				C87524B61BB43D26000F86DC /* KMGillSansLabel.m in Sources */,
 				C851199518D92EF60078AEC1 /* ACMagnifyingView.m in Sources */,
 				FAFA72371B42A58E00E4FE30 /* UIView+Toast.m in Sources */,
@@ -4889,6 +5206,7 @@
 				FA04C0071B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				FAB5F90B1B16F5A60041DF89 /* SZTextView.m in Sources */,
 				C8FE201F1BB154C8009C8D48 /* FlyingCommentData.m in Sources */,
+				8214EC061C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				C806576F17FE53BB00CADF4F /* FlyingTaskWordData.m in Sources */,
 				82E91CB91C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				C87524801BB39674000F86DC /* NSCalendar+DateComparison.m in Sources */,
@@ -4896,6 +5214,7 @@
 				FAAD8EDE19FB7FED00784EB4 /* FMDatabase+FTS3.m in Sources */,
 				823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA8BCFED1AD0E0FB0092A970 /* FlyingWordDetailVC.m in Sources */,
+				8214EBC01C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
 				FA8BCFEE1AD0E0FB0092A970 /* FlyingWordItemCell.m in Sources */,
 				82493FEE1C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				82493FBF1C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
@@ -4911,15 +5230,19 @@
 				C806576C17FE53BB00CADF4F /* FlyingStatisticDAO.m in Sources */,
 				C87524741BB39674000F86DC /* MHWDirectoryWatcher.m in Sources */,
 				8214E9811C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
+				8214EC291C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
+				8214EBE31C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				FA8BD0041AD0E20D0092A970 /* MAOFlipTransition.m in Sources */,
 				823E17881C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				8214E9861C298BF40014B6BD /* FlyingM3U8Downloader.m in Sources */,
 				8214E9451C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA11E79919CD526200D97FDB /* FlyingUIWebView.m in Sources */,
 				C87524331BB391B3000F86DC /* KMIndexedCollectionView.m in Sources */,
+				8214EBA71C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */,
 				C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */,
 				8249406F1C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
 				FA88BC2F1B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
+				8214EBDE1C2AE8D20014B6BD /* RCLocationConvert.m in Sources */,
 				FA04C0131B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
 				FA0EE11E1A6CA4E9007F89D7 /* FlyingProviderMapVC.m in Sources */,
 				82E91CB21C11767B00B0EC70 /* FlyingProfileVC.m in Sources */,
@@ -4929,9 +5252,9 @@
 				FA11E7B919CD526200D97FDB /* UIXToolbarView.m in Sources */,
 				C87524B71BB43D26000F86DC /* UIFont+GillSansFonts.m in Sources */,
 				FA11E7B819CD526200D97FDB /* ThumbsViewController.m in Sources */,
+				8214EBF71C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */,
 				FA11E7AF19CD526200D97FDB /* ReaderThumbCache.m in Sources */,
 				FAAD8EDF19FB7FED00784EB4 /* FMTokenizers.m in Sources */,
-				C8C8054F1BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				FAAD8EDC19FB7FED00784EB4 /* FMDatabaseQueue.m in Sources */,
 				FA0A618D1B3006B50022A9E9 /* FlyingUserInfo.m in Sources */,
 				8214E9131C298BF40014B6BD /* HTTPAsyncFileResponse.m in Sources */,
@@ -4955,7 +5278,6 @@
 				8214E9181C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				FA11E7B419CD526200D97FDB /* ReaderThumbsView.m in Sources */,
 				8214E98B1C298BF40014B6BD /* FlyingM3U8List.m in Sources */,
-				FA0C58951B0F6101000D98BA /* RCDChatViewController.m in Sources */,
 				FA8BCFEC1AD0E0FB0092A970 /* FlyingWordCollectVC.m in Sources */,
 				C88B7665173BFC2200955BC2 /* main.m in Sources */,
 				824940851C08036B000A2306 /* FlyingSeparateView.m in Sources */,
@@ -4972,6 +5294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				820827D31C0DA708005C1753 /* FlyingSeparateView.m in Sources */,
+				8214EC321C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */,
 				C81F8A6F1BD7B488004146F0 /* FlyingSearchViewController.m in Sources */,
 				8214E9991C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				824940731C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
@@ -4979,13 +5302,14 @@
 				C81F8A711BD7B488004146F0 /* MuDocRef.m in Sources */,
 				C81F8A721BD7B488004146F0 /* UIApplication+RSKImageCropper.m in Sources */,
 				C81F8A731BD7B488004146F0 /* MuTapResult.m in Sources */,
+				8214EBE71C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				8249407D1C07FCBB000A2306 /* FlyingSubtitleTextView.m in Sources */,
 				8214E9211C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				C81F8A751BD7B488004146F0 /* FlyingCalendarTableViewCell.m in Sources */,
 				C81F8A761BD7B488004146F0 /* JPSThumbnailAnnotation.m in Sources */,
 				C81F8A781BD7B488004146F0 /* FlyingFakeHUD.m in Sources */,
-				C81F8A791BD7B488004146F0 /* FlyingShareWithFriends.m in Sources */,
 				C81F8A7B1BD7B488004146F0 /* SSZipArchive.m in Sources */,
+				8214ECE41C2AEE1D0014B6BD /* KxMenu.m in Sources */,
 				C81F8A7C1BD7B488004146F0 /* NSCalendar+Components.m in Sources */,
 				C81F8A7D1BD7B488004146F0 /* ReaderViewController.m in Sources */,
 				8214E9941C298BF40014B6BD /* FlyingM3U8Parser.m in Sources */,
@@ -4994,6 +5318,8 @@
 				C81F8A811BD7B488004146F0 /* DSBarChart.m in Sources */,
 				C81F8A821BD7B488004146F0 /* MuTextSelectView.m in Sources */,
 				C81F8A831BD7B488004146F0 /* MuWord.m in Sources */,
+				8214EC231C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
+				8214EC001C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
 				C81F8A841BD7B488004146F0 /* UIView+AnimatedFrame.m in Sources */,
 				8214E95D1C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				C81F8A861BD7B488004146F0 /* FMResultSet.m in Sources */,
@@ -5024,7 +5350,6 @@
 				C81F8A9C1BD7B488004146F0 /* MAOFlipViewController.m in Sources */,
 				C81F8A9D1BD7B488004146F0 /* MKStoreKit.m in Sources */,
 				C81F8A9E1BD7B488004146F0 /* KMMovieDetailsSimilarMoviesCell.m in Sources */,
-				C81F8A9F1BD7B488004146F0 /* RCDGroupInfo.m in Sources */,
 				8214E9711C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				C81F8AA11BD7B488004146F0 /* FlyingSubItemParser.m in Sources */,
 				C81F8AA21BD7B488004146F0 /* MuHitView.m in Sources */,
@@ -5034,18 +5359,23 @@
 				C81F8AA61BD7B488004146F0 /* FlyingTagTransform.m in Sources */,
 				823E17851C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
 				C81F8AAA1BD7B488004146F0 /* MMParallaxPresenter.m in Sources */,
+				8214EC051C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				8214E92B1C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
 				C81F8AAB1BD7B488004146F0 /* ioapi.c in Sources */,
+				8214EBBA1C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */,
 				C81F8AAC1BD7B488004146F0 /* FlyingBaseDao.m in Sources */,
 				8214E9761C298BF40014B6BD /* DDContextFilterLogFormatter.m in Sources */,
 				C81F8AAD1BD7B488004146F0 /* MuAnnotSelectView.m in Sources */,
+				8214EC0A1C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
+				8214EBF61C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				C81F8AAE1BD7B488004146F0 /* FlyingPickColorVCViewController.m in Sources */,
 				8214E93A1C298BF40014B6BD /* DAVConnection.m in Sources */,
 				C81F8AAF1BD7B488004146F0 /* NSCalendar+Juncture.m in Sources */,
-				C81F8AB21BD7B488004146F0 /* RCDChatListViewController.m in Sources */,
 				C81F8AB61BD7B488004146F0 /* HCSStarRatingView.m in Sources */,
 				8214E9A81C2995460014B6BD /* FlyingHttpTool.m in Sources */,
 				C81F8AB91BD7B488004146F0 /* NSDate+Description.m in Sources */,
+				8214EB971C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
+				8214EBFB1C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */,
 				8214E9261C298BF40014B6BD /* HTTPErrorResponse.m in Sources */,
 				C81F8ABA1BD7B488004146F0 /* ACEExpandableTextCell.m in Sources */,
 				C81F8ABB1BD7B488004146F0 /* iFlyingAppDelegate.m in Sources */,
@@ -5057,6 +5387,7 @@
 				C81F8AC01BD7B488004146F0 /* NSData+NSHash.m in Sources */,
 				C81F8AC11BD7B488004146F0 /* ReaderDocumentOutline.m in Sources */,
 				8214E96C1C298BF40014B6BD /* DDTTYLogger.m in Sources */,
+				8214EBCE1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */,
 				C81F8AC21BD7B488004146F0 /* FlyingTaskWordDAO.m in Sources */,
 				C81F8AC31BD7B488004146F0 /* RESideMenu.m in Sources */,
 				C81F8AC41BD7B488004146F0 /* FMDatabasePool.m in Sources */,
@@ -5068,18 +5399,22 @@
 				8214E9801C298BF40014B6BD /* DDMultiFormatter.m in Sources */,
 				C81F8ACB1BD7B488004146F0 /* CFSharer.m in Sources */,
 				C81F8ACC1BD7B488004146F0 /* FlyingSoundPlayer.m in Sources */,
+				8214EBC91C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */,
 				8214E8EA1C298BF40014B6BD /* DDNumber.m in Sources */,
 				C81F8ACD1BD7B488004146F0 /* FlyingItemDao.m in Sources */,
 				8249405F1C07FCBB000A2306 /* FlyingAILearningView.m in Sources */,
 				82493FE81C07F67D000A2306 /* FlyingCoverView.m in Sources */,
+				8214EC191C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				C81F8ACE1BD7B488004146F0 /* FlyingStreamData.m in Sources */,
 				C81F8ACF1BD7B488004146F0 /* RCDataBaseManager.m in Sources */,
+				8214EBC41C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
 				C81F8AD01BD7B488004146F0 /* UIBubbleTableViewCell.m in Sources */,
 				C81F8AD21BD7B488004146F0 /* KMNetworkLoadingViewController.m in Sources */,
 				C81F8AD41BD7B488004146F0 /* CFShareCircleView.m in Sources */,
 				C81F8AD51BD7B488004146F0 /* FlyingMyGroupCell.m in Sources */,
 				C81F8AD81BD7B488004146F0 /* RSKTouchView.m in Sources */,
 				C81F8ADB1BD7B488004146F0 /* FlyingEventScheduleCell.m in Sources */,
+				8214EC1E1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				8214E9A31C2995460014B6BD /* AFHttpTool.m in Sources */,
 				C81F8ADD1BD7B488004146F0 /* RCDRCIMDataSource.m in Sources */,
 				C81F8ADF1BD7B488004146F0 /* PSCollectionViewCell.m in Sources */,
@@ -5096,12 +5431,14 @@
 				C81F8AE71BD7B488004146F0 /* FlyingLessonData.m in Sources */,
 				C81F8AE81BD7B488004146F0 /* UIBubbleHeaderTableViewCell.m in Sources */,
 				8214E8F91C298BF40014B6BD /* HTTPConnection.m in Sources */,
+				8214EBE21C2AE8D20014B6BD /* RCLocationConvert.m in Sources */,
 				C81F8AE91BD7B488004146F0 /* FlyingBoardUIView.m in Sources */,
 				C81F8AEA1BD7B488004146F0 /* MuAnnotation.m in Sources */,
 				C81F8AEB1BD7B488004146F0 /* FlyingProviderListVC.m in Sources */,
 				C81F8AEC1BD7B488004146F0 /* ReaderConstants.m in Sources */,
 				C81F8AED1BD7B488004146F0 /* PSCollectionViewCell+delete.m in Sources */,
 				C81F8AEF1BD7B488004146F0 /* ThumbsMainToolbar.m in Sources */,
+				8214EBA61C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */,
 				8249408A1C080941000A2306 /* FlyingTagCell.m in Sources */,
 				C81F8AF01BD7B488004146F0 /* UIDevice+SpeedCategory.m in Sources */,
 				C81F8AF11BD7B488004146F0 /* FlyingWordLinguisticData.m in Sources */,
@@ -5117,8 +5454,8 @@
 				8214E90D1C298BF40014B6BD /* MultipartMessageHeader.m in Sources */,
 				C81F8AF91BD7B488004146F0 /* FlyingNowLessonDAO.m in Sources */,
 				C81F8AFA1BD7B488004146F0 /* ReaderThumbRender.m in Sources */,
-				C81F8AFB1BD7B488004146F0 /* FlyingImagePreivewVC.m in Sources */,
 				C81F8AFC1BD7B488004146F0 /* CGGeometry+RSKImageCropper.m in Sources */,
+				8214EBA11C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
 				C81F8AFD1BD7B488004146F0 /* NSString+FlyingExtention.m in Sources */,
 				C81F8AFE1BD7B488004146F0 /* CGPDFDocument.m in Sources */,
 				C81F8B011BD7B488004146F0 /* FlyingDialogViewController.m in Sources */,
@@ -5136,15 +5473,20 @@
 				82493FA31C07F53E000A2306 /* FlyingItemParser.m in Sources */,
 				C81F8B0E1BD7B488004146F0 /* ReaderMainToolbar.m in Sources */,
 				824940251C07FB27000A2306 /* FlyingLoadingCell.m in Sources */,
+				8214EBD31C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
 				8214E8E51C298BF40014B6BD /* DDData.m in Sources */,
 				C81F8B101BD7B488004146F0 /* RECommonFunctions.m in Sources */,
 				82E91CB61C11767B00B0EC70 /* FlyingProfileVC.m in Sources */,
 				8214E93F1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				C81F8B131BD7B488004146F0 /* FlyingNowLessonData.m in Sources */,
+				8214EBDD1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
+				8214EC371C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */,
+				8214EC281C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */,
 				C81F8B161BD7B488004146F0 /* UIBubbleTableView.m in Sources */,
 				C81F8B171BD7B488004146F0 /* MuInkView.m in Sources */,
 				C81F8B181BD7B488004146F0 /* NSDate+Components.m in Sources */,
 				C81F8B191BD7B488004146F0 /* ACLoupe.m in Sources */,
+				8214EBB01C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */,
 				82493FED1C07F67D000A2306 /* FlyingCoverViewCell.m in Sources */,
 				C81F8B1D1BD7B488004146F0 /* FMDatabaseAdditions.m in Sources */,
 				C81F8B201BD7B488004146F0 /* FlyingEventVC.m in Sources */,
@@ -5153,10 +5495,13 @@
 				824940371C07FB5D000A2306 /* FlyingContentSummaryCell.m in Sources */,
 				C81F8B241BD7B488004146F0 /* KMGillSansLabel.m in Sources */,
 				823E17931C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
+				8214EC2D1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 				C81F8B251BD7B488004146F0 /* ACMagnifyingView.m in Sources */,
 				C81F8B261BD7B488004146F0 /* UIView+Toast.m in Sources */,
 				C81F8B281BD7B488004146F0 /* NSDateComponents+AllComponents.m in Sources */,
+				8214EBEC1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				8214E9441C298BF40014B6BD /* DELETEResponse.m in Sources */,
+				8214EBAB1C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */,
 				C81F8B291BD7B488004146F0 /* UIView+Autosizing.m in Sources */,
 				82493FA81C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				C81F8B2B1BD7B488004146F0 /* CERoundProgressView.m in Sources */,
@@ -5169,6 +5514,7 @@
 				C81F8B341BD7B488004146F0 /* StoryBoardUtilities.m in Sources */,
 				C81F8B381BD7B488004146F0 /* FlyingDIscoverGroups.m in Sources */,
 				C81F8B391BD7B488004146F0 /* SZTextView.m in Sources */,
+				8214EBBF1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */,
 				C81F8B3A1BD7B488004146F0 /* FlyingCommentData.m in Sources */,
 				C81F8B3B1BD7B488004146F0 /* FlyingTaskWordData.m in Sources */,
 				C81F8B3C1BD7B488004146F0 /* NSCalendar+DateComparison.m in Sources */,
@@ -5180,8 +5526,10 @@
 				82493FF21C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				82493FC31C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
 				8214E8EF1C298BF40014B6BD /* DDRange.m in Sources */,
+				8214EBF11C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
 				8214E9121C298BF40014B6BD /* MultipartMessageHeaderField.m in Sources */,
 				82E91CBD1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
+				8214EB9C1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */,
 				C81F8B401BD7B488004146F0 /* FlyingEventAuthorCell.m in Sources */,
 				C81F8B411BD7B488004146F0 /* FlyingCalendarCell.m in Sources */,
 				C81F8B421BD7B488004146F0 /* MMParallaxPage.m in Sources */,
@@ -5190,6 +5538,8 @@
 				C81F8B471BD7B488004146F0 /* ReaderContentTile.m in Sources */,
 				C81F8B481BD7B488004146F0 /* FlyingCalendarVC.m in Sources */,
 				824940691C07FCBB000A2306 /* FlyingMediaVC.m in Sources */,
+				8214EC771C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
+				8214EBD81C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				8214E9851C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				C81F8B491BD7B488004146F0 /* FlyingStatisticDAO.m in Sources */,
 				C81F8B4A1BD7B488004146F0 /* MHWDirectoryWatcher.m in Sources */,
@@ -5211,8 +5561,8 @@
 				C81F8B581BD7B488004146F0 /* ThumbsViewController.m in Sources */,
 				C81F8B5B1BD7B488004146F0 /* ReaderThumbCache.m in Sources */,
 				C81F8B5C1BD7B488004146F0 /* FMTokenizers.m in Sources */,
-				C81F8B5D1BD7B488004146F0 /* FlyingRCLocationPickerViewController.m in Sources */,
 				C81F8B5E1BD7B488004146F0 /* FMDatabaseQueue.m in Sources */,
+				8214EC0F1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				C81F8B5F1BD7B488004146F0 /* FlyingUserInfo.m in Sources */,
 				8214E9171C298BF40014B6BD /* HTTPAsyncFileResponse.m in Sources */,
 				C81F8B601BD7B488004146F0 /* FlyingMagView.m in Sources */,
@@ -5220,12 +5570,14 @@
 				C81F8B641BD7B488004146F0 /* ACMagnifyingGlass.m in Sources */,
 				C81F8B661BD7B488004146F0 /* FlyingCommentCell.m in Sources */,
 				C81F8B671BD7B488004146F0 /* CERoundProgressLayer.m in Sources */,
+				8214EBB51C2AE8D20014B6BD /* RCDChatViewController.m in Sources */,
 				82493FBE1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				C81F8B6B1BD7B488004146F0 /* FlyingLessonDAO.m in Sources */,
 				C81F8B6D1BD7B488004146F0 /* FlyingItemData.m in Sources */,
 				826D3FBE1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C81F8B6E1BD7B488004146F0 /* unzip.c in Sources */,
 				C81F8B6F1BD7B488004146F0 /* NSCalendar+DateManipulation.m in Sources */,
+				8214EC141C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */,
 				C81F8B711BD7B488004146F0 /* FlyingCommentVC.m in Sources */,
 				C81F8B721BD7B488004146F0 /* ReaderThumbFetch.m in Sources */,
 				C81F8B731BD7B488004146F0 /* zip.c in Sources */,
@@ -5236,7 +5588,6 @@
 				824940411C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				8214E98F1C298BF40014B6BD /* FlyingM3U8List.m in Sources */,
 				C81F8B771BD7B488004146F0 /* ReaderThumbsView.m in Sources */,
-				C81F8B781BD7B488004146F0 /* RCDChatViewController.m in Sources */,
 				C81F8B791BD7B488004146F0 /* FlyingWordCollectVC.m in Sources */,
 				C81F8B7A1BD7B488004146F0 /* main.m in Sources */,
 				C81F8B7B1BD7B488004146F0 /* NSCalendar+Ranges.m in Sources */,
@@ -5265,7 +5616,6 @@
 				824940701C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
 				FA1BE49E1B27DD5A00AA1AFD /* FlyingFakeHUD.m in Sources */,
 				8214E9A51C2995460014B6BD /* FlyingHttpTool.m in Sources */,
-				FA1BE49F1B27DD5A00AA1AFD /* FlyingShareWithFriends.m in Sources */,
 				C87524551BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA1BE4A11B27DD5A00AA1AFD /* SSZipArchive.m in Sources */,
 				FA1BE4A21B27DD5A00AA1AFD /* ReaderViewController.m in Sources */,
@@ -5274,8 +5624,11 @@
 				823E17901C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2C1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA1BE4A41B27DD5A00AA1AFD /* DSBarChart.m in Sources */,
+				8214EBF81C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */,
 				C875242A1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA1BE4A51B27DD5A00AA1AFD /* MuTextSelectView.m in Sources */,
+				8214EBC11C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				8214EC251C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */,
 				82493FC01C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
 				823E17891C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBB1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
@@ -5287,16 +5640,21 @@
 				FA1BE4AA1B27DD5A00AA1AFD /* MuPageViewNormal.m in Sources */,
 				FA1BE4AC1B27DD5A00AA1AFD /* common.m in Sources */,
 				8214E8EC1C298BF40014B6BD /* DDRange.m in Sources */,
+				8214EC071C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				FA1BE4AD1B27DD5A00AA1AFD /* ReaderMainPagebar.m in Sources */,
 				C8C805261BD21590009F3712 /* FlyingCommentData.m in Sources */,
+				8214EC111C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */,
 				82E91CC11C12933000B0EC70 /* FlyingDataManager.m in Sources */,
 				FA04BF951B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC291B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA1BE4AE1B27DD5A00AA1AFD /* FlyingWordAbstractVC.m in Sources */,
+				8214EBD51C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				FA1BE4AF1B27DD5A00AA1AFD /* FlyingReviewVC.m in Sources */,
+				8214EB991C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */,
 				FA1BE4B11B27DD5A00AA1AFD /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				FA1BE4B31B27DD5A00AA1AFD /* ReaderDocument.m in Sources */,
 				FA1BE4B41B27DD5A00AA1AFD /* JPSThumnail.m in Sources */,
+				8214EC341C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */,
 				FA1BE4B61B27DD5A00AA1AFD /* FlyingPubLessonData.m in Sources */,
 				FA1BE4B71B27DD5A00AA1AFD /* FlyingCurrentAnnotation.m in Sources */,
 				8214E9231C298BF40014B6BD /* HTTPErrorResponse.m in Sources */,
@@ -5307,9 +5665,10 @@
 				FA1BE4BA1B27DD5A00AA1AFD /* FlyingLoadingView.m in Sources */,
 				C8FE1FA11BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA1BE4BB1B27DD5A00AA1AFD /* MAOFlipViewController.m in Sources */,
-				FA1BE4BC1B27DD5A00AA1AFD /* RCDGroupInfo.m in Sources */,
 				C87524491BB394FC000F86DC /* UIColor+HexString.m in Sources */,
+				8214EC161C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				FA1BE4BE1B27DD5A00AA1AFD /* FlyingSubItemParser.m in Sources */,
+				8214EBE41C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				FA1BE4BF1B27DD5A00AA1AFD /* MuHitView.m in Sources */,
 				8214E93C1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				FA1BE4C01B27DD5A00AA1AFD /* FlyingTouchDAO.m in Sources */,
@@ -5321,7 +5680,6 @@
 				FA1BE4C81B27DD5A00AA1AFD /* FlyingBaseDao.m in Sources */,
 				FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */,
 				FA1BE4CB1B27DD5A00AA1AFD /* FlyingPickColorVCViewController.m in Sources */,
-				FA1BE4CD1B27DD5A00AA1AFD /* RCDChatListViewController.m in Sources */,
 				C87524221BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				82E91CBA1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				FA1BE4D21B27DD5A00AA1AFD /* HCSStarRatingView.m in Sources */,
@@ -5338,8 +5696,9 @@
 				82493FEF1C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				8214E9001C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8214E9051C298BF40014B6BD /* MultipartFormDataParser.m in Sources */,
-				C8C805501BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				823E17821C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
+				8214EBDA1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
+				8214EBB71C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */,
 				FA5ACC251B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA1BE4DD1B27DD5A00AA1AFD /* FMDatabasePool.m in Sources */,
 				82493FC51C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5353,13 +5712,16 @@
 				FA1BE4E01B27DD5A00AA1AFD /* CFSharer.m in Sources */,
 				8214E9191C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				8249405C1C07FCBB000A2306 /* FlyingAILearningView.m in Sources */,
+				8214EC1B1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				C87524511BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				8214E91E1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E9281C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
 				FA1BE4E11B27DD5A00AA1AFD /* FlyingItemDao.m in Sources */,
 				8214E96E1C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
+				8214EBAD1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */,
 				824940871C08093E000A2306 /* FlyingTagCell.m in Sources */,
+				8214EC201C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
 				FA1BE4E21B27DD5A00AA1AFD /* RCDataBaseManager.m in Sources */,
 				82493FEA1C07F67D000A2306 /* FlyingCoverViewCell.m in Sources */,
 				8214E9411C298BF40014B6BD /* DELETEResponse.m in Sources */,
@@ -5367,17 +5729,22 @@
 				FA1BE4E61B27DD5A00AA1AFD /* CFShareCircleView.m in Sources */,
 				C80EF7531BD4A56D006D57AC /* MKStoreKit.m in Sources */,
 				FA04BF8F1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
+				8214EB9E1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
 				FA88BC341B79E5B000604BC2 /* RSKTouchView.m in Sources */,
 				FA0A61951B300AA00022A9E9 /* RCDRCIMDataSource.m in Sources */,
 				FA04BFF81B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				824940221C07FB27000A2306 /* FlyingLoadingCell.m in Sources */,
+				8214EBEE1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
 				C87524991BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
 				C875247D1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
+				8214EBBC1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */,
 				8249403E1C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				FA1BE4EE1B27DD5A00AA1AFD /* ReaderThumbRequest.m in Sources */,
+				8214EC0C1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				82493F9B1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA1BE4F11B27DD5A00AA1AFD /* FlyingSearchBar.m in Sources */,
 				FA1BE4F31B27DD5A00AA1AFD /* FlyingProviderParser.m in Sources */,
+				8214EBA81C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */,
 				FA1BE4F41B27DD5A00AA1AFD /* JPSThumbnailAnnotationView.m in Sources */,
 				FA1BE4F51B27DD5A00AA1AFD /* FlyingLessonData.m in Sources */,
 				FA1BE4F61B27DD5A00AA1AFD /* UIBubbleHeaderTableViewCell.m in Sources */,
@@ -5394,21 +5761,23 @@
 				C80EF7591BD4A576006D57AC /* OpenUDID.m in Sources */,
 				8214E9821C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				FA1BE4FC1B27DD5A00AA1AFD /* ThumbsMainToolbar.m in Sources */,
+				8214EBFD1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
 				FA1BE4FD1B27DD5A00AA1AFD /* FlyingWordLinguisticData.m in Sources */,
 				C875248D1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				824940661C07FCBB000A2306 /* FlyingMediaVC.m in Sources */,
 				FA1BE5011B27DD5A00AA1AFD /* ReaderThumbQueue.m in Sources */,
 				FA1BE5021B27DD5A00AA1AFD /* FlyingProvider.m in Sources */,
 				FA1BE5031B27DD5A00AA1AFD /* FlyingHelpVC.m in Sources */,
+				8214EBCB1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */,
 				FA1BE5051B27DD5A00AA1AFD /* FlyingWebViewController.m in Sources */,
 				C80EF74D1BD4A564006D57AC /* FileHash.m in Sources */,
 				FA1BE5061B27DD5A00AA1AFD /* FlyingNowLessonDAO.m in Sources */,
 				FA1BE5071B27DD5A00AA1AFD /* ReaderThumbRender.m in Sources */,
 				C875235F1BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
-				FAFA72331B42713100E4FE30 /* FlyingImagePreivewVC.m in Sources */,
 				8214E8E71C298BF40014B6BD /* DDNumber.m in Sources */,
 				FA88BC281B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
 				82493FA01C07F53E000A2306 /* FlyingItemParser.m in Sources */,
+				8214EBF31C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				FA1BE5091B27DD5A00AA1AFD /* CGPDFDocument.m in Sources */,
 				8214E8D81C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				FA1BE50C1B27DD5A00AA1AFD /* FlyingDialogViewController.m in Sources */,
@@ -5420,6 +5789,8 @@
 				8214E95A1C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				8214E9141C298BF40014B6BD /* HTTPAsyncFileResponse.m in Sources */,
 				FA1BE5121B27DD5A00AA1AFD /* MAOPanGestureRecognizer.m in Sources */,
+				8214EBDF1C2AE8D20014B6BD /* RCLocationConvert.m in Sources */,
+				8214EC2F1C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */,
 				824940611C07FCBB000A2306 /* FlyingGestureControlView.m in Sources */,
 				FA1BE5131B27DD5A00AA1AFD /* UIImageView+thumnail.m in Sources */,
 				FA1BE5141B27DD5A00AA1AFD /* DBHelper.m in Sources */,
@@ -5461,6 +5832,7 @@
 				FA1BE5361B27DD5A00AA1AFD /* BEMenuController.m in Sources */,
 				FA1BE5371B27DD5A00AA1AFD /* FlyingAccountVC.m in Sources */,
 				8214E8F11C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
+				8214EBC61C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */,
 				FA04C0081B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				FA1BE53B1B27DD5A00AA1AFD /* SZTextView.m in Sources */,
 				FA1BE53C1B27DD5A00AA1AFD /* FlyingTaskWordData.m in Sources */,
@@ -5471,6 +5843,7 @@
 				FA1BE5401B27DD5A00AA1AFD /* MMParallaxPage.m in Sources */,
 				82493FA51C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				FA1BE5421B27DD5A00AA1AFD /* RCDMessageNotifySettingTableViewController.m in Sources */,
+				8214ECE11C2AEE1B0014B6BD /* KxMenu.m in Sources */,
 				C8E57E571BB6A2AB0013527E /* FlyingEventScheduleCell.m in Sources */,
 				8214E9551C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				C8FE1F951BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
@@ -5484,15 +5857,20 @@
 				8214E9641C298BF40014B6BD /* DDLog.m in Sources */,
 				FA88BC301B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0141B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				8214EB941C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
+				8214EBD01C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
 				C8E57E5A1BB6A2B40013527E /* FlyingEventLocationCell.m in Sources */,
 				FA1BE54C1B27DD5A00AA1AFD /* FlyingProviderMapVC.m in Sources */,
+				8214EBA31C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */,
 				FA1BE54D1B27DD5A00AA1AFD /* FlyingNavigationController.m in Sources */,
+				8214EC741C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
 				FA1BE54F1B27DD5A00AA1AFD /* MAOFlipInteraction.m in Sources */,
 				8214E94B1C298BF40014B6BD /* GCDAsyncSocket.m in Sources */,
 				823E177B1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA1BE5531B27DD5A00AA1AFD /* UIXToolbarView.m in Sources */,
 				FA1BE5541B27DD5A00AA1AFD /* ThumbsViewController.m in Sources */,
 				C87524A51BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
+				8214EC021C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				FA1BE5571B27DD5A00AA1AFD /* ReaderThumbCache.m in Sources */,
 				FA1BE5581B27DD5A00AA1AFD /* FMTokenizers.m in Sources */,
 				8214E9871C298BF40014B6BD /* FlyingM3U8Downloader.m in Sources */,
@@ -5511,17 +5889,19 @@
 				8214E92D1C298BF40014B6BD /* HTTPRedirectResponse.m in Sources */,
 				FA1BE5681B27DD5A00AA1AFD /* zip.c in Sources */,
 				FA1BE5691B27DD5A00AA1AFD /* FlyingSubRipItem.m in Sources */,
+				8214EBE91C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				8214E9461C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D51BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8214E9961C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				C87524891BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA1BE56A1B27DD5A00AA1AFD /* ReaderThumbsView.m in Sources */,
-				FA1BE56B1B27DD5A00AA1AFD /* RCDChatViewController.m in Sources */,
+				8214EBB21C2AE8D20014B6BD /* RCDChatViewController.m in Sources */,
 				FA1BE56D1B27DD5A00AA1AFD /* FlyingWordCollectVC.m in Sources */,
 				C87523651BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA1BE56E1B27DD5A00AA1AFD /* main.m in Sources */,
 				C8FE1F991BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA1BE5701B27DD5A00AA1AFD /* FlyingProviderViewCell.m in Sources */,
+				8214EC2A1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5543,7 +5923,6 @@
 				824940711C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
 				FA6329821B51091400A1222E /* FlyingFakeHUD.m in Sources */,
 				8214E9A61C2995460014B6BD /* FlyingHttpTool.m in Sources */,
-				FA6329831B51091400A1222E /* FlyingShareWithFriends.m in Sources */,
 				C87524561BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA6329851B51091400A1222E /* SSZipArchive.m in Sources */,
 				FA6329861B51091400A1222E /* ReaderViewController.m in Sources */,
@@ -5552,8 +5931,11 @@
 				823E17911C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2D1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA6329881B51091400A1222E /* DSBarChart.m in Sources */,
+				8214EBF91C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */,
 				C875242B1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA6329891B51091400A1222E /* MuTextSelectView.m in Sources */,
+				8214EBC21C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				8214EC261C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */,
 				82493FC11C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
 				823E178A1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBC1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
@@ -5565,16 +5947,21 @@
 				FA63298E1B51091400A1222E /* MuPageViewNormal.m in Sources */,
 				FA6329901B51091400A1222E /* common.m in Sources */,
 				8214E8ED1C298BF40014B6BD /* DDRange.m in Sources */,
+				8214EC081C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				FA6329911B51091400A1222E /* ReaderMainPagebar.m in Sources */,
 				C8C805271BD21591009F3712 /* FlyingCommentData.m in Sources */,
+				8214EC121C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */,
 				82E91CC21C12933000B0EC70 /* FlyingDataManager.m in Sources */,
 				FA04BF961B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC2A1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA6329921B51091400A1222E /* FlyingWordAbstractVC.m in Sources */,
+				8214EBD61C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				FA6329931B51091400A1222E /* FlyingReviewVC.m in Sources */,
+				8214EB9A1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */,
 				FA6329951B51091400A1222E /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				FA6329971B51091400A1222E /* ReaderDocument.m in Sources */,
 				FA6329981B51091400A1222E /* JPSThumnail.m in Sources */,
+				8214EC351C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */,
 				FA63299A1B51091400A1222E /* FlyingPubLessonData.m in Sources */,
 				FA63299B1B51091400A1222E /* FlyingCurrentAnnotation.m in Sources */,
 				8214E9241C298BF40014B6BD /* HTTPErrorResponse.m in Sources */,
@@ -5585,9 +5972,10 @@
 				FA63299E1B51091400A1222E /* FlyingLoadingView.m in Sources */,
 				C8FE1FA21BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA63299F1B51091400A1222E /* MAOFlipViewController.m in Sources */,
-				FA6329A01B51091400A1222E /* RCDGroupInfo.m in Sources */,
 				C875244A1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
+				8214EC171C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				FA6329A21B51091400A1222E /* FlyingSubItemParser.m in Sources */,
+				8214EBE51C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				FA6329A31B51091400A1222E /* MuHitView.m in Sources */,
 				8214E93D1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				FA6329A41B51091400A1222E /* FlyingTouchDAO.m in Sources */,
@@ -5599,7 +5987,6 @@
 				FA6329AC1B51091400A1222E /* FlyingBaseDao.m in Sources */,
 				FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */,
 				FA6329AF1B51091400A1222E /* FlyingPickColorVCViewController.m in Sources */,
-				FA6329B11B51091400A1222E /* RCDChatListViewController.m in Sources */,
 				C87524231BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				82E91CBB1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				FA6329B61B51091400A1222E /* HCSStarRatingView.m in Sources */,
@@ -5616,8 +6003,9 @@
 				82493FF01C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				8214E9011C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8214E9061C298BF40014B6BD /* MultipartFormDataParser.m in Sources */,
-				C8C805511BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				823E17831C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
+				8214EBDB1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
+				8214EBB81C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */,
 				FA5ACC261B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA6329C01B51091400A1222E /* FMDatabasePool.m in Sources */,
 				82493FC61C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5631,13 +6019,16 @@
 				FA6329C31B51091400A1222E /* CFSharer.m in Sources */,
 				8214E91A1C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				8249405D1C07FCBB000A2306 /* FlyingAILearningView.m in Sources */,
+				8214EC1C1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				C87524521BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				8214E91F1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E9291C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
 				FA6329C41B51091400A1222E /* FlyingItemDao.m in Sources */,
 				8214E96F1C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
+				8214EBAE1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */,
 				824940881C08093F000A2306 /* FlyingTagCell.m in Sources */,
+				8214EC211C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
 				FA6329C51B51091400A1222E /* RCDataBaseManager.m in Sources */,
 				82493FEB1C07F67D000A2306 /* FlyingCoverViewCell.m in Sources */,
 				8214E9421C298BF40014B6BD /* DELETEResponse.m in Sources */,
@@ -5645,17 +6036,22 @@
 				FA6329C91B51091400A1222E /* CFShareCircleView.m in Sources */,
 				C80EF7541BD4A56E006D57AC /* MKStoreKit.m in Sources */,
 				FA04BF901B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
+				8214EB9F1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
 				FA88BC351B79E5B000604BC2 /* RSKTouchView.m in Sources */,
 				FA6329D01B51091400A1222E /* RCDRCIMDataSource.m in Sources */,
 				FA04BFF91B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
 				824940231C07FB27000A2306 /* FlyingLoadingCell.m in Sources */,
+				8214EBEF1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
 				C875249A1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
 				C875247E1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
+				8214EBBD1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */,
 				8249403F1C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				FA6329D21B51091400A1222E /* ReaderThumbRequest.m in Sources */,
+				8214EC0D1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				82493F9C1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA6329D51B51091400A1222E /* FlyingSearchBar.m in Sources */,
 				FA6329D61B51091400A1222E /* FlyingProviderParser.m in Sources */,
+				8214EBA91C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */,
 				FA6329D71B51091400A1222E /* JPSThumbnailAnnotationView.m in Sources */,
 				FA6329D81B51091400A1222E /* FlyingLessonData.m in Sources */,
 				FA6329D91B51091400A1222E /* UIBubbleHeaderTableViewCell.m in Sources */,
@@ -5672,21 +6068,23 @@
 				C80EF75A1BD4A577006D57AC /* OpenUDID.m in Sources */,
 				8214E9831C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				FA6329DF1B51091400A1222E /* ThumbsMainToolbar.m in Sources */,
+				8214EBFE1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
 				FA6329E01B51091400A1222E /* FlyingWordLinguisticData.m in Sources */,
 				C875248E1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				824940671C07FCBB000A2306 /* FlyingMediaVC.m in Sources */,
 				FA6329E41B51091400A1222E /* ReaderThumbQueue.m in Sources */,
 				FA6329E51B51091400A1222E /* FlyingProvider.m in Sources */,
 				FA6329E61B51091400A1222E /* FlyingHelpVC.m in Sources */,
+				8214EBCC1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */,
 				FA6329E71B51091400A1222E /* FlyingWebViewController.m in Sources */,
 				C80EF74E1BD4A564006D57AC /* FileHash.m in Sources */,
 				FA6329E81B51091400A1222E /* FlyingNowLessonDAO.m in Sources */,
 				FA6329E91B51091400A1222E /* ReaderThumbRender.m in Sources */,
 				C87523601BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
-				FA6329EA1B51091400A1222E /* FlyingImagePreivewVC.m in Sources */,
 				8214E8E81C298BF40014B6BD /* DDNumber.m in Sources */,
 				FA88BC291B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
 				82493FA11C07F53E000A2306 /* FlyingItemParser.m in Sources */,
+				8214EBF41C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				FA6329EC1B51091400A1222E /* CGPDFDocument.m in Sources */,
 				8214E8D91C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				FA6329EF1B51091400A1222E /* FlyingDialogViewController.m in Sources */,
@@ -5698,6 +6096,8 @@
 				8214E95B1C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				8214E9151C298BF40014B6BD /* HTTPAsyncFileResponse.m in Sources */,
 				FA6329F51B51091400A1222E /* MAOPanGestureRecognizer.m in Sources */,
+				8214EBE01C2AE8D20014B6BD /* RCLocationConvert.m in Sources */,
+				8214EC301C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */,
 				824940621C07FCBB000A2306 /* FlyingGestureControlView.m in Sources */,
 				FA6329F61B51091400A1222E /* UIImageView+thumnail.m in Sources */,
 				FA6329F71B51091400A1222E /* DBHelper.m in Sources */,
@@ -5739,6 +6139,7 @@
 				FA632A171B51091400A1222E /* BEMenuController.m in Sources */,
 				FA632A181B51091400A1222E /* FlyingAccountVC.m in Sources */,
 				8214E8F21C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
+				8214EBC71C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */,
 				FA04C0091B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				FA632A1C1B51091400A1222E /* SZTextView.m in Sources */,
 				FA632A1D1B51091400A1222E /* FlyingTaskWordData.m in Sources */,
@@ -5749,6 +6150,7 @@
 				FA632A211B51091400A1222E /* MMParallaxPage.m in Sources */,
 				82493FA61C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				FA632A231B51091400A1222E /* RCDMessageNotifySettingTableViewController.m in Sources */,
+				8214ECE21C2AEE1B0014B6BD /* KxMenu.m in Sources */,
 				C8E57E581BB6A2AC0013527E /* FlyingEventScheduleCell.m in Sources */,
 				8214E9561C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				C8FE1F961BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
@@ -5762,15 +6164,20 @@
 				8214E9651C298BF40014B6BD /* DDLog.m in Sources */,
 				FA88BC311B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0151B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				8214EB951C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
+				8214EBD11C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
 				C8E57E5B1BB6A2B50013527E /* FlyingEventLocationCell.m in Sources */,
 				FA632A2C1B51091400A1222E /* FlyingProviderMapVC.m in Sources */,
+				8214EBA41C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */,
 				FA632A2D1B51091400A1222E /* FlyingNavigationController.m in Sources */,
+				8214EC751C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
 				FA632A2F1B51091400A1222E /* MAOFlipInteraction.m in Sources */,
 				8214E94C1C298BF40014B6BD /* GCDAsyncSocket.m in Sources */,
 				823E177C1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA632A321B51091400A1222E /* UIXToolbarView.m in Sources */,
 				FA632A331B51091400A1222E /* ThumbsViewController.m in Sources */,
 				C87524A61BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
+				8214EC031C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				FA632A361B51091400A1222E /* ReaderThumbCache.m in Sources */,
 				FA632A371B51091400A1222E /* FMTokenizers.m in Sources */,
 				8214E9881C298BF40014B6BD /* FlyingM3U8Downloader.m in Sources */,
@@ -5789,17 +6196,19 @@
 				8214E92E1C298BF40014B6BD /* HTTPRedirectResponse.m in Sources */,
 				FA632A481B51091400A1222E /* zip.c in Sources */,
 				FA632A491B51091400A1222E /* FlyingSubRipItem.m in Sources */,
+				8214EBEA1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				8214E9471C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D61BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8214E9971C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				C875248A1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA632A4A1B51091400A1222E /* ReaderThumbsView.m in Sources */,
-				FA632A4B1B51091400A1222E /* RCDChatViewController.m in Sources */,
+				8214EBB31C2AE8D20014B6BD /* RCDChatViewController.m in Sources */,
 				FA632A4D1B51091400A1222E /* FlyingWordCollectVC.m in Sources */,
 				C87523661BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA632A4E1B51091400A1222E /* main.m in Sources */,
 				C8FE1F9A1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA632A501B51091400A1222E /* FlyingProviderViewCell.m in Sources */,
+				8214EC2B1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5821,7 +6230,6 @@
 				824940721C07FCBB000A2306 /* FlyingPlayerView.m in Sources */,
 				FA8C3DDE1B535A1500DEA02D /* FlyingFakeHUD.m in Sources */,
 				8214E9A71C2995460014B6BD /* FlyingHttpTool.m in Sources */,
-				FA8C3DDF1B535A1500DEA02D /* FlyingShareWithFriends.m in Sources */,
 				C87524571BB394FC000F86DC /* UIView+Border.m in Sources */,
 				FA8C3DE11B535A1500DEA02D /* SSZipArchive.m in Sources */,
 				FA8C3DE21B535A1500DEA02D /* ReaderViewController.m in Sources */,
@@ -5830,8 +6238,11 @@
 				823E17921C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */,
 				FA88BC2E1B79E5B000604BC2 /* RSKImageCropViewController.m in Sources */,
 				FA8C3DE41B535A1500DEA02D /* DSBarChart.m in Sources */,
+				8214EBFA1C2AE8D20014B6BD /* RealTimeLocationViewController.m in Sources */,
 				C875242C1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.m in Sources */,
 				FA8C3DE51B535A1500DEA02D /* MuTextSelectView.m in Sources */,
+				8214EBC31C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				8214EC271C2AE8D20014B6BD /* RCDGroupDetailViewController.m in Sources */,
 				82493FC21C07F54D000A2306 /* FlyingLessonParser.m in Sources */,
 				823E178B1C19CC2A00E08A5F /* FlyingUnderlineTextField.m in Sources */,
 				82493FBD1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
@@ -5843,16 +6254,21 @@
 				C87524041BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				FA8C3DEA1B535A1500DEA02D /* MuPageViewNormal.m in Sources */,
 				8214E8EE1C298BF40014B6BD /* DDRange.m in Sources */,
+				8214EC091C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				FA8C3DEC1B535A1500DEA02D /* common.m in Sources */,
 				FA8C3DED1B535A1500DEA02D /* ReaderMainPagebar.m in Sources */,
+				8214EC131C2AE8D20014B6BD /* RCDConversationSettingTableViewHeaderItem.m in Sources */,
 				C8C805281BD21592009F3712 /* FlyingCommentData.m in Sources */,
 				FA04BF971B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */,
 				FA5ACC2B1B6FB7400051A3EA /* UIViewController+RESideMenu.m in Sources */,
 				FA8C3DEE1B535A1500DEA02D /* FlyingWordAbstractVC.m in Sources */,
+				8214EBD71C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				82E91CC31C12933000B0EC70 /* FlyingDataManager.m in Sources */,
+				8214EB9B1C2AE8D20014B6BD /* FlyingShareWithFriends.m in Sources */,
 				FA8C3DEF1B535A1500DEA02D /* FlyingReviewVC.m in Sources */,
 				FA8C3DF11B535A1500DEA02D /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				FA8C3DF31B535A1500DEA02D /* ReaderDocument.m in Sources */,
+				8214EC361C2AE8D20014B6BD /* RCDSettingBaseViewController.m in Sources */,
 				FA8C3DF41B535A1500DEA02D /* JPSThumnail.m in Sources */,
 				FA8C3DF61B535A1500DEA02D /* FlyingPubLessonData.m in Sources */,
 				8214E9251C298BF40014B6BD /* HTTPErrorResponse.m in Sources */,
@@ -5864,8 +6280,9 @@
 				FA8C3DFA1B535A1500DEA02D /* FlyingLoadingView.m in Sources */,
 				C8FE1FA31BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
 				FA8C3DFB1B535A1500DEA02D /* MAOFlipViewController.m in Sources */,
-				FA8C3DFC1B535A1500DEA02D /* RCDGroupInfo.m in Sources */,
+				8214EC181C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				C875244B1BB394FC000F86DC /* UIColor+HexString.m in Sources */,
+				8214EBE61C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				FA8C3DFE1B535A1500DEA02D /* FlyingSubItemParser.m in Sources */,
 				8214E93E1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				FA8C3DFF1B535A1500DEA02D /* MuHitView.m in Sources */,
@@ -5878,7 +6295,6 @@
 				FA8C3E081B535A1500DEA02D /* FlyingBaseDao.m in Sources */,
 				FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */,
 				FA8C3E0B1B535A1500DEA02D /* FlyingPickColorVCViewController.m in Sources */,
-				FA8C3E0D1B535A1500DEA02D /* RCDChatListViewController.m in Sources */,
 				C87524241BB390A8000F86DC /* FlyingEventTitleCell.m in Sources */,
 				FA8C3E121B535A1500DEA02D /* HCSStarRatingView.m in Sources */,
 				C875244F1BB394FC000F86DC /* UIColor+RCColor.m in Sources */,
@@ -5894,8 +6310,9 @@
 				82493FF11C07F67D000A2306 /* FlyingDiscoverContent.m in Sources */,
 				8214E9021C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8214E9071C298BF40014B6BD /* MultipartFormDataParser.m in Sources */,
-				C8C805521BD3BE24009F3712 /* FlyingRCLocationPickerViewController.m in Sources */,
 				823E17841C19C8BA00E08A5F /* FlyingAnimatedImagesView.m in Sources */,
+				8214EBDC1C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
+				8214EBB91C2AE8D20014B6BD /* RCDGroupInfo.m in Sources */,
 				FA5ACC271B6FB7400051A3EA /* RESideMenu.m in Sources */,
 				FA8C3E1C1B535A1500DEA02D /* FMDatabasePool.m in Sources */,
 				82493FC71C07F54D000A2306 /* FlyingLessonViewCell.m in Sources */,
@@ -5909,13 +6326,16 @@
 				FA8C3E1F1B535A1500DEA02D /* CFSharer.m in Sources */,
 				8214E91B1C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				8249405E1C07FCBB000A2306 /* FlyingAILearningView.m in Sources */,
+				8214EC1D1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				C87524531BB394FC000F86DC /* UIView+AnimatedFrame.m in Sources */,
 				8214E9201C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E92A1C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
 				FA8C3E201B535A1500DEA02D /* FlyingItemDao.m in Sources */,
 				8214E9701C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
+				8214EBAF1C2AE8D20014B6BD /* RCDChatListViewController.m in Sources */,
 				824940891C080940000A2306 /* FlyingTagCell.m in Sources */,
+				8214EC221C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
 				82E91CB51C11767B00B0EC70 /* FlyingProfileVC.m in Sources */,
 				FA8C3E211B535A1500DEA02D /* RCDataBaseManager.m in Sources */,
 				8214E9431C298BF40014B6BD /* DELETEResponse.m in Sources */,
@@ -5923,17 +6343,22 @@
 				FA8C3E221B535A1500DEA02D /* UIBubbleTableViewCell.m in Sources */,
 				FA8C3E251B535A1500DEA02D /* CFShareCircleView.m in Sources */,
 				C80EF7551BD4A56F006D57AC /* MKStoreKit.m in Sources */,
+				8214EBA01C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
 				FA04BF911B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				FA88BC361B79E5B000604BC2 /* RSKTouchView.m in Sources */,
 				FA8C3E2C1B535A1500DEA02D /* RCDRCIMDataSource.m in Sources */,
 				FA04BFFA1B9B04A4000F29A5 /* PSCollectionViewCell.m in Sources */,
+				8214EBF01C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
 				824940241C07FB27000A2306 /* FlyingLoadingCell.m in Sources */,
 				C875249B1BB39674000F86DC /* NSDateComponents+AllComponents.m in Sources */,
+				8214EBBE1C2AE8D20014B6BD /* RCDSearchFriendViewController.m in Sources */,
 				C875247F1BB39674000F86DC /* NSCalendar+Components.m in Sources */,
 				824940401C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
+				8214EC0E1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				FA8C3E2E1B535A1500DEA02D /* ReaderThumbRequest.m in Sources */,
 				82493F9D1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA8C3E311B535A1500DEA02D /* FlyingSearchBar.m in Sources */,
+				8214EBAA1C2AE8D20014B6BD /* RCDChatListCell.h.m in Sources */,
 				FA8C3E321B535A1500DEA02D /* FlyingProviderParser.m in Sources */,
 				FA8C3E331B535A1500DEA02D /* JPSThumbnailAnnotationView.m in Sources */,
 				FA8C3E341B535A1500DEA02D /* FlyingLessonData.m in Sources */,
@@ -5950,12 +6375,14 @@
 				FA04BFFE1B9B04A4000F29A5 /* PSCollectionViewCell+delete.m in Sources */,
 				8214E9841C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				C87524931BB39674000F86DC /* NSDate+Components.m in Sources */,
+				8214EBFF1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
 				C80EF75B1BD4A578006D57AC /* OpenUDID.m in Sources */,
 				FA8C3E3B1B535A1500DEA02D /* ThumbsMainToolbar.m in Sources */,
 				FA8C3E3C1B535A1500DEA02D /* FlyingWordLinguisticData.m in Sources */,
 				C875248F1BB39674000F86DC /* NSCalendar+Ranges.m in Sources */,
 				824940681C07FCBB000A2306 /* FlyingMediaVC.m in Sources */,
 				FA8C3E401B535A1500DEA02D /* ReaderThumbQueue.m in Sources */,
+				8214EBCD1C2AE8D20014B6BD /* RCDSelectPersonViewController.m in Sources */,
 				FA8C3E411B535A1500DEA02D /* FlyingProvider.m in Sources */,
 				FA8C3E421B535A1500DEA02D /* FlyingHelpVC.m in Sources */,
 				FA8C3E431B535A1500DEA02D /* FlyingWebViewController.m in Sources */,
@@ -5964,7 +6391,7 @@
 				FA8C3E451B535A1500DEA02D /* ReaderThumbRender.m in Sources */,
 				8214E8E91C298BF40014B6BD /* DDNumber.m in Sources */,
 				C87523611BB2A5A9000F86DC /* KMNetworkLoadingViewController.m in Sources */,
-				FA8C3E461B535A1500DEA02D /* FlyingImagePreivewVC.m in Sources */,
+				8214EBF51C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				FA88BC2A1B79E5B000604BC2 /* CGGeometry+RSKImageCropper.m in Sources */,
 				8214E8DA1C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				82493FA21C07F53E000A2306 /* FlyingItemParser.m in Sources */,
@@ -5976,6 +6403,8 @@
 				8214E95C1C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				8214E9161C298BF40014B6BD /* HTTPAsyncFileResponse.m in Sources */,
 				FA8C3E501B535A1500DEA02D /* FlyingStatisticData.m in Sources */,
+				8214EBE11C2AE8D20014B6BD /* RCLocationConvert.m in Sources */,
+				8214EC311C2AE8D20014B6BD /* RCDRoomSettingViewController.m in Sources */,
 				FA8C3E511B535A1500DEA02D /* MAOPanGestureRecognizer.m in Sources */,
 				824940631C07FCBB000A2306 /* FlyingGestureControlView.m in Sources */,
 				FA8C3E521B535A1500DEA02D /* UIImageView+thumnail.m in Sources */,
@@ -6017,6 +6446,7 @@
 				FA8C3E731B535A1500DEA02D /* BEMenuController.m in Sources */,
 				FA8C3E741B535A1500DEA02D /* FlyingAccountVC.m in Sources */,
 				8214E8F31C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
+				8214EBC81C2AE8D20014B6BD /* RCDSelectPersonTableViewCell.m in Sources */,
 				FA04C00A1B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				FA8C3E781B535A1500DEA02D /* SZTextView.m in Sources */,
 				FA8C3E791B535A1500DEA02D /* FlyingTaskWordData.m in Sources */,
@@ -6027,6 +6457,7 @@
 				FA8C3E7D1B535A1500DEA02D /* MMParallaxPage.m in Sources */,
 				82493FA71C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				FA8C3E7F1B535A1500DEA02D /* RCDMessageNotifySettingTableViewController.m in Sources */,
+				8214ECE31C2AEE1C0014B6BD /* KxMenu.m in Sources */,
 				C8E57E591BB6A2AD0013527E /* FlyingEventScheduleCell.m in Sources */,
 				8214E9571C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				C8FE1F971BB1036D009C8D48 /* FlyingCalendarCell.m in Sources */,
@@ -6040,15 +6471,20 @@
 				8214E9661C298BF40014B6BD /* DDLog.m in Sources */,
 				FA88BC321B79E5B000604BC2 /* RSKImageScrollView.m in Sources */,
 				FA04C0161B9E815F000F29A5 /* FlyingGroupDetailsView.m in Sources */,
+				8214EB961C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
+				8214EBD21C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
 				C8E57E5C1BB6A2B60013527E /* FlyingEventLocationCell.m in Sources */,
 				FA8C3E881B535A1500DEA02D /* FlyingProviderMapVC.m in Sources */,
+				8214EBA51C2AE8D20014B6BD /* RCDAddressBookViewController.m in Sources */,
 				FA8C3E891B535A1500DEA02D /* FlyingNavigationController.m in Sources */,
+				8214EC761C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
 				FA8C3E8B1B535A1500DEA02D /* MAOFlipInteraction.m in Sources */,
 				8214E94D1C298BF40014B6BD /* GCDAsyncSocket.m in Sources */,
 				823E177D1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
 				FA8C3E8E1B535A1500DEA02D /* UIXToolbarView.m in Sources */,
 				FA8C3E8F1B535A1500DEA02D /* ThumbsViewController.m in Sources */,
 				C87524A71BB39674000F86DC /* UIDevice+SpeedCategory.m in Sources */,
+				8214EC041C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				FA8C3E921B535A1500DEA02D /* ReaderThumbCache.m in Sources */,
 				FA8C3E931B535A1500DEA02D /* FMTokenizers.m in Sources */,
 				8214E9891C298BF40014B6BD /* FlyingM3U8Downloader.m in Sources */,
@@ -6067,17 +6503,19 @@
 				8214E92F1C298BF40014B6BD /* HTTPRedirectResponse.m in Sources */,
 				FA8C3EA41B535A1500DEA02D /* zip.c in Sources */,
 				FA8C3EA51B535A1500DEA02D /* FlyingSubRipItem.m in Sources */,
+				8214EBEB1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				8214E9481C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D71BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8214E9981C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				C875248B1BB39674000F86DC /* NSCalendar+Juncture.m in Sources */,
 				FA8C3EA61B535A1500DEA02D /* ReaderThumbsView.m in Sources */,
-				FA8C3EA71B535A1500DEA02D /* RCDChatViewController.m in Sources */,
+				8214EBB41C2AE8D20014B6BD /* RCDChatViewController.m in Sources */,
 				FA8C3EA91B535A1500DEA02D /* FlyingWordCollectVC.m in Sources */,
 				C87523671BB2A5FC000F86DC /* KMActivityIndicator.m in Sources */,
 				FA8C3EAA1B535A1500DEA02D /* main.m in Sources */,
 				C8FE1F9B1BB1036D009C8D48 /* FlyingCalendarEvent.m in Sources */,
 				FA8C3EAC1B535A1500DEA02D /* FlyingProviderViewCell.m in Sources */,
+				8214EC2C1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6183,7 +6621,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B43663ED-E09C-4EEF-A22B-CDB7C57A5E27";
 				SDKROOT = iphoneos;

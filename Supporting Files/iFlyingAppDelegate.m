@@ -187,6 +187,11 @@
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    /**
+     * 统计推送打开率3
+     */
+    [[RCIMClient sharedRCIMClient] recordLocalNotificationEvent:notification];
+
     //震动
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     AudioServicesPlaySystemSound(1007);
@@ -194,7 +199,22 @@
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
+    /**
+     * 统计推送打开率2
+     */
+    [[RCIMClient sharedRCIMClient] recordRemoteNotificationEvent:userInfo];
+    /**
+     * 获取融云推送服务扩展字段2
+     */
+    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromRemoteNotification:userInfo];
+    if (pushServiceData) {
+        NSLog(@"该远程推送包含来自融云的推送服务");
+        for (id key in [pushServiceData allKeys]) {
+            NSLog(@"key = %@, value = %@", key, pushServiceData[key]);
+        }
+    } else {
+        NSLog(@"该远程推送不包含来自融云的推送服务");
+    }
 }
 
 -(void) jumpToNext
@@ -302,9 +322,6 @@
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
     
-    [[RCIM sharedRCIM] setUserInfoDataSource:[RCDRCIMDataSource shareInstance]];
-    [[RCIM sharedRCIM] setGroupInfoDataSource:[RCDRCIMDataSource shareInstance]];
-    
     //设置会话列表头像和会话界面头像
     [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
     
@@ -314,6 +331,23 @@
         [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(46, 46);
     }
     
+    //设置用户信息源和群组信息源
+    [[RCIM sharedRCIM] setUserInfoDataSource:[RCDRCIMDataSource shareInstance]];
+    [[RCIM sharedRCIM] setGroupInfoDataSource:[RCDRCIMDataSource shareInstance]];
+    
+    //设置群组内用户信息源。如果不使用群名片功能，可以不设置
+    [RCIM sharedRCIM].groupUserInfoDataSource = [RCDRCIMDataSource shareInstance];
+    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+    
+    //设置接收消息代理
+    [RCIM sharedRCIM].receiveMessageDelegate=self;
+    //    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(46, 46);
+    
+    //设置显示未注册的消息
+    //如：新版本增加了某种自定义消息，但是老版本不能识别，开发者可以在旧版本中预先自定义这种未识别的消息的显示
+    [RCIM sharedRCIM].showUnkownMessage = YES;
+    [RCIM sharedRCIM].showUnkownMessageNotificaiton = YES;
+
     NSString *rongDeviceKoken = [UICKeyChainStore keyChainStore][kRongCloudDeviceToken];
     
     if(rongDeviceKoken.length==0)
@@ -408,7 +442,6 @@
                          }];
 }
 
-
 #pragma mark - RCIMConnectionStatusDelegate
 
 /**
@@ -416,14 +449,42 @@
  *
  *  @param status 网络状态。
  */
-- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status
-{
-    if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT)
-    {
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
+    if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的帐号在别的设备上登录，您被迫下线！" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
         [alert show];
     }
+    
+    else if (status == ConnectionStatus_TOKEN_INCORRECT) {
+
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:nil
+                                   message:@"Token已过期，请重新登录"
+                                  delegate:nil
+                         cancelButtonTitle:@"确定"
+                         otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
+
+#pragma mark - RCIMReceiveMessageDelegate
+
+-(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
+{
+    if ([message.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self
+     name:RCKitDispatchMessageNotification
+     object:nil];
+}
+
 
 #pragma mark -
 

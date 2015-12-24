@@ -20,8 +20,6 @@
     CGFloat _cellHeight;
 }
 
-@property (strong, nonatomic) NSString *someText;
-
 @property (strong, nonatomic) UIButton *saveBtn;
 
 @end
@@ -65,7 +63,7 @@
     self.saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
     [self.saveBtn  setTitle:@"保存" forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
-    [self.saveBtn setEnabled:NO];
+    [self.saveBtn setHidden:YES];
 
     [self.saveBtn addTarget:self action:@selector(doSave) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveBtn];
@@ -124,16 +122,24 @@
         
         if (text && ![text isEqualToString:[NSString getNickName]]) {
             //
-            [self.saveBtn setEnabled:YES];
+            [self.saveBtn setHidden:NO];
             self.someText=text;
+        }
+        else
+        {
+            [self.saveBtn setHidden:YES];
         }
     }
     else
     {
         if (text && ![text isEqualToString:[NSString getUserAbstract]]) {
             //
-            [self.saveBtn setEnabled:YES];
+            [self.saveBtn setHidden:NO];
             self.someText=text;
+        }
+        else
+        {
+            [self.saveBtn setHidden:YES];
         }
     }
 }

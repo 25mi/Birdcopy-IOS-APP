@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *gp_name;       //群组名称
 
 @property (nonatomic, strong) NSString *gp_owner;      //群组属主
-@property (nonatomic, strong) NSString *gp_author;     //群组属主
+@property (nonatomic, strong) NSString *gp_author;     //群组作者
 
 @property (nonatomic, strong) NSString *gp_desc;       //群组描述
 

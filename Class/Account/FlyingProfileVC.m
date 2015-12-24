@@ -108,6 +108,7 @@
             case 1:
             {
                 FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
+                editVC.someText=[NSString getNickName];
                 editVC.isNickName=YES;
                 
                 [self.navigationController pushViewController:editVC animated:YES];
@@ -118,6 +119,7 @@
             case 2:
             {
                 FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
+                editVC.someText=[NSString getUserAbstract];
                 editVC.isNickName=NO;
                 
                 [self.navigationController pushViewController:editVC animated:YES];

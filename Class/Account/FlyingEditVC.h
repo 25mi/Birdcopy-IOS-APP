@@ -10,6 +10,8 @@
 
 @interface FlyingEditVC : UITableViewController
 
+@property (strong, nonatomic) NSString *someText;
+
 @property(assign,readwrite)  BOOL isNickName;
 
 @end

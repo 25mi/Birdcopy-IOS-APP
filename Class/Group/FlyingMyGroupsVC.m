@@ -412,10 +412,9 @@
         NSString* userID = groupData.gp_owner;
         
         RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.userName = userInfo.name;
         chatService.targetId = userID;
         chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = chatService.userName;
+        chatService.title = userInfo.name;
         [self.navigationController pushViewController:chatService animated:YES];
     }
 }

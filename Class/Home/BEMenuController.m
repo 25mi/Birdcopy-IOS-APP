@@ -36,11 +36,13 @@
 #define MENU_IPAD_OFFSET  MENU_IPHONE_OFFSET*2
 
 @interface BEMenuController ()
-@property (strong, readwrite, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
 
 
-@property (strong, readwrite, nonatomic) NSMutableArray *titles;
-@property (strong, readwrite, nonatomic) NSMutableArray *images;
+@property (strong, nonatomic) NSMutableArray *titles;
+@property (strong, nonatomic) NSMutableArray *images;
+
+@property (strong, nonatomic) NSString * peopleWithCountStr;
 
 @end
 
@@ -73,7 +75,8 @@
     [self.titles addObject:@"账户"];
     [self.images addObject:@"Profile"];
     
-    [self.titles addObject:@"人们"];
+    self.peopleWithCountStr=@"人们";
+    [self.titles addObject:self.peopleWithCountStr];
     [self.images addObject:@"wPeople"];
 
     
@@ -122,6 +125,51 @@
         
         [self.view addSubview:self.tableView];
     }
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    //监控通知信息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notifyUpdateUnreadMessageCount)
+                                                 name:KNotificationMessage
+                                               object:nil];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+}
+
+/**
+ *  更新未读消息数
+ */
+- (void)notifyUpdateUnreadMessageCount {
+    
+    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                @(ConversationType_PRIVATE),
+                                                                @(ConversationType_DISCUSSION),
+                                                                @(ConversationType_APPSERVICE),
+                                                                @(ConversationType_PUBLICSERVICE),
+                                                                @(ConversationType_GROUP)
+                                                                ]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *countString = nil;
+        if (count > 0 && count < 1000) {
+            countString = [NSString stringWithFormat:@"(%d)", count];
+        } else if (count >= 1000) {
+            countString = @"(...)";
+        }
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.titles indexOfObject:self.peopleWithCountStr] inSection:0];
+        
+        self.peopleWithCountStr=[NSString stringWithFormat:@"人们%@",countString];
+        self.titles[indexPath.row] = self.peopleWithCountStr;
+        
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    });
 }
 
 #pragma mark UITableView Delegate
@@ -189,27 +237,11 @@
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
-    else if([title containsString:@"人们"])
+    else if([title containsString:self.peopleWithCountStr])
     {
-        
-        int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-        
-        if(unreadMsgCount>1){
-            
-            RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-            [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]
-                                                         animated:YES];
-        }
-        else{
-        
-            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-            chatService.targetId = [NSString getContentOwner];
-            chatService.conversationType = ConversationType_CHATROOM;
-            chatService.title = @"广场";
-            
-            [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatService]
-                                                         animated:YES];
-        }
+        RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
+        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]
+                                                     animated:YES];
 
         [self.sideMenuViewController hideMenuViewController];
     }

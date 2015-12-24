@@ -10,4 +10,6 @@
 
 @interface RCDChatViewController : RCConversationViewController
 
+@property (strong,nonatomic) RCConversationModel *conversation;
+
 @end

@@ -393,9 +393,7 @@ MBProgressHUD* hud ;
     [FlyingHttpTool getUserInfoByopenID:[NSString getOpenUDID] completion:^(RCUserInfo *user) {
         
         [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:userId];
-
     }];
-    
 }
 
 /**

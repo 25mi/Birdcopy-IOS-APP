@@ -230,7 +230,6 @@
     }
 }
 
-
 - (void)handleShare
 {
     RCImageMessage * imageMessage = [RCImageMessage messageWithImageURI:_imageUrl];

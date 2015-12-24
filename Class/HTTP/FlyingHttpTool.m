@@ -427,7 +427,6 @@
                                   //
                                   
                                   NSLog(@"Get rongcloud Toke %@",err.description);
-                                  
                               }];
 }
 
@@ -503,11 +502,9 @@
 
 }
 
-
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
-
 + (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
                         Recommend:(BOOL) isRecommend
                         PageNumber:(NSInteger) pageNumber

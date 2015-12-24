@@ -13,6 +13,11 @@
 + (UIImage *)thumnailImageWithName:(NSString *)name Type:(NSString *)type  withSize:(CGSize) newSize;
 + (UIImage *)thumnailImageWithPath:(NSString *)filePath withSize:(CGSize) newSize;
 
++ (UIImage *)imageNamed:(NSString *)name ofBundle:(NSString *)bundleName;
+
++ (UIImage *)image:(UIImage*)image byScalingToSize:(CGSize)targetSize;
+
+
 - (UIImage *) makeThumbnailOfSize:(CGSize) newSize;
 
 @end

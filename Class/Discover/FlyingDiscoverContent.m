@@ -103,6 +103,59 @@
     [self reloadAll];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+}
+
+/**
+ *  更新左上角未读消息数
+ */
+- (void)notifyUpdateUnreadMessageCount
+{
+    
+    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                @(ConversationType_PRIVATE),
+                                                                @(ConversationType_DISCUSSION),
+                                                                @(ConversationType_APPSERVICE),
+                                                                @(ConversationType_PUBLICSERVICE),
+                                                                @(ConversationType_GROUP)
+                                                                ]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSString *backString = nil;
+        if (count > 0 && count < 1000) {
+            
+            backString = [NSString stringWithFormat:@"(%d)", count];
+            
+        } else if (count >= 1000) {
+            
+            backString = @"返回(...)";
+        } else {
+            
+            return;
+        }
+        UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [menuBtn addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        
+        menuBtn.frame = CGRectMake(0, 6, 87, 23);
+        
+        UIImageView *menuImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu"]];
+        menuImg.frame = CGRectMake(-10, 0, 22, 22);
+        
+        [menuBtn addSubview:menuImg];
+        UILabel *menuText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 85, 22)];
+        menuText.text = backString;//NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
+        //   backText.font = [UIFont systemFontOfSize:17];
+        [menuText setBackgroundColor:[UIColor clearColor]];
+        [menuText setTextColor:[UIColor whiteColor]];
+        [menuBtn addSubview:menuText];
+        UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
+        
+        self.navigationItem.leftBarButtonItem = menuBarButtonItem;
+    });
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

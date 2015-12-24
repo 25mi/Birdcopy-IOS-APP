@@ -395,16 +395,19 @@
             return;
         }
         
-        RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-        
-        NSString* userID = [commentData.userID MD5];
-        
-        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.userName = userInfo.name;
-        chatService.targetId = userID;
-        chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = chatService.userName;
-        [self.navigationController pushViewController:chatService animated:YES];
+        if ([NSString getUserPortraitUri].length==0) {
+            
+            [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
+        }
+        else
+        {
+            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+            
+            chatService.targetId = [commentData.userID MD5];
+            chatService.conversationType = ConversationType_PRIVATE;
+            chatService.title = commentData.nickName;
+            [self.navigationController pushViewController:chatService animated:YES];
+        }
     }
     /*
      NSString *openID = [NSString getOpenUDID];

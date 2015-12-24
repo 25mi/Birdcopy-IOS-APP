@@ -20,6 +20,8 @@
 #import "AFHttpTool.h"
 #import "FlyingDownloadManager.h"
 
+#import <Foundation/NSURLSession.h>
+
 @interface FlyingDownloader ()
 {
     NSMutableDictionary * _downloadingOperationList;
@@ -99,7 +101,13 @@
                                              
                                          } failure:^(NSError *err) {
                                              //
-                                             [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
+                                             
+                                             self.resumeData = err.userInfo[NSURLSessionDownloadTaskResumeData];
+                                             
+                                             if (!self.resumeData) {
+                                                 
+                                                 [[FlyingDownloadManager shareInstance] closeAndReleaseDownloaderForID:lessonID];
+                                             }
                                          }];
         }
         else if ([_downloadType isEqualToString:KDownloadTypeMagnet]) {
@@ -151,6 +159,14 @@
 -(void) resumeDownload
 {
     if([_downloadType isEqualToString:KDownloadTypeNormal]){
+        
+        if (self.resumeData) {
+            
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
+
+            _downloader = [session downloadTaskWithResumeData:self.resumeData];
+        }
     
         [(NSURLSessionDownloadTask *)_downloader resume];
     }

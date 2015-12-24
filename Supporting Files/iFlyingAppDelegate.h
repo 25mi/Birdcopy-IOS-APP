@@ -28,7 +28,8 @@
                                                 CFShareCircleViewDelegate,
                                                 MFMessageComposeViewControllerDelegate,
                                                 MFMailComposeViewControllerDelegate,
-                                                RCIMConnectionStatusDelegate>
+                                                RCIMConnectionStatusDelegate,
+                                                RCIMReceiveMessageDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
