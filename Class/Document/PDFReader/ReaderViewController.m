@@ -1308,14 +1308,17 @@ enum
                                    if (response) {
                                        
                                        NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                       NSData * audioData = [NSData dataWithContentsOfURL:[NSURL URLWithString:tempStr]];
-                                       //将数据保存到本地指定位置
-                                       [audioData writeToFile:filePath atomically:YES];
                                        
-                                       [mainToolbar showPlayButton];
-                                       [mainToolbar setPlayState:YES];
+                                       if(tempStr && tempStr.length!=0)
+                                       {
+                                           NSData * audioData = [NSData dataWithContentsOfURL:[NSURL URLWithString:tempStr]];
+                                           //将数据保存到本地指定位置
+                                           [audioData writeToFile:filePath atomically:YES];
+                                           
+                                           [mainToolbar showPlayButton];
+                                           [mainToolbar setPlayState:YES];
+                                       }
                                    }
-
                                    
                                } failure:^(NSError *err) {
                                    //

@@ -29,13 +29,18 @@
 
 #import <MessageUI/MessageUI.h>
 
-@implementation ReaderMainToolbar
-{
-	UIButton *playButton;
+@interface ReaderMainToolbar()
 
-    UIImage* buttonImageN;
-    UIImage* buttonImageH;
-}
+@property (nonatomic, strong) UIButton *playButton;
+
+@property (nonatomic, strong) UIImage* buttonImageN;
+@property (nonatomic, strong) UIImage* buttonImageH;
+
+
+@end
+
+
+@implementation ReaderMainToolbar
 
 #pragma mark Constants
 
@@ -116,10 +121,10 @@
         rightButtonX -= (BUTTON_WIDTH + BUTTON_SPACE);
         //titleWidth -= (BUTTON_WIDTH + BUTTON_SPACE);
         
-		playButton = flagButton; playButton.enabled = YES; playButton.tag = NSIntegerMin;
+		self.playButton = flagButton; self.playButton.enabled = YES; self.playButton.tag = NSIntegerMin;
         
-        buttonImageN= [UIImage imageNamed:@"PlayAudio"];
-        buttonImageH= [UIImage imageNamed:@"Pause"];
+        self.buttonImageN= [UIImage imageNamed:@"PlayAudio"];
+        self.buttonImageH= [UIImage imageNamed:@"Pause"];
 
         
         Class printInteractionController = NSClassFromString(@"UIPrintInteractionController");
@@ -148,38 +153,38 @@
 
 - (void)setPlayState:(BOOL)state
 {
-	if (state != playButton.tag) // Only if different state
+	if (state != self.playButton.tag) // Only if different state
 	{
 		if (self.hidden == NO) // Only if toolbar is visible
 		{
-			UIImage *image = (state ? buttonImageH : buttonImageN);
+			UIImage *image = (state ? self.buttonImageH : self.buttonImageN);
             
-            playButton.tag = state; // Update bookmarked state tag
-			[playButton setImage:image forState:UIControlStateNormal];
+            self.playButton.tag = state; // Update bookmarked state tag
+			[self.playButton setImage:image forState:UIControlStateNormal];
 		}
 	}
 }
 
 - (void)updatePlayImage
 {
-	if (playButton.tag != NSIntegerMin) // Valid tag
+	if (self.playButton.tag != NSIntegerMin) // Valid tag
 	{
-		BOOL state = playButton.tag; // Bookmarked state
+		BOOL state = self.playButton.tag; // Bookmarked state
 
-		UIImage *image = (state ? buttonImageH : buttonImageN);
+		UIImage *image = (state ? self.buttonImageH : self.buttonImageN);
 
-		[playButton setImage:image forState:UIControlStateNormal];
+		[self.playButton setImage:image forState:UIControlStateNormal];
 	}
 }
 
 - (void)showPlayButton
 {
-    [playButton setHidden:NO];
+    [self.playButton setHidden:NO];
 }
 
 - (void)hidePlayButton;
 {
-    [playButton setHidden:YES];
+    [self.playButton setHidden:YES];
 }
 
 - (void)hideToolbar
