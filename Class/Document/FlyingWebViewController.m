@@ -31,6 +31,8 @@
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
 
+#import "FlyingNavigationController.h"
+
 @interface FlyingWebViewController ()
 {
     
@@ -80,33 +82,13 @@
     [self addBackFunction];
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"refresh"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* freshButton= [[UIButton alloc] initWithFrame:frame];
-    [freshButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* freshButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [freshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [freshButton addTarget:self action:@selector(doFresh) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* freshBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:freshButton];
     
-    image= [UIImage imageNamed:@"share"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* shareButton= [[UIButton alloc] initWithFrame:frame];
-    [shareButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
@@ -135,121 +117,24 @@
     [self prepairNLP];
 }
 
--(void) loadWebview
+-(void)viewWillAppear:(BOOL)animated
 {
-    [_webView setDelegate:self];
-    [_webView setFlyingwebviewdelegate:self];
-    [_webView initContextMenu];
-
-    if(!self.webURL){
-        
-        self.webURL = [[[[FlyingLessonDAO alloc] init] selectWithLessonID:self.lessonID] BECONTENTURL];
-    }
-        
-    NSURL *webURL = [NSURL URLWithString:self.webURL];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webURL];
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    }
-
-    [_webView loadRequest:request];
+    [super viewWillAppear:animated];
 }
 
-- (void)viewDidUnload
+- (void)viewWillDisappear:(BOOL)animated
 {
-    
-    [super viewDidUnload];
-    [self my_viewDidUnload];
+    [super viewWillDisappear:animated];
 }
 
-- (void)my_viewDidUnload
+- (void) willDismiss
 {
-
-    [_webView stopLoading];
-    _webView = nil;
-    _flyingNPL = nil;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    //释放UI资源
-    [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    [self setStateBar:nil];
-    [self setTipsLabel:nil];
-    
-    self.webURL=nil;
-    self.lessonID=nil;
-    
-   _aWordView=nil;
-    _speechPlayer=nil;
-    _background_queue=nil;
-    
-    _statisticDAO=nil;
-    _touchDAO=nil;
-    
-    _currentURL=nil;
-    
-    _flyingNPL=nil;
-    
     if (_webView) {
         
         [_webView stopLoading];
         _webView=nil;
     }
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-    // Dispose of any resources that can be recreated.
-    if ([self isViewLoaded] && ([self.view window] == nil) ) {
-        self.view = nil;
-        [self my_viewDidUnload];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark 
-//////////////////////////////////////////////////////////////
-
-//LogoDone functions
-- (void)dismiss
-{    
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) backNow
-{
-    if (self.webView.canGoBack)
-    {
-        [self.webView goBack];
-    }
-    else
-    {
-        [self dismiss];
-    }
-}
-
-- (void) outNow
-{
-    [self dismiss];
-}
-
 
 - (void) doSomething
 {
@@ -270,7 +155,7 @@
                                                                 Text:lesson.desc
                                                                Image:[coverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
                                       }
-
+                                      
                                   }];
     }
     else
@@ -286,10 +171,31 @@
     }
 }
 
-
 - (void) doFresh
 {
     [_webView reload];
+}
+
+-(void) loadWebview
+{
+    [_webView setDelegate:self];
+    [_webView setFlyingwebviewdelegate:self];
+    [_webView initContextMenu];
+
+    if(!self.webURL){
+        
+        self.webURL = [[[[FlyingLessonDAO alloc] init] selectWithLessonID:self.lessonID] BECONTENTURL];
+    }
+        
+    NSURL *webURL = [NSURL URLWithString:self.webURL];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webURL];
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    }
+
+    [_webView loadRequest:request];
 }
 
 //////////////////////////////////////////////////////////////
@@ -319,8 +225,7 @@
 - (void) dismissAndJumpFor:(NSString *)lessonID
 {
 
-    [self dismiss];
-    
+    [self dismissNavigation];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:KBEJumpToLesson object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
 }
@@ -342,73 +247,6 @@
     }
     
     _currentURL = webView.request.URL.absoluteString;
-    
-    
-    if(self.webView.canGoBack){
-        
-        //顶部导航
-        UIImage* image= [UIImage imageNamed:@"back"];
-        CGRect frame= CGRectMake(0, 0, 28, 28);
-        UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-        [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-        [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-        
-        self.navigationItem.leftBarButtonItem = menuBarButtonItem;
-    }
-    
-    if(self.webView.canGoBack){
-        
-        //顶部导航
-        UIImage* image= [UIImage imageNamed:@"back"];
-        CGRect frame= CGRectMake(0, 0, 28, 28);
-        UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-        [backButton setBackgroundImage:image forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(backNow) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-        
-        image= [UIImage imageNamed:@"close"];
-        frame= CGRectMake(0, 0, 28, 28);
-        UIButton* outButton= [[UIButton alloc] initWithFrame:frame];
-        [outButton setBackgroundImage:image forState:UIControlStateNormal];
-        [outButton addTarget:self action:@selector(outNow) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* outBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:outButton];
-
-        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:outBarButtonItem, backBarButtonItem, nil];
-    }
-    
-    //更改字体大小
-    /*
-    int alpha =1;
-    if (!INTERFACE_IS_PAD) {
-        alpha = 2;
-    }
-    
-    NSString *jsString = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",128*alpha];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-     
-    
-    //更改网页背景颜色和当前环境一致
-    [webView stringByEvaluatingJavaScriptFromString:@"document.body.style.background = '#ffffff';"];
-    
-    //去除右侧的滚动条和边界的地图
-    for (UIView *_aView in [webView subviews])
-    {
-        if ([_aView isKindOfClass:[UIScrollView class]])
-        {
-            [(UIScrollView *)_aView setShowsVerticalScrollIndicator:NO]; //右侧的滚动条
-            
-            for (UIView *_inScrollview in _aView.subviews)
-            {
-                
-                if ([_inScrollview isKindOfClass:[UIImageView class]])
-                {
-                    _inScrollview.hidden = YES;  //上下滚动出边界时的黑色的图片
-                }
-            }
-        } 
-    }  
-     */
 }
 
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -646,6 +484,12 @@
     [self becomeFirstResponder];
 }
 
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -653,12 +497,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void) viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -678,7 +516,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIWebView.h>
 #import "FlyingUIWebView.h"
+#import "FlyingViewController.h"
 
 @class FlyingFakeHUD;
 @class MWFeedItem;
 
-@interface FlyingWebViewController : UIViewController< UIWebViewDelegate,
+@interface FlyingWebViewController : FlyingViewController< UIWebViewDelegate,
                                                         UIGestureRecognizerDelegate,
                                                         FlyingUIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet FlyingUIWebView *webView;

@@ -10,13 +10,14 @@
 #import "PSCollectionView.h"
 #import "FlyingLoadingView.h"
 #import <CoreLocation/CoreLocation.h>
+#import "FlyingViewController.h"
 
 typedef void (^SelectProviderBlock)();
 
 
 @class FlyingFakeHUD;
 
-@interface FlyingProviderListVC : UIViewController<PSCollectionViewDataSource,
+@interface FlyingProviderListVC : FlyingViewController<PSCollectionViewDataSource,
                                                     PSCollectionViewDelegate,
                                                     FlyingLoadingViewDelegate>
 

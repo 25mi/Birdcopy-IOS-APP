@@ -10,7 +10,7 @@
 #import "RCDGroupInfo.h"
 #import "FlyingHttpTool.h"
 #import "RCDRCIMDataSource.h"
-#import "RCDChatViewController.h"
+#import "FlyingConversationVC.h"
 
 @interface RCDGroupDetailViewController () <UIActionSheetDelegate>
 
@@ -152,7 +152,7 @@
       [self.navigationController popViewControllerAnimated:YES];
       return;
     } else {
-      RCDChatViewController *temp = [[RCDChatViewController alloc] init];
+      FlyingConversationVC *temp = [[FlyingConversationVC alloc] init];
       temp.targetId = _groupInfo.groupId;
       temp.conversationType = ConversationType_GROUP;
       temp.title = _groupInfo.groupName;
@@ -160,7 +160,7 @@
     }
   } else {
 
-    RCDChatViewController *temp = [[RCDChatViewController alloc] init];
+    FlyingConversationVC *temp = [[FlyingConversationVC alloc] init];
     temp.targetId = _groupInfo.groupId;
     temp.conversationType = ConversationType_GROUP;
     temp.title = _groupInfo.groupName;

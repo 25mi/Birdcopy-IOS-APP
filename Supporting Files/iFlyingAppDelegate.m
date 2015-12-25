@@ -472,10 +472,7 @@
 
 -(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
 {
-    if ([message.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
 }
 
 - (void)dealloc {

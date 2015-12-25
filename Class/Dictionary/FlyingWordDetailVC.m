@@ -23,6 +23,8 @@
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 
+#import "FlyingNavigationController.h"
+
 @interface FlyingWordDetailVC ()
 {
     FlyingSoundPlayer                *_soundPlayer;
@@ -45,27 +47,14 @@
     //更新欢迎语言
     self.title =self.theWord;
     
-    //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    self.navigationItem.leftBarButtonItem = menuBarButtonItem;
-    
-    image= [UIImage imageNamed:@"PlayAudio"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* playButton= [[UIButton alloc] initWithFrame:frame];
-    [playButton setBackgroundImage:image forState:UIControlStateNormal];
+    //顶部右上角导航
+    UIButton* playButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [playButton setBackgroundImage:[UIImage imageNamed:@"PlayAudio"] forState:UIControlStateNormal];
     [playButton addTarget:self action:@selector(soundWord) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* playButtonItem= [[UIBarButtonItem alloc] initWithCustomView:playButton];
     
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
@@ -83,6 +72,30 @@
         [self showItemList];
     }
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+}
+
+- (void) doSearch
+{
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindWord];
+    
+    [self.navigationController pushViewController:search animated:YES];
+}
+
 
 -(void) showItemList
 {
@@ -153,38 +166,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-    // Dispose of any resources that can be recreated.
-    if ([self isViewLoaded] && ([self.view window] == nil) ) {
-        self.view = nil;
-        [self my_viewDidUnload];
-    }
-}
-
-- (void)viewDidUnload
-{
-    
-    [super viewDidUnload];
-    [self my_viewDidUnload];
-}
-
-- (void)my_viewDidUnload
-{
-    [self setWordDetailCollectView:nil];
-    [self.itemList removeAllObjects];
-    self.itemList=nil;
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark PSCollection
 //////////////////////////////////////////////////////////////
@@ -229,12 +210,6 @@
 //////////////////////////////////////////////////////////////
 #pragma mark
 //////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) soundWord
 {
     
@@ -243,29 +218,6 @@
     }
     
     [_soundPlayer speechWord:self.theWord LessonID:nil];
-}
-
-
-- (void) doSearch
-{
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setSearchType:BEFindWord];
-    
-    [self.navigationController pushViewController:search animated:YES];
-}
-
-//LogoDone functions
-- (void)dismiss{
-    
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -282,6 +234,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -289,12 +247,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -313,15 +265,8 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
-}
-
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(BOOL)shouldAutorotate
-{
-    return NO;
 }
 
 @end

@@ -18,6 +18,7 @@
 #import "FlyingMyGroupsVC.h"
 
 #import "FlyingHttpTool.h"
+#import "FlyingNavigationController.h"
 
 @interface FlyingScanViewController ()
 {
@@ -48,32 +49,14 @@
     self.title =@"扫描二维｜条形码";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"photos"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* scanButton= [[UIButton alloc] initWithFrame:frame];
-    [scanButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* scanButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [scanButton setBackgroundImage:[UIImage imageNamed:@"photos"] forState:UIControlStateNormal];
     [scanButton addTarget:self action:@selector(doPhotos) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:scanButton];
     
     self.navigationItem.rightBarButtonItem = scanBarButtonItem;
     
-    frame=self.view.frame;
+    CGRect frame=self.view.frame;
     
     CGFloat sideLength = frame.size.width*200/320;
     
@@ -113,6 +96,35 @@
     self.descLabel.text=@"将二维码或者条码放入框内";
     
     [self.view addSubview:self.descLabel];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+    [_session stopRunning];
+    [timer invalidate];
+}
+
+- (void) doPhotos
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.allowsEditing = YES;
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:^{
+        /*self.isScanning = NO;
+         [self.captureSession stopRunning];
+         */
+    }];
 }
 
 -(void)animation
@@ -395,32 +407,6 @@
     }
 }
 
-//////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
-        
-        [_session stopRunning];
-        [timer invalidate];
-        
-        FlyingMyGroupsVC* myHomeVC = [[FlyingMyGroupsVC alloc] init];
-        
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:myHomeVC]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
-    }
-    else
-    {
-        [_session stopRunning];
-        [timer invalidate];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
 -(BOOL) isRSSLesson:(NSString*) url
 {
     NSRange textRange;
@@ -435,31 +421,6 @@
         
         return YES;
     }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [_session stopRunning];
-    [timer invalidate];
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-
-- (void) doPhotos
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.allowsEditing = YES;
-    picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:^{
-        /*self.isScanning = NO;
-         [self.captureSession stopRunning];
-         */
-    }];
 }
 
 //////////////////////////////////////////////////////////////
@@ -478,6 +439,12 @@
     [self setupCamera];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -487,15 +454,8 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
 - (void) addBackFunction
 {
-    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
@@ -509,7 +469,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

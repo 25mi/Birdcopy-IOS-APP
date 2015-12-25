@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "shareDefine.h"
+#import "FlyingViewController.h"
 
-@interface FlyingScanViewController : UIViewController<AVCaptureMetadataOutputObjectsDelegate,
+@interface FlyingScanViewController : FlyingViewController<AVCaptureMetadataOutputObjectsDelegate,
                                                         UINavigationControllerDelegate,
                                                         UIImagePickerControllerDelegate,
                                                         UIAlertViewDelegate>

@@ -17,7 +17,7 @@
 #import "RESideMenu.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
 #import "FlyingMyGroupsVC.h"
@@ -45,30 +45,14 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    [self addBackFunction];
+    
     //更新欢迎语言
     self.title =@"我的魔词";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
@@ -95,9 +79,32 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[[FlyingTaskWordDAO alloc] init] cleanTaskWithUSerID:self.currentPassPort];
+                   });
+}
+
+- (void) doSearch
+{
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindWord];
+    
+    [self.navigationController pushViewController:search animated:YES];
 }
 
 #pragma mark - MAOFlipViewControllerDelegate
@@ -129,65 +136,12 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma mark
+#pragma mark MAOFlipViewControllerDelegate
 //////////////////////////////////////////////////////////////
-
--(void) dismiss
+- (void)handleRightSwipeTapFrom: (id) sender
 {
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
-        
-#ifdef __CLIENT__GROUP__VERSION
-        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
-
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
-    }
-    else
-    {
-        if ([self.navigationController.viewControllers count]==1) {
-            
-            [self showMenu];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
+    //[(FlyingNavigationController*)self.navigationController dismiss];
 }
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"保存二维码失败，再试试了：）"];
-        
-        return;
-    }
-
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    [self.navigationController pushViewController:chatList animated:YES];
-}
-
-- (void) doSearch
-{
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setSearchType:BEFindWord];
-    
-    [self.navigationController pushViewController:search animated:YES];
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
@@ -202,6 +156,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -211,25 +171,23 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void) addBackFunction
 {
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
--(void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
+    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(handleSwipeFrom:)];
     
-    dispatch_async(dispatch_get_main_queue(), ^
-                   {
-                       [[[FlyingTaskWordDAO alloc] init] cleanTaskWithUSerID:self.currentPassPort];
-                   });
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
 }
 
-- (void)handleRightSwipeTapFrom: (id) sender
+-(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
-    [self showMenu];
+    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+        
+        [self dismissNavigation];
+    }
 }
 
 @end

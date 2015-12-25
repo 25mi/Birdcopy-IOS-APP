@@ -30,7 +30,6 @@ typedef enum BESearchType
 #define KKEYCHAINServiceName      @"com.birdcopy.SSKeyService"
 #define KOPENUDIDKEY              @"com.birdcopy.openudid"
 
-
 #define KBEAccountChange          @"KBEAccountChange"
 #define KBEFIRSTLAUNCH            @"KBEFIRSTLAUNCH"
 
@@ -55,7 +54,6 @@ typedef enum BESearchType
 #define KINETWeixinAPPID          @"wx9f8b646d050ff6d2"
 #define KFDWeixinAPPID            @"wx73a97518db1cff0f"
 
-
 // IM管理
 #define RONGCLOUD_IM_ENGLISH_APPKEY      @"e5t4ouvptjtsa"
 #define RONGCLOUD_IM_DOCTOR_APPKEY       @"6tnym1brndn27"
@@ -66,7 +64,6 @@ typedef enum BESearchType
 #define KlessonStateChange        @"KlessonStateChange"
 #define KNotificationMessage      @"KNotificationMessage"
 
-
 // APP管理
 #define BIRDENGLISH_APPKEY      @"972dc79932c43552c32664250675dcaa"
 #define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
@@ -75,7 +72,6 @@ typedef enum BESearchType
 
 #define BEIYANG_APPKEY          @"9c8f510fd01e443a7182ed2fb3e2f554"
 #define FD_APPKEY               @"ec683e46661687a6c7425de52ea0d8e9"
-
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 

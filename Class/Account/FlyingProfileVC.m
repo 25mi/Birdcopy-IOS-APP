@@ -19,6 +19,8 @@
 #import "FlyingHttpTool.h"
 #import "FlyingActiveViewController.h"
 #import "FlyingLoginVC.h"
+#import "shareDefine.h"
+#import "FlyingNavigationController.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -41,7 +43,6 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
@@ -52,24 +53,60 @@
     self.title=@"我的账户";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[NSString getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+}
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateAccountState];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBEAccountChange
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      [self updateAccountState];
+                                                      //[self.tableView reloadData];
+                                                  }];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountChange    object:nil];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+//子类具体实现具体功能
+- (void) willDismiss
+{
+}
+
+- (void) updateAccountState
+{
+    [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[NSString getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+    
     self.nickNameLabel.text=[NSString getNickName];
     self.userAbstractLabel.text=[NSString getUserAbstract];
     
@@ -82,14 +119,6 @@
         self.loginLabel.text=@"注册｜登录";
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
 
 #pragma mark - Table view
 
@@ -400,23 +429,6 @@
     return result;
 }
 
-
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
@@ -431,6 +443,11 @@
     [self becomeFirstResponder];
     
 }
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
@@ -439,12 +456,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -462,7 +473,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 @end

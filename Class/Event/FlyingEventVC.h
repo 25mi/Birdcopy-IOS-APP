@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "KMNetworkLoadingViewController.h"
 #import "FlyingCalendarEvent.h"
+#import "FlyingViewController.h"
 
-@interface FlyingEventVC : UIViewController<UITableViewDataSource,
+@interface FlyingEventVC : FlyingViewController<UITableViewDataSource,
                                             UITableViewDelegate,
                                             UICollectionViewDataSource,
                                             UICollectionViewDelegate,

@@ -20,10 +20,11 @@
 #import "iFlyingAppDelegate.h"
 #import <AFNetworking.h>
 #import "FlyingScanViewController.h"
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
 #import "SIAlertView.h"
 
 #import "UICKeyChainStore.h"
+#import "FlyingNavigationController.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
@@ -60,22 +61,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [self addBackFunction];
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -85,16 +71,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     _strongSearchDisplayController.searchResultsDataSource = self;
     _strongSearchDisplayController.searchResultsDelegate = self;
     _strongSearchDisplayController.delegate = self;
-    
-    image= [UIImage imageNamed:@"scan"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* scanButton= [[UIButton alloc] initWithFrame:frame];
-    [scanButton setBackgroundImage:image forState:UIControlStateNormal];
-    [scanButton addTarget:self action:@selector(doScan) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:scanButton];
-    
-    self.navigationItem.rightBarButtonItem = scanBarButtonItem;
-    
     
     NSString *author = [NSString getContentOwner];
     if (author) {
@@ -133,6 +109,20 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         self.title=@"搜索群组";
         self.searchBar.placeholder = @"例如：美剧";
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
 }
 
 //////////////////////////////////////////////////////////////
@@ -565,7 +555,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (void) addBackFunction
 {
-    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
@@ -579,7 +568,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

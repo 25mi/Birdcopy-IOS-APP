@@ -7,7 +7,6 @@
 //
 
 #import "FlyingShareWithFriends.h"
-#import "RCDChatViewController.h"
 #import "UIColor+RCColor.h"
 #import "FlyingHttpTool.h"
 #import "UIImageView+WebCache.h"
@@ -18,6 +17,9 @@
 #import "shareDefine.h"
 #import "UICKeyChainStore.h"
 #import "FlyingMyGroupsVC.h"
+
+#import "FlyingNavigationController.h"
+#import "FlyingConversationVC.h"
 
 @interface FlyingShareWithFriends ()
 
@@ -38,16 +40,26 @@
     
     self.title=@"请选择分享好友";
     
+    //待定？
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"会话";
+    self.tabBarController.navigationItem.titleView = titleView;
+    
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"back"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
+    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
+    
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItem = backBarButtonItem;
-    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
     //设置要显示的会话类型
     [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP),@(ConversationType_SYSTEM)]];
@@ -65,28 +77,37 @@
     
 }
 
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
     
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.font = [UIFont boldSystemFontOfSize:19];
-    titleView.textColor = [UIColor whiteColor];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.text = @"会话";
-    self.tabBarController.navigationItem.titleView = titleView;
-    
-    //自定义rightBarButtonItem
-    /*
-     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
-     [rightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-     [rightBtn addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-     [rightBtn setTintColor:[UIColor whiteColor]];
-     self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
-     */
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void) willDismiss
+{
 }
 
 /**
@@ -100,7 +121,7 @@
 {
     if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL) {
        
-        RCDChatViewController *_conversationVC = [[RCDChatViewController alloc]init];
+        FlyingConversationVC *_conversationVC = [[FlyingConversationVC alloc]init];
         _conversationVC.conversationType = model.conversationType;
         _conversationVC.targetId = model.targetId;
         _conversationVC.title = model.conversationTitle;
@@ -149,32 +170,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
-        
-        FlyingMyGroupsVC * myHome = [[FlyingMyGroupsVC alloc] init];
-        
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:myHome]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
@@ -188,6 +183,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -197,15 +198,8 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
 - (void) addBackFunction
 {
-    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
@@ -219,7 +213,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
-@interface FlyingPickColorVCViewController : UIViewController
+@interface FlyingPickColorVCViewController : FlyingViewController
 
 @end

@@ -16,8 +16,6 @@
 #import "UIViewController+RESideMenu.h"
 #import "RESideMenu.h"
 
-#import "RCDChatListViewController.h"
-
 #import "FlyingGroupVC.h"
 
 #import "UICKeyChainStore.h"
@@ -29,7 +27,6 @@
 
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-#import "RCDChatViewController.h"
 #import "RCDataBaseManager.h"
 
 #import "NSString+FlyingExtention.h"
@@ -37,6 +34,11 @@
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "FlyingLoadingCell.h"
 #import "FlyingContentSummaryCell.h"
+#import "FlyingNavigationController.h"
+
+#import "FlyingConversationVC.h"
+#import "FlyingConversationListVC.h"
+
 
 @interface FlyingCommentVC ()
 {
@@ -123,29 +125,55 @@
     }
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
     [self reloadAll];
 }
 
-- (void)didReceiveMemoryWarning
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void) willDismiss
+{
+    if (_refresh && self.reloadDatadelegate && [self.reloadDatadelegate respondsToSelector:@selector(reloadCommentData)])
+    {
+        [self.reloadDatadelegate reloadCommentData];
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -401,7 +429,7 @@
         }
         else
         {
-            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
             
             chatService.targetId = [commentData.userID MD5];
             chatService.conversationType = ConversationType_PRIVATE;
@@ -492,32 +520,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma menu related
-//////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void)dismiss
-{
-    if (_refresh && self.reloadDatadelegate && [self.reloadDatadelegate respondsToSelector:@selector(reloadCommentData)])
-    {
-        [self.reloadDatadelegate reloadCommentData];
-    }
-    
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
@@ -563,7 +565,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

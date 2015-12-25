@@ -14,8 +14,6 @@
 #import "FlyingHelpVC.h"
 #import "FlyingReviewVC.h"
 #import "FlyingScanViewController.h"
-#import "RCDChatListViewController.h"
-#import "RCDChatViewController.h"
 #import "FlyingNavigationController.h"
 
 #import "FlyingDiscoverContent.h"
@@ -28,6 +26,9 @@
 #import "UICKeyChainStore.h"
 #import "iFlyingAppDelegate.h"
 #import "NSString+FlyingExtention.h"
+
+#import "FlyingConversationListVC.h"
+#import "FlyingConversationVC.h"
 
 #define MENU_IPHONE_HEIGHT  50
 #define MENU_IPAD_HEIGHT    MENU_IPHONE_HEIGHT*2
@@ -75,7 +76,29 @@
     [self.titles addObject:@"账户"];
     [self.images addObject:@"Profile"];
     
-    self.peopleWithCountStr=@"人们";
+    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                @(ConversationType_PRIVATE),
+                                                                @(ConversationType_DISCUSSION),
+                                                                @(ConversationType_APPSERVICE),
+                                                                @(ConversationType_PUBLICSERVICE),
+                                                                @(ConversationType_GROUP)
+                                                                ]];
+    NSString *countString = nil;
+    if (count > 0 && count < 1000) {
+        countString = [NSString stringWithFormat:@"(%d)", count];
+    } else if (count >= 1000) {
+        countString = @"(...)";
+    }
+    
+    if (countString) {
+        
+        self.peopleWithCountStr=[NSString stringWithFormat:@"人们%@",countString];
+    }
+    else
+    {
+        self.peopleWithCountStr=@"人们";
+    }
+    
     [self.titles addObject:self.peopleWithCountStr];
     [self.images addObject:@"wPeople"];
 
@@ -129,6 +152,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     //监控通知信息
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notifyUpdateUnreadMessageCount)
@@ -138,6 +162,7 @@
 
 -(void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
 }
 
@@ -153,23 +178,27 @@
                                                                 @(ConversationType_PUBLICSERVICE),
                                                                 @(ConversationType_GROUP)
                                                                 ]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *countString = nil;
-        if (count > 0 && count < 1000) {
-            countString = [NSString stringWithFormat:@"(%d)", count];
-        } else if (count >= 1000) {
-            countString = @"(...)";
-        }
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.titles indexOfObject:self.peopleWithCountStr] inSection:0];
-        
+    
+    NSString *countString = nil;
+    if (count > 0 && count < 1000) {
+        countString = [NSString stringWithFormat:@"(%d)", count];
+    } else if (count >= 1000) {
+        countString = @"(...)";
+    }
+    
+    NSInteger countPeopleIndex =[self.titles indexOfObject:self.peopleWithCountStr];
+    
+    if (countString) {
         self.peopleWithCountStr=[NSString stringWithFormat:@"人们%@",countString];
-        self.titles[indexPath.row] = self.peopleWithCountStr;
-        
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
-    });
+    }
+    else
+    {
+        self.peopleWithCountStr=@"人们";
+    }
+    
+    self.titles[countPeopleIndex]=self.peopleWithCountStr;
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableView Delegate
@@ -216,9 +245,9 @@
     else if([title containsString:@"账户"])
     {
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id settingVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
+        id accountVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         
-        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:settingVC]
+        [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:accountVC]
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
@@ -239,7 +268,7 @@
     }
     else if([title containsString:self.peopleWithCountStr])
     {
-        RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
+        FlyingConversationListVC  * chatList=[[FlyingConversationListVC alloc] init];
         [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]
                                                      animated:YES];
 

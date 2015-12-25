@@ -14,7 +14,6 @@
 #import "FlyingGroupStreamCell.h"
 
 #import "UIView+Toast.h"
-#import "RCDChatViewController.h"
 
 #import "iFlyingAppDelegate.h"
 #import "RESideMenu.h"
@@ -33,6 +32,9 @@
 #import "shareDefine.h"
 #import "RCDataBaseManager.h"
 #import "NSString+FlyingExtention.h"
+
+#import "FlyingNavigationController.h"
+#import "FlyingConversationVC.h"
 
 @interface FlyingGroupVC ()<UIGestureRecognizerDelegate>
 {
@@ -59,33 +61,13 @@
     [self addBackFunction];
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"Discover"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* discoverButton= [[UIButton alloc] initWithFrame:frame];
-    [discoverButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [discoverButton setBackgroundImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
     [discoverButton addTarget:self action:@selector(doDiscover) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* discoverButtonItem= [[UIBarButtonItem alloc] initWithCustomView:discoverButton];
     
-    image= [UIImage imageNamed:@"Calendar"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* calendarButton= [[UIButton alloc] initWithFrame:frame];
-    [calendarButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* calendarButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [calendarButton setBackgroundImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
     [calendarButton addTarget:self action:@selector(doCalendar) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* calendarBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:calendarButton];
     
@@ -96,7 +78,7 @@
     [self reloadAll];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -116,14 +98,17 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [self.groupView enableKVO:NO];
     
     //恢复默认状态
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate setnavigationBarWithClearStyle:NO];
-    
-    [self resignFirstResponder];
-    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
 }
 
 //////////////////////////////////////////////////////////////
@@ -539,15 +524,14 @@
     }
     else
     {
-        RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+        FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
         
         NSString* userID = streamData.openID;
         
         RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.userName = userInfo.name;
         chatService.targetId = userID;
         chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = chatService.userName;
+        chatService.title = userInfo.name;
         [self.navigationController pushViewController:chatService animated:YES];
     }
 }
@@ -605,7 +589,7 @@
         return;
     }
     
-    RCDChatViewController  * chatVC=[[RCDChatViewController alloc] init];
+    RCBaseViewController  * chatVC=[[FlyingConversationVC alloc] init];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -621,6 +605,12 @@
 {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -647,10 +637,9 @@
 
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
-    
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

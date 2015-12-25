@@ -1,14 +1,11 @@
 //
-//  RCDChatViewController.m
-//  RCloudMessage
+//  FlyingConversationVC.m
+//  FlyingEnglish
 //
-//  Created by Liv on 15/3/13.
-//  Copyright (c) 2015年 胡利武. All rights reserved.
+//  Created by vincent sung on 12/25/15.
+//  Copyright © 2015 BirdEngish. All rights reserved.
 //
-
-#import "RCDChatViewController.h"
-#import <RongIMKit/RongIMKit.h>
-#import "RCDChatViewController.h"
+#import "FlyingConversationVC.h"
 
 #import "RCDataBaseManager.h"
 
@@ -40,8 +37,14 @@
 #import "FlyingImagePreivewVC.h"
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
+#import "FlyingNavigationController.h"
 
-@interface RCDChatViewController () <UIActionSheetDelegate, RCRealTimeLocationObserver, RealTimeLocationStatusViewDelegate, UIAlertViewDelegate, RCMessageCellDelegate>
+@interface FlyingConversationVC () <UIActionSheetDelegate,
+                                    RCRealTimeLocationObserver,
+                                    RealTimeLocationStatusViewDelegate,
+                                    UIAlertViewDelegate,
+                                    RCMessageCellDelegate>
+
 @property (nonatomic, weak)id<RCRealTimeLocationProxy> realTimeLocation;
 @property (nonatomic, strong)RealTimeLocationStatusView *realTimeLocationStatusView;
 
@@ -51,7 +54,7 @@
 
 @end
 
-@implementation RCDChatViewController
+@implementation  FlyingConversationVC
 
 - (void)viewDidLoad
 {
@@ -61,26 +64,21 @@
     //self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     
     [self addBackFunction];
-        
+    
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-
+    
     self.enableSaveNewPhotoToLocalSystem = YES;
-        
+    
     if (self.conversationType != ConversationType_CHATROOM) {
         if (self.conversationType == ConversationType_DISCUSSION) {
             [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion *discussion) {
@@ -142,7 +140,7 @@
     [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"Help"]
                                         title:@"参与设计"
                                           tag:101];
-
+    
     //    self.chatSessionInputBarControl.hidden = YES;
     //    CGRect intputTextRect = self.conversationMessageCollectionView.frame;
     //    intputTextRect.size.height = intputTextRect.size.height+50;
@@ -198,11 +196,45 @@
     self.enableContinuousReadUnreadVoice = YES;//开启语音连读功能
     //打开单聊强制从server 获取用户信息更新本地数据库
     if (self.conversationType == ConversationType_PRIVATE) {
-       
+        
         [[RCDRCIMDataSource shareInstance] getUserInfoWithUserId:self.targetId completion:^(RCUserInfo *userInfo) {
             
         }];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+//子类具体实现具体功能
+- (void) willDismiss
+{
 }
 
 - (void)leftBarButtonItemPressed:(id)sender {
@@ -212,7 +244,7 @@
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出当前界面位置共享会终止，确定要退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
         [alertView show];
-    
+        
     } else {
         
         [self popupChatViewController];
@@ -243,7 +275,7 @@
         //      self.title = discussTitle;
         //    };
         //清除聊天记录之后reload data
-        __weak RCDChatViewController *weakSelf = self;
+        __weak  FlyingConversationVC *weakSelf = self;
         settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.conversationDataRepository removeAllObjects];
@@ -267,7 +299,7 @@
             self.title = discussTitle;
         };
         //清除聊天记录之后reload data
-        __weak RCDChatViewController *weakSelf = self;
+        __weak  FlyingConversationVC *weakSelf = self;
         settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.conversationDataRepository removeAllObjects];
@@ -294,7 +326,7 @@
         UIStoryboard *secondStroyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         RCDGroupDetailViewController *detail=[secondStroyBoard instantiateViewControllerWithIdentifier:@"RCDGroupDetailViewController"];
         NSMutableArray *groups=FLYINGHTTPTOOL.allGroups ;
-        __weak RCDChatViewController *weakSelf = self;
+        __weak  FlyingConversationVC *weakSelf = self;
         detail.clearHistoryCompletion = ^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.conversationDataRepository removeAllObjects];
@@ -305,7 +337,7 @@
         };
         
         [FLYINGHTTPTOOL getGroupByID:self.targetId
-                successCompletion:^(RCGroup *group)
+                   successCompletion:^(RCGroup *group)
          {
              detail.groupInfo=group;
              [self.navigationController pushViewController:detail animated:YES];
@@ -342,7 +374,7 @@
         settingVC.conversationType = self.conversationType;
         settingVC.targetId = self.targetId;
         //清除聊天记录之后reload data
-        __weak RCDChatViewController *weakSelf = self;
+        __weak  FlyingConversationVC *weakSelf = self;
         settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.conversationDataRepository removeAllObjects];
@@ -370,7 +402,7 @@
 - (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag
 {
     switch (tag) {
-        
+            
         case 101: {
             //这里加你自己的事件处理
             
@@ -385,7 +417,7 @@
                 
                 UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发送位置", @"位置实时共享", nil];
                 [actionSheet showInView:self.view];
-            
+                
             } else {
                 
                 [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
@@ -533,7 +565,7 @@
     {
         if(self.conversationType!=ConversationType_PRIVATE)
         {
-            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+             FlyingConversationVC *chatService = [[ FlyingConversationVC alloc] init];
             
             RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userId];
             chatService.targetId = userId;
@@ -547,7 +579,7 @@
 - (void)didTapMessageCell:(RCMessageModel *)model
 {
     [super didTapMessageCell:model];
-
+    
     RCMessageContent * messageCotent = model.content;
     if ([messageCotent isMemberOfClass:[RCRichContentMessage class]]) {
         
@@ -563,7 +595,7 @@
         NSString *imageURI =[(RCImageMessage*)messageCotent imageUrl];
         
         UIImage *originalImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURI]]];
-
+        
         FlyingImagePreivewVC *imageVC=[[FlyingImagePreivewVC alloc] init];
         imageVC.imageUrl=imageURI;
         imageVC.originalImage=originalImage;
@@ -576,7 +608,7 @@
         
         [self showRealTimeLocationViewController];
     }
-
+    
     else
     {
         [super didTapMessageCell:model];
@@ -585,7 +617,7 @@
 
 - (void)didTapUrlInMessageCell:(NSString *)url model:(RCMessageModel *)model;
 {
-        
+    
     NSString * urlString=nil;
     
     RCMessageContent * messageCotent = model.content;
@@ -892,20 +924,20 @@
     
     [_shareCircleView dismissAnimated:YES];
     
-     if ([sharer.name isEqualToString:@"二维码解析"] ||
-         [sharer.name isEqualToString:@"充值"]
-         ) {
-     
-         [self handleScan];
-     }
-     else if ([sharer.name isEqualToString:@"保存图片"]) {
-     
-     [self handleSave];
-     }
-     else if ([sharer.name isEqualToString:@"聊天好友"]) {
-     
-         [self handleShare];
-     }
+    if ([sharer.name isEqualToString:@"二维码解析"] ||
+        [sharer.name isEqualToString:@"充值"]
+        ) {
+        
+        [self handleScan];
+    }
+    else if ([sharer.name isEqualToString:@"保存图片"]) {
+        
+        [self handleSave];
+    }
+    else if ([sharer.name isEqualToString:@"聊天好友"]) {
+        
+        [self handleShare];
+    }
 }
 
 - (void)handleSave
@@ -927,7 +959,7 @@
             [self.view makeToast:@"保存图片失败！"];
         }
     }
-
+    
     else if ([messageCotent isMemberOfClass:[RCLocationMessageCell class]])
     {
         UIImage * image =[(RCLocationMessageCell*)messageCotent pictureView].image;
@@ -1020,27 +1052,6 @@
     }
 }
 
-
-//////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
@@ -1086,7 +1097,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

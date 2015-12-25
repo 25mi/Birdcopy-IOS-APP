@@ -25,7 +25,6 @@
 @property (strong, nonatomic) NSString     *contentType;
 @property (strong, nonatomic) NSString     *commentTitle;
 
-
 @property(nonatomic,assign) id<FlyingCommentVCDelegate> reloadDatadelegate;
 
 @end

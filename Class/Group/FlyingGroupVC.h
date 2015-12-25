@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FlyingGroupDetailsView.h"
 #import "FlyingGroupStreamCell.h"
+#import "FlyingViewController.h"
 
 @class FlyingGroupData;
 @class FlyingStreamData;
 
-@interface FlyingGroupVC : UIViewController<UITableViewDataSource,
+@interface FlyingGroupVC : FlyingViewController<UITableViewDataSource,
                                             UITableViewDelegate,
                                             FlyingGroupDetailsViewDelegate,
                                             FlyingGroupStreamCellDelegate,

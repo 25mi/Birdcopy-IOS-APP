@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
-@interface FlyingReviewVC : UIViewController
+@interface FlyingReviewVC : FlyingViewController
 
 @end

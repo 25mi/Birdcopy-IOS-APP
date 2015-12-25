@@ -36,7 +36,6 @@
 #import "UIImage+localFile.h"
 
 #import "FlyingWebViewController.h"
-#import "FlyingDialogViewController.h"
 
 #import "FlyingLoadingView.h"
 #import "FlyingLessonParser.h"
@@ -103,7 +102,6 @@
 
 #import "UIView+Toast.h"
 
-#import "RCDChatViewController.h"
 #import <AFNetworking.h>
 #import "UIView+Toast.h"
 #import "AFHttpTool.h"
@@ -115,6 +113,8 @@
 
 #import "FlyingContentVC.h"
 #import "FlyingDownloadManager.h"
+
+#import "FlyingConversationVC.h"
 
 static void *PlayerItemStatusObserverContext = &PlayerItemStatusObserverContext;
 static void *SubtitlStatusObserverContext    = &SubtitlStatusObserverContext;

@@ -10,7 +10,7 @@
 
 @implementation FlyingNavigationController
 
--(NSUInteger)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -29,5 +29,6 @@
 {
     [super viewDidLoad];
 }
+
 
 @end

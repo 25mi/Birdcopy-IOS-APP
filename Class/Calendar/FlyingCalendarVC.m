@@ -16,6 +16,8 @@
 #import "FlyingEventVC.h"
 #import "FlyingGroupData.h"
 #import "StoryBoardUtilities.h"
+#import "shareDefine.h"
+#import "FlyingNavigationController.h"
 
 @interface FlyingCalendarVC ()<FlyingCalendarViewDelegate,FlyingCalendarViewDataSource>
 {
@@ -29,7 +31,6 @@
 
 - (void)viewDidLoad
 {
-
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -39,26 +40,8 @@
     [self addBackFunction];
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"refresh"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* resetButton= [[UIButton alloc] initWithFrame:frame];
-    [resetButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* resetButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [resetButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [resetButton addTarget:self action:@selector(doReset) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* doResetButtonItem= [[UIBarButtonItem alloc] initWithCustomView:resetButton];
     
@@ -69,9 +52,24 @@
     [self initCalendar];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+}
+
+#pragma mark
+- (void) doReset
+{
+    [_calendarView setDate:[NSDate date] animated:NO];
 }
 
 - (void) initCalendar
@@ -166,31 +164,6 @@
     [self.navigationController pushViewController:eventVC animated:YES];
 }
 
-#pragma mark
-//////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-//LogoDone functions
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) doReset
-{
-    [_calendarView setDate:[NSDate date] animated:NO];
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
@@ -237,10 +210,8 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
-
-
 
 @end

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "shareDefine.h"
+#import "FlyingViewController.h"
+
 @class FlyingFakeHUD;
 @class FlyingSearchBar;
 
-@interface FlyingSearchViewController : UIViewController<UITableViewDataSource,
+@interface FlyingSearchViewController : FlyingViewController<UITableViewDataSource,
                                                         UITableViewDelegate,
                                                         UISearchBarDelegate,
                                                         UISearchDisplayDelegate>

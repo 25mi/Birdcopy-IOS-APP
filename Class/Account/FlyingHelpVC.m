@@ -11,8 +11,9 @@
 #import "SIAlertView.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
-#import "RCDChatListViewController.h"
 #import "UIView+Toast.h"
+#import "FlyingNavigationController.h"
+#import "FlyingConversationListVC.h"
 
 @interface FlyingHelpVC ()
 
@@ -43,26 +44,8 @@
     self.title =@"做课帮助";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
@@ -94,79 +77,18 @@
     self.pageScroll.alwaysBounceVertical= YES;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    [self my_viewDidUnload];
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
-- (void)my_viewDidUnload
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [self setPageScroll:nil];
-    [self setAboveTitle:nil];
-    [self setAboveDes:nil];
-    [self setMiddleTitle:nil];
-    [self setMiddleDes:nil];
-    [self setLastTitle:nil];
-    [self setLastDes:nil];
+    [super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) willDismiss
 {
-    [super didReceiveMemoryWarning];
-    
-    // Dispose of any resources that can be recreated.
-    if ([self isViewLoaded] && ([self.view window] == nil) ) {
-        self.view = nil;
-        [self my_viewDidUnload];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark 
-//////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-//LogoDone functions
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) doOnlineHelp
-{
-    /*
-     #define SERVICE_ID @"kefu114"
-     RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-     chatService.targetName = @"客服";
-     chatService.targetId = SERVICE_ID;
-     chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-     chatService.title = chatService.targetName;
-     [self.navigationController pushViewController:chatService animated:YES];
-     */
-}
-
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-
-        return;
-    }
-
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    [self.navigationController pushViewController:chatList animated:YES];
 }
 
 - (void) doSearch
@@ -175,7 +97,6 @@
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
     [self.navigationController pushViewController:search animated:YES];
 }
-
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
@@ -191,6 +112,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -198,12 +125,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -222,7 +143,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

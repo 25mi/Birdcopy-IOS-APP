@@ -9,9 +9,9 @@
 #import "PSCollectionView.h"
 #import "FlyingCoverView.h"
 #import "FlyingLoadingView.h"
+#import "FlyingViewController.h"
 
-
-@interface FlyingDiscoverContent : UIViewController<FlyingCoverViewDelegate,
+@interface FlyingDiscoverContent : FlyingViewController<FlyingCoverViewDelegate,
                                                     PSCollectionViewDataSource,
                                                     PSCollectionViewDelegate,
                                                     FlyingLoadingViewDelegate>

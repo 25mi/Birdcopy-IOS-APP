@@ -27,8 +27,6 @@
 #import "INTULocationManager.h"
 #include "china_shift.h"
 #import "FlyingSetDefault.h"
-#import "FlyingNavigationController.h"
-#import "RCDChatListViewController.h"
 #import "UICKeyChainStore.h"
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
@@ -38,7 +36,9 @@
 #import "FlyingDiscoverContent.h"
 #import "FlyingMyGroupsVC.h"
 
+#import "FlyingNavigationController.h"
 #import "FlyingGroupVC.h"
+#import "FlyingConversationListVC.h"
 
 @interface FlyingProviderListVC ()
 {
@@ -51,7 +51,6 @@
     
     MBProgressHUD* hud;
 }
-
 
 @end
 
@@ -71,57 +70,28 @@
     self.title=@"请选择服务商";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    [self loadData];
-
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
-}
-
--(void) updateChatIcon
-{
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    image= [UIImage imageNamed:@"Map"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* mapButton= [[UIButton alloc] initWithFrame:frame];
-    [mapButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* mapButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [mapButton setBackgroundImage:[UIImage imageNamed:@"Map"] forState:UIControlStateNormal];
     [mapButton addTarget:self action:@selector(doMap) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* mapBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:mapButton];
+    
+    self.navigationItem.rightBarButtonItem = mapBarButtonItem;
 
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, mapBarButtonItem, nil];
+    [self loadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
 }
 
 - (void)refreshNow:(UIRefreshControl *)refreshControl
@@ -496,7 +466,7 @@
         return;
     }
 
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
+    FlyingConversationListVC  * chatList=[[FlyingConversationListVC alloc] init];
     [self.navigationController pushViewController:chatList animated:YES];
 }
 
@@ -540,6 +510,12 @@
     if (self.disclosureBlock) self.disclosureBlock();
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -549,15 +525,8 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
 - (void) addBackFunction
 {
-    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
@@ -571,14 +540,8 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(BOOL)shouldAutorotate
-{
-    return YES;
-}
 @end

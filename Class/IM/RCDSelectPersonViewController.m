@@ -11,7 +11,7 @@
 #import "UIImage+localFile.h"
 #import "UIImageView+WebCache.h"
 #import "RCDRCIMDataSource.h"
-#import "RCDChatViewController.h"
+#import "FlyingConversationVC.h"
 
 @implementation RCDSelectPersonViewController
 

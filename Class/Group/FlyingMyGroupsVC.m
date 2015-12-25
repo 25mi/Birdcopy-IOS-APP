@@ -15,7 +15,8 @@
 #import "UIViewController+RESideMenu.h"
 #import "RESideMenu.h"
 
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
+#import "FlyingConversationVC.h"
 
 #import "FlyingGroupVC.h"
 
@@ -29,12 +30,12 @@
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
 
-//#import <RCIMClient.h>
-#import "RCDChatViewController.h"
 #import "RCDataBaseManager.h"
 
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
+
+#import "FlyingNavigationController.h"
 
 @interface FlyingMyGroupsVC ()
 {
@@ -75,58 +76,23 @@
     self.title =@"我的群组";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    self.navigationItem.leftBarButtonItem = menuBarButtonItem;
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self updateChatIcon];
-    });
 
     [self reloadAll];
 }
 
-- (void)didReceiveMemoryWarning
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
 }
 
--(void) updateChatIcon
+- (void)viewWillDisappear:(BOOL)animated
 {
-    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    UIImage *image;
-    if(unreadMsgCount>0)
-    {
-        image = [UIImage imageNamed:@"chat"];
-    }
-    else
-    {
-        image= [UIImage imageNamed:@"chat_b"];
-    }
-    
-    CGRect frame= CGRectMake(0, 0, 24, 24);
-    UIButton* chatButton= [[UIButton alloc] initWithFrame:frame];
-    [chatButton setBackgroundImage:image forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    image= [UIImage imageNamed:@"People"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doGroup) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatBarButtonItem, searchBarButtonItem, nil];
+    [super viewWillDisappear:animated];
 }
 
+- (void) willDismiss
+{
+}
 //////////////////////////////////////////////////////////////
 #pragma mark - Loading data and setup view
 //////////////////////////////////////////////////////////////
@@ -407,7 +373,7 @@
     }
     else
     {
-        RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+        FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
         
         NSString* userID = groupData.gp_owner;
         
@@ -428,51 +394,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma menu related
-//////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void)dismiss
-{
-#ifdef __CLIENT__IS__ENGLISH__
-    [self showMenu];
-#else
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-#endif
-    
-}
-
-- (void) doGroup
-{
-    
-}
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-        
-        return;
-    }
-    
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    
-    [self.navigationController pushViewController:chatList animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
@@ -486,6 +407,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -493,12 +420,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -517,7 +438,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

@@ -16,8 +16,6 @@
 #import "UIViewController+RESideMenu.h"
 #import "RESideMenu.h"
 
-#import "RCDChatListViewController.h"
-
 #import "FlyingGroupVC.h"
 
 #import "UICKeyChainStore.h"
@@ -28,7 +26,6 @@
 
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-#import "RCDChatViewController.h"
 #import "RCDataBaseManager.h"
 
 #import "NSString+FlyingExtention.h"
@@ -58,6 +55,8 @@
 
 #import "UIImage+localFile.h"
 #import "FlyingDownloadManager.h"
+#import "FlyingNavigationController.h"
+#import "FlyingConversationVC.h"
 
 @interface FlyingContentVC ()
 {
@@ -104,19 +103,7 @@
     //更新欢迎语言
     self.title =@"详情";
     
-    //顶部导航
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
+    //顶部右上角导航
     UIButton* shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
     [shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
@@ -127,78 +114,37 @@
     [self commonInit];
 }
 
--(void) viewWillAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    //监控通知信息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(notifyUpdateUnreadMessageCount)
-                                                 name:KNotificationMessage
-                                               object:nil];
+    [super viewWillAppear:animated];
 }
 
--(void) viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+    [super viewWillDisappear:animated];
 }
 
-/**
- *  更新左上角未读消息数
- */
-- (void)notifyUpdateUnreadMessageCount
+- (void) willDismiss
 {
-
-    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
-                                                                @(ConversationType_PRIVATE),
-                                                                @(ConversationType_DISCUSSION),
-                                                                @(ConversationType_APPSERVICE),
-                                                                @(ConversationType_PUBLICSERVICE),
-                                                                @(ConversationType_GROUP)
-                                                                ]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        NSString *backString = nil;
-        if (count > 0 && count < 1000) {
-            
-            backString = [NSString stringWithFormat:@"(%d)", count];
-        
-        } else if (count >= 1000) {
-            
-            backString = @"返回(...)";
-        } else {
-
-            return;
-        }
-        UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [menuBtn addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-
-        menuBtn.frame = CGRectMake(0, 6, 87, 23);
-        
-        UIImageView *menuImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu"]];
-        menuImg.frame = CGRectMake(-10, 0, 22, 22);
-        
-        [menuBtn addSubview:menuImg];
-        UILabel *menuText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 85, 22)];
-        menuText.text = backString;//NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
-        //   backText.font = [UIFont systemFontOfSize:17];
-        [menuText setBackgroundColor:[UIColor clearColor]];
-        [menuText setTextColor:[UIColor whiteColor]];
-        [menuBtn addSubview:menuText];
-        UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
-        
-        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-
-        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    });
+    if(self.mediaVC)
+    {
+        [self.mediaVC dismiss];
+    }
 }
 
-
-- (void)didReceiveMemoryWarning
+-(void)doShare
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    
+    if (self.theLesson.weburl)
+    {
+        [appDelegate shareImageURL:self.theLesson.imageURL
+                           withURL:self.theLesson.weburl
+                             Title:self.theLesson.title
+                              Text:self.theLesson.desc
+                             Image:[self.contentCoverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
+    }
 }
 
 - (void) commonInit
@@ -976,7 +922,7 @@
         }
         else
         {
-            RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
+            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
             
             chatService.targetId = [commentData.userID MD5];
             chatService.conversationType = ConversationType_PRIVATE;
@@ -1125,44 +1071,6 @@
 //////////////////////////////////////////////////////////////
 #pragma menu related
 //////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-   [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void)dismiss
-{
-    if(self.mediaVC)
-    {
-        [self.mediaVC dismiss];
-    }
-
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
--(void)doShare
-{
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    
-    if (self.theLesson.weburl)
-    {
-        [appDelegate shareImageURL:self.theLesson.imageURL
-                           withURL:self.theLesson.weburl
-                             Title:self.theLesson.title
-                              Text:self.theLesson.desc
-                             Image:[self.contentCoverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
-    }
-}
-
 - (void)doSwitchToFullScreen:(BOOL) toFullScreen;
 {
     if (toFullScreen) {
@@ -1234,7 +1142,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

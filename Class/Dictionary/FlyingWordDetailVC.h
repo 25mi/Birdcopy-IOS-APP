@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PSCollectionView.h"
+#import "FlyingViewController.h"
 
 @class FlyingItemParser;
 
-
-@interface FlyingWordDetailVC : UIViewController<PSCollectionViewDataSource,
+@interface FlyingWordDetailVC : FlyingViewController<PSCollectionViewDataSource,
                                                 PSCollectionViewDelegate>
 
 @property (strong, nonatomic)     PSCollectionView   *wordDetailCollectView;

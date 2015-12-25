@@ -9,10 +9,11 @@
 #import "FlyingPickColorVCViewController.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
 #import "RESideMenu.h"
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
+#import "FlyingNavigationController.h"
 
 @interface FlyingPickColorVCViewController ()
 
@@ -37,26 +38,8 @@
     self.title =@"设置颜色";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    image= [UIImage imageNamed:@"refresh"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* resetButton= [[UIButton alloc] initWithFrame:frame];
-    [resetButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* resetButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [resetButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [resetButton addTarget:self action:@selector(doReset) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* doResetButtonItem= [[UIBarButtonItem alloc] initWithCustomView:resetButton];
     
@@ -75,6 +58,26 @@
         singleRecognizer.numberOfTapsRequired = 1; // 单击
         [self.view addGestureRecognizer:singleRecognizer];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+}
+
+- (void) doReset
+{
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate resetnavigationBarWithDefaultStyle];
 }
 
 - (void)handleSingleTapFrom: (UITapGestureRecognizer *)recognizer
@@ -244,37 +247,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) doReset
-{
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate resetnavigationBarWithDefaultStyle];
-}
-
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
@@ -288,6 +260,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -295,12 +273,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -318,8 +290,8 @@
 -(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismiss];
+
+        [self dismissNavigation];
     }
 }
 

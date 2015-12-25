@@ -12,7 +12,6 @@
 #import "FlyingSearchViewController.h"
 #import "FlyingProfileVC.h"
 #import "FlyingNavigationController.h"
-#import "RCDChatListViewController.h"
 #import "AFHttpTool.h"
 #import "UICKeyChainStore.h"
 #import "FlyingPickColorVCViewController.h"
@@ -40,6 +39,8 @@
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
 
+#import "FlyingConversationListVC.h"
+
 
 @interface FlyingAccountVC ()
 
@@ -59,64 +60,82 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self addBackFunction];
-    
     self.title=@"设置";
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
     
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-    
-    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
-
-      
+    //UI相关配置
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     //self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
     
     self.tabBarController.navigationItem.title = @"我";
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [self loadPortrait];
-    });
-    
-    //向服务器获取最新会员数据
-    [FlyingHttpTool getMembershipForAccount:[NSString getOpenUDID]
-                                      AppID:[NSString getAppID]
-                                 Completion:^(NSDate *startDate, NSDate *endDate) {
-                                     //
-                                     [self updateAccountState];
-                                 }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self updateAccountState];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBEAccountChange
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      [self updateAccountState];
+                                                      //[self.tableView reloadData];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBELocalCacheClearOK
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      [self.view makeToast:@"清理缓存成功！"];
+                                                  }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountChange    object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBELocalCacheClearOK    object:nil];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void) willDismiss
+{
 }
 
 - (void) updateAccountState
@@ -124,6 +143,8 @@
     NSString *nickName=[NSString getNickName];
     
     self.accountNikename.text=nickName;
+    
+    [self loadPortrait];
     
     NSString *endDateStr = [[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
     
@@ -273,35 +294,6 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-
-        return;
-    }
-    
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    [self.navigationController pushViewController:chatList animated:YES];
-}
-
-- (void) doSearch
-{
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    
-    [self.navigationController pushViewController:search animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
@@ -313,23 +305,12 @@
 {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:KBEAccountChange
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                  
-                                                      [self updateAccountState];
-                                                      //[self.tableView reloadData];
-                                                  }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:KBELocalCacheClearOK
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      [self.view makeToast:@"清理缓存成功！"];
-                                                  }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -339,14 +320,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMKStoreKitProductPurchasedNotification object:nil];
 }
 
 - (void) addBackFunction
@@ -364,37 +337,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
-    }
-}
-
-//LogoDone functions
-- (void)dismiss
-{
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
-        
-#ifdef __CLIENT__GROUP__VERSION
-        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
-        
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
-    }
-    else
-    {
-        if ([self.navigationController.viewControllers count]==1) {
-            
-            [self showMenu];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+        [self dismissNavigation];
     }
 }
 

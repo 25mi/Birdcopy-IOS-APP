@@ -19,8 +19,9 @@
 #import "FlyingCommentHeader.h"
 #import "FlyingContentTitleAndTypeCell.h"
 #import "FlyingCommentVC.h"
+#import "FlyingViewController.h"
 
-@interface FlyingContentVC :  UIViewController<
+@interface FlyingContentVC :FlyingViewController<
                                                 DWTagListDelegate,
                                                 UITableViewDataSource,
                                                 UITableViewDelegate,

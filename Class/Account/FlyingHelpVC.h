@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
-
-@interface FlyingHelpVC : UIViewController<UIScrollViewDelegate>
+@interface FlyingHelpVC : FlyingViewController<UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *helpTitle;
 

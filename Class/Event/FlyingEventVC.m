@@ -26,6 +26,8 @@
 #import "FlyingEventLocationCell.h"
 #import "FlyingEventPriceCell.h"
 #import "UIImage+localFile.h"
+#import "FlyingNavigationController.h"
+#import "shareDefine.h"
 
 @interface FlyingEventVC ()
 
@@ -58,35 +60,43 @@
     //更新欢迎语言
     self.title =@"活动详情";
     
-    //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    
-    image= [UIImage imageNamed:@"share"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* shareButton= [[UIButton alloc] initWithFrame:frame];
-    [shareButton setBackgroundImage:image forState:UIControlStateNormal];
+    //顶部右上角导航
+    UIButton* shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
     self.navigationItem.rightBarButtonItem = shareBarButtonItem;
 
-    
     [self reloadAll];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+}
+
+- (void) doShare
+{
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *webURL= @"";
+    NSString *description= @"";
+    
+    [appDelegate shareImageURL:self.eventData.coverURL
+                       withURL:webURL
+                         Title:self.eventData.title
+                          Text:description
+                         Image:[self.tableHeaderImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
 }
 
 #pragma mark -
@@ -460,51 +470,6 @@
     [self requestEventDetails];
 }
 
-
-//////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) doReset
-{
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate resetnavigationBarWithDefaultStyle];
-}
-
-- (void) doShare
-{
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSString *webURL= @"";
-    NSString *description= @"";
-    
-    [appDelegate shareImageURL:self.eventData.coverURL
-                       withURL:webURL
-                         Title:self.eventData.title
-                          Text:description
-                         Image:[self.tableHeaderImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
-}
-
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
@@ -519,6 +484,12 @@
     [self becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
@@ -526,12 +497,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -550,7 +515,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

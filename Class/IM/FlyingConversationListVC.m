@@ -1,17 +1,16 @@
 //
-//  FirstViewController.m
-//  RongCloud
+//  FlyingConversationListVC.m
+//  FlyingEnglish
 //
-//  Created by Liv on 14/10/31.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
-//
+//  Created by vincent sung on 12/25/15.
+//  Copyright © 2015 BirdEngish. All rights reserved.
 
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
 #import "RCDAddressBookViewController.h"
 #import "RCDSearchFriendViewController.h"
 #import "RCDSelectPersonViewController.h"
 //#import "RCDRCIMDataSource.h"
-#import "RCDChatViewController.h"
+#import "FlyingConversationVC.h"
 #import "UIColor+RCColor.h"
 #import "RCDChatListCell.h"
 //#import "RCDAddFriendTableViewController.h"
@@ -25,9 +24,9 @@
 #import "FlyingMyGroupsVC.h"
 #import "NSString+FlyingExtention.h"
 
-#import "KxMenu.h"
+#define MenuTag  1234
 
-@interface RCDChatListViewController ()
+@interface FlyingConversationListVC ()<UIActionSheetDelegate>
 
 @property (nonatomic,strong) RCConversationModel *tempModel;
 
@@ -36,7 +35,7 @@
 
 @end
 
-@implementation RCDChatListViewController
+@implementation FlyingConversationListVC
 
 - (void)viewDidLoad
 {
@@ -45,31 +44,35 @@
     [self addBackFunction];
     
     self.title=@"所有会话";
-    
+
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-    
-    image= [UIImage imageNamed:@"People"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(chatWithPeople) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    
+    
+    //备用
+    /*
+     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
+     [rightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+     [rightBtn addTarget:self action:@selector(showRightMenu:) forControlEvents:UIControlEventTouchUpInside];
+     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+     [rightBtn setTintColor:[UIColor whiteColor]];
+     self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
+     */
+    
     
     self.navigationItem.rightBarButtonItem= searchBarButtonItem;
     
@@ -78,62 +81,77 @@
     
     //聚合会话类型
     [self setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION)]];
-
+    
     
     //设置为不用默认渲染方式
     self.tabBarItem.image = [[UIImage imageNamed:@"icon_chat"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     self.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_chat_hover"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    
     //设置tableView样式
     self.conversationListTableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     self.conversationListTableView.tableFooterView = [UIView new];
-//    self.conversationListTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 12)];
+    //    self.conversationListTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 12)];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _isClick = YES;
-    [self setNavigationItemTitleView];
-    //自定义rightBarButtonItem
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
-    [rightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    [rightBtn setTintColor:[UIColor whiteColor]];
-    self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
     
-    [self notifyUpdateUnreadMessageCount];
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(receiveNeedRefreshNotification:)
                                                 name:@"kRCNeedReloadDiscussionListNotification"
                                               object:nil];
+    
+    _isClick = YES;
+    [self setNavigationItemTitleView];
+    [self notifyUpdateUnreadMessageCount];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"kRCNeedReloadDiscussionListNotification"    object:nil];
     
-    [self becomeFirstResponder];
-
     //showConnectingStatusOnNavigatorBar设置为YES时，需要重写setNavigationItemTitleView函数来显示已连接时的标题。
     self.showConnectingStatusOnNavigatorBar = YES;
     [super updateConnectionStatusOnNavigatorBar];
 }
 
-- (void)setNavigationItemTitleView {
-    if (self.isEnteredToCollectionViewController) {
-        return;
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
     }
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.font = [UIFont boldSystemFontOfSize:19];
-    titleView.textColor = [UIColor whiteColor];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.text = @"会话";
-    self.tabBarController.navigationItem.titleView = titleView;
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+//子类具体实现具体功能
+- (void) willDismiss
+{
+}
+
+- (void) chatWithPeople
+{
+    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+    chatService.targetId = [NSString getAppID];
+    chatService.conversationType = ConversationType_CHATROOM;
+    chatService.title = @"公共聊天室";
+    
+    [self.navigationController pushViewController:chatService animated:YES];
 }
 
 - (void)updateBadgeValueForTabBarItem
@@ -167,7 +185,7 @@
         
         if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL) {
             
-            RCDChatViewController *_conversationVC = [[RCDChatViewController alloc] init];
+            FlyingConversationVC *_conversationVC = [[FlyingConversationVC alloc] init];
             _conversationVC.conversationType = model.conversationType;
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
@@ -184,7 +202,7 @@
         //聚合会话类型，此处自定设置。
         else if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_COLLECTION) {
             
-            RCDChatListViewController *temp = [[RCDChatListViewController alloc] init];
+            FlyingConversationListVC *temp = [[FlyingConversationListVC alloc] init];
             NSArray *array = [NSArray arrayWithObject:[NSNumber numberWithInt:model.conversationType]];
             [temp setDisplayConversationTypes:array];
             [temp setCollectionConversationType:nil];
@@ -194,7 +212,7 @@
         
         else if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_PUBLIC_SERVICE) {
             
-            RCDChatViewController *_conversationVC = [[RCDChatViewController alloc] init];
+            FlyingConversationVC *_conversationVC = [[FlyingConversationVC alloc] init];
             _conversationVC.conversationType = model.conversationType;
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
@@ -211,33 +229,35 @@
  *  @param sender sender description
  */
 
-- (void)showMenu:(UIButton *)sender {
-    NSArray *menuItems =
-    @[
-      
-      [KxMenuItem menuItem:@"发起聊天"
-                     image:[UIImage imageNamed:@"chat_icon"]
-                    target:self
-                    action:@selector(pushChat:)],
-      
-      [KxMenuItem menuItem:@"通讯录"
-                     image:[UIImage imageNamed:@"contact_icon"]
-                    target:self
-                    action:@selector(pushAddressBook:)]];
+- (void)showRightMenu:(UIButton *)sender
+{
     
-    CGRect targetFrame = self.tabBarController.navigationItem.rightBarButtonItem.customView.frame;
-    targetFrame.origin.y = targetFrame.origin.y + 15;
-    [KxMenu showMenuInView:self.tabBarController.navigationController.navigationBar.superview
-                  fromRect:targetFrame
-                 menuItems:menuItems];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发起聊天", @"通讯录", nil];
+    
+    [actionSheet showInView:self.view];
 }
- 
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            [self pushChat];
+        }
+            break;
+        case 1:
+        {
+            [self pushAddressBook];
+        }
+            break;
+    }
+}
+
 /**
  *  发起聊天
  *
- *  @param sender sender description
  */
-- (void) pushChat:(id)sender
+- (void) pushChat
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     RCDSelectPersonViewController *selectPersonVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"RCDSelectPersonViewController"];
@@ -248,7 +268,7 @@
         if(selectedUsers.count == 1)
         {
             RCUserInfo *user = selectedUsers[0];
-            RCDChatViewController *chat =[[RCDChatViewController alloc]init];
+            FlyingConversationVC *chat =[[FlyingConversationVC alloc]init];
             chat.targetId                      = user.userId;
             chat.conversationType              = ConversationType_PRIVATE;
             chat.title                         = user.name;
@@ -275,7 +295,7 @@
             [[RCIMClient sharedRCIMClient] createDiscussion:discussionTitle userIdList:userIdList success:^(RCDiscussion *discussion) {
                 NSLog(@"create discussion ssucceed!");
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    RCDChatViewController *chat =[[RCDChatViewController alloc]init];
+                    FlyingConversationVC *chat =[[FlyingConversationVC alloc]init];
                     chat.targetId                      = discussion.discussionId;
                     chat.title                    = discussion.discussionName;
                     chat.conversationType              = ConversationType_DISCUSSION;
@@ -300,7 +320,7 @@
  *
  *  @param sender sender description
  */
--(void) pushAddressBook:(id) sender
+-(void) pushAddressBook
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     RCDAddressBookViewController *addressBookVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"RCDAddressBookViewController"];
@@ -432,7 +452,7 @@
 //    if (model.conversationType == ConversationType_PRIVATE) {
 //        ((RCConversationCell *)cell).isShowNotificationNumber = NO;
 //    }
-//    
+//
 //}
 - (void)notifyUpdateUnreadMessageCount
 {
@@ -450,42 +470,23 @@
 }
 
 //////////////////////////////////////////////////////////////
-#pragma only portart events
-//////////////////////////////////////////////////////////////
--(void) dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-
-- (void) chatWithPeople
-{
-    RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-    chatService.targetId = [NSString getAppID];
-    chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title = @"公共聊天室";
-
-    [self.navigationController pushViewController:chatService animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////
 
 -(BOOL)canBecomeFirstResponder {
     return YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -495,12 +496,6 @@
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shakeNow];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 - (void) addBackFunction
@@ -519,7 +514,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 

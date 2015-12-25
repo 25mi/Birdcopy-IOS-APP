@@ -11,10 +11,11 @@
 #import "RCDDiscussSettingCell.h"
 #import "RCDDiscussSettingSwitchCell.h"
 #import "RCDSelectPersonViewController.h"
-#import "RCDChatViewController.h"
 #import "FlyingHttpTool.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDataBaseManager.h"
+
+#import "FlyingConversationVC.h"
 
 @interface RCDDiscussGroupSettingViewController ()<UIActionSheetDelegate>
 
@@ -297,7 +298,7 @@
                 [[RCIMClient sharedRCIMClient] createDiscussion:discussionTitle userIdList:userIdList success:^(RCDiscussion *discussion) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        RCDChatViewController *chat =[[RCDChatViewController alloc]init];
+                        FlyingConversationVC *chat = [[FlyingConversationVC alloc] init];
                         chat.targetId                      = discussion.discussionId;
                         chat.conversationType              = ConversationType_DISCUSSION;
                         chat.title                         = discussionTitle;//[NSString stringWithFormat:@"讨论组(%lu)", (unsigned long)_count];

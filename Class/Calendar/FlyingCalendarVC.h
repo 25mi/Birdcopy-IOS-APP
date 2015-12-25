@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
 @class FlyingGroupData;
 @class FlyingCalendarView;
 
-@interface FlyingCalendarVC : UIViewController
+@interface FlyingCalendarVC : FlyingViewController
 
 @property (strong, nonatomic) NSMutableArray           *currentData;
 @property (strong, nonatomic) FlyingGroupData          *groupData;

@@ -19,7 +19,6 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 - (void)updateMagnifyingGlassAtPoint:(CGPoint)point;
 @end
 
-
 @implementation ACMagnifyingView
 
 @synthesize magnifyingGlass, magnifyingGlassShowDelay;

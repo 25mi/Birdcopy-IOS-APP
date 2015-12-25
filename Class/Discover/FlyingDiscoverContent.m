@@ -15,7 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "FlyingWebViewController.h"
 #import "FlyingLoadingView.h"
-#import "RCDChatListViewController.h"
+#import "FlyingConversationListVC.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingContentVC.h"
 #import "iFlyingAppDelegate.h"
@@ -31,6 +31,7 @@
 
 #import "UIViewController+RESideMenu.h"
 
+#import "FlyingNavigationController.h"
 
 @interface FlyingDiscoverContent ()
 
@@ -42,6 +43,8 @@
     UIRefreshControl    *_refreshControl;
 }
 
+@property (nonatomic,strong) UIButton* menuButton;
+
 @end
 
 @implementation FlyingDiscoverContent
@@ -50,44 +53,17 @@
 {
     [super viewDidLoad];
     
-    [self addBackFunction];
-    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     
     _refresh=NO;
         
     self.title=@"发现";
+    [self addBackFunction];
     
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-#ifdef __CLIENT__GROUP__VERSION
-    
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
-#else
-
-    self.navigationItem.leftBarButtonItem = menuBarButtonItem;
-    
-#endif
-
-    image= [UIImage imageNamed:@"search"];
-    frame= CGRectMake(0, 0, 24, 24);
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:frame];
-    [searchButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
@@ -103,62 +79,26 @@
     [self reloadAll];
 }
 
--(void) viewWillDisappear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+    [super viewWillAppear:animated];
 }
 
-/**
- *  更新左上角未读消息数
- */
-- (void)notifyUpdateUnreadMessageCount
+- (void)viewWillDisappear:(BOOL)animated
 {
-    
-    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
-                                                                @(ConversationType_PRIVATE),
-                                                                @(ConversationType_DISCUSSION),
-                                                                @(ConversationType_APPSERVICE),
-                                                                @(ConversationType_PUBLICSERVICE),
-                                                                @(ConversationType_GROUP)
-                                                                ]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        NSString *backString = nil;
-        if (count > 0 && count < 1000) {
-            
-            backString = [NSString stringWithFormat:@"(%d)", count];
-            
-        } else if (count >= 1000) {
-            
-            backString = @"返回(...)";
-        } else {
-            
-            return;
-        }
-        UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [menuBtn addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-        
-        menuBtn.frame = CGRectMake(0, 6, 87, 23);
-        
-        UIImageView *menuImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu"]];
-        menuImg.frame = CGRectMake(-10, 0, 22, 22);
-        
-        [menuBtn addSubview:menuImg];
-        UILabel *menuText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 85, 22)];
-        menuText.text = backString;//NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
-        //   backText.font = [UIFont systemFontOfSize:17];
-        [menuText setBackgroundColor:[UIColor clearColor]];
-        [menuText setTextColor:[UIColor whiteColor]];
-        [menuBtn addSubview:menuText];
-        UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
-        
-        self.navigationItem.leftBarButtonItem = menuBarButtonItem;
-    });
+    [super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) willDismiss
 {
-    [super didReceiveMemoryWarning];
+}
+
+- (void) doSearch
+{
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    [search setSearchType:BEFindLesson];
+    [self.navigationController pushViewController:search animated:YES];
 }
 
 //////////////////////////////////////////////////////////////
@@ -408,47 +348,6 @@
 {
     [self.navigationController pushViewController:viewController animated:animated];
 }
-//////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-        
-        return;
-    }
-    
-    RCDChatListViewController  * chatList=[[RCDChatListViewController alloc] init];
-    
-    [self.navigationController pushViewController:chatList animated:YES];
-}
-
-- (void) doSearch
-{
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
-    [search setSearchType:BEFindLesson];
-    [self.navigationController pushViewController:search animated:YES];
-}
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
@@ -462,6 +361,12 @@
 {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -488,14 +393,8 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
 }
 
 @end

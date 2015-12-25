@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "FlyingMyGroupCell.h"
+#import "FlyingViewController.h"
 
-@interface FlyingMyGroupsVC : UIViewController<UITableViewDataSource,
+@interface FlyingMyGroupsVC : FlyingViewController<UITableViewDataSource,
                                                 UITableViewDelegate,
                                                 FlyingMyGroupCellDelegate>
 

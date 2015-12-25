@@ -13,7 +13,7 @@
 #import "NSString+FlyingExtention.h"
 #import "RCDataBaseManager.h"
 #import "shareDefine.h"
-
+#import "FlyingNavigationController.h"
 
 @interface FlyingEditVC ()<ACEExpandableTableViewDelegate>
 {
@@ -26,7 +26,8 @@
 
 @implementation FlyingEditVC
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
@@ -44,22 +45,17 @@
     }
 
     //顶部导航
-    UIImage* image= [UIImage imageNamed:@"menu"];
-    CGRect frame= CGRectMake(0, 0, 28, 28);
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:frame];
-    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    image= [UIImage imageNamed:@"back"];
-    frame= CGRectMake(0, 0, 28, 28);
-    UIButton* backButton= [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:image forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
-    
+
     self.saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
     [self.saveBtn  setTitle:@"保存" forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
@@ -71,9 +67,91 @@
     self.navigationItem.rightBarButtonItem=saveButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) showMenu
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
+- (void) dismissNavigation
+{
+    [self willDismiss];
+    
+    if ([self.navigationController.viewControllers count]==1) {
+        
+        [self showMenu];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+//子类具体实现具体功能
+- (void) willDismiss
+{
+}
+
+- (void) doSave
+{
+    NSString *openID = [NSString getOpenUDID];
+    
+    if (!openID) {
+        
+        return;
+    }
+    
+    NSString* nickName=nil;
+    NSString* userAbstract=nil;
+    
+    if (self.isNickName) {
+        
+        nickName=self.someText;
+    }
+    else{
+        
+        userAbstract=self.someText;
+    }
+    
+    [AFHttpTool refreshUesrWithOpenID:openID
+                                 name:nickName
+                          portraitUri:nil
+                             br_intro:userAbstract
+                              success:^(id response) {
+                                  
+                                  //更新本地用户信息（IM）
+                                  RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
+                                  currentUserInfo.name=nickName;
+                                  [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
+                                  
+                                  //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                  [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
+                                  
+                                  [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
+                                  
+                                  //更新本地用户信息（系统）
+                                  if (self.isNickName) {
+                                      [NSString setNickName:nickName];
+                                  }
+                                  else
+                                  {
+                                      [NSString setUserAbstract:userAbstract];
+                                  }
+                                  
+                                  [self dismissNavigation];
+                                  
+                              } failure:^(NSError *err) {
+                                  //
+                              }];
 }
 
 #pragma mark - Table view data source
@@ -144,75 +222,6 @@
     }
 }
 
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (void) doSave
-{
-    NSString *openID = [NSString getOpenUDID];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    NSString* nickName=nil;
-    NSString* userAbstract=nil;
-    
-    if (self.isNickName) {
-        
-        nickName=self.someText;
-    }
-    else{
-    
-        userAbstract=self.someText;
-    }
-    
-    [AFHttpTool refreshUesrWithOpenID:openID
-                                 name:nickName
-                          portraitUri:nil
-                             br_intro:userAbstract
-                              success:^(id response) {
-                                  
-                                  //更新本地用户信息（IM）
-                                  RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                                  currentUserInfo.name=nickName;
-                                  [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
-                                  
-                                  //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                  [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
-                                  
-                                  [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
-                                  
-                                  //更新本地用户信息（系统）
-                                  if (self.isNickName) {
-                                      [NSString setNickName:nickName];
-                                  }
-                                  else
-                                  {
-                                      [NSString setUserAbstract:userAbstract];
-                                  }
-                                  
-                              } failure:^(NSError *err) {
-                                  //
-                              }];
-    
-    [self dismiss];
-}
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
@@ -258,7 +267,7 @@
 {
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
         
-        [self dismiss];
+        [self dismissNavigation];
     }
 }
 @end

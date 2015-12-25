@@ -10,10 +10,11 @@
 #import "PSCollectionView.h"
 #import "FlyingLoadingView.h"
 #import "FlyingCoverData.h"
+#import "FlyingViewController.h"
 
 @class FlyingFakeHUD;
 
-@interface FlyingLessonListViewController : UIViewController<PSCollectionViewDataSource,
+@interface FlyingLessonListViewController : FlyingViewController<PSCollectionViewDataSource,
                                                             PSCollectionViewDelegate,
                                                             FlyingLoadingViewDelegate>
 
