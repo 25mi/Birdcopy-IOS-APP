@@ -3896,6 +3896,10 @@
 		FA0C58921B0F6101000D98BA /* IM */ = {
 			isa = PBXGroup;
 			children = (
+				8214ECF31C2D12430014B6BD /* FlyingConversationListVC.h */,
+				8214ECF41C2D12430014B6BD /* FlyingConversationListVC.m */,
+				8214ECEC1C2D12180014B6BD /* FlyingConversationVC.h */,
+				8214ECED1C2D12180014B6BD /* FlyingConversationVC.m */,
 				8214EB4E1C2AE8D20014B6BD /* FlyingImagePreivewVC.h */,
 				8214EB4F1C2AE8D20014B6BD /* FlyingImagePreivewVC.m */,
 				8214EB501C2AE8D20014B6BD /* FlyingShareWithFriends.h */,
@@ -3920,10 +3924,6 @@
 				8214EC3B1C2AEC200014B6BD /* RCDUpdateNameViewController.m */,
 				8214EB661C2AE8D20014B6BD /* RealTimeLocation */,
 				8214EB7A1C2AE8D20014B6BD /* Setting */,
-				8214ECEC1C2D12180014B6BD /* FlyingConversationVC.h */,
-				8214ECED1C2D12180014B6BD /* FlyingConversationVC.m */,
-				8214ECF31C2D12430014B6BD /* FlyingConversationListVC.h */,
-				8214ECF41C2D12430014B6BD /* FlyingConversationListVC.m */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -7092,8 +7092,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = inet.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ziran du (Q232Q254JS)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7133,7 +7132,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "87bfbc06-d074-446b-8dc1-0c9ac0019e76";
+				PROVISIONING_PROFILE = "19d46911-d5eb-44a4-ab5c-1ca2419a336a";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -7189,7 +7188,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.it;
 				PRODUCT_NAME = inet;
-				PROVISIONING_PROFILE = "da13f826-c091-4189-9795-68f14f878bd3";
+				PROVISIONING_PROFILE = "f9d94d1f-1a75-455b-b1cd-386dfbaa486a";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";

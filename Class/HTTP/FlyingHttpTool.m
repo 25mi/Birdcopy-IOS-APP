@@ -383,6 +383,12 @@
                                           userInfo.name=response[@"name"];
                                           userInfo.portraitUri=response[@"portraitUri"];
                                           
+                                          //用户融云数据库
+                                          [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+                                          
+                                          //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                          [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
+                                          
                                           completion(userInfo);
                                       }
                                       else
@@ -415,6 +421,12 @@
                                           userInfo.userId= rongID;
                                           userInfo.name=response[@"name"];
                                           userInfo.portraitUri=response[@"portraitUri"];
+                                          
+                                          //用户融云数据库
+                                          [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+                                          
+                                          //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                          [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
                                           
                                           completion(userInfo);
                                       }

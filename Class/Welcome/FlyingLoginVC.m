@@ -11,7 +11,6 @@
 #import "AFHttpTool.h"
 #import "MBProgressHUD.h"
 #import "FlyingUnderlineTextField.h"
-#import "RCDataBaseManager.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingHttpTool.h"
 #import "AFHttpTool.h"

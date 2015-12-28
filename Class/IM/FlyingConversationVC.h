@@ -10,6 +10,4 @@
 
 @interface FlyingConversationVC : RCConversationViewController
 
-@property (strong,nonatomic) RCConversationModel *conversation;
-
 @end

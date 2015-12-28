@@ -26,7 +26,6 @@
 
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-#import "RCDataBaseManager.h"
 
 #import "NSString+FlyingExtention.h"
 
@@ -901,7 +900,6 @@
     
     if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:[commentData.userID MD5]])
     {
-    
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         

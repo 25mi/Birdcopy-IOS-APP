@@ -197,8 +197,9 @@
     //打开单聊强制从server 获取用户信息更新本地数据库
     if (self.conversationType == ConversationType_PRIVATE) {
         
-        [[RCDRCIMDataSource shareInstance] getUserInfoWithUserId:self.targetId completion:^(RCUserInfo *userInfo) {
+        [FlyingHttpTool getUserInfoByRongID:self.targetId completion:^(RCUserInfo *userInfo) {
             
+            self.title=userInfo.name;
         }];
     }
 }

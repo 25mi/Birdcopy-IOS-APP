@@ -350,7 +350,7 @@
 
     NSString *rongDeviceKoken = [UICKeyChainStore keyChainStore][kRongCloudDeviceToken];
     
-    if(rongDeviceKoken.length==0)
+    if(rongDeviceKoken.length!=0)
     {
         NSString *openID = [NSString getOpenUDID];
         
@@ -369,20 +369,10 @@
                                            
                                            NSString *rongDeviceKoken = response[@"token"];
                                            
-                                           //保存默认用户
+                                           //保存Token
                                            [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
                                            
-                                           [AFHttpTool refreshUesrWithOpenID:openID
-                                                                        name:[NSString getNickName]
-                                                                 portraitUri:nil
-                                                                    br_intro:[NSString getUserAbstract]
-                                                                     success:^(id response) {
-                                                                         //
-                                                                         [self connectWithRongCloud:rongDeviceKoken];
-
-                                                                     } failure:^(NSError *err) {
-                                                                         //
-                                                                     }];
+                                           [self connectWithRongCloud:rongDeviceKoken];
                                        }
                                        else
                                        {
@@ -414,7 +404,6 @@
                                                                  completion:^(RCUserInfo *user) {
                                                                      
                                                                      if (user) {
-                                                                         
                                                                          //保存当前的用户信息（IM本地）
                                                                          [RCIMClient sharedRCIMClient].currentUserInfo = user;
                                                                          [[RCDataBaseManager shareInstance] insertUserToDB:user];

@@ -82,7 +82,6 @@
                                       AppID:[NSString getAppID]
                                  Completion:^(NSDate *startDate, NSDate *endDate) {
                                           //
-                                          
                                       }];
     
     //苹果渠道购买、金币消费、点击单词统计
@@ -91,7 +90,6 @@
                                 Completion:^(BOOL result) {
                                     //
                                 }];
-    
     
     //充值卡记录
     [FlyingHttpTool getQRDataForUserID:openID
@@ -107,11 +105,13 @@
                                            //
     }];
     
-    
     //个人头像和昵称
     [FlyingHttpTool getUserInfoByopenID:openID
                              completion:^(RCUserInfo *user) {
-                                 //
+                                 
+                                 //同步个人信息
+                                 [NSString setNickName:user.name];
+                                 [NSString setUserPortraitUri:user.portraitUri];
                              }];
 }
 

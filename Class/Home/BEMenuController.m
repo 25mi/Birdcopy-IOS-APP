@@ -43,8 +43,6 @@
 @property (strong, nonatomic) NSMutableArray *titles;
 @property (strong, nonatomic) NSMutableArray *images;
 
-@property (strong, nonatomic) NSString * peopleWithCountStr;
-
 @end
 
 @implementation BEMenuController
@@ -76,30 +74,7 @@
     [self.titles addObject:@"账户"];
     [self.images addObject:@"Profile"];
     
-    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
-                                                                @(ConversationType_PRIVATE),
-                                                                @(ConversationType_DISCUSSION),
-                                                                @(ConversationType_APPSERVICE),
-                                                                @(ConversationType_PUBLICSERVICE),
-                                                                @(ConversationType_GROUP)
-                                                                ]];
-    NSString *countString = nil;
-    if (count > 0 && count < 1000) {
-        countString = [NSString stringWithFormat:@"(%d)", count];
-    } else if (count >= 1000) {
-        countString = @"(...)";
-    }
-    
-    if (countString) {
-        
-        self.peopleWithCountStr=[NSString stringWithFormat:@"人们%@",countString];
-    }
-    else
-    {
-        self.peopleWithCountStr=@"人们";
-    }
-    
-    [self.titles addObject:self.peopleWithCountStr];
+    [self.titles addObject:@"人们"];
     [self.images addObject:@"wPeople"];
 
     
@@ -148,57 +123,6 @@
         
         [self.view addSubview:self.tableView];
     }
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //监控通知信息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(notifyUpdateUnreadMessageCount)
-                                                 name:KNotificationMessage
-                                               object:nil];
-}
-
--(void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
-}
-
-/**
- *  更新未读消息数
- */
-- (void)notifyUpdateUnreadMessageCount {
-    
-    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
-                                                                @(ConversationType_PRIVATE),
-                                                                @(ConversationType_DISCUSSION),
-                                                                @(ConversationType_APPSERVICE),
-                                                                @(ConversationType_PUBLICSERVICE),
-                                                                @(ConversationType_GROUP)
-                                                                ]];
-    
-    NSString *countString = nil;
-    if (count > 0 && count < 1000) {
-        countString = [NSString stringWithFormat:@"(%d)", count];
-    } else if (count >= 1000) {
-        countString = @"(...)";
-    }
-    
-    NSInteger countPeopleIndex =[self.titles indexOfObject:self.peopleWithCountStr];
-    
-    if (countString) {
-        self.peopleWithCountStr=[NSString stringWithFormat:@"人们%@",countString];
-    }
-    else
-    {
-        self.peopleWithCountStr=@"人们";
-    }
-    
-    self.titles[countPeopleIndex]=self.peopleWithCountStr;
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark UITableView Delegate
@@ -266,7 +190,7 @@
                                                      animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
-    else if([title containsString:self.peopleWithCountStr])
+    else if([title containsString:@"人们"])
     {
         FlyingConversationListVC  * chatList=[[FlyingConversationListVC alloc] init];
         [self.sideMenuViewController setContentViewController:[[FlyingNavigationController alloc] initWithRootViewController:chatList]

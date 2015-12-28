@@ -178,7 +178,6 @@
  */
 -(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel *)model atIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (_isClick) {
         
         _isClick = NO;
@@ -189,7 +188,6 @@
             _conversationVC.conversationType = model.conversationType;
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
-            _conversationVC.conversation = model;
             _conversationVC.unReadMessage = model.unreadMessageCount;
             _conversationVC.enableNewComingMessageIcon=YES;//开启消息提醒
             _conversationVC.enableUnreadMessageIcon=YES;
@@ -216,7 +214,6 @@
             _conversationVC.conversationType = model.conversationType;
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
-            _conversationVC.conversation = model;
             _conversationVC.unReadMessage = model.unreadMessageCount;
             [self.navigationController pushViewController:_conversationVC animated:YES];
         }

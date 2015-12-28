@@ -269,6 +269,7 @@
                                             //
                                             if (result) {
                                                 //
+                                                [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[NSString getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
                                                 [self.view makeToast:@"上传头像成功！" duration:3 position:CSToastPositionCenter];
                                             }
                                         }];
