@@ -32,6 +32,8 @@
 #import "UIViewController+RESideMenu.h"
 
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
+
 
 @interface FlyingDiscoverContent ()
 
@@ -69,7 +71,7 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    NSString *author = [NSString getContentOwner];
+    NSString *author = [FlyingDataManager getContentOwner];
 
     if (author) {
         

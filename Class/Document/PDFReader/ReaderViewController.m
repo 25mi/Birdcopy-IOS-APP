@@ -65,6 +65,7 @@
 #import "FlyingDownloadManager.h"
 
 #import "CGPDFDocument.h"
+#import "FlyingDataManager.h"
 
 enum
 {
@@ -211,7 +212,7 @@ enum
     //基本辅助信息和工具准备
     _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
 
     _currentPassport = openID;
     _speechPlayer = [[FlyingSoundPlayer alloc] init];

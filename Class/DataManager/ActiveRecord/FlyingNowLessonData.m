@@ -12,13 +12,13 @@
 #import "UICKeyChainStore.h"
 #import "OpenUDID.h"
 #import "NSString+FlyingExtention.h"
-
+#import "FlyingDataManager.h"
 
 @implementation FlyingNowLessonData
 
 - (id)initWithLessonData:(FlyingLessonData *) lessonData;
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if(self = [super init]){
         

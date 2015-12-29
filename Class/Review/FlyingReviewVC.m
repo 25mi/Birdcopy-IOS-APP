@@ -23,6 +23,7 @@
 #import "FlyingMyGroupsVC.h"
 #import "FlyingDiscoverContent.h"
 #import "NSString+FlyingExtention.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate>
 
@@ -58,7 +59,7 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
 
     self.currentPassPort = openID;
     

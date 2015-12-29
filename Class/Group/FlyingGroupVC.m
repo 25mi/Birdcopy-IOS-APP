@@ -35,6 +35,7 @@
 
 #import "FlyingNavigationController.h"
 #import "FlyingConversationVC.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingGroupVC ()<UIGestureRecognizerDelegate>
 {
@@ -512,7 +513,7 @@
 - (void)profileImageViewPressed:(FlyingStreamData*)streamData
 {
 
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (!openID) {
         

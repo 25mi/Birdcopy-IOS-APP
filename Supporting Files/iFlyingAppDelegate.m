@@ -90,6 +90,8 @@
 #import <StoreKit/StoreKit.h>
 
 #import "FlyingDBManager.h"
+#import "FlyingDataManager.h"
+
 
 @interface iFlyingAppDelegate ()
 {
@@ -219,8 +221,8 @@
 
 -(void) jumpToNext
 {
-    [FlyingHttpTool verifyOpenUDID:[NSString getOpenUDID]
-                             AppID:[NSString getAppID]
+    [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
+                             AppID:[FlyingDataManager getAppID]
                         Completion:^(BOOL result) {
                                  //有注册记录
                                  if (result) {
@@ -283,7 +285,7 @@
         [[MKStoreKit sharedKit] startProductRequest];
         
         //向微信注册
-        [WXApi registerApp:[NSString getWeixinID]];
+        [WXApi registerApp:[FlyingDataManager getWeixinID]];
         
         //准备字典
         [FlyingDownloadManager prepareDictionary];
@@ -317,7 +319,7 @@
 
 - (void) initIM
 {
-    NSString* rongAPPkey=[NSString getRongAppKey];
+    NSString* rongAPPkey=[FlyingDataManager getRongAppKey];
     
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
@@ -350,9 +352,9 @@
 
     NSString *rongDeviceKoken = [UICKeyChainStore keyChainStore][kRongCloudDeviceToken];
     
-    if(rongDeviceKoken.length!=0)
+    if(!rongDeviceKoken || rongDeviceKoken.length==0)
     {
-        NSString *openID = [NSString getOpenUDID];
+        NSString *openID = [FlyingDataManager getOpenUDID];
         
         if (!openID) {
             
@@ -409,8 +411,8 @@
                                                                          [[RCDataBaseManager shareInstance] insertUserToDB:user];
                                                                          
                                                                          //保存当前的用户信息（系统本地）
-                                                                         [NSString setNickName:user.name];
-                                                                         [NSString setUserPortraitUri:user.portraitUri];
+                                                                         [FlyingDataManager setNickName:user.name];
+                                                                         [FlyingDataManager setUserPortraitUri:user.portraitUri];
                                                                      }
                                                                  }];
                                     }
@@ -496,8 +498,8 @@
         NSDate *startDate = [dateFormatter dateFromString:startDateStr];
         NSDate *endDate = [dateFormatter dateFromString:endDateStr];
         
-        [FlyingHttpTool updateMembershipForAccount:[NSString getOpenUDID]
-                                             AppID:[NSString getAppID]
+        [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
+                                             AppID:[FlyingDataManager getAppID]
                                          StartDate:startDate
                                            EndDate:endDate
                                         Completion:^(BOOL result) {
@@ -511,7 +513,7 @@
     NSArray * lessonsBeResumeDownload=[dao selectWithWaittingDownload];
     
     FlyingNowLessonDAO * nowDao=[[FlyingNowLessonDAO alloc] init];
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     //清理因为异常造成的伪下载任务
     [lessonsBeResumeDownload enumerateObjectsUsingBlock:^(FlyingLessonData * lessonData, NSUInteger idx, BOOL *stop) {
@@ -811,7 +813,7 @@
     
         [statistic insertQRCount];
         [statistic insertTimeStamp];
-        NSString *openID = [NSString getOpenUDID];
+        NSString *openID = [FlyingDataManager getOpenUDID];
         [statistic updateUserID:openID];
         
         //课程相关数据

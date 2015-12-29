@@ -23,6 +23,7 @@
 #import "FlyingSearchViewController.h"
 #import "FlyingMyGroupsVC.h"
 #import "NSString+FlyingExtention.h"
+#import "FlyingDataManager.h"
 
 #define MenuTag  1234
 
@@ -147,7 +148,7 @@
 - (void) chatWithPeople
 {
     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    chatService.targetId = [NSString getAppID];
+    chatService.targetId = [FlyingDataManager getAppID];
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title = @"公共聊天室";
     

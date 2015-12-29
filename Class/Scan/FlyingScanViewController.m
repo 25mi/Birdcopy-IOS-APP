@@ -19,6 +19,7 @@
 
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingScanViewController ()
 {
@@ -245,8 +246,8 @@
     if (cardID) {
         
         [FlyingHttpTool chargingCrad:cardID
-                               AppID:[NSString getAppID]
-                          WithOpenID:[NSString getOpenUDID]
+                               AppID:[FlyingDataManager getAppID]
+                          WithOpenID:[FlyingDataManager getOpenUDID]
                           Completion:^(BOOL result) {
                               //
                               NSString *title = @"友情提醒！";

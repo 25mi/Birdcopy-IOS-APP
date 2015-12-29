@@ -32,6 +32,8 @@
 #import "UIView+Toast.h"
 
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
+
 
 @interface FlyingWebViewController ()
 {
@@ -105,7 +107,7 @@
     //收费相关
     _statisticDAO = [[FlyingStatisticDAO alloc] init];
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     [_statisticDAO initDataForUserID:openID];
     _touchDAO     = [[FlyingTouchDAO alloc] init];
@@ -302,7 +304,7 @@
                     currentLessonID =@"BirdCopyCommonID";
                 }
                 
-                NSString *openID = [NSString getOpenUDID];
+                NSString *openID = [FlyingDataManager getOpenUDID];
                 
                 [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
             });
@@ -395,7 +397,7 @@
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
         [taskWordDAO setUserModle:NO];
         
-        NSString *openID = [NSString getOpenUDID];
+        NSString *openID = [FlyingDataManager getOpenUDID];
 
         [taskWordDAO insertWithUesrID:openID
                                  Word:[touchWord lowercaseString]

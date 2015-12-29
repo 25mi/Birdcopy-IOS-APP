@@ -25,6 +25,7 @@
 
 #import "UICKeyChainStore.h"
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
@@ -72,7 +73,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     _strongSearchDisplayController.searchResultsDelegate = self;
     _strongSearchDisplayController.delegate = self;
     
-    NSString *author = [NSString getContentOwner];
+    NSString *author = [FlyingDataManager getContentOwner];
     if (author) {
         
         [self setAuthor:author];
@@ -185,7 +186,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (void) getWordList
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     _famousTags =[[FlyingTaskWordDAO  alloc] selectWordsWithUserID:openID];
 
@@ -313,7 +314,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
             
             dispatch_async(dispatch_get_main_queue(), ^
                            {
-                               NSString *openID = [NSString getOpenUDID];
+                               NSString *openID = [FlyingDataManager getOpenUDID];
 
                                [[[FlyingTaskWordDAO alloc] init] insertWithUesrID:openID
                                                                              Word:tag

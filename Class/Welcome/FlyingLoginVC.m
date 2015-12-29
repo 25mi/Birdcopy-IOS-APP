@@ -16,7 +16,7 @@
 #import "AFHttpTool.h"
 #import "UITextFiled+Shake.m"
 #import "FlyingActiveViewController.h"
-
+#import "FlyingDataManager.h"
 
 @interface FlyingLoginVC ()<UITextFieldDelegate>
 
@@ -253,10 +253,10 @@ MBProgressHUD* hud ;
 {
     switch (textField.tag) {
         case UserTextFieldTag:
-            [NSString setUserName:@""];
+            [FlyingDataManager setUserName:@""];
             self.passwordTextField.text = nil;
         case PassWordFieldTag:
-            [NSString setUserPassword:@""];
+            [FlyingDataManager setUserPassword:@""];
             break;
         default:
             break;
@@ -326,7 +326,7 @@ MBProgressHUD* hud ;
 /*注册*/
 - (void)registerEvent
 {
-    NSString *message = [NSString stringWithFormat:@"注册方式：请在电脑上访问%@/login.jsp?f=mx", [NSString getServerAddress]];
+    NSString *message = [NSString stringWithFormat:@"注册方式：请在电脑上访问%@/login.jsp?f=mx", [FlyingDataManager getServerAddress]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                         message:message
                                                        delegate:nil
@@ -358,18 +358,18 @@ MBProgressHUD* hud ;
  */
 - (BOOL)getDefaultUser
 {
-    return [self validateUserName:[NSString getUserName] userPwd:[NSString getUserPassword]];
+    return [self validateUserName:[FlyingDataManager getUserName] userPwd:[FlyingDataManager getUserPassword]];
 }
 /*获取用户账号*/
 - (NSString*)getDefaultUserName
 {
-    return [NSString getUserName];
+    return [FlyingDataManager getUserName];
 }
 
 /*获取用户密码*/
 - (NSString*)getDefaultUserPwd
 {
-    return  [NSString getUserPassword];
+    return  [FlyingDataManager getUserPassword];
 }
 
 - (IBAction)actionLogin:(id)sender
@@ -382,14 +382,14 @@ MBProgressHUD* hud ;
 - (void)loginSuccess:(NSString *)userName password:(NSString *)password token:(NSString *)token userId:(NSString *)userId
 {
     //保存默认用户
-    [NSString setUserName:userName];
-    [NSString setUserPassword:password];
+    [FlyingDataManager setUserName:userName];
+    [FlyingDataManager setUserPassword:password];
     
     //设置当前的用户信息
     RCUserInfo *_currentUserInfo = [[RCUserInfo alloc]initWithUserId:userId name:userName portrait:nil];
     [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
     
-    [FlyingHttpTool getUserInfoByopenID:[NSString getOpenUDID] completion:^(RCUserInfo *user) {
+    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID] completion:^(RCUserInfo *user) {
         
         [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:userId];
     }];
@@ -416,7 +416,7 @@ MBProgressHUD* hud ;
         [hud show:YES];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey :@"UserCookies"];
         
-        [FlyingHttpTool updateCurrentID:[NSString getOpenUDID]
+        [FlyingHttpTool updateCurrentID:[FlyingDataManager getOpenUDID]
                            withUserName:userName
                                     pwd:password
                              Completion:^(BOOL result) {
@@ -424,8 +424,8 @@ MBProgressHUD* hud ;
                                  //
                                  if (result) {
 
-                                     [NSString setUserName:userName];
-                                     [NSString setUserPassword:password];
+                                     [FlyingDataManager setUserName:userName];
+                                     [FlyingDataManager setUserPassword:password];
                                      
                                      FlyingActiveViewController *activeVC= [[FlyingActiveViewController alloc] init];
                                      

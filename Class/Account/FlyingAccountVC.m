@@ -40,7 +40,7 @@
 #import "FlyingHttpTool.h"
 
 #import "FlyingConversationListVC.h"
-
+#import "FlyingDataManager.h"
 
 @interface FlyingAccountVC ()
 
@@ -140,7 +140,7 @@
 
 - (void) updateAccountState
 {
-    NSString *nickName=[NSString getNickName];
+    NSString *nickName=[FlyingDataManager getNickName];
     
     self.accountNikename.text=nickName;
     
@@ -160,18 +160,16 @@
 
 -(void) loadPortrait
 {
-    NSString *portraitUri=[NSString getUserPortraitUri];
+    NSString *portraitUri=[FlyingDataManager getUserPortraitUri];
     
     if (portraitUri.length==0) {
         
-        NSString *openID = [NSString getOpenUDID];
-        
-        if (!openID) {
+        if (![FlyingDataManager getOpenUDID]) {
             
             return;
         }
         
-        [AFHttpTool getUserInfoWithOpenID:openID
+        [AFHttpTool getUserInfoWithOpenID:[FlyingDataManager getOpenUDID]
                                   success:^(id response) {
                                       //
                                       if (response) {
@@ -190,7 +188,7 @@
                                                   
                                                   RCUserInfo *userInfo = [RCUserInfo new];
                                                   
-                                                  userInfo.userId= [openID MD5];
+                                                  userInfo.userId= [[FlyingDataManager getOpenUDID] MD5];
                                                   userInfo.name=response[@"name"];
                                                   userInfo.portraitUri=response[@"portraitUri"];
                                                   
@@ -269,7 +267,7 @@
     {
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        [appDelegate  showWebviewWithURL:[NSString getOfficalURL]];
+        [appDelegate  showWebviewWithURL:[FlyingDataManager getOfficalURL]];
     }
     
     

@@ -38,6 +38,7 @@
 #import "FlyingLessonData.h"
 
 #import "SIAlertView.h"
+#import "FlyingDataManager.h"
 
 @implementation FlyingHttpTool
 
@@ -477,7 +478,7 @@
                                                                                          result=true;
                                                                                          
                                                                                          //更新本地信息
-                                                                                         [NSString setUserPortraitUri:portraitUri];
+                                                                                         [FlyingDataManager setUserPortraitUri:portraitUri];
                                                                                          
                                                                                          //更新融云信息
                                                                                          RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
@@ -697,7 +698,7 @@
                   Completion:(void (^)(BOOL result)) completion;
 {
     [AFHttpTool regOpenUDID:openUDID
-                      AppID:[NSString getAppID]
+                      AppID:[FlyingDataManager getAppID]
                     success:^(id response) {
                                 //
                                 if (response) {
@@ -787,7 +788,7 @@
 //用终端登录官网后台
 +(void) loginWebsiteWithQR:(NSString*)loginID
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if(!openID)
     {

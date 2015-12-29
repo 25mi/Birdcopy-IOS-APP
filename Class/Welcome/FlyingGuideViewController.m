@@ -14,6 +14,7 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 #import "iFlyingAppDelegate.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingGuideViewController()
 {
@@ -61,7 +62,7 @@
     [FlyingDataManager clearAllUserDate];
     
     //注册终端设备
-    [FlyingHttpTool regOpenUDID:[NSString getOpenUDID]
+    [FlyingHttpTool regOpenUDID:[FlyingDataManager getOpenUDID]
                              Completion:^(BOOL result) {
                                  
                                  //注册成功

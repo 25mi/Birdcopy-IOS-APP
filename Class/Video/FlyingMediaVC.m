@@ -115,6 +115,7 @@
 #import "FlyingDownloadManager.h"
 
 #import "FlyingConversationVC.h"
+#import "FlyingDataManager.h"
 
 static void *PlayerItemStatusObserverContext = &PlayerItemStatusObserverContext;
 static void *SubtitlStatusObserverContext    = &SubtitlStatusObserverContext;
@@ -294,7 +295,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
 //////////////////////////////////////////////////////////////
 -(void) initData
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     _currentPassport = openID;
     

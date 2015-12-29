@@ -24,6 +24,8 @@
 #import "ReaderViewController.h"
 
 #import "NSString+FlyingExtention.h"
+#import "FlyingDataManager.h"
+
 
 @interface FlyingDBManager ()
 {
@@ -54,7 +56,7 @@
 {
     FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     [nowLessonDAO updateDBFromLocal:openID];
     
@@ -161,7 +163,7 @@
                     
                 }
                 
-                NSString *openID = [NSString getOpenUDID];
+                NSString *openID = [FlyingDataManager getOpenUDID];
                 
                 if (![nowLessonDAO selectWithUserID:openID LessonID:lessonID]) {
                     

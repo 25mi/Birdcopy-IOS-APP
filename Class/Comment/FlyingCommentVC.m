@@ -37,7 +37,7 @@
 
 #import "FlyingConversationVC.h"
 #import "FlyingConversationListVC.h"
-
+#import "FlyingDataManager.h"
 
 @interface FlyingCommentVC ()
 {
@@ -421,7 +421,7 @@
             return;
         }
         
-        if ([NSString getUserPortraitUri].length==0) {
+        if ([FlyingDataManager getUserPortraitUri].length==0) {
             
             [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
         }
@@ -467,14 +467,12 @@
     commentData.contentID=self.contentID;
     commentData.contentType=self.contentType;
     
-    NSString *openID = [NSString getOpenUDID];
+    commentData.userID = [FlyingDataManager getOpenUDID];
     
-    commentData.userID=openID;
-    
-    NSString *portraitUri=[NSString getUserPortraitUri];
+    NSString *portraitUri=[FlyingDataManager getUserPortraitUri];
     commentData.portraitURL=portraitUri;
     
-    commentData.nickName=[NSString getNickName];
+    commentData.nickName=[FlyingDataManager getNickName];
     commentData.commentContent=self.textView.text;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

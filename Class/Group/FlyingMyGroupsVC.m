@@ -36,6 +36,7 @@
 #import "NSString+FlyingExtention.h"
 
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingMyGroupsVC ()
 {
@@ -150,7 +151,7 @@
 - (BOOL)loadMore
 {
     //test only
-    NSString *author = [NSString getContentOwner];
+    NSString *author = [FlyingDataManager getContentOwner];
 
     [FlyingHttpTool getAllGroupsForAPPOwner:author
                                   Recommend:YES
@@ -360,7 +361,7 @@
 
 - (void)profileImageViewPressed:(FlyingGroupData*)groupData
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (!openID) {
         

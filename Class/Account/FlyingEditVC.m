@@ -14,6 +14,7 @@
 #import "RCDataBaseManager.h"
 #import "shareDefine.h"
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingEditVC ()<ACEExpandableTableViewDelegate>
 {
@@ -103,7 +104,7 @@
 
 - (void) doSave
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (!openID) {
         
@@ -140,11 +141,11 @@
                                   
                                   //更新本地用户信息（系统）
                                   if (self.isNickName) {
-                                      [NSString setNickName:nickName];
+                                      [FlyingDataManager setNickName:nickName];
                                   }
                                   else
                                   {
-                                      [NSString setUserAbstract:userAbstract];
+                                      [FlyingDataManager setUserAbstract:userAbstract];
                                   }
                                   
                                   [self dismissNavigation];
@@ -198,7 +199,7 @@
     
     if (self.isNickName) {
         
-        if (text && ![text isEqualToString:[NSString getNickName]]) {
+        if (text && ![text isEqualToString:[FlyingDataManager getNickName]]) {
             //
             [self.saveBtn setHidden:NO];
             self.someText=text;
@@ -210,7 +211,7 @@
     }
     else
     {
-        if (text && ![text isEqualToString:[NSString getUserAbstract]]) {
+        if (text && ![text isEqualToString:[FlyingDataManager getUserAbstract]]) {
             //
             [self.saveBtn setHidden:NO];
             self.someText=text;

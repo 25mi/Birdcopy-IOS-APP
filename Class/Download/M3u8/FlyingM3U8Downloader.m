@@ -19,7 +19,7 @@
 #import "FlyingSoundPlayer.h"
 #import "AFHttpTool.h"
 #import <AFHTTPSessionManager.h>
-
+#import "FlyingDataManager.h"
 #include <stdio.h>
 #include <stdint.h>
 
@@ -355,7 +355,7 @@
     NSData   *m3u8Data     = [NSData dataWithContentsOfFile:fullpath];
     
     NSString * typeValue=@"m3u8_i";
-    NSString *urlString =[NSString stringWithFormat:@"%@/%@",[NSString getServerAddress],KUpdateM3U8FileURL];
+    NSString *urlString =[NSString stringWithFormat:@"%@/%@",[FlyingDataManager getServerAddress],KUpdateM3U8FileURL];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
@@ -371,7 +371,7 @@
         //
         FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
         [statisticDAO setUserModle:NO];
-        NSString *openID = [NSString getOpenUDID];
+        NSString *openID = [FlyingDataManager getOpenUDID];
         NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
         giftCountNow+=10;
         [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];

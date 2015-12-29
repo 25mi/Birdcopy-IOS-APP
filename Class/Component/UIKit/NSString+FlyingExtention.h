@@ -10,25 +10,6 @@
 
 @interface NSString (FlyingExtention)
 
-+ (NSString*) getServerAddress;
-+ (NSString*) getWeixinID;
-+ (NSString*) getRongAppKey;
-+ (NSString*) getOfficalURL;
-+ (NSString*) getAppID;
-+ (NSString*) getOpenUDID;
-+ (NSString*) getContentOwner;
-
-+ (NSString*) getUserName;
-+ (void)      setUserName:(NSString*) userName;
-+ (NSString*) getUserPassword;
-+ (void)      setUserPassword:(NSString*) passWord;
-
-+ (NSString*) getNickName;
-+ (void)      setNickName:(NSString*) nickName;
-+ (NSString*) getUserAbstract;
-+ (void)      setUserAbstract:(NSString*) userAbstract;
-+ (NSString*) getUserPortraitUri;
-+ (void)      setUserPortraitUri:(NSString*) portraitUri;
 
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;
@@ -71,11 +52,10 @@
 
 +(NSString*) picPathForWord:(NSString*) word;
 
-+ (BOOL)isPureInt:(NSString*)toCheck;
++ (BOOL)     isPureInt:(NSString*)toCheck;
 
 
 + (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
-
 
 - (NSUInteger) numberOfWordsInString;
 - (NSString *) localSrtURL;

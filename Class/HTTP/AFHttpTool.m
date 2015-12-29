@@ -11,6 +11,7 @@
 #import "shareDefine.h"
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
+#import "FlyingDataManager.h"
 
 //#define ContentType @"text/plain"
 //#define ContentType @"text/html"
@@ -26,7 +27,7 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
+    NSURL* baseURL = [NSURL URLWithString:[FlyingDataManager getServerAddress]];
     
     //获得请求管理者
     AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
@@ -310,7 +311,7 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    NSURL* baseURL = [NSURL URLWithString:[NSString getServerAddress]];
+    NSURL* baseURL = [NSURL URLWithString:[FlyingDataManager getServerAddress]];
     
     //获得请求管理者
     AFHTTPSessionManager * mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
@@ -455,7 +456,7 @@
                          Success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
 {
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (!openID) {
         
@@ -587,7 +588,7 @@
         [params setObject:commentData.commentContent forKey:@"content"];
     }
     
-    [params setObject:[NSString getAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppID] forKey:@"app_id"];
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_add_ct_from_tn.action"

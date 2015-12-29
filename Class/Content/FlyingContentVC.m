@@ -56,6 +56,7 @@
 #import "FlyingDownloadManager.h"
 #import "FlyingNavigationController.h"
 #import "FlyingConversationVC.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingContentVC ()
 {
@@ -232,9 +233,7 @@
     [self.navigationController presentViewController:self.networkLoadingViewController animated:YES completion:^{
         
         //获取会员最新权限数据
-        NSString *openID = [NSString getOpenUDID];
-        
-        if(!openID)
+        if(![FlyingDataManager getOpenUDID])
         {
             [self hideLoadingView];
             [self showAccessRightInfo];
@@ -243,8 +242,8 @@
         }
         
         //向服务器获取最新会员数据
-        [FlyingHttpTool getMembershipForAccount:openID
-                                          AppID:[NSString getAppID]
+        [FlyingHttpTool getMembershipForAccount:[FlyingDataManager getOpenUDID]
+                                          AppID:[FlyingDataManager getAppID]
                                      Completion:^(NSDate *startDate, NSDate *endDate) {
                                          //
                                          if(endDate)
@@ -914,7 +913,7 @@
             return;
         }
         
-        if ([NSString getUserPortraitUri].length==0) {
+        if ([FlyingDataManager getUserPortraitUri].length==0) {
             
             [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
         }

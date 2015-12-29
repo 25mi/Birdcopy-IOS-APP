@@ -21,6 +21,7 @@
 #import "FlyingLoginVC.h"
 #import "shareDefine.h"
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -105,12 +106,12 @@
 
 - (void) updateAccountState
 {
-    [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[NSString getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+    [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[FlyingDataManager getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
     
-    self.nickNameLabel.text=[NSString getNickName];
-    self.userAbstractLabel.text=[NSString getUserAbstract];
+    self.nickNameLabel.text=[FlyingDataManager getNickName];
+    self.userAbstractLabel.text=[FlyingDataManager getUserAbstract];
     
-    if([NSString getUserName].length>1)
+    if([FlyingDataManager getUserName].length>1)
     {
         self.loginLabel.text=@"退出，以其它帐号登录";
     }
@@ -137,7 +138,7 @@
             case 1:
             {
                 FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
-                editVC.someText=[NSString getNickName];
+                editVC.someText=[FlyingDataManager getNickName];
                 editVC.isNickName=YES;
                 
                 [self.navigationController pushViewController:editVC animated:YES];
@@ -148,7 +149,7 @@
             case 2:
             {
                 FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
-                editVC.someText=[NSString getUserAbstract];
+                editVC.someText=[FlyingDataManager getUserAbstract];
                 editVC.isNickName=NO;
                 
                 [self.navigationController pushViewController:editVC animated:YES];
@@ -256,7 +257,7 @@
 {
     NSData *imageData = UIImageJPEGRepresentation(editedImage, 0.7); // 0.7 is JPG quality
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (!openID) {
         
@@ -269,7 +270,7 @@
                                             //
                                             if (result) {
                                                 //
-                                                [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[NSString getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+                                                [self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:[FlyingDataManager getUserPortraitUri]]  placeholderImage:[UIImage imageNamed:@"Icon"]];
                                                 [self.view makeToast:@"上传头像成功！" duration:3 position:CSToastPositionCenter];
                                             }
                                         }];

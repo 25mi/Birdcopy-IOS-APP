@@ -13,6 +13,28 @@
 
 @interface FlyingDataManager : NSObject
 
+//基础用户数据
++ (NSString*) getServerAddress;
++ (NSString*) getWeixinID;
++ (NSString*) getRongAppKey;
++ (NSString*) getOfficalURL;
++ (NSString*) getAppID;
++ (NSString*) getOpenUDID;
++ (NSString*) getRongID;
++ (NSString*) getContentOwner;
+
++ (NSString*) getUserName;
++ (void)      setUserName:(NSString*) userName;
++ (NSString*) getUserPassword;
++ (void)      setUserPassword:(NSString*) passWord;
+
++ (NSString*) getNickName;
++ (void)      setNickName:(NSString*) nickName;
++ (NSString*) getUserAbstract;
++ (void)      setUserAbstract:(NSString*) userAbstract;
++ (NSString*) getUserPortraitUri;
++ (void)      setUserPortraitUri:(NSString*) portraitUri;
+
 //获取openUDID
 +(void)getOpenUDIDFromLocal;
 
@@ -25,13 +47,11 @@
 //清理所有用户相关数据(数据库＋影射文件)
 +(void) clearAllUserDate;
 
-
 + (void) buyAppleIdentify:(SKProduct*) product;
 
 +(void)  awardGold:(int) MoneyCount;
 +(void) lowCointAlert;
 
 +(void) doStatisticJob;
-
 
 @end
