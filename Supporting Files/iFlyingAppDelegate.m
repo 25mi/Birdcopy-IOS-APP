@@ -125,58 +125,66 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    
+    //准备本地环境
+    [iFlyingAppDelegate preparelocalEnvironment];
+
     //验证OPenUDID
     [FlyingDataManager getOpenUDIDFromLocal];
     
-    //检查是否有效登录决定是否注册激活
-    [self jumpToNext];
-    
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // 初始化融云SDK
-    [self initIM];
-    
-    [self.window makeKeyAndVisible];
-    
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        //注册推送, iOS 8
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
+    //融云推送处理1
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        
+        //注册推送, 用于iOS8以及iOS8之后的系统
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
         [application registerUserNotificationSettings:settings];
-    }
-    else
-    {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        
+    } else {
+        
+        //注册推送，用于iOS8之前的系统
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeAlert |
+        UIRemoteNotificationTypeSound;
         [application registerForRemoteNotificationTypes:myTypes];
     }
+
+    //统计推送打开率1
+    [[RCIMClient sharedRCIMClient] recordLaunchOptionsEvent:launchOptions];
     
-    //更改导航条样式    
+    //获取融云推送服务扩展字段1
+    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromLaunchOptions:launchOptions];
+    if (pushServiceData) {
+        NSLog(@"该启动事件包含来自融云的推送服务");
+        for (id key in [pushServiceData allKeys]) {
+            NSLog(@"%@", pushServiceData[key]);
+        }
+    } else {
+        NSLog(@"该启动事件不包含来自融云的推送服务");
+    }
+    
+    //更改导航条样式
     [self setnavigationBarWithClearStyle:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification:)
                                                  name:RCKitDispatchMessageNotification
                                                object:nil];
+
     return YES;
 }
 
-- (void)didReceiveMessageNotification:(NSNotification *)notification
-{
-    //
-}
-
+//融云推送处理2
+//注册用户通知设置
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
 
+//融云推送处理3
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString *token = [[[[deviceToken description]
@@ -187,18 +195,7 @@
     [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-    /**
-     * 统计推送打开率3
-     */
-    [[RCIMClient sharedRCIMClient] recordLocalNotificationEvent:notification];
-
-    //震动
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    AudioServicesPlaySystemSound(1007);
-}
-
+//融云推送处理4
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     /**
@@ -217,6 +214,36 @@
     } else {
         NSLog(@"该远程推送不包含来自融云的推送服务");
     }
+}
+
+//本地通知处理
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    /**
+     * 统计推送打开率3
+     */
+    [[RCIMClient sharedRCIMClient] recordLocalNotificationEvent:notification];
+    
+    //震动
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    AudioServicesPlaySystemSound(1007);
+}
+
+//根据是否注册进行不同跳转处理
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //检查是否有效登录决定是否注册激活
+    [self jumpToNext];
+    
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+
+- (void)didReceiveMessageNotification:(NSNotification *)notification {
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber =
+    [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
 }
 
 -(void) jumpToNext
@@ -243,8 +270,9 @@
                                          //从服务器获取新数据
                                          [FlyingDataManager creatLocalUSerProfileWithServer];
                                      }
-                                                                         
-                                     [iFlyingAppDelegate preparelocalEnvironment];
+
+                                     //登录融云
+                                     [FlyingHttpTool loginRongCloud];
                                      
                                      self.window = [UIWindow new];
                                      [self.window makeKeyAndVisible];
@@ -265,68 +293,38 @@
 //本地环境准备
 +(void) preparelocalEnvironment
 {
-    dispatch_async(dispatch_queue_create("com.birdcopy.background.prepare", NULL), ^{
-        
-        //缓存设置
-        int cacheSizeMemory = 8*1024*1024; // 8MB
-        int cacheSizeDisk   = 64*1024*1024; // 64MB
-        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
-        [NSURLCache setSharedURLCache:sharedCache];
-        
-        [FlyingDownloadManager setNotBackUp];
-        
-        //准备PDF环境
-        queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
-        ctx = fz_new_context(NULL, NULL, ResourceCacheMaxSize);
-        fz_register_document_handlers(ctx);
-        screenScale = [[UIScreen mainScreen] scale];
-        
-        //准备购买环境
-        [[MKStoreKit sharedKit] startProductRequest];
-        
-        //向微信注册
-        [WXApi registerApp:[FlyingDataManager getWeixinID]];
-        
-        //准备字典
-        [FlyingDownloadManager prepareDictionary];
-        
-        //监控本地文件夹状态
-        [[FlyingDownloadManager shareInstance] watchDocumentStateNow];
-        
-        //下载没有完成的内容
-        [[FlyingDownloadManager shareInstance] downloadDataIfpossible];
-        
-        //监控下载更新
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(CalledToJumpToLessinID:)
-                                                     name:KBEJumpToLesson
-                                                   object:nil];
-        [FlyingDataManager doStatisticJob];
-        
-    });
-}
-
-
-- (void) CalledToJumpToLessinID:(NSNotification*) aNotification
-{
-    NSString * lessonID = [[aNotification userInfo] objectForKey:@"lessonID"];
+    //缓存设置
+    int cacheSizeMemory = 8*1024*1024; // 8MB
+    int cacheSizeDisk   = 64*1024*1024; // 64MB
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
     
-    if(lessonID){
+    [FlyingDownloadManager setNotBackUp];
     
-        [self showLessonViewWithID:lessonID];
-    }
-}
-
-- (void) initIM
-{
+    //准备PDF环境
+    queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
+    ctx = fz_new_context(NULL, NULL, ResourceCacheMaxSize);
+    fz_register_document_handlers(ctx);
+    screenScale = [[UIScreen mainScreen] scale];
+    
+    //准备购买环境
+    [[MKStoreKit sharedKit] startProductRequest];
+    
+    //向微信注册
+    [WXApi registerApp:[FlyingDataManager getWeixinID]];
+    
+    //准备字典
+    [FlyingDownloadManager prepareDictionary];
+    
+    //准备融云的初始化环境
     NSString* rongAPPkey=[FlyingDataManager getRongAppKey];
     
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
     
-    //设置会话列表头像和会话界面头像
-    [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
+    [[RCIM sharedRCIM] setConnectionStatusDelegate:(iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate]];
     
+    //设置会话列表头像和会话界面头像
     if (INTERFACE_IS_PHONE6PLUS) {
         [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(56, 56);
     }else{
@@ -342,95 +340,39 @@
     [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
     
     //设置接收消息代理
-    [RCIM sharedRCIM].receiveMessageDelegate=self;
+    [RCIM sharedRCIM].receiveMessageDelegate=(iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     //    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(46, 46);
     
     //设置显示未注册的消息
     //如：新版本增加了某种自定义消息，但是老版本不能识别，开发者可以在旧版本中预先自定义这种未识别的消息的显示
     [RCIM sharedRCIM].showUnkownMessage = YES;
     [RCIM sharedRCIM].showUnkownMessageNotificaiton = YES;
-
-    NSString *rongDeviceKoken = [UICKeyChainStore keyChainStore][kRongCloudDeviceToken];
     
-    if(!rongDeviceKoken || rongDeviceKoken.length==0)
-    {
-        NSString *openID = [FlyingDataManager getOpenUDID];
+    //监控网络状态
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    //监控本地文件夹状态
+    [[FlyingDownloadManager shareInstance] watchDocumentStateNow];
+    
+    //监控下载更新
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(CalledToJumpToLessinID:)
+                                                 name:KBEJumpToLesson
+                                               object:nil];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        if (!openID) {
-            
-            return;
-        }
-        
-        [AFHttpTool getTokenWithOpenID:openID
-                               success:^(id response) {
-                                   //
-                                   if (response) {
-                                       NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
-                                       
-                                       if ([code isEqualToString:@"1"]) {
-                                           
-                                           NSString *rongDeviceKoken = response[@"token"];
-                                           
-                                           //保存Token
-                                           [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
-                                           
-                                           [self connectWithRongCloud:rongDeviceKoken];
-                                       }
-                                       else
-                                       {
-                                           NSLog(@"Get rongcloud Token %@",response[@"rm"]);
-                                       }
-                                   }
-                               } failure:^(NSError *err) {
-                                   //
-                                   NSLog(@"Get rongcloud Token %@",err.description);
-
-                               }];
-    }
-    else
-    {
-        [self connectWithRongCloud:rongDeviceKoken];
-    }
+    });
 }
 
--(void)  connectWithRongCloud:(NSString*)rongDeviceKoken
+- (void) CalledToJumpToLessinID:(NSNotification*) aNotification
 {
-    //连接融云服务器
-    [[RCIM sharedRCIM] connectWithToken:rongDeviceKoken
-                                success:^(NSString *userId) {
-                                    //
-                                    RCUserInfo *currentUserInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
-                                    if (currentUserInfo==nil)
-                                    {
-                                        [FlyingHttpTool getUserInfoByRongID:userId
-                                                                 completion:^(RCUserInfo *user) {
-                                                                     
-                                                                     if (user) {
-                                                                         //保存当前的用户信息（IM本地）
-                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = user;
-                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:user];
-                                                                         
-                                                                         //保存当前的用户信息（系统本地）
-                                                                         [FlyingDataManager setNickName:user.name];
-                                                                         [FlyingDataManager setUserPortraitUri:user.portraitUri];
-                                                                     }
-                                                                 }];
-                                    }
-                                    else
-                                    {
-                                        [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
-                                    }
-                                }
-                                  error:^(RCConnectErrorCode status) {
-                                      //
-                                      NSLog(@"Get rongcloud Token %@",@(status));
-                                      [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = @"";
-                                  }
-                         tokenIncorrect:^{
-                             //
-                             [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = @"";
-                             NSLog(@"Get rongcloud tokenIncorrect");
-                         }];
+    NSString * lessonID = [[aNotification userInfo] objectForKey:@"lessonID"];
+    
+    if(lessonID){
+    
+        [self showLessonViewWithID:lessonID];
+    }
 }
 
 #pragma mark - RCIMConnectionStatusDelegate

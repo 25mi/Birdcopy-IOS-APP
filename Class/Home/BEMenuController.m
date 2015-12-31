@@ -29,6 +29,7 @@
 
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
+#import "FlyingDataManager.h"
 
 #define MENU_IPHONE_HEIGHT  50
 #define MENU_IPAD_HEIGHT    MENU_IPHONE_HEIGHT*2
@@ -56,7 +57,7 @@
     
 #ifdef __CLIENT__IS__ENGLISH__
     
-    NSString *openID = [NSString getOpenUDID];
+    NSString *openID = [FlyingDataManager getOpenUDID];
     
     if (openID) {
         

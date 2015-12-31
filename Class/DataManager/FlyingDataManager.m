@@ -321,6 +321,11 @@
     
     if(openID==nil)
     {
+        openID = [[NSUserDefaults standardUserDefaults]  objectForKey:KOPENUDIDKEY];
+    }
+    
+    if(openID==nil)
+    {
         //从本地终端生成账号
         openID = [OpenUDID value];
         keychain[KOPENUDIDKEY]=openID;
@@ -360,6 +365,15 @@
         return;
     }
     
+    //个人头像和昵称
+    [FlyingHttpTool getUserInfoByopenID:openID
+                             completion:^(RCUserInfo *user) {
+                                 
+                                 //同步个人信息
+                                 [FlyingDataManager setNickName:user.name];
+                                 [FlyingDataManager setUserPortraitUri:user.portraitUri];
+                             }];
+    
     //会员信息
     [FlyingHttpTool getMembershipForAccount:openID
                                       AppID:[FlyingDataManager getAppID]
@@ -387,15 +401,6 @@
                                       Completion:^(BOOL result) {
                                            //
     }];
-    
-    //个人头像和昵称
-    [FlyingHttpTool getUserInfoByopenID:openID
-                             completion:^(RCUserInfo *user) {
-                                 
-                                 //同步个人信息
-                                 [FlyingDataManager setNickName:user.name];
-                                 [FlyingDataManager setUserPortraitUri:user.portraitUri];
-                             }];
 }
 
 

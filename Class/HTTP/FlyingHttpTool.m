@@ -39,6 +39,7 @@
 
 #import "SIAlertView.h"
 #import "FlyingDataManager.h"
+#import <UICKeyChainStore.h>
 
 @implementation FlyingHttpTool
 
@@ -366,6 +367,105 @@
         }
     }];
 }
+
++(void) loginRongCloud
+{
+    NSString *rongDeviceKoken = [UICKeyChainStore keyChainStore][kRongCloudDeviceToken];
+    
+    if(!rongDeviceKoken || rongDeviceKoken.length==0)
+    {
+        NSString *openID = [FlyingDataManager getOpenUDID];
+        
+        if (!openID) {
+            
+            return;
+        }
+        
+        [AFHttpTool getTokenWithOpenID:openID
+                               success:^(id response) {
+                                   //
+                                   if (response) {
+                                       NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                       
+                                       if ([code isEqualToString:@"1"]) {
+                                           
+                                           NSString *rongDeviceKoken = response[@"token"];
+                                           
+                                           //保存Token
+                                           [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
+                                           
+                                           [self connectWithRongCloud:rongDeviceKoken];
+                                       }
+                                       else
+                                       {
+                                           NSLog(@"Get rongcloud Token %@",response[@"rm"]);
+                                       }
+                                   }
+                               } failure:^(NSError *err) {
+                                   //
+                                   NSLog(@"Get rongcloud Token %@",err.description);
+                                   
+                               }];
+    }
+    else
+    {
+        [self connectWithRongCloud:rongDeviceKoken];
+    }
+    
+}
+
++(void)  connectWithRongCloud:(NSString*)rongDeviceKoken
+{
+    static int tryTimes=0;
+    //连接融云服务器
+    [[RCIM sharedRCIM] connectWithToken:rongDeviceKoken
+                                success:^(NSString *userId) {
+                                    //
+                                    RCUserInfo *currentUserInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
+                                    if (currentUserInfo==nil)
+                                    {
+                                        [FlyingHttpTool getUserInfoByRongID:userId
+                                                                 completion:^(RCUserInfo *user) {
+                                                                     
+                                                                     if (user) {
+                                                                         //保存当前的用户信息（IM本地）
+                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = user;
+                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:user];
+                                                                         
+                                                                         //保存当前的用户信息（系统本地）
+                                                                         [FlyingDataManager setNickName:user.name];
+                                                                         [FlyingDataManager setUserPortraitUri:user.portraitUri];
+                                                                     }
+                                                                 }];
+                                    }
+                                    else
+                                    {
+                                        [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
+                                    }
+                                }
+                                  error:^(RCConnectErrorCode status) {
+                                      //
+                                      NSLog(@"Get rongcloud Token %@",@(status));
+                                      [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = @"";
+                                  }
+                         tokenIncorrect:^{
+                             
+                             NSLog(@"Get rongcloud tokenIncorrect");
+                             //
+                             [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = @"";
+                             
+                             tryTimes++;
+                             
+                             if(tryTimes<3)
+                             {
+                                 [FlyingHttpTool loginRongCloud];
+                             }
+                         }];
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+#pragma 个人账户昵称头像
+//////////////////////////////////////////////////////////////////////////////////
 
 +(void) getUserInfoByopenID:(NSString *) openID
                  completion:(void (^)(RCUserInfo *user)) completion

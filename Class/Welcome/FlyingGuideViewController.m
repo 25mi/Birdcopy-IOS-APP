@@ -75,7 +75,8 @@
 
 - (void)accountActive
 {
-    [iFlyingAppDelegate preparelocalEnvironment];
+    //登录融云
+    [FlyingHttpTool loginRongCloud];
     
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = [appDelegate getMenu];
