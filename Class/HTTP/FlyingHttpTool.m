@@ -391,9 +391,6 @@
                                            
                                            NSString *rongDeviceKoken = response[@"token"];
                                            
-                                           //保存Token
-                                           [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
-                                           
                                            [self connectWithRongCloud:rongDeviceKoken];
                                        }
                                        else
@@ -421,6 +418,9 @@
     [[RCIM sharedRCIM] connectWithToken:rongDeviceKoken
                                 success:^(NSString *userId) {
                                     //
+                                    //保存Token
+                                    [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = rongDeviceKoken;
+                                    
                                     RCUserInfo *currentUserInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
                                     if (currentUserInfo==nil)
                                     {
@@ -448,6 +448,7 @@
                                       NSLog(@"Get rongcloud Token %@",@(status));
                                       [UICKeyChainStore keyChainStore][kRongCloudDeviceToken] = @"";
                                   }
+     
                          tokenIncorrect:^{
                              
                              NSLog(@"Get rongcloud tokenIncorrect");
@@ -460,7 +461,7 @@
                              {
                                  [FlyingHttpTool loginRongCloud];
                              }
-                         }];
+     }];
 }
 
 //////////////////////////////////////////////////////////////////////////////////

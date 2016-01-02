@@ -173,9 +173,9 @@
 
 + (NSString*) getRongID
 {
-    if ([FlyingDataManager getRongID]) {
+    if ([FlyingDataManager getOpenUDID]) {
         
-        return [[FlyingDataManager getRongID] MD5];
+        return [[FlyingDataManager getOpenUDID] MD5];
     }
     else
     {
