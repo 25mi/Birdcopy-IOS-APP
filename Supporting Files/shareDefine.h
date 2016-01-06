@@ -193,8 +193,7 @@ typedef enum BESearchType
 #define KBaseDicMp3Type           @"dic800_mp3"
 #define KBaseDicDefineType        @"dic800_define_n"
 
-#define KLessonDicName            @"dic_mend_n.xml"
-
+#define KLessonDicXMLFile         @"dic_mend_n.xml"
 #define kShareBaseDir             @"shareBase"
 
 #define KItemDefaultType           9

@@ -17,11 +17,6 @@
 		8212F4181C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
 		8212F4191C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
 		8212F41A1C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
-		8212F41B1C321B8E009C9F86 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */; };
-		8212F41C1C321B8E009C9F86 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */; };
-		8212F41D1C321B8E009C9F86 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */; };
-		8212F41E1C321B8E009C9F86 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */; };
-		8212F41F1C321B8E009C9F86 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */; };
 		8212F4201C321B8E009C9F86 /* FlyingItemDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D51C321B8E009C9F86 /* FlyingItemDao.m */; };
 		8212F4211C321B8E009C9F86 /* FlyingItemDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D51C321B8E009C9F86 /* FlyingItemDao.m */; };
 		8212F4221C321B8E009C9F86 /* FlyingItemDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D51C321B8E009C9F86 /* FlyingItemDao.m */; };
@@ -957,6 +952,11 @@
 		8220E7491C3D095D00265815 /* FlyingFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E7461C3D095D00265815 /* FlyingFileManager.m */; };
 		8220E74A1C3D095D00265815 /* FlyingFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E7461C3D095D00265815 /* FlyingFileManager.m */; };
 		8220E74B1C3D095D00265815 /* FlyingFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E7461C3D095D00265815 /* FlyingFileManager.m */; };
+		8220E74E1C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
+		8220E74F1C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
+		8220E7501C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
+		8220E7511C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
+		8220E7521C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
 		823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
 		823E177B1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
 		823E177C1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E17791C19C4B600E08A5F /* FlyingLoginVC.m */; };
@@ -1902,8 +1902,6 @@
 		8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingActiveViewController.m; sourceTree = "<group>"; };
 		8212F3D01C321B8E009C9F86 /* FlyingBaseDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBaseDao.h; sourceTree = "<group>"; };
 		8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBaseDao.m; sourceTree = "<group>"; };
-		8212F3D21C321B8E009C9F86 /* FlyingDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingDBManager.h; sourceTree = "<group>"; };
-		8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingDBManager.m; sourceTree = "<group>"; };
 		8212F3D41C321B8E009C9F86 /* FlyingItemDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemDao.h; sourceTree = "<group>"; };
 		8212F3D51C321B8E009C9F86 /* FlyingItemDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingItemDao.m; sourceTree = "<group>"; };
 		8212F3D61C321B8E009C9F86 /* FlyingItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemData.h; sourceTree = "<group>"; };
@@ -2288,6 +2286,8 @@
 		8220E7211C3A615500265815 /* FlyingWordLinguisticData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingWordLinguisticData.m; sourceTree = "<group>"; };
 		8220E7451C3D095D00265815 /* FlyingFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingFileManager.h; sourceTree = "<group>"; };
 		8220E7461C3D095D00265815 /* FlyingFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingFileManager.m; sourceTree = "<group>"; };
+		8220E74C1C3D57DB00265815 /* FlyingDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingDBManager.h; sourceTree = "<group>"; };
+		8220E74D1C3D57DB00265815 /* FlyingDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingDBManager.m; sourceTree = "<group>"; };
 		823E17781C19C4B600E08A5F /* FlyingLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingLoginVC.h; sourceTree = "<group>"; };
 		823E17791C19C4B600E08A5F /* FlyingLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingLoginVC.m; sourceTree = "<group>"; };
 		823E177F1C19C8BA00E08A5F /* FlyingAnimatedImagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAnimatedImagesView.h; sourceTree = "<group>"; };
@@ -2963,6 +2963,8 @@
 		8212F3CE1C321B8E009C9F86 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				8220E74C1C3D57DB00265815 /* FlyingDBManager.h */,
+				8220E74D1C3D57DB00265815 /* FlyingDBManager.m */,
 				8212F3CF1C321B8E009C9F86 /* ActiveRecord */,
 				8212F4031C321B8E009C9F86 /* FileHash.h */,
 				8212F4041C321B8E009C9F86 /* FileHash.m */,
@@ -2986,8 +2988,6 @@
 			children = (
 				8212F3D01C321B8E009C9F86 /* FlyingBaseDao.h */,
 				8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */,
-				8212F3D21C321B8E009C9F86 /* FlyingDBManager.h */,
-				8212F3D31C321B8E009C9F86 /* FlyingDBManager.m */,
 				8212F3D41C321B8E009C9F86 /* FlyingItemDao.h */,
 				8212F3D51C321B8E009C9F86 /* FlyingItemDao.m */,
 				8212F3D61C321B8E009C9F86 /* FlyingItemData.h */,
@@ -4989,7 +4989,6 @@
 				8214EBD91C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
 				FA8CDD7F1B030821004152C2 /* MuTapResult.m in Sources */,
 				C8FE1FA01BB1036D009C8D48 /* FlyingCalendarTableViewCell.m in Sources */,
-				8212F41B1C321B8E009C9F86 /* FlyingDBManager.m in Sources */,
 				8212F5B31C321BC8009C9F86 /* SZTextView.m in Sources */,
 				8214E91D1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				824940471C07FB5D000A2306 /* FlyingContentVC.m in Sources */,
@@ -5103,6 +5102,7 @@
 				8214EC011C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
 				8214E8D71C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				8212F5771C321BC8009C9F86 /* SVPulsingAnnotationView.m in Sources */,
+				8220E74E1C3D57DB00265815 /* FlyingDBManager.m in Sources */,
 				8212F55E1C321BC8009C9F86 /* china_shift.c in Sources */,
 				8212F46B1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
 				8212F5811C321BC8009C9F86 /* RSKImageCropViewController.m in Sources */,
@@ -5297,7 +5297,6 @@
 				8214E9991C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				C81F8A711BD7B488004146F0 /* MuDocRef.m in Sources */,
 				C81F8A731BD7B488004146F0 /* MuTapResult.m in Sources */,
-				8212F41F1C321B8E009C9F86 /* FlyingDBManager.m in Sources */,
 				8212F5B71C321BC8009C9F86 /* SZTextView.m in Sources */,
 				8214EBE71C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				8214E9211C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
@@ -5412,6 +5411,7 @@
 				8214E9A31C2995460014B6BD /* AFHttpTool.m in Sources */,
 				C81F8AE01BD7B488004146F0 /* ReaderThumbRequest.m in Sources */,
 				C81F8AE11BD7B488004146F0 /* FlyingCalendarHeaderView.m in Sources */,
+				8220E7521C3D57DB00265815 /* FlyingDBManager.m in Sources */,
 				8212F57B1C321BC8009C9F86 /* SVPulsingAnnotationView.m in Sources */,
 				8212F5621C321BC8009C9F86 /* china_shift.c in Sources */,
 				8212F46F1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
@@ -5708,7 +5708,6 @@
 				8212F6811C321BC8009C9F86 /* NSDateComponents+AllComponents.m in Sources */,
 				8214E91E1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E9281C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
-				8212F41C1C321B8E009C9F86 /* FlyingDBManager.m in Sources */,
 				8214E96E1C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				8212F6091C321BC8009C9F86 /* RECommonFunctions.m in Sources */,
 				C87959A11BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
@@ -5721,6 +5720,7 @@
 				8212F4801C321B8E009C9F86 /* FMTokenizers.m in Sources */,
 				FA04BF8F1B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				8214EB9E1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
+				8220E74F1C3D57DB00265815 /* FlyingDBManager.m in Sources */,
 				8212F4851C321B8E009C9F86 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				8212F4711C321B8E009C9F86 /* FMDatabaseQueue.m in Sources */,
 				8212F5781C321BC8009C9F86 /* SVPulsingAnnotationView.m in Sources */,
@@ -6017,7 +6017,6 @@
 				8212F6821C321BC8009C9F86 /* NSDateComponents+AllComponents.m in Sources */,
 				8214E91F1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E9291C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
-				8212F41D1C321B8E009C9F86 /* FlyingDBManager.m in Sources */,
 				8214E96F1C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				8212F60A1C321BC8009C9F86 /* RECommonFunctions.m in Sources */,
 				C87959A21BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
@@ -6030,6 +6029,7 @@
 				8212F4811C321B8E009C9F86 /* FMTokenizers.m in Sources */,
 				FA04BF901B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				8214EB9F1C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
+				8220E7501C3D57DB00265815 /* FlyingDBManager.m in Sources */,
 				8212F4861C321B8E009C9F86 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				8212F4721C321B8E009C9F86 /* FMDatabaseQueue.m in Sources */,
 				8212F5791C321BC8009C9F86 /* SVPulsingAnnotationView.m in Sources */,
@@ -6326,7 +6326,6 @@
 				8212F6831C321BC8009C9F86 /* NSDateComponents+AllComponents.m in Sources */,
 				8214E9201C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
 				8214E92A1C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
-				8212F41E1C321B8E009C9F86 /* FlyingDBManager.m in Sources */,
 				8214E9701C298BF40014B6BD /* ContextFilterLogFormatter.m in Sources */,
 				8212F60B1C321BC8009C9F86 /* RECommonFunctions.m in Sources */,
 				C87959A31BA2F07100D670E2 /* FlyingStreamData.m in Sources */,
@@ -6339,6 +6338,7 @@
 				82493FEC1C07F67D000A2306 /* FlyingCoverViewCell.m in Sources */,
 				8212F4821C321B8E009C9F86 /* FMTokenizers.m in Sources */,
 				8214EBA01C2AE8D20014B6BD /* RCDAddressBookTableViewCell.m in Sources */,
+				8220E7511C3D57DB00265815 /* FlyingDBManager.m in Sources */,
 				FA04BF911B99CE37000F29A5 /* FlyingMyGroupCell.m in Sources */,
 				8212F4871C321B8E009C9F86 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				8212F57A1C321BC8009C9F86 /* SVPulsingAnnotationView.m in Sources */,

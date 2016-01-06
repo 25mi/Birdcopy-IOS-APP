@@ -44,7 +44,6 @@
 
 + (FlyingDBManager*)shareInstance
 {
-    
     static FlyingDBManager* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
@@ -214,9 +213,9 @@
         {
             result=newDicpath;
         }
+        
+        [[FlyingDownloadManager shareInstance] startDownloadShareData];
     }
-    
-    [[FlyingDownloadManager shareInstance] startDownloadShareData];
     
     return result;
 }
@@ -226,7 +225,7 @@
 {
     NSString * lessonDir = [FlyingFileManager getLessonDir:lessonID];
     
-    NSString * fileName = [lessonDir stringByAppendingPathComponent:KLessonDicName];
+    NSString * fileName = [lessonDir stringByAppendingPathComponent:KLessonDicXMLFile];
     
     FlyingItemParser * parser= [FlyingItemParser alloc];
     [parser SetData:[NSData dataWithContentsOfFile:fileName]];

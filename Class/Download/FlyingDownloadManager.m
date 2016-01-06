@@ -295,7 +295,7 @@
         
         if (!_dowloader) {
             
-            [AFHttpTool getShareBaseZIP:KBaseDicAllType success:^(id response) {
+            [AFHttpTool getShareBaseZIP:KBaseDicMp3Type success:^(id response) {
                 NSString * shareBaseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                 
                 //下载目录如果没有就创建一个
