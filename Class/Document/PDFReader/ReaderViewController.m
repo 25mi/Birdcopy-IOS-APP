@@ -62,7 +62,7 @@
 #import "FlyingNowLessonDAO.h"
 
 #import "AFHttpTool.h"
-#import "FlyingDownloadManager.h"
+#import "FlyingFileManager.h"
 
 #import "CGPDFDocument.h"
 #import "FlyingDataManager.h"
@@ -1272,7 +1272,7 @@ enum
     
     if ([(FlyingLessonData*)[[FlyingLessonDAO alloc] selectWithLessonID:self.lessonID] BEOFFICIAL]) {
         
-        localPath = [FlyingDownloadManager getLessonDir:self.lessonID];
+        localPath = [FlyingFileManager getLessonDir:self.lessonID];
     }
     
     NSString *filePath = [localPath stringByAppendingPathComponent:fileName];

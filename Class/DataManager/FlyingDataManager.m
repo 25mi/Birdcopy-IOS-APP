@@ -24,8 +24,8 @@
 
 #import "FlyingTaskWordDAO.h"
 #import "FlyingTouchDAO.h"
+#import "FlyingFileManager.h"
 #import "FlyingDownloadManager.h"
-#import "FlyingDataManager.h"
 
 @implementation FlyingDataManager
 
@@ -335,7 +335,7 @@
     {
         //dbPath： 数据库路径，在dbDire中。
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [FlyingDownloadManager getUserDataDir];
+        NSString *documentsDirectory = [FlyingFileManager getUserDataDir];
         
         NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
         NSEnumerator *e = [contents objectEnumerator];

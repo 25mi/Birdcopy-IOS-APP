@@ -1009,8 +1009,8 @@
         [params setObject:lessonID forKey:@"md5_value"];
     }
     
-    if (contentURL.length!=0) {
-        
+    if (contentURL.length!=0)
+    {
         [params setObject:contentURL forKey:@"req_url"];
     }
     

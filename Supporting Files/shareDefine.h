@@ -151,6 +151,8 @@ typedef enum BESearchType
 #define kWordListStr_URL          @"%@/la_get_word_string_for_hp.action?word=%@"
 
 #define KEnglishServerAddress     @"http://e.birdcopy.com"
+//#define KEnglishServerAddress     @"http://www.birdenglish.com:9999"
+
 #define KDoctorServerAddress      @"http://d.birdcopy.com"
 #define KITServerAddress          @"http://it.birdcopy.com"
 #define KFDServerAddress          @"http://fd.birdcopy.com"

@@ -21,6 +21,7 @@
 #import "AFNetworkReachabilityManager.h"
 
 #import "FlyingDBManager.h"
+#import "FlyingFileManager.h"
 
 @interface FlyingDownloadManager ()
 {
@@ -28,11 +29,6 @@
 }
 
 @property (nonatomic,strong) NSMutableDictionary *downloadingOperationList;
-@property (nonatomic,strong) NSString            *userDownloadDir;
-@property (nonatomic,strong) NSString            *userDataDir;
-//本地Document管理
-@property (nonatomic,strong) MHWDirectoryWatcher *docWatcher;
-@property (nonatomic,strong) dispatch_source_t    source;
 
 @end
 
@@ -50,183 +46,80 @@
     return instance;
 }
 
-#pragma mark - 文件位置管理
-
-+ (NSString *) getUserDataDir
+//////////////////////////////////////////////////////////////
+#pragma mark - /课程本身下载管理
+//////////////////////////////////////////////////////////////
+- (void) startDownloaderForID:(NSString *)lessonID
 {
-    if (![FlyingDownloadManager shareInstance].userDataDir) {
-        
-        NSString  * libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString  *   dbDir = [libPath stringByAppendingPathComponent:KUSerDataFoldName];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = FALSE;
-        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
-        
-        if(!(isDirExist && isDir))
-        {
-            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-            if(!bCreateDir){
-                NSLog(@"Create Directory Failed.");
-                
-                return nil;
-            }
-        }
-        
-        [FlyingDownloadManager shareInstance].userDataDir=dbDir;
-    }
+    FlyingLessonData *lessonData =  [[[FlyingLessonDAO alloc] init] selectWithLessonID:lessonID];
+    double percent=lessonData.BEDLPERCENT;
     
-    return [FlyingDownloadManager shareInstance].userDataDir;
-}
-
-+ (NSString *) getDownloadsDir
-{
-    if (![FlyingDownloadManager shareInstance].userDownloadDir) {
-        
-        NSString  *   dbDir = [[FlyingDownloadManager  getUserDataDir]  stringByAppendingPathComponent:KUserDownloadsDir];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = FALSE;
-        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
-        
-        if(!(isDirExist && isDir))
-        {
-            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-            if(!bCreateDir){
-                NSLog(@"Create Directory Failed.");
-                
-                return nil;
-            }
-        }
-        
-        [FlyingDownloadManager shareInstance].userDownloadDir=dbDir;
-    }
-    
-    return [FlyingDownloadManager shareInstance].userDownloadDir;
-}
-
-+ (NSString*) getLessonDir:(NSString*) lessonID
-{
-    //创建下载内容目录
-    NSString *dbDir = [[FlyingDownloadManager getDownloadsDir] stringByAppendingPathComponent:lessonID];
-    
-    BOOL isDir = NO;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    if(!([fm fileExistsAtPath:dbDir isDirectory:&isDir] && isDir))
-    {
-        [fm createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    return dbDir;
-}
-
-
-// 准备英文字典
-+ (NSString *)prepareDictionary
-{
-    //判断是否后台加载基础字典（MP3+DB）
-    NSString * baseDir     = [[FlyingDownloadManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
-    NSString  * newDicpath = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-    
-    //分享目录如果没有就创建一个
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    if(!([fileManager fileExistsAtPath:baseDir isDirectory:&isDir] && isDir))
-    {
-        [fileManager createDirectoryAtPath:baseDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    NSString * result=nil;
-    if ([fileManager fileExistsAtPath:newDicpath])
-    {
-        result=newDicpath;
+    if (percent==1) {
+        //移出队列
+        [_downloadingOperationList removeObjectForKey:lessonID];
     }
     else
     {
-        NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KDicModelName ofType:KDBType];
-        NSError* error=nil;
-        [fileManager copyItemAtPath:soureDbpath toPath:newDicpath error:&error ];
-        if (error!=nil) {
-            NSLog(@"%@", error);
-            NSLog(@"%@", [error userInfo]);
+        FlyingDownloader * downloader = [_downloadingOperationList objectForKey:lessonID];
+        
+        if(!downloader){
             
-            result=nil;
+            downloader=[[FlyingDownloader alloc] initWithLessonID:lessonID];
+            
+            
+            [_downloadingOperationList setObject:downloader forKey:lessonID];
         }
-        else
-        {
-            result=newDicpath;
-        }
+        
+        [downloader resumeDownload];
+        
+        [FlyingDownloadManager downloadRelated:[[FlyingLessonDAO new] selectWithLessonID:lessonID]];
     }
-    
-    [[FlyingDownloadManager shareInstance] startDownloadShareData];
-    
-    return result;
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark - Document Related
-//////////////////////////////////////////////////////////////
-- (void) watchDocumentStateNow
+
+- (void) resumeAllDownloader
 {
-    //开启文件夹监控
-    [FlyingDBManager updataDBForLocal];
+    [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString * lessonID,  FlyingDownloader * downloader, BOOL *stop) {
+        
+        [downloader resumeDownload];
+    }];
+}
+
+- (void) closeAllDownloader
+{
     
-    if (!_docWatcher) {
+    if (_downloadingOperationList.count!=0) {
         
-        NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        
-        _docWatcher = [MHWDirectoryWatcher directoryWatcherAtPath:documentDirectory callback:^{
+        [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString *lessonID,  FlyingDownloader *downloader, BOOL *stop) {
             
-            NSLog(@"watchDocumentStateNow");
-            
-            if (!_source) {
-                
-                _source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
-                dispatch_source_set_event_handler(_source, ^{
-                    
-                    [FlyingDBManager updataDBForLocal];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KDocumentStateChange object:nil];
-                });
-                dispatch_resume(_source);
-            }
-            
-            dispatch_source_merge_data(_source, 1);
+            [downloader cancelDownload];
+            [_downloadingOperationList removeObjectForKey:lessonID];
         }];
+    }
+}
+
+
+- (void) closeAndReleaseDownloaderForID:(NSString *)lessonID
+{
+    if (_downloadingOperationList.count!=0) {
         
-        [_docWatcher startWatching];
+        FlyingDownloader * downloader = [_downloadingOperationList objectForKey:lessonID];
+        
+        if (downloader) {
+            [downloader cancelDownload];
+            [_downloadingOperationList removeObjectForKey:lessonID];
+        }
+    }
+    
+    if (_dowloader) {
+        
+        [_dowloader cancel];
     }
 }
 
-
-+(void)setNotBackUp
-{
-    NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    
-    NSURL *url = [NSURL fileURLWithPath:documentDirectory];
-    
-    [FlyingDownloadManager addSkipBackupAttributeToItemAtURL:url];
-    
-    NSString *myDataDir = [FlyingDownloadManager getUserDataDir];
-    url = [NSURL fileURLWithPath:myDataDir];
-    
-    [FlyingDownloadManager addSkipBackupAttributeToItemAtURL:url];
-}
-
-+(BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
-{
-    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
-    
-    NSError *error = nil;
-    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
-                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
-    if(!success){
-        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
-    }
-    return success;
-}
 
 //////////////////////////////////////////////////////////////
-#pragma mark get data from offical website
+#pragma mark 课程相关辅助下载管理
 //////////////////////////////////////////////////////////////
 +(void) downloadRelated:(FlyingLessonData *) lessonData;
 {
@@ -296,7 +189,7 @@
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.getDicWithURL", NULL), ^{
                                                                           
-                                                                          NSString * outputDir = [FlyingDownloadManager getLessonDir:lessonID];
+                                                                          NSString * outputDir = [FlyingFileManager getLessonDir:lessonID];
                                                                           
                                                                           [SSZipArchive unzipFileAtPath:lessonData.localURLOfPro toDestination:outputDir];
                                                                           
@@ -332,7 +225,7 @@
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.relativeURLStr", NULL), ^{
                                                                           
-                                                                          NSString * outputDir = [FlyingDownloadManager getLessonDir:lessonID];
+                                                                          NSString * outputDir = [FlyingFileManager getLessonDir:lessonID];
                                                                           
                                                                           [SSZipArchive unzipFileAtPath:lessonData.localURLOfRelative toDestination:outputDir];
                                                                           
@@ -350,7 +243,7 @@
     if ( [lessonData.BECONTENTTYPE isEqualToString:KContentTypeText] &&
         lessonData.BEOFFICIAL)
     {
-        NSString *localPath = [FlyingDownloadManager getLessonDir:lessonID];
+        NSString *localPath = [FlyingFileManager getLessonDir:lessonID];
         NSString  *fileName =kResource_Background_filenmae;
         
         NSString *filePath = [localPath stringByAppendingPathComponent:fileName];
@@ -391,78 +284,10 @@
                                //
                            }];
 }
+
 //////////////////////////////////////////////////////////////
-#pragma mark - 下载相关
+#pragma mark 公共资源文件管理
 //////////////////////////////////////////////////////////////
-- (void) startDownloaderForID:(NSString *)lessonID
-{
-    FlyingLessonData *lessonData =  [[[FlyingLessonDAO alloc] init] selectWithLessonID:lessonID];
-    double percent=lessonData.BEDLPERCENT;
-    
-    if (percent==1) {
-        //移出队列
-        [_downloadingOperationList removeObjectForKey:lessonID];
-    }
-    else
-    {
-        FlyingDownloader * downloader = [_downloadingOperationList objectForKey:lessonID];
-        
-        if(!downloader){
-            
-            downloader=[[FlyingDownloader alloc] initWithLessonID:lessonID];
-        
-            
-            [_downloadingOperationList setObject:downloader forKey:lessonID];
-        }
-        
-        [downloader resumeDownload];
-        
-        [FlyingDownloadManager downloadRelated:[[FlyingLessonDAO new] selectWithLessonID:lessonID]];
-    }
-}
-
-
-- (void) resumeAllDownloader
-{
-    [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString * lessonID,  FlyingDownloader * downloader, BOOL *stop) {
-        
-        [downloader resumeDownload];
-    }];
-}
-
-- (void) closeAllDownloader
-{
-    
-    if (_downloadingOperationList.count!=0) {
-        
-        [_downloadingOperationList enumerateKeysAndObjectsUsingBlock:^(NSString *lessonID,  FlyingDownloader *downloader, BOOL *stop) {
-            
-            [downloader cancelDownload];
-            [_downloadingOperationList removeObjectForKey:lessonID];
-        }];
-    }
-}
-
-
-- (void) closeAndReleaseDownloaderForID:(NSString *)lessonID
-{
-    if (_downloadingOperationList.count!=0) {
-        
-        FlyingDownloader * downloader = [_downloadingOperationList objectForKey:lessonID];
-        
-        if (downloader) {
-            [downloader cancelDownload];
-            [_downloadingOperationList removeObjectForKey:lessonID];
-        }
-    }
-    
-    if (_dowloader) {
-        
-        [_dowloader cancel];
-    }
-}
-
-#pragma mark - Publice resource Related
 
 -(void) startDownloadShareData
 {
@@ -474,7 +299,7 @@
                 NSString * shareBaseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                 
                 //下载目录如果没有就创建一个
-                NSString * downloadDir = [FlyingDownloadManager getDownloadsDir];
+                NSString * downloadDir = [FlyingFileManager getDownloadsDir];
                 BOOL isDir = NO;
                 NSFileManager *fm = [NSFileManager defaultManager];
                 if(!([fm fileExistsAtPath:downloadDir isDirectory:&isDir] && isDir))

@@ -91,6 +91,7 @@
 
 #import "FlyingDBManager.h"
 #import "FlyingDataManager.h"
+#import "FlyingFileManager.h"
 
 
 @interface iFlyingAppDelegate ()
@@ -299,7 +300,7 @@
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:sharedCache];
     
-    [FlyingDownloadManager setNotBackUp];
+    [FlyingFileManager setNotBackUp];
     
     //准备PDF环境
     queue = dispatch_queue_create("com.artifex.mupdf.queue", NULL);
@@ -313,8 +314,8 @@
     //向微信注册
     [WXApi registerApp:[FlyingDataManager getWeixinID]];
     
-    //准备字典
-    [FlyingDownloadManager prepareDictionary];
+    //准备字典数据（DB和音频）
+    [FlyingDBManager prepareDictionary];
     
     //准备融云的初始化环境
     NSString* rongAPPkey=[FlyingDataManager getRongAppKey];
@@ -352,7 +353,7 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     //监控本地文件夹状态
-    [[FlyingDownloadManager shareInstance] watchDocumentStateNow];
+    [[FlyingFileManager shareInstance] watchDocumentStateNow];
     
     //监控下载更新
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -533,7 +534,7 @@
         
         [_httpServer setPort:12345];
         
-        [_httpServer setDocumentRoot:[FlyingDownloadManager getDownloadsDir]];
+        [_httpServer setDocumentRoot:[FlyingFileManager getDownloadsDir]];
         
         // Start the server (and check for problems)
         NSError *error;

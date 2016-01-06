@@ -7,6 +7,7 @@
 //
 
 #import "FlyingM3U8Downloader.h"
+#import "FlyingFileManager.h"
 #import "FlyingDownloadManager.h"
 #import "shareDefine.h"
 #import "FlyingM3U8List.h"
@@ -57,7 +58,7 @@
         _M3u8OrdeID=0;
         self.count=0;
         
-        _saveTo = [FlyingDownloadManager getLessonDir:self.playlist.lessonID];
+        _saveTo = [FlyingFileManager getLessonDir:self.playlist.lessonID];
         _dao=[[FlyingLessonDAO  alloc] init];
         [_dao setUserModle:NO];
         

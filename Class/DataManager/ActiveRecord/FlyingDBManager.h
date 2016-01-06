@@ -17,6 +17,10 @@
 //根据本地文件情况更新数据库（离线下载本地问题，以后可以加上缓存文件相关的处理）
 + (void) updataDBForLocal;
 
+// 准备英文字典
++ (NSString *)prepareDictionary;
+
+//根据课程更新字典
 + (void) updateBaseDic:(NSString *) lessonID;
 
 //个人数据库用户管理

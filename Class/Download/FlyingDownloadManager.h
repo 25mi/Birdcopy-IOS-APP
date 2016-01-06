@@ -7,46 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MHWDirectoryWatcher.h"
 #import "FlyingPubLessonData.h"
 
 @interface FlyingDownloadManager : NSObject
 
 + (FlyingDownloadManager*)shareInstance;
 
-+ (NSString *) getUserDataDir;
-+ (NSString*)  getDownloadsDir;
-+ (NSString*)  getLessonDir:(NSString*) lessonID;
-
-// 准备英文字典
-+ (NSString *)prepareDictionary;
-
-+(void) downloadRelated:(FlyingLessonData *) lessonData;
-
-+ (void) getSrtForLessonID: (NSString *) lessonID
-                     Title:(NSString *) title;
-
-+ (void) getDicWithURL: (NSString *) baseURLStr
-              LessonID: (NSString *) lessonID;
-
-+ (void) getRelativeWithURL: (NSString *) relativeURLStr
-                   LessonID: (NSString *) lessonID;
-
-
-+ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title;
-
-
-//监控分享的本地文件夹
-- (void) watchDocumentStateNow;
-+(void)  setNotBackUp;
-
+//课程本身下载管理
 - (void) startDownloaderForID:(NSString *)lessonID;
-
 - (void) closeAndReleaseDownloaderForID:(NSString *)lessonID;
-
 - (void) resumeAllDownloader;
 - (void) closeAllDownloader;
 
+//课程相关辅助下载管理
++ (void) downloadRelated:(FlyingLessonData *) lessonData;
++ (void) getSrtForLessonID: (NSString *) lessonID
+                     Title:(NSString *) title;
++ (void) getDicWithURL: (NSString *) baseURLStr
+              LessonID: (NSString *) lessonID;
++ (void) getRelativeWithURL: (NSString *) relativeURLStr
+                   LessonID: (NSString *) lessonID;
++ (void) getDicForLessonID: (NSString *) lessonID
+                     Title:(NSString *) title;
+
+//公共资源文件管理
 - (void) startDownloadShareData;
 - (void) closeDownloadShareData;
 

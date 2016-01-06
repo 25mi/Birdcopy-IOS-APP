@@ -17,7 +17,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseAdditions.h"
 
-#import "FlyingDownloadManager.h"
+#import "FlyingFileManager.h"
 
 @implementation FlyingLessonDAO
 
@@ -158,7 +158,7 @@
     if (data) {
         
         //删除
-        NSString *lessonDirectory = [FlyingDownloadManager  getLessonDir:lessonID];
+        NSString *lessonDirectory = [FlyingFileManager  getLessonDir:lessonID];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             

@@ -9,7 +9,6 @@
 #import "FlyingDBManager.h"
 
 #import "shareDefine.h"
-#import "FlyingDownloadManager.h"
 
 #import "FlyingNowLessonDAO.h"
 #import "FlyingNowLessonData.h"
@@ -25,6 +24,8 @@
 
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
+#import "FlyingFileManager.h"
+#import "FlyingDownloadManager.h"
 
 
 @interface FlyingDBManager ()
@@ -178,9 +179,52 @@
     }
 }
 
+// 准备英文字典
++ (NSString *)prepareDictionary
+{
+    //判断是否后台加载基础字典（MP3+DB）
+    NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
+    NSString  * newDicpath = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
+    
+    //分享目录如果没有就创建一个
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    if(!([fileManager fileExistsAtPath:baseDir isDirectory:&isDir] && isDir))
+    {
+        [fileManager createDirectoryAtPath:baseDir withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    NSString * result=nil;
+    if ([fileManager fileExistsAtPath:newDicpath])
+    {
+        result=newDicpath;
+    }
+    else
+    {
+        NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KDicModelName ofType:KDBType];
+        NSError* error=nil;
+        [fileManager copyItemAtPath:soureDbpath toPath:newDicpath error:&error ];
+        if (error!=nil) {
+            NSLog(@"%@", error);
+            NSLog(@"%@", [error userInfo]);
+            
+            result=nil;
+        }
+        else
+        {
+            result=newDicpath;
+        }
+    }
+    
+    [[FlyingDownloadManager shareInstance] startDownloadShareData];
+    
+    return result;
+}
+
+//根据课程更新字典
 + (void) updateBaseDic:(NSString *) lessonID
 {
-    NSString * lessonDir = [FlyingDownloadManager getLessonDir:lessonID];
+    NSString * lessonDir = [FlyingFileManager getLessonDir:lessonID];
     
     NSString * fileName = [lessonDir stringByAppendingPathComponent:KLessonDicName];
     
@@ -215,7 +259,7 @@
     if (!_userDBQueue) {
         
         //dbPath： 数据库路径，在dbDir中。
-        NSString *dbPath = [[FlyingDownloadManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
+        NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
         
         //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -250,7 +294,7 @@
     if (!_pubUserDBQueue) {
         
         //dbPath： 数据库路径，在dbDire中。
-        NSString *dbPath = [[FlyingDownloadManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
+        NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
         
         //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -284,7 +328,7 @@
 {
     if (!_baseDBQueue) {
         
-        NSString* path = [FlyingDownloadManager prepareDictionary];
+        NSString* path = [FlyingDBManager prepareDictionary];
         
         _baseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
     }
@@ -305,7 +349,7 @@
 {
     if (!_pubBaseDBQueue) {
                 
-        NSString* path = [FlyingDownloadManager prepareDictionary];
+        NSString* path = [FlyingDBManager prepareDictionary];
         
         _pubBaseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
     }

@@ -435,6 +435,11 @@
     } failure:^(NSError *err) {
         //
         NSLog(@"dicDataforWord:%@",err.description);
+        
+        [self removeActivityIndicator];
+        
+        self.desc = [NSMutableString stringWithString: @"我们会尽快补充，谢谢你的贡献：）"];
+        [self presentDesc];
     }];
 }
 

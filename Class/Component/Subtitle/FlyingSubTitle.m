@@ -319,15 +319,23 @@
 //得到字幕index（字幕时间）
 -(NSUInteger)idxOfSubItemWithSubTime:(NSTimeInterval)theTimeInSeconds {
     
-    return [self.subtitleItems indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        if ((theTimeInSeconds >= [(FlyingSubRipItem *)obj startTimeInSeconds])&&
-            (theTimeInSeconds <= [(FlyingSubRipItem *)obj endTimeInSeconds])) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }];
+    if (theTimeInSeconds >= [self getStartSubtitleTime] &&
+        theTimeInSeconds <= [self getEndSubtitleTime]) {
+
+        return [self.subtitleItems indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            if ((theTimeInSeconds >= [(FlyingSubRipItem *)obj startTimeInSeconds])&&
+                (theTimeInSeconds <= [(FlyingSubRipItem *)obj endTimeInSeconds])) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }];
+    }
+    else
+    {
+        return NSNotFound;
+    }
 }
 
 //空白区取得下一个字幕的index（字幕时间）

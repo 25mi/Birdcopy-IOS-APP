@@ -12,7 +12,7 @@
 #import "FlyingM3U8Downloader.h"
 #import "NSString+FlyingExtention.h"
 
-#import "FlyingDownloadManager.h"
+#import "FlyingFileManager.h"
 
 @implementation FlyingLessonData
 
@@ -143,7 +143,7 @@
 
     if (self.BEOFFICIAL)
     {
-        NSString *dbDir = [FlyingDownloadManager  getLessonDir:self.BELESSONID];
+        NSString *dbDir = [FlyingFileManager  getLessonDir:self.BELESSONID];
         
         NSString* contentFileName;
         
@@ -159,7 +159,7 @@
                 
                 NSFileManager* fileManager = [NSFileManager defaultManager];
                 
-                NSString * dir = [FlyingDownloadManager getLessonDir:self.BELESSONID];
+                NSString * dir = [FlyingFileManager getLessonDir:self.BELESSONID];
                 
                 NSDirectoryEnumerator* directoryEnumerator = [fileManager enumeratorAtPath:dir];
                 
