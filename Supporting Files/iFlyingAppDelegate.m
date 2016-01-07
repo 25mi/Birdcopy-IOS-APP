@@ -582,7 +582,7 @@
                               Completion:^(FlyingPubLessonData *lesson) {
                                   //
                                   FlyingContentVC * vc=[[FlyingContentVC alloc] init];
-                                  vc.theLesson=lesson;
+                                  vc.thePubLesson=lesson;
                                   
                                   [self pushViewController:vc];
                               }];
@@ -591,9 +591,9 @@
 - (void) showLessonViewWithCode:(NSString*) code
 {
     [FlyingHttpTool getLessonForISBN:code
-                          Completion:^(FlyingPubLessonData *lesson) {
+                          Completion:^(FlyingPubLessonData *pubLesson) {
                               FlyingContentVC * vc=[[FlyingContentVC alloc] init];
-                              vc.theLesson=lesson;
+                              vc.thePubLesson=pubLesson;
                               
                               [self pushViewController:vc];
                           }];

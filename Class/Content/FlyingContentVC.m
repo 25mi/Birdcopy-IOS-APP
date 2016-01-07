@@ -137,12 +137,12 @@
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     
-    if (self.theLesson.weburl)
+    if (self.thePubLesson.weburl)
     {
-        [appDelegate shareImageURL:self.theLesson.imageURL
-                           withURL:self.theLesson.weburl
-                             Title:self.theLesson.title
-                              Text:self.theLesson.desc
+        [appDelegate shareImageURL:self.thePubLesson.imageURL
+                           withURL:self.thePubLesson.weburl
+                             Title:self.thePubLesson.title
+                              Text:self.thePubLesson.desc
                              Image:[self.contentCoverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
     }
 }
@@ -159,7 +159,7 @@
     NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
     NSDate *endDate = [dateFormatter dateFromString:endDateStr];
     NSDate *nowDate = [NSDate date];
-    if ([nowDate compare:endDate] == NSOrderedAscending || self.theLesson.coinPrice==0)
+    if ([nowDate compare:endDate] == NSOrderedAscending || self.thePubLesson.coinPrice==0)
     {
         self.accessRight=YES;
     }
@@ -206,7 +206,7 @@
     //获取权限相关数据
     if(self.accessRight)
     {
-        if (![self.theLesson.contentType isEqualToString:KContentTypeText])
+        if (![self.thePubLesson.contentType isEqualToString:KContentTypeText])
         {
             [self showContent:nil];
         }
@@ -250,7 +250,7 @@
                                          {
                                              NSDate *nowDate = [NSDate date];
                                              
-                                             if ([nowDate compare:endDate] == NSOrderedAscending || self.theLesson.coinPrice==0)
+                                             if ([nowDate compare:endDate] == NSOrderedAscending || self.thePubLesson.coinPrice==0)
                                              {
                                                  self.accessRight=YES;
                                                  [self showContent:nil];
@@ -314,7 +314,7 @@
         self.contentCoverImageView.contentMode=UIViewContentModeScaleAspectFit;
         self.contentCoverImageView.userInteractionEnabled=YES;
         
-        [self.contentCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.theLesson.imageURL]
+        [self.contentCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.thePubLesson.imageURL]
                                       placeholderImage:[UIImage imageNamed:@"Default"]
                                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                              }];
@@ -341,19 +341,19 @@
     }
     
     //初始化内容类型
-    if ([self.theLesson.contentType isEqualToString:KContentTypeText])
+    if ([self.thePubLesson.contentType isEqualToString:KContentTypeText])
     {
         [self.contentTypeIcon setImage:[UIImage imageNamed:PlayDocIcon]];
     }
-    else if ([self.theLesson.contentType isEqualToString:KContentTypeVideo])
+    else if ([self.thePubLesson.contentType isEqualToString:KContentTypeVideo])
     {
         [self.contentTypeIcon setImage:[UIImage imageNamed:PlayVideoIcon]];
     }
-    else  if ([self.theLesson.contentType isEqualToString:KContentTypeAudio])
+    else  if ([self.thePubLesson.contentType isEqualToString:KContentTypeAudio])
     {
         [self.contentTypeIcon setImage:[UIImage imageNamed:PlayAudioIcon]];
     }
-    else  if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
+    else  if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
         [self.contentTypeIcon setImage:[UIImage imageNamed:PlayWebIcon]];
     }
@@ -373,10 +373,12 @@
         }
         else
         {
-            //插入公共课程记录
-            [[FlyingLessonDAO new] insertWithData:[[FlyingLessonData alloc] initWithPubData:self.theLesson]];
+            FlyingLessonData * lessonData = [[FlyingLessonData alloc] initWithPubData:self.thePubLesson];
             
-            if ([self.theLesson.contentType isEqualToString:KContentTypeText])
+            //插入公共课程记录
+            [[FlyingLessonDAO new] insertWithData:lessonData];
+            
+            if ([self.thePubLesson.contentType isEqualToString:KContentTypeText])
             {
                 [self showLoadingCoverContentIndicator];
                 
@@ -386,11 +388,13 @@
                                                              name:KlessonFinishTask
                                                            object:nil];
                 
-                [[FlyingDownloadManager shareInstance] startDownloaderForID:self.theLesson.lessonID];
+                [[FlyingDownloadManager shareInstance] startDownloaderForID:self.thePubLesson.lessonID];
             }
             else
             {
-                [self playLesson:self.theLesson.lessonID];
+                [FlyingDownloadManager downloadRelated:lessonData];
+
+                [self playLesson:self.thePubLesson.lessonID];
             }
         }
     }
@@ -404,29 +408,29 @@
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     
-    if([self.theLesson.contentType isEqualToString:KContentTypeVideo])
+    if([self.thePubLesson.contentType isEqualToString:KContentTypeVideo])
     {
-        if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.theLesson.contentURL])
+        if([self.thePubLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.thePubLesson.contentURL])
         {
             [self playVedio];
         }
         else
         {
-            if(self.theLesson.contentURL!=nil)
+            if(self.thePubLesson.contentURL!=nil)
             {
                 FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-                [webVC setWebURL:self.theLesson.contentURL];
+                [webVC setWebURL:self.thePubLesson.contentURL];
                 [self.navigationController pushViewController:webVC animated:YES];
             }
         }
     }
-    else if([self.theLesson.contentType isEqualToString:KContentTypeAudio])
+    else if([self.thePubLesson.contentType isEqualToString:KContentTypeAudio])
     {
         [self playVedio];
     }
-    else if ([self.theLesson.contentType isEqualToString:KContentTypeText])
+    else if ([self.thePubLesson.contentType isEqualToString:KContentTypeText])
     {
-        NSString *extention = [self.theLesson.contentURL pathExtension];
+        NSString *extention = [self.thePubLesson.contentURL pathExtension];
         
         if ([extention isEqualToString:@"pdf"])
         {
@@ -448,13 +452,13 @@
             [[self navigationController] pushViewController:previewController animated:YES];
         }
     }
-    else if ([self.theLesson.contentType isEqualToString:KContentTypePageWeb])
+    else if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
         FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-        [webVC setWebURL:self.theLesson.contentURL];
+        [webVC setWebURL:self.thePubLesson.contentURL];
         [self.navigationController pushViewController:webVC animated:NO];
     }
-    else if([self.theLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.theLesson.contentURL])
+    else if([self.thePubLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.thePubLesson.contentURL])
     {
         [self playVedio];
     }
@@ -469,7 +473,7 @@
     if (!self.mediaVC) {
         
         self.mediaVC = [[FlyingMediaVC alloc] initWithNibName:@"FlyingMediaVC" bundle:nil];
-        self.mediaVC.theLesson=self.theLesson;
+        self.mediaVC.thePubLesson=self.thePubLesson;
     }
     
     self.mediaVC.view.frame=self.coverContentView.bounds;
@@ -485,13 +489,13 @@
 {
     NSString * lessonID = [[aNotification userInfo] objectForKey:@"lessonID"];
     
-    if([lessonID isEqualToString:self.theLesson.lessonID])
+    if([lessonID isEqualToString:self.thePubLesson.lessonID])
     {
         //如果是直接播放的文本
-        if([self.theLesson.contentType isEqualToString:KContentTypeText])
+        if([self.thePubLesson.contentType isEqualToString:KContentTypeText])
         {
             [self hideLoadingCovercontentIndicator];
-            [self playLesson:self.theLesson.lessonID];
+            [self playLesson:self.thePubLesson.lessonID];
         }
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:KlessonFinishTask    object:nil];
@@ -521,8 +525,8 @@
     {
         _currentLodingIndex++;
         
-        [FlyingHttpTool getCommentListForContentID:self.theLesson.lessonID
-                                       ContentType:self.theLesson.contentType
+        [FlyingHttpTool getCommentListForContentID:self.thePubLesson.lessonID
+                                       ContentType:self.thePubLesson.contentType
                                         PageNumber:_currentLodingIndex
                                         Completion:^(NSArray *commentList, NSInteger allRecordCount) {
                                             
@@ -733,7 +737,7 @@
             }
             case 2:
             {
-                if (self.theLesson.tag.length== 0)
+                if (self.thePubLesson.tag.length== 0)
                 {
                     height = 0;
                 }
@@ -781,20 +785,20 @@
         switch (indexPath.row) {
             case 0:
             {
-                [(FlyingContentTitleAndTypeCell *)cell setTitle:self.theLesson.title];
+                [(FlyingContentTitleAndTypeCell *)cell setTitle:self.thePubLesson.title];
                 [(FlyingContentTitleAndTypeCell *)cell setAccessRight:self.accessRight];
                 
                 break;
             }
             case 1:
             {
-                [(FlyingContentSummaryCell*)cell setSummaryText:self.theLesson.desc];
+                [(FlyingContentSummaryCell*)cell setSummaryText:self.thePubLesson.desc];
 
                 break;
             }
             case 2:
             {
-                [(FlyingTagCell*)cell setTagList:self.theLesson.tag DataSourceDelegate:self];
+                [(FlyingTagCell*)cell setTagList:self.thePubLesson.tag DataSourceDelegate:self];
                 break;
             }
                 
@@ -959,9 +963,9 @@
 {
     FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
     
-    commentVC.contentID=self.theLesson.lessonID;
-    commentVC.contentType=self.theLesson.contentType;
-    commentVC.commentTitle=self.theLesson.title;
+    commentVC.contentID=self.thePubLesson.lessonID;
+    commentVC.contentType=self.thePubLesson.contentType;
+    commentVC.commentTitle=self.thePubLesson.title;
     
     commentVC.reloadDatadelegate=self;
     
@@ -1063,7 +1067,7 @@
 // returns the item that the preview controller should preview
 - (id)previewController:(QLPreviewController *)previewController previewItemAtIndex:(NSInteger)idx
 {
-    return [NSURL fileURLWithPath:[(FlyingLessonData*)[[[FlyingLessonDAO alloc] init] selectWithLessonID:self.theLesson.lessonID] localURLOfContent]];
+    return [NSURL fileURLWithPath:[(FlyingLessonData*)[[[FlyingLessonDAO alloc] init] selectWithLessonID:self.thePubLesson.lessonID] localURLOfContent]];
 }
 //////////////////////////////////////////////////////////////
 #pragma menu related

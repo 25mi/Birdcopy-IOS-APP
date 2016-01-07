@@ -22,7 +22,7 @@
 
 @interface FlyingMediaVC : UIViewController<FlyingAILearningViewDelegate,UIWebViewDelegate>
 
-@property (strong, nonatomic) FlyingPubLessonData * theLesson;
+@property (strong, nonatomic) FlyingPubLessonData * thePubLesson;
 
 @property (nonatomic, weak, readwrite) id <FlyingMediaVCDelegate> delegate;
 

@@ -36,6 +36,6 @@
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 
-@property (strong, nonatomic) FlyingPubLessonData * theLesson;
+@property (strong, nonatomic) FlyingPubLessonData * thePubLesson;
 
 @end

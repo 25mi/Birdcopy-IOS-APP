@@ -324,10 +324,10 @@
 //////////////////////////////////////////////////////////////
 #pragma FlyingCoverViewDelegate Related
 //////////////////////////////////////////////////////////////
-- (void) touchCover:(FlyingPubLessonData*)lessonData
+- (void) touchCover:(FlyingPubLessonData*)lessonPubData
 {
     FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
-    [contentVC setTheLesson:lessonData];
+    [contentVC setThePubLesson:lessonPubData];
     
     [self pushViewController:contentVC animated:YES];
 }

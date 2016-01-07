@@ -1600,7 +1600,7 @@
 }
 
 + (void) getLessonForLessonID:(NSString*) lessonID
-                   Completion:(void (^)(FlyingPubLessonData *lesson)) completion
+                   Completion:(void (^)(FlyingPubLessonData *pubLesson)) completion
 {
     
     [AFHttpTool lessonDataForLessonID:lessonID success:^(id response) {

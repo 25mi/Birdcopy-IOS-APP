@@ -213,21 +213,21 @@
 {
     if (_currentData.count!=0) {
         
-        FlyingPubLessonData* lessonData = [_currentData objectAtIndex:index];
+        FlyingPubLessonData* lessonPubData = [_currentData objectAtIndex:index];
                 
-        if ([lessonData.contentType isEqualToString:KContentTypePageWeb] ) {
+        if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
             FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-            [webpage setWebURL:lessonData.contentURL];
-            [webpage setLessonID:lessonData.lessonID];
+            [webpage setWebURL:lessonPubData.contentURL];
+            [webpage setLessonID:lessonPubData.lessonID];
             
             [self.navigationController pushViewController:webpage animated:YES];
         }
         else
         {
             FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
-            [contentVC setTheLesson:lessonData];
+            [contentVC setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:contentVC animated:YES];
         }

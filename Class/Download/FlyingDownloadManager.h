@@ -21,14 +21,9 @@
 
 //课程相关辅助下载管理
 + (void) downloadRelated:(FlyingLessonData *) lessonData;
-+ (void) getSrtForLessonID: (NSString *) lessonID
-                     Title:(NSString *) title;
-+ (void) getDicWithURL: (NSString *) baseURLStr
-              LessonID: (NSString *) lessonID;
-+ (void) getRelativeWithURL: (NSString *) relativeURLStr
-                   LessonID: (NSString *) lessonID;
-+ (void) getDicForLessonID: (NSString *) lessonID
-                     Title:(NSString *) title;
++ (void) getSrtForLessonID: (NSString *) lessonID Title:(NSString *) title;
++ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title;
++ (void) getRelativeForLessonID:  (NSString *) lessonID   Title:(NSString *) title;
 
 //公共资源文件管理
 - (void) startDownloadShareData;

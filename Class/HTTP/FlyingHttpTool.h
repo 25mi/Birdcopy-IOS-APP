@@ -203,7 +203,7 @@
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
 + (void) getLessonForLessonID:(NSString*) lessonID
-                   Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
+                   Completion:(void (^)(FlyingPubLessonData *pubLesson)) completion;
 
 + (void) getLessonForISBN:(NSString*) ISBN
                Completion:(void (^)(FlyingPubLessonData *lesson)) completion;
@@ -224,7 +224,6 @@
 //////////////////////////////////////////////////////////////
 + (void) getItemsforWord:(NSString *) word
              Completion:(void (^)(NSArray *itemList,NSInteger allRecordCount)) completion;
-
 
 //////////////////////////////////////////////////////////////
 #pragma  供应商（作者）相关

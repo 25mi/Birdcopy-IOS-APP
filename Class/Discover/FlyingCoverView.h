@@ -32,7 +32,7 @@
 
 @optional
 - (void) showFeatureContent;
-- (void) touchCover:(id)lessonData;
+- (void) touchCover:(id)lessonPubData;
 
 - (NSString*) getAuthor;
 

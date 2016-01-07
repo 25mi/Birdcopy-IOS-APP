@@ -470,10 +470,10 @@
         NSString *lessonID = self.topBoardNewsData.contentID;
         
         [FlyingHttpTool getLessonForLessonID:lessonID
-                                  Completion:^(FlyingPubLessonData *lesson) {
+                                  Completion:^(FlyingPubLessonData *pubLesson) {
                                       //
                                       FlyingContentVC * vc=[[FlyingContentVC alloc] init];
-                                      vc.theLesson=lesson;
+                                      vc.thePubLesson=pubLesson;
                                       
                                       dispatch_async(dispatch_get_main_queue(), ^{
                                           

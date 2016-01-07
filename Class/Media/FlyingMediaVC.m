@@ -316,8 +316,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     self.toFullScreen=YES;
     
-    _lessonData    = [_lessonDAO selectWithLessonID:self.theLesson.lessonID];
-    _nowLessonData = [_nowLessonDAO selectWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
+    _lessonData    = [_lessonDAO selectWithLessonID:self.thePubLesson.lessonID];
+    _nowLessonData = [_nowLessonDAO selectWithUserID:_currentPassport LessonID:self.thePubLesson.lessonID];
 }
 
 //////////////////////////////////////////////////////////////
@@ -369,7 +369,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     FlyingStatisticDAO *statisticDAO = [[FlyingStatisticDAO alloc] init];
     [statisticDAO initDataForUserID:_currentPassport];
     _touchDAO     = [[FlyingTouchDAO alloc] init];
-    [_touchDAO initDataForUserID:_currentPassport LessonID:self.theLesson.lessonID];
+    [_touchDAO initDataForUserID:_currentPassport LessonID:self.thePubLesson.lessonID];
     
     _touchWordCount = [statisticDAO touchCountWithUserID:_currentPassport];
     _balanceCoin  = [statisticDAO finalMoneyWithUserID:_currentPassport];
@@ -471,8 +471,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         //本地
         if([NSString checkM3U8URL:_lessonData.localURLOfContent]){
             
-            NSString* contentFileName     = [self.theLesson.lessonID stringByAppendingPathExtension:kLessonVedioLivingType];
-            _movieURLStr=[NSString stringWithFormat:@"http://127.0.0.1:12345/%@/%@",self.theLesson.lessonID,contentFileName];
+            NSString* contentFileName     = [self.thePubLesson.lessonID stringByAppendingPathExtension:kLessonVedioLivingType];
+            _movieURLStr=[NSString stringWithFormat:@"http://127.0.0.1:12345/%@/%@",self.thePubLesson.lessonID,contentFileName];
             
             _contentType=BELocalM3U8Vedio;
             
@@ -749,7 +749,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
                     
                     if (_needShareM3U8URL) {
                         
-                        [self shareM3U8Url:_movieURLStr forLessonID:self.theLesson.lessonID];
+                        [self shareM3U8Url:_movieURLStr forLessonID:self.thePubLesson.lessonID];
                     }
                     
                     //加载完毕
@@ -852,7 +852,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     [AFHttpTool reportLessonErrorType:type
                            contentURL:_movieURLStr
-                             lessonID:self.theLesson.lessonID
+                             lessonID:self.thePubLesson.lessonID
                               success:^(id response) {
                                   //
                                   NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
@@ -1256,7 +1256,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     
     //删除数据库本地纪录，资源自动释放
-    [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
+    [[[FlyingNowLessonDAO alloc] init] deleteWithUserID:_currentPassport LessonID:self.thePubLesson.lessonID];
 }
 
 -(BOOL) isPlayingNow
@@ -1715,7 +1715,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
             aTagWordView.fullScreenModle=YES;
         }
         
-        [aTagWordView setLessonID:self.theLesson.lessonID];
+        [aTagWordView setLessonID:self.thePubLesson.lessonID];
         
         [aTagWordView setWord:[self.subtitleTextView.text substringWithRange:tagWord.tokenRange]];
         [aTagWordView  drawWithLemma:tagWord.getLemma AppTag:tagWord.tag];
@@ -1787,7 +1787,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         [self showAIColorForWord:theTagWord];
         
-        [_speechPlayer speechWord:theTagWord.word LessonID:self.theLesson.lessonID];
+        [_speechPlayer speechWord:theTagWord.word LessonID:self.thePubLesson.lessonID];
     }
     
     //纪录当前单词，规避重复刷新
@@ -1806,7 +1806,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         if (theTagWord!=_theOnlyTagWord) {
             
             [self showAIColorForWord:theTagWord];
-            [_speechPlayer speechWord:theTagWord.getLemma LessonID:self.theLesson.lessonID];
+            [_speechPlayer speechWord:theTagWord.getLemma LessonID:self.thePubLesson.lessonID];
             
             _theOnlyTagWord=theTagWord;
         }
@@ -1823,7 +1823,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         dispatch_async(dispatch_get_main_queue(), ^{
             
             //更新点击次数和单词纪录
-            [_touchDAO countPlusWithUserID:_currentPassport LessonID:self.theLesson.lessonID];
+            [_touchDAO countPlusWithUserID:_currentPassport LessonID:self.thePubLesson.lessonID];
         });
         
         //纪录重点单词
@@ -2003,7 +2003,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [taskWordDAO insertWithUesrID:_currentPassport
                                  Word:touchWord.getLemma
                              Sentence:sentence
-                             LessonID:self.theLesson.lessonID];
+                             LessonID:self.thePubLesson.lessonID];
     });
 }
 
@@ -2032,7 +2032,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     if(_lessonData.BEOFFICIAL)
     {
         [AFHttpTool lessonResourceType:kResource_Sub
-                              lessonID:self.theLesson.lessonID
+                              lessonID:self.thePubLesson.lessonID
                             contentURL:nil
                                  isURL:NO
                                success:^(id response) {

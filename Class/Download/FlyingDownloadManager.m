@@ -137,54 +137,53 @@
     //缓存课程字典
     dispatch_async(_background_queue, ^{
         
-        [FlyingDownloadManager getDicWithURL:lessonData.BEPROURL LessonID:lessonData.BELESSONID];
+        [FlyingDownloadManager getDicForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
+    });
+    
+    
+    //缓存背景音乐
+    dispatch_async(_background_queue, ^{
+        
+        [FlyingDownloadManager getBackMp3ForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
     
     //缓存课程辅助资源
     dispatch_async(_background_queue, ^{
         
-        [FlyingDownloadManager getRelativeWithURL:lessonData.BERELATIVEURL LessonID:lessonData.BELESSONID];
+        [FlyingDownloadManager getRelativeForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
 }
 
-
-+ (void) getSrtForLessonID: (NSString *) lessonID
-                     Title:(NSString *) title
-{
-    [AFHttpTool lessonResourceType:kResource_Sub
-                          lessonID:lessonID
-                        contentURL:nil
-                             isURL:NO
-                           success:^(id response) {
-                               //
-                               NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                               NSRange segmentRange = [temStr rangeOfString:@"所请求映射类文件不存在"];
-                               
-                               if ( (segmentRange.location==NSNotFound) && (response!=nil) ) {
-                                   
-                                   FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
-                                   [mylessonDAO setUserModle:NO];
-                                   
-                                   FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
-                                   [response writeToFile:lessonData.localURLOfSub atomically:YES];
-                               }
-                               
-                           } failure:^(NSError *err) {
-                               //
-                           }];
-}
-
-+ (void) getDicWithURL: (NSString *) baseURLStr
-              LessonID: (NSString *) lessonID
++ (void) getSrtForLessonID: (NSString *) lessonID Title:(NSString *) title
 {
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
     [mylessonDAO setUserModle:NO];
     FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
     
-    if(lessonData.BEPROURL)
+    if(lessonData.BESUBURL)
     {
-        NSString *localURL = lessonData.localURLOfPro;
-        NSURLSessionDownloadTask * downloadTask = [AFHttpTool downloadUrl:baseURLStr destinationPath:localURL progress:nil
+        NSURLSessionDownloadTask * downloadTask = [AFHttpTool downloadUrl:lessonData.BESUBURL destinationPath:lessonData.localURLOfSub progress:nil
+                                                                  success:^(id response) {
+                                                                      //
+                                                                      
+                                                                  } failure:^(NSError *err) {
+                                                                      //
+                                                                  }];
+        
+        [downloadTask resume];
+    }
+    
+}
+
++ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title
+{
+    FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
+    [mylessonDAO setUserModle:NO];
+    FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
+
+    if (lessonData.BEPROURL) {
+        
+        NSURLSessionDownloadTask * downloadTask = [AFHttpTool downloadUrl:lessonData.BEPROURL destinationPath:lessonData.localURLOfPro progress:nil
                                                                   success:^(id response) {
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.getDicWithURL", NULL), ^{
@@ -209,8 +208,7 @@
     }
 }
 
-+ (void) getRelativeWithURL: (NSString *) relativeURLStr
-                   LessonID: (NSString *) lessonID
++ (void) getRelativeForLessonID:  (NSString *) lessonID   Title:(NSString *) title
 {
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
     [mylessonDAO setUserModle:NO];
@@ -218,9 +216,7 @@
     
     if(lessonData.BERELATIVEURL)
     {
-        NSString *localURL = lessonData.localURLOfRelative;
-        
-        NSURLSessionDownloadTask * downloadTask = [AFHttpTool downloadUrl:relativeURLStr destinationPath:localURL progress:nil
+        NSURLSessionDownloadTask * downloadTask = [AFHttpTool downloadUrl:lessonData.BERELATIVEURL destinationPath:lessonData.localURLOfRelative progress:nil
                                                                   success:^(id response) {
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.relativeURLStr", NULL), ^{
@@ -239,6 +235,14 @@
         
         [downloadTask resume];
     }
+}
+
++ (void) getBackMp3ForLessonID:  (NSString *) lessonID   Title:(NSString *) title
+{
+    
+    FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
+    [mylessonDAO setUserModle:NO];
+    FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
     
     if ( [lessonData.BECONTENTTYPE isEqualToString:KContentTypeText] &&
         lessonData.BEOFFICIAL)
@@ -267,22 +271,6 @@
                                    }];
         }
     }
-}
-
-+ (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title
-{
-    [AFHttpTool lessonResourceType:kResource_Pro
-                          lessonID:lessonID
-                        contentURL:nil
-                             isURL:YES
-                           success:^(id response) {
-                               //
-                               NSString * baseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                               [FlyingDownloadManager getDicWithURL:baseURLStr LessonID:lessonID];
-                               
-                           } failure:^(NSError *err) {
-                               //
-                           }];
 }
 
 //////////////////////////////////////////////////////////////

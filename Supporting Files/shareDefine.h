@@ -187,7 +187,7 @@ typedef enum BESearchType
 #define KContentTypeEvent         @"event"
 
 //字典相关
-#define kShareBaseTempFile        @"dic800_all_n.zip"
+#define kShareBaseTempFile        @"tempdic.zip"
 
 #define KBaseDicAllType           @"dic800_all_n"
 #define KBaseDicMp3Type           @"dic800_mp3"

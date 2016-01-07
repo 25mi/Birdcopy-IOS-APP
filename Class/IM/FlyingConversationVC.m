@@ -909,11 +909,11 @@
 
 - (void) showLessonViewForLessonID:(NSString *) lesssonID
 {
-    [FlyingHttpTool getLessonForLessonID:lesssonID Completion:^(FlyingPubLessonData *lesson) {
+    [FlyingHttpTool getLessonForLessonID:lesssonID Completion:^(FlyingPubLessonData *pubLesson) {
         //
-        if (lesson) {
+        if (pubLesson) {
             FlyingContentVC * vc= [[FlyingContentVC alloc] init];
-            [vc setTheLesson:lesson];
+            [vc setThePubLesson:pubLesson];
             
             [self.navigationController pushViewController:vc animated:YES];
         }
