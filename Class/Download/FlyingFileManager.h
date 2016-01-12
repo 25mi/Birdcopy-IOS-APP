@@ -15,6 +15,7 @@
 //文件位置管理
 + (NSString *) getUserDataDir;
 + (NSString*)  getDownloadsDir;
++ (NSString *) getUserShareDir;
 + (NSString*)  getLessonDir:(NSString*) lessonID;
 
 //监控分享的本地文件夹

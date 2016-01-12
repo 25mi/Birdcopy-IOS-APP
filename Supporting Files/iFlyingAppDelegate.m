@@ -314,8 +314,8 @@
     //向微信注册
     [WXApi registerApp:[FlyingDataManager getWeixinID]];
     
-    //准备字典数据（DB和音频）
-    [FlyingDBManager prepareDictionary];
+    //准备数据库（DB和音频）
+    [FlyingDBManager prepareDB];
     
     //准备融云的初始化环境
     NSString* rongAPPkey=[FlyingDataManager getRongAppKey];

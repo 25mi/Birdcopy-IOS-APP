@@ -110,11 +110,6 @@
             [_downloadingOperationList removeObjectForKey:lessonID];
         }
     }
-    
-    if (_dowloader) {
-        
-        [_dowloader cancel];
-    }
 }
 
 
@@ -283,19 +278,13 @@
         
         if (!_dowloader) {
             
-            [AFHttpTool getShareBaseZIP:KBaseDicMp3Type success:^(id response) {
+            [AFHttpTool getShareBaseZIP:KBaseDicAllType success:^(id response) {
                 NSString * shareBaseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                 
                 //下载目录如果没有就创建一个
                 NSString * downloadDir = [FlyingFileManager getDownloadsDir];
-                BOOL isDir = NO;
-                NSFileManager *fm = [NSFileManager defaultManager];
-                if(!([fm fileExistsAtPath:downloadDir isDirectory:&isDir] && isDir))
-                {
-                    [fm createDirectoryAtPath:downloadDir withIntermediateDirectories:YES attributes:nil error:nil];
-                }
+                NSString * shareBaseDir =[FlyingFileManager getUserShareDir];
                 
-                NSString * baseDir =[downloadDir stringByAppendingPathComponent:kShareBaseDir];
                 NSString * shareBaseDicAllFile =[downloadDir stringByAppendingPathComponent:kShareBaseTempFile];
                 
                 NSString *localURL =shareBaseDicAllFile;
@@ -309,9 +298,9 @@
                                     //
                                     dispatch_async(dispatch_queue_create("com.birdcopy.background.processing", NULL), ^{
                                         
-                                        [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:baseDir];
+                                        [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:shareBaseDir];
                                         
-                                        [fm removeItemAtPath:shareBaseDicAllFile error:nil];
+                                        [[NSFileManager defaultManager] removeItemAtPath:shareBaseDicAllFile error:nil];
                                         
                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everDownloadBaseDictionary"];
                                     });
@@ -370,6 +359,5 @@
         
     }];
 }
-
 
 @end

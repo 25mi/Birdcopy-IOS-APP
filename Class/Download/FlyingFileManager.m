@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) NSString            *userDownloadDir;
 @property (nonatomic,strong) NSString            *userDataDir;
+@property (nonatomic,strong) NSString            *userShareDir;
+
 //本地Document管理
 @property (nonatomic,strong) MHWDirectoryWatcher *docWatcher;
 @property (nonatomic,strong) dispatch_source_t    source;
@@ -89,9 +91,36 @@
     return [FlyingFileManager shareInstance].userDownloadDir;
 }
 
++ (NSString *) getUserShareDir
+{
+    //创建分享目录
+    if (![FlyingFileManager shareInstance].userShareDir) {
+        
+        NSString  *   dbDir = [[FlyingFileManager  getUserDataDir]  stringByAppendingPathComponent:kShareBaseDir];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDir = FALSE;
+        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
+        
+        if(!(isDirExist && isDir))
+        {
+            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
+            if(!bCreateDir){
+                NSLog(@"Create Directory Failed.");
+                
+                return nil;
+            }
+        }
+        
+        [FlyingFileManager shareInstance].userShareDir=dbDir;
+    }
+    
+    return [FlyingFileManager shareInstance].userShareDir;
+}
+
 + (NSString*) getLessonDir:(NSString*) lessonID
 {
-    //创建下载内容目录
+    //创建下载内容目录    
     NSString *dbDir = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:lessonID];
     
     BOOL isDir = NO;

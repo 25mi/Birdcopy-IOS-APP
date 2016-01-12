@@ -83,10 +83,9 @@
 {
     NSString *type = @"mp3";
     
-    NSString * downloadDir = [FlyingFileManager getDownloadsDir];
-    NSString * mp3Dir = [downloadDir stringByAppendingPathComponent:kShareBaseDir];
+    NSString * sahreDir = [FlyingFileManager getUserShareDir];
     
-    NSString *wordMP3File = [mp3Dir stringByAppendingPathComponent:[word stringByAppendingPathExtension:type]];
+    NSString *wordMP3File = [sahreDir stringByAppendingPathComponent:[word stringByAppendingPathExtension:type]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     if([fm fileExistsAtPath:wordMP3File]){
@@ -95,35 +94,25 @@
     }
     else{
         
-        double version = [[[UIDevice currentDevice] systemVersion] doubleValue];
-        if (version>=7.0) {
+        NSString * lessonDir = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:lessonID];
+        wordMP3File = [lessonDir stringByAppendingPathComponent:[word stringByAppendingPathExtension:type]];
+        
+        if([fm fileExistsAtPath:wordMP3File]){
             
-            [FlyingSoundPlayer soundSentence:word];
+            [FlyingSoundPlayer soundWordMp3:wordMP3File];
         }
         else{
             
-            mp3Dir = [downloadDir stringByAppendingPathComponent:lessonID];
-            wordMP3File = [mp3Dir stringByAppendingPathComponent:[word stringByAppendingPathExtension:type]];
-            
-            if([fm fileExistsAtPath:wordMP3File]){
-                
-                [FlyingSoundPlayer soundWordMp3:wordMP3File];
-            }
-            else{
+            if ([AFNetworkReachabilityManager sharedManager].reachable) {
                 
                 _textToSpeech=word;
                 _lessonID=lessonID;
-                // allocate a reachability object
-                
-                if ([AFNetworkReachabilityManager sharedManager].reachable) {
-                    
-                    [self speechByGoogle];
-                }
-                else
-                {
-                    [FlyingSoundPlayer soundEffect:SECalloutLight];
-                }
-                
+
+                [self speechByGoogle];
+            }
+            else
+            {
+                [FlyingSoundPlayer soundSentence:word];
             }
         }
     }

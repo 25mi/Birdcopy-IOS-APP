@@ -109,19 +109,21 @@
 
 - (void) insertWithData: (FlyingItemData *)   itemData
 {
-    
-    [self.dbQueue inDatabase:^(FMDatabase *db) {
+    if (![self selectWithWord:itemData.BEWORD index:(itemData.BEINDEX)]) {
         
-        [db executeUpdate:[self setTable:@"REPLACE INTO %@ (BEWORD,BEINDEX, BEENTRY,BETAG) VALUES (?,?,?,?)"],
-         itemData.BEWORD,
-         @(itemData.BEINDEX),
-         itemData.BEENTRY,
-         itemData.BETAG];
-        
-        if ([db hadError]) {
-            NSLog(@"Err FlyingItemDAO:insertWithData %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-        }
-    }];
-}
+        [self.dbQueue inDatabase:^(FMDatabase *db) {
+            
+            [db executeUpdate:[self setTable:@"REPLACE INTO %@ (BEWORD,BEINDEX, BEENTRY,BETAG) VALUES (?,?,?,?)"],
+             itemData.BEWORD,
+             @(itemData.BEINDEX),
+             itemData.BEENTRY,
+             itemData.BETAG];
+            
+            if ([db hadError]) {
+                NSLog(@"Err FlyingItemDAO:insertWithData %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            }
+        }];
+    }
+ }
 
 @end

@@ -52,6 +52,29 @@
     return instance;
 }
 
++(void) prepareDB
+{
+    // 准备英文字典数据库
+    [FlyingDBManager prepareDictionary];
+    
+    //准备用户数据库
+    //dbPath： 数据库路径，在dbDir中。
+    NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
+    
+    //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:dbPath]){
+        
+        NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KUserDBResource ofType:KDBType];
+        NSError* error=nil;
+        [fileManager copyItemAtPath:soureDbpath toPath:dbPath error:&error ];
+        if (error!=nil) {
+            NSLog(@"%@", error);
+            NSLog(@"%@", [error userInfo]);
+        }
+    }
+}
+
 + (void) updataDBForLocal
 {
     FlyingNowLessonDAO * nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
@@ -179,7 +202,7 @@
 }
 
 // 准备英文字典
-+ (NSString *)prepareDictionary
++ (void)prepareDictionary
 {
     //判断是否后台加载基础字典（MP3+DB）
     NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
@@ -200,24 +223,8 @@
     }
     else
     {
-        NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KDicModelName ofType:KDBType];
-        NSError* error=nil;
-        [fileManager copyItemAtPath:soureDbpath toPath:newDicpath error:&error ];
-        if (error!=nil) {
-            NSLog(@"%@", error);
-            NSLog(@"%@", [error userInfo]);
-            
-            result=nil;
-        }
-        else
-        {
-            result=newDicpath;
-        }
-        
         [[FlyingDownloadManager shareInstance] startDownloadShareData];
     }
-    
-    return result;
 }
 
 //根据课程更新字典
@@ -327,9 +334,21 @@
 {
     if (!_baseDBQueue) {
         
-        NSString* path = [FlyingDBManager prepareDictionary];
+        NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
+        NSString * path        =  [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
         
-        _baseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+        //如果没有
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:path]){
+            
+            [[FlyingDownloadManager shareInstance] startDownloadShareData];
+            
+            return nil;
+        }
+        else{
+            
+            _baseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+        }
     }
     
     return _baseDBQueue;
@@ -348,9 +367,21 @@
 {
     if (!_pubBaseDBQueue) {
                 
-        NSString* path = [FlyingDBManager prepareDictionary];
+        NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
+        NSString * path        =  [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
         
-        _pubBaseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+        //如果没有
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:path]){
+            
+            [[FlyingDownloadManager shareInstance] startDownloadShareData];
+            
+            return nil;
+        }
+        else{
+            
+            _pubBaseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+        }
     }
     
     return _pubBaseDBQueue;

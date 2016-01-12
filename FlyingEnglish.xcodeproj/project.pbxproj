@@ -1259,7 +1259,6 @@
 		C81F8BB91BD7B488004146F0 /* KMMovieDetailsSimilarMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523EA1BB390A8000F86DC /* KMMovieDetailsSimilarMoviesCell.xib */; };
 		C81F8BBA1BD7B488004146F0 /* FlyingEventScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E57E491BB6A2370013527E /* FlyingEventScheduleCell.xib */; };
 		C81F8BBB1BD7B488004146F0 /* KMSimilarMoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87523F01BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib */; };
-		C81F8BBC1BD7B488004146F0 /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
 		C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
 		C81F8BC01BD7B488004146F0 /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
@@ -1358,7 +1357,6 @@
 		C8937C14181E2DE8000B4F64 /* BEMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8937C13181E2DE8000B4F64 /* BEMenuController.m */; };
 		C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA5ACC341B707AB40051A3EA /* MKStoreKitConfigs.plist */; };
 		C8A0E48A177D91AF002667EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A0E489177D91AE002667EC /* ImageIO.framework */; };
-		C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		C8A3A6A6167A07D60013FA4D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A3A6A5167A07D60013FA4D /* AVFoundation.framework */; };
 		C8A4FD0517114D1A00EBA4F4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A4FD0417114D1900EBA4F4 /* CFNetwork.framework */; };
 		C8ACF249164DF876005937FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8ACF247164DF825005937FD /* AudioToolbox.framework */; };
@@ -1600,7 +1598,6 @@
 		FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
 		FA1BE5A51B27DD5A00AA1AFD /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88DCF721765B95A00C28D74 /* MainStoryboard.storyboard */; };
 		FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA1BE5A71B27DD5A00AA1AFD /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
 		FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
 		FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
@@ -1741,7 +1738,6 @@
 		FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
 		FA632A851B51091400A1222E /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88DCF721765B95A00C28D74 /* MainStoryboard.storyboard */; };
 		FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA632A871B51091400A1222E /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
 		FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
 		FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
@@ -1866,7 +1862,6 @@
 		FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
 		FA8C3EE11B535A1500DEA02D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88DCF721765B95A00C28D74 /* MainStoryboard.storyboard */; };
 		FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA8C3EE31B535A1500DEA02D /* dicModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C8A33D8A1828AA7100F33944 /* dicModel.db */; };
 		FA8C3EE41B535A1500DEA02D /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
 		FA8C3EE61B535A1500DEA02D /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
 		FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
@@ -4598,7 +4593,6 @@
 				C875242D1BB390A8000F86DC /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
 				824940821C07FFEF000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401C1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
-				C8A33D8B1828AA7100F33944 /* dicModel.db in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
@@ -4629,7 +4623,6 @@
 				C81F8BBA1BD7B488004146F0 /* FlyingEventScheduleCell.xib in Resources */,
 				C81F8BBB1BD7B488004146F0 /* KMSimilarMoviesCollectionViewCell.xib in Resources */,
 				C81F8BD71BD7E47A004146F0 /* InfoPlist.strings in Resources */,
-				C81F8BBC1BD7B488004146F0 /* dicModel.db in Resources */,
 				824940461C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
@@ -4658,7 +4651,6 @@
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
 				82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */,
-				FA1BE5A71B27DD5A00AA1AFD /* dicModel.db in Resources */,
 				824940431C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */,
 				C87524061BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
@@ -4697,7 +4689,6 @@
 				C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */,
 				8249408C1C080953000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401E1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
-				FA632A871B51091400A1222E /* dicModel.db in Resources */,
 				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
 				C8E57E4F1BB6A2790013527E /* FlyingEventScheduleCell.xib in Resources */,
@@ -4726,7 +4717,6 @@
 				FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */,
 				FA8C3EFA1B535B9100DEA02D /* InfoPlist.strings in Resources */,
 				824940451C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
-				FA8C3EE31B535A1500DEA02D /* dicModel.db in Resources */,
 				C87524081BB390A8000F86DC /* FlyingEventAuthorCell.xib in Resources */,
 				8249408D1C080954000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401F1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,

@@ -98,7 +98,6 @@ typedef enum BESearchType
 
 //文件格式和文件名
 #define KUserDBResource           @"userModel"
-#define KDicModelName             @"dicModel"
 #define KDBType                   @"db"
 #define kLessonVedioType          @"mp4"
 #define kLessonAudioType          @"mp3"
