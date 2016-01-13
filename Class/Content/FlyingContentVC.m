@@ -886,8 +886,11 @@
 #pragma cell related
 //////////////////////////////////////////////////////////////
 
-- (void)selectedTag:(NSString *)tagName tagList:(DWTagList *) tagList
-{
+#pragma mark - TLTagsControlDelegate
+- (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
+    
+    NSString *tagName = tagsControl.tags[index];
+    
     if ([tagName isEqualToString:@"没有标签"] || [tagName isEqualToString:@""] || !tagName ) {
         
         return;
@@ -896,6 +899,7 @@
     FlyingLessonListViewController *lessonList = [[FlyingLessonListViewController alloc] init];
     [lessonList setTagString:tagName];
     [self.navigationController pushViewController:lessonList animated:YES];
+
 }
 
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData

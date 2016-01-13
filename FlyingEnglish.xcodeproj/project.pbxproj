@@ -977,11 +977,6 @@
 		823E17911C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
 		823E17921C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
 		823E17931C19D43A00E08A5F /* UITextFiled+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */; };
-		82493F9A1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
-		82493F9B1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
-		82493F9C1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
-		82493F9D1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
-		82493F9E1C07F53E000A2306 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F911C07F53E000A2306 /* DWTagList.m */; };
 		82493F9F1C07F53E000A2306 /* FlyingItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F931C07F53E000A2306 /* FlyingItemParser.m */; };
 		82493FA01C07F53E000A2306 /* FlyingItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F931C07F53E000A2306 /* FlyingItemParser.m */; };
 		82493FA11C07F53E000A2306 /* FlyingItemParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82493F931C07F53E000A2306 /* FlyingItemParser.m */; };
@@ -1110,6 +1105,11 @@
 		82E91CBB1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E91CB81C1192AB00B0EC70 /* FlyingEditVC.m */; };
 		82E91CBC1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E91CB81C1192AB00B0EC70 /* FlyingEditVC.m */; };
 		82E91CBD1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E91CB81C1192AB00B0EC70 /* FlyingEditVC.m */; };
+		82F706701C4664830068C791 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7066F1C4664830068C791 /* TLTagsControl.m */; };
+		82F706711C46648A0068C791 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7066F1C4664830068C791 /* TLTagsControl.m */; };
+		82F706721C46648B0068C791 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7066F1C4664830068C791 /* TLTagsControl.m */; };
+		82F706731C46648C0068C791 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7066F1C4664830068C791 /* TLTagsControl.m */; };
+		82F706741C46648D0068C791 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7066F1C4664830068C791 /* TLTagsControl.m */; };
 		C806580A17FE53BB00CADF4F /* FlyingSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575517FE53BB00CADF4F /* FlyingSearchBar.m */; };
 		C806580B17FE53BB00CADF4F /* FlyingSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575717FE53BB00CADF4F /* FlyingSearchViewController.m */; };
 		C806580D17FE53BB00CADF4F /* FlyingGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C806575D17FE53BB00CADF4F /* FlyingGuideViewController.m */; };
@@ -2291,8 +2291,6 @@
 		823E17871C19CC2A00E08A5F /* FlyingUnderlineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUnderlineTextField.m; sourceTree = "<group>"; };
 		823E178D1C19D43900E08A5F /* UITextFiled+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextFiled+Shake.h"; sourceTree = "<group>"; };
 		823E178E1C19D43900E08A5F /* UITextFiled+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextFiled+Shake.m"; sourceTree = "<group>"; };
-		82493F901C07F53E000A2306 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
-		82493F911C07F53E000A2306 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTagList.m; sourceTree = "<group>"; };
 		82493F921C07F53E000A2306 /* FlyingItemParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemParser.h; sourceTree = "<group>"; };
 		82493F931C07F53E000A2306 /* FlyingItemParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingItemParser.m; sourceTree = "<group>"; };
 		82493F941C07F53E000A2306 /* FlyingItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemView.h; sourceTree = "<group>"; };
@@ -2337,6 +2335,8 @@
 		82E91CB11C11767B00B0EC70 /* FlyingProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingProfileVC.m; sourceTree = "<group>"; };
 		82E91CB71C1192AB00B0EC70 /* FlyingEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingEditVC.h; sourceTree = "<group>"; };
 		82E91CB81C1192AB00B0EC70 /* FlyingEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingEditVC.m; sourceTree = "<group>"; };
+		82F7066E1C4664830068C791 /* TLTagsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTagsControl.h; sourceTree = "<group>"; };
+		82F7066F1C4664830068C791 /* TLTagsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTagsControl.m; sourceTree = "<group>"; };
 		C806575417FE53BB00CADF4F /* FlyingSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchBar.h; sourceTree = "<group>"; };
 		C806575517FE53BB00CADF4F /* FlyingSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSearchBar.m; sourceTree = "<group>"; };
 		C806575617FE53BB00CADF4F /* FlyingSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSearchViewController.h; sourceTree = "<group>"; };
@@ -3639,6 +3639,8 @@
 		82493F8F1C07F53E000A2306 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				82F7066E1C4664830068C791 /* TLTagsControl.h */,
+				82F7066F1C4664830068C791 /* TLTagsControl.m */,
 				8249407E1C07FFEF000A2306 /* FlyingTagCell.h */,
 				8249407F1C07FFEF000A2306 /* FlyingTagCell.m */,
 				824940801C07FFEF000A2306 /* FlyingTagCell.xib */,
@@ -3650,8 +3652,6 @@
 				824940301C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib */,
 				824940311C07FB5D000A2306 /* FlyingContentVC.h */,
 				824940321C07FB5D000A2306 /* FlyingContentVC.m */,
-				82493F901C07F53E000A2306 /* DWTagList.h */,
-				82493F911C07F53E000A2306 /* DWTagList.m */,
 				82493F921C07F53E000A2306 /* FlyingItemParser.h */,
 				82493F931C07F53E000A2306 /* FlyingItemParser.m */,
 				82493F941C07F53E000A2306 /* FlyingItemView.h */,
@@ -5005,6 +5005,7 @@
 				FA11E7AB19CD526200D97FDB /* ReaderDocument.m in Sources */,
 				82493FDF1C07F67D000A2306 /* FlyingCoverDataParser.m in Sources */,
 				8212F5DB1C321BC8009C9F86 /* PSCollectionView.m in Sources */,
+				82F706701C4664830068C791 /* TLTagsControl.m in Sources */,
 				8214E8DC1C298BF40014B6BD /* FlyingDownloadManager.m in Sources */,
 				8212F4841C321B8E009C9F86 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				8212F4751C321B8E009C9F86 /* FMResultSet.m in Sources */,
@@ -5086,7 +5087,6 @@
 				C8FE1F9C1BB1036D009C8D48 /* FlyingCalendarHeaderView.m in Sources */,
 				8212F5C71C321BC8009C9F86 /* UIBubbleTableViewCell.m in Sources */,
 				8214EC1F1C2AE8D20014B6BD /* RCDDiscussSettingSwitchCell.m in Sources */,
-				82493F9A1C07F53E000A2306 /* DWTagList.m in Sources */,
 				C806580A17FE53BB00CADF4F /* FlyingSearchBar.m in Sources */,
 				FAED3F1E1A695EA000CC6116 /* FlyingProviderParser.m in Sources */,
 				8214EC011C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
@@ -5314,6 +5314,7 @@
 				C81F8A8E1BD7B488004146F0 /* FlyingMyGroupsVC.m in Sources */,
 				C81F8A901BD7B488004146F0 /* FlyingWordAbstractVC.m in Sources */,
 				8220E72C1C3CE89600265815 /* FlyingAILearningView.m in Sources */,
+				82F706741C46648D0068C791 /* TLTagsControl.m in Sources */,
 				8212F5DF1C321BC8009C9F86 /* PSCollectionView.m in Sources */,
 				C81F8A911BD7B488004146F0 /* FlyingReviewVC.m in Sources */,
 				C81F8A941BD7B488004146F0 /* ReaderDocument.m in Sources */,
@@ -5406,7 +5407,6 @@
 				8212F5621C321BC8009C9F86 /* china_shift.c in Sources */,
 				8212F46F1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
 				8212F5851C321BC8009C9F86 /* RSKImageCropViewController.m in Sources */,
-				82493F9E1C07F53E000A2306 /* DWTagList.m in Sources */,
 				8214E8DB1C298BF40014B6BD /* FlyingDownloader.m in Sources */,
 				8212F6A21C321BC8009C9F86 /* UIDevice+SpeedCategory.m in Sources */,
 				C81F8AE31BD7B488004146F0 /* FlyingSearchBar.m in Sources */,
@@ -5623,6 +5623,7 @@
 				82493FBB1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				8212F62C1C321BC8009C9F86 /* UIImage+localFile.m in Sources */,
 				FA1BE4A61B27DD5A00AA1AFD /* MuWord.m in Sources */,
+				82F706711C46648A0068C791 /* TLTagsControl.m in Sources */,
 				8220E7291C3CE89300265815 /* FlyingAILearningView.m in Sources */,
 				C87524021BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				8212F5DC1C321BC8009C9F86 /* PSCollectionView.m in Sources */,
@@ -5724,7 +5725,6 @@
 				8249403E1C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				FA1BE4EE1B27DD5A00AA1AFD /* ReaderThumbRequest.m in Sources */,
 				8214EC0C1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
-				82493F9B1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA1BE4F11B27DD5A00AA1AFD /* FlyingSearchBar.m in Sources */,
 				FA1BE4F31B27DD5A00AA1AFD /* FlyingProviderParser.m in Sources */,
 				8214ECF61C2D12430014B6BD /* FlyingConversationListVC.m in Sources */,
@@ -5932,6 +5932,7 @@
 				82493FBC1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				8212F62D1C321BC8009C9F86 /* UIImage+localFile.m in Sources */,
 				FA63298A1B51091400A1222E /* MuWord.m in Sources */,
+				82F706721C46648B0068C791 /* TLTagsControl.m in Sources */,
 				8220E72A1C3CE89400265815 /* FlyingAILearningView.m in Sources */,
 				C87524031BB390A8000F86DC /* FlyingEventAuthorCell.m in Sources */,
 				8212F5DD1C321BC8009C9F86 /* PSCollectionView.m in Sources */,
@@ -6033,7 +6034,6 @@
 				8249403F1C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				FA6329D21B51091400A1222E /* ReaderThumbRequest.m in Sources */,
 				8214EC0D1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
-				82493F9C1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA6329D51B51091400A1222E /* FlyingSearchBar.m in Sources */,
 				FA6329D61B51091400A1222E /* FlyingProviderParser.m in Sources */,
 				8214ECF71C2D12430014B6BD /* FlyingConversationListVC.m in Sources */,
@@ -6241,6 +6241,7 @@
 				82493FBD1C07F54D000A2306 /* FlyingLessonListViewController.m in Sources */,
 				8212F62E1C321BC8009C9F86 /* UIImage+localFile.m in Sources */,
 				8210AE7E1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
+				82F706731C46648C0068C791 /* TLTagsControl.m in Sources */,
 				8220E72B1C3CE89500265815 /* FlyingAILearningView.m in Sources */,
 				FA8C3DE61B535A1500DEA02D /* MuWord.m in Sources */,
 				8212F5DE1C321BC8009C9F86 /* PSCollectionView.m in Sources */,
@@ -6343,7 +6344,6 @@
 				824940401C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				8214EC0E1C2AE8D20014B6BD /* RCDConversationSettingTableViewHeader.m in Sources */,
 				FA8C3E2E1B535A1500DEA02D /* ReaderThumbRequest.m in Sources */,
-				82493F9D1C07F53E000A2306 /* DWTagList.m in Sources */,
 				FA8C3E311B535A1500DEA02D /* FlyingSearchBar.m in Sources */,
 				8214ECF81C2D12430014B6BD /* FlyingConversationListVC.m in Sources */,
 				8212F6421C321BC8009C9F86 /* UIWebView+Clean.m in Sources */,

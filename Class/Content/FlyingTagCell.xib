@@ -14,14 +14,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pk-8V-nnJ" customClass="DWTagList">
-                        <rect key="frame" x="8" y="6" width="312" height="33.5"/>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pk-8V-nnJ" customClass="TLTagsControl">
+                        <rect key="frame" x="8" y="8" width="312" height="27.5"/>
                     </scrollView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2Pk-8V-nnJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="6S6-Jn-7rv"/>
-                    <constraint firstItem="2Pk-8V-nnJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="DUv-58-2AA"/>
-                    <constraint firstAttribute="bottom" secondItem="2Pk-8V-nnJ" secondAttribute="bottom" constant="4" id="snk-6k-KN9"/>
+                    <constraint firstItem="2Pk-8V-nnJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="DUv-58-2AA"/>
+                    <constraint firstAttribute="bottom" secondItem="2Pk-8V-nnJ" secondAttribute="bottom" constant="8" id="snk-6k-KN9"/>
                     <constraint firstAttribute="trailing" secondItem="2Pk-8V-nnJ" secondAttribute="trailing" id="y7Y-E6-2FH"/>
                 </constraints>
             </tableViewCellContentView>

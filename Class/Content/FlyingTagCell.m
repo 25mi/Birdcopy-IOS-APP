@@ -12,9 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    [self.contentTagList setCornerRadius:3];
-    [self.contentTagList setBorderWidth:0];
-    [self.contentTagList setTagBackgroundColor:[UIColor colorWithWhite:0.94 alpha:1.000]];
+    self.contentTagList.mode = TLTagsControlModeList;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -34,9 +32,9 @@
     return cell;
 }
 
--(void)setTagList:(NSString*)tagList DataSourceDelegate:(id<DWTagListDelegate>)dataSourceDelegate
+-(void)setTagList:(NSString*)tagList DataSourceDelegate:(id<TLTagsControlDelegate>)dataSourceDelegate
 {
-    [self.contentTagList setTagDelegate:dataSourceDelegate];
+    [self.contentTagList setTapDelegate:dataSourceDelegate];
     
     NSError *error = nil;
     
@@ -46,15 +44,16 @@
     
     NSArray * tagArray =[trimmedString componentsSeparatedByString:@" "];
     
-    [self.contentTagList setAutomaticResize:YES];
     if (tagArray && tagArray.count>0)
     {
-        [self.contentTagList setTags:tagArray];
+        [self.contentTagList setTags:[NSMutableArray arrayWithArray:tagArray]];
     }
     else
     {
-        [self.contentTagList setTags:[NSArray arrayWithObject:@"没有标签"]];
+        [self.contentTagList setTags:[NSMutableArray arrayWithObject:@"没有标签"]];
     }
+    
+    [self.contentTagList reloadTagSubviews];
 }
 
 

@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DWTagList.h"
+#import "TLTagsControl.h"
 
 @interface FlyingTagCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet DWTagList *contentTagList;
+@property (strong, nonatomic) IBOutlet TLTagsControl *contentTagList;
 
 + (FlyingTagCell*) tagCell;
 
--(void)setTagList:(NSString*)tagList DataSourceDelegate:(id<DWTagListDelegate>)dataSourceDelegate;
+-(void)setTagList:(NSString*)tagList DataSourceDelegate:(id<TLTagsControlDelegate>)dataSourceDelegate;
 
 @end
