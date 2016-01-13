@@ -47,6 +47,7 @@
 
 @property (nonatomic,strong) UIButton* menuButton;
 
+
 @end
 
 @implementation FlyingDiscoverContent
@@ -71,11 +72,9 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    NSString *author = [FlyingDataManager getContentOwner];
-
-    if (author) {
+    if (!self.author) {
         
-        [self setAuthor:author];
+        [self setAuthor:[FlyingDataManager getContentOwner]];
     }
     
     [self reloadAll];

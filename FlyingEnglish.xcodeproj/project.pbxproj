@@ -6797,7 +6797,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
 					"__CLIENT__IS__FD__=1",
 					"DEBUG=1",
 				);
@@ -6855,10 +6854,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
-					"__CLIENT__IS__FD__=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__FD__=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
