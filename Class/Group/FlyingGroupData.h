@@ -27,6 +27,9 @@
 @property (nonatomic, assign) BOOL      owner_recom;   //属主是否已推荐[1:是 0:否 null:空]
 @property (nonatomic, assign) BOOL      sys_recom;     //系统是否已推荐[1:是 0:否 null:空]
 
+@property (nonatomic, assign) BOOL      is_public_access;       //公开群[1:是 0:否 null:空]
+
+
 @property (nonatomic, strong) NSString *gp_member_sum; //成员数
 @property (nonatomic, strong) NSString *gp_ln_sum;     //课程数
 

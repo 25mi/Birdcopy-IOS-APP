@@ -258,7 +258,7 @@
                                                     handler:^(SIAlertView *alertView) {}];
                               alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
                               alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                              [alertView show];
+                              [alertView show];                              
                           }];
     }
 }

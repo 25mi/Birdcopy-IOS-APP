@@ -100,7 +100,7 @@
                 if (show) {
                     [self showUserChangeInfo:[NSString stringWithFormat:@"%@加入...", userInfo.name]];
                 } else {
-                    self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", self.rcUserInfos.count];
+                    self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", (unsigned long)self.rcUserInfos.count];
                 }
             }];
         } else {
@@ -110,7 +110,7 @@
             if (show) {
                 [self showUserChangeInfo:[NSString stringWithFormat:@"%@加入...", userInfo.name]];
             } else {
-                self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", self.rcUserInfos.count];
+                self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", (unsigned long)self.rcUserInfos.count];
             }
         }
         return YES;
@@ -129,7 +129,7 @@
             if (show) {
                 [self showUserChangeInfo:[NSString stringWithFormat:@"%@退出...", userInfo.name]];
             } else {
-                self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", self.rcUserInfos.count];
+                self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", (unsigned long)self.rcUserInfos.count];
             }
             return YES;
         } else {
@@ -148,7 +148,7 @@
 
 - (void)showUserShareInfo{
     self.tipLabel.textColor = [UIColor whiteColor];
-    self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", self.rcUserInfos.count];
+    self.tipLabel.text = [NSString stringWithFormat:@"%lu人在共享位置", (unsigned long)self.rcUserInfos.count];
 }
 
 - (NSArray *)getParticipantsUserInfo {

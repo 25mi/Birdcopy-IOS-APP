@@ -73,7 +73,7 @@
 
 + (CFSharer *)im
 {
-    return [[CFSharer alloc] initWithName:@"聊天好友" imageName:@"chat"];
+    return [[CFSharer alloc] initWithName:@"聊天好友" imageName:@"Chat"];
 }
 
 + (CFSharer *)save

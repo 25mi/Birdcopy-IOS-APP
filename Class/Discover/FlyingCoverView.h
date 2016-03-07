@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "shareDefine.h"
 
 @protocol FlyingCoverViewDelegate;
 
@@ -22,6 +23,9 @@
 
 @property (weak,   nonatomic) id <FlyingCoverViewDelegate> coverViewDelegate;
 
+@property (strong, nonatomic) NSString           *domainID;
+@property (assign, nonatomic) BC_Domain_Type      domainType;
+
 -(void) loadData;
 
 @end
@@ -31,9 +35,9 @@
 @protocol FlyingCoverViewDelegate <NSObject>
 
 @optional
+
 - (void) showFeatureContent;
 - (void) touchCover:(id)lessonPubData;
 
-- (NSString*) getAuthor;
 
 @end

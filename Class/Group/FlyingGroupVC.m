@@ -1,172 +1,115 @@
 //
-//  FlyingGroupVC.m
+//  FlyingMyGroupsVC.m
 //  FlyingEnglish
 //
-//  Created by vincent on 9/8/15.
+//  Created by vincent on 9/4/15.
 //  Copyright (c) 2015 BirdEngish. All rights reserved.
 //
 
-#import "FlyingGroupVC.h"
-#import "FlyingGroupData.h"
-
+#import "FlyingHomeVC.h"
 #import "FlyingHttpTool.h"
-
-#import "FlyingGroupStreamCell.h"
+#import "FlyingGroupData.h"
 
 #import "UIView+Toast.h"
 
-#import "iFlyingAppDelegate.h"
-#import "RESideMenu.h"
+#import "FlyingConversationListVC.h"
+#import "FlyingConversationVC.h"
 
-#import "FlyingCalendarVC.h"
+#import "FlyingGroupVC.h"
 
-#import "FlyingDiscoverContent.h"
-
-#import "FlyingContentVC.h"
-#import <AFNetworking/AFNetworking.h>
-
-#import "FlyingCommentVC.h"
-
-#import <RongIMKit/RongIMKit.h>
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
+#import "FlyingDiscoverVC.h"
+
+#import <AFNetworking/AFNetworking.h>
+#import "iFlyingAppDelegate.h"
+
+#import <RongIMKit/RongIMKit.h>
+#import <RongIMLib/RongIMLib.h>
+
 #import "RCDataBaseManager.h"
+
+#import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
 
 #import "FlyingNavigationController.h"
-#import "FlyingConversationVC.h"
 #import "FlyingDataManager.h"
 
-@interface FlyingGroupVC ()<UIGestureRecognizerDelegate>
+#import "FlyingContentVC.h"
+#import "FlyingContentListVC.h"
+#import "FlyingContentCell.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "shareDefine.h"
+
+#import "FlyingGroupCoverView.h"
+#import "FlyingWebViewController.h"
+
+#import "FlyingAddressBookViewController.h"
+
+@interface FlyingGroupVC ()
 {
-    NSInteger            _maxNumOfGroupStreams;
+    NSInteger            _maxNumOfContents;
     NSInteger            _currentLodingIndex;
     
-    NSInteger           kLoadMoreIndicatorTag;
-    
     BOOL                 _refresh;
+    
+    int                  _lastPosition;
 }
 
-@property (assign) CGPoint scrollViewDragPoint;
+@property (strong, nonatomic) UIButton *accessChatbutton;
+@property (strong, nonatomic) UIView   *accessChatContainer;
+
+
+@property (nonatomic, strong) FlyingGroupCoverView *pathCover;
+
+@property (strong, nonatomic) NSMutableArray     *currentData;
+@property (strong, nonatomic) UITableView        *groupStreamTableView;
+@property (strong, nonatomic) FlyingPubLessonData    *currentFeatueContent;
 
 @end
 
 @implementation FlyingGroupVC
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [self addBackFunction];
     
+    _refresh=NO;
+    
+    //更新欢迎语言
+    self.title = self.groupData.gp_name;
+    
     //顶部导航
-    UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(200, 7, 24, 24)];
     [discoverButton setBackgroundImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
     [discoverButton addTarget:self action:@selector(doDiscover) forControlEvents:UIControlEventTouchUpInside];
+    
     UIBarButtonItem* discoverButtonItem= [[UIBarButtonItem alloc] initWithCustomView:discoverButton];
     
-    UIButton* calendarButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    [calendarButton setBackgroundImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
-    [calendarButton addTarget:self action:@selector(doCalendar) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* calendarBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:calendarButton];
+    UIButton* memberButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
+    [memberButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
+    [memberButton addTarget:self action:@selector(showMember) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* chatBarButtonItems= [[UIBarButtonItem alloc] initWithCustomView:memberButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:calendarBarButtonItem,discoverButtonItem,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:discoverButtonItem,chatBarButtonItems,nil];
     
-    self.title=self.groupData.gp_name;
-    
+    //顶部导航
     [self reloadAll];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if (self.groupView.tableView.contentOffset.y> CGRectGetHeight(self.groupView.tableView.tableHeaderView.frame))
-    {
-        [appDelegate setnavigationBarWithClearStyle:NO];
-    }
-    else
-    {
-        [appDelegate setnavigationBarWithClearStyle:YES];
-    }
-    
-    [self.groupView enableKVO:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self.groupView enableKVO:NO];
-    
-    //恢复默认状态
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate setnavigationBarWithClearStyle:NO];
-}
-
-- (void) willDismiss
-{
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark - Loading data and setup view
-//////////////////////////////////////////////////////////////
-- (void)reloadAll
-{
-    if(!self.groupView)
-    {
-        self.groupView=[[FlyingGroupDetailsView alloc] initWithFrame:self.view.frame];
-        
-        self.groupView.tableViewDataSource = self;
-        self.groupView.tableViewDelegate = self;
-        self.groupView.groupDetailsViewDelegate = self;
-        self.groupView.tableViewSeparatorColor = [UIColor clearColor];
-        [self.view addSubview:self.groupView];
-        
-        _currentData = [NSMutableArray new];
-        
-        _currentLodingIndex=0;
-        _maxNumOfGroupStreams=NSIntegerMax;
-    }
-    else
-    {
-        [_currentData removeAllObjects];
-        _currentLodingIndex=0;
-        _maxNumOfGroupStreams=NSIntegerMax;
-    }
-    
-    [self prepareForChatRoom];
-    
-    //Test only begin
-    _currentData =[NSMutableArray arrayWithObjects:@"1",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",@"2",nil];
-    
-    _currentLodingIndex=1;
-    _maxNumOfGroupStreams=_currentData.count;
-    
-    [self.groupView.tableView reloadData];
-
-    //Test only
-    self.topBoardNewsData = [[FlyingStreamData alloc] init];
-    self.topBoardNewsData.title=@"周一课程改期通知";
-    self.topBoardNewsData.contentSummary=@"以下几类人群尤其应该关注血脂水平：一是已患冠心病、脑卒中、外周动脉粥样硬化性疾病的患者；二是吸烟、肥胖、患有高血压或糖尿病的患者；三是家族中有冠心病、脑卒中或外周动脉粥样硬化性疾病病史患者，特别是直系亲属中有人50岁以前就得了心脑血管病甚至死于心脑血管病的；四是有家族遗传的高胆固醇血症；五是绝经后女性和40岁以上的男性。以下几类人群尤其应该关注血脂水平：一是已患冠心病、脑卒中、外周动脉粥样硬化性疾病的患者；二是吸烟、肥胖、患有高血压或糖尿病的患者；三是家族中有冠心病、脑卒中或外周动脉粥样硬化性疾病病史患者，特别是直系亲属中有人50岁以前就得了心脑血管病甚至死于心脑血管病的；四是有家族遗传的高胆固醇血症；五是绝经后女性和40岁以上的男性。";
-    self.topBoardNewsData.updateTime=@"8 分钟前";
-    self.topBoardNewsData.contentType =@"通知";
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.groupView reloadBoardNews];
-    });
-    
-    [self finishLoadingData];
-    
-    //Test only end
-
-    //[self requestMoreGroupStream];
-    //[self requestGoupBoardNews];
 }
 
 -(void) prepareForChatRoom
@@ -176,7 +119,7 @@
         return;
     }
     
-    if(!self.groupAccessbutton)
+    if(!self.accessChatbutton)
     {
         CGRect chatButtonFrame=self.view.frame;
         
@@ -186,88 +129,284 @@
         chatButtonFrame.size.height = frame.size.width/8;
         chatButtonFrame.origin.x    = frame.size.width*8/10;
         chatButtonFrame.origin.y    = frame.size.height-frame.size.width/5;
+
+        self.accessChatContainer = [[UIView alloc]  initWithFrame:chatButtonFrame];
         
-        self.groupAccessbutton = [[UIButton alloc] initWithFrame:chatButtonFrame];
-        [self.groupAccessbutton setBackgroundImage:[UIImage imageNamed:@"chat"]
-                                       forState:UIControlStateNormal];
-        [self.groupAccessbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.view addSubview:self.groupAccessbutton];
-        //self.groupView.groupAccessView= self.groupAccessbutton;
+        self.accessChatbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, chatButtonFrame.size.width, chatButtonFrame.size.height)];
+        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"Chat"]
+                                          forState:UIControlStateNormal];
+        [self.accessChatbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
+
+        [self.accessChatContainer addSubview:self.accessChatbutton];
+        [self.view addSubview:self.accessChatContainer];
     }
 }
 
-- (void)refreshNow
+- (void) shakeToShow:(UIView*)aView
+
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
+    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    animation.duration = 1.5;// 动画时间
+    
+    NSMutableArray *values = [NSMutableArray array];
+    
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    // 这三个数字，我只研究了前两个，所以最后一个数字我还是按照它原来写1.0；前两个是控制view的大小的；
+    
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)]];
+    
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.6, 1.6, 1.0)]];
+    
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(2.0, 2.0, 1.0)]];
+    
+    animation.values = values;
+    
+    [aView.layer addAnimation:animation forKey:nil];
+}
+
+- (void) doDiscover
+{
+    FlyingDiscoverVC *discoverContent = [[FlyingDiscoverVC alloc] init];
+    discoverContent.domainID = self.groupData.gp_id;
+    discoverContent.domainType = BC_Group_Domain:::::::::::::::::
+    discoverContent.shoudLoaingFeature = YES;F
+    discoverContent.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:discoverContent animated:YES];
+}
+
+- (void) doChat
+{
+    if (INTERFACE_IS_PAD) {
         
-        _refresh=YES;
+        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        return;
+    }
+    
+    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+    
+    chatService.targetId = self.groupData.gp_id;
+    chatService.conversationType = ConversationType_CHATROOM;
+    chatService.title = @"公共聊天室";
+    chatService.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatService animated:YES];
+}
+
+-(void) showMember
+{
+    FlyingAddressBookViewController * membersVC = [[FlyingAddressBookViewController alloc] init];
+    
+    membersVC.title = @"群成员";
+    membersVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:membersVC animated:YES];
+}
+
+- (void) willDismiss
+{
+}
+//////////////////////////////////////////////////////////////
+#pragma FlyingGroupCoverViewDelegate Related
+//////////////////////////////////////////////////////////////
+- (void) touchCover:(FlyingPubLessonData*)lessonPubData
+{
+    FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+    [contentVC setThePubLesson:lessonPubData];
+    contentVC.hidesBottomBarWhenPushed=YES;
+    
+    [self.navigationController pushViewController:contentVC animated:YES];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark - Loading data and setup view
+//////////////////////////////////////////////////////////////
+
+- (void)reloadAll
+{
+    
+    if (!self.groupStreamTableView)
+    {
+        self.groupStreamTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        UINib *nib = [UINib nibWithNibName:@"FlyingContentCell" bundle: nil];
+        [self.groupStreamTableView registerNib:nib  forCellReuseIdentifier:@"FlyingContentCell"];
+        
+        self.groupStreamTableView.delegate = self;
+        self.groupStreamTableView.dataSource = self;
+        self.groupStreamTableView.backgroundColor = [UIColor clearColor];
+        
+        //Add cover view
+        int coverHight = CGRectGetWidth(self.view.frame)*9/16;
+        _pathCover = [[FlyingGroupCoverView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), coverHight)];
+        [_pathCover setBackgroundImage:[UIImage imageNamed:@"Default"]];
+        [_pathCover setAvatarImage:[UIImage imageNamed:@"Icon"]];
+        
+        [FlyingHttpTool getCoverListForOwner:self.groupData.gp_id
+                                     IsGroup:YES
+                                  PageNumber:1
+                                  Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
+                                      
+                                      //
+                                      if(lessonList.count>0)
+                                      {
+                                          self.currentFeatueContent =lessonList[0];
+                                          [_pathCover settingWithContentData:self.currentFeatueContent];
+                                      }
+                                  }];
+        
+        self.groupStreamTableView.tableHeaderView = self.pathCover;
+        [self.view addSubview:_groupStreamTableView];
+
+        __weak FlyingGroupVC *wself = self;
+        [_pathCover setHandleRefreshEvent:^{
+
+            [wself reloadAll];
+        }];
+        
+        [_pathCover setHandleTapBackgroundImageEvent:^{
             
-            [self reloadAll];
-        });
+            if ([wself.currentFeatueContent.contentType isEqualToString:KContentTypePageWeb] ) {
+                
+                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+                [webpage setWebURL:wself.currentFeatueContent.contentURL];
+                [webpage setLessonID:wself.currentFeatueContent.lessonID];
+                
+                [wself.navigationController pushViewController:webpage animated:YES];
+            }
+            else
+            {
+                FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+                [contentVC setThePubLesson:wself.currentFeatueContent];
+                
+                [wself.navigationController pushViewController:contentVC animated:YES];
+            }
+        }];
+
+        
+        _currentData = [NSMutableArray new];
+        
+        _currentLodingIndex=0;
+        _maxNumOfContents=NSIntegerMax;
     }
     else
     {
-        [self.groupView setRefreshState:RefreshStateNormal];
-        
-        _refresh=NO;
-
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
-}
-
-- (void)requestGoupBoardNews
-{
-    [FlyingHttpTool getGroupBoardNewsForGroupID:self.groupData.gp_id PageNumber:1 Completion:^(NSArray *streamList, NSInteger allRecordCount) {
-        
-        if (streamList.count>0) {
-
-            self.topBoardNewsData = streamList[0];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.groupView reloadBoardNews];
-            });
-        }
-    }];
-}
-
-- (void)requestMoreGroupStream
-{
-     if (_currentData.count<_maxNumOfGroupStreams)
-     {
-         _currentLodingIndex++;
-
-         [FlyingHttpTool getGroupStreamForGroupID:self.groupData.gp_id PageNumber:_currentLodingIndex Completion:^(NSArray *streamList, NSInteger allRecordCount) {
-             //
-             [self.currentData addObjectsFromArray:streamList];
-             
-             _maxNumOfGroupStreams=allRecordCount;
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-
-                 [self finishLoadingData];
-             });
-
-         }];
-     }
-}
--(void) finishLoadingData
-{
-    //更新下拉刷新
-    if(_refresh)
-    {
-        [self.groupView setRefreshState:RefreshStateNormal];
-        
-        _refresh=NO;
+        [_currentData removeAllObjects];
+        _currentLodingIndex=0;
+        _maxNumOfContents=NSIntegerMax;
     }
     
+    //Test
+    self.currentFeatueContent = [[FlyingPubLessonData alloc] init];
+    self.currentFeatueContent.title=@"关于组团游学哈佛科本科教育的紧急通知";
+    self.currentFeatueContent.desc =@"1，为了各团队更加熟悉云平台的使用和视频患教项目组更好的执行项目，希望由供应商做一次后台全面的使用说明及注意事项；总平台是服务于所有项目，注册的医生会不断的增加，需要增加筛选功能；审核医生信息的总平台，各项目对于医生有不同的要求，需要增加总平台的功能";
+    [_pathCover settingWithContentData:self.currentFeatueContent];
+    
+    //Test End
+
+    [self prepareForChatRoom];
+
+    [self loadMore];
+}
+
+
+
+#pragma mark - scroll delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_pathCover scrollViewDidScroll:scrollView];
+    
+    int currentPostion = scrollView.contentOffset.y;
+    if (currentPostion - _lastPosition > 25) {
+        _lastPosition = currentPostion;
+    }
+    else if (_lastPosition - currentPostion > 25)
+    {
+        _lastPosition = currentPostion;
+        
+        [self shakeToShow:self.accessChatContainer];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [_pathCover scrollViewDidEndDecelerating:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [_pathCover scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [_pathCover scrollViewWillBeginDragging:scrollView];
+}
+
+- (void)loadMore
+{
+    if (_currentData.count<_maxNumOfContents)
+    {
+        _currentLodingIndex++;
+        
+        //test
+        /*
+
+        [FlyingHttpTool getLessonListForOwner:self.groupData.gp_id
+                                      IsGroup:YES
+                                   PageNumber:_currentLodingIndex
+                            lessonConcentType:nil
+                                 DownloadType:nil
+                                          Tag:nil
+                                OnlyRecommend:NO
+                                   Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
+                                       //
+                                       if (lessonList) {
+                                           [self.currentData addObjectsFromArray:lessonList];
+                                       }
+                                       
+                                       _maxNumOfContents=allRecordCount;
+                                       
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [self finishLoadingData];
+                                       });
+                                   }];
+         */
+
+        
+        [FlyingHttpTool getLessonListForOwner:self.groupData.gp_id
+                                      IsGroup:YES
+                                   PageNumber:_currentLodingIndex
+                            lessonConcentType:nil
+                                 DownloadType:nil
+                                          Tag:nil
+                                    OnlyRecommend:NO
+                                   Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
+                                       //
+                                       if (lessonList) {
+                                           [self.currentData addObjectsFromArray:lessonList];
+                                       }
+                                       
+                                       _maxNumOfContents=allRecordCount;
+                                       
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [self finishLoadingData];
+                                       });
+                                   }];
+    }
+}
+
+-(void) finishLoadingData
+{
+    [self.pathCover stopRefresh];
+
     //更新界面
     if (_currentData.count>0)
     {
-        [self.groupView.tableView reloadData];
+        [self.groupStreamTableView reloadData];
     }
     else
     {
@@ -280,14 +419,13 @@
 //////////////////////////////////////////////////////////////
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentData.count && _currentData.count<_maxNumOfGroupStreams)
+    if (self.currentData.count && _currentData.count<_maxNumOfContents)
     {
         return 2; // 增加一个加载更多
     }
     
     return 1;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -302,29 +440,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // A much nicer way to deal with this would be to extract this code to a factory class, that would take care of building the cells.
     if (indexPath.section == 0)
     {
-        FlyingGroupStreamCell* cell = [tableView dequeueReusableCellWithIdentifier:GROUPSTREAMCELL_IDENTIFIER];
+        // 普通Cell
+        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:CONTENT_CELL_IDENTIFIER];
         
-        if(indexPath.row % 2){
-            
-            if (!cell) {
-                cell = [[FlyingGroupStreamCell alloc] initWithStyle:UITableViewCellStyleDefault ReuseIdentifier:GROUPSTREAMCELL_IDENTIFIER StreamCellType:FlyingGroupStreamCellTextType];
-            }
+        if (!cell) {
+            cell = [FlyingContentCell contentCell];
         }
-        else
-        {
-            if (!cell) {
-                cell = [[FlyingGroupStreamCell alloc] initWithStyle:UITableViewCellStyleDefault ReuseIdentifier:GROUPSTREAMCELL_IDENTIFIER StreamCellType:FlyingGroupStreamCellPictureType];
-            }
-            
-        }
+        
+        [self configureCell:cell atIndexPath:indexPath];
 
-        FlyingStreamData* streamData = [_currentData objectAtIndex:indexPath.row];
-        cell.delegate =self;
-        [cell loadingStreamCellData:streamData];
-        
         return cell;
     }
     
@@ -348,29 +474,37 @@
         UIViewAutoresizingFlexibleBottomMargin;
         [loadCell.contentView addSubview:indicator];
     }
-    
+        
     return loadCell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return (indexPath.row % 2) ? (INTERFACE_IS_PAD ? 250 : 125) : (INTERFACE_IS_PAD ? 502 : 251);
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingContentCell" configuration:^(id cell) {
+            
+            [self configureCell:cell atIndexPath:indexPath];
+        }];
+    
     }
     
     // 加载更多
     return 44;
 }
 
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    FlyingPubLessonData *contentData = self.currentData[indexPath.row];
+    [(FlyingContentCell*)cell settingWithContentData:contentData];
+}
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
 //////////////////////////////////////////////////////////////
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    cell.contentView.backgroundColor = [UIColor clearColor];
     if (indexPath.section == 0)
     {
         return;
@@ -381,7 +515,7 @@
     [indicator startAnimating];
     
     // 加载下一页
-    [self requestMoreGroupStream];
+    [self loadMore];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -396,202 +530,30 @@
     [indicator stopAnimating];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /*
-    FlyingGroupData* groupData = [_currentData objectAtIndex:indexPath.row];
-    
-    FlyingGroupVC *groupVC = [FlyingGroupVC new];
-    groupVC.groupData=groupData;
-    
-    [self.navigationController pushViewController:groupVC animated:YES];
-     */
-}
 
-//////////////////////////////////////////////////////////////
-#pragma mark - FlyingGroupDetailsViewDelegate
-//////////////////////////////////////////////////////////////
-- (FlyingStreamData*)getTopBoardNewsData
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.topBoardNewsData;
-}
-
-- (CGFloat) getnavigationBarHeight
-{
-    return  self.navigationController.navigationBar.frame.size.height;
-}
-
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    self.scrollViewDragPoint = scrollView.contentOffset;
-}
-
-- (CGPoint)detailsPage:(FlyingGroupDetailsView *)detailsGroupView tableViewWillBeginDragging:(UITableView *)tableView;
-{
-    return self.scrollViewDragPoint;
-}
-
-- (UIViewContentMode)contentModeForImage:(UIImageView *)imageView
-{
-    return UIViewContentModeTop;
-}
-
-- (UIImageView*)detailsPage:(FlyingGroupDetailsView*)detailsGroupView imageDataForImageView:(UIImageView*)imageView;
-{
-    __block UIImageView* blockImageView = imageView;
-    
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.groupData.cover] completed:^ (UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    if (_currentData.count!=0) {
         
-        if ([detailsGroupView.groupDetailsViewDelegate respondsToSelector:@selector(headerImageViewFinishedLoading:)])
-        [detailsGroupView.groupDetailsViewDelegate headerImageViewFinishedLoading:blockImageView];
+        FlyingPubLessonData* lessonPubData = [_currentData objectAtIndex:indexPath.row];
         
-    }];
-    
-    return imageView;
-}
-
-- (void)detailsPage:(FlyingGroupDetailsView *)detailsGroupView tableViewDidLoad:(UITableView *)tableView
-{
-    tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-}
-
-- (void)detailsPage:(FlyingGroupDetailsView *)detailsGroupView headerViewDidLoad:(UIView *)headerView
-{
-    [headerView setAlpha:0.0];
-    [headerView setHidden:YES];
-}
-
-- (void)detailsPage:(FlyingGroupDetailsView *)detailsPageView imageViewWasSelected:(UIImageView *)imageView
-{
-    //
-    if ( [self.topBoardNewsData.contentType isEqualToString:@""]) {
-        
-        //
-        NSString *lessonID = self.topBoardNewsData.contentID;
-        
-        [FlyingHttpTool getLessonForLessonID:lessonID
-                                  Completion:^(FlyingPubLessonData *pubLesson) {
-                                      //
-                                      FlyingContentVC * vc=[[FlyingContentVC alloc] init];
-                                      vc.thePubLesson=pubLesson;
-                                      
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                          
-                                          [self.navigationController pushViewController:vc animated:YES];
-                                      });
-                                  }];
+        if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
+            
+            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+            [webpage setWebURL:lessonPubData.contentURL];
+            [webpage setLessonID:lessonPubData.lessonID];
+            
+            [self.navigationController pushViewController:webpage animated:YES];
+        }
+        else
+        {
+            FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+            [contentVC setThePubLesson:lessonPubData];
+            
+            [self.navigationController pushViewController:contentVC animated:YES];
+        }
     }
-    else
-    {
-        //
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma cell related
-//////////////////////////////////////////////////////////////
-
-- (void)commentCountButtonPressed:(FlyingStreamData*)streamData
-{
-    FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
-    
-    //commentVC.contentID=streamData.contentID;
-    //commentVC.contentType=streamData.contentType;
-    
-    //Test only
-    commentVC.contentID=@"testid";
-    commentVC.contentType=KContentTypeVideo;
-    
-    [self.navigationController pushViewController:commentVC animated:YES];
-}
-
-- (void)likeCountButtonPressed:(FlyingStreamData*)streamData
-{
-
-}
-
-- (void)profileImageViewPressed:(FlyingStreamData*)streamData
-{
-
-    NSString *openID = [FlyingDataManager getOpenUDID];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    if ([openID isEqualToString:streamData.openID])
-    {
-    }
-    else
-    {
-        FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-        
-        NSString* userID = streamData.openID;
-        
-        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.targetId = userID;
-        chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = userInfo.name;
-        [self.navigationController pushViewController:chatService animated:YES];
-    }
-}
-
-- (void)coverImageViewPressed:(FlyingStreamData*)streamData
-{
-
-
-}
-
-
-//////////////////////////////////////////////////////////////
-#pragma mark
-//////////////////////////////////////////////////////////////
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-//LogoDone functions
-- (void)dismiss
-{
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void) doCalendar
-{
-    FlyingCalendarVC *calendarVC =[[FlyingCalendarVC alloc] init];
-    calendarVC.groupData=self.groupData;
-    
-    [self.navigationController pushViewController:calendarVC animated:YES];
-}
-
-- (void) doDiscover
-{
-    FlyingDiscoverContent *discoverContent = [[FlyingDiscoverContent alloc] init];
-    discoverContent.author= self.groupData.gp_author;
-    
-    [self.navigationController pushViewController:[[FlyingDiscoverContent alloc] init] animated:YES];
-}
-
-- (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-        
-        return;
-    }
-    
-    RCBaseViewController  * chatVC=[[FlyingConversationVC alloc] init];
-    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 //////////////////////////////////////////////////////////////
@@ -611,7 +573,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self resignFirstResponder];
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -625,12 +587,11 @@
 
 - (void) addBackFunction
 {
+    
     //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
     UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(handleSwipeFrom:)];
-    
-    recognizer.delegate=self;
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];

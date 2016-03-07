@@ -14,10 +14,6 @@
 + (NSString *) base64StringFromData:(NSData *)data
                              length:(int)length;
 
-+ (NSURL *) tagListStrForAuthor:(NSString*)author
-                            Tag:(NSString *) tag
-                      withCount:(NSInteger) pagecount;
-
 + (NSURL *) wordListStrByTag:(NSString *) word;
 
 + (BOOL) checkReadAbilityURL:(NSString *) webpageURL;

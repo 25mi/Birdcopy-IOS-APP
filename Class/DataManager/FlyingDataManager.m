@@ -144,7 +144,7 @@
     appID=FINANCE_APPKEY;
 #endif
     
-    NSString * contentOwner = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KContentOwner];
+    NSString * contentOwner = [FlyingDataManager getBusinessID];
     
     if ([contentOwner isEqualToString:@"beiyang"]) {
         
@@ -183,9 +183,9 @@
     }
 }
 
-+ (NSString*) getContentOwner
++ (NSString*) getBusinessID
 {
-    NSString * contentOwner=nil;
+    NSString * businessID=nil;
     
 #ifndef __CLIENT__IS__PLATFORM__
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
@@ -204,11 +204,11 @@
         }
     }
     
-    contentOwner=temp;
+    businessID=temp;
     
 #endif
     
-    return contentOwner;
+    return businessID;
 }
 
 + (NSString*) getUserName

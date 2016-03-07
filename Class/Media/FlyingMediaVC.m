@@ -28,9 +28,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIImage+localFile.h"
-#import "RESideMenu.h"
 #import "FlyingSubTitle.h"
-#import "SIAlertView.h"
 #import "UIView+Autosizing.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+localFile.h"
@@ -44,7 +42,7 @@
 #import "FlyingTouchDAO.h"
 #import "FlyingTouchRecord.h"
 #import "FlyingStatisticDAO.h"
-#import "FlyingLessonListViewController.h"
+#import "FlyingContentListVC.h"
 
 #import <ZXMultiFormatWriter.h>
 #import <ZXImage.h>
@@ -85,7 +83,6 @@
 #import "FlyingStatisticDAO.h"
 #import "FlyingTouchDAO.h"
 #import "UIView+Autosizing.h"
-#import "SIAlertView.h"
 #import "UIImage+localFile.h"
 #import "FlyingM3U8Downloader.h"
 
@@ -582,7 +579,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
      Create an asset for inspection of a resource referenced by a given URL.
      Load the values for the asset keys "tracks", "playable".
      */
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:movieURL options:nil];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:movieURL options:NULL];
     
     NSArray *requestedKeys = [NSArray arrayWithObjects:kTracksKey, kPlayableKey, nil];
     

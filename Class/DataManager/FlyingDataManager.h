@@ -21,7 +21,7 @@
 + (NSString*) getAppID;
 + (NSString*) getOpenUDID;
 + (NSString*) getRongID;
-+ (NSString*) getContentOwner;
++ (NSString*) getBusinessID;
 
 + (NSString*) getUserName;
 + (void)      setUserName:(NSString*) userName;

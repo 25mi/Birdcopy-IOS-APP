@@ -18,7 +18,6 @@
 #import "iFlyingAppDelegate.h"
 #import "SIAlertView.h"
 #import <AFNetworking.h>
-#import "RESideMenu.h"
 #import "SDImageCache.h"
 #import "UIImage+localFile.h"
 #import "FlyingWebViewController.h"
@@ -33,7 +32,6 @@
 #import "MBProgressHUD.h"
 #import "UIView+Toast.h"
 
-#import "FlyingDiscoverContent.h"
 #import "FlyingMyGroupsVC.h"
 
 #import "FlyingNavigationController.h"
@@ -309,11 +307,7 @@
                                       //[UICKeyChainStore keyChainStore][KLessonOwner] = providerData.providerID;
                                       //[UICKeyChainStore keyChainStore][KLessonOwnerNickname] = providerData.providerName;
                                       
-#ifdef __CLIENT__GROUP__VERSION
                                       FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-                                      FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
                                       
                                       //groupVC.groupData=groupData;
                                       
@@ -422,42 +416,12 @@
 //////////////////////////////////////////////////////////////
 -(void) dismiss
 {
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self sideMenuViewController] contentViewController];
-    
-    if (navigationController.viewControllers.count==1) {
-        
-#ifdef __CLIENT__GROUP__VERSION
-        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
-        
-        [[self sideMenuViewController] setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                       animated:YES];
-        [[self sideMenuViewController] hideMenuViewController];
-    }
-    else
-    {
-        if ([self.navigationController.viewControllers count]==1) {
-            
-            [self showMenu];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark socail Related
 //////////////////////////////////////////////////////////////
-
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) doChat
 {
     if (INTERFACE_IS_PAD) {
@@ -472,24 +436,17 @@
 
 - (void) doMap
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FlyingProviderMapVC * map=[storyboard instantiateViewControllerWithIdentifier:@"map"];
     [self presentViewController:map animated:YES completion:nil];
     
     [map returnSelectBlock:^(BOOL reselect) {
         //
         if (reselect) {
-            
-#ifdef __CLIENT__GROUP__VERSION
-            FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-            FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
-            
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:homeVC]
-                                                         animated:YES];
-            [self.sideMenuViewController hideMenuViewController];
+        
+            //待补充
         }
+            
     }];
 }
 

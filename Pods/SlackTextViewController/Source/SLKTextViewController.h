@@ -1,5 +1,5 @@
 //
-//   Copyright 2014 Slack Technologies, Inc.
+//   Copyright 2014-2016 Slack Technologies, Inc.
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -37,6 +37,10 @@ UIKIT_EXTERN NSString *const SLKKeyboardDidShowNotification;
 UIKIT_EXTERN NSString *const SLKKeyboardWillHideNotification;
 UIKIT_EXTERN NSString *const SLKKeyboardDidHideNotification;
 
+/**
+ This feature doesn't work on iOS 9 due to no legit alternatives to detect the keyboard view.
+ Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
+ */
 UIKIT_EXTERN NSString *const SLKTextInputbarDidMoveNotification;
 
 typedef NS_ENUM(NSUInteger, SLKKeyboardStatus) {
@@ -79,13 +83,18 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 /** A vertical pan gesture used for bringing the keyboard from the bottom. SLKTextViewController is its delegate. */
 @property (nonatomic, readonly) UIPanGestureRecognizer *verticalPanGesture;
 
-/** YES if control's animation should have bouncy effects. Default is YES. */
+/** YES if animations should have bouncy effects. Default is YES. */
 @property (nonatomic, assign) BOOL bounces;
 
 /** YES if text view's content can be cleaned with a shake gesture. Default is NO. */
 @property (nonatomic, assign) BOOL shakeToClearEnabled;
 
-/** YES if keyboard can be dismissed gradually with a vertical panning gesture. Default is YES. */
+/**
+ YES if keyboard can be dismissed gradually with a vertical panning gesture. Default is YES.
+ 
+ This feature doesn't work on iOS 9 due to no legit alternatives to detect the keyboard view.
+ Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
+ */
 @property (nonatomic, assign, getter = isKeyboardPanningEnabled) BOOL keyboardPanningEnabled;
 
 /** YES if an external keyboard has been detected (this value updates only when the text view becomes first responder). */
@@ -312,21 +321,21 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
  You can override this method to perform additional tasks.
  You MUST call super at some point in your implementation.
  */
-- (void)didPressReturnKey:(id)sender NS_REQUIRES_SUPER;
+- (void)didPressReturnKey:(UIKeyCommand *)keyCommand NS_REQUIRES_SUPER;
 
 /**
  Notifies the view controller when the user has pressed the Escape key (Esc) with an external keyboard.
  You can override this method to perform additional tasks.
  You MUST call super at some point in your implementation.
  */
-- (void)didPressEscapeKey:(id)sender NS_REQUIRES_SUPER;
+- (void)didPressEscapeKey:(UIKeyCommand *)keyCommand NS_REQUIRES_SUPER;
 
 /**
  Notifies the view controller when the user has pressed the arrow key with an external keyboard.
  You can override this method to perform additional tasks.
  You MUST call super at some point in your implementation.
  */
-- (void)didPressArrowKey:(id)sender NS_REQUIRES_SUPER;
+- (void)didPressArrowKey:(UIKeyCommand *)keyCommand NS_REQUIRES_SUPER;
 
 
 #pragma mark - Text Input Bar Adjustment
@@ -535,8 +544,10 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 /// @name Delegate Methods Requiring Super
 ///------------------------------------------------
 
+/** UITextViewDelegate */
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_REQUIRES_SUPER;
+
 /** SLKTextViewDelegate */
-- (BOOL)textView:(SLKTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_REQUIRES_SUPER;
 - (BOOL)textView:(SLKTextView *)textView shouldInsertSuffixForFormattingWithSymbol:(NSString *)symbol prefixRange:(NSRange)prefixRange NS_REQUIRES_SUPER;
 
 /** UIScrollViewDelegate */

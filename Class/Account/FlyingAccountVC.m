@@ -30,7 +30,6 @@
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
 
-#import "FlyingDiscoverContent.h"
 #import "FlyingMyGroupsVC.h"
 
 #import "FlyingHelpVC.h"
@@ -41,6 +40,7 @@
 
 #import "FlyingConversationListVC.h"
 #import "FlyingDataManager.h"
+#import "FlyingWebViewController.h"
 
 @interface FlyingAccountVC ()
 
@@ -57,30 +57,24 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self addBackFunction];
     self.title=@"设置";
     
     //顶部导航
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    if(self.navigationController.viewControllers.count>1)
+    {
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+    }
     
     //UI相关配置
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     //self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
-    
-    self.tabBarController.navigationItem.title = @"我";
-    self.tabBarController.navigationItem.rightBarButtonItem = nil;
-    self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -115,23 +109,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KBELocalCacheClearOK    object:nil];
 }
 
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) dismissNavigation
 {
     [self willDismiss];
     
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) willDismiss
@@ -236,8 +218,8 @@
 {
     if (indexPath.section == 0 && indexPath.row == 0)
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        FlyingProfileVC* myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
         
         [self.navigationController pushViewController:myProfileVC animated:YES];
     }
@@ -248,7 +230,7 @@
     }
     else if (indexPath.section == 2 && indexPath.row == 0)
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
         
         [self.navigationController pushViewController:rongCloudSetting animated:YES];
@@ -259,15 +241,20 @@
     }
     else if (indexPath.section == 3 && indexPath.row == 0) {
         
+        
+        FlyingPickColorVCViewController * vc= [[FlyingPickColorVCViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         //定制导航条背景颜色
-        [self.navigationController pushViewController:[[FlyingPickColorVCViewController alloc] init] animated:YES];
+        [self.navigationController pushViewController:vc animated:YES];
 
     }
     else if (indexPath.section == 4 && indexPath.row == 0)
     {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+        [webpage setWebURL:[FlyingDataManager getOfficalURL]];
         
-        [appDelegate  showWebviewWithURL:[FlyingDataManager getOfficalURL]];
+        [self.navigationController pushViewController:webpage animated:YES];
     }
     
     

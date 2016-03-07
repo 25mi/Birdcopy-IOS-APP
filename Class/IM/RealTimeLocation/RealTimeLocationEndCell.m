@@ -31,7 +31,7 @@ sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
 - (void)setDataModel:(RCMessageModel *)model {
     [super setDataModel:model];
     
-    RCMessageContent *content = model.content;
+    //RCMessageContent *content = model.content;
     
     CGFloat maxMessageLabelWidth = self.baseContentView.bounds.size.width - 30 * 2;
     [self.tipMessageLabel setText:@"位置共享已结束" dataDetectorEnabled:NO];
@@ -49,12 +49,7 @@ sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
     
     //    CGSize __textSize = RC_MULTILINE_TEXTSIZE(__text, [UIFont systemFontOfSize:12.5f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
     CGSize __textSize = CGSizeZero;
-    if (IOS_FSystenVersion < 7.0) {
-        __textSize = RC_MULTILINE_TEXTSIZE_LIOS7(__text, [UIFont systemFontOfSize:12.5f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
-    }else {
-        __textSize = RC_MULTILINE_TEXTSIZE_GEIOS7(__text, [UIFont systemFontOfSize:12.5f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
-    }
-    
+    __textSize = RC_MULTILINE_TEXTSIZE_GEIOS7(__text, [UIFont systemFontOfSize:12.5f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));    
     
     __textSize = CGSizeMake(ceilf(__textSize.width), ceilf(__textSize.height));
     CGSize __labelSize = CGSizeMake(__textSize.width + 10, __textSize.height + 6);

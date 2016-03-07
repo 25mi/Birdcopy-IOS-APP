@@ -216,12 +216,7 @@
         [fileManager createDirectoryAtPath:baseDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    NSString * result=nil;
-    if ([fileManager fileExistsAtPath:newDicpath])
-    {
-        result=newDicpath;
-    }
-    else
+    if (![fileManager fileExistsAtPath:newDicpath])
     {
         [[FlyingDownloadManager shareInstance] startDownloadShareData];
     }

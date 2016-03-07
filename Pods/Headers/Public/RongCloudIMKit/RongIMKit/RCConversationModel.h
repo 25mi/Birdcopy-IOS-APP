@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/RongIMKit.framework/Headers/RCConversationModel.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/RongIMKit.framework/Headers/RCConversationModel.h

@@ -10,7 +10,6 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingConversationListVC.h"
-#import "RESideMenu.h"
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
 #import "FlyingNavigationController.h"

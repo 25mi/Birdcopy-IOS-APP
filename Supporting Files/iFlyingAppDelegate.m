@@ -32,7 +32,7 @@
 #import "FlyingTaskWordDAO.h"
 #import "FlyingStatisticDAO.h"
 
-#import "FlyingLessonListViewController.h"
+#import "FlyingContentListVC.h"
 #import "FlyingGuideViewController.h"
 
 #include <sys/xattr.h>
@@ -40,8 +40,6 @@
 #import "SIAlertView.h"
 
 #import "FlyingDownloadManager.h"
-
-#import "BEMenuController.h"
 
 #import "FlyingTouchDAO.h"
 
@@ -79,7 +77,6 @@
 #import "FlyingNowLessonData.h"
 #import "FileHash.h"
 
-#import "FlyingDiscoverContent.h"
 #import "FlyingDIscoverGroups.h"
 
 
@@ -93,15 +90,15 @@
 #import "FlyingDataManager.h"
 #import "FlyingFileManager.h"
 
+#import "FlyingConversationListVC.h"
+#import "FlyingHomeVC.h"
+
 
 @interface iFlyingAppDelegate ()
 {
     //M3U8相关
     HTTPServer                  *_httpServer;
-    
-    //界面UI
-    RESideMenu                  *_menu;
-    
+        
     FlyingLessonParser          *_parser;
     
     //发音管理
@@ -119,6 +116,9 @@
     NSString                    *_sharingURL;
     UIImage                     *_sharingImage;
 }
+
+@property (strong, nonatomic) UITabBarController *tabBarController;
+
 @end
 
 
@@ -278,7 +278,7 @@
                                      self.window = [UIWindow new];
                                      [self.window makeKeyAndVisible];
                                      self.window.frame = [[UIScreen mainScreen] bounds];
-                                     self.window.rootViewController = [self getMenu];
+                                     self.window.rootViewController = [self getTabBarController];
                                  }
                                  else
                                  {
@@ -332,12 +332,8 @@
         [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(46, 46);
     }
     
-    //设置用户信息源和群组信息源
+    //设置用户信息源
     [[RCIM sharedRCIM] setUserInfoDataSource:[RCDRCIMDataSource shareInstance]];
-    [[RCIM sharedRCIM] setGroupInfoDataSource:[RCDRCIMDataSource shareInstance]];
-    
-    //设置群组内用户信息源。如果不使用群名片功能，可以不设置
-    [RCIM sharedRCIM].groupUserInfoDataSource = [RCDRCIMDataSource shareInstance];
     [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
     
     //设置接收消息代理
@@ -383,7 +379,8 @@
  *
  *  @param status 网络状态。
  */
-- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status
+{
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的帐号在别的设备上登录，您被迫下线！" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
@@ -409,7 +406,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
+    
     [[NSNotificationCenter defaultCenter]
      removeObserver:self
      name:RCKitDispatchMessageNotification
@@ -584,7 +583,7 @@
                                   FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                                   vc.thePubLesson=lesson;
                                   
-                                  [self pushViewController:vc];
+                                  [self presentViewController:vc];
                               }];
 }
 
@@ -595,45 +594,29 @@
                               FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                               vc.thePubLesson=pubLesson;
                               
-                              [self pushViewController:vc];
+                              [self presentViewController:vc];
                           }];
 }
 
 - (void) shakeNow
 {
-    [[self getMenu] hideMenuViewController];
-    [[self getMenu] presentRightMenuViewController];
-}
-
-- (void) pushViewController:(UIViewController *)viewController
-{
-    
-    [[self getMenu] hideMenuViewController];
-    
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self getMenu] contentViewController];
-    
-    [navigationController pushViewController:viewController animated:YES];
+    [[self getTabBarController] setSelectedIndex:0];
 }
 
 - (void) presentViewController:(UIViewController *)viewController
 {
-    
-    //[[self getFrostedVC] hideMenuViewController];
-    
-    FlyingNavigationController *navigationController =(FlyingNavigationController *)[[self getMenu] contentViewController];
-    
-    [navigationController presentViewController:viewController animated:YES completion:nil];
+    [[self getTabBarController] presentViewController:viewController animated:YES completion:nil];
 }
 
 - (BOOL) showWebviewWithURL:(NSString *) webURL
 {
     if (webURL) {
         
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
         [webpage setWebURL:webURL];
         
-        [self pushViewController:webpage];
+        [self presentViewController:webpage];
         
         return YES;
     }
@@ -645,25 +628,38 @@
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-- (RESideMenu*) getMenu
+-(UITabBarController*) getTabBarController
 {
-    if (!_menu) {
+    if(!self.tabBarController)
+    {
+        self.tabBarController = [[UITabBarController alloc] init];
         
-#ifdef __CLIENT__GROUP__VERSION
-        FlyingMyGroupsVC  * homeVC = [[FlyingMyGroupsVC alloc] init];
-#else
-        FlyingDiscoverContent * homeVC = [[FlyingDiscoverContent alloc] init];
-#endif
+        FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingHomeVC alloc] init]];
+        disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现"
+                                                               image:[UIImage imageNamed:@"Discover"]
+                                                                 tag:0];
         
-        FlyingNavigationController *navigationController = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
-        BEMenuController *menuViewController = [[BEMenuController alloc] init];
-        
-        _menu = [[RESideMenu alloc] initWithContentViewController:navigationController
-                                                                        leftMenuViewController:menuViewController
-                                                                       rightMenuViewController:nil];
+        FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingMyGroupsVC alloc] init]];
+        myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"群组"
+                                                               image:[UIImage imageNamed:@"People"]
+                                                                 tag:0];
+
+        FlyingNavigationController *myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingConversationListVC alloc] init]];
+        myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息"
+                                                               image:[UIImage imageNamed:@"Message"]
+                                                                 tag:0];
+
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        id accountVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
+        FlyingNavigationController *myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:accountVC];
+        myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置"
+                                                                  image:[UIImage imageNamed:@"Account"]
+                                                                    tag:0];
+
+        self.tabBarController.viewControllers = [NSArray arrayWithObjects:disCoverTab,myGroupsTab,myMessagersTab,myAccountTab,nil];
     }
     
-    return _menu;
+    return self.tabBarController;
 }
 
 -(void) setnavigationBarWithClearStyle:(BOOL) clearStyle
@@ -694,7 +690,7 @@
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
     [[UINavigationBar appearance] setBackgroundColor:backgroundColor];
     
-    UINavigationController * nowNav = (UINavigationController*)[self getMenu].contentViewController;
+    UINavigationController * nowNav = (UINavigationController*)[self getTabBarController].selectedViewController;
     
     nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
     nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
@@ -725,7 +721,7 @@
     [[UINavigationBar appearance] setTintColor:textColor];
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
     
-    UINavigationController * nowNav = (UINavigationController*)[self getMenu].contentViewController;
+    UINavigationController * nowNav = (UINavigationController*)[self getTabBarController].selectedViewController;
     
     nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
     nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
@@ -1260,7 +1256,7 @@
         }];
         
         [_shareCircleView dismissAnimated:YES];
-        [self pushViewController:_slComposerSheet];
+        [self presentViewController:_slComposerSheet];
     }
 }
 
@@ -1410,7 +1406,7 @@
         shareFriends.message=richMessage;
         
         [_shareCircleView dismissAnimated:YES];
-        [self pushViewController:shareFriends];
+        [self presentViewController:shareFriends];
     }
 }
 

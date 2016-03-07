@@ -9,7 +9,7 @@
 #import "RCDSearchFriendViewController.h"
 #import "MBProgressHUD.h"
 #import "FlyingHttpTool.h"
-#import "RCDAddressBookTableViewCell.h"
+#import "FlyingAddressBookTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDSearchResultTableViewCell.h"

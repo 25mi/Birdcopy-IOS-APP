@@ -1,9 +1,11 @@
 #SlackTextViewController
 
+**IMPORTANT NOTICE: Please update to >= `1.9` to avoid any risk of app rejection.
+More details in [#361](https://github.com/slackhq/SlackTextViewController/issues/361)**
+
 [![Build Status](https://img.shields.io/travis/slackhq/SlackTextViewController.svg?style=flat-square)](https://travis-ci.org/slackhq/SlackTextViewController)
 [![Coverage Status](https://img.shields.io/coveralls/slackhq/SlackTextViewController/master.svg?style=flat-square)](https://coveralls.io/r/slackhq/SlackTextViewController)
-
-[![Pod Version](https://img.shields.io/cocoapods/v/SlackTextViewController.svg?style=flat-square)](https://cocoadocs.org/docsets/SlackTextViewController)
+[![Pod Version](https://img.shields.io/cocoapods/v/SlackTextViewController.svg?style=flat-square)](http://cocoadocs.org/docsets/SlackTextViewController/1.8/)
 [![Carthage compatible](https://img.shields.io/badge/carthage-compatible-F5B369.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/badge/license-apache%202.0-blue.svg?style=flat-square)](http://opensource.org/licenses/Apache2.0)
 
@@ -36,12 +38,12 @@ This library is used in Slack's iOS app. It was built to fit our needs, but is f
 - [Inverted Mode](https://github.com/slackhq/SlackTextViewController#inverted-mode) for displaying cells upside-down (using CATransform) -- a necessary hack for some messaging apps. `YES` by default, so beware, your entire cells might be flipped!
 - Tap Gesture for dismissing the keyboard
 - [Panning Gesture](https://github.com/slackhq/SlackTextViewController#panning-gesture) for sliding down/up the keyboard
-- [Hiddable TextInputbar](https://github.com/slackhq/SlackTextViewController#hiddable-textinputbar)
+- [Hideable TextInputbar](https://github.com/slackhq/SlackTextViewController#hideable-textinputbar)
 - [Dynamic Type](https://github.com/slackhq/SlackTextViewController#dynamic-type) for adjusting automatically the text input bar height based on the font size.
 - Bouncy Animations
 
 ### Compatibility
-- Carthage & Cocoapods
+- Carthage & CocoaPods
 - Swift: [A sample project is available in a different branch] (https://github.com/slackhq/SlackTextViewController/tree/swift-example)
 - iOS 7, 8 & 9
 - iPhone & iPad
@@ -54,13 +56,13 @@ This library is used in Slack's iOS app. It was built to fit our needs, but is f
 
 ## Installation
 
-###### With [Cocoa Pods](https://cocoapods.org/):
+###### With [CocoaPods](https://cocoapods.org/):
 ```ruby
-pod 'SlackTextViewController'
+pod "SlackTextViewController"
 ```
 
 ###### With [Carthage](https://github.com/Carthage/Carthage):
-```
+```swift
 github "slackhq/SlackTextViewController"
 ```
 
@@ -342,7 +344,7 @@ You can also dismiss it by calling `[self.typingIndicatorView dismissIndicator];
 Dismissing the keyboard with a panning gesture is enabled by default with the `keyboardPanningEnabled` property. You can always disable it if you'd like. You can extend the `verticalPanGesture` behaviors with the `UIGestureRecognizerDelegate` methods.
 
 
-###Hiddable TextInputbar
+###Hideable TextInputbar
 
 Sometimes you may need to hide the text input bar.
 Very similar to `UINavigationViewController`'s API, simply do:
@@ -393,7 +395,7 @@ There are also a set of useful flags for keyboard special detections such as `is
 
 ###Dynamic Type
 
-Dynamic Type is enabled by default with the `keyboardPanningEnabled` property. You can always disable it if you'd like, but the text input bar would still adjust to best fit the font size of the text view.
+Dynamic Type is enabled by default with the `dynamicTypeEnabled` property. You can always disable it if you'd like, but the text input bar would still adjust to best fit the font size of the text view.
 
 ![Dynamic-Type](Screenshots/screenshot_dynamic-type.png)
 

@@ -12,6 +12,7 @@
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
+#import "FlyingDownloadManager.h"
 
 //#define ContentType @"text/plain"
 //#define ContentType @"text/html"
@@ -107,15 +108,19 @@
                                  success:(void (^)(id response))success
                                  failure:(void (^)(NSError* err))failure
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    AFURLSessionManager *manager = [FlyingDownloadManager shareInstance].getAFURLSessionManager;
     
     NSURL *URL = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
     return [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        
         //
-        downloadProgressBlock(downloadProgress);
+        if (downloadProgressBlock) {
+            //
+            downloadProgressBlock(downloadProgress);
+        }
+        
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
                 
         return [NSURL fileURLWithPath:destinationPath];
@@ -141,74 +146,6 @@
             }
         }
     }];
-}
-
-//get group by id
-+(void) getGroupByID:(int) groupID
-             success:(void (^)(id response))success
-             failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost
-                              url:@"get_group"
-                           params:@{@"id":[NSNumber numberWithInt:groupID]}
-         responseSerializerIsJson:true
-                          success:success
-                          failure:failure];
-
-}
-
-//create group
-+(void) createGroupWithName:(NSString *) name
-                    success:(void (^)(id response))success
-                    failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost
-                              url:@"create_group"
-                           params:@{@"name":name}
-         responseSerializerIsJson:true
-                          success:success
-                          failure:failure];
-}
-
-//join group
-+(void) joinGroupByID:(int) groupID
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"join_group"
-                           params:@{@"id":[NSNumber numberWithInt:groupID]}
-         responseSerializerIsJson:true
-                          success:success
-                          failure:failure];
-}
-
-//quit group
-+(void) quitGroupByID:(int) groupID
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"quit_group"
-                           params:@{@"id":[NSNumber numberWithInt:groupID]}
-         responseSerializerIsJson:true
-                          success:success
-                          failure:failure];
-}
-
-
-+(void)updateGroupByID:(int)groupID
-         withGroupName:(NSString *)groupName
-     andGroupIntroduce:(NSString *)introduce
-               success:(void (^)(id))success
-               failure:(void (^)(NSError *))failure
-{
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost
-                              url:@"update_group"
-                           params:@{@"id":[NSNumber numberWithInt:groupID],@"name":groupName,@"introduce":introduce}
-         responseSerializerIsJson:true
-                          success:success
-                          failure:failure];
 }
 
 +(void)getFriendListFromServerSuccess:(void (^)(id))success
@@ -414,13 +351,42 @@
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                       Recommend:(BOOL) isRecommend
++ (void) getAllGroupsForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
                       PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure
+                         failure:(void (^)(NSError* err))failure;
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+    
+    switch (type) {
+        case BC_Business_Domain:
+        {
+            [params setObject:domainID forKey:@"puser_id"];
+            break;
+        }
+            
+        case BC_APP_Domain:
+        {
+            [params setObject:domainID forKey:@"app_id"];
+            break;
+        }
+            
+        case BC_Group_Domain:
+        {
+            [params setObject:domainID forKey:@"gp_id"];
+            break;
+        }
+            
+        case BC_Author_Domain:
+        {
+            [params setObject:domainID forKey:@"ln_owner"];
+            break;
+        }
+            
+        default:
+            break;
+    }
     
     NSInteger pagecount=kperpageLessonCount;
     if (INTERFACE_IS_PAD)
@@ -430,19 +396,6 @@
     
     [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    if(isRecommend)
-    {
-        if(appOwner)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
-    }
-    
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_gp_list_from_tn.action"
@@ -482,48 +435,90 @@
                           failure:failure];
 }
 
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                       PageNumber:(NSInteger) pageNumber
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure;
++(void) getGroupByID:(NSString*) groupID
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
+
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_gp_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:true
+                          success:success
+                          failure:failure];
+}
+
+//加入群组
++(void) joinGroupForAccount:(NSString *)account
+                        AppID:(NSString *)appID
+                      GroupID:(NSString *) groupID
+              success:(void (^)(id response))success
+              failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
     
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
+    if (appID) {
+        [params setObject:appID forKey:@"app_id"];
     }
     
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    [params setObject:groupID forKey:@"gp_id"];
+
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
+                              url:@"ga_apply_member_from_tn.action"
                            params:params
          responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
 
-
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                           success:(void (^)(id response))success
-                           failure:(void (^)(NSError* err))failure
+//退出群租
++(void) quitForAccount:(NSString *)account
+                   AppID:(NSString *)appID
+               GroupByID:(NSString *) groupID
+                 success:(void (^)(id response))success
+                 failure:(void (^)(NSError* err))failure
 {
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"eventID":eventID}];
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
+    
+    if (appID) {
+        [params setObject:appID forKey:@"app_id"];
+    }
+
+    [params setObject:groupID forKey:@"gp_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_gplist_from_tn.action"
+                              url:@"quit_group"
                            params:params
          responseSerializerIsJson:true
                           success:success
                           failure:failure];
 }
+
++ (void) checkGroupMemberInfoForAccount:(NSString*) account
+                                  AppID:(NSString*) appID
+                                GroupID:(NSString*) groupID
+                                success:(void (^)(id response))success
+                                failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
+    
+    if (appID) {
+        [params setObject:appID forKey:@"app_id"];
+    }
+    
+    [params setObject:groupID forKey:@"gp_id"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:true
+                          success:success
+                          failure:failure];
+
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma  评论相关
@@ -532,7 +527,7 @@
                         ContentType:(NSString*) contentType
                          PageNumber:(NSInteger) pageNumber
                             success:(void (^)(id response))success
-                            failure:(void (^)(NSError* err))failure;
+                            failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"ins_time desc"}];
     
@@ -823,63 +818,14 @@
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-//标签相关
-+ (void) albumListDataForAuthor:(NSString*) author
-              lessonConcentType:(NSString*) contentType
-                     PageNumber:(NSInteger) pageNumber
-                      Recommend:(BOOL) isRecommend
-                        success:(void (^)(id response))success
-                        failure:(void (^)(NSError* err))failure
-{
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
-    
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
-    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
-    
-    if (author.length!=0)
-    {
-        [params setObject:author forKey:@"tag_owner"];
-    }
-    
-    if (contentType.length!=0)
-    {
-        [params setObject:contentType forKey:@"res_type"];
-    }
-    
-    if(isRecommend)
-    {
-        if(author.length!=0)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
-    }
-    
-    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"la_get_tag_list_for_hp.action"
-                        params:params
-         responseSerializerIsJson:NO
-                          success:success
-                       failure:failure];
-}
-
 //获取课程列表相关
-+ (void) lessonListDataByTagForAuthor:(NSString*) author
++ (void) lessonListDataByTagForDomainID:(NSString*)domainID
+                             DomainType:(BC_Domain_Type) type
                            PageNumber:(NSInteger) pageNumber
                     lessonConcentType:  (NSString *) contentType
                          DownloadType:  (NSString *) downloadType
                                   Tag:  (NSString *) tag
-                           SortbyTime:  (BOOL) time
-                            Recommend:(BOOL) isRecommend
+                        OnlyRecommend:  (BOOL)    isOnlyRecommend
                               success:(void (^)(id response))success
                               failure:(void (^)(NSError* err))failure
 {
@@ -891,6 +837,8 @@
     
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}];
     
+    [params setObject:@"upd_time desc" forKey:@"sortindex"];
+
     
     if (contentType.length!=0 && ![contentType isEqualToString:@"0"])
     {
@@ -907,20 +855,38 @@
         [params setObject:tag forKey:@"ln_tag"];
     }
     
-    if(time)
-    {
-        [params setObject:@"upd_time desc" forKey:@"sortindex"];
-        
+    switch (type) {
+        case BC_Business_Domain:
+        {
+            [params setObject:domainID forKey:@"puser_id"];
+            break;
+        }
+            
+        case BC_APP_Domain:
+        {
+            [params setObject:domainID forKey:@"app_id"];
+            break;
+        }
+            
+        case BC_Group_Domain:
+        {
+            [params setObject:domainID forKey:@"gp_id"];
+            break;
+        }
+            
+        case BC_Author_Domain:
+        {
+            [params setObject:domainID forKey:@"ln_owner"];
+            break;
+        }
+            
+        default:
+            break;
     }
     
-    if (author.length!=0)
+    if(isOnlyRecommend)
     {
-        [params setObject:author forKey:@"ln_owner"];
-    }
-    
-    if(isRecommend)
-    {
-        if(author)
+        if(domainID)
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }
@@ -1036,6 +1002,138 @@
          responseSerializerIsJson:NO
                           success:success
                        failure:failure];
+}
+
+
+//////////////////////////////////////////////////////////////
+#pragma  标签相关
+//////////////////////////////////////////////////////////////
++ (void)getTagListForDomainID:(NSString*)domainID
+                   DomainType:(BC_Domain_Type) type
+                 TagString:(NSString*) tagString
+                     Count:(NSInteger) count
+                   success:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3"}];
+    
+    switch (type) {
+        case BC_Business_Domain:
+        {
+            [params setObject:domainID forKey:@"puser_id"];
+            break;
+        }
+            
+        case BC_APP_Domain:
+        {
+            [params setObject:domainID forKey:@"app_id"];
+            break;
+        }
+            
+        case BC_Group_Domain:
+        {
+            [params setObject:domainID forKey:@"gp_id"];
+            break;
+        }
+            
+        case BC_Author_Domain:
+        {
+            [params setObject:domainID forKey:@"ln_owner"];
+            break;
+        }
+            
+        default:
+            break;
+    }
+
+    if (tagString) {
+        [params setObject:tagString forKey:@"ln_tag"];
+    }
+    
+    [params setObject:[@(count) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(1) stringValue] forKey:@"page"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_tag_string_for_hp.action"
+                           params:params
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
+
+//推荐标签
++ (void) albumListDataForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
+              lessonConcentType:(NSString*) contentType
+                     PageNumber:(NSInteger) pageNumber
+                  OnlyRecommend:  (BOOL)    isOnlyRecommend
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
+    
+    NSInteger pagecount=kperpageLessonCount;
+    if (INTERFACE_IS_PAD)
+    {
+        pagecount=kperpageLessonCountPAD;
+    }
+    
+    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
+    
+    
+    switch (type) {
+        case BC_Business_Domain:
+        {
+            [params setObject:domainID forKey:@"puser_id"];
+            break;
+        }
+            
+        case BC_APP_Domain:
+        {
+            [params setObject:domainID forKey:@"app_id"];
+            break;
+        }
+            
+        case BC_Group_Domain:
+        {
+            [params setObject:domainID forKey:@"gp_id"];
+            break;
+        }
+            
+        case BC_Author_Domain:
+        {
+            [params setObject:domainID forKey:@"tag_owner"];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    if (contentType.length!=0)
+    {
+        [params setObject:contentType forKey:@"res_type"];
+    }
+    
+    if(isOnlyRecommend)
+    {
+        if(domainID)
+        {
+            [params setObject:@"1" forKey:@"owner_recom"];
+        }
+        else
+        {
+            [params setObject:@"1" forKey:@"sys_recom"];
+        }
+    }
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_tag_list_for_hp.action"
+                           params:params
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
 }
 
 //////////////////////////////////////////////////////////////

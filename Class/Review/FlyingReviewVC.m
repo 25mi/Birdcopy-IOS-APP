@@ -14,14 +14,12 @@
 #import "FlyingTaskWordDAO.h"
 #import "FlyingScanViewController.h"
 #import "FlyingSearchViewController.h"
-#import "RESideMenu.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
 #import "FlyingConversationListVC.h"
 #import "SIAlertView.h"
 #import "UIView+Toast.h"
 #import "FlyingMyGroupsVC.h"
-#import "FlyingDiscoverContent.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 
@@ -101,7 +99,7 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
     [search setSearchType:BEFindWord];
     

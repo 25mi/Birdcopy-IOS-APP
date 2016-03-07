@@ -7,6 +7,7 @@
 //
 
 #import "FlyingNavigationController.h"
+#import "shareDefine.h"
 
 @implementation FlyingNavigationController
 
@@ -24,11 +25,5 @@
 {
     return UIInterfaceOrientationPortrait;
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
 
 @end

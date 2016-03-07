@@ -11,7 +11,6 @@
 #import "FlyingHttpTool.h"
 #import "shareDefine.h"
 #import "AFHttpTool.h"
-#import "RCDGroupInfo.h"
 #import "FlyingUserInfo.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDataBaseManager.h"
@@ -43,17 +42,6 @@
 
 @implementation FlyingHttpTool
 
-+ (FlyingHttpTool*)shareInstance
-{
-    static FlyingHttpTool* instance = nil;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        instance = [[[self class] alloc] init];
-        instance.allGroups = [NSMutableArray new];
-    });
-    return instance;
-}
-
 -(void) isMyFriendWithUserInfo:(FlyingUserInfo *)userInfo
                     completion:(void(^)(BOOL isFriend)) completion
 {
@@ -67,108 +55,6 @@
         }
     }];
 }
-//根据id获取单个群组
--(void) getGroupByID:(NSString *) groupID
-   successCompletion:(void (^)(RCGroup *group)) completion
-{
-    /*
-    [AFHttpTool getAllGroupsSuccess:^(id response) {
-        NSArray *allGroups = response[@"result"];
-        if (allGroups) {
-            for (NSDictionary *dic in allGroups) {
-                RCGroup *group = [[RCGroup alloc] init];
-                group.groupId = [dic objectForKey:@"id"];
-                group.groupName = [dic objectForKey:@"name"];
-                group.portraitUri = (NSNull *)[dic objectForKey:@"portrait"] == [NSNull null] ? nil: [dic objectForKey:@"portrait"];
-                
-                if ([group.groupId isEqualToString:groupID] && completion) {
-                    completion(group);
-                }
-            }
-            
-        }
-        
-    } failure:^(NSError* err){
-        
-    }];
-     */
-}
-
-- (void)joinGroup:(int)groupID complete:(void (^)(BOOL))joinResult
-{
-    [AFHttpTool joinGroupByID:groupID success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        if (joinResult) {
-            if ([code isEqualToString:@"200"]) {
-                
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    joinResult(YES);
-                });
-                
-            }else{
-                joinResult(NO);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (joinResult) {
-            joinResult(NO);
-        }
-    }];
-}
-
-- (void)quitGroup:(int)groupID complete:(void (^)(BOOL))result
-{
-    [AFHttpTool quitGroupByID:groupID success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (result) {
-            if ([code isEqualToString:@"200"]) {
-                result(YES);
-            }else{
-                result(NO);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (result) {
-            result(NO);
-        }
-    }];
-}
-
-- (void)updateGroupById:(int)groupID withGroupName:(NSString*)groupName andintroduce:(NSString*)introduce complete:(void (^)(BOOL))result
-
-{
-    __block typeof(id) weakGroupId = [NSString stringWithFormat:@"%d", groupID];
-    [AFHttpTool updateGroupByID:groupID withGroupName:groupName andGroupIntroduce:introduce success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (result) {
-            if ([code isEqualToString:@"200"]) {
-                
-                for (RCDGroupInfo *group in _allGroups) {
-                    if ([group.groupId isEqualToString:weakGroupId]) {
-                        group.groupName=groupName;
-                        group.introduce=introduce;
-                    }
-                    
-                }
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    result(YES);
-                });
-                
-            }else{
-                result(NO);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (result) {
-            result(NO);
-        }
-    }];
-}
 
 - (void)getFriends:(void (^)(NSMutableArray*))friendList
 {
@@ -178,7 +64,7 @@
         NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
         if (friendList) {
             if ([code isEqualToString:@"200"]) {
-                [_allFriends removeAllObjects];
+                //[_allFriends removeAllObjects];
                 NSArray * regDataArray = response[@"result"];
                 
                 for(int i = 0;i < regDataArray.count;i++){
@@ -194,7 +80,7 @@
                     userInfo.email = [dic objectForKey:@"email"];
                     userInfo.status = [dic objectForKey:@"status"];
                     [list addObject:userInfo];
-                    [_allFriends addObject:userInfo];
+                    //[_allFriends addObject:userInfo];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     friendList(list);
@@ -619,13 +505,13 @@
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
-+ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
-                        Recommend:(BOOL) isRecommend
++ (void)  getAllGroupsForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
                         PageNumber:(NSInteger) pageNumber
                          Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool getAllGroupsForAPPOwner:appOwner
-                            Recommend:isRecommend
+    [AFHttpTool getAllGroupsForDomainID:(NSString*)domainID
+                             DomainType:(BC_Domain_Type) type
                                PageNumber:pageNumber
                                   success:^(id response) {
                                       
@@ -646,7 +532,7 @@
                                               group.cover     = [dic objectForKey:@"cover"];
                                               
                                               group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                                              group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                                              group.is_rc_gp = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
                                               
                                               group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
                                               group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
@@ -688,6 +574,7 @@
                 group.gp_desc  = [dic objectForKey:@"gp_owner"];
                 
                 group.logo     = [dic objectForKey:@"logo"];
+                group.cover    = [dic objectForKey:@"cover"];
                 group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
                 group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
                 
@@ -708,93 +595,140 @@
     }];
 }
 
-//获取群公告流
-+ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
-                          PageNumber:(NSInteger) pageNumber
-                          Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
+//根据id获取单个群组
++ (void) getGroupByID:(NSString *) groupID
+    successCompletion:(void (^)(FlyingGroupData *group)) completion
 {
-    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterNewsOnly PageNumber:pageNumber success:^(id response) {
-        //
-        
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"rs"];
-        
-        if (allGroups) {
-            
-            for (NSDictionary *dic in allGroups)
-            {
-                if ([dic objectForKey:@"lessonID"]) {
-                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
-                    [tempArr addObject:lessonData];
-                }
-            }
-        }
-        
-        if (completion) {
-            completion(tempArr,[response[@"allRecordCount"] integerValue]);
-        }
 
-    } failure:^(NSError *err) {
-        //
-    }];
+    [AFHttpTool getGroupByID:groupID
+                     success:^(id response) {
+                         //
+                         NSMutableArray *tempArr = [NSMutableArray new];
+                         NSArray *allGroups = response[@"rs"];
+                         
+                         if (allGroups) {
+                             for (NSDictionary *dic in allGroups) {
+                                 FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                                 group.gp_id    = [dic objectForKey:@"gp_id"];
+                                 group.gp_name  = [dic objectForKey:@"gp_name"];
+                                 group.gp_owner = [dic objectForKey:@"gp_owner"];
+                                 group.gp_desc  = [dic objectForKey:@"gp_owner"];
+                                 
+                                 group.logo     = [dic objectForKey:@"logo"];
+                                 group.cover    = [dic objectForKey:@"cover"];
+                                 group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                                 group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                                 
+                                 group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                                 group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                                 group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                                 
+                                 [tempArr addObject:group];
+                             }
+                         }
+                         
+                         if (tempArr) {
+                             completion(tempArr[0]);
+                         }
+
+                     } failure:^(NSError *err) {
+                         //
+                     }];
 }
 
-//获取群Post流
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                       PageNumber:(NSInteger) pageNumber
-                       Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion
+//加入聊天群组
++ (void) joinGroupForAccount:(NSString*) account
+                        AppID:(NSString*) appID
+                      GroupID:(NSString*) groupID
+                   Completion:(void (^)(NSString* result)) completion
 {
-    [AFHttpTool getGroupStreamForGroupID:groupID StreamFilter:StreamFilterAllType PageNumber:pageNumber success:^(id response) {
-        //
-        NSMutableArray *tempArr = [NSMutableArray new];
-        NSArray *allGroups = response[@"rs"];
-        
-        if (allGroups) {
-            
-            for (NSDictionary *dic in allGroups)
-            {
-                if ([dic objectForKey:@"lessonID"]) {
-                    FlyingPubLessonData * lessonData = [FlyingPubLessonData new];
-                    [tempArr addObject:lessonData];
-                }
-            }
-        }
-        
-        if (completion) {
-            completion(tempArr,[response[@"allRecordCount"] integerValue]);
-        }
-        
-    } failure:^(NSError *err) {
-        //
-    }];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
-
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                        Completion:(void (^)(FlyingCalendarEvent *event)) completion
-{
-    [AFHttpTool getEventDetailsForEventID:eventID
-                                  success:^(id response) {
-                                      //
-                                      FlyingCalendarEvent *event = [[FlyingCalendarEvent alloc] init];
-                                      event.eventID    = response[@"eventID"];
+    
+    [AFHttpTool joinGroupForAccount:account
+                                AppID:appID
+                              GroupID:groupID
+                              success:^(id response) {
+                                  
+                                  //
+                                  if (response) {
                                       
-                                      if (completion) {
-                                          completion(event);
+                                      NSString *code = response[@"rc"];
+                                      
+                                      if ([code isEqualToString:@"1"]) {
+                                          
+                                          if([response[@"rm"] isEqualToString:KGroupMemberNoexisted])
+                                          {
+                                              completion(KGroupMemberNoexisted);
+                                          }
+                                          else{
+                                              
+                                              completion(response[@"ay_join_status"]);
+                                          }
                                       }
+                                  }
+
+                              } failure:^(NSError *err) {
+                                  //
+                                  if (completion) {
                                       
-                                  } failure:^(NSError *err) {
-                                      //
-                                  }];
+                                      completion(err.description);
+                                  }
+                              }];
 }
+
+
+//退出聊天群组
++ (void)quitGroupForAccount:(NSString*) account
+                                AppID:(NSString*) appID
+                              GroupID:(NSString*) groupID
+                             complete:(void (^)(BOOL))result
+{
+
+    [AFHttpTool quitForAccount:account
+                           AppID:appID
+                       GroupByID:groupID
+                         success:^(id response) {
+                             //
+                             
+                         } failure:^(NSError *err) {
+                             //
+                         }];
+}
+
++ (void) checkGroupMemberInfoForAccount:(NSString*) account
+                                  AppID:(NSString*) appID
+                                GroupID:(NSString*) groupID
+                             Completion:(void (^)(NSString* result)) completion
+{
+    [AFHttpTool checkGroupMemberInfoForAccount:account
+                                         AppID:appID
+                                       GroupID:groupID
+                                       success:^(id response) {
+                                           //
+                                           if (response) {
+                                               
+                                               NSString *code = response[@"rc"];
+                                               
+                                               if ([code isEqualToString:@"1"]) {
+                                                   
+                                                   if([response[@"rm"] isEqualToString:KGroupMemberNoexisted])
+                                                   {
+                                                       completion(KGroupMemberNoexisted);
+                                                   }
+                                                   else{
+                                                       completion(response[@"ay_join_status"]);
+                                                   }
+                                               }
+                                           }
+                                       } failure:^(NSError *err) {
+                                           //
+                                       }];
+}
+
+
 
 //////////////////////////////////////////////////////////////
 #pragma  用户注册、登录、激活相关
 //////////////////////////////////////////////////////////////
-
 + (void) regOpenUDID:(NSString*) openUDID
                   Completion:(void (^)(BOOL result)) completion;
 {
@@ -1442,16 +1376,18 @@
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-+ (void) getAlbumListForAuthor:(NSString*)author
-                   ContentType:(NSString*) contentType
-                         PageNumber:(NSInteger) pageNumber
-                          Recommend:(BOOL) isRecommend
-                         Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
++ (void) getAlbumListForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
+                  ContentType:(NSString*) contentType
+                   PageNumber:(NSInteger) pageNumber
+                OnlyRecommend:  (BOOL)    isOnlyRecommend
+                   Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool albumListDataForAuthor:author
+    [AFHttpTool albumListDataForDomainID:(NSString*)domainID
+                              DomainType:(BC_Domain_Type) type
                      lessonConcentType:contentType
                                  PageNumber:pageNumber
-                                  Recommend:isRecommend
+                                  OnlyRecommend:isOnlyRecommend
                                     success:^(id response) {
                                         //
                                         FlyingCoverDataParser *parser = [[FlyingCoverDataParser  alloc] init];
@@ -1479,22 +1415,24 @@
 }
 
 
-+ (void) getLessonListForAuthor:   (NSString *) author
++ (void) getLessonListForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
                      PageNumber:   (NSInteger) pageNumber
               lessonConcentType:  (NSString *) contentType
                    DownloadType:  (NSString *) downloadType
                             Tag:  (NSString *) tag
-                     SortbyTime:  (BOOL) time
-                      Recommend:(BOOL) isRecommend
-                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
+                 OnlyRecommend:  (BOOL)    isOnlyRecommend
+                     Completion:(void (^)
+                                 (NSArray *lessonList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool lessonListDataByTagForAuthor:author
+    
+    [AFHttpTool lessonListDataByTagForDomainID:(NSString*)domainID
+                                    DomainType:(BC_Domain_Type) type
                                   PageNumber:pageNumber
                               lessonConcentType:contentType
                                    DownloadType:downloadType
                                             Tag:tag
-                                     SortbyTime:time
-                                      Recommend:isRecommend
+                                      OnlyRecommend:isOnlyRecommend
                                         success:^(id response) {
                                             //
                                             
@@ -1521,55 +1459,18 @@
                                         }];
 }
 
-+ (void) getCoverListForAuthor:(NSString*)author
-         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion
-{
-    
-    [AFHttpTool lessonListDataByTagForAuthor:author
-                                  PageNumber:1
-                           lessonConcentType:nil
-                                DownloadType:nil
-                                         Tag:nil
-                                  SortbyTime:YES
-                                   Recommend:YES
-                                     success:^(id response) {
-                                         
-                                         
-                                         FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
-                                         [lessonParser SetData:response];
-                                         
-                                         lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-                                         {
-                                             if(LessonList.count!=0 && completion) {
-                                                 completion(LessonList,allRecordCount);
-                                             }
-                                         };
-                                         
-                                         lessonParser.failureBlock = ^(NSError *error)
-                                         {
-                                             NSLog(@"FlyingLessonParser:%@",error.description);
-                                         };
-                                         
-                                         [lessonParser parse];
-                                     }
-                                     failure:^(NSError *err) {
-                                         //
-                                         NSLog(@"coverListWithSuccessCompletion %@",err.description);
-                                     }];
-}
-
-+ (void) getCoverListForAuthor:(NSString*) author
++ (void) getCoverListForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
                     PageNumber:(NSInteger) pageNumber
-                    SortbyTime:  (BOOL) time
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool lessonListDataByTagForAuthor:author
-                                  PageNumber:pageNumber
+    [AFHttpTool lessonListDataByTagForDomainID:(NSString*)domainID
+                                    DomainType:(BC_Domain_Type) type
+                                 PageNumber:pageNumber
                            lessonConcentType:nil
                                 DownloadType:nil
                                          Tag:nil
-                                  SortbyTime:time
-                                   Recommend:YES
+                                   OnlyRecommend:YES
                                      success:^(id response) {
                                          
                                          if (response) {
@@ -1738,6 +1639,34 @@
                               completion(false);
                           }
                       }];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  标签相关
+//////////////////////////////////////////////////////////////
++ (void)getTagListForDomainID:(NSString*)domainID
+                   DomainType:(BC_Domain_Type) type
+                 TagString:(NSString*) tagString
+                     Count:(NSInteger) count
+                Completion:(void (^)(NSArray *tagList)) completion
+{
+    
+    [AFHttpTool getTagListForDomainID:(NSString*)domainID
+                           DomainType:(BC_Domain_Type) type
+                         TagString:tagString
+                             Count:count
+                           success:^(id response) {
+                               //
+                               NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                               
+                               if (temStr && completion) {
+                                   
+                                   completion([temStr  componentsSeparatedByString:@","]);
+                               }
+                               
+                           } failure:^(NSError *err) {
+                               //
+                           }];
 }
 
 

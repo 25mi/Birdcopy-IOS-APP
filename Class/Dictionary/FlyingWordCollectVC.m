@@ -22,7 +22,7 @@
 #import "MMParallaxPresenter.h"
 #import "MMParallaxPage.h"
 #import "FlyingHttpTool.h"
-
+#import "UIView+Toast.h"
 
 @interface FlyingWordCollectVC ()
 
@@ -224,16 +224,7 @@
     }
     else{
         
-        NSString *title = @"感谢提醒";
-        NSString *message = [NSString stringWithFormat:@"我们会尽快补充词典！"];
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
+        [self.view makeToast:@"感谢提醒,我们会尽快补充词典！"];
     }
 }
 

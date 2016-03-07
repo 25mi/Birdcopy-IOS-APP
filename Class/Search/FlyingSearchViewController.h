@@ -22,7 +22,7 @@
 @property (strong, nonatomic) IBOutlet FlyingSearchBar     *searchBar;
 
 @property (assign, nonatomic)          BESearchType         searchType;
-
-@property (strong, nonatomic)  NSString                    *author;
+@property (strong, nonatomic) NSString                      *domainID;
+@property (assign, nonatomic)          BC_Domain_Type       domainType;
 
 @end

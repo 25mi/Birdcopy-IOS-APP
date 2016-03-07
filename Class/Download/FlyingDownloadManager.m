@@ -28,7 +28,10 @@
     NSURLSessionDownloadTask     *_dowloader; //公共字典下载专用
 }
 
+@property (nonatomic,strong) AFURLSessionManager *manager;
 @property (nonatomic,strong) NSMutableDictionary *downloadingOperationList;
+
+@property (nonatomic,strong) dispatch_queue_t     background_queue;
 
 @end
 
@@ -42,9 +45,35 @@
     dispatch_once(&predicate, ^{
         instance = [[[self class] alloc] init];
         instance.downloadingOperationList = [NSMutableDictionary new];
+        
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        instance.manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+
     });
     return instance;
 }
+
+- (AFURLSessionManager*) getAFURLSessionManager
+{
+    if (!self.manager) {
+        
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        self.manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    }
+    
+    return self.manager;
+}
+
+- (dispatch_queue_t) getBackgroudQueue
+{
+    if (!self.background_queue) {
+        
+        self.background_queue =dispatch_queue_create("com.birdengcopy.background.downloadRelated", NULL);
+    }
+    
+    return self.background_queue;
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma mark - /课程本身下载管理
@@ -118,32 +147,33 @@
 //////////////////////////////////////////////////////////////
 +(void) downloadRelated:(FlyingLessonData *) lessonData;
 {
-    dispatch_queue_t _background_queue =dispatch_queue_create("com.birdengcopy.background.downloadRelated", NULL);
     
+    dispatch_queue_t background_queue =[FlyingDownloadManager shareInstance].getBackgroudQueue;
+
     //保存封面图,离线已经不需要保存了
     //[UIImagePNGRepresentation(self.lessonCoverImageView.image) writeToFile:_lessonData.localURLOfCover  atomically:YES];
     
     //缓存字幕
-    dispatch_async(_background_queue, ^{
+    dispatch_async(background_queue, ^{
         
         [FlyingDownloadManager getSrtForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
     
     //缓存课程字典
-    dispatch_async(_background_queue, ^{
+    dispatch_async(background_queue, ^{
         
         [FlyingDownloadManager getDicForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
     
     
     //缓存背景音乐
-    dispatch_async(_background_queue, ^{
+    dispatch_async(background_queue, ^{
         
         [FlyingDownloadManager getBackMp3ForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });
     
     //缓存课程辅助资源
-    dispatch_async(_background_queue, ^{
+    dispatch_async(background_queue, ^{
         
         [FlyingDownloadManager getRelativeForLessonID:lessonData.BELESSONID Title:lessonData.BETITLE];
     });

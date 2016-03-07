@@ -13,9 +13,6 @@
 
 #import "UIView+Toast.h"
 
-#import "UIViewController+RESideMenu.h"
-#import "RESideMenu.h"
-
 #import "FlyingGroupVC.h"
 
 #import "UICKeyChainStore.h"
@@ -35,7 +32,7 @@
 #import "FlyingTagCell.h"
 #import "FlyingCommentCell.h"
 
-#import "FlyingLessonListViewController.h"
+#import "FlyingContentListVC.h"
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "FlyingLoadingCell.h"
 
@@ -57,6 +54,9 @@
 #import "FlyingNavigationController.h"
 #import "FlyingConversationVC.h"
 #import "FlyingDataManager.h"
+
+#import "KMNetworkLoadingViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface FlyingContentVC ()
 {
@@ -406,7 +406,7 @@
 
 - (void) playLesson:(NSString *) lessonID
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     if([self.thePubLesson.contentType isEqualToString:KContentTypeVideo])
     {
@@ -419,6 +419,7 @@
             if(self.thePubLesson.contentURL!=nil)
             {
                 FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+                webVC.lessonID=self.thePubLesson.lessonID;
                 [webVC setWebURL:self.thePubLesson.contentURL];
                 [self.navigationController pushViewController:webVC animated:YES];
             }
@@ -455,6 +456,7 @@
     else if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
         FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+        webVC.lessonID=self.thePubLesson.lessonID;
         [webVC setWebURL:self.thePubLesson.contentURL];
         [self.navigationController pushViewController:webVC animated:NO];
     }
@@ -896,10 +898,9 @@
         return;
     }
     
-    FlyingLessonListViewController *lessonList = [[FlyingLessonListViewController alloc] init];
-    [lessonList setTagString:tagName];
-    [self.navigationController pushViewController:lessonList animated:YES];
-
+    FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
+    [contentList setTagString:tagName];
+    [self.navigationController pushViewController:contentList animated:YES];
 }
 
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
@@ -907,7 +908,7 @@
     
     if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:[commentData.userID MD5]])
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         
         [self.navigationController pushViewController:myProfileVC animated:YES];
@@ -972,6 +973,7 @@
     commentVC.commentTitle=self.thePubLesson.title;
     
     commentVC.reloadDatadelegate=self;
+    commentVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }

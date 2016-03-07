@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "FlyingPubLessonData.h"
+#import "AFNetworking.h"
 
 @interface FlyingDownloadManager : NSObject
 
 + (FlyingDownloadManager*)shareInstance;
+
+- (AFURLSessionManager*) getAFURLSessionManager;
+- (dispatch_queue_t) getBackgroudQueue;
 
 //课程本身下载管理
 - (void) startDownloaderForID:(NSString *)lessonID;

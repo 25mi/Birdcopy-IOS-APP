@@ -1,5 +1,5 @@
 //
-//   Copyright 2014 Slack Technologies, Inc.
+//   Copyright 2014-2016 Slack Technologies, Inc.
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -20,12 +20,24 @@
 
 - (void)slk_scrollToTopAnimated:(BOOL)animated
 {
-    [self setContentOffset:CGPointZero animated:animated];
+    if ([self slk_canScroll]) {
+        [self setContentOffset:CGPointZero animated:animated];
+    }
 }
 
 - (void)slk_scrollToBottomAnimated:(BOOL)animated
 {
-    [self setContentOffset:[self slk_bottomRect].origin animated:animated];
+    if ([self slk_canScroll]) {
+        [self setContentOffset:[self slk_bottomRect].origin animated:animated];
+    }
+}
+
+- (BOOL)slk_canScroll
+{
+    if (self.contentSize.height > CGRectGetHeight(self.frame)) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)slk_isAtTop

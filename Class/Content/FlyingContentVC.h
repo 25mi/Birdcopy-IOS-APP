@@ -12,7 +12,6 @@
 #import "FlyingCommentCell.h"
 #import "TLTagsControl.h"
 
-#import "KMNetworkLoadingViewController.h"
 #import <QuickLook/QuickLook.h>
 
 #import "FlyingMediaVC.h"
@@ -25,7 +24,6 @@
                                                 TLTagsControlDelegate,
                                                 UITableViewDataSource,
                                                 UITableViewDelegate,
-                                                KMNetworkLoadingViewDelegate,
                                                 FlyingCommentCellDelegate,
                                                 QLPreviewControllerDataSource,
                                                 QLPreviewControllerDelegate,

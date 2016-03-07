@@ -80,23 +80,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KBEAccountChange    object:nil];
 }
 
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) dismissNavigation
 {
     [self willDismiss];
     
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //子类具体实现具体功能

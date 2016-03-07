@@ -16,7 +16,6 @@
 #import "SIAlertView.h"
 #import "FlyingWordItemCell.h"
 #import "UIView+Autosizing.h"
-#import "RESideMenu.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
@@ -89,7 +88,7 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
     [search setSearchType:BEFindWord];
     

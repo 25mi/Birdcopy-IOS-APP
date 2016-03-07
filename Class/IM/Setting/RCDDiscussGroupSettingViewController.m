@@ -10,7 +10,7 @@
 #import "RCDUpdateNameViewController.h"
 #import "RCDDiscussSettingCell.h"
 #import "RCDDiscussSettingSwitchCell.h"
-#import "RCDSelectPersonViewController.h"
+#import "FlyingSelectPersonViewController.h"
 #import "FlyingHttpTool.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDataBaseManager.h"
@@ -218,10 +218,10 @@
     if (indexPathOfSelectedItem.row == settingTableViewHeader.users.count) {
 
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        RCDSelectPersonViewController* selectPersonVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"RCDSelectPersonViewController"];
+        FlyingSelectPersonViewController* selectPersonVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"FlyingSelectPersonViewController"];
         [selectPersonVC setSeletedUsers:users];
         //设置回调
-        selectPersonVC.clickDoneCompletion = ^(RCDSelectPersonViewController* selectPersonViewController, NSArray* selectedUsers) {
+        selectPersonVC.clickDoneCompletion = ^(FlyingSelectPersonViewController* selectPersonViewController, NSArray* selectedUsers) {
             
             if (selectedUsers && selectedUsers.count) {
                 NSMutableArray *newUsers = [[NSMutableArray alloc]init];

@@ -13,8 +13,20 @@ typedef enum BESearchType
 {
     BEFindLesson,
     BEFindWord,
-    BEFindGroup
+    BEFindGroup,
+    BEFindPeople
 } BESearchType;
+
+
+//获取资源类型
+
+typedef enum BC_Domain_Type
+{
+    BC_Business_Domain,
+    BC_APP_Domain,
+    BC_Group_Domain,
+    BC_Author_Domain,
+} BC_Domain_Type;
 
 //瀑布布局相关
 #define TileHeight_iphone  20
@@ -63,6 +75,9 @@ typedef enum BESearchType
 
 #define KlessonStateChange        @"KlessonStateChange"
 #define KNotificationMessage      @"KNotificationMessage"
+
+#define KMAX_GROUPS_VALUE         100
+
 
 // APP管理
 #define BIRDENGLISH_APPKEY      @"972dc79932c43552c32664250675dcaa"
@@ -138,19 +153,23 @@ typedef enum BESearchType
 #define KBELoginFlag              @"_loginsenid="
 #define KBERQloginOK              @"KBERQloginOK"
 
-//作者相关
-#define KContentOwner             @"KContentOwner"
-
+//服务机构相关
 #define KLessonOwnerTempKind      @"t"
 #define KLessonOwnerPersonKind    @"0"
 #define KLessonOwnerCompanyKind   @"1"
 
+//群组相关
+#define KGroupMemberNoexisted     @"noexisted"
+#define KGroupMemberVerified      @"1"
+#define KGroupMemberReviewing     @"0"
+#define KGroupMemberRefused       @"4"
+
+
 //搜索相关
-#define kTagListStr_URL           @"%@/la_get_tag_string_for_hp.action?vc=3&perPageCount=%@&page=%@&ln_tag=%@&ln_owner=%@"
+//#define kTagListStr_URL           @"%@/la_get_tag_string_for_hp.action?vc=3&perPageCount=%@&page=%@&ln_tag=%@&ln_owner=%@"
 #define kWordListStr_URL          @"%@/la_get_word_string_for_hp.action?word=%@"
 
 #define KEnglishServerAddress     @"http://e.birdcopy.com"
-//#define KEnglishServerAddress     @"http://www.birdenglish.com:9999"
 
 #define KDoctorServerAddress      @"http://d.birdcopy.com"
 #define KITServerAddress          @"http://it.birdcopy.com"
@@ -214,22 +233,6 @@ typedef NSInteger BE_Item_Content_Type;
 #define KQRTyepeCode             @"KQRTyepeCode"
 #define KQRTypeLogin             @"KQRTypeLogin"
 #define KQRTypemagnet            @"KQRTypeMagnet"
-
-
-//P2P文件传输
-#define KBE_TAG_RESPONSE_HEADER   0
-#define KBE_TAG_DATA_HEAD         1
-#define KBE_TAG_DATA_CHUNK        2
-
-#define KBEReceiverACCept         0
-#define KBEReceiverReject         1
-#define KBEReceiverFinish         2
-#define KBELessonSubcontentCount  3
-
-#define KBEpreBufferSize          4096*2
-#define KBEDataChunkDataSize      1048576
-
-#define kWikiBonjourType          @"_bewifi._tcp."
 
 //下载相关
 #define NSOffState   0
@@ -335,36 +338,14 @@ enum
 	ResourceCacheMaxSize = 128<<20	// use at most 128M for resource cache
 };
 
-//日历颜色
-#define kCalendarColorHeaderWeekdayTitle    [@"#545454" toColor]
-#define kCalendarColorHeaderWeekdayShadow   [@"#f3f3f4" toColor]
-
-#define kCalendarColorHeaderGradientLight   [@"#f4f4f5" toColor]
-#define kCalendarColorHeaderGradientDark    [@"#ccccd1" toColor]
-
-#define kCalendarColorHeaderTitleHighlightedBlue [@"#1980e5" toColor]
-
-
-#define kCalendarColorBlue [@"#1980e5" toColor]
-#define kCalendarColorLightGray [@"#e2e2e4" toColor]
-#define kCalendarColorDarkGray [@"#cccbd0" toColor]
-
-#define kCalendarColorBluishGray [@"#7389a5" toColor]
-#define kCalendarColorTodayShadowBlue [@"#394452" toColor]
-#define kCalendarColorSelectedShadowBlue [@"#294f75" toColor]
-
-#define kCalendarColorDarkTextGradient [@"#2b3540" toColor]
-#define kCalendarColorLightTextGradient [@"#495a6d" toColor]
-
-#define kCalendarColorCellBorder [@"#9da0a9" toColor]
-#define kCalendarColorSelectedCellBorder [@"#293649" toColor]
-
-
 //字体
-#define KLargeFontSize  (INTERFACE_IS_PAD ? 32.0f : 16.0f)
+#define KLargeFontSize   (INTERFACE_IS_PAD ? 32.0f : 16.0f)
 #define KNormalFontSize  (INTERFACE_IS_PAD ? 26.0f : 13.0f)
 #define KLittleFontSize  (INTERFACE_IS_PAD ? 24.0f : 12.0f)
+#define KSmallFontSize   (INTERFACE_IS_PAD ? 20.0f : 10.0f)
 
+//加载
+#define  kLoadMoreIndicatorTag  7
 
 // 常见系数
 #define ZOOM_FACTOR 1.4f

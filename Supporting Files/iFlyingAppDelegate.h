@@ -11,9 +11,9 @@
 #import "WXApi.h"
 #import "CFShareCircleView.h"
 #import <MessageUI/MessageUI.h>
-#import "RESideMenu.h"
 #import <RongIMKit/RongIMKit.h>
 #import "RCDRCIMDataSource.h"
+#import <UIKit/UITabBarController.h>
 
 @class FlyingM3U8Downloader;
 @class FlyingMagnetDownloader;
@@ -32,6 +32,8 @@
                                                 RCIMReceiveMessageDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+
 
 
 //本地环境准备
@@ -54,11 +56,13 @@
 
 - (void) closeMyresource;
 
-- (RESideMenu*) getMenu;
 - (void) setnavigationBarWithClearStyle:(BOOL) clearStyle;
 - (void) resetnavigationBarWithDefaultStyle;
 
 //界面跳转管理
+
+- (UITabBarController*) getTabBarController;
+
 - (BOOL) handleOpenURL:(NSURL *)url;
 
 - (void) showLessonViewWithID:(NSString *) lessonID;
@@ -66,6 +70,5 @@
 - (BOOL) showWebviewWithURL:(NSString *) webURL;
 
 - (void) presentViewController:(UIViewController *)viewController;
-- (void) pushViewController:(UIViewController *)viewController;
 
 @end

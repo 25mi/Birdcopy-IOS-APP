@@ -21,9 +21,6 @@
 #import "NSString+FlyingExtention.h" 
 #import "FlyingWebViewController.h"
 
-#import "UIViewController+RESideMenu.h"
-#import "RESideMenu.h"
-
 #import "FlyingProviderListVC.h"
 #import "UICKeyChainStore.h"
 #import "FlyingHttpTool.h"

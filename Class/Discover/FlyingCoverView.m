@@ -159,7 +159,7 @@
         [coverImageView setContentMode:UIViewContentModeScaleAspectFit];
         
         UIImageView * contentTypeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width*9/(16*4), frame.size.width*9/(16*4))];
-        
+                
         if ([lessonData.contentType isEqualToString:KContentTypeText])
         {
             [contentTypeImageView setImage:[UIImage imageNamed:PlayDocIcon]];
@@ -235,32 +235,29 @@
 }
 
 - (void) loadCoverData
-{
-    if (self.coverViewDelegate && [self.coverViewDelegate respondsToSelector:@selector(getAuthor)])
-    {
-        NSString *author = [self.coverViewDelegate getAuthor];
-        
-        [FlyingHttpTool getCoverListForAuthor:author
-                        WithSuccessCompletion:^(NSArray *LessonList,NSInteger allRecordCount) {
-                            //
-                            if(LessonList.count!=0)
-                            {
-                                if (!self.coverData) {
-                                    
-                                    self.coverData = [NSMutableArray new];
-                                }
-                                //重新载入数据
-                                [self.coverData removeAllObjects];
-                                [self.coverImageViewDic removeAllObjects];
-                                [self.coverData addObjectsFromArray:LessonList];
-                                
-                                [[self.coverScrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                                
-                                [self paintCoverView:self.coverControl.currentPage];
-                            }
-                            
-        }];
-    }
+{    
+    [FlyingHttpTool getCoverListForDomainID:self.domainID
+                                 DomainType:self.domainType
+                                 PageNumber:1
+                               Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
+                                   //
+                                   if(lessonList.count!=0)
+                                   {
+                                       if (!self.coverData) {
+                                           
+                                           self.coverData = [NSMutableArray new];
+                                       }
+                                       //重新载入数据
+                                       [self.coverData removeAllObjects];
+                                       [self.coverImageViewDic removeAllObjects];
+                                       [self.coverData addObjectsFromArray:lessonList];
+                                       
+                                       [[self.coverScrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                                       
+                                       [self paintCoverView:self.coverControl.currentPage];
+                                   }
+
+                               }];
 }
 
 - (void) showFeatureContent

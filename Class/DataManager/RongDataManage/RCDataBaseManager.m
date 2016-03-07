@@ -103,53 +103,6 @@ static NSString * const friendTableName = @"FRIENDTABLE";
     }];
     return allUsers;
 }
-//存储群组信息
--(void)insertGroupToDB:(RCGroup *)group
-{
-    NSString *insertSql = @"REPLACE INTO GROUPTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:insertSql,group.groupId, group.groupName,group.portraitUri];
-    }];
-    
-}
-//从表中获取群组信息
--(RCGroup*) getGroupByGroupId:(NSString*)groupId
-{
-    __block RCGroup *model = nil;
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLE where userid = ?",groupId];
-        while ([rs next]) {
-            model = [[RCGroup alloc] init];
-            model.groupId = [rs stringForColumn:@"userid"];
-            model.groupName = [rs stringForColumn:@"name"];
-            model.portraitUri = [rs stringForColumn:@"portraitUri"];
-        }
-        [rs close];
-    }];
-    return model;
-}
-
-//从表中获取所有群组信息
--(NSArray *) getAllGroup
-{
-    NSMutableArray *allUsers = [NSMutableArray new];
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLE"];
-        while ([rs next]) {
-            RCGroup *model;
-            model = [[RCGroup alloc] init];
-            model.groupId = [rs stringForColumn:@"userid"];
-            model.groupName = [rs stringForColumn:@"name"];
-            model.portraitUri = [rs stringForColumn:@"portraitUri"];
-            [allUsers addObject:model];
-        }
-        [rs close];
-    }];
-    return allUsers;
-}
 
 //存储好友信息
 -(void)insertFriendToDB:(RCUserInfo *)friend

@@ -8,8 +8,8 @@
 
 
 #import <Foundation/Foundation.h>
+#import "shareDefine.h"
 
-#import "FlyingStreamData.h"
 #import "FlyingCommentData.h"
 
 typedef NS_ENUM(NSInteger, RequestMethodType){
@@ -41,31 +41,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                                 progress:(void (^)(NSProgress *downloadProgress)) downloadProgressBlock
                                  success:(void (^)(id response))success
                                  failure:(void (^)(NSError* err))failure;
-//////////////////////////////////////////////////////////////////////////////////
-//get group by id
-+(void) getGroupByID:(int) groupID
-             success:(void (^)(id response))success
-             failure:(void (^)(NSError* err))failure;
-
-//create group
-+(void) createGroupWithName:(NSString *) name
-                    success:(void (^)(id response))success
-                    failure:(void (^)(NSError* err))failure;
-
-//join group
-+(void) joinGroupByID:(int) groupID
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure;
-
-//quit group
-+(void) quitGroupByID:(int) groupID
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure;
-
-//update group
-+(void) updateGroupByID:(int) groupID withGroupName:(NSString*) groupName andGroupIntroduce:(NSString*) introduce
-              success:(void (^)(id response))success
-              failure:(void (^)(NSError* err))failure;
 
 //获取好友列表
 +(void)getFriendListFromServerSuccess:(void (^)(id response))success
@@ -126,8 +101,8 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForAPPOwner:(NSString*)  appOwner
-                       Recommend:(BOOL) isRecommend
++ (void) getAllGroupsForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
                       PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
@@ -136,17 +111,27 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                          Success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
 
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                     StreamFilter:(StreamFilter) streamFilter
-                       PageNumber:(NSInteger) pageNumber
-                          success:(void (^)(id response))success
-                          failure:(void (^)(NSError* err))failure;
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                           success:(void (^)(id response))success
-                           failure:(void (^)(NSError* err))failure;
++(void) getGroupByID:(NSString*) groupID
+               success:(void (^)(id response))success
+               failure:(void (^)(NSError* err))failure;
+
++(void) joinGroupForAccount:(NSString *) account
+                        AppID:(NSString *) appID
+                      GroupID:(NSString *) groupID
+                      success:(void (^)(id response))success
+                      failure:(void (^)(NSError* err))failure;
+
++(void) quitForAccount:(NSString *) account
+                   AppID:(NSString *) appID
+               GroupByID:(NSString *) groupID
+              success:(void (^)(id response))success
+              failure:(void (^)(NSError* err))failure;
+
++ (void) checkGroupMemberInfoForAccount:(NSString*) account
+                                  AppID:(NSString*) appID
+                                GroupID:(NSString*) groupID
+                                success:(void (^)(id response))success
+                                failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
 #pragma  评论相关
@@ -247,21 +232,14 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-//标签相关
-+ (void) albumListDataForAuthor:(NSString*) author
-              lessonConcentType:(NSString*) contentType
-                     PageNumber:(NSInteger) pageNumber
-                      Recommend:(BOOL) isRecommend
-                        success:(void (^)(id response))success
-                        failure:(void (^)(NSError* err))failure;
 //获取课程列表相关
-+ (void) lessonListDataByTagForAuthor:(NSString*) author
++ (void) lessonListDataByTagForDomainID:(NSString*)domainID
+                             DomainType:(BC_Domain_Type) type
                            PageNumber:(NSInteger) pageNumber
                     lessonConcentType:  (NSString *) contentType
                          DownloadType:  (NSString *) downloadType
                                   Tag:  (NSString *) tag
-                           SortbyTime:  (BOOL) time
-                            Recommend:(BOOL) isRecommend
+                        OnlyRecommend:  (BOOL)    isOnlyRecommend
                               success:(void (^)(id response))success
                               failure:(void (^)(NSError* err))failure;
 
@@ -294,6 +272,24 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                        lessonID:(NSString *) lessonID
                         success:(void (^)(id response))success
                         failure:(void (^)(NSError* err))failure;
+
+//////////////////////////////////////////////////////////////
+#pragma  标签相关
+//////////////////////////////////////////////////////////////
++ (void)getTagListForDomainID:(NSString*)domainID
+                   DomainType:(BC_Domain_Type) type
+                 TagString:(NSString*) tagString
+                     Count:(NSInteger) count
+                   success:(void (^)(id response))success
+                   failure:(void (^)(NSError* err))failure;
+
++ (void) albumListDataForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
+             lessonConcentType:(NSString*) contentType
+                    PageNumber:(NSInteger) pageNumber
+                 OnlyRecommend:  (BOOL)    isOnlyRecommend
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError* err))failure;
 //////////////////////////////////////////////////////////////
 #pragma   字典相关
 //////////////////////////////////////////////////////////////

@@ -8,7 +8,6 @@
 
 #import "RCDMessageNotifySettingTableViewController.h"
 
-#import "RESideMenu.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingScanViewController.h"
@@ -35,16 +34,15 @@
     
     self.title=@"聊天设置";
     //顶部导航
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
-    
-    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    if(self.navigationController.viewControllers.count>1)
+    {
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+    }
+
     
     [[RCIMClient sharedRCIMClient] getNotificationQuietHours:^(NSString *startTime, int spansMin) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -71,23 +69,11 @@
     [super viewWillDisappear:animated];
 }
 
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) dismissNavigation
 {
     [self willDismiss];
     
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) willDismiss
@@ -99,7 +85,7 @@
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"设置中...";
     if (!self.notifySwitch.on) {
-        [[RCIMClient sharedRCIMClient] setConversationNotificationQuietHours:@"00:00:00" spanMins:1339 success:^{
+        [[RCIMClient sharedRCIMClient] setNotificationQuietHours:@"00:00:00" spanMins:1339 success:^{
             NSLog(@"setConversationNotificationQuietHours succeed");
             [[RCIM sharedRCIM] setDisableMessageNotificaiton:YES];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -115,7 +101,7 @@
         }];
     }
     else {
-        [[RCIMClient sharedRCIMClient] removeConversationNotificationQuietHours:^{
+        [[RCIMClient sharedRCIMClient] removeNotificationQuietHours:^{
             [[RCIM sharedRCIM] setDisableMessageNotificaiton:NO];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hide:YES];

@@ -23,15 +23,6 @@
 //从表中获取所有用户信息
 -(NSArray *) getAllUserInfo;
 
-//存储群组信息
--(void)insertGroupToDB:(RCGroup *)group;
-
-//从表中获取群组信息
--(RCGroup*) getGroupByGroupId:(NSString*)groupId;
-
-//从表中获取所有群组信息
--(NSArray *) getAllGroup;
-
 //存储好友信息
 -(void)insertFriendToDB:(RCUserInfo *)friend;
 

@@ -12,9 +12,6 @@
 
 #import "UIView+Toast.h"
 
-#import "UIViewController+RESideMenu.h"
-#import "RESideMenu.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
 
@@ -22,7 +19,7 @@
 
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
-#import "FlyingDiscoverContent.h"
+#import "FlyingDiscoverVC.h"
 
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
@@ -38,6 +35,11 @@
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
 
+#import "FlyingContentVC.h"
+#import "FlyingContentListVC.h"
+#import "FlyingGroupUpdateCell.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+
 @interface FlyingMyGroupsVC ()
 {
     NSInteger            _maxNumOfGroups;
@@ -45,9 +47,8 @@
     
     BOOL                 _refresh;
     UIRefreshControl    *_refreshControl;
-    
-    NSInteger           kLoadMoreIndicatorTag;
 }
+
 @end
 
 @implementation FlyingMyGroupsVC
@@ -75,25 +76,15 @@
     
     //更新欢迎语言
     self.title =@"我的群组";
-    
+        
     //顶部导航
-
     [self reloadAll];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
 }
 
 - (void) willDismiss
 {
 }
+
 //////////////////////////////////////////////////////////////
 #pragma mark - Loading data and setup view
 //////////////////////////////////////////////////////////////
@@ -102,11 +93,15 @@
 {
     if (!self.groupTableView)
     {
-        _groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
-        _groupTableView.delegate = self;
-        _groupTableView.dataSource = self;
-        _groupTableView.backgroundColor = [UIColor clearColor];
-        _groupTableView.separatorColor = [UIColor clearColor];
+        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        UINib *nib = [UINib nibWithNibName:@"FlyingGroupUpdateCell" bundle: nil];
+        [self.groupTableView registerNib:nib  forCellReuseIdentifier:@"FlyingGroupUpdateCell"];
+        
+        self.groupTableView.delegate = self;
+        self.groupTableView.dataSource = self;
+        self.groupTableView.backgroundColor = [UIColor clearColor];
         
         [self.view addSubview:_groupTableView];
         
@@ -148,53 +143,23 @@
     }
 }
 
-- (BOOL)loadMore
+- (void) loadMore
 {
-    //test only
-    NSString *author = [FlyingDataManager getContentOwner];
-
-    [FlyingHttpTool getAllGroupsForAPPOwner:author
-                                  Recommend:YES
-                                 PageNumber:1
-                                 Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-                                     
-                                     if (groupList.count!=0) {
-                                         
-                                         [self.currentData addObjectsFromArray:groupList];
-                                         _maxNumOfGroups=allRecordCount;
-                                         
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             
-                                             [self finishLoadingData];
-                                         });
-                                     }
-                                 }];
-    
-    
-    return true;
-    
-    /*
      if (_currentData.count<_maxNumOfGroups)
      {
-     _currentLodingIndex++;
-     
-     [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
-     Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-     //
-     [self.currentData addObjectsFromArray:groupList];
-     _maxNumOfGroups=allRecordCount;
-     
-     dispatch_async(dispatch_get_main_queue(), ^{
-     [self finishLoadingData];
-     });
-     }];
-     return true;
+         _currentLodingIndex++;
+         
+         [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
+                                       Completion:^(NSArray *groupList, NSInteger allRecordCount) {
+                                           //
+                                           [self.currentData addObjectsFromArray:groupList];
+                                           _maxNumOfGroups=allRecordCount;
+                                           
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [self finishLoadingData];
+                                           });
+                                       }];
      }
-     else{
-     
-     return false;
-     }
-     */
 }
 
 -(void) finishLoadingData
@@ -252,15 +217,14 @@
     if (indexPath.section == 0)
     {
         // 普通Cell
-        FlyingMyGroupCell* cell = [tableView dequeueReusableCellWithIdentifier:GROUPCELL_IDENTIFIER];
+        FlyingGroupUpdateCell* cell = [tableView dequeueReusableCellWithIdentifier:GROUPUPDATECELL_IDENTIFIER];
         
         if (!cell) {
-            cell = [[FlyingMyGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:GROUPCELL_IDENTIFIER];
+            
+            cell = [FlyingGroupUpdateCell groupCell];
         }
         
-        FlyingGroupData* groupData = [_currentData objectAtIndex:indexPath.row];
-        cell.delegate =self;
-        [cell loadingGroupData:groupData];
+        [self configureCell:cell atIndexPath:indexPath];
 
         return cell;
     }
@@ -294,13 +258,23 @@
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return INTERFACE_IS_PAD ? 674 : 337;
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupUpdateCell" configuration:^(id cell) {
+            
+            [self configureCell:cell atIndexPath:indexPath];
+        }];
+    
     }
     
     // 加载更多
     return 44;
 }
 
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    FlyingGroupData *groupData = self.currentData[indexPath.row];
+    [(FlyingGroupUpdateCell*)cell settingWithGroupData:groupData];
+}
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
 //////////////////////////////////////////////////////////////
@@ -338,58 +312,7 @@
 
     FlyingGroupVC *groupVC = [FlyingGroupVC new];
     groupVC.groupData=groupData;
-    
-    [self.navigationController pushViewController:groupVC animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma cell related
-//////////////////////////////////////////////////////////////
-
-- (void)memberCountButtonPressed:(FlyingGroupData*)groupData
-{
-
-}
-
-- (void)lessonCountButtonPressed:(FlyingGroupData*)groupData
-{
-    FlyingDiscoverContent *discoverContent = [[FlyingDiscoverContent alloc] init];
-    discoverContent.author= groupData.gp_author;
-    
-    [self.navigationController pushViewController:[[FlyingDiscoverContent alloc] init] animated:YES];
-}
-
-- (void)profileImageViewPressed:(FlyingGroupData*)groupData
-{
-    NSString *openID = [FlyingDataManager getOpenUDID];
-    
-    if (!openID) {
-        
-        return;
-    }
-    
-    if ([openID isEqualToString:groupData.gp_owner])
-    {
-        //个人档案页
-    }
-    else
-    {
-        FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-        
-        NSString* userID = groupData.gp_owner;
-        
-        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userID];
-        chatService.targetId = userID;
-        chatService.conversationType = ConversationType_PRIVATE;
-        chatService.title = userInfo.name;
-        [self.navigationController pushViewController:chatService animated:YES];
-    }
-}
-
-- (void)coverImageViewPressed:(FlyingGroupData*)groupData
-{
-    FlyingGroupVC *groupVC = [FlyingGroupVC new];
-    groupVC.groupData=groupData;
+    groupVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:groupVC animated:YES];
 }

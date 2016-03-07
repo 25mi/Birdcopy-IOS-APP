@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FlyingMyGroupCell.h"
 #import "FlyingViewController.h"
 
-@interface FlyingMyGroupsVC : FlyingViewController<UITableViewDataSource,
-                                                UITableViewDelegate,
-                                                FlyingMyGroupCellDelegate>
-
+@interface FlyingMyGroupsVC : FlyingViewController<
+                                                    UITableViewDataSource,
+                                                    UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 @property (strong, nonatomic) UITableView        *groupTableView;

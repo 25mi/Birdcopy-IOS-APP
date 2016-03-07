@@ -16,10 +16,8 @@
 
 #import "RCDPrivateSettingViewController.h"
 #import "RCDRoomSettingViewController.h"
-#import "RCDGroupDetailViewController.h"
 
 #import "FlyingHttpTool.h"
-#import "RESideMenu.h"
 #import "iFlyingAppDelegate.h"
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
@@ -43,7 +41,8 @@
                                     RCRealTimeLocationObserver,
                                     RealTimeLocationStatusViewDelegate,
                                     UIAlertViewDelegate,
-                                    RCMessageCellDelegate>
+                                    RCMessageCellDelegate,
+                                    CFShareCircleViewDelegate>
 
 @property (nonatomic, weak)id<RCRealTimeLocationProxy> realTimeLocation;
 @property (nonatomic, strong)RealTimeLocationStatusView *realTimeLocationStatusView;
@@ -66,48 +65,33 @@
     [self addBackFunction];
     
     //顶部导航
-    UIButton* menuButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* menuBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:menuButton];
+    if(self.navigationController.viewControllers.count>1)
+    {
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+    }
     
-    UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:backBarButtonItem,menuBarButtonItem,nil];
+    UIButton* settingButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [settingButton setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [settingButton addTarget:self action:@selector(rightBarButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* settingBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:settingButton];
+    
+    if (self.conversationType != ConversationType_CHATROOM) {
+
+        self.navigationItem.rightBarButtonItem = settingBarButtonItem;
+    }
     
     self.enableSaveNewPhotoToLocalSystem = YES;
     
-    if (self.conversationType != ConversationType_CHATROOM) {
-        if (self.conversationType == ConversationType_DISCUSSION) {
-            [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion *discussion) {
-                if (discussion != nil && discussion.memberIdList.count>0) {
-                    if ([discussion.memberIdList containsObject:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
-                        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                                  initWithImage:[UIImage imageNamed:@"Setting"]
-                                                                  style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(rightBarButtonItemClicked:)];
-                    }else
-                    {
-                        self.navigationItem.rightBarButtonItem = nil;
-                    }
-                }
-            } error:^(RCErrorCode status) {
-                
-            }];
-        }else
-        {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                      initWithImage:[UIImage imageNamed:@"Setting"]
-                                                      style:UIBarButtonItemStylePlain
-                                                      target:self
-                                                      action:@selector(rightBarButtonItemClicked:)];
-        }
-        
-    } else {
-        self.navigationItem.rightBarButtonItem = nil;
+    //顶部导航
+  
+    if (self.conversationType == ConversationType_PRIVATE)
+    {
+        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:self.theMessagemodel.targetId];
+        self.title = userInfo.name;
     }
     
     /*******************实时地理位置共享***************/
@@ -214,23 +198,11 @@
     [super viewWillDisappear:animated];
 }
 
-- (void) showMenu
-{
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
 - (void) dismissNavigation
 {
     [self willDismiss];
     
-    if ([self.navigationController.viewControllers count]==1) {
-        
-        [self showMenu];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //子类具体实现具体功能
@@ -288,7 +260,10 @@
         
         [self.navigationController pushViewController:settingVC animated:YES];
         
-    } else if (self.conversationType == ConversationType_DISCUSSION) {
+    }
+    
+    //讨论组设置
+    else if (self.conversationType == ConversationType_DISCUSSION) {
         
         RCDDiscussGroupSettingViewController *settingVC =
         [[RCDDiscussGroupSettingViewController alloc] init];
@@ -322,53 +297,6 @@
         [self.navigationController pushViewController:settingVC animated:YES];
     }
     
-    //群组设置
-    else if (self.conversationType == ConversationType_GROUP) {
-        UIStoryboard *secondStroyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        RCDGroupDetailViewController *detail=[secondStroyBoard instantiateViewControllerWithIdentifier:@"RCDGroupDetailViewController"];
-        NSMutableArray *groups=FLYINGHTTPTOOL.allGroups ;
-        __weak  FlyingConversationVC *weakSelf = self;
-        detail.clearHistoryCompletion = ^(BOOL isSuccess) {
-            if (isSuccess) {
-                [weakSelf.conversationDataRepository removeAllObjects];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.conversationMessageCollectionView reloadData];
-                });
-            }
-        };
-        
-        [FLYINGHTTPTOOL getGroupByID:self.targetId
-                   successCompletion:^(RCGroup *group)
-         {
-             detail.groupInfo=group;
-             [self.navigationController pushViewController:detail animated:YES];
-             return;
-         }];
-        //      if (groups) {
-        //          for (RCDGroupInfo *group in groups) {
-        //              if ([group.groupId isEqualToString: self.targetId]) {
-        //                  detail.groupInfo=group;
-        //                  [self.navigationController pushViewController:detail animated:YES];
-        //                  return;
-        //              }
-        //          }
-        //      }
-        
-        //没有找到群组信息，可能是获取群组信息失败，这里重新获取一些群众信息。
-        //[RCDHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
-        //}];
-        //      [RCDDataSource getGroupInfoWithGroupId:self.targetId completion:^(RCGroup *groupInfo) {
-        //          detail.groupInfo=[[RCDGroupInfo alloc]init];
-        //          detail.groupInfo.groupId=groupInfo.groupId;
-        //          detail.groupInfo.groupName=groupInfo.groupName;
-        //          dispatch_async(dispatch_get_main_queue(), ^{
-        //              [self.navigationController pushViewController:detail animated:NO];
-        //          });
-        //
-        //      }];
-        
-        
-    }
     //客服设置
     else if (self.conversationType == ConversationType_CUSTOMERSERVICE) {
         RCDSettingBaseViewController *settingVC = [[RCDSettingBaseViewController alloc] init];
@@ -436,7 +364,7 @@
 
 -(void) showSurvey
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
     webpage.title=@"参与设计";
     [webpage setWebURL:@"http://www.mikecrm.com/f.php?t=UkWGrx"];
@@ -558,7 +486,7 @@
 {
     if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:userId])
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
         [self.navigationController pushViewController:myProfileVC animated:YES];
     }
@@ -1043,7 +971,7 @@
             
             if (webURL)
             {
-                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
                 [webpage setWebURL:webURL];
                 

@@ -7,7 +7,6 @@
 //
 
 #import "FlyingWebViewController.h"
-#import "RESideMenu.h"
 #import "FlyingItemView.h"
 #import "UIView+Autosizing.h"
 #import "FlyingSoundPlayer.h"

@@ -7,8 +7,6 @@
 //
 
 #import "FlyingHelpVC.h"
-#import "RESideMenu.h"
-#import "SIAlertView.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
 #import "UIView+Toast.h"
@@ -93,7 +91,7 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
     [self.navigationController pushViewController:search animated:YES];
 }

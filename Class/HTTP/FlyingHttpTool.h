@@ -11,41 +11,17 @@
 #import <RongIMLib/RCGroup.h>
 #import "FlyingUserInfo.h"
 #import "FlyingPubLessonData.h"
-#import "FlyingCalendarEvent.h"
 #import "FlyingCommentData.h"
-
-#define FLYINGHTTPTOOL [FlyingHttpTool shareInstance]
+#import "FlyingGroupData.h"
+#import "shareDefine.h"
 
 @interface FlyingHttpTool : NSObject
-
-
-@property (nonatomic,strong) NSMutableArray *allFriends;
-@property (nonatomic,strong) NSMutableArray *allGroups;
-
-+ (FlyingHttpTool*)shareInstance;
 
 //查看是否好友
 -(void) isMyFriendWithUserInfo:(FlyingUserInfo *)userInfo
                     completion:(void(^)(BOOL isFriend)) completion;
 
 
-//根据id获取单个群组
--(void) getGroupByID:(NSString *) groupID
-   successCompletion:(void (^)(RCGroup *group)) completion;
-
-//加入群组
--(void) joinGroup:(int) groupID
-         complete:(void (^)(BOOL result))joinResult;
-
-//退出群组
--(void) quitGroup:(int) groupID
-         complete:(void (^)(BOOL result))quitResult;
-
-//更新群组信息
--(void)updateGroupById:(int) groupID
-         withGroupName:(NSString*)groupName
-          andintroduce:(NSString*)introduce
-              complete:(void (^)(BOOL result))result;
 //获取好友列表
 -(void) getFriends:(void (^)(NSMutableArray* result))friendList;
 
@@ -74,7 +50,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 个人账户昵称头像
 //////////////////////////////////////////////////////////////////////////////////
-
 //获取个人信息(通用版本)
 +(void) getUserInfoByopenID:(NSString *) openID
                  completion:(void (^)(RCUserInfo *user)) completion;
@@ -88,33 +63,40 @@
                                       data:imageData
                                 Completion:(void (^)(BOOL result)) completion;
 
-//////////////////////////////////////////////////////////////////////////////////
-#pragma 群相关操作
-//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+#pragma  社群相关
+//////////////////////////////////////////////////////////////
 //获取所有群组
-+ (void)  getAllGroupsForAPPOwner:(NSString*)  appOwner
-                        Recommend:(BOOL) isRecommend
-                            PageNumber:(NSInteger) pageNumber
-                            Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
++ (void)  getAllGroupsForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
+                     PageNumber:(NSInteger) pageNumber
+                     Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 
 //获取我的群组
 + (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
                        Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
-//获取群组Post流
-+ (void) getGroupBoardNewsForGroupID:(NSString*) groupID
-                         PageNumber:(NSInteger) pageNumber
-                            Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
 
-+ (void) getGroupStreamForGroupID:(NSString*) groupID
-                         PageNumber:(NSInteger) pageNumber
-                         Completion:(void (^)(NSArray *streamList,NSInteger allRecordCount)) completion;
+//根据id获取单个群组
++ (void) getGroupByID:(NSString *) groupID
+      successCompletion:(void (^)(FlyingGroupData *group)) completion;
 
-//////////////////////////////////////////////////////////////
-#pragma  活动相关
-//////////////////////////////////////////////////////////////
+//加入聊天群组
++ (void) joinGroupForAccount:(NSString*) account
+                        AppID:(NSString*) appID
+                      GroupID:(NSString*) groupID
+                  Completion:(void (^)(NSString* result)) completion;
 
-+ (void) getEventDetailsForEventID:(NSString*) eventID
-                       Completion:(void (^)(FlyingCalendarEvent *event)) completion;
+//退出聊天群组
++ (void)quitGroupForAccount:(NSString*) account
+                      AppID:(NSString*) appID
+                    GroupID:(NSString*) groupID
+                   complete:(void (^)(BOOL))result;
+
+//获取用户在群的信息
++ (void) checkGroupMemberInfoForAccount:(NSString*) account
+                                  AppID:(NSString*) appID
+                                GroupID:(NSString*) groupID
+                             Completion:(void (^)(NSString* result)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  用户注册、登录、激活相关
@@ -179,27 +161,25 @@
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-+ (void) getAlbumListForAuthor:(NSString*)author
-                        ContentType:(NSString*) contentType
-                         PageNumber:(NSInteger) pageNumber
-                          Recommend:(BOOL) isRecommend
-                         Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
++ (void) getAlbumListForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
+                  ContentType:(NSString*) contentType
+                   PageNumber:(NSInteger) pageNumber
+                OnlyRecommend:(BOOL)    isOnlyRecommend
+                   Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
 
-+ (void) getLessonListForAuthor:   (NSString *) author
-                     PageNumber:   (NSInteger) pageNumber
-              lessonConcentType:  (NSString *) contentType
-                   DownloadType:  (NSString *) downloadType
-                            Tag:  (NSString *) tag
-                     SortbyTime:  (BOOL) time
-                      Recommend:(BOOL) isRecommend
-                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
++ (void) getLessonListForDomainID:(NSString*)domainID
+                       DomainType:(BC_Domain_Type) type
+                    PageNumber:   (NSInteger) pageNumber
+             lessonConcentType:  (NSString *) contentType
+                  DownloadType:  (NSString *) downloadType
+                           Tag:  (NSString *) tag
+                 OnlyRecommend:(BOOL)    isOnlyRecommend
+                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
-+ (void) getCoverListForAuthor:(NSString*)author
-         WithSuccessCompletion:(void (^)(NSArray *LessonList,NSInteger allRecordCount)) completion;
-
-+ (void) getCoverListForAuthor:(NSString*) author
++ (void) getCoverListForDomainID:(NSString*)domainID
+                      DomainType:(BC_Domain_Type) type
                     PageNumber:(NSInteger) pageNumber
-                    SortbyTime:  (BOOL) time
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
 + (void) getLessonForLessonID:(NSString*) lessonID
@@ -218,6 +198,16 @@
 
 + (void) updateComment:(FlyingCommentData*) commentData
                          Completion:(void (^)(BOOL result)) completion;
+
+
+//////////////////////////////////////////////////////////////
+#pragma  标签相关
+//////////////////////////////////////////////////////////////
++ (void)getTagListForDomainID:(NSString*)domainID
+                   DomainType:(BC_Domain_Type) type
+                 TagString:(NSString*) tagString
+                     Count:(NSInteger) count
+                Completion:(void (^)(NSArray *tagList)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  字典相关

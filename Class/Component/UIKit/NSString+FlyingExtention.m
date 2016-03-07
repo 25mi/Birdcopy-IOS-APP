@@ -16,26 +16,6 @@
 
 @implementation NSString (FlyingExtention)
 
-
-+ (NSURL *) tagListStrForAuthor:(NSString*)author
-                            Tag:(NSString *) tag
-                      withCount:(NSInteger) pagecount
-{
-    if (author==nil)
-    {
-        author=@"";
-    }
-    
-    NSString * urlStr =[NSString stringWithFormat:kTagListStr_URL,[FlyingDataManager getServerAddress],
-                        [@(pagecount) stringValue],
-                        [@(1) stringValue],
-                        tag,
-                        author];
-    
-    NSString * utf8String = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return [NSURL URLWithString:utf8String];
-}
-
 + (NSURL *) wordListStrByTag:(NSString *) word
 {
     NSString * urlStr =[NSString stringWithFormat:kWordListStr_URL,[FlyingDataManager getServerAddress],word];

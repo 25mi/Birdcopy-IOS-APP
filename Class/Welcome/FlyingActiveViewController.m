@@ -50,7 +50,7 @@
     [hud hide:YES];
     
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = [appDelegate getMenu];
+    appDelegate.window.rootViewController = [appDelegate getTabBarController];
     [appDelegate.window makeKeyAndVisible];
 }
 
