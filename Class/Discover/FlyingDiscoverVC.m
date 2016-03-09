@@ -106,16 +106,6 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 
-- (void) enterpublicRoom
-{
-    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    chatService.targetId = [FlyingDataManager getAppID];
-    chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title = @"公共聊天室";
-    chatService.hidesBottomBarWhenPushed=YES;
-    
-    [self.navigationController pushViewController:chatService animated:YES];
-}
 //////////////////////////////////////////////////////////////
 #pragma  Data related
 //////////////////////////////////////////////////////////////

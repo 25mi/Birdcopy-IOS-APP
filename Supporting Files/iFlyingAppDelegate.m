@@ -130,7 +130,7 @@
     [iFlyingAppDelegate preparelocalEnvironment];
 
     //验证OPenUDID
-    [FlyingDataManager getOpenUDIDFromLocal];
+    [FlyingDataManager makeOpenUDIDFromLocal];
     
     //融云推送处理1
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -233,11 +233,20 @@
 //根据是否注册进行不同跳转处理
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //检查是否有效登录决定是否注册激活
-    [self jumpToNext];
-    
-    [self.window makeKeyAndVisible];
-    
+        
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+
+    //检查APP是否注册
+    [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
+                                Completion:^(FlyingAppData *appData) {
+                                    //
+                                    if (appData) {
+                                        
+                                        
+                                        //用户是否有效登录决定是否注册激活
+                                        [self jumpToNext];
+                                    }
+                                }];
     return YES;
 }
 
@@ -250,7 +259,7 @@
 -(void) jumpToNext
 {
     [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
-                             AppID:[FlyingDataManager getAppID]
+                             AppID:[FlyingDataManager getBirdcopyAppID]
                         Completion:^(BOOL result) {
                                  //有注册记录
                                  if (result) {
@@ -441,7 +450,7 @@
         NSDate *endDate = [dateFormatter dateFromString:endDateStr];
         
         [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                             AppID:[FlyingDataManager getAppID]
+                                             AppID:[FlyingDataManager getBirdcopyAppID]
                                          StartDate:startDate
                                            EndDate:endDate
                                         Completion:^(BOOL result) {

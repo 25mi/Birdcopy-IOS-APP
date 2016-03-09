@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <RongIMLib/RCUserInfo.h>
 #import <RongIMLib/RCGroup.h>
+#import "shareDefine.h"
 #import "FlyingUserInfo.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingCommentData.h"
 #import "FlyingGroupData.h"
-#import "shareDefine.h"
+#import "FlyingAppData.h"
 
 @interface FlyingHttpTool : NSObject
 
@@ -98,6 +99,10 @@
                                 GroupID:(NSString*) groupID
                              Completion:(void (^)(NSString* result)) completion;
 
+//获取群组成员的信息
++ (void) getMemberListForGroupID:(NSString*) groupID
+                      PageNumber:(NSInteger) pageNumber
+                      Completion:(void (^)(NSArray *memberList,NSInteger allRecordCount)) completion;
 //////////////////////////////////////////////////////////////
 #pragma  用户注册、登录、激活相关
 //////////////////////////////////////////////////////////////
@@ -218,6 +223,11 @@
 //////////////////////////////////////////////////////////////
 #pragma  供应商（作者）相关
 //////////////////////////////////////////////////////////////
+
++ (void) getAppDataforBounldeID:(NSString *) boundleID
+                     Completion:(void (^)(FlyingAppData *appData)) completion;
+
+
 + (void) getProviderListForlatitude:(NSString*)latitude
                            longitude:(NSString*)longitude
                           PageNumber:(NSInteger) pageNumber

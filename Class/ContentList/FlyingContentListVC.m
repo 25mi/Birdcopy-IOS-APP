@@ -172,25 +172,16 @@
     [self loadMore];
 }
 
-- (BOOL)loadMore
+- (void)loadMore
 {
     if (_currentData.count<_maxNumOfContents)
     {
         _currentLodingIndex++;
         
-        BOOL isGroup = YES;
-        NSString * owner = self.groupID;
-        
-        if (self.businessID) {
-            
-            isGroup = NO;
-            owner = self.businessID;
-        }
-        
         if (self.isOnlyFeatureContent)
         {
-            [FlyingHttpTool getCoverListForOwner:owner
-                                         IsGroup:isGroup
+            [FlyingHttpTool getCoverListForDomainID:self.domainID
+                                         DomainType:self.domainType
                                       PageNumber:_currentLodingIndex
                                       Completion:^(NSArray *lessonList,NSInteger allRecordCount) {
                                           //
@@ -207,8 +198,8 @@
         }
         else
         {
-            [FlyingHttpTool getLessonListForOwner:owner
-                                          IsGroup:isGroup
+            [FlyingHttpTool getLessonListForDomainID:self.domainID
+                                          DomainType:self.domainType
                                        PageNumber:_currentLodingIndex
                                 lessonConcentType:self.contentType
                                      DownloadType:self.downloadType

@@ -30,132 +30,67 @@
 @implementation FlyingDataManager
 
 
++(void) saveAppData:(FlyingAppData*) appData
+{
+    [[NSUserDefaults standardUserDefaults] setObject:appData.appID      forKey:KAPP_Birdcopy_APPID];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.domainID   forKey:KAPP_Domain_ID];
+
+    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.wexinID    forKey:KAPP_Weixin_ID];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.rongAppKey forKey:KAPP_RongCloud_Key];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+}
+
++ (NSString*) getBirdcopyAppID
+{
+    NSString *appID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Birdcopy_APPID];;
+    
+    return appID;
+}
+
++ (NSString*) getBusinessID
+{
+    NSString *businessID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Domain_ID];;
+    
+    return businessID;
+}
+
 + (NSString*) getServerAddress
 {
-    NSString *serverNetAddress =@"www.birdcopy.com";
-    
-#ifdef __CLIENT__IS__ENGLISH__
-    serverNetAddress=KEnglishServerAddress;
-#endif
-    
-#ifdef __CLIENT__IS__DOCTOR__
-    serverNetAddress=KDoctorServerAddress;
-#endif
-    
-#ifdef __CLIENT__IS__IT__
-    serverNetAddress=KITServerAddress;
-#endif
-    
-#ifdef __CLIENT__IS__FD__
-    serverNetAddress=KFDServerAddress;
-#endif
+    return @"http://e.birdcopy.com";
+
+    /*
+    NSString *serverNetAddress =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_SERVER_ADDRESS];;
     
     return serverNetAddress;
+     */
 }
+
++ (NSString*) getRongAppKey
+{
+    NSString *rongAPPkey =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_RongCloud_Key];;
+    
+    return rongAPPkey;
+}
+
 
 + (NSString*) getWeixinID
 {
-    NSString* weixinAPPID=KBEWeixinAPPID;
-    
-#ifdef __CLIENT__IS__ENGLISH__
-    
-    weixinAPPID=KBEWeixinAPPID;
-#endif
-    
-#ifdef __CLIENT__IS__IT__
-    weixinAPPID =KINETWeixinAPPID;
-#endif
-    
-#ifdef __CLIENT__IS__DOCTOR__
-    weixinAPPID =KBDWeixinAPPID;
-#endif
-    
-#ifdef __CLIENT__IS__FD__
-    weixinAPPID =KFDWeixinAPPID;
-#endif
+    NSString *weixinAPPID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Weixin_ID];;
     
     return weixinAPPID;
 }
 
 
-+ (NSString*) getRongAppKey
-{
-    NSString* rongAPPkey=nil;
-    
-#ifdef __CLIENT__IS__ENGLISH__
-    rongAPPkey=RONGCLOUD_IM_ENGLISH_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__DOCTOR__
-    rongAPPkey=RONGCLOUD_IM_DOCTOR_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__IT__
-    rongAPPkey=RONGCLOUD_IM_IT_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__FD__
-    rongAPPkey=RONGCLOUD_IM_FD_APPKEY;
-#endif
-    
-    return rongAPPkey;
-}
 
 + (NSString*) getOfficalURL
 {
     NSString* officalURL=@"http://www.birdcopy.com";
     
-#ifdef __CLIENT__IS__ENGLISH__
-    officalURL=@"http://e.birdcopy.com";
-#endif
-    
-#ifdef __CLIENT__IS__DOCTOR__
-    officalURL=@"http://d.birdcopy.com";
-#endif
-    
-#ifdef __CLIENT__IS__IT__
-    officalURL=@"http://it.birdcopy.com";
-#endif
-    
-#ifdef __CLIENT__IS__FD__
-    officalURL=@"http://fd.birdcopy.com";
-#endif
     
     return officalURL;
-}
-
-+ (NSString*) getAppID
-{
-    NSString* appID=nil;
-    
-#ifdef __CLIENT__IS__ENGLISH__
-    appID=BIRDENGLISH_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__DOCTOR__
-    appID=DOCTOR_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__IT__
-    appID=IT_APPKEY;
-#endif
-    
-#ifdef __CLIENT__IS__FD__
-    appID=FINANCE_APPKEY;
-#endif
-    
-    NSString * contentOwner = [FlyingDataManager getBusinessID];
-    
-    if ([contentOwner isEqualToString:@"beiyang"]) {
-        
-        appID=BEIYANG_APPKEY;
-    }
-    else  if ([contentOwner isEqualToString:@"fd"]) {
-        
-        appID=FD_APPKEY;
-    }
-    
-    return appID;
 }
 
 + (NSString*) getOpenUDID
@@ -181,34 +116,6 @@
     {
         return nil;
     }
-}
-
-+ (NSString*) getBusinessID
-{
-    NSString * businessID=nil;
-    
-#ifndef __CLIENT__IS__PLATFORM__
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    NSArray *strings = [bundleIdentifier componentsSeparatedByString:@"."];
-    NSString * temp =  (NSString*)[strings lastObject];
-    
-    if ([temp isEqualToString:@"beyond"]) {
-        
-        temp=@"beiyang";
-    }
-    else
-    {
-        if ([temp isEqualToString:@"finance"]) {
-            
-            temp=@"fd";
-        }
-    }
-    
-    businessID=temp;
-    
-#endif
-    
-    return businessID;
 }
 
 + (NSString*) getUserName
@@ -312,7 +219,7 @@
 }
 
 //获取openUDID
-+ (void)getOpenUDIDFromLocal
++ (void)makeOpenUDIDFromLocal
 {
     //check openUDID
     
@@ -376,28 +283,28 @@
     
     //会员信息
     [FlyingHttpTool getMembershipForAccount:openID
-                                      AppID:[FlyingDataManager getAppID]
+                                      AppID:[FlyingDataManager getBirdcopyAppID]
                                  Completion:^(NSDate *startDate, NSDate *endDate) {
                                           //
                                       }];
     
     //苹果渠道购买、金币消费、点击单词统计
     [FlyingHttpTool getMoneyDataWithOpenID:openID
-                                     AppID:[FlyingDataManager getAppID]
+                                     AppID:[FlyingDataManager getBirdcopyAppID]
                                 Completion:^(BOOL result) {
                                     //
                                 }];
     
     //充值卡记录
     [FlyingHttpTool getQRDataForUserID:openID
-                                 AppID:[FlyingDataManager getAppID]
+                                 AppID:[FlyingDataManager getBirdcopyAppID]
                             Completion:^(BOOL result) {
                                 //
                             }];
     
     //课程统计信息
     [FlyingHttpTool getStatisticDetailWithOpenID:openID
-                                           AppID:[FlyingDataManager getAppID]
+                                           AppID:[FlyingDataManager getBirdcopyAppID]
                                       Completion:^(BOOL result) {
                                            //
     }];
@@ -523,7 +430,7 @@
                                                       NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
                                                       
                                                       [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                                                                           AppID:[FlyingDataManager getAppID]
+                                                                                           AppID:[FlyingDataManager getBirdcopyAppID]
                                                                                        StartDate:startDate
                                                                                          EndDate:endDate
                                                                                       Completion:^(BOOL result) {

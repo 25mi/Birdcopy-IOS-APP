@@ -109,8 +109,8 @@
 - (void) doDiscover
 {
     FlyingDiscoverVC *discoverContent = [[FlyingDiscoverVC alloc] init];
-    discoverContent.groupID = [FlyingDataManager  getContentOwner];
-    discoverContent.shoudLoaingFeature = NO;
+    discoverContent.domainID = [FlyingDataManager  getBusinessID];
+    discoverContent.domainType = BC_Business_Domain;
     discoverContent.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:discoverContent animated:YES];
@@ -127,7 +127,7 @@
     
     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
     
-    chatService.targetId = [FlyingDataManager getContentOwner];
+    chatService.targetId = [FlyingDataManager getBusinessID];
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title = @"客服聊天室";
     chatService.hidesBottomBarWhenPushed = YES;
@@ -162,7 +162,8 @@
 {
     FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
     [contentList setIsOnlyFeatureContent:YES];
-    [contentList setGroupID:[FlyingDataManager getContentOwner]];
+    [contentList setDomainID:[FlyingDataManager getBusinessID]];
+    [contentList setDomainType:BC_Business_Domain];
     contentList.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:contentList animated:YES];
@@ -190,7 +191,8 @@
         CGRect  loadingRect  = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*210/320);
         FlyingCoverView* coverFlow = [[FlyingCoverView alloc] initWithFrame:loadingRect];
         [coverFlow setCoverViewDelegate:self];
-        [coverFlow setAuthor:[FlyingDataManager getContentOwner]];
+        [coverFlow setDomainID:[FlyingDataManager getBusinessID]];
+        [coverFlow setDomainType:BC_Business_Domain];
         [coverFlow loadData];
         self.groupTableView.tableHeaderView =coverFlow;
 
@@ -236,11 +238,8 @@
 
 - (BOOL)loadMore
 {
-    NSString *author = [FlyingDataManager getContentOwner];
-    
-    author=nil;
-    
-    [FlyingHttpTool getAllGroupsForAuthor:author
+    [FlyingHttpTool getAllGroupsForDomainID:[FlyingDataManager getBusinessID]
+                                 DomainType:BC_Business_Domain
                                  PageNumber:1
                                  Completion:^(NSArray *groupList, NSInteger allRecordCount) {
                                      
@@ -438,7 +437,7 @@
     else{
     
         [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
-                                                 AppID:[FlyingDataManager getAppID]
+                                                 AppID:[FlyingDataManager getBirdcopyAppID]
                                                GroupID:groupData.gp_id Completion:^(NSString *result) {
                                                    //
                                                    if ([result isEqualToString:KGroupMemberVerified]) {
@@ -459,7 +458,7 @@
                                                                                 type:SIAlertViewButtonTypeDefault
                                                                              handler:^(SIAlertView *alertView) {
                                                                                  
-                                                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID] AppID:[FlyingDataManager getAppID]
+                                                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID] AppID:[FlyingDataManager getBirdcopyAppID]
                                                                                                              GroupID:groupData.gp_id
                                                                                                           Completion:^(NSString *result) {
                                                                                                               

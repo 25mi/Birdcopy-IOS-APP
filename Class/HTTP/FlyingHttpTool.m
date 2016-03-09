@@ -22,6 +22,7 @@
 #import "FlyingCoverDataParser.h"
 
 #import "FlyingGroupData.h"
+#import "FlyingGroupMemberData.h"
 #import "FlyingPubLessonData.h"
 
 #import "FlyingStatisticData.h"
@@ -638,13 +639,11 @@
 
 //加入聊天群组
 + (void) joinGroupForAccount:(NSString*) account
-                        AppID:(NSString*) appID
                       GroupID:(NSString*) groupID
                    Completion:(void (^)(NSString* result)) completion
 {
     
     [AFHttpTool joinGroupForAccount:account
-                                AppID:appID
                               GroupID:groupID
                               success:^(id response) {
                                   
@@ -678,13 +677,11 @@
 
 //退出聊天群组
 + (void)quitGroupForAccount:(NSString*) account
-                                AppID:(NSString*) appID
                               GroupID:(NSString*) groupID
                              complete:(void (^)(BOOL))result
 {
 
     [AFHttpTool quitForAccount:account
-                           AppID:appID
                        GroupByID:groupID
                          success:^(id response) {
                              //
@@ -695,12 +692,10 @@
 }
 
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
-                                  AppID:(NSString*) appID
                                 GroupID:(NSString*) groupID
                              Completion:(void (^)(NSString* result)) completion
 {
     [AFHttpTool checkGroupMemberInfoForAccount:account
-                                         AppID:appID
                                        GroupID:groupID
                                        success:^(id response) {
                                            //
@@ -725,6 +720,52 @@
 }
 
 
++ (void) getMemberListForGroupID:(NSString*) groupID
+                      PageNumber:(NSInteger) pageNumber
+                      Completion:(void (^)(NSArray *memberList,NSInteger allRecordCount)) completion
+{
+    [AFHttpTool getMemberListForGroupID:groupID
+                             PageNumber:pageNumber
+                                success:^(id response) {
+                                    //
+                                    
+                                    NSMutableArray *tempArr = [NSMutableArray new];
+                                    NSArray *allMembers = response[@"rs"];
+                                    
+                                    if (allMembers) {
+                                        for (NSDictionary *dic in allMembers) {
+                                            FlyingGroupMemberData *memberData = [[FlyingGroupMemberData alloc] init];
+                                            memberData.openUDID    = [dic objectForKey:@"tuser_key"];
+                                            memberData.ayJoinTime  = [dic objectForKey:@"ay_join_time"];
+                                            memberData.ayJoinStatus  = [dic objectForKey:@"ay_join_status"];
+                                            memberData.rpJoinDesc  = [dic objectForKey:@"rp_join_desc"];
+                                            memberData.ayRcgpTime  = [dic objectForKey:@"ay_rcgp_time"];
+                                            memberData.ayRcgpStatus  = [dic objectForKey:@"ay_rcgp_status"];
+                                            memberData.rpJoinDesc  = [dic objectForKey:@"rp_join_desc"];
+                                            memberData.ayRcgpTime  = [dic objectForKey:@"ay_rcgp_time"];
+                                            memberData.ayRcgpStatus  = [dic objectForKey:@"ay_rcgp_status"];
+                                            memberData.rpRcgpDesc  = [dic objectForKey:@"rp_rcgp_desc"];
+                                            memberData.ownerRecom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                                            memberData.sysRecom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+
+                                            memberData.token  = [dic objectForKey:@"token"];
+                                            memberData.name     = [dic objectForKey:@"name"];
+                                            memberData.portrait_url    = [dic objectForKey:@"portrait_url"];
+                                            
+                                            [tempArr addObject:memberData];
+                                        }
+                                    }
+
+                                    if (completion && tempArr) {
+                                        completion(tempArr,[response[@"allRecordCount"] integerValue]);
+                                    }
+
+                                    
+                                } failure:^(NSError *err) {
+                                    //
+                                }];
+}
+
 
 //////////////////////////////////////////////////////////////
 #pragma  用户注册、登录、激活相关
@@ -733,7 +774,6 @@
                   Completion:(void (^)(BOOL result)) completion;
 {
     [AFHttpTool regOpenUDID:openUDID
-                      AppID:[FlyingDataManager getAppID]
                     success:^(id response) {
                                 //
                                 if (response) {
@@ -756,11 +796,9 @@
 }
 
 + (void) verifyOpenUDID:(NSString*) openUDID
-                  AppID:(NSString*) appID
              Completion:(void (^)(BOOL result)) completion
 {
     [AFHttpTool verifyOpenUDID:openUDID
-                         AppID:(NSString*) appID
                        success:^(id response) {
                            //
                            if (response) {
@@ -862,11 +900,9 @@
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                           AppID:(NSString*) appID
                       Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion
 {
     [AFHttpTool getMembershipForAccount:account
-                                  AppID:appID
                                 success:^(id response) {
                                     //
                                     NSDate *startDate = nil;
@@ -913,13 +949,11 @@
 }
 
 + (void) updateMembershipForAccount:(NSString*) account
-                              AppID:(NSString*) appID
                           StartDate:(NSDate *)startDate
                             EndDate:(NSDate *)endDate
                          Completion:(void (^)(BOOL result)) completion
 {
     [AFHttpTool updateMembershipForAccount:account
-                                  AppID:appID
                                  StartDate:(NSDate *)startDate
                                    EndDate:(NSDate *)endDate
                                 success:^(id response) {
@@ -976,11 +1010,9 @@
 //////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
-                         AppID:(NSString*) appID
                     Completion:(void (^)(BOOL result)) completion
 {
     [AFHttpTool getMoneyDataWithOpenID:openudid
-                                 AppID:(NSString*) appID
                                success:^(id response) {
         //
         if (response) {
@@ -1043,13 +1075,11 @@
 
 //向服务器保存金币信息
 +(void) uploadMoneyDataWithOpenID:(NSString*) openudid
-                            AppID:(NSString*) appID
                        Completion:(void (^)(BOOL result)) completion;
 {
     FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:openudid];
     
     [AFHttpTool uploadMoneyDataWithOpenID:openudid
-                                   AppID:appID
                               MoneyCount:staticDat.BEMONEYCOUNT
                                GiftCount:staticDat.BEGIFTCOUNT
                               TouchCount:staticDat.BETOUCHCOUNT
@@ -1086,12 +1116,10 @@
 }
 
 +(void) getQRDataForUserID:(NSString*) openudid
-                     AppID:(NSString*) appID
                 Completion:(void (^)(BOOL result)) completion
 {
     //向服务器获取最新QR数据
     [AFHttpTool getQRCountForUserID:openudid
-                              AppID:(NSString*) appID
                             success:^(id response) {
                                 //
                                 if (response) {
@@ -1145,7 +1173,6 @@
 }
 
 +(void) chargingCrad:(NSString*) cardID
-               AppID:(NSString*) appID
            WithOpenID:(NSString*) openudid
            Completion:(void (^)(BOOL result)) completion;
 {
@@ -1153,7 +1180,6 @@
     {
         //向服务器帐户进行充值
         [AFHttpTool chargingCardSysURLForUserID:openudid
-                                          AppID:(NSString*) appID
                                          CardID:cardID
                                         success:^(id response) {
                                             //
@@ -1259,7 +1285,6 @@
 }
 
 +(void) getStatisticDetailWithOpenID:(NSString*) openudid
-                               AppID:(NSString*) appID
                                  Completion:(void (^)(BOOL result)) completion;
 {
     NSArray *lessonIDlist = [[[FlyingNowLessonDAO alloc] init] selectIDWithUserID:openudid];
@@ -1281,7 +1306,6 @@
                 
                 //向服务器获取最新课程相关统计数据
                 [AFHttpTool getTouchDataForUserID:openudid
-                                            AppID:(NSString*) appID
                                          lessonID:lessonID
                                           success:^(id response) {
                                               //
@@ -1311,7 +1335,6 @@
 
 //向服务器获备份课程消费数据
 +(void) uploadStatisticDetailWithOpenID:(NSString*) openudid
-                                  AppID:(NSString*) appID
                                     Completion:(void (^)(BOOL result)) completion;
 {
     FlyingTouchDAO * touchDAO = [[FlyingTouchDAO alloc] init];
@@ -1337,7 +1360,6 @@
     
     
     [AFHttpTool upadteLessonTouchWithAccount:openudid
-                                       AppID:appID
                            lessonAndTouch:updateStr
                                   success:^(id response) {
                                       //
@@ -1715,6 +1737,47 @@
 //////////////////////////////////////////////////////////////
 #pragma  供应商（作者）相关
 //////////////////////////////////////////////////////////////
+
++ (void) getAppDataforBounldeID:(NSString *) boundleID
+                     Completion:(void (^)(FlyingAppData *appData)) completion;
+{
+    [AFHttpTool getAppDataforBounldeID:boundleID
+                               success:^(id response) {
+                                   //
+                                   
+                                   NSMutableArray *tempArr = [NSMutableArray new];
+                                   NSArray *allApps = response[@"rs"];
+                                   
+                                   if (allApps) {
+                                       
+                                       for (NSDictionary *dic in allApps)
+                                       {
+                                           FlyingAppData  *appData = [[FlyingAppData alloc] init];
+                                                                                      
+                                           appData.appID         = [dic objectForKey:@"app_id"];
+                                           appData.boundleID     = [dic objectForKey:@"st_id"];
+                                           appData.domainID      = [dic objectForKey:@"app_owner"];
+                                           appData.webaddress    =  [dic objectForKey:@"domain"];
+                                           appData.rongAppKey    =  [dic objectForKey:@"rc_app_key"];
+                                           appData.wexinID       = [dic objectForKey:@"wx_id"];
+                                           appData.appNname      = [dic objectForKey:@"app_name"];
+                                           appData.authors      = [dic objectForKey:@"user_id"];
+                                           appData.logo      = [dic objectForKey:@"logo_file"];
+                                           
+                                           [tempArr addObject:appData];
+                                       }
+                                   }
+                                   
+                                   if (completion && tempArr.count>0) {
+                                       completion(tempArr[0]);
+                                   }
+
+                                   
+                               } failure:^(NSError *err) {
+                                   //
+                               }];
+}
+
 
 + (void) getProviderListForlatitude:(NSString*)latitude
                            longitude:(NSString*)longitude

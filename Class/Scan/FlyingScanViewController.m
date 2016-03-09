@@ -246,7 +246,7 @@
     if (cardID) {
         
         [FlyingHttpTool chargingCrad:cardID
-                               AppID:[FlyingDataManager getAppID]
+                               AppID:[FlyingDataManager getBirdcopyAppID]
                           WithOpenID:[FlyingDataManager getOpenUDID]
                           Completion:^(BOOL result) {
                               //

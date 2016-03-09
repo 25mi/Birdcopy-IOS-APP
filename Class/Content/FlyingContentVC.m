@@ -243,7 +243,7 @@
         
         //向服务器获取最新会员数据
         [FlyingHttpTool getMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                          AppID:[FlyingDataManager getAppID]
+                                          AppID:[FlyingDataManager getBirdcopyAppID]
                                      Completion:^(NSDate *startDate, NSDate *endDate) {
                                          //
                                          if(endDate)
@@ -288,14 +288,6 @@
         self.coverContentView = [[UIView alloc] initWithFrame:contentFrame];
         
         [self.coverContentView setBackgroundColor:[UIColor blackColor]];
-        
-#ifdef __CLIENT__IS__ENGLISH__
-        [self.coverContentView setBackgroundColor:[UIColor redColor]];
-#endif
-
-#ifdef __CLIENT__IS__IT__
-        [self.coverContentView setBackgroundColor:[UIColor blueColor]];
-#endif        
         
         //[self.coverContentView setContentMode:UIViewContentModeScaleAspectFit];
         

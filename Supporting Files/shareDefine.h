@@ -19,14 +19,23 @@ typedef enum BESearchType
 
 
 //获取资源类型
-
 typedef enum BC_Domain_Type
 {
     BC_Business_Domain,
-    BC_APP_Domain,
     BC_Group_Domain,
     BC_Author_Domain,
 } BC_Domain_Type;
+
+//APP相关
+#define KAPP_Birdcopy_APPID         @"KAPP_Birdcopy_APPID"
+#define KAPP_Domain_ID              @"KAPP_Domain_ID"
+
+#define KAPP_SERVER_ADDRESS         @"KAPP_SERVER_ADDRESS"
+#define KAPP_Weixin_ID              @"KAPP_Weixin_ID"
+#define KAPP_RongCloud_Key          @"KAPP_RongCloud_Key"
+
+#define SERVER_DOMAIN               @"http://e.birdcopy.com"
+
 
 //瀑布布局相关
 #define TileHeight_iphone  20
@@ -67,10 +76,6 @@ typedef enum BC_Domain_Type
 #define KFDWeixinAPPID            @"wx73a97518db1cff0f"
 
 // IM管理
-#define RONGCLOUD_IM_ENGLISH_APPKEY      @"e5t4ouvptjtsa"
-#define RONGCLOUD_IM_DOCTOR_APPKEY       @"6tnym1brndn27"
-#define RONGCLOUD_IM_IT_APPKEY           @"pgyu6atqykgju"
-#define RONGCLOUD_IM_FD_APPKEY           @"x4vkb1qpvcx9k"
 #define ALPHA	@"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
 
 #define KlessonStateChange        @"KlessonStateChange"
@@ -79,14 +84,7 @@ typedef enum BC_Domain_Type
 #define KMAX_GROUPS_VALUE         100
 
 
-// APP管理
-#define BIRDENGLISH_APPKEY      @"972dc79932c43552c32664250675dcaa"
-#define DOCTOR_APPKEY           @"DOCTOR_APPKEY"
-#define IT_APPKEY               @"fa75cf6337ee7a88ec32d7502904642e"
-#define FINANCE_APPKEY          @"FINANCE_APPKEY"
-
-#define BEIYANG_APPKEY          @"9c8f510fd01e443a7182ed2fb3e2f554"
-#define FD_APPKEY               @"ec683e46661687a6c7425de52ea0d8e9"
+//IM相关
 
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 
@@ -96,8 +94,6 @@ typedef enum BC_Domain_Type
 #define kUserNickName             @"kUserNickName"
 #define kUserPortraitUri          @"kUserPortraitUri"
 #define kUserAbstract             @"kUserAbstract"
-
-#define Rong_SERVER               @"https://api.cn.rong.io/"
 
 //同步任务相关
 #define KShouldSysMembership      @"KShouldSysMembership"

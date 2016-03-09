@@ -170,8 +170,8 @@
 {
     FlyingDiscoverVC *discoverContent = [[FlyingDiscoverVC alloc] init];
     discoverContent.domainID = self.groupData.gp_id;
-    discoverContent.domainType = BC_Group_Domain:::::::::::::::::
-    discoverContent.shoudLoaingFeature = YES;F
+    discoverContent.domainType = BC_Group_Domain;
+    discoverContent.shoudLoaingFeature = YES;
     discoverContent.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:discoverContent animated:YES];
@@ -244,9 +244,9 @@
         [_pathCover setBackgroundImage:[UIImage imageNamed:@"Default"]];
         [_pathCover setAvatarImage:[UIImage imageNamed:@"Icon"]];
         
-        [FlyingHttpTool getCoverListForOwner:self.groupData.gp_id
-                                     IsGroup:YES
-                                  PageNumber:1
+        [FlyingHttpTool getCoverListForDomainID:self.groupData.gp_id
+                                     DomainType:BC_Group_Domain
+                                     PageNumber:1
                                   Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
                                       
                                       //
@@ -352,38 +352,13 @@
     {
         _currentLodingIndex++;
         
-        //test
-        /*
-
-        [FlyingHttpTool getLessonListForOwner:self.groupData.gp_id
-                                      IsGroup:YES
+        [FlyingHttpTool getLessonListForDomainID:self.groupData.gp_id
+                                      DomainType:BC_Group_Domain
                                    PageNumber:_currentLodingIndex
                             lessonConcentType:nil
                                  DownloadType:nil
                                           Tag:nil
                                 OnlyRecommend:NO
-                                   Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
-                                       //
-                                       if (lessonList) {
-                                           [self.currentData addObjectsFromArray:lessonList];
-                                       }
-                                       
-                                       _maxNumOfContents=allRecordCount;
-                                       
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           [self finishLoadingData];
-                                       });
-                                   }];
-         */
-
-        
-        [FlyingHttpTool getLessonListForOwner:self.groupData.gp_id
-                                      IsGroup:YES
-                                   PageNumber:_currentLodingIndex
-                            lessonConcentType:nil
-                                 DownloadType:nil
-                                          Tag:nil
-                                    OnlyRecommend:NO
                                    Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
                                        //
                                        if (lessonList) {

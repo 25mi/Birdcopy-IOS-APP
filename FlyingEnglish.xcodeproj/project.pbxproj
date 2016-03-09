@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		821012C81C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
+		821012C91C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
+		821012CA1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
+		821012CB1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
+		821012CC1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
 		8210AE7B1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7C1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7D1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7E1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
 		8210AE7F1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */; };
+		821186AC1C8E575A00445781 /* FlyingAppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821186AB1C8E575A00445781 /* FlyingAppData.m */; };
+		821186AD1C8E575A00445781 /* FlyingAppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821186AB1C8E575A00445781 /* FlyingAppData.m */; };
+		821186AE1C8E575A00445781 /* FlyingAppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821186AB1C8E575A00445781 /* FlyingAppData.m */; };
+		821186AF1C8E575A00445781 /* FlyingAppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821186AB1C8E575A00445781 /* FlyingAppData.m */; };
+		821186B01C8E575A00445781 /* FlyingAppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821186AB1C8E575A00445781 /* FlyingAppData.m */; };
 		8212F4161C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
 		8212F4171C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
 		8212F4181C321B8E009C9F86 /* FlyingBaseDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */; };
@@ -1788,8 +1798,12 @@
 /* Begin PBXFileReference section */
 		1ECB9300DEFE7871D649D4E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7B78710A6B62E33FAD31163C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		821012C61C8FDDD5000B7DB2 /* FlyingGroupMemberData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupMemberData.h; sourceTree = "<group>"; };
+		821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupMemberData.m; sourceTree = "<group>"; };
 		8210AE791C151C97009EBD76 /* FlyingActiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingActiveViewController.h; sourceTree = "<group>"; };
 		8210AE7A1C151C97009EBD76 /* FlyingActiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingActiveViewController.m; sourceTree = "<group>"; };
+		821186AA1C8E575A00445781 /* FlyingAppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAppData.h; sourceTree = "<group>"; };
+		821186AB1C8E575A00445781 /* FlyingAppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingAppData.m; sourceTree = "<group>"; };
 		8212F3D01C321B8E009C9F86 /* FlyingBaseDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBaseDao.h; sourceTree = "<group>"; };
 		8212F3D11C321B8E009C9F86 /* FlyingBaseDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBaseDao.m; sourceTree = "<group>"; };
 		8212F3D41C321B8E009C9F86 /* FlyingItemDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingItemDao.h; sourceTree = "<group>"; };
@@ -2830,6 +2844,8 @@
 				8212F40D1C321B8E009C9F86 /* OpenUDID.h */,
 				8212F40E1C321B8E009C9F86 /* OpenUDID.m */,
 				8212F40F1C321B8E009C9F86 /* RongDataManage */,
+				821186AA1C8E575A00445781 /* FlyingAppData.h */,
+				821186AB1C8E575A00445781 /* FlyingAppData.m */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -3849,6 +3865,8 @@
 				823697E61C8449C50000221C /* XHSoundManager.m */,
 				823697E81C8449C50000221C /* XHWaterDropRefresh.h */,
 				823697E71C8449C50000221C /* XHWaterDropRefresh.m */,
+				821012C61C8FDDD5000B7DB2 /* FlyingGroupMemberData.h */,
+				821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -4840,6 +4858,7 @@
 				82493FE41C07F67D000A2306 /* FlyingCoverView.m in Sources */,
 				8214E8E61C298BF40014B6BD /* DDNumber.m in Sources */,
 				8214EBCF1C2AE8D20014B6BD /* HeadCollectionView.m in Sources */,
+				821186AC1C8E575A00445781 /* FlyingAppData.m in Sources */,
 				8212F6B21C321BC8009C9F86 /* ioapi.c in Sources */,
 				8212F48E1C321B8E009C9F86 /* FlyingDataManager.m in Sources */,
 				8212F6801C321BC8009C9F86 /* NSDateComponents+AllComponents.m in Sources */,
@@ -4909,6 +4928,7 @@
 				82493F9F1C07F53E000A2306 /* FlyingItemParser.m in Sources */,
 				823698071C86EEB90000221C /* FlyingAddressBookViewController.m in Sources */,
 				8212F6211C321BC8009C9F86 /* CFShareCircleView.m in Sources */,
+				821012C81C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */,
 				FA11E7AE19CD526200D97FDB /* ReaderMainToolbar.m in Sources */,
 				8214E8E11C298BF40014B6BD /* DDData.m in Sources */,
 				FA8CDD7B1B030821004152C2 /* MuInkView.m in Sources */,
@@ -5061,6 +5081,7 @@
 				8212F4A61C321B8E009C9F86 /* OpenUDID.m in Sources */,
 				8214E95D1C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				8214E9301C298BF40014B6BD /* HTTPRedirectResponse.m in Sources */,
+				821012CC1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */,
 				8220E7391C3CE8CE00265815 /* FlyingPlayerView.m in Sources */,
 				8212F5941C321BC8009C9F86 /* UIApplication+RSKImageCropper.m in Sources */,
 				8212F6341C321BC8009C9F86 /* UIImageView+thumnail.m in Sources */,
@@ -5095,6 +5116,7 @@
 				C81F8AAA1BD7B488004146F0 /* MMParallaxPresenter.m in Sources */,
 				8212F6CA1C321BC8009C9F86 /* zip.c in Sources */,
 				8214EC051C2AE8D20014B6BD /* RCDConversationSettingClearMessageCell.m in Sources */,
+				821186B01C8E575A00445781 /* FlyingAppData.m in Sources */,
 				8214E92B1C298BF40014B6BD /* HTTPFileResponse.m in Sources */,
 				8214E9761C298BF40014B6BD /* DDContextFilterLogFormatter.m in Sources */,
 				8212F6021C321BC8009C9F86 /* ACMagnifyingView.m in Sources */,
@@ -5350,6 +5372,7 @@
 				8212F46C1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
 				FA1BE4A51B27DD5A00AA1AFD /* MuTextSelectView.m in Sources */,
 				8214EBC11C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				821012C91C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */,
 				8220E73C1C3CE8D200265815 /* FlyingPlayerView.m in Sources */,
 				8212F5911C321BC8009C9F86 /* UIApplication+RSKImageCropper.m in Sources */,
 				8212F6311C321BC8009C9F86 /* UIImageView+thumnail.m in Sources */,
@@ -5384,6 +5407,7 @@
 				8214EC161C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				8212F6C71C321BC8009C9F86 /* zip.c in Sources */,
 				8214EBE41C2AE8D20014B6BD /* RCLocationView.m in Sources */,
+				821186AD1C8E575A00445781 /* FlyingAppData.m in Sources */,
 				FA1BE4BF1B27DD5A00AA1AFD /* MuHitView.m in Sources */,
 				8214E93C1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				8212F4A81C321B8E009C9F86 /* DBHelper.m in Sources */,
@@ -5639,6 +5663,7 @@
 				8212F46D1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
 				FA6329891B51091400A1222E /* MuTextSelectView.m in Sources */,
 				8214EBC21C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				821012CA1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */,
 				8220E73B1C3CE8D000265815 /* FlyingPlayerView.m in Sources */,
 				8212F5921C321BC8009C9F86 /* UIApplication+RSKImageCropper.m in Sources */,
 				8212F6321C321BC8009C9F86 /* UIImageView+thumnail.m in Sources */,
@@ -5673,6 +5698,7 @@
 				8214EC171C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				8212F6C81C321BC8009C9F86 /* zip.c in Sources */,
 				8214EBE51C2AE8D20014B6BD /* RCLocationView.m in Sources */,
+				821186AE1C8E575A00445781 /* FlyingAppData.m in Sources */,
 				FA6329A31B51091400A1222E /* MuHitView.m in Sources */,
 				8214E93D1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				8212F4A91C321B8E009C9F86 /* DBHelper.m in Sources */,
@@ -5928,6 +5954,7 @@
 				8212F46E1C321B8E009C9F86 /* FMDatabasePool.m in Sources */,
 				FA8C3DE51B535A1500DEA02D /* MuTextSelectView.m in Sources */,
 				8214EBC31C2AE8D20014B6BD /* RCDSearchResultTableViewCell.m in Sources */,
+				821012CB1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */,
 				8220E73A1C3CE8D000265815 /* FlyingPlayerView.m in Sources */,
 				8212F5931C321BC8009C9F86 /* UIApplication+RSKImageCropper.m in Sources */,
 				8212F6331C321BC8009C9F86 /* UIImageView+thumnail.m in Sources */,
@@ -5962,6 +5989,7 @@
 				FA8C3DFB1B535A1500DEA02D /* MAOFlipViewController.m in Sources */,
 				8212F6C91C321BC8009C9F86 /* zip.c in Sources */,
 				8214EC181C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
+				821186AF1C8E575A00445781 /* FlyingAppData.m in Sources */,
 				8214EBE61C2AE8D20014B6BD /* RCLocationView.m in Sources */,
 				8214E93E1C298BF40014B6BD /* DAVResponse.m in Sources */,
 				FA8C3DFF1B535A1500DEA02D /* MuHitView.m in Sources */,
@@ -6360,11 +6388,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__ENGLISH__=1",
-					"__CLIENT__IS__PLATFORM__=1",
-					"DEBUG=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6417,10 +6441,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__ENGLISH__=1",
-					"__CLIENT__IS__PLATFORM__=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6589,7 +6610,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
 					"DEBUG=1",
 					"__CLIENT__IS__DOCTOR__=1",
 				);
@@ -6646,10 +6666,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
-					"__CLIENT__IS__DOCTOR__=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__DOCTOR__=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6693,8 +6710,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ling lu (PB6KJF87MA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6704,9 +6721,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__ENGLISH__=1",
 					"DEBUG=1",
-					"__CLIENT__GROUP__VERSION=1",
+					ENGLISH_DOMAIN,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
@@ -6734,7 +6750,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "4bb3ab13-9c15-4512-9cf2-752d1bda122a";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6751,8 +6767,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ling lu (V483NATPWH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6761,10 +6777,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__ENGLISH__=1",
-					"__CLIENT__GROUP__VERSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = ENGLISH_DOMAIN;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6791,7 +6805,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdenglish.beyond;
 				PRODUCT_NAME = beiyang;
-				PROVISIONING_PROFILE = "4bb3ab13-9c15-4512-9cf2-752d1bda122a";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
@@ -6818,7 +6832,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
 					"DEBUG=1",
 					"__CLIENT__IS__IT__=1",
 				);
@@ -6875,10 +6888,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__CLIENT__IS__PLATFORM__=1",
-					"__CLIENT__IS__IT__=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__IT__=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",

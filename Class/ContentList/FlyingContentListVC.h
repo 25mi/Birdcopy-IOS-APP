@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FlyingViewController.h"
+#import "shareDefine.h"
 
 @interface FlyingContentListVC : FlyingViewController<
                                                     UITableViewDataSource,

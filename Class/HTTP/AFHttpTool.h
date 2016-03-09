@@ -116,22 +116,24 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                failure:(void (^)(NSError* err))failure;
 
 +(void) joinGroupForAccount:(NSString *) account
-                        AppID:(NSString *) appID
                       GroupID:(NSString *) groupID
                       success:(void (^)(id response))success
                       failure:(void (^)(NSError* err))failure;
 
 +(void) quitForAccount:(NSString *) account
-                   AppID:(NSString *) appID
                GroupByID:(NSString *) groupID
               success:(void (^)(id response))success
               failure:(void (^)(NSError* err))failure;
 
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
-                                  AppID:(NSString*) appID
                                 GroupID:(NSString*) groupID
                                 success:(void (^)(id response))success
                                 failure:(void (^)(NSError* err))failure;
+
++ (void) getMemberListForGroupID:(NSString*) groupID
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
 #pragma  评论相关
@@ -151,13 +153,10 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 #pragma  用户注册、激活相关
 //////////////////////////////////////////////////////////////
 + (void) regOpenUDID:(NSString*) openUDID
-               AppID:(NSString*) appID
              success:(void (^)(id response))success
              failure:(void (^)(NSError* err))failure;
 
-
 + (void) verifyOpenUDID:(NSString*) openUDID
-                  AppID:(NSString*) appID
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure;
 
@@ -176,12 +175,10 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                           AppID:(NSString*) appID
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
 
 + (void)  updateMembershipForAccount:account
-                               AppID:appID
                            StartDate:(NSDate *)startDate
                              EndDate:(NSDate *)endDate
                              success:(void (^)(id response))success
@@ -192,12 +189,10 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
-                         AppID:(NSString*) appID
                    success:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
 
 +(void) uploadMoneyDataWithOpenID:(NSString*) openudid
-                            AppID:(NSString*) appID
                        MoneyCount:(NSInteger) moneycount
                         GiftCount:(NSInteger) giftCount
                        TouchCount:(NSInteger) touchCount
@@ -205,26 +200,22 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                           failure:(void (^)(NSError* err))failure;
 
 + (void) getQRCountForUserID:(NSString *) userID
-                       AppID:(NSString*) appID
                      success:(void (^)(id response))success
                      failure:(void (^)(NSError* err))failure;
 
 + (void) chargingCardSysURLForUserID:(NSString *) userID
-                               AppID:(NSString*) appID
                               CardID:(NSString *) cardNo
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure;
 
 
 + (void) getTouchDataForUserID:(NSString *) userID
-                         AppID:(NSString*) appID
                       lessonID:(NSString *) leesonID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure;
 
 
 + (void) upadteLessonTouchWithAccount:(NSString*)passport
-                                AppID:(NSString*) appID
                     lessonAndTouch:(NSString*) orgnizedStr
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure;
@@ -306,6 +297,10 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////
 #pragma   供应商相关
 //////////////////////////////////////////////////////////////
+
++ (void) getAppDataforBounldeID:(NSString *) boundleID
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError* err))failure;
 
 //供应商选择
 + (void) providerListDataForlatitude:(NSString*)latitude

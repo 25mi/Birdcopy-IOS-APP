@@ -131,7 +131,7 @@
 - (void) chatWithPeople
 {
     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    chatService.targetId = [FlyingDataManager getAppID];
+    chatService.targetId = [FlyingDataManager getBusinessID];
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title = @"公共聊天室";
     chatService.hidesBottomBarWhenPushed=YES;

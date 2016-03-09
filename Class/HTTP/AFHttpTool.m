@@ -360,15 +360,10 @@
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
     switch (type) {
+            
         case BC_Business_Domain:
         {
             [params setObject:domainID forKey:@"puser_id"];
-            break;
-        }
-            
-        case BC_APP_Domain:
-        {
-            [params setObject:domainID forKey:@"app_id"];
             break;
         }
             
@@ -451,16 +446,12 @@
 
 //加入群组
 +(void) joinGroupForAccount:(NSString *)account
-                        AppID:(NSString *)appID
                       GroupID:(NSString *) groupID
               success:(void (^)(id response))success
               failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    
-    if (appID) {
-        [params setObject:appID forKey:@"app_id"];
-    }
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [params setObject:groupID forKey:@"gp_id"];
 
@@ -475,16 +466,12 @@
 
 //退出群租
 +(void) quitForAccount:(NSString *)account
-                   AppID:(NSString *)appID
                GroupByID:(NSString *) groupID
                  success:(void (^)(id response))success
                  failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    
-    if (appID) {
-        [params setObject:appID forKey:@"app_id"];
-    }
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
 
     [params setObject:groupID forKey:@"gp_id"];
     
@@ -497,16 +484,12 @@
 }
 
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
-                                  AppID:(NSString*) appID
                                 GroupID:(NSString*) groupID
                                 success:(void (^)(id response))success
                                 failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    
-    if (appID) {
-        [params setObject:appID forKey:@"app_id"];
-    }
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [params setObject:groupID forKey:@"gp_id"];
     
@@ -516,7 +499,25 @@
          responseSerializerIsJson:true
                           success:success
                           failure:failure];
+}
 
+
++ (void) getMemberListForGroupID:(NSString*) groupID
+                      PageNumber:(NSInteger) pageNumber
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    
+    [params setObject:groupID forKey:@"gp_id"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"ga_get_member_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:true
+                          success:success
+                          failure:failure];
 }
 
 
@@ -557,7 +558,8 @@
                failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
-    
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+
     if (commentData.contentID.length!=0) {
         
         [params setObject:commentData.contentID forKey:@"ct_id"];
@@ -583,8 +585,6 @@
         [params setObject:commentData.commentContent forKey:@"content"];
     }
     
-    [params setObject:[FlyingDataManager getAppID] forKey:@"app_id"];
-
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_add_ct_from_tn.action"
                            params:params
@@ -597,15 +597,14 @@
 #pragma  用户激活相关
 //////////////////////////////////////////////////////////////
 + (void) regOpenUDID:(NSString*) openUDID
-               AppID:(NSString*) appID
              success:(void (^)(id response))success
              failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openUDID}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [params setObject:@"reg" forKey:@"type"];
     
-    [params setObject:appID forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_reg_user_from_hp.action"
@@ -616,13 +615,11 @@
 }
 
 + (void) verifyOpenUDID:(NSString*) openUDID
-                  AppID:(NSString*) appID
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openUDID}];
-    
-    [params setObject:appID forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_ua_get_status_from_tn.action"
@@ -676,13 +673,12 @@
 #pragma  账户信息
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                           AppID:(NSString*) appID
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":account}];
-    
-    [params setObject:appID forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+
     [params setObject:@"validth" forKey:@"type"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -694,15 +690,13 @@
 }
 
 + (void)  updateMembershipForAccount:account
-                               AppID:appID
                            StartDate:(NSDate *)startDate
                              EndDate:(NSDate *)endDate
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    
-    [params setObject:appID forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     //苹果渠道
     [params setObject:@"11" forKey:@"vthg_type"];
@@ -862,12 +856,6 @@
             break;
         }
             
-        case BC_APP_Domain:
-        {
-            [params setObject:domainID forKey:@"app_id"];
-            break;
-        }
-            
         case BC_Group_Domain:
         {
             [params setObject:domainID forKey:@"gp_id"];
@@ -1024,12 +1012,6 @@
             break;
         }
             
-        case BC_APP_Domain:
-        {
-            [params setObject:domainID forKey:@"app_id"];
-            break;
-        }
-            
         case BC_Group_Domain:
         {
             [params setObject:domainID forKey:@"gp_id"];
@@ -1088,13 +1070,7 @@
             [params setObject:domainID forKey:@"puser_id"];
             break;
         }
-            
-        case BC_APP_Domain:
-        {
-            [params setObject:domainID forKey:@"app_id"];
-            break;
-        }
-            
+                        
         case BC_Group_Domain:
         {
             [params setObject:domainID forKey:@"gp_id"];
@@ -1201,6 +1177,19 @@
                           success:success
                        failure:failure];
 }
+
++ (void) getAppDataforBounldeID:(NSString *) boundleID
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"aa_get_app_list_from_hp.action"
+                           params:@{@"st_id":boundleID}
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
+}
+
 
 
 @end

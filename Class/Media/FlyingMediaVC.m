@@ -2082,20 +2082,16 @@ static void *TrackObservationContext         = &TrackObservationContext;
 
 -(void)showHintHelp
 {
-#ifdef __CLIENT__IS__ENGLISH__
-    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
         
-        [self.view makeToast:@"点击单词自动解释!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"如有英文，点击自动解释!" duration:3 position:CSToastPositionCenter];
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BESwipRight"])
     {
         
         [self.view makeToast:@"右划跳转到上一个场景!" duration:3 position:CSToastPositionCenter];
     }
-#endif
-    
 }
 
 -(void) screenCopy
