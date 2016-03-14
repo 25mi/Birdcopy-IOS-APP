@@ -7,7 +7,6 @@
 //
 
 #import "FlyingSearchViewController.h"
-#import "FlyingSearchBar.h"
 #import "FlyingContentListVC.h"
 #import "NSString+FlyingExtention.h"
 
@@ -480,14 +479,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [self.searchQueue cancelAllOperations];
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark socail Related
-//////////////////////////////////////////////////////////////
-- (void) doScan
-{
-    FlyingScanViewController * scanVC=[[FlyingScanViewController alloc] init];
-    [self.navigationController pushViewController:scanVC animated:YES];
-}
 //////////////////////////////////////////////////////////////
 #pragma mark controller events
 //////////////////////////////////////////////////////////////

@@ -242,6 +242,8 @@
                                     //
                                     if (appData) {
                                         
+                                        //保存app数据到本地缓存
+                                        [FlyingDataManager saveAppData:appData];
                                         
                                         //用户是否有效登录决定是否注册激活
                                         [self jumpToNext];
@@ -259,7 +261,6 @@
 -(void) jumpToNext
 {
     [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
-                             AppID:[FlyingDataManager getBirdcopyAppID]
                         Completion:^(BOOL result) {
                                  //有注册记录
                                  if (result) {
@@ -303,6 +304,9 @@
 //本地环境准备
 +(void) preparelocalEnvironment
 {
+    //监控网络状态
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+
     //缓存设置
     int cacheSizeMemory = 8*1024*1024; // 8MB
     int cacheSizeDisk   = 64*1024*1024; // 64MB
@@ -353,9 +357,6 @@
     //如：新版本增加了某种自定义消息，但是老版本不能识别，开发者可以在旧版本中预先自定义这种未识别的消息的显示
     [RCIM sharedRCIM].showUnkownMessage = YES;
     [RCIM sharedRCIM].showUnkownMessageNotificaiton = YES;
-    
-    //监控网络状态
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     //监控本地文件夹状态
     [[FlyingFileManager shareInstance] watchDocumentStateNow];
@@ -450,7 +451,6 @@
         NSDate *endDate = [dateFormatter dateFromString:endDateStr];
         
         [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                             AppID:[FlyingDataManager getBirdcopyAppID]
                                          StartDate:startDate
                                            EndDate:endDate
                                         Completion:^(BOOL result) {

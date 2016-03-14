@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 BirdEngish. All rights reserved.
 //
 
-#import "FlyingHomeVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
 
@@ -44,7 +43,7 @@
 #import "FlyingGroupCoverView.h"
 #import "FlyingWebViewController.h"
 
-#import "FlyingAddressBookViewController.h"
+#import "FlyingAddressBookVC.h"
 
 @interface FlyingGroupVC ()
 {
@@ -110,6 +109,22 @@
     
     //顶部导航
     [self reloadAll];
+    
+    //获取权限
+    [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
+                                           GroupID:self.groupData.gp_id Completion:^(NSString *result) {
+                                               //
+                                               if ([result isEqualToString:KGroupMemberVerified]) {
+                                                   
+                                                   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:self.groupData.gp_id];
+                                                   [[NSUserDefaults standardUserDefaults] synchronize];
+                                               }
+                                               else
+                                               {
+                                                   [[NSUserDefaults standardUserDefaults] setBool:NO forKey:self.groupData.gp_id];
+                                                   [[NSUserDefaults standardUserDefaults] synchronize];
+                                               }
+                                           }];
 }
 
 -(void) prepareForChatRoom
@@ -190,17 +205,22 @@
     
     chatService.targetId = self.groupData.gp_id;
     chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title = @"公共聊天室";
+    chatService.title =self.groupData.gp_name;
     chatService.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatService animated:YES];
 }
 
 -(void) showMember
 {
-    FlyingAddressBookViewController * membersVC = [[FlyingAddressBookViewController alloc] init];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FlyingAddressBookVC * membersVC=[storyboard instantiateViewControllerWithIdentifier:@"FlyingAddressBookVC"];
+
+    membersVC.domainID = self.groupData.gp_id;
+    membersVC.domainType = BC_Group_Domain;
     
     membersVC.title = @"群成员";
     membersVC.hidesBottomBarWhenPushed = YES;
+    
     [self.navigationController pushViewController:membersVC animated:YES];
 }
 
@@ -225,7 +245,6 @@
 
 - (void)reloadAll
 {
-    
     if (!self.groupStreamTableView)
     {
         self.groupStreamTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
@@ -272,8 +291,7 @@
                 
                 UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-                [webpage setWebURL:wself.currentFeatueContent.contentURL];
-                [webpage setLessonID:wself.currentFeatueContent.lessonID];
+                [webpage setThePubLesson:wself.currentFeatueContent];
                 
                 [wself.navigationController pushViewController:webpage animated:YES];
             }
@@ -299,19 +317,10 @@
         _maxNumOfContents=NSIntegerMax;
     }
     
-    //Test
-    self.currentFeatueContent = [[FlyingPubLessonData alloc] init];
-    self.currentFeatueContent.title=@"关于组团游学哈佛科本科教育的紧急通知";
-    self.currentFeatueContent.desc =@"1，为了各团队更加熟悉云平台的使用和视频患教项目组更好的执行项目，希望由供应商做一次后台全面的使用说明及注意事项；总平台是服务于所有项目，注册的医生会不断的增加，需要增加筛选功能；审核医生信息的总平台，各项目对于医生有不同的要求，需要增加总平台的功能";
-    [_pathCover settingWithContentData:self.currentFeatueContent];
-    
-    //Test End
-
     [self prepareForChatRoom];
 
     [self loadMore];
 }
-
 
 
 #pragma mark - scroll delegate
@@ -516,8 +525,7 @@
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-            [webpage setWebURL:lessonPubData.contentURL];
-            [webpage setLessonID:lessonPubData.lessonID];
+            [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];
         }

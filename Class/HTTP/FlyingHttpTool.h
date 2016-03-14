@@ -75,7 +75,7 @@
 
 //获取我的群组
 + (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
-                       Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
+                       Completion:(void (^)(NSArray *groupUpdateList,NSInteger allRecordCount)) completion;
 
 //根据id获取单个群组
 + (void) getGroupByID:(NSString *) groupID
@@ -83,25 +83,21 @@
 
 //加入聊天群组
 + (void) joinGroupForAccount:(NSString*) account
-                        AppID:(NSString*) appID
                       GroupID:(NSString*) groupID
                   Completion:(void (^)(NSString* result)) completion;
 
 //退出聊天群组
 + (void)quitGroupForAccount:(NSString*) account
-                      AppID:(NSString*) appID
                     GroupID:(NSString*) groupID
                    complete:(void (^)(BOOL))result;
 
 //获取用户在群的信息
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
-                                  AppID:(NSString*) appID
                                 GroupID:(NSString*) groupID
                              Completion:(void (^)(NSString* result)) completion;
 
 //获取群组成员的信息
 + (void) getMemberListForGroupID:(NSString*) groupID
-                      PageNumber:(NSInteger) pageNumber
                       Completion:(void (^)(NSArray *memberList,NSInteger allRecordCount)) completion;
 //////////////////////////////////////////////////////////////
 #pragma  用户注册、登录、激活相关
@@ -110,7 +106,6 @@
                   Completion:(void (^)(BOOL result)) completion;
 
 + (void) verifyOpenUDID:(NSString*) openUDID
-                  AppID:(NSString*) appID
                   Completion:(void (^)(BOOL result)) completion;
 
 + (void) updateCurrentID:(NSString*) currentID
@@ -124,11 +119,9 @@
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                           AppID:(NSString*) appID
                       Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion;
 
 + (void) updateMembershipForAccount:(NSString*) account
-                           AppID:(NSString*) appID
                           StartDate:(NSDate *)startDate
                           EndDate:(NSDate *)endDate
                       Completion:(void (^)(BOOL result)) completion;
@@ -137,30 +130,24 @@
 //////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
-                         AppID:(NSString*) appID
                     Completion:(void (^)(BOOL result)) completion;
 
 //向服务器保存金币信息
 +(void) uploadMoneyDataWithOpenID:(NSString*) openudid
-                            AppID:(NSString*) appID
                        Completion:(void (^)(BOOL result)) completion;
 
 +(void) getQRDataForUserID:(NSString*) openudid
-                     AppID:(NSString*) appID
                     Completion:(void (^)(BOOL result)) completion;
 
 +(void) chargingCrad:(NSString*) cardID
-               AppID:(NSString*) appID
            WithOpenID:(NSString*) openudid
            Completion:(void (^)(BOOL result)) completion;
 
 //向服务器获课程统计数据
 +(void) getStatisticDetailWithOpenID:(NSString*) openudid
-                               AppID:(NSString*) appID
                                  Completion:(void (^)(BOOL result)) completion;
 
 +(void) uploadStatisticDetailWithOpenID:(NSString*) openudid
-                                  AppID:(NSString*) appID
                                     Completion:(void (^)(BOOL result)) completion;
 
 //////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10089" systemVersion="15E49a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -22,25 +22,25 @@
                             <constraint firstAttribute="width" constant="50" id="cMk-IU-umT"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看美剧学英语兴趣小组" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wy1-3y-qws">
-                        <rect key="frame" x="66" y="8" width="130" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看美剧学英语兴趣小组" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wy1-3y-qws">
+                        <rect key="frame" x="66" y="8" width="477" height="16"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i6-wM-GKj">
-                        <rect key="frame" x="86" y="42.5" width="28" height="15"/>
+                        <rect key="frame" x="86" y="43" width="28" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1y-fC-PGV">
-                        <rect key="frame" x="150" y="42" width="28" height="15"/>
+                        <rect key="frame" x="150" y="42.5" width="28" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="沪江美剧频道提供最新美剧资讯,好看的美视剧、经典美剧推荐和美剧排行榜以及美剧学习笔记和美剧听写等学习资料下载,加入美剧学习小组和收看美剧学习节目,与好友一起分享" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m89-Nj-JwA">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="沪江美剧频道提供最新美剧资讯,好看的美视剧、经典美剧推荐和美剧排行榜以及美剧学习笔记和美剧听写等学习资料下载,加入美剧学习小组和收看美剧学习节目,与好友一起分享" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="m89-Nj-JwA">
                         <rect key="frame" x="8" y="66" width="535" height="45.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,8 +60,8 @@
                             <constraint firstAttribute="width" constant="16" id="XOE-bs-xPh"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="9月5日14点32分" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-69-d7q">
-                        <rect key="frame" x="194" y="42" width="341" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="9月5日14点32分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-69-d7q">
+                        <rect key="frame" x="194" y="42.5" width="341" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -70,6 +70,7 @@
                 <constraints>
                     <constraint firstItem="2i6-wM-GKj" firstAttribute="top" secondItem="Wy1-3y-qws" secondAttribute="bottom" constant="8" id="0ca-SF-GiZ"/>
                     <constraint firstItem="p1y-fC-PGV" firstAttribute="leading" secondItem="2i6-wM-GKj" secondAttribute="trailing" constant="8" id="0rK-3w-IJ8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Wy1-3y-qws" secondAttribute="trailing" id="20N-VL-g76"/>
                     <constraint firstItem="m89-Nj-JwA" firstAttribute="leading" secondItem="iQy-rI-fSR" secondAttribute="leading" id="23C-Dt-zft"/>
                     <constraint firstItem="p1y-fC-PGV" firstAttribute="top" secondItem="Wy1-3y-qws" secondAttribute="bottom" id="2iw-3S-geb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="m89-Nj-JwA" secondAttribute="trailing" id="9iQ-BY-goG"/>
@@ -94,6 +95,7 @@
                     <constraint firstItem="p1y-fC-PGV" firstAttribute="top" secondItem="2i6-wM-GKj" secondAttribute="top" id="Wk2-c9-xWm"/>
                     <constraint firstItem="2i6-wM-GKj" firstAttribute="leading" secondItem="Wy1-3y-qws" secondAttribute="leading" id="XNM-Ji-zmu"/>
                     <constraint firstItem="F8I-ue-KPi" firstAttribute="top" secondItem="h7a-Xd-7Xz" secondAttribute="top" id="aiW-5o-cHZ"/>
+                    <constraint firstItem="F8I-ue-KPi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Wy1-3y-qws" secondAttribute="bottom" constant="18" id="b3f-jR-Dzr"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LTo-69-d7q" secondAttribute="trailing" id="cVh-lU-kVh"/>
                     <constraint firstItem="LTo-69-d7q" firstAttribute="leading" secondItem="Wy1-3y-qws" secondAttribute="trailing" id="ckd-4Q-E2y"/>
                     <constraint firstItem="LTo-69-d7q" firstAttribute="leading" secondItem="F8I-ue-KPi" secondAttribute="trailing" constant="16" id="dIo-cZ-nKh"/>
@@ -127,6 +129,7 @@
                         <exclude reference="0ca-SF-GiZ"/>
                         <exclude reference="XNM-Ji-zmu"/>
                         <exclude reference="f1r-LJ-lsX"/>
+                        <exclude reference="b3f-jR-Dzr"/>
                         <exclude reference="0rK-3w-IJ8"/>
                         <exclude reference="2iw-3S-geb"/>
                         <exclude reference="IWC-Oh-msO"/>

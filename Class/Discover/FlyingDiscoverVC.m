@@ -101,7 +101,7 @@
 - (void) doSearch
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
     [search setSearchType:BEFindLesson];
     [self.navigationController pushViewController:search animated:YES];
 }
@@ -325,6 +325,8 @@
         FlyingContentListVC * list=[[FlyingContentListVC alloc] init];
         [list setTagString:coverData.tagString];
         [list setContentType:coverData.tagtype];
+        [list setDomainID:self.domainID];
+        [list setDomainType:self.domainType];
         
         [self.navigationController pushViewController:list animated:YES];
     }

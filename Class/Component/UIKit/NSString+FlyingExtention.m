@@ -448,6 +448,14 @@
     }
 }
 
++ (NSString *)transformToPinyin:(NSString *)hanZi
+{
+    NSMutableString *mutableString = [NSMutableString stringWithString:hanZi];
+    CFStringTransform((CFMutableStringRef)mutableString, NULL, kCFStringTransformToLatin, false);
+    mutableString = (NSMutableString *)[mutableString stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
+    return [mutableString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+}
+
 - (NSUInteger)numberOfWordsInString
 {
     NSString * str = [self mutableCopy];
@@ -908,6 +916,20 @@ char pinyinFirstLetter(unsigned short hanzi)
         return hanzi;
     }
 }
+
+-(NSString *) hanZiToPinYinWithString:(NSString *)hanZi
+{
+    if(!hanZi) return nil;
+    NSString *pinYinResult=[NSString string];
+    for(int j=0;j<hanZi.length;j++){
+        NSString *singlePinyinLetter=[[NSString stringWithFormat:@"%c",pinyinFirstLetter([hanZi characterAtIndex:j])] uppercaseString];
+        pinYinResult=[pinYinResult stringByAppendingString:singlePinyinLetter];
+        
+    }
+    
+    return pinYinResult;
+}
+
 
 @end
 

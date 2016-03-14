@@ -10,16 +10,13 @@
 #import "shareDefine.h"
 #import "FlyingViewController.h"
 
-@class FlyingFakeHUD;
-@class FlyingSearchBar;
-
 @interface FlyingSearchViewController : FlyingViewController<UITableViewDataSource,
                                                         UITableViewDelegate,
                                                         UISearchBarDelegate,
                                                         UISearchDisplayDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
-@property (strong, nonatomic) IBOutlet FlyingSearchBar     *searchBar;
+@property (strong, nonatomic) IBOutlet UISearchBar         *searchBar;
 
 @property (assign, nonatomic)          BESearchType         searchType;
 @property (strong, nonatomic) NSString                      *domainID;

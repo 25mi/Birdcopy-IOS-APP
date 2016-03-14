@@ -35,7 +35,7 @@
         
         self.orientation = [UIApplication sharedApplication].statusBarOrientation;
 
-        [self loadData];
+        //[self loadData];
     }
     return self;
 }

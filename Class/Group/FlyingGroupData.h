@@ -33,5 +33,4 @@
 @property (nonatomic, strong) NSString *gp_member_sum; //成员数
 @property (nonatomic, strong) NSString *gp_ln_sum;     //课程数
 
-
 @end

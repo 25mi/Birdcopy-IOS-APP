@@ -25,7 +25,6 @@
 
 #import "ReaderConstants.h"
 #import "ThumbsMainToolbar.h"
-#import "FlyingSearchBar.h"
 
 @implementation ThumbsMainToolbar
 
@@ -108,7 +107,7 @@
 		titleWidth -= BUTTON_SPACE;
 
         CGRect titleRect = CGRectMake(titleX, BUTTON_Y, titleWidth, TITLE_HEIGHT);
-        FlyingSearchBar * searchBar = [[FlyingSearchBar alloc] initWithFrame:titleRect];
+        UISearchBar * searchBar = [[UISearchBar alloc] initWithFrame:titleRect];
         searchBar.delegate = self;
         searchBar.placeholder = @"请输入关键词";
         

@@ -20,8 +20,8 @@
 
 @property (nonatomic, strong) NSString *ayRcgpStatus;     //聊天申请状态
 @property (nonatomic, strong) NSString *rpRcgpDesc;       //未通过聊天申请描述
-@property (nonatomic, assign) BOOL ownerRecom;        //属主是否已推荐
-@property (nonatomic, assign) BOOL sysRecom;          //系统是否已推荐
+@property (nonatomic, assign) BOOL ownerRecom;              //属主是否已推荐
+@property (nonatomic, assign) BOOL sysRecom;                //系统是否已推荐
 
 @property (nonatomic, strong) NSString *token;              //融云token
 @property (nonatomic, strong) NSString *name;               //融云用户名称

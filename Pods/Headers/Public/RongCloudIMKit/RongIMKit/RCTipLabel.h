@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/RongIMKit.framework/Headers/RCTipLabel.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_9_dev/RongIMKit.framework/Headers/RCTipLabel.h

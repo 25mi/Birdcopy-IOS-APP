@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSString *BECONTENTTYPE;    //资源类型
 @property (nonatomic, strong) NSString *BEDOWNLOADTYPE;   //下载类型
 @property (nonatomic, strong) NSString *BETAG;            //标签
-@property (nonatomic, assign)      int  BECoinPrice;      //价格
+@property (nonatomic, assign) NSInteger BECoinPrice;      //价格
 @property (nonatomic, strong) NSString *BEWEBURL;         //官方地址
 @property (nonatomic, strong) NSString *BEISBN;           //对应ISBN
 @property (nonatomic, strong) NSString *BERELATIVEURL;    //内容辅助资源

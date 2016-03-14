@@ -253,7 +253,7 @@
          lessonData.BECONTENTTYPE,
          lessonData.BEDOWNLOADTYPE,
          lessonData.BETAG,
-         [NSNumber numberWithInt:lessonData.BECoinPrice],
+         [NSNumber numberWithInteger:lessonData.BECoinPrice],
          lessonData.BEWEBURL,
          lessonData.BEISBN,
          lessonData.BERELATIVEURL];

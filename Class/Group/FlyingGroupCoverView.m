@@ -164,7 +164,7 @@
         
         if (self.isZoomingEffect) {
             _bannerImageView.center = center;
-            CGFloat scale = fabsf(y) / self.parallaxHeight;
+            CGFloat scale = fabs(y) / self.parallaxHeight;
             _bannerImageView.transform = CGAffineTransformMakeScale(1+scale, 1+scale);
         }
     } else {
@@ -249,13 +249,13 @@
     _avatarButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, avatarButtonHeight, avatarButtonHeight)];
     
     _contentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 0, 207, 42)];
-    _contentNameLabel.textColor = [UIColor whiteColor];
+    _contentNameLabel.textColor = [UIColor blackColor];
     _contentNameLabel.backgroundColor = [UIColor clearColor];
-    _contentNameLabel.font = [UIFont boldSystemFontOfSize:KNormalFontSize];
+    _contentNameLabel.font = [UIFont boldSystemFontOfSize:KLargeFontSize];
     _contentDescLabel.numberOfLines=0;
     
     _contentDescLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 42, 207, 48)];
-    _contentDescLabel.textColor = [UIColor whiteColor];
+    _contentDescLabel.textColor = [UIColor blackColor];
     _contentDescLabel.backgroundColor = [UIColor clearColor];
     _contentDescLabel.font = [UIFont systemFontOfSize:KSmallFontSize];
     _contentDescLabel.numberOfLines=3;

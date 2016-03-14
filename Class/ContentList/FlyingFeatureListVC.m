@@ -90,7 +90,7 @@
 - (void) doSearch
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"search"];
+    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
     [self.navigationController pushViewController:search animated:YES];
 }
 
@@ -212,8 +212,7 @@
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-            [webpage setWebURL:lessonPubData.contentURL];
-            [webpage setLessonID:lessonPubData.lessonID];
+            [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];
         }

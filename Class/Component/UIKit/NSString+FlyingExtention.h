@@ -52,6 +52,7 @@
 
 
 + (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
++ (NSString *)transformToPinyin:(NSString *)hanZi;
 
 - (NSUInteger) numberOfWordsInString;
 - (NSString *) localSrtURL;
@@ -72,8 +73,5 @@
 
 - (NSString *)relativePathFromDocumentDirectory:(NSString *) lessonID;
 - (NSString *)absolutePathFromDocumentDirectory:(NSString *) lessonID;
-
-char pinyinFirstLetter(unsigned short hanzi);
-
 
 @end

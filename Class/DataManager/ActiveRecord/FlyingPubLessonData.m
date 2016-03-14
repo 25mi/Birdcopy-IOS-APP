@@ -48,13 +48,13 @@
     [encoder encodeObject:self.pronunciationURL forKey:@"pronunciationURL"];
     [encoder encodeObject:self.level            forKey:@"level"];
     
-    [encoder encodeInt:self.duration            forKey:@"duration"];
+    [encoder encodeInteger:self.duration        forKey:@"duration"];
     
     [encoder encodeObject:self.contentType      forKey:@"contentType"];
     [encoder encodeObject:self.downloadType     forKey:@"downloadType"];
     [encoder encodeObject:self.tag              forKey:@"tag"];
     [encoder encodeObject:self.weburl           forKey:@"weburl"];
-    [encoder encodeInt:self.coinPrice           forKey:@"coinPrice"];
+    [encoder encodeInteger:self.coinPrice       forKey:@"coinPrice"];
     
     [encoder encodeObject:self.ISBN             forKey:@"ISBN"];
     [encoder encodeObject:self.relativeURL      forKey:@"relativeURL"];

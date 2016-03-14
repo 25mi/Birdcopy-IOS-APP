@@ -36,6 +36,7 @@
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
+#import "FlyingDataManager.h"
 
 @interface FlyingConversationVC () <UIActionSheetDelegate,
                                     RCRealTimeLocationObserver,
@@ -330,6 +331,7 @@
 
 - (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag
 {
+    
     switch (tag) {
             
         case 101: {
@@ -362,6 +364,32 @@
     }
 }
 
+-(void) showMemberInfo:(NSString*)reslutStr
+{
+    NSString * verifiedStr = @"你已经是正式会员，可以参与互动了!";
+    NSString * refuseStr = @"你的成员资格被拒绝!";
+    NSString * reviewStr = @"你的成员资格正在审批中...";
+    
+    NSString * infoStr=@"未知错误！";
+
+    if ([reslutStr isEqualToString:KGroupMemberVerified]) {
+        
+        infoStr = verifiedStr;
+    }
+
+    else if ([reslutStr isEqualToString:KGroupMemberRefused]) {
+        
+        infoStr = refuseStr;
+    }
+    else if([reslutStr isEqualToString:KGroupMemberReviewing])
+    {
+        infoStr = reviewStr;
+        
+    }
+    
+    [self.view makeToast:infoStr duration:2 position:CSToastPositionCenter];
+}
+
 -(void) showSurvey
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -371,6 +399,56 @@
     
     [self.navigationController pushViewController:webpage animated:YES];
 }
+
+/*!
+ 准备发送消息的回调
+ 
+ @param messageCotent 消息内容
+ 
+ @return 修改后的消息内容
+ 
+ @discussion 此回调在消息准备向外发送时会回调，您可以在此回调中对消息内容进行过滤和修改等操作。
+ 如果此回调的返回值不为nil，SDK会对外发送返回的消息内容。
+ */
+- (RCMessageContent *)willSendMessage:(RCMessageContent *)messageCotent
+{
+    BOOL right = [[NSUserDefaults standardUserDefaults] boolForKey:self.targetId];
+
+    if (right) {
+        
+        return messageCotent;
+    }
+    else
+    {
+        NSString *title = @"友情提醒！";
+        NSString *message = @"正式会员才能参与互动，你需要申请成为群组成员吗？";
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+        [alertView addButtonWithTitle:@"取消"
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                              }];
+        
+        [alertView addButtonWithTitle:@"确认"
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  
+                                  [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
+                                                              GroupID:self.targetId
+                                                           Completion:^(NSString *result) {
+                                                               //
+                                                               [self showMemberInfo:result];
+                                                               
+                                                           }];
+                              }];
+        
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+        [alertView show];
+        
+        return nil;
+    }
+}
+
 
 - (void)setRealTimeLocation:(id<RCRealTimeLocationProxy>)realTimeLocation {
     _realTimeLocation = realTimeLocation;

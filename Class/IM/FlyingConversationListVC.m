@@ -6,7 +6,6 @@
 //  Copyright © 2015 BirdEngish. All rights reserved.
 
 #import "FlyingConversationListVC.h"
-#import "FlyingAddressBookViewController.h"
 #import "RCDSearchFriendViewController.h"
 #import "FlyingSelectPersonViewController.h"
 //#import "RCDRCIMDataSource.h"
@@ -229,7 +228,6 @@
             break;
         case 1:
         {
-            [self pushAddressBook];
         }
             break;
     }
@@ -295,19 +293,6 @@
     };
     
     [self.navigationController pushViewController :selectPersonVC animated:YES];
-}
-
-/**
- *  通讯录
- *
- *  @param sender sender description
- */
--(void) pushAddressBook
-{
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingAddressBookViewController *addressBookVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"FlyingAddressBookViewController"];
-    [self.navigationController pushViewController:addressBookVC animated:YES];
-    
 }
 
 //*********************插入自定义Cell*********************//

@@ -16,7 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - INTULocationManager (4.1.1)
   - MBProgressHUD (0.9.2)
-  - RongCloudIMKit (2.4.8)
+  - RongCloudIMKit (2.4.9)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   INTULocationManager: 83c7373048d583cda57e25eefb9bb8a3675acf16
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  RongCloudIMKit: 43f367cba48b58238f1ab3b268842e6951231a54
+  RongCloudIMKit: e670867836deef44c0157f05b4a88107f1f5f8e6
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
   SlackTextViewController: 6b0d1030c53937226fc5358f217af2a34fc211cf

@@ -10,6 +10,8 @@
 #import "shareDefine.h"
 #import "FlyingGroupData.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+FlyingExtention.h"
+#import "FlyingGroupUpdateData.h"
 
 @implementation FlyingGroupTableViewCell
 
@@ -45,23 +47,38 @@
 }
 
 
--(void)settingWithGroupData:(FlyingGroupData*) groupData
+-(void)settingWithGroupData:(FlyingGroupUpdateData*) groupUpdateData;
 {
-    self.groupData = groupData;
+    self.groupUpdateData = groupUpdateData;
     
-    if (groupData.logo.length!=0) {
-        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
+    if (groupUpdateData.groupData.logo.length!=0) {
+        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:groupUpdateData.groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     else
     {
         [self.groupIconImageView setImage:[UIImage imageNamed:@"Icon"]];
     }
     
-    self.nameLabel.text = groupData.gp_name;
-    //self.memberCountLabel.text = groupData.gp_member_sum;
+    self.nameLabel.text = groupUpdateData.groupData.gp_name;
+    self.memberCountLabel.text = groupUpdateData.groupData.gp_member_sum;
+    self.contentCountLabel.text = groupUpdateData.groupData.gp_ln_sum;
     
-    self.dateLabel.text = @"9月5日14点32分";
+    if([groupUpdateData.recentLessonData.timeLamp containsString:@"-"] &&
+       [groupUpdateData.recentLessonData.timeLamp containsString:@":"])
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *Date = [dateFormatter dateFromString:groupUpdateData.recentLessonData.timeLamp];
+        
+        self.dateLabel.text =[NSString stringFromTimeInterval:-[Date timeIntervalSinceNow]];
+    }
+    else
+    {
+        NSDate *now = [NSDate date];
+        self.dateLabel.text = [NSString stringFromTimeInterval:-[now timeIntervalSinceNow]];
+    }
     
-    self.descriptionLabel.text = groupData.gp_desc;
+    self.descriptionLabel.text = groupUpdateData.groupData.gp_desc;
 }
 @end

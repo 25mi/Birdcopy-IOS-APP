@@ -131,7 +131,6 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                                 failure:(void (^)(NSError* err))failure;
 
 + (void) getMemberListForGroupID:(NSString*) groupID
-                      PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
 
@@ -199,23 +198,23 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                           success:(void (^)(id response))success
                           failure:(void (^)(NSError* err))failure;
 
-+ (void) getQRCountForUserID:(NSString *) userID
++ (void) getQRCountWithOpenID:(NSString*) openudid
                      success:(void (^)(id response))success
                      failure:(void (^)(NSError* err))failure;
 
-+ (void) chargingCardSysURLForUserID:(NSString *) userID
++ (void) chargingCardSysURLWithOpenID:(NSString*) openudid
                               CardID:(NSString *) cardNo
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure;
 
 
-+ (void) getTouchDataForUserID:(NSString *) userID
++ (void) getTouchDataWithOpenID:(NSString*) openudid
                       lessonID:(NSString *) leesonID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure;
 
 
-+ (void) upadteLessonTouchWithAccount:(NSString*)passport
++ (void) upadteLessonTouchWithOpenID:(NSString*) openudid
                     lessonAndTouch:(NSString*) orgnizedStr
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure;

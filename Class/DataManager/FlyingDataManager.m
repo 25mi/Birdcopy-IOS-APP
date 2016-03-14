@@ -41,6 +41,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
     [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
     [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (NSString*) getBirdcopyAppID
@@ -52,9 +54,17 @@
 
 + (NSString*) getBusinessID
 {
-    NSString *businessID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Domain_ID];;
     
-    return businessID;
+    return [FlyingDataManager getBirdcopyAppID];
+    
+    //NSString *businessID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Domain_ID];;
+    
+    //return businessID;
+}
+
++ (NSString*) getChannelID
+{
+    return [FlyingDataManager getBirdcopyAppID];
 }
 
 + (NSString*) getServerAddress
@@ -283,28 +293,24 @@
     
     //会员信息
     [FlyingHttpTool getMembershipForAccount:openID
-                                      AppID:[FlyingDataManager getBirdcopyAppID]
                                  Completion:^(NSDate *startDate, NSDate *endDate) {
                                           //
                                       }];
     
     //苹果渠道购买、金币消费、点击单词统计
     [FlyingHttpTool getMoneyDataWithOpenID:openID
-                                     AppID:[FlyingDataManager getBirdcopyAppID]
                                 Completion:^(BOOL result) {
                                     //
                                 }];
     
     //充值卡记录
     [FlyingHttpTool getQRDataForUserID:openID
-                                 AppID:[FlyingDataManager getBirdcopyAppID]
                             Completion:^(BOOL result) {
                                 //
                             }];
     
     //课程统计信息
     [FlyingHttpTool getStatisticDetailWithOpenID:openID
-                                           AppID:[FlyingDataManager getBirdcopyAppID]
                                       Completion:^(BOOL result) {
                                            //
     }];
@@ -430,7 +436,6 @@
                                                       NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
                                                       
                                                       [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                                                                           AppID:[FlyingDataManager getBirdcopyAppID]
                                                                                        StartDate:startDate
                                                                                          EndDate:endDate
                                                                                       Completion:^(BOOL result) {

@@ -36,6 +36,8 @@ typedef enum BC_Domain_Type
 
 #define SERVER_DOMAIN               @"http://e.birdcopy.com"
 
+//产品用户相关
+#define KAPI_BusinessID_KEY         @"app_id"
 
 //瀑布布局相关
 #define TileHeight_iphone  20
@@ -159,6 +161,9 @@ typedef enum BC_Domain_Type
 #define KGroupMemberVerified      @"1"
 #define KGroupMemberReviewing     @"0"
 #define KGroupMemberRefused       @"4"
+
+#define kGroupMemberCount         2000
+
 
 
 //搜索相关
@@ -295,9 +300,6 @@ typedef NSInteger BE_Vedio_Type;
 
 #define kIPhoneCollectionWidth     140
 #define kIPADCollectionWidth       230
-
-#define kperpageLessonCount        12
-#define kperpageLessonCountPAD     20
 
 #define kLessonAbstractIPADLenth   60
 #define kLessonAbstractPhoneLenth  48

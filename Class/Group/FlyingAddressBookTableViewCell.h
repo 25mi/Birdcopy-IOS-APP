@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingGroupMemberData.h"
 
-#define ADRESSCELL_IDENTIFIER @"groupCell"
+#define ADRESSCELL_IDENTIFIER @"addressgroupCell"
 
 
 @interface FlyingAddressBookTableViewCell : UITableViewCell
@@ -17,5 +18,7 @@
 
 
 + (FlyingAddressBookTableViewCell*) adressBookCell;
+
+-(void)settingWithContentData:(FlyingGroupMemberData*) memberData;
 
 @end

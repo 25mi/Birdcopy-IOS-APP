@@ -10,7 +10,7 @@
 
 #define GROUPCELL_IDENTIFIER @"groupCell"
 
-@class FlyingGroupData;
+@class FlyingGroupUpdateData;
 
 @interface FlyingGroupTableViewCell : UITableViewCell
 
@@ -24,10 +24,10 @@
 
 @property (nonatomic, strong) IBOutlet UILabel       * descriptionLabel;
 
-@property (nonatomic, strong) FlyingGroupData* groupData;
+@property (nonatomic, strong) FlyingGroupUpdateData* groupUpdateData;
 
 + (FlyingGroupTableViewCell*) groupCell;
 
--(void)settingWithGroupData:(FlyingGroupData*) groupData;
+-(void)settingWithGroupData:(FlyingGroupUpdateData*) groupUpdateData;
 
 @end

@@ -9,7 +9,6 @@
 #import "FlyingAccountVC.h"
 #import "UIColor+RCColor.h"
 #import "iFlyingAppDelegate.h"
-#import "FlyingSearchViewController.h"
 #import "FlyingProfileVC.h"
 #import "FlyingNavigationController.h"
 #import "AFHttpTool.h"

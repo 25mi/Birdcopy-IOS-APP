@@ -243,7 +243,6 @@
         
         //向服务器获取最新会员数据
         [FlyingHttpTool getMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                          AppID:[FlyingDataManager getBirdcopyAppID]
                                      Completion:^(NSDate *startDate, NSDate *endDate) {
                                          //
                                          if(endDate)
@@ -411,8 +410,7 @@
             if(self.thePubLesson.contentURL!=nil)
             {
                 FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-                webVC.lessonID=self.thePubLesson.lessonID;
-                [webVC setWebURL:self.thePubLesson.contentURL];
+                [webVC setThePubLesson:self.thePubLesson];
                 [self.navigationController pushViewController:webVC animated:YES];
             }
         }
@@ -448,8 +446,7 @@
     else if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
         FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-        webVC.lessonID=self.thePubLesson.lessonID;
-        [webVC setWebURL:self.thePubLesson.contentURL];
+        [webVC setThePubLesson:self.thePubLesson];
         [self.navigationController pushViewController:webVC animated:NO];
     }
     else if([self.thePubLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.thePubLesson.contentURL])

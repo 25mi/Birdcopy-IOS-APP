@@ -8,8 +8,9 @@
 
 #import "FlyingGroupUpdateCell.h"
 #import "shareDefine.h"
-#import "FlyingGroupData.h"
+#import "FlyingGroupUpdateData.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+FlyingExtention.h"
 
 @implementation FlyingGroupUpdateCell
 
@@ -46,31 +47,45 @@
 }
 
 
--(void)settingWithGroupData:(FlyingGroupData*) groupData
+-(void)settingWithGroupData:(FlyingGroupUpdateData*) updateGroupData;
 {
-    self.groupData = groupData;
+    self.updateGroupData = updateGroupData;
     
-    if (groupData.logo.length!=0) {
-        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
+    if (updateGroupData.groupData.logo.length!=0) {
+        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:updateGroupData.groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     else
     {
         [self.groupIconImageView setImage:[UIImage imageNamed:@"Icon"]];
     }
     
-    self.nameLabel.text = groupData.gp_name;
-    //self.memberCountLabel.text = groupData.gp_member_sum;
+    self.nameLabel.text =updateGroupData.groupData.gp_name;
+    self.memberCountLabel.text = updateGroupData.groupData.gp_member_sum;
+    self.contentCountLabel.text = updateGroupData.groupData.gp_ln_sum;
     
-    self.dateLabel.text = @"9月5日  14点32分";
+    if([updateGroupData.recentLessonData.timeLamp containsString:@"-"] &&
+       [updateGroupData.recentLessonData.timeLamp containsString:@":"])
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *Date = [dateFormatter dateFromString:updateGroupData.recentLessonData.timeLamp];
+        
+        self.dateLabel.text =[NSString stringFromTimeInterval:-[Date timeIntervalSinceNow]];
+    }
+    else
+    {
+        self.dateLabel.text = updateGroupData.recentLessonData.timeLamp;
+    }
     
-    if (groupData.cover.length!=0) {
-        [self.updateImageView sd_setImageWithURL:[NSURL URLWithString:groupData.cover] placeholderImage:[UIImage imageNamed:@"Default"]];
+    if (updateGroupData.recentLessonData.imageURL.length!=0) {
+        [self.updateImageView sd_setImageWithURL:[NSURL URLWithString:updateGroupData.recentLessonData.imageURL] placeholderImage:[UIImage imageNamed:@"Default"]];
     }
     else
     {
         [self.updateImageView setImage:[UIImage imageNamed:@"Icon"]];
     }
     
-    self.updateContentLabel.text = groupData.gp_desc;
+    self.updateContentLabel.text = updateGroupData.recentLessonData.desc;
 }
 @end

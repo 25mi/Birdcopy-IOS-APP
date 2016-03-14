@@ -39,6 +39,7 @@
 #import "FlyingContentListVC.h"
 #import "FlyingGroupUpdateCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "FlyingGroupUpdateData.h"
 
 @interface FlyingMyGroupsVC ()
 {
@@ -150,9 +151,9 @@
          _currentLodingIndex++;
          
          [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
-                                       Completion:^(NSArray *groupList, NSInteger allRecordCount) {
+                                       Completion:^(NSArray *groupUpdateList, NSInteger allRecordCount) {
                                            //
-                                           [self.currentData addObjectsFromArray:groupList];
+                                           [self.currentData addObjectsFromArray:groupUpdateList];
                                            _maxNumOfGroups=allRecordCount;
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
@@ -272,8 +273,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupData *groupData = self.currentData[indexPath.row];
-    [(FlyingGroupUpdateCell*)cell settingWithGroupData:groupData];
+    FlyingGroupUpdateData *updateData = self.currentData[indexPath.row];
+    [(FlyingGroupUpdateCell*)cell settingWithGroupData:updateData];
 }
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
@@ -308,10 +309,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupData* groupData = [_currentData objectAtIndex:indexPath.row];
+    FlyingGroupUpdateData* groupUpdaeData = [_currentData objectAtIndex:indexPath.row];
 
     FlyingGroupVC *groupVC = [FlyingGroupVC new];
-    groupVC.groupData=groupData;
+    groupVC.groupData=groupUpdaeData.groupData;
     groupVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:groupVC animated:YES];

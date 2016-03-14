@@ -18,8 +18,8 @@
 //APP数据
 +(void) saveAppData:(FlyingAppData*) appData;
 
-+ (NSString*) getBirdcopyAppID;
 + (NSString*) getBusinessID;
++ (NSString*) getBirdcopyAppID;
 
 + (NSString*) getServerAddress;
 + (NSString*) getRongAppKey;

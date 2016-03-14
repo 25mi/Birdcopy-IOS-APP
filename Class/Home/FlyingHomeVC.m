@@ -40,9 +40,8 @@
 #import "FlyingGroupTableViewCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "shareDefine.h"
-
-#import "FlyingAddressBookViewController.h"
 #import "SIAlertView.h"
+#import "FlyingGroupUpdateData.h"
 
 @interface FlyingHomeVC ()
 {
@@ -82,17 +81,11 @@
     self.title =@"发现";
     
     //顶部导航
+    
     UIButton* chatButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
     [chatButton setBackgroundImage:[UIImage imageNamed:@"Help"] forState:UIControlStateNormal];
     [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* chatBarButtonItems= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-
-    self.navigationItem.leftBarButtonItem = chatBarButtonItems;
-    
-    UIButton* memberButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
-    [memberButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
-    [memberButton addTarget:self action:@selector(showMember) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* memberBarButtonItems= [[UIBarButtonItem alloc] initWithCustomView:memberButton];
+    UIBarButtonItem* chatBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
     
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(200, 7, 24, 24)];
     [discoverButton setBackgroundImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
@@ -100,7 +93,7 @@
     
     UIBarButtonItem* discoverButtonItem= [[UIBarButtonItem alloc] initWithCustomView:discoverButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:discoverButtonItem,memberBarButtonItems,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:discoverButtonItem,chatBarButtonItem,nil];
     
     //顶部导航
     [self reloadAll];
@@ -132,15 +125,6 @@
     chatService.title = @"客服聊天室";
     chatService.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatService animated:YES];
-}
-
--(void) showMember
-{
-    FlyingAddressBookViewController * membersVC = [[FlyingAddressBookViewController alloc] init];
-    
-    membersVC.title = @"群成员";
-    membersVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:membersVC animated:YES];
 }
 
 - (void) willDismiss
@@ -196,7 +180,7 @@
         [coverFlow loadData];
         self.groupTableView.tableHeaderView =coverFlow;
 
-        [self.view addSubview:_groupTableView];
+        [self.view addSubview:self.groupTableView];
         
         _currentData = [NSMutableArray new];
         
@@ -257,29 +241,6 @@
     
     
     return true;
-    
-    /*
-     if (_currentData.count<_maxNumOfGroups)
-     {
-     _currentLodingIndex++;
-     
-     [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
-     Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-     //
-     [self.currentData addObjectsFromArray:groupList];
-     _maxNumOfGroups=allRecordCount;
-     
-     dispatch_async(dispatch_get_main_queue(), ^{
-     [self finishLoadingData];
-     });
-     }];
-     return true;
-     }
-     else{
-     
-     return false;
-     }
-     */
 }
 
 -(void) finishLoadingData
@@ -391,7 +352,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupData *groupData = self.currentData[indexPath.row];
+    FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
     [(FlyingGroupTableViewCell*)cell settingWithGroupData:groupData];
 }
 //////////////////////////////////////////////////////////////
@@ -428,21 +389,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    FlyingGroupData* groupData = [_currentData objectAtIndex:indexPath.row];
+    FlyingGroupUpdateData* groupUpdateData = [_currentData objectAtIndex:indexPath.row];
     
-    if (groupData.is_public_access) {
+    if (groupUpdateData.groupData.is_public_access) {
         
-        [self enterGroup:groupData];
+        [self enterGroup:groupUpdateData.groupData];
     }
     else{
     
         [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
-                                                 AppID:[FlyingDataManager getBirdcopyAppID]
-                                               GroupID:groupData.gp_id Completion:^(NSString *result) {
+                                               GroupID:groupUpdateData.groupData.gp_id Completion:^(NSString *result) {
                                                    //
                                                    if ([result isEqualToString:KGroupMemberVerified]) {
                                                        
-                                                       [self enterGroup:groupData];
+                                                       [self enterGroup:groupUpdateData.groupData];
                                                    }
                                                    else if ([result isEqualToString:KGroupMemberNoexisted])
                                                    {
@@ -458,12 +418,12 @@
                                                                                 type:SIAlertViewButtonTypeDefault
                                                                              handler:^(SIAlertView *alertView) {
                                                                                  
-                                                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID] AppID:[FlyingDataManager getBirdcopyAppID]
-                                                                                                             GroupID:groupData.gp_id
+                                                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID] 
+                                                                                                             GroupID:groupUpdateData.groupData.gp_id
                                                                                                           Completion:^(NSString *result) {
                                                                                                               
                                                                                                               if ([result isEqualToString:KGroupMemberVerified]) {
-                                                                                                                  [self enterGroup:groupData];
+                                                                                                                  [self enterGroup:groupUpdateData.groupData];
                                                                                                               }
                                                                                                               else {
                                                                                                                   
@@ -498,13 +458,18 @@
 
 -(void) showMemberInfo:(NSString*)reslutStr
 {
-    
+    NSString * verifiedStr = @"你已经是正式会员，可以参与互动了!";
     NSString * refuseStr = @"你的成员资格被拒绝!";
     NSString * reviewStr = @"你的成员资格正在审批中...";
     
     NSString * infoStr=@"未知错误！";
-
-    if ([reslutStr isEqualToString:KGroupMemberRefused]) {
+    
+    if ([reslutStr isEqualToString:KGroupMemberVerified]) {
+        
+        infoStr = verifiedStr;
+    }
+    
+    else if ([reslutStr isEqualToString:KGroupMemberRefused]) {
         
         infoStr = refuseStr;
     }

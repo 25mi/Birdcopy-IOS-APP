@@ -45,8 +45,8 @@
         responseSerializer.acceptableContentTypes= [NSSet setWithObject:@"text/html"];
     }
     
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        //
         [mgr.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     }
     
@@ -355,7 +355,7 @@
                       DomainType:(BC_Domain_Type) type
                       PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
+                         failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
@@ -363,7 +363,7 @@
             
         case BC_Business_Domain:
         {
-            [params setObject:domainID forKey:@"puser_id"];
+            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
             break;
         }
             
@@ -383,13 +383,6 @@
             break;
     }
     
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -413,13 +406,6 @@
     
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openID}];
     
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -451,8 +437,6 @@
               failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
-    
     [params setObject:groupID forKey:@"gp_id"];
 
     
@@ -471,7 +455,6 @@
                  failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
 
     [params setObject:groupID forKey:@"gp_id"];
     
@@ -489,7 +472,6 @@
                                 failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [params setObject:groupID forKey:@"gp_id"];
     
@@ -503,17 +485,15 @@
 
 
 + (void) getMemberListForGroupID:(NSString*) groupID
-                      PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
-    [params setObject:groupID forKey:@"gp_id"];
+    [params setObject:[@(kGroupMemberCount) stringValue] forKey:@"perPageCount"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_info_from_tn.action"
+                              url:@"ga_get_member_list_from_tn.action"
                            params:params
          responseSerializerIsJson:true
                           success:success
@@ -535,13 +515,6 @@
     [params setObject:contentID forKey:@"ct_id"];
     [params setObject:contentType forKey:@"ct_type"];
     
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -558,7 +531,6 @@
                failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
 
     if (commentData.contentID.length!=0) {
         
@@ -674,11 +646,9 @@
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
                          success:(void (^)(id response))success
-                         failure:(void (^)(NSError* err))failure;
+                         failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
-
     [params setObject:@"validth" forKey:@"type"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -725,85 +695,112 @@
 //////////////////////////////////////////////////////////////
 
 +(void) getMoneyDataWithOpenID:(NSString*) openudid
-                         AppID:(NSString*) appID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:@"accobk" forKey:@"type"];
+
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_get_user_info_from_hp.action"
-                           params:@{@"user_key":openudid,@"type":@"accobk"}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
 +(void) uploadMoneyDataWithOpenID:(NSString*) openudid
-                            AppID:(NSString*) appID
                        MoneyCount:(NSInteger) moneycount
                         GiftCount:(NSInteger) giftCount
                        TouchCount:(NSInteger) touchCount
                           success:(void (^)(id response))success
                           failure:(void (^)(NSError* err))failure
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[@(moneycount) stringValue] forKey:@"appletpp_sum"];
+    [params setObject:[@(giftCount) stringValue] forKey:@"reward_sum"];
+    [params setObject:[@(touchCount) stringValue] forKey:@"consume_sum"];
+
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_sync_accobk_from_hp.action"
-                           params:@{@"user_key":openudid,@"appletpp_sum":[@(moneycount) stringValue],@"reward_sum":[@(giftCount) stringValue],@"consume_sum":[@(touchCount) stringValue]}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
-+ (void) getQRCountForUserID:(NSString *) userID
-                       AppID:(NSString*) appID
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure
++ (void) getQRCountWithOpenID:(NSString*) openudid
+                      success:(void (^)(id response))success
+                      failure:(void (^)(NSError* err))failure
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:@"topup_pwd_total" forKey:@"type"];
+    
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"la_get_user_info_from_hp.action"
-                           params:@{@"user_key":userID,@"type":@"topup_pwd_total"}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
-+ (void) chargingCardSysURLForUserID:(NSString *) userID
-                               AppID:(NSString*) appID
++ (void) chargingCardSysURLWithOpenID:(NSString*) openudid
                               CardID:(NSString *) cardNo
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:cardNo forKey:@"topup_pwd"];
+
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"la_topup_pwd_from_hp.action"
-                           params:@{@"user_key":userID,@"topup_pwd":cardNo}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
-+ (void) getTouchDataForUserID:(NSString *) userID
-                         AppID:(NSString*) appID
++ (void) getTouchDataWithOpenID:(NSString*) openudid
                       lessonID:(NSString *) leesonID
                        success:(void (^)(id response))success
                        failure:(void (^)(NSError* err))failure
 
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:@"lnclick" forKey:@"type"];
+    [params setObject:leesonID forKey:@"ln_id"];
+
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_get_user_info_from_hp.action"
-                           params:@{@"user_key":userID,@"type":@"lnclick",@"ln_id":leesonID}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
 }
 
-+ (void) upadteLessonTouchWithAccount:(NSString*)passport
-                                AppID:(NSString*) appID
++ (void) upadteLessonTouchWithOpenID:(NSString*) openudid
                        lessonAndTouch:(NSString*) orgnizedStr
                            success:(void (^)(id response))success
                            failure:(void (^)(NSError* err))failure
 {
+    //老API还用user_key
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:orgnizedStr forKey:@"lncks"];
+
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_sync_lnclick_from_hp.action"
-                           params:@{@"user_key":passport,@"lncks":orgnizedStr}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                           failure:failure];
@@ -823,13 +820,7 @@
                               success:(void (^)(id response))success
                               failure:(void (^)(NSError* err))failure
 {
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}];
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"page":[@(pageNumber) stringValue]}];
     
     [params setObject:@"upd_time desc" forKey:@"sortindex"];
 
@@ -850,38 +841,45 @@
     }
     
     switch (type) {
+            
         case BC_Business_Domain:
         {
-            [params setObject:domainID forKey:@"puser_id"];
+            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"sys_recom"];
+            }
+
             break;
         }
             
         case BC_Group_Domain:
         {
             [params setObject:domainID forKey:@"gp_id"];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"sys_recom"];
+            }
+
             break;
         }
             
         case BC_Author_Domain:
         {
             [params setObject:domainID forKey:@"ln_owner"];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"owner_recom"];
+            }
+
             break;
         }
             
         default:
             break;
-    }
-    
-    if(isOnlyRecommend)
-    {
-        if(domainID)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
     }
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -1008,7 +1006,7 @@
     switch (type) {
         case BC_Business_Domain:
         {
-            [params setObject:domainID forKey:@"puser_id"];
+            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
             break;
         }
             
@@ -1054,32 +1052,43 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
-    
-    [params setObject:[@(pagecount) stringValue] forKey:@"perPageCount"];
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
-    
     switch (type) {
+            
         case BC_Business_Domain:
         {
-            [params setObject:domainID forKey:@"puser_id"];
+            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"sys_recom"];
+            }
+            
             break;
         }
-                        
+            
         case BC_Group_Domain:
         {
             [params setObject:domainID forKey:@"gp_id"];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"sys_recom"];
+            }
+            
             break;
         }
             
         case BC_Author_Domain:
         {
-            [params setObject:domainID forKey:@"tag_owner"];
+            [params setObject:domainID forKey:@"ln_owner"];
+            
+            if(isOnlyRecommend)
+            {
+                [params setObject:@"1" forKey:@"owner_recom"];
+            }
+            
             break;
         }
             
@@ -1090,18 +1099,6 @@
     if (contentType.length!=0)
     {
         [params setObject:contentType forKey:@"res_type"];
-    }
-    
-    if(isOnlyRecommend)
-    {
-        if(domainID)
-        {
-            [params setObject:@"1" forKey:@"owner_recom"];
-        }
-        else
-        {
-            [params setObject:@"1" forKey:@"sys_recom"];
-        }
     }
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -1151,15 +1148,16 @@
                              success:(void (^)(id response))success
                              failure:(void (^)(NSError* err))failure
 {
-    NSInteger pagecount=kperpageLessonCount;
-    if (INTERFACE_IS_PAD)
-    {
-        pagecount=kperpageLessonCountPAD;
-    }
+    
+    NSMutableDictionary *params =[NSMutableDictionary dictionary];
+
+    [params setObject:latitude forKey:@"latitude"];
+    [params setObject:longitude forKey:@"longitude"];
+    [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"pu_get_user_position_list_from_hp.action"
-                        params:@{@"latitude":latitude,@"longitude":longitude,@"perPageCount":[@(pagecount) stringValue],@"page":[@(pageNumber) stringValue]}
+                           params:params
          responseSerializerIsJson:NO
                           success:success
                        failure:failure];
