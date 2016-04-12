@@ -1,0 +1,84 @@
+/* 
+  Localizable.strings
+  FlyingEnglish
+
+  Created by vincent sung on 4/4/2016.
+  Copyright © 2016 BirdEngish. All rights reserved.
+*/
+
+
+//首页
+"Discover"  = "发现";
+"Group"     = "群组";
+"Message"   = "消息";
+"Account"   = "设置";
+
+
+//时间
+"%@ days ago"       =  "%@天前";
+"%@ hours ago"      =  "%@小时前";
+"%@ minutes ago"    =  "%@分钟前";
+"%@ seconds ago"    =  "%@秒前";
+
+// 设置
+"My Service"        = "我的服务";
+"English Tool"      = "英语工具";
+"Scene Dictionary[%@]"      = "母语场景[%@]";
+"Chat Setting"      = "聊天设置";
+"Clear Cache"       = "清除缓存";
+"Style Setting"     = "风格设置";
+"Service Online"    = "在线咨询";
+
+
+//我的账户
+"Profile"           = "我的账户";
+"Portrait"          = "头像";
+"NickName"          = "昵称";
+"Who am I"          = "简介";
+"Login/Register"    = "登陆｜注册";
+"Login Out"         = "退出，以其它帐号登录";
+"Chat Now"          = "聊天｜沟通";
+
+//购买
+"Member User"       = "年费会员";
+"Member Start:%@"   = "生效时间:%@";
+"Member End:%@"     = "截止时间:%@";
+
+"Price Info:500"    = "500金币:6元";
+"Price Info:2000"   = "2000金币:18元";
+"Price Info:10000"  = "10000金币:68元";
+"Price Info:member" = "年费会员:698元";
+
+"CurrentCount"      = "现有金币";
+"BuyCount"          = "购买金币";
+"AwardCount"        = "奖励金币";
+"ConsumeCount"      = "消费金币";
+
+
+//评论
+"Send" = "发送";
+"Save" = "保存";
+
+"Cleanning is ok"                 =  "清理缓存成功！";
+"Touch portrait to update it!"    =  "请点击头像图片更新！";
+"Touch subtitle and learn there!" = "请点击屏幕的英文字幕,屏幕取词的结果会自动记录在这里，供你学习使用。";
+
+"Attenion Please"   = "友情提醒！";
+"Destructive"       = "确认";
+"Cancel"            = "取消";
+
+"I want to become a member!"          = "申请成为正式会员？";
+"Member can chat free, Do you want to become a member?" ="正式会员才能参与互动，你需要申请成为群组成员吗？";
+"You are member alreaday!"           = "你已经是会员，无需购买会员资格!";
+"In App Purchasing Disabled"         = "请打开购买手机的应用购买功能";
+"Upload your portrait first please!" = "请首先在设置->点击修改头像（昵称）噢";
+
+"Take Photo"        = "拍照";
+"Choose From Album" = "从相册选取";
+
+"I want to enjoy it!" = "我要解锁课程！";
+"No enough coins!"  = "没有足够的金币了：（";
+
+//视频播放
+"Item cannot be played" = "资源不能被识别";
+"The assets tracks were loaded, but could not be made playable." = "不支持的播放格式";

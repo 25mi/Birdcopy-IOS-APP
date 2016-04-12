@@ -19,21 +19,10 @@
     return [NSString stringWithFormat:sql,  @"BE_DIC_PUB"];
 }
 
--(void)       setUserModle:(BOOL) userModle;
-{
-    if (!userModle) {
-        self.workDbQueue = self.pubBaseDBQueue;
-    }
-    else{
-        self.workDbQueue = self.baseDBQueue;
-    }
-}
-
 - (FMDatabaseQueue *)dbQueue
 {
-    //默认是用户模式
     if (!self.workDbQueue) {
-        self.workDbQueue = self.baseDBQueue;
+        self.workDbQueue = self.dicDBQueue;
     }
     return self.workDbQueue;
 }

@@ -1,5 +1,4 @@
 //
-//  FlyingMyGroupsVC.h
 //  FlyingEnglish
 //
 //  Created by vincent on 9/4/15.
@@ -21,9 +20,6 @@
 @property (strong, nonatomic) NSString           *downloadType;
 
 @property (assign, nonatomic) BOOL               isOnlyFeatureContent;
-
-@property (strong, nonatomic) NSString           *domainID;
-@property (assign, nonatomic) BC_Domain_Type     domainType;
 
 @property (strong, nonatomic) UITableView        *contentTableView;
 

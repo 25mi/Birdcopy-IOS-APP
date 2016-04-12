@@ -25,19 +25,9 @@
     return [[FlyingDBManager shareInstance] shareUserDBQueue];
 }
 
-- (FMDatabaseQueue *) pubUserDBQueue
+- (FMDatabaseQueue *) dicDBQueue
 {
-    return [[FlyingDBManager shareInstance] sharePubUserDBQueue];
-}
-
-- (FMDatabaseQueue *) baseDBQueue
-{
-    return [[FlyingDBManager shareInstance] shareBaseDBQueue];
-}
-
-- (FMDatabaseQueue *) pubBaseDBQueue
-{
-    return [[FlyingDBManager shareInstance] sharePubBaseDBQueue];
+    return [[FlyingDBManager shareInstance] shareDicDBQueue];
 }
 
 // 子类中实现

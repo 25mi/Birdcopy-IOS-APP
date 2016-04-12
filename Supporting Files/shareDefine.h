@@ -9,6 +9,7 @@
 #ifndef FlyingEnglish_shareDefine_h
 #define FlyingEnglish_shareDefine_h
 
+//搜索资源类型
 typedef enum BESearchType
 {
     BEFindLesson,
@@ -17,14 +18,19 @@ typedef enum BESearchType
     BEFindPeople
 } BESearchType;
 
-
 //获取资源类型
-typedef enum BC_Domain_Type
-{
-    BC_Business_Domain,
-    BC_Group_Domain,
-    BC_Author_Domain,
-} BC_Domain_Type;
+#define BC_Domain_Business     @"BC_Domain_Business"
+#define BC_Domain_Group        @"BC_Domain_Group"
+#define BC_Domain_Author       @"BC_Domain_Author"
+#define BC_Domain_Content      @"BC_Domain_Content"
+
+//成员权利状态
+#define BC_Member_Noexisted     @"noexisted"
+#define BC_Member_Reviewing     @"0"
+#define BC_Member_Verified      @"1"
+#define BC_Member_Refused       @"4"
+
+#define BC_GroupMember_Count    2000
 
 //APP相关
 #define KAPP_Birdcopy_APPID         @"KAPP_Birdcopy_APPID"
@@ -38,6 +44,17 @@ typedef enum BC_Domain_Type
 
 //产品用户相关
 #define KAPI_BusinessID_KEY         @"app_id"
+
+
+//文件夹以及数据库管理
+#define BC_FileName_DicBase       @"mydic.db"
+#define BC_FileName_userBase      @"myuser.db"
+
+#define BC_DIR_MyLocalData        @"MyData"
+#define BC_DIR_UserData           @"UserData"
+#define BC_DIR_Downloads          @"Downloads"
+#define BC_DIR_Dictionary         @"Dictionary"
+#define BC_DIR_RongCloud          @"RongCloud"
 
 //瀑布布局相关
 #define TileHeight_iphone  20
@@ -55,6 +72,8 @@ typedef enum BC_Domain_Type
 
 #define KBEAccountChange          @"KBEAccountChange"
 #define KBEFIRSTLAUNCH            @"KBEFIRSTLAUNCH"
+
+#define KAPPBuyFail               @"KAPPBuyFail"
 
 #define KBELoadingCount           6
 
@@ -93,17 +112,9 @@ typedef enum BC_Domain_Type
 #define kUserName                 @"kUserName"
 #define kUserPassWord             @"kUserPassWord"
 
-#define kUserNickName             @"kUserNickName"
-#define kUserPortraitUri          @"kUserPortraitUri"
-#define kUserAbstract             @"kUserAbstract"
-
 //同步任务相关
 #define KShouldSysMembership      @"KShouldSysMembership"
 #define KEverLaunchedRecord       @"KEverLaunchedRecord"
-
-//会员相关
-#define KMembershipStartTime      @"KMembershipStartTime"
-#define KMembershipEndTime        @"KMembershipEndTime"
 
 //UI
 #define kNavigationBackColor      @"kNavigationBackColor"
@@ -126,10 +137,6 @@ typedef enum BC_Domain_Type
 
 #define KPNGType                  @"png"
 #define KJPGType                  @"jpg"
-
-#define KBaseDatdbaseFilename     @"mydic.db"
-#define KUserDatdbaseFilename     @"myuser.db"
-#define KUSerDataFoldName         @"MyData"
 
 #define K_BEID_MD5_DIGEST_LENGTH  1024    /* digest length in bytes */
 
@@ -155,16 +162,6 @@ typedef enum BC_Domain_Type
 #define KLessonOwnerTempKind      @"t"
 #define KLessonOwnerPersonKind    @"0"
 #define KLessonOwnerCompanyKind   @"1"
-
-//群组相关
-#define KGroupMemberNoexisted     @"noexisted"
-#define KGroupMemberVerified      @"1"
-#define KGroupMemberReviewing     @"0"
-#define KGroupMemberRefused       @"4"
-
-#define kGroupMemberCount         2000
-
-
 
 //搜索相关
 //#define kTagListStr_URL           @"%@/la_get_tag_string_for_hp.action?vc=3&perPageCount=%@&page=%@&ln_tag=%@&ln_owner=%@"
@@ -213,7 +210,6 @@ typedef enum BC_Domain_Type
 #define KBaseDicDefineType        @"dic800_define_n"
 
 #define KLessonDicXMLFile         @"dic_mend_n.xml"
-#define kShareBaseDir             @"shareBase"
 
 #define KItemDefaultType           9
 
@@ -244,7 +240,6 @@ typedef NSInteger BE_Item_Content_Type;
 #define KDownloadTypeM3U8         @"m3u8"
 #define KDownloadTypeMagnet       @"magnet"
 
-#define KUserDownloadsDir         @"Downloads"
 
 #define KlessonStateChange        @"KlessonStateChange"
 #define KlessonFinishTask         @"KlessonFinishTask"
@@ -285,7 +280,6 @@ typedef NSInteger BE_Vedio_Type;
 
 #define kMargin 8.0
 
-#define KNumberOFPIE               3
 #define KLoginNickName            @"nickname"
 
 #define KCounts_Average_Screen_Subtitle 30 //
@@ -337,10 +331,10 @@ enum
 };
 
 //字体
-#define KLargeFontSize   (INTERFACE_IS_PAD ? 32.0f : 16.0f)
-#define KNormalFontSize  (INTERFACE_IS_PAD ? 26.0f : 13.0f)
-#define KLittleFontSize  (INTERFACE_IS_PAD ? 24.0f : 12.0f)
-#define KSmallFontSize   (INTERFACE_IS_PAD ? 20.0f : 10.0f)
+#define KLargeFontSize   (INTERFACE_IS_PAD ? 24.0f : 16.0f)
+#define KNormalFontSize  (INTERFACE_IS_PAD ? 20.0f : 13.0f)
+#define KLittleFontSize  (INTERFACE_IS_PAD ? 18.0f : 12.0f)
+#define KSmallFontSize   (INTERFACE_IS_PAD ? 15.0f : 10.0f)
 
 //加载
 #define  kLoadMoreIndicatorTag  7

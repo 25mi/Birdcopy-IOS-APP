@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlyingMediaVC">
@@ -27,7 +27,6 @@
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zh8-EO-xtV" customClass="FlyingPlayerView">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sW1-Wg-I1H" customClass="FlyingAILearningView">
@@ -41,7 +40,6 @@
                                     <subviews>
                                         <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="full" translatesAutoresizingMaskIntoConstraints="NO" id="JwZ-cL-NCz">
                                             <rect key="frame" x="8" y="6" width="36" height="36"/>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="hJI-TP-SNg"/>
                                                 <constraint firstAttribute="width" constant="36" id="xdv-pw-sqK"/>
@@ -49,19 +47,16 @@
                                         </imageView>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fet-5M-r3d">
                                             <rect key="frame" x="50" y="9" width="442.5" height="31"/>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </slider>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00/00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0M-qU-67j">
                                             <rect key="frame" x="498.5" y="18" width="61.5" height="12"/>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="JwZ-cL-NCz" firstAttribute="centerY" secondItem="0Ho-ha-GoZ" secondAttribute="centerY" id="Suv-E2-Hhj"/>
@@ -74,16 +69,14 @@
                                         <constraint firstItem="fet-5M-r3d" firstAttribute="centerY" secondItem="0Ho-ha-GoZ" secondAttribute="centerY" id="yJR-ZU-zJz"/>
                                     </constraints>
                                 </view>
-                                <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="subtitle" translatesAutoresizingMaskIntoConstraints="NO" id="IwJ-Iz-iAe">
+                                <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="on" translatesAutoresizingMaskIntoConstraints="NO" id="IwJ-Iz-iAe">
                                     <rect key="frame" x="524" y="246" width="36" height="36"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="36" id="9cs-Er-Qi2"/>
                                         <constraint firstAttribute="height" constant="36" id="xc0-y9-caf"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="IwJ-Iz-iAe" secondAttribute="bottom" constant="8" id="4gt-jw-5Me"/>
@@ -95,7 +88,6 @@
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.75" tag="-1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="welcome" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="HOQ-oh-FQr" customClass="FlyingSubtitleTextView">
                             <rect key="frame" x="0.0" y="290" width="568" height="30.5"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -103,7 +95,6 @@
                             <dataDetectorType key="dataDetectorTypes" calendarEvent="YES"/>
                         </textView>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" button="YES" selected="YES" staticText="YES" updatesFrequently="YES"/>
@@ -120,10 +111,8 @@
                 </view>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Y9d-hl-mlz">
                     <rect key="frame" x="274" y="150" width="20" height="20"/>
-                    <animations/>
                 </activityIndicatorView>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="sW1-Wg-I1H" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5JU-hQ-48X"/>
@@ -144,6 +133,6 @@
     </objects>
     <resources>
         <image name="full" width="96" height="96"/>
-        <image name="subtitle" width="96" height="96"/>
+        <image name="on" width="96" height="96"/>
     </resources>
 </document>

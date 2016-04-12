@@ -11,9 +11,8 @@
 #import "shareDefine.h"
 #import "PSCollectionView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+WebCache.h"
 #import "UIImage+localFile.h"
-
+#import <UIImageView+AFNetworking.h>
 
 @interface FlyingLessonViewCell ()
 {
@@ -22,7 +21,6 @@
     
     UILabel                 *_titleLabel;
     UILabel                 *_descriptionLable;
-    UIActivityIndicatorView *_activityIndicator;
 }
 @end
 
@@ -143,18 +141,6 @@
                                            _titleLabel.frame.size.height+_coverImageView.frame.size.height+margin/2.0,
                                            columnWidth-margin,
                                            temHight+margin/2)];
-    
-    if (!_coverImageView.image) {
-        
-        if (INTERFACE_IS_PAD) {
-            
-            [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        }
-        else{
-            
-            [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-        }
-    }
 }
 
 + (CGFloat)rowHeightForObject:(FlyingPubLessonData *)detailData inColumnWidth:(CGFloat)columnWidth
@@ -230,13 +216,9 @@
         FlyingPubLessonData * detailData =(FlyingPubLessonData *)object;
         _titleLabel.text=detailData.title;
         
-        __weak typeof(self) weakSelf = self;
         [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
                 
-        [_coverImageView sd_setImageWithURL:[NSURL URLWithString:detailData.imageURL]
-                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [weakSelf removeActivityIndicator];
-        }];
+        [_coverImageView setImageWithURL:[NSURL URLWithString:detailData.imageURL]];
         
         _descriptionLable.text=detailData.desc;
         
@@ -260,28 +242,4 @@
     }
 }
 
--(void) createActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle
-{
-    
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-    
-    //calculate the correct position
-    float width = _activityIndicator.frame.size.width;
-    float height = _activityIndicator.frame.size.height;
-    float x = (_coverImageView.frame.size.width / 2.0) - width/2;
-    float y = (_coverImageView.frame.size.height / 2.0) - height/2;
-    _activityIndicator.frame = CGRectMake(x, y, width, height);
-    _activityIndicator.color=[UIColor grayColor];
-
-    _activityIndicator.hidesWhenStopped = YES;
-    [_coverImageView addSubview:_activityIndicator];
-    
-    [_activityIndicator startAnimating];
-}
-
--(void) removeActivityIndicator
-{
-    
-    [[_coverImageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-}
 @end

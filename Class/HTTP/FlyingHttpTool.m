@@ -11,13 +11,11 @@
 #import "FlyingHttpTool.h"
 #import "shareDefine.h"
 #import "AFHttpTool.h"
-#import "FlyingUserInfo.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDataBaseManager.h"
 
 #import "FlyingLessonParser.h"
 #import "FlyingItemParser.h"
-#import "FlyingProviderParser.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingCoverDataParser.h"
 
@@ -37,224 +35,16 @@
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
 
-#import "SIAlertView.h"
 #import "FlyingDataManager.h"
 #import <UICKeyChainStore.h>
 #import "FlyingGroupUpdateData.h"
+#import "iFlyingAppDelegate.h"
 
 @implementation FlyingHttpTool
 
--(void) isMyFriendWithUserInfo:(FlyingUserInfo *)userInfo
-                    completion:(void(^)(BOOL isFriend)) completion
-{
-    [self getFriends:^(NSMutableArray *result) {
-        for (FlyingUserInfo *user in result) {
-            if ([user.userId isEqualToString:userInfo.userId] && completion && [@"1" isEqualToString:userInfo.status]) {
-                completion(YES);
-            }else if(completion){
-                completion(NO);
-            }
-        }
-    }];
-}
-
-- (void)getFriends:(void (^)(NSMutableArray*))friendList
-{
-    NSMutableArray* list = [NSMutableArray new];
-    
-    [AFHttpTool getFriendListFromServerSuccess:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        if (friendList) {
-            if ([code isEqualToString:@"200"]) {
-                //[_allFriends removeAllObjects];
-                NSArray * regDataArray = response[@"result"];
-                
-                for(int i = 0;i < regDataArray.count;i++){
-                    NSDictionary *dic = [regDataArray objectAtIndex:i];
-                    if([[dic objectForKey:@"status"] intValue] != 1)
-                        continue;
-                    
-                    FlyingUserInfo*userInfo = [FlyingUserInfo new];
-                    NSNumber *idNum = [dic objectForKey:@"id"];
-                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.userName = [dic objectForKey:@"username"];
-                    userInfo.email = [dic objectForKey:@"email"];
-                    userInfo.status = [dic objectForKey:@"status"];
-                    [list addObject:userInfo];
-                    //[_allFriends addObject:userInfo];
-                }
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    friendList(list);
-                });
-                
-            }else{
-                friendList(list);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (friendList) {
-            friendList(list);
-        }
-    }];
-}
-
-- (void)searchFriendListByEmail:(NSString*)email complete:(void (^)(NSMutableArray*))friendList
-{
-    NSMutableArray* list = [NSMutableArray new];
-    [AFHttpTool searchFriendListByEmail:email success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (friendList) {
-            if ([code isEqualToString:@"200"]) {
-                
-                id result = response[@"result"];
-                if([result respondsToSelector:@selector(intValue)]) return ;
-                if([result respondsToSelector:@selector(objectForKey:)])
-                {
-                    FlyingUserInfo*userInfo = [FlyingUserInfo new];
-                    NSNumber *idNum = [result objectForKey:@"id"];
-                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                    userInfo.portraitUri = [result objectForKey:@"portrait"];
-                    userInfo.userName = [result objectForKey:@"username"];
-                    [list addObject:userInfo];
-                    
-                }
-                else
-                {
-                    NSArray * regDataArray = response[@"result"];
-                    
-                    for(int i = 0;i < regDataArray.count;i++){
-                        
-                        NSDictionary *dic = [regDataArray objectAtIndex:i];
-                        FlyingUserInfo*userInfo = [FlyingUserInfo new];
-                        NSNumber *idNum = [dic objectForKey:@"id"];
-                        userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                        userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                        userInfo.userName = [dic objectForKey:@"username"];
-                        [list addObject:userInfo];
-                    }
-                    
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    friendList(list);
-                });
-                
-            }else{
-                friendList(list);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (friendList) {
-            friendList(list);
-        }
-    }];
-}
-
-- (void)searchFriendListByName:(NSString*)name complete:(void (^)(NSMutableArray*))friendList
-{
-    NSMutableArray* list = [NSMutableArray new];
-    [AFHttpTool searchFriendListByName:name success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (friendList) {
-            if ([code isEqualToString:@"200"]) {
-                
-                NSArray * regDataArray = response[@"result"];
-                for(int i = 0;i < regDataArray.count;i++){
-                    
-                    NSDictionary *dic = [regDataArray objectAtIndex:i];
-                    FlyingUserInfo*userInfo = [FlyingUserInfo new];
-                    NSNumber *idNum = [dic objectForKey:@"id"];
-                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.userName = [dic objectForKey:@"username"];
-                    [list addObject:userInfo];
-                }
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    friendList(list);
-                });
-                
-            }else{
-                friendList(list);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (friendList) {
-            friendList(list);
-        }
-    }];
-}
-- (void)requestFriend:(NSString*)userId complete:(void (^)(BOOL))result
-{
-    [AFHttpTool requestFriend:userId success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (result) {
-            if ([code isEqualToString:@"200"]) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    result(YES);
-                });
-                
-            }else{
-                result(NO);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (result) {
-            result(NO);
-        }
-    }];
-}
-- (void)processRequestFriend:(NSString*)userId withIsAccess:(BOOL)isAccess complete:(void (^)(BOOL))result
-{
-    [AFHttpTool processRequestFriend:userId withIsAccess:isAccess success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (result) {
-            if ([code isEqualToString:@"200"]) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    result(YES);
-                });
-                
-            }else{
-                result(NO);
-            }
-        }
-    } failure:^(id response) {
-        if (result) {
-            result(NO);
-        }
-    }];
-}
-
-- (void)deleteFriend:(NSString*)userId complete:(void (^)(BOOL))result
-{
-    [AFHttpTool deleteFriend:userId success:^(id response) {
-        NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
-        if (result) {
-            if ([code isEqualToString:@"200"]) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    result(YES);
-                });
-                
-            }else{
-                result(NO);
-            }
-            
-        }
-    } failure:^(id response) {
-        if (result) {
-            result(NO);
-        }
-    }];
-}
+//////////////////////////////////////////////////////////////////////////////////
+#pragma  登录问题
+//////////////////////////////////////////////////////////////////////////////////
 
 +(void) loginRongCloud
 {
@@ -313,17 +103,8 @@
                                     if (currentUserInfo==nil)
                                     {
                                         [FlyingHttpTool getUserInfoByRongID:userId
-                                                                 completion:^(RCUserInfo *user) {
-                                                                     
-                                                                     if (user) {
-                                                                         //保存当前的用户信息（IM本地）
-                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = user;
-                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:user];
-                                                                         
-                                                                         //保存当前的用户信息（系统本地）
-                                                                         [FlyingDataManager setNickName:user.name];
-                                                                         [FlyingDataManager setUserPortraitUri:user.portraitUri];
-                                                                     }
+                                                                 completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
+                                                                     //
                                                                  }];
                                     }
                                     else
@@ -357,15 +138,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 +(void) getUserInfoByopenID:(NSString *) openID
-                 completion:(void (^)(RCUserInfo *user)) completion
+                 completion:(void (^)(FlyingUserData *userData,RCUserInfo *userInfo)) completion;
 {
     [AFHttpTool getUserInfoWithOpenID:openID
                               success:^(id response) {
                                   //
                                   if (response) {
+                                      
                                       NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
                                       
                                       if ([code isEqualToString:@"1"]) {
+                                          
+                                          //系统用户数据
+                                          FlyingUserData * userData = [FlyingUserData new];
+                                          
+                                          userData.openUDID = response[@"tuser_key"];
+                                          userData.name     = response[@"name"];
+                                          userData.portraitUri=response[@"portraitUri"];
+                                          userData.digest   = response[@"br_intro"];
+                                          
+                                          [FlyingDataManager saveUserData:userData];
                                           
                                           RCUserInfo *userInfo = [RCUserInfo new];
                                           
@@ -375,14 +167,31 @@
                                           
                                           //用户融云数据库
                                           [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
-                                          
                                           //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
                                           [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
                                           
-                                          completion(userInfo);
+                                          if (completion) {
+                                              
+                                              completion(userData,userInfo);
+                                          }
                                       }
                                       else
                                       {
+                                          
+                                          //系统用户数据
+                                          FlyingUserData * userData = [[FlyingUserData alloc] init];
+                                          userData.openUDID = [FlyingDataManager getOpenUDID];
+
+                                          [FlyingDataManager saveUserData:userData];
+
+                                          RCUserInfo *userInfo = [RCUserInfo new];
+                                          userInfo.userId= [openID MD5];
+                                          
+                                          //用户融云数据库
+                                          [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+                                          //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                          [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
+                                          
                                           NSLog(@"getUserInfoWithOpenID:%@",response[@"rm"]);
                                       }
                                   }
@@ -396,15 +205,24 @@
 
 
 +(void) getUserInfoByRongID:(NSString *) rongID
-                 completion:(void (^)(RCUserInfo *user)) completion
+                 completion:(void (^)(FlyingUserData *userData,RCUserInfo *userInfo)) completion
 {
     [AFHttpTool getUserInfoWithRongID:rongID
                               success:^(id response) {
                                   //
                                   if (response) {
+                                      
                                       NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
                                       
                                       if ([code isEqualToString:@"1"]) {
+                                          
+                                          //系统用户数据
+                                          FlyingUserData * userData = [FlyingUserData new];
+                                          
+                                          userData.openUDID = response[@"tuser_key"];
+                                          userData.name     = response[@"name"];
+                                          userData.portraitUri=response[@"portraitUri"];
+                                          userData.digest   = response[@"br_intro"];
                                           
                                           RCUserInfo *userInfo = [RCUserInfo new];
                                           
@@ -412,17 +230,21 @@
                                           userInfo.name=response[@"name"];
                                           userInfo.portraitUri=response[@"portraitUri"];
                                           
+                                          [FlyingDataManager saveUserData:userData];
+                                          
                                           //用户融云数据库
                                           [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
-                                          
                                           //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
                                           [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
                                           
-                                          completion(userInfo);
+                                          if (completion) {
+                                              
+                                              completion(userData,userInfo);
+                                          }
                                       }
                                       else
                                       {
-                                          NSLog(@"getUserInfoWithRongID:%@",response[@"rm"]);
+                                          NSLog(@"getUserInfoByRongID:%@",response[@"rm"]);
                                       }
                                   }
                               } failure:^(NSError *err) {
@@ -440,80 +262,80 @@
                                           data:imageData
                                        success:^(id response) {
                                            //
-                                           if (response)
-                                           {
-                                               NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
-                                               
-                                               //上传图片到服务器，成功后通知融云服务器更新用户信息
-                                               if ([code isEqualToString:@"1"])
-                                               {
-                                                   NSString *portraitUri = [NSString stringWithFormat:@"%@",response[@"portraitUri"]];
-                                                   
-                                                   if (portraitUri.length!=0) {
-                                                       
-                                                       [AFHttpTool refreshUesrWithOpenID:openID
-                                                                                    name:nil
-                                                                             portraitUri:portraitUri
-                                                                                br_intro:nil
-                                                                                 success:^(id response) {
-                                                                                     
-                                                                                     NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
-                                                                                     
-                                                                                     BOOL result=false;
-                                                                                     
-                                                                                     //上传图片到服务器，成功后通知融云服务器更新用户信息
-                                                                                     if ([code isEqualToString:@"1"])
-                                                                                     {
-                                                                                         result=true;
-                                                                                         
-                                                                                         //更新本地信息
-                                                                                         [FlyingDataManager setUserPortraitUri:portraitUri];
-                                                                                         
-                                                                                         //更新融云信息
-                                                                                         RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                                                                                         currentUserInfo.portraitUri=portraitUri;
-                                                                                         [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
-                                                                                         
-                                                                                         //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                                                                         [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
-                                                                                         
-                                                                                         [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
-                                                                                     }
-                                                                                     
-                                                                                     completion(result);
-                                                                                 }
-                                                                                 failure:^(NSError *err) {
-                                                                                     //
-                                                                                     NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
-                                                                                     completion(false);
-                                                                                 }];
-                                                   }
-                                               }
-                                               else
-                                               {
-                                                   NSLog(@"requestUploadPotraitWithOpenID:%@",response[@"rm"]);
-                                                   completion(false);
-                                               }
-                                           }
-                                       }
-                                       failure:^(NSError *err) {
-                                           //
-                                           NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
-                                           completion(false);
-                                       }];
-
+        if (response)
+        {
+            NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+            
+            //上传图片到服务器，成功后通知融云服务器更新用户信息
+            if ([code isEqualToString:@"1"])
+            {
+                NSString *portraitUri = [NSString stringWithFormat:@"%@",response[@"portraitUri"]];
+                
+                if (portraitUri.length!=0) {
+                    
+                    [AFHttpTool refreshUesrWithOpenID:openID
+                                                 name:nil
+                                          portraitUri:portraitUri
+                                             br_intro:nil
+                                              success:^(id response) {
+                                                  
+                                                  NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                                  
+                                                  BOOL result=false;
+                                                  
+                                                  //上传图片到服务器，成功后通知融云服务器更新用户信息
+                                                  if ([code isEqualToString:@"1"])
+                                                  {
+                                                      result=true;
+                                                      
+                                                      FlyingUserData * currentUserData = [FlyingDataManager getUserData:nil];
+                                                      currentUserData.portraitUri = portraitUri;
+                                                      //更新本地信息
+                                                      [FlyingDataManager saveUserData:currentUserData];
+                                                      
+                                                      //更新融云信息
+                                                      RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
+                                                      currentUserInfo.portraitUri=portraitUri;
+                                                      [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
+                                                      [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
+                                                      
+                                                      //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                                      [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
+                                                  }
+                                                  
+                                                  completion(result);
+                                              }
+                                              failure:^(NSError *err) {
+                                                  //
+                                                  NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
+                                                  completion(false);
+                                              }];
+                }
+            }
+            else
+            {
+                NSLog(@"requestUploadPotraitWithOpenID:%@",response[@"rm"]);
+                completion(false);
+            }
+        }
+    }
+    failure:^(NSError *err) {
+        //
+        NSLog(@"requestUploadPotraitWithOpenID:%@",err.description);
+        completion(false);
+    }];
 }
 
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
-+ (void)  getAllGroupsForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void)  getAllGroupsForDomainID:(NSString*) domainID
+                       DomainType:(NSString*) type
                         PageNumber:(NSInteger) pageNumber
                          Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool getAllGroupsForDomainID:(NSString*)domainID
-                             DomainType:(BC_Domain_Type) type
+    [AFHttpTool getAllGroupsForDomainID:domainID
+                             DomainType:type
                                PageNumber:pageNumber
                                   success:^(id response) {
                                       
@@ -701,36 +523,50 @@
 //加入聊天群组
 + (void) joinGroupForAccount:(NSString*) account
                       GroupID:(NSString*) groupID
-                   Completion:(void (^)(NSString* result)) completion
+                   Completion:(void (^)(FlyingUserRightData *userRightData)) completion
 {
     
     [AFHttpTool joinGroupForAccount:account
                               GroupID:groupID
                               success:^(id response) {
-                                  
                                   //
+                                  FlyingUserRightData * userRightData = nil;
+
                                   if (response) {
                                       
                                       NSString *code = response[@"rc"];
                                       
                                       if ([code isEqualToString:@"1"]) {
                                           
-                                          if([response[@"rm"] isEqualToString:KGroupMemberNoexisted])
+                                          userRightData = [[FlyingUserRightData alloc] init];
+                                          userRightData.domainID = groupID;
+                                          userRightData.domainType = BC_Domain_Group;
+                                          
+                                          if([response[@"rm"] isEqualToString:BC_Member_Noexisted])
                                           {
-                                              completion(KGroupMemberNoexisted);
+                                              userRightData.memberState = BC_Member_Noexisted;
                                           }
                                           else{
                                               
-                                              completion(response[@"ay_join_status"]);
+                                              userRightData.memberState = response[@"ay_join_status"];
                                           }
+                                          
+                                          [FlyingDataManager saveUserRightData:userRightData];
+                                          
                                       }
+                                  }
+                                  
+                                  if (completion) {
+                                      //
+                                      completion(userRightData);
                                   }
 
                               } failure:^(NSError *err) {
                                   //
+                                  
                                   if (completion) {
-                                      
-                                      completion(err.description);
+                                      //
+                                      completion(nil);
                                   }
                               }];
 }
@@ -754,29 +590,72 @@
 
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
                                 GroupID:(NSString*) groupID
-                             Completion:(void (^)(NSString* result)) completion
+                             Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
 {
     [AFHttpTool checkGroupMemberInfoForAccount:account
                                        GroupID:groupID
                                        success:^(id response) {
                                            //
+                                           FlyingUserRightData * userRightData = nil;
+
                                            if (response) {
                                                
                                                NSString *code = response[@"rc"];
                                                
                                                if ([code isEqualToString:@"1"]) {
                                                    
-                                                   if([response[@"rm"] isEqualToString:KGroupMemberNoexisted])
+                                                   userRightData = [FlyingUserRightData new];
+                                                   userRightData.domainID = groupID;
+                                                   userRightData.domainType = BC_Domain_Group;
+                                                   
+                                                   if([response[@"allRecordCount"] integerValue]==0)
                                                    {
-                                                       completion(KGroupMemberNoexisted);
+                                                       userRightData.memberState = BC_Member_Noexisted;
                                                    }
                                                    else{
-                                                       completion(response[@"ay_join_status"]);
+ 
+                                                       NSArray *allMembers = response[@"rs"];
+                                                       
+                                                       NSDictionary * dic = allMembers[0];
+                                                       
+                                                       if (dic) {
+                                                           
+                                                           userRightData.memberState = [dic objectForKey:@"ay_join_status"];
+
+                                                           NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                           [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                                           
+                                                           NSString * startTimeStr = [dic objectForKey:@"start_time"];
+                                                           NSString * endTimeStr = [dic objectForKey:@"end_time"];
+                                                           
+                                                           if(![NSString isBlankString:startTimeStr])
+                                                           {
+                                                               userRightData.startDate = [dateFormatter dateFromString:startTimeStr];
+                                                           }
+                                                           
+                                                           if (![NSString isBlankString:endTimeStr]) {
+                                                               
+                                                               userRightData.endDate = [dateFormatter dateFromString:endTimeStr];
+                                                           }
+                                                       }
                                                    }
+                                                   
+                                                   [FlyingDataManager saveUserRightData:userRightData];
                                                }
                                            }
+                                           
+                                           if (completion) {
+                                               //
+                                               completion(userRightData);
+                                           }
+
                                        } failure:^(NSError *err) {
                                            //
+                                           if (completion) {
+                                               //
+                                               completion(nil);
+                                           }
+
                                        }];
 }
 
@@ -792,7 +671,9 @@
                                     NSArray *allMembers = response[@"rs"];
                                     
                                     if (allMembers) {
+                                        
                                         for (NSDictionary *dic in allMembers) {
+                                            
                                             FlyingGroupMemberData *memberData = [[FlyingGroupMemberData alloc] init];
                                             memberData.openUDID    = [dic objectForKey:@"tuser_key"];
                                             memberData.ayJoinTime  = [dic objectForKey:@"ay_join_time"];
@@ -807,6 +688,14 @@
                                             memberData.ownerRecom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
                                             memberData.sysRecom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
 
+                                            
+                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                            
+                                            memberData.startDate = [dateFormatter dateFromString:response[@"start_time"]];
+                                            memberData.endDate = [dateFormatter dateFromString:response[@"end_time"]];
+
+                                            
                                             memberData.token  = [dic objectForKey:@"token"];
                                             memberData.name     = [dic objectForKey:@"name"];
                                             memberData.portrait_url    = [dic objectForKey:@"portrait_url"];
@@ -959,13 +848,12 @@
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                      Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion
+                      Completion:(void (^)(FlyingUserRightData *userRightData)) completion
 {
     [AFHttpTool getMembershipForAccount:account
                                 success:^(id response) {
                                     //
-                                    NSDate *startDate = nil;
-                                    NSDate *endDate =nil;
+                                    FlyingUserRightData * userDataRight=nil;
 
                                     if (response) {
                                         
@@ -983,27 +871,32 @@
                                                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                                                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                                                 
-                                                startDate = [dateFormatter dateFromString:startDateStr];
-                                                endDate = [dateFormatter dateFromString:endDateStr];
+                                                NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+                                                NSDate *endDate = [dateFormatter dateFromString:endDateStr];
                                                 
-                                                [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:KMembershipStartTime];
-                                                [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:KMembershipEndTime];
+                                                userDataRight =[[FlyingUserRightData alloc] init];
+
+                                                userDataRight.domainID = [FlyingDataManager getBusinessID];
+                                                userDataRight.domainType = BC_Domain_Business;
+                                                userDataRight.memberState= BC_Member_Verified;
+                                                userDataRight.startDate = startDate;
+                                                userDataRight.endDate = endDate;
                                                 
-                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                [FlyingDataManager saveUserRightData:userDataRight];
                                             }
                                         }
                                     }
                                     
                                     if (completion) {
-                                        completion(startDate,endDate);
+                                        
+                                        completion(userDataRight);
                                     }
-
                                 } failure:^(NSError *err) {
                                     //
                                     if (completion) {
-                                        completion(nil,nil);
+                                        
+                                        completion(nil);
                                     }
-
                                 }];
 }
 
@@ -1013,8 +906,8 @@
                          Completion:(void (^)(BOOL result)) completion
 {
     [AFHttpTool updateMembershipForAccount:account
-                                 StartDate:(NSDate *)startDate
-                                   EndDate:(NSDate *)endDate
+                                 StartDate:startDate
+                                   EndDate:endDate
                                 success:^(id response) {
                                     
                                     if (response) {
@@ -1027,17 +920,14 @@
                                             
                                             result =true;
                                             
-                                            //本地记录
-                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                                            
-                                            NSString *startDateStr = [dateFormatter stringFromDate:startDate];
-                                            NSString *endDateStr = [dateFormatter stringFromDate:endDate];
-                                            
-                                            [[NSUserDefaults standardUserDefaults] setObject:startDateStr forKey:KMembershipStartTime];
-                                            [[NSUserDefaults standardUserDefaults] setObject:endDateStr forKey:KMembershipEndTime];
-                                            
-                                            [[NSUserDefaults standardUserDefaults]  synchronize];
+                                            FlyingUserRightData * userDataRight =[[FlyingUserRightData alloc] init];
+                                            userDataRight.domainID = [FlyingDataManager getBusinessID];
+                                            userDataRight.domainType = BC_Domain_Business;
+                                            userDataRight.memberState= BC_Member_Verified;
+                                            userDataRight.startDate = startDate;
+                                            userDataRight.endDate = endDate;
+
+                                            [FlyingDataManager saveUserRightData:userDataRight];
                                             
                                             //提醒系统备份没有备份成功的重要数据
                                             if (result) {
@@ -1299,16 +1189,8 @@
                                                             responseStr = [NSString stringWithFormat:@"充值成功:充值金币数目:%@",[@(resultNum-userData.BEQRCOUNT) stringValue]];
                                                     }
                                                     
-                                                    NSString *title = @"充值提醒";
-                                                    
-                                                    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title
-                                                                                                     andMessage:responseStr];
-                                                    [alertView addButtonWithTitle:@"知道了"
-                                                                             type:SIAlertViewButtonTypeDefault
-                                                                          handler:^(SIAlertView *alertView) {}];
-                                                    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                                                    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                                                    [alertView show];
+                                                    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                    [appDelegate makeToast:responseStr];
                                                 }
                                                 
                                                 if (completion) {
@@ -1317,17 +1199,11 @@
                                             }
                                             else
                                             {
-                                                NSString *title = @"充值提醒！";
                                                 NSString *message = @"服务器繁忙或者网络故障请稍后再试！";
-                                                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                                                [alertView addButtonWithTitle:@"知道了"
-                                                                         type:SIAlertViewButtonTypeDefault
-                                                                      handler:^(SIAlertView *alertView) {}];
-                                                alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                                                alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                                                [alertView show];
                                                 
-                                                
+                                                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                [appDelegate makeToast:message];
+
                                                 if (completion) {
                                                     completion(false);
                                                 }
@@ -1341,6 +1217,113 @@
                                             NSLog(@"chargingCardSysURLForUserID:%@",err.description);
                                         }];
     }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  用户关于课程的计费和统计数据
+//////////////////////////////////////////////////////////////
+
++ (void) getLessonRightForAccount:(NSString*) account
+                         LessonID:(NSString*) lessonID
+                       Completion:(void (^)(FlyingUserRightData *userRightData)) completion
+{
+
+    [AFHttpTool getLessonRightForAccount:account
+                                LessonID:(NSString*) lessonID
+                                success:^(id response) {
+                                    //
+                                    
+                                    FlyingUserRightData * userDataRight =[[FlyingUserRightData alloc] init];
+
+                                    if (response) {
+                                        
+                                        NSString *code = [NSString stringWithFormat:@"%@",response[@"rc"]];
+                                        
+                                        if ([code isEqualToString:@"1"]) {
+
+                                            NSString * isExisted = response[@"isExisted"];
+                                            
+                                            if ([isExisted isEqualToString:@"1"]) {
+                                             
+                                                NSString *startDateStr = response[@"start_time"];
+                                                NSString *endDateStr  = response[@"end_time"];
+                                                
+                                                if([startDateStr containsString:@"-"] && [endDateStr containsString:@"-"])
+                                                {
+                                                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                                    
+                                                    NSDate *startDate = [dateFormatter dateFromString:startDateStr];
+                                                    NSDate *endDate = [dateFormatter dateFromString:endDateStr];
+                                                    
+                                                    
+                                                    userDataRight.domainID = lessonID ;
+                                                    userDataRight.domainType = BC_Domain_Content;
+                                                    userDataRight.memberState= BC_Member_Verified;
+                                                    userDataRight.startDate = startDate;
+                                                    userDataRight.endDate = endDate;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    [FlyingDataManager saveUserRightData:userDataRight];
+                                    
+                                    if (completion) {
+                                        
+                                        completion(userDataRight);
+                                    }
+                                } failure:^(NSError *err) {
+                                    //
+                                    if (completion) {
+                                        
+                                        completion(nil);
+                                    }
+                                }];
+}
+
++ (void) updateLessonRightForAccount:(NSString*) account
+                            LessonID:(NSString*) lessonID
+                           StartDate:(NSDate *)startDate
+                             EndDate:(NSDate *)endDate
+                          Completion:(void (^)(BOOL result)) completion
+{
+
+    [AFHttpTool updateLessonRightForAccount:account
+                                   LessonID:lessonID
+                                 StartDate:startDate
+                                   EndDate:endDate
+                                   success:^(id response) {
+                                       
+                                       if (response) {
+                                           
+                                           BOOL result =false;
+                                           
+                                           NSString *code = response[@"rc"];
+                                           
+                                           if ([code isEqualToString:@"1"]) {
+                                               
+                                               result =true;
+                                               
+                                               FlyingUserRightData * userDataRight =[[FlyingUserRightData alloc] init];
+                                               userDataRight.domainID = lessonID;
+                                               userDataRight.domainType = BC_Domain_Content;
+                                               userDataRight.memberState= BC_Member_Verified;
+                                               userDataRight.startDate = startDate;
+                                               userDataRight.endDate = endDate;
+                                               
+                                               [FlyingDataManager saveUserRightData:userDataRight];
+                                           }
+                                           
+                                           if (completion) {
+                                               completion(result);
+                                           }
+                                       }
+                                       
+                                   } failure:^(NSError *err) {
+                                       //
+                                   }];
+
 }
 
 +(void) getStatisticDetailWithOpenID:(NSString*) openudid
@@ -1457,15 +1440,15 @@
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-+ (void) getAlbumListForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getAlbumListForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                   ContentType:(NSString*) contentType
                    PageNumber:(NSInteger) pageNumber
                 OnlyRecommend:  (BOOL)    isOnlyRecommend
                    Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
 {
-    [AFHttpTool albumListDataForDomainID:(NSString*)domainID
-                              DomainType:(BC_Domain_Type) type
+    [AFHttpTool albumListDataForDomainID:domainID
+                              DomainType:type
                      lessonConcentType:contentType
                                  PageNumber:pageNumber
                                   OnlyRecommend:isOnlyRecommend
@@ -1496,8 +1479,8 @@
 }
 
 
-+ (void) getLessonListForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void) getLessonListForDomainID:(NSString*)  domainID
+                       DomainType:(NSString*)  type
                      PageNumber:   (NSInteger) pageNumber
               lessonConcentType:  (NSString *) contentType
                    DownloadType:  (NSString *) downloadType
@@ -1507,8 +1490,8 @@
                                  (NSArray *lessonList,NSInteger allRecordCount)) completion
 {
     
-    [AFHttpTool lessonListDataByTagForDomainID:(NSString*)domainID
-                                    DomainType:(BC_Domain_Type) type
+    [AFHttpTool lessonListDataByTagForDomainID:domainID
+                                    DomainType:type
                                   PageNumber:pageNumber
                               lessonConcentType:contentType
                                    DownloadType:downloadType
@@ -1540,13 +1523,13 @@
                                         }];
 }
 
-+ (void) getCoverListForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getCoverListForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                     PageNumber:(NSInteger) pageNumber
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion
 {
     [AFHttpTool lessonListDataByTagForDomainID:domainID
-                                    DomainType:(BC_Domain_Type) type
+                                    DomainType:type
                                  PageNumber:pageNumber
                            lessonConcentType:nil
                                 DownloadType:nil
@@ -1726,14 +1709,14 @@
 #pragma  标签相关
 //////////////////////////////////////////////////////////////
 + (void)getTagListForDomainID:(NSString*)domainID
-                   DomainType:(BC_Domain_Type) type
+                   DomainType:(NSString*) type
                  TagString:(NSString*) tagString
                      Count:(NSInteger) count
                 Completion:(void (^)(NSArray *tagList)) completion
 {
     
-    [AFHttpTool getTagListForDomainID:(NSString*)domainID
-                           DomainType:(BC_Domain_Type) type
+    [AFHttpTool getTagListForDomainID:domainID
+                           DomainType:type
                          TagString:tagString
                              Count:count
                            success:^(id response) {
@@ -1793,6 +1776,42 @@
                        }];
 }
 
+
++ (void) getWordListby:(NSString *) word
+            Completion:(void (^)(NSArray *wordList,NSInteger allRecordCount)) completion
+{
+
+    [AFHttpTool getWordListby:word
+                       success:^(id response) {
+                           //
+                           if (response) {
+                               
+                               NSString *wordListStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                               NSRange segmentRange = [wordListStr rangeOfString:@"所请求映射类文件不存在"];
+                               
+                               if (segmentRange.location==NSNotFound) {
+                                   
+                                   
+                                   if (![NSString isBlankString:wordListStr]) {
+                                       
+                                       if (completion) {
+                                           
+                                           NSArray * array = [wordListStr  componentsSeparatedByString:@";"];
+                                           
+                                           completion(array,array.count);
+                                       }
+                                   }
+                               }
+                           }
+                       } failure:^(NSError *err) {
+                           //
+                           NSLog(@"dicDataforWord:%@",err.description);
+                           
+                       }];
+
+}
+
+
 //////////////////////////////////////////////////////////////
 #pragma  供应商（作者）相关
 //////////////////////////////////////////////////////////////
@@ -1836,44 +1855,5 @@
                                    //
                                }];
 }
-
-
-+ (void) getProviderListForlatitude:(NSString*)latitude
-                           longitude:(NSString*)longitude
-                          PageNumber:(NSInteger) pageNumber
-                          Completion:(void (^)(NSArray *providerList,NSInteger allRecordCount)) completion
-{
-
-    [AFHttpTool providerListDataForlatitude:latitude
-                                  longitude:longitude
-                                 PageNumber:pageNumber
-                                    success:^(id response) {
-                                        //
-                                        
-                                        FlyingProviderParser *parser = [[FlyingProviderParser alloc] init];
-                                        
-                                        [parser SetData:response];
-                                        
-                                        parser.completionBlock = ^(NSArray *providerList,NSInteger allRecordCount)
-                                        {
-                                            if (providerList.count!=0 && completion) {
-                                                
-                                                completion(providerList,allRecordCount);
-                                            }
-                                        };
-                                        
-                                        parser.failureBlock = ^(NSError *error)
-                                        {
-                                            NSLog(@"FlyingProviderParser:%@",error.description);
-                                        };
-                                        
-                                        [parser parse];
-
-                                    } failure:^(NSError *err) {
-                                        //
-                                        NSLog(@"providerListDataForlatitude:%@",err.description);
-                                    }];
-}
-
 
 @end

@@ -7,13 +7,15 @@
 //
 
 #import "FlyingCommentHeader.h"
+#import "shareDefine.h"
 
 @implementation FlyingCommentHeader
 
 - (void)awakeFromNib {
     // Initialization code
     
-    self.contentTitle.font = [UIFont systemFontOfSize:(INTERFACE_IS_PAD ? 26.0f : 13.0f)];
+    self.contentTitle.font = [UIFont boldSystemFontOfSize:KNormalFontSize];
+    self.commentCountLabel.font = [UIFont systemFontOfSize:KLittleFontSize];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -39,25 +41,14 @@
 #pragma mark -
 #pragma mark Cell Methods
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
-}
-
-- (IBAction)toCommentVC:(id)sender
-{
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(commentHeaderPressed)])
-    {
-        [self.delegate commentHeaderPressed];
-    }
-}
-
 -(void) setTitle:(NSString*) title
 {
     self.contentTitle.text=title;
+}
+
+-(void) setCommentCount:(NSString*) count
+{
+    self.commentCountLabel.text=count;
 }
 
 

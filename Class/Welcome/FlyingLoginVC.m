@@ -17,6 +17,8 @@
 #import "UITextFiled+Shake.m"
 #import "FlyingActiveViewController.h"
 #import "FlyingDataManager.h"
+#import "iFlyingAppDelegate.h"
+#import "UIAlertController+Window.h"
 
 @interface FlyingLoginVC ()<UITextFieldDelegate>
 
@@ -326,13 +328,22 @@ MBProgressHUD* hud ;
 /*注册*/
 - (void)registerEvent
 {
+    
+    NSString *title = nil;
     NSString *message = [NSString stringWithFormat:@"注册方式：请在电脑上访问%@/login.jsp?f=mx", [FlyingDataManager getServerAddress]];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil, nil];
-    [alertView show];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{
+        //
+    }];
 }
 
 /*找回密码*/
@@ -389,9 +400,9 @@ MBProgressHUD* hud ;
     RCUserInfo *_currentUserInfo = [[RCUserInfo alloc]initWithUserId:userId name:userName portrait:nil];
     [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
     
-    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID] completion:^(RCUserInfo *user) {
+    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID] completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
         
-        [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:userId];
+        //
     }];
 }
 
@@ -504,27 +515,41 @@ MBProgressHUD* hud ;
 + (BOOL) validateMobile:(NSString *)mobile
 {
     if (mobile.length == 0) {
+
+        NSString *title = nil;
         NSString *message = @"手机号码不能为空！";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:message
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
+        
         return NO;
     }
     //手机号以13， 15，18开头，八个 \d 数字字符
     NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     if (![phoneTest evaluateWithObject:mobile]) {
+        
+        NSString *title = nil;
         NSString *message = @"手机号码格式不正确！";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:message
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-        return NO;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
     }
     return YES;
 }
@@ -568,14 +593,20 @@ MBProgressHUD* hud ;
 +(BOOL)validatePassword:(NSString *)password
 {
     if (password.length == 0) {
+        
+        NSString *title = nil;
         NSString *message = @"密码不能为空！";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:message
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-        return NO;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
     }
     //    if (password.length < 6) {
     //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil

@@ -37,16 +37,6 @@
     return [NSString stringWithFormat:sql,  @"BE_LOCAl_LESSON"];
 }
 
--(void)       setUserModle:(BOOL) userModle;
-{
-    if (!userModle) {
-        self.workDbQueue = self.pubUserDBQueue;
-    }
-    else{
-        self.workDbQueue = self.userDBQueue;
-    }
-}
-
 - (FMDatabaseQueue *)dbQueue
 {
     

@@ -39,25 +39,25 @@
 #import "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE
-    #import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
-    #ifndef __IPHONE_7_0
-        #error "MKStoreKit is only supported on iOS 7 or later."
-    #endif
+#ifndef __IPHONE_8_0
+#error "MKStoreKit is only supported on iOS 8 or later."
+#endif
 
 #else
-    #import <Foundation/Foundation.h>
-    #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-    #ifndef __MAC_10_10
-        #error "MKStoreKit is only supported on OS X 10.10 or later."
-    #endif
+#ifndef __MAC_10_10
+#error "MKStoreKit is only supported on OS X 10.10 or later."
+#endif
 
 #endif
 
 #ifdef __OBJC__
 #if ! __has_feature(objc_arc)
-    #error MKStoreKit is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
+#error MKStoreKit is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 #endif
 /*!
@@ -106,6 +106,16 @@ extern NSString *const kMKStoreKitReceiptValidationFailedNotification;
  */
 extern NSString *const kMKStoreKitSubscriptionExpiredNotification;
 
+/*!
+ *  @abstract This notification is posted when MKStoreKit downloads a hosted content
+ */
+extern NSString *const kMKStoreKitDownloadProgressNotification;
+
+/*!
+ *  @abstract This notification is posted when MKStoreKit completes downloading a hosted content
+ */
+extern NSString *const kMKStoreKitDownloadCompletedNotification;
+
 
 /*!
  *  @abstract The singleton class that takes care of In App Purchasing
@@ -135,6 +145,9 @@ extern NSString *const kMKStoreKitSubscriptionExpiredNotification;
  */
 + (MKStoreKit *)sharedKit;
 
++ (NSDictionary *)configs;
+
+
 /*!
  *  @abstract Initializes MKStoreKit singleton by making the product request using StoreKit's SKProductRequest
  *
@@ -149,6 +162,25 @@ extern NSString *const kMKStoreKitSubscriptionExpiredNotification;
  *  -availableProducts
  */
 - (void)startProductRequest;
+
+/*!
+ *  @abstract Initializes MKStoreKit singleton by making the product request using StoreKit's SKProductRequest
+ *
+ *  @discussion
+ *	This method is normally called after fetching a list of products from your server.
+ *  If all your products are known before hand, 
+ *  fill them in MKStoreKitConfigs.plist and use -startProductRequest
+ *
+ *  If this method fails, MKStoreKit will not work
+ *  Most common reason for this method to fail is Internet connection being offline
+ *  It's your responsibility to call startProductRequest if the Internet connection comes online
+ *  and the previous call to startProductRequest failed (availableProducts.count == 0).
+ *
+ *  @seealso
+ *  -availableProducts
+ *  -startProductRequest
+ */
+- (void)startProductRequestWithProductIdentifiers:(NSArray*) items;
 
 /*!
  *  @abstract Restores In App Purchases made on other devices

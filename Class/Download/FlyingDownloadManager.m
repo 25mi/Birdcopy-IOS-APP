@@ -25,7 +25,7 @@
 
 @interface FlyingDownloadManager ()
 {
-    NSURLSessionDownloadTask     *_dowloader; //公共字典下载专用
+    NSURLSessionDownloadTask     *_dicDowloader; //公共字典下载专用
 }
 
 @property (nonatomic,strong) AFURLSessionManager *manager;
@@ -182,7 +182,6 @@
 + (void) getSrtForLessonID: (NSString *) lessonID Title:(NSString *) title
 {
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
-    [mylessonDAO setUserModle:NO];
     FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
     
     if(lessonData.BESUBURL)
@@ -203,7 +202,6 @@
 + (void) getDicForLessonID: (NSString *) lessonID   Title:(NSString *) title
 {
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
-    [mylessonDAO setUserModle:NO];
     FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
 
     if (lessonData.BEPROURL) {
@@ -213,15 +211,12 @@
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.getDicWithURL", NULL), ^{
                                                                           
-                                                                          NSString * outputDir = [FlyingFileManager getLessonDir:lessonID];
+                                                                          NSString * outputDir = [FlyingFileManager getMyLessonDir:lessonID];
                                                                           
                                                                           [SSZipArchive unzipFileAtPath:lessonData.localURLOfPro toDestination:outputDir];
                                                                           
-                                                                          
                                                                           //升级课程补丁
                                                                           [FlyingDBManager updateBaseDic:lessonID];
-                                                                          
-                                                                          [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfPro error:nil];
                                                                           [mylessonDAO updateProURL:nil LessonID:lessonID]; //表示已经缓存
                                                                       });
                                                                       
@@ -236,7 +231,6 @@
 + (void) getRelativeForLessonID:  (NSString *) lessonID   Title:(NSString *) title
 {
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
-    [mylessonDAO setUserModle:NO];
     FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
     
     if(lessonData.BERELATIVEURL)
@@ -246,11 +240,9 @@
                                                                       //
                                                                       dispatch_async(dispatch_queue_create("com.birdcopy.background.relativeURLStr", NULL), ^{
                                                                           
-                                                                          NSString * outputDir = [FlyingFileManager getLessonDir:lessonID];
+                                                                          NSString * outputDir = [FlyingFileManager getMyLessonDir:lessonID];
                                                                           
                                                                           [SSZipArchive unzipFileAtPath:lessonData.localURLOfRelative toDestination:outputDir];
-                                                                          
-                                                                          [[NSFileManager defaultManager] removeItemAtPath:lessonData.localURLOfRelative error:nil];
                                                                           [mylessonDAO updateRelativeURL:nil LessonID:lessonID]; //表示已经缓存
                                                                       });
                                                                       
@@ -266,13 +258,12 @@
 {
     
     FlyingLessonDAO *  mylessonDAO =[[FlyingLessonDAO alloc] init];
-    [mylessonDAO setUserModle:NO];
     FlyingLessonData * lessonData = [mylessonDAO selectWithLessonID: lessonID];
     
     if ( [lessonData.BECONTENTTYPE isEqualToString:KContentTypeText] &&
         lessonData.BEOFFICIAL)
     {
-        NSString *localPath = [FlyingFileManager getLessonDir:lessonID];
+        NSString *localPath = [FlyingFileManager getMyLessonDir:lessonID];
         NSString  *fileName =kResource_Background_filenmae;
         
         NSString *filePath = [localPath stringByAppendingPathComponent:fileName];
@@ -304,60 +295,62 @@
 
 -(void) startDownloadShareData
 {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everDownloadBaseDictionary"]) {
-        
-        if (!_dowloader) {
+    
+    NSString * shareBaseDicAllFile =[[FlyingFileManager getMyDictionaryDir] stringByAppendingPathComponent:kShareBaseTempFile];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:shareBaseDicAllFile])
+    {
+        if (!_dicDowloader) {
             
             [AFHttpTool getShareBaseZIP:KBaseDicAllType success:^(id response) {
+                
                 NSString * shareBaseURLStr=[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                 
-                //下载目录如果没有就创建一个
-                NSString * downloadDir = [FlyingFileManager getDownloadsDir];
-                NSString * shareBaseDir =[FlyingFileManager getUserShareDir];
                 
-                NSString * shareBaseDicAllFile =[downloadDir stringByAppendingPathComponent:kShareBaseTempFile];
-                
-                NSString *localURL =shareBaseDicAllFile;
-                
-                _dowloader=[AFHttpTool downloadUrl:shareBaseURLStr
-                        destinationPath:localURL
-                               progress:^(NSProgress *downloadProgress) {
-                                   //
-                               }
-                                success:^(id response) {
-                                    //
-                                    dispatch_async(dispatch_queue_create("com.birdcopy.background.processing", NULL), ^{
-                                        
-                                        [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:shareBaseDir];
-                                        
-                                        [[NSFileManager defaultManager] removeItemAtPath:shareBaseDicAllFile error:nil];
-                                        
-                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everDownloadBaseDictionary"];
-                                    });
+                _dicDowloader=[AFHttpTool downloadUrl:shareBaseURLStr
+                                   destinationPath:shareBaseDicAllFile
+                                          progress:^(NSProgress *downloadProgress) {
+                                              //
+                                          }
+                                           success:^(id response) {
+                                               //
+                                               dispatch_async(dispatch_queue_create("com.birdcopy.background.processing", NULL), ^{
+                                                   
+                                                   [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:[FlyingFileManager getMyDictionaryDir]];
+                                                   
+                                                   [[NSFileManager defaultManager] removeItemAtPath:shareBaseDicAllFile error:nil];
+                                               });
+                                               
+                                           } failure:^(NSError *err) {
+                                               //
+                                               [[NSFileManager defaultManager] removeItemAtPath:shareBaseDicAllFile error:nil];
 
-                                } failure:^(NSError *err) {
-                                    //
-                                    NSLog(@"downloadUrl:%@",err.description);
-                                }];
+                                               NSLog(@"downloadUrl:%@",err.description);
+                                           }];
+                [_dicDowloader resume];
                 
             } failure:^(NSError *err) {
                 //
                 NSLog(@"shareBaseZIP:%@",err.description);
-                
             }];
         }
         else{
             
-            [_dowloader resume];
+            [_dicDowloader resume];
         }
+    }
+    else
+    {
+        [SSZipArchive unzipFileAtPath:shareBaseDicAllFile toDestination:[FlyingFileManager getMyDictionaryDir]];
     }
 }
 
 -(void) closeDownloadShareData
 {
-    if (_dowloader) {
+    if (_dicDowloader) {
         
-        [_dowloader cancel];
+        [_dicDowloader cancel];
     }
 }
 

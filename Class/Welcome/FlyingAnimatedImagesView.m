@@ -98,7 +98,7 @@ timePerImage = _timePerImage;
     
     UIImageView *imageViewToShow = [self.imageViews objectAtIndex:currentlyDisplayingImageViewIndex];
     
-    NSUInteger nextImageToShowIndex = currentlyDisplayingImageIndex;
+    NSUInteger nextImageToShowIndex;
     
     do
     {

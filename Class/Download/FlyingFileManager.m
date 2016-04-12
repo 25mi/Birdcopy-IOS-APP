@@ -13,9 +13,12 @@
 
 @interface FlyingFileManager()
 
-@property (nonatomic,strong) NSString            *userDownloadDir;
-@property (nonatomic,strong) NSString            *userDataDir;
-@property (nonatomic,strong) NSString            *userShareDir;
+@property (nonatomic,strong) NSString            *myLocaldataDir;
+@property (nonatomic,strong) NSString            *myDownloadsDir;
+@property (nonatomic,strong) NSString            *myUserDataDir;
+@property (nonatomic,strong) NSString            *myDictionaryDir;
+@property (nonatomic,strong) NSString            *myRongcloudDir;
+
 
 //本地Document管理
 @property (nonatomic,strong) MHWDirectoryWatcher *docWatcher;
@@ -38,12 +41,13 @@
 
 #pragma mark - 文件位置管理
 
-+ (NSString *) getUserDataDir
++ (NSString *) getMyLocalDataDir
 {
-    if (![FlyingFileManager shareInstance].userDataDir) {
+    //创建本地数据目录
+    if (![FlyingFileManager shareInstance].myLocaldataDir) {
         
         NSString  * libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString  *   dbDir = [libPath stringByAppendingPathComponent:KUSerDataFoldName];
+        NSString  *   dbDir = [libPath stringByAppendingPathComponent:BC_DIR_MyLocalData];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         BOOL isDir = FALSE;
@@ -59,17 +63,18 @@
             }
         }
         
-        [FlyingFileManager shareInstance].userDataDir=dbDir;
+        [FlyingFileManager shareInstance].myLocaldataDir=dbDir;
     }
     
-    return [FlyingFileManager shareInstance].userDataDir;
+    return [FlyingFileManager shareInstance].myLocaldataDir;
 }
 
-+ (NSString *) getDownloadsDir
++ (NSString *) getMyDownloadsDir
 {
-    if (![FlyingFileManager shareInstance].userDownloadDir) {
+    //创建下载内容目录
+    if (![FlyingFileManager shareInstance].myDownloadsDir) {
         
-        NSString  *   dbDir = [[FlyingFileManager  getUserDataDir]  stringByAppendingPathComponent:KUserDownloadsDir];
+        NSString  *   dbDir = [[FlyingFileManager  getMyLocalDataDir]  stringByAppendingPathComponent:BC_DIR_Downloads];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         BOOL isDir = FALSE;
@@ -85,43 +90,16 @@
             }
         }
         
-        [FlyingFileManager shareInstance].userDownloadDir=dbDir;
+        [FlyingFileManager shareInstance].myDownloadsDir=dbDir;
     }
     
-    return [FlyingFileManager shareInstance].userDownloadDir;
+    return [FlyingFileManager shareInstance].myDownloadsDir;
 }
 
-+ (NSString *) getUserShareDir
++ (NSString*) getMyLessonDir:(NSString*) lessonID
 {
-    //创建分享目录
-    if (![FlyingFileManager shareInstance].userShareDir) {
-        
-        NSString  *   dbDir = [[FlyingFileManager  getUserDataDir]  stringByAppendingPathComponent:kShareBaseDir];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = FALSE;
-        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
-        
-        if(!(isDirExist && isDir))
-        {
-            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
-            if(!bCreateDir){
-                NSLog(@"Create Directory Failed.");
-                
-                return nil;
-            }
-        }
-        
-        [FlyingFileManager shareInstance].userShareDir=dbDir;
-    }
-    
-    return [FlyingFileManager shareInstance].userShareDir;
-}
-
-+ (NSString*) getLessonDir:(NSString*) lessonID
-{
-    //创建下载内容目录    
-    NSString *dbDir = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:lessonID];
+    //创建下载课程内容目录
+    NSString *dbDir = [[FlyingFileManager getMyDownloadsDir] stringByAppendingPathComponent:lessonID];
     
     BOOL isDir = NO;
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -131,6 +109,87 @@
     }
     
     return dbDir;
+}
+
++ (NSString *) getMyDictionaryDir
+{
+    //创建字典目录
+    if (![FlyingFileManager shareInstance].myDictionaryDir) {
+        
+        NSString  *   dbDir = [[FlyingFileManager  getMyLocalDataDir]  stringByAppendingPathComponent:BC_DIR_Dictionary];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDir = FALSE;
+        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
+        
+        if(!(isDirExist && isDir))
+        {
+            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
+            if(!bCreateDir){
+                NSLog(@"Create Directory Failed.");
+                
+                return nil;
+            }
+        }
+        
+        [FlyingFileManager shareInstance].myDictionaryDir=dbDir;
+    }
+    
+    return [FlyingFileManager shareInstance].myDictionaryDir;
+}
+
++ (NSString*)  getMyRongCloudDir
+{
+    //创建聊天目录
+    if (![FlyingFileManager shareInstance].myRongcloudDir) {
+        
+        NSString  *   dbDir = [[FlyingFileManager  getMyLocalDataDir]  stringByAppendingPathComponent:BC_DIR_RongCloud];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDir = FALSE;
+        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
+        
+        if(!(isDirExist && isDir))
+        {
+            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
+            if(!bCreateDir){
+                NSLog(@"Create Directory Failed.");
+                
+                return nil;
+            }
+        }
+        
+        [FlyingFileManager shareInstance].myRongcloudDir=dbDir;
+    }
+    
+    return [FlyingFileManager shareInstance].myRongcloudDir;
+}
+
++ (NSString*)  getMyUserDataDir
+{
+    //创建用户档案目录
+    if (![FlyingFileManager shareInstance].myRongcloudDir) {
+        
+        NSString  *   dbDir = [[FlyingFileManager  getMyLocalDataDir]  stringByAppendingPathComponent:BC_DIR_RongCloud];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDir = FALSE;
+        BOOL isDirExist = [fileManager fileExistsAtPath:dbDir isDirectory:&isDir];
+        
+        if(!(isDirExist && isDir))
+        {
+            BOOL bCreateDir = [fileManager createDirectoryAtPath:dbDir withIntermediateDirectories:YES attributes:nil error:nil];
+            if(!bCreateDir){
+                NSLog(@"Create Directory Failed.");
+                
+                return nil;
+            }
+        }
+        
+        [FlyingFileManager shareInstance].myRongcloudDir=dbDir;
+    }
+    
+    return [FlyingFileManager shareInstance].myRongcloudDir;
 }
 
 //////////////////////////////////////////////////////////////
@@ -175,7 +234,7 @@
     
     [FlyingFileManager addSkipBackupAttributeToItemAtURL:url];
     
-    NSString *myDataDir = [FlyingFileManager getUserDataDir];
+    NSString *myDataDir = [FlyingFileManager getMyLocalDataDir];
     url = [NSURL fileURLWithPath:myDataDir];
     
     [FlyingFileManager addSkipBackupAttributeToItemAtURL:url];

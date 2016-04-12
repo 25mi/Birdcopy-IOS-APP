@@ -9,8 +9,9 @@
 #import "RCDConversationSettingTableViewHeader.h"
 #import "RCDConversationSettingTableViewHeaderItem.h"
 #import <RongIMLib/RongIMLib.h>
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
+#import "UIAlertController+Window.h"
 
 @interface RCDConversationSettingTableViewHeader () <
 RCDConversationSettingTableViewHeaderItemDelegate>
@@ -73,7 +74,7 @@ RCDConversationSettingTableViewHeaderItemDelegate>
         {
             [cell.btnImg setHidden:!self.showDeleteTip];
         }
-        [cell.ivAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
+        [cell.ivAva setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
         cell.titleLabel.text = user.name;
         cell.userId=user.userId;
         
@@ -136,16 +137,22 @@ RCDConversationSettingTableViewHeaderItemDelegate>
     RCUserInfo *user = self.users[indexPath.row];
     if ([user.userId isEqualToString:[RCIMClient sharedRCIMClient]
          .currentUserInfo.userId]) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:nil
-                                  message:NSLocalizedStringFromTable(@"CanNotRemoveSelf",
-                                                                     @"RongCloudKit", nil)
-                                  delegate:nil
-                                  cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"RongCloudKit",
-                                                                               nil)
-                                  otherButtonTitles:nil, nil];
-        ;
-        [alertView show];
+        
+        NSString *title = nil;
+        NSString *message = NSLocalizedStringFromTable(@"CanNotRemoveSelf",
+                                                       @"RongCloudKit", nil);
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@" 确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
+
         return;
     }
     [self.users removeObjectAtIndex:indexPath.row];

@@ -18,7 +18,7 @@
 /**
  *  内置置顶聊天，新消息通知，清除消息记录三个cell
  */
-@property(nonatomic, strong, readonly) NSArray *defaultCells;
+@property(nonatomic, strong) NSArray *defaultCells;
 
 /**
  *  是否隐藏顶部视图

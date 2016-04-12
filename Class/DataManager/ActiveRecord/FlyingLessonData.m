@@ -143,7 +143,7 @@
 
     if (self.BEOFFICIAL)
     {
-        NSString *dbDir = [FlyingFileManager  getLessonDir:self.BELESSONID];
+        NSString *dbDir = [FlyingFileManager  getMyLessonDir:self.BELESSONID];
         
         NSString* contentFileName;
         
@@ -159,7 +159,7 @@
                 
                 NSFileManager* fileManager = [NSFileManager defaultManager];
                 
-                NSString * dir = [FlyingFileManager getLessonDir:self.BELESSONID];
+                NSString * dir = [FlyingFileManager getMyLessonDir:self.BELESSONID];
                 
                 NSDirectoryEnumerator* directoryEnumerator = [fileManager enumeratorAtPath:dir];
                 

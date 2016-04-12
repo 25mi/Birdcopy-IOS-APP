@@ -10,4 +10,8 @@
 
 @interface FlyingProfileVC : UITableViewController
 
+@property (strong, nonatomic) NSString *openUDID;
+@property (strong, nonatomic) NSString *userID;
+
+
 @end

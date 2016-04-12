@@ -13,8 +13,6 @@ typedef void(^BEImageThumnailCompletedBlock)(UIImage *thumbnailImage);
 
 @interface UIImageView (thumnail)
 
-- (void)setThumnailImageWithPath:(NSString *)path thumnailSize:(CGSize)size completed:(BEImageThumnailCompletedBlock)completedBlock;
-
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 @end

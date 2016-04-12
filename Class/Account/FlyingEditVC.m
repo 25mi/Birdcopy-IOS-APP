@@ -15,8 +15,10 @@
 #import "shareDefine.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
+#import "FlyingUserData.h"
 
-@interface FlyingEditVC ()<ACEExpandableTableViewDelegate>
+@interface FlyingEditVC ()<ACEExpandableTableViewDelegate,
+                            UIViewControllerRestoration>
 {
     CGFloat _cellHeight;
 }
@@ -27,6 +29,43 @@
 
 @implementation FlyingEditVC
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    
+    [coder encodeBool:self.isNickName forKey:@"self.isNickName"];
+    [coder encodeObject:self.someText forKey:@"self.someText"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    
+    self.isNickName = [coder decodeBoolForKey:@"self.isNickName"];
+    self.someText = [coder decodeObjectForKey:@"self.someText"];
+    
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+        
+        self.tableView.restorationIdentifier = @"edit.tableview";
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,15 +75,7 @@
     
     [self addBackFunction];
     
-    if (self.isNickName) {
-        
-        self.title=@"昵称";
-    }
-    else
-    {
-        self.title=@"简介";
-    }
-
+   
     //顶部导航
     if(self.navigationController.viewControllers.count>1)
     {
@@ -56,7 +87,8 @@
     }
 
     self.saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
-    [self.saveBtn  setTitle:@"保存" forState:UIControlStateNormal];
+    [self.saveBtn  setTitle:NSLocalizedString(@"Save", nil)
+                   forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
     [self.saveBtn setHidden:YES];
 
@@ -68,6 +100,15 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if (self.isNickName) {
+        
+        self.title=NSLocalizedString(@"NickName", nil);
+    }
+    else
+    {
+        self.title=NSLocalizedString(@"Who am I", nil);
+    }
+
     [super viewWillAppear:animated];
 }
 
@@ -117,22 +158,39 @@
                                   
                                   //更新本地用户信息（IM）
                                   RCUserInfo *currentUserInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                                  currentUserInfo.name=nickName;
-                                  [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
                                   
-                                  //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                  [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
-                                  
-                                  [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
-                                  
-                                  //更新本地用户信息（系统）
                                   if (self.isNickName) {
-                                      [FlyingDataManager setNickName:nickName];
+                                      
+                                      currentUserInfo.name=nickName;
                                   }
                                   else
                                   {
-                                      [FlyingDataManager setUserAbstract:userAbstract];
+                                      [RCIMClient sharedRCIMClient].currentUserInfo = currentUserInfo;
                                   }
+
+                                  //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
+                                  [[RCIM sharedRCIM] refreshUserInfoCache:currentUserInfo withUserId:currentUserInfo.userId];
+                                  [[RCDataBaseManager shareInstance] insertUserToDB:currentUserInfo];
+                                  
+                                  //更新本地用户信息（系统）
+                                  FlyingUserData * userData = [FlyingDataManager getUserData:nil];
+                                  
+                                  if (self.isNickName) {
+                                      
+                                      if (![NSString isBlankString:nickName]) {
+                                          
+                                          userData.name = nickName;
+                                      }
+                                  }
+                                  else
+                                  {
+                                      if (![NSString isBlankString:userAbstract]) {
+                                          
+                                          userData.digest = userAbstract;
+                                      }
+                                  }
+                                  
+                                  [FlyingDataManager saveUserData:userData];
                                   
                                   [self dismissNavigation];
                                   
@@ -185,7 +243,7 @@
     
     if (self.isNickName) {
         
-        if (text && ![text isEqualToString:[FlyingDataManager getNickName]]) {
+        if (text && ![text isEqualToString:[FlyingDataManager getUserData:nil].name]) {
             //
             [self.saveBtn setHidden:NO];
             self.someText=text;
@@ -197,7 +255,7 @@
     }
     else
     {
-        if (text && ![text isEqualToString:[FlyingDataManager getUserAbstract]]) {
+        if (text && ![text isEqualToString:[FlyingDataManager getUserData:nil].digest]) {
             //
             [self.saveBtn setHidden:NO];
             self.someText=text;
@@ -208,7 +266,6 @@
         }
     }
 }
-
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events

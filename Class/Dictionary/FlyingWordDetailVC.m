@@ -13,7 +13,6 @@
 #import <AFNetworking.h>
 #import "shareDefine.h"
 #import "FlyingItemParser.h"
-#import "SIAlertView.h"
 #import "FlyingWordItemCell.h"
 #import "UIView+Autosizing.h"
 #import "FlyingSearchViewController.h"
@@ -88,8 +87,7 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
+    FlyingSearchViewController * search= [[FlyingSearchViewController alloc] init];
     [search setSearchType:BEFindWord];
     
     [self.navigationController pushViewController:search animated:YES];
@@ -161,7 +159,10 @@
     }
     else{
         
-        [self.view makeToast:@"我们会尽快补充词典！"];
+        [self.view makeToast:@"我们会尽快补充词典！"
+                    duration:1
+                    position:CSToastPositionCenter];
+
     }
 }
 

@@ -38,8 +38,8 @@
 
     [super viewWillAppear:animated];
     
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate setnavigationBarWithClearStyle:NO];
+    //iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[appDelegate setNavigationBarWithLogoStyle:YES];
 }
 
 - (void)didReceiveMemoryWarning {

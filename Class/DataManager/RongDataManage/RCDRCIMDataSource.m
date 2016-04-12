@@ -9,7 +9,6 @@
 #import <RongIMLib/RongIMLib.h>
 #import "AFHttpTool.h"
 #import "RCDRCIMDataSource.h"
-#import "FlyingUserInfo.h"
 #import "FlyingHttpTool.h"
 #import "DBHelper.h"
 #import "FMDatabaseQueue.h"
@@ -51,13 +50,10 @@
     if (userInfo==nil) {
 
         [FlyingHttpTool getUserInfoByRongID:userId
-                              completion:^(RCUserInfo *user) {
+                              completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
                                   
-                                  if (user) {
-                                      [[RCDataBaseManager shareInstance] insertUserToDB:user];
-                                      [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:user.userId];
-
-                                      completion(user);
+                                  if (userInfo) {
+                                      completion(userInfo);
                                   }
                               }];
     }else

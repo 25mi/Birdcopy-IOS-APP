@@ -17,13 +17,12 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
 #import "FlyingConversationListVC.h"
-#import "SIAlertView.h"
 #import "UIView+Toast.h"
-#import "FlyingMyGroupsVC.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 
-@interface FlyingReviewVC ()<MAOFlipViewControllerDelegate>
+@interface FlyingReviewVC ()<MAOFlipViewControllerDelegate,
+                                UIViewControllerRestoration>
 
 @property (strong,nonatomic) MAOFlipViewController *flipViewController;
 
@@ -35,6 +34,34 @@
 
 
 @implementation FlyingReviewVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -99,8 +126,7 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
+    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
     [search setSearchType:BEFindWord];
     
     [self.navigationController pushViewController:search animated:YES];
@@ -131,7 +157,9 @@
 
 -(void)reachEnd
 {    
-    [self.view makeToast:@"已经没有更多了!" duration:3 position:CSToastPositionCenter];
+    [self.view makeToast:@"已经没有更多了!"
+                duration:1
+                position:CSToastPositionCenter];
 }
 
 //////////////////////////////////////////////////////////////

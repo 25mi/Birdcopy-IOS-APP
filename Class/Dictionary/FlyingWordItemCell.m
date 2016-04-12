@@ -11,7 +11,7 @@
 #import "shareDefine.h"
 #import "PSCollectionView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "FlyingTagTransform.h"
 #import "NSString+FlyingExtention.h"
 
@@ -31,7 +31,6 @@
     UILabel                 *_categoryLabel;
 
     UIView                  *_contentView;
-    UIActivityIndicatorView *_activityIndicator;
 
     UILabel                 *_tagContentlable;
     FlyingTagTransform      *_tagTrasform;
@@ -165,15 +164,7 @@
             UIView *mainDataView = (UIView *)[_contentView subviews][0];
             mainDataView.frame   = CGRectMake(0, 0, columnWidth, columnWidth*9/16);
             
-            if (INTERFACE_IS_PAD) {
-                
-                [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            }
-            else{
-                
-                [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-            }
-        }
+       }
             break;
             
         default:
@@ -342,15 +333,11 @@
 
             case BEImage:
             {
-                __weak typeof(self) weakSelf = self;
                 
                 UIImageView *coverImageView= [[UIImageView alloc] init];
                 [coverImageView setContentMode:UIViewContentModeScaleAspectFit];
                 
-                [coverImageView sd_setImageWithURL:[NSURL URLWithString:[itemData imageURLOnly]]
-                                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                              [weakSelf removeActivityIndicator];
-                                          }];
+                [coverImageView setImageWithURL:[NSURL URLWithString:[itemData imageURLOnly]]];
                 
                 [_contentView addSubview:coverImageView];
             }
@@ -366,16 +353,6 @@
                 [moviePlayer setFullscreen:FALSE];
                 
                 [_contentView addSubview:moviePlayer.view];
-                
-                
-                if (INTERFACE_IS_PAD) {
-                    
-                    [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                }
-                else{
-                    
-                    [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-                }
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self
                  
@@ -399,15 +376,6 @@
                 [_contentView addSubview:moviePlayer.view];
                 
                 
-                if (INTERFACE_IS_PAD) {
-                    
-                    [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                }
-                else{
-                    
-                    [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-                }
-
                 [[NSNotificationCenter defaultCenter] addObserver:self
                  
                                                          selector:@selector(movieFinishedCallback:)
@@ -430,37 +398,14 @@
     }
 }
 
--(void) createActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle
-{
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-    
-    //calculate the correct position
-    float width = _activityIndicator.frame.size.width;
-    float height = _activityIndicator.frame.size.height;
-    float x = (_contentView.frame.size.width / 2.0) - width/2;
-    float y = (_contentView.frame.size.height / 2.0) - height/2;
-    _activityIndicator.frame = CGRectMake(x, y, width, height);
-    
-    _activityIndicator.hidesWhenStopped = YES;
-    [_contentView addSubview:_activityIndicator];
-    
-    [_activityIndicator startAnimating];
-    
-}
-
 -(void)movieFinishedCallback:(NSNotification*)notify {
     
     FlyingItemData* theData = [notify object];
     
     if(theData.BEINDEX==self.detailData.BEINDEX && [theData.BEENTRY isEqualToString:self.detailData.BEENTRY])
     {
-        [self removeActivityIndicator];
+        //[self removeActivityIndicator];
     }
-}
-
--(void) removeActivityIndicator
-{
-    [_activityIndicator removeFromSuperview];
 }
 
 @end

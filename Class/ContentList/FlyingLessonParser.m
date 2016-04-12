@@ -26,6 +26,9 @@ static NSString* const kWebUrlStr   = @"ln_url";
 static NSString* const kISBNStr     = @"ln_isbn";
 static NSString* const kRelativeStr= @"ln_relatve";
 static NSString* const kDownloadStr= @"res_status";
+static NSString* const kTimeLampStr= @"upd_time";
+static NSString* const kCommentCountStr= @"ln_cmt_sum";
+
 
 @interface FlyingLessonParser () <NSXMLParserDelegate>
 @property (nonatomic, strong) NSData *dataToParse;
@@ -46,7 +49,10 @@ static NSString* const kDownloadStr= @"res_status";
 	if ((self = [super init]))
 	{
 		self.dataToParse = data;
-        self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr, kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,kRelativeStr,kDownloadStr,nil];
+        self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr,
+                                kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,
+                                kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,
+                                kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,nil];
 	}
 	return self;
 }
@@ -55,7 +61,10 @@ static NSString* const kDownloadStr= @"res_status";
 {
     
     self.dataToParse = data;
-    self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr, kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,kRelativeStr,kDownloadStr,nil];
+    self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr,
+                            kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,
+                            kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,
+                            kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,nil];
 }
 
 
@@ -177,6 +186,14 @@ static NSString* const kDownloadStr= @"res_status";
             
             else if ([elementName isEqualToString:kDownloadStr])
                 self.workingEntry.canDownloaded  = [trimmedString boolValue];
+            
+            else if ([elementName isEqualToString:kTimeLampStr])
+                self.workingEntry.timeLamp  = trimmedString;
+
+            
+            else if ([elementName isEqualToString:kCommentCountStr])
+                self.workingEntry.commentCount  = trimmedString;
+
 		}
 	}
 }

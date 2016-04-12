@@ -32,11 +32,7 @@
 {
     //loacal DB managemnet
     FMDatabaseQueue *_userDBQueue;
-    FMDatabaseQueue *_pubUserDBQueue;
-    FMDatabaseQueue *_baseDBQueue;
-    FMDatabaseQueue *_pubBaseDBQueue;
-    FMDatabaseQueue *_oldDBQueue;
-    FMDatabaseQueue *_oldDicDBQueue;
+    FMDatabaseQueue *_dicDBQueue;
 }
 @end
 
@@ -58,8 +54,29 @@
     [FlyingDBManager prepareDictionary];
     
     //准备用户数据库
+    [FlyingDBManager prepareUserDataBase];
+}
+
+// 准备英文字典
++ (void)prepareDictionary
+{
+    //判断是否后台加载基础字典（MP3+DB）
+    NSString  * newDicpath = [[FlyingFileManager getMyDictionaryDir] stringByAppendingPathComponent:BC_FileName_DicBase];
+    
+    //分享目录如果没有就创建一个
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:newDicpath])
+    {
+        [[FlyingDownloadManager shareInstance] startDownloadShareData];
+    }
+}
+
+//准备用户数据库
++ (void)prepareUserDataBase
+{
     //dbPath： 数据库路径，在dbDir中。
-    NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
+    NSString *dbPath = [[FlyingFileManager getMyUserDataDir] stringByAppendingPathComponent:BC_FileName_userBase];
     
     //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -201,31 +218,11 @@
     }
 }
 
-// 准备英文字典
-+ (void)prepareDictionary
-{
-    //判断是否后台加载基础字典（MP3+DB）
-    NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
-    NSString  * newDicpath = [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-    
-    //分享目录如果没有就创建一个
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    if(!([fileManager fileExistsAtPath:baseDir isDirectory:&isDir] && isDir))
-    {
-        [fileManager createDirectoryAtPath:baseDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    if (![fileManager fileExistsAtPath:newDicpath])
-    {
-        [[FlyingDownloadManager shareInstance] startDownloadShareData];
-    }
-}
 
 //根据课程更新字典
 + (void) updateBaseDic:(NSString *) lessonID
 {
-    NSString * lessonDir = [FlyingFileManager getLessonDir:lessonID];
+    NSString * lessonDir = [FlyingFileManager getMyLessonDir:lessonID];
     
     NSString * fileName = [lessonDir stringByAppendingPathComponent:KLessonDicXMLFile];
     
@@ -233,7 +230,6 @@
     [parser SetData:[NSData dataWithContentsOfFile:fileName]];
     
     FlyingItemDao * dao= [[FlyingItemDao alloc] init];
-    [dao setUserModle:NO];
     parser.completionBlock = ^(NSArray *itemList, NSInteger allRecordCount)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -260,19 +256,13 @@
     if (!_userDBQueue) {
         
         //dbPath： 数据库路径，在dbDir中。
-        NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
+        NSString *dbPath = [[FlyingFileManager getMyUserDataDir] stringByAppendingPathComponent:BC_FileName_userBase];
         
         //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:dbPath]){
             
-            NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KUserDBResource ofType:KDBType];
-            NSError* error=nil;
-            [fileManager copyItemAtPath:soureDbpath toPath:dbPath error:&error ];
-            if (error!=nil) {
-                NSLog(@"%@", error);
-                NSLog(@"%@", [error userInfo]);
-            }
+            [FlyingDBManager prepareUserDataBase];
         }
         
         _userDBQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
@@ -290,113 +280,42 @@
     }
 }
 
-- (FMDatabaseQueue *) sharePubUserDBQueue
+- (FMDatabaseQueue *) shareDicDBQueue
 {
-    if (!_pubUserDBQueue) {
+    if (!_dicDBQueue) {
         
-        //dbPath： 数据库路径，在dbDire中。
-        NSString *dbPath = [[FlyingFileManager getUserDataDir] stringByAppendingPathComponent:KUserDatdbaseFilename];
-        
-        //如果有直接打开，没有用户纪录文件就从安装文件复制一个用户模板
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:dbPath]){
-            
-            NSString *soureDbpath = [[NSBundle mainBundle] pathForResource:KUserDBResource ofType:KDBType];
-            NSError* error=nil;
-            [fileManager copyItemAtPath:soureDbpath toPath:dbPath error:&error ];
-            if (error!=nil) {
-                NSLog(@"%@", error);
-                NSLog(@"%@", [error userInfo]);
-            }
-        }
-        
-        _pubUserDBQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-    }
-    
-    return _pubUserDBQueue;
-}
-
-- (void) closePubUserDBQueue
-{
-    if (_pubUserDBQueue) {
-        
-        [_pubUserDBQueue close];
-        _pubUserDBQueue=nil;
-    }
-}
-
-- (FMDatabaseQueue *) shareBaseDBQueue
-{
-    if (!_baseDBQueue) {
-        
-        NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
-        NSString * path        =  [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
+        NSString * path        =  [[FlyingFileManager getMyDictionaryDir] stringByAppendingPathComponent:BC_FileName_DicBase];
         
         //如果没有
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:path]){
             
-            [[FlyingDownloadManager shareInstance] startDownloadShareData];
+            [FlyingDBManager prepareDictionary];
             
             return nil;
         }
         else{
             
-            _baseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+            _dicDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
         }
     }
     
-    return _baseDBQueue;
+    return _dicDBQueue;
 }
 
-- (void) closeBaseDBQueue
+- (void) closeDicDBQueue
 {
-    if (_baseDBQueue) {
+    if (_dicDBQueue) {
         
-        [_baseDBQueue close];
-        _baseDBQueue=nil;
-    }
-}
-
-- (FMDatabaseQueue *) sharePubBaseDBQueue
-{
-    if (!_pubBaseDBQueue) {
-                
-        NSString * baseDir     = [[FlyingFileManager getDownloadsDir] stringByAppendingPathComponent:kShareBaseDir];
-        NSString * path        =  [baseDir stringByAppendingPathComponent:KBaseDatdbaseFilename];
-        
-        //如果没有
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:path]){
-            
-            [[FlyingDownloadManager shareInstance] startDownloadShareData];
-            
-            return nil;
-        }
-        else{
-            
-            _pubBaseDBQueue = [FMDatabaseQueue databaseQueueWithPath:path];
-        }
-    }
-    
-    return _pubBaseDBQueue;
-}
-
-- (void) closePubBaseDBQueue
-{
-    if (_pubBaseDBQueue) {
-        
-        [_pubBaseDBQueue close];
-        _pubBaseDBQueue=nil;
+        [_dicDBQueue close];
+        _dicDBQueue=nil;
     }
 }
 
 - (void) closeDBQueue
 {
-    [self closeBaseDBQueue];
     [self closeUserDBQueue];
-    [self closePubBaseDBQueue];
-    [self closePubUserDBQueue];
+    [self closeDicDBQueue];
 }
 
 @end

@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 @property (strong, nonatomic) PSCollectionView   *homeFeatureTagPSColeectionView;
-@property (strong, nonatomic) NSString           *domainID;
-@property (assign, nonatomic) BC_Domain_Type      domainType;
 @property (assign, nonatomic) BOOL                shoudLoaingFeature;
 
 @end

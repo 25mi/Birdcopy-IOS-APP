@@ -10,4 +10,7 @@
 
 @interface FlyingConversationVC : RCConversationViewController
 
+@property (strong, nonatomic)   NSString    *domainID;
+@property (strong, nonatomic)   NSString    *domainType;
+
 @end

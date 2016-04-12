@@ -16,8 +16,6 @@
 @end
 
 @interface FlyingContentTitleAndTypeCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet UIButton *accessButton;
-@property (strong, nonatomic) IBOutlet UILabel *contentTitle;
 
 + (FlyingContentTitleAndTypeCell*) contentTitleAndTypeCell;
 
@@ -25,5 +23,6 @@
 
 -(void) setTitle:(NSString*) title;
 -(void) setAccessRight:(BOOL) accessRight;
+-(void) setPrice:(NSString*) price;
 
 @end

@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIImageView *bannerImageViewWithImageEffects;
 
 // user info
-@property (nonatomic, strong) UIButton *avatarButton;
+@property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *contentNameLabel;
 @property (nonatomic, strong) UILabel *contentDescLabel;
 
@@ -48,7 +48,8 @@
 - (void)setBackgroundImageUrlString:(NSString *)backgroundImageUrlString;
 
 // avatar image
-- (void)setAvatarImage:(UIImage *)avatarImage;
+- (void)setAvatarImageURL:(NSString *)avatarImageURL;
+
 // custom set url for subClass， There is not work
 - (void)setAvatarUrlString:(NSString *)avatarUrlString;
 

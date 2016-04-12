@@ -21,6 +21,7 @@
 @synthesize tapDelegate;
 
 - (instancetype)init {
+    
     self = [super init];
     
     if (self != nil) {
@@ -31,6 +32,7 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
     
     if (self != nil) {
@@ -40,7 +42,10 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andTags:(NSArray *)tags withTagsControlMode:(TLTagsControlMode)mode {
+- (id) initWithFrame:(CGRect)frame
+             andTags:(NSArray *)tags
+ withTagsControlMode:(TLTagsControlMode)mode {
+    
     self = [super initWithFrame:frame];
     
     if (self != nil) {

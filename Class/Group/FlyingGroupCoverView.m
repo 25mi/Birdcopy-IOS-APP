@@ -7,13 +7,15 @@
 //
 
 #import "FlyingGroupCoverView.h"
-
 #import "XHWaterDropRefresh.h"
-
 #import <Accelerate/Accelerate.h>
 #import <float.h>
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
+#import <UIButton+AFNetworking.h>
 #import "shareDefine.h"
+#import "LEColorPicker.h"
+#import "UIColor+RCColor.h"
+#import "NSString+FlyingExtention.h"
 
 @interface FlyingGroupCoverView () {
     BOOL normal, paste, hasStop;
@@ -35,7 +37,8 @@
 
 -(void)settingWithContentData:(FlyingPubLessonData*) contentData
 {
-    [self.bannerImageView  sd_setImageWithURL:[NSURL URLWithString:contentData.imageURL] placeholderImage:[UIImage imageNamed:@"Default"]];
+    [self.bannerImageView  setImageWithURL:[NSURL URLWithString:contentData.imageURL]
+                          placeholderImage:[UIImage imageNamed:@"Default"]];
 
     self.contentNameLabel.text = contentData.title;
     self.contentDescLabel.text = contentData.desc;
@@ -60,16 +63,22 @@
     }
 }
 
-- (void)setBackgroundImageUrlString:(NSString *)backgroundImageUrlString {
-    if (backgroundImageUrlString) {
+- (void)setBackgroundImageUrlString:(NSString *)backgroundImageUrlString
+{
+    if (![NSString isBlankString:backgroundImageUrlString]) {
         
+        [self.bannerImageView setImageWithURL:[NSURL URLWithString:backgroundImageUrlString]
+                             placeholderImage:[UIImage imageNamed:@"Default"]];
     }
 }
 
 // avatar
-- (void)setAvatarImage:(UIImage *)avatarImage {
-    if (avatarImage) {
-        [_avatarButton setImage:avatarImage forState:UIControlStateNormal];
+- (void)setAvatarImageURL:(NSString *)avatarImageURL {
+
+    if (![NSString isBlankString:avatarImageURL]) {
+        
+        [self.avatarImageView setImageWithURL:[NSURL URLWithString:avatarImageURL]
+                             placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
 }
 
@@ -214,6 +223,7 @@
 }
 
 - (void)_setup {
+    
     self.parallaxHeight = 170;
     self.isLightEffect = YES;
     self.lightEffectPadding = 80;
@@ -224,7 +234,7 @@
     UITapGestureRecognizer *tapGestureRecongnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecongnizerHandle:)];
     [_bannerView addGestureRecognizer:tapGestureRecongnizer];
     
-    _bannerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -self.parallaxHeight, CGRectGetWidth(_bannerView.frame), CGRectGetHeight(_bannerView.frame) + self.parallaxHeight * 2)];
+    _bannerImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _bannerImageView.contentMode = UIViewContentModeScaleToFill;
     [_bannerView addSubview:self.bannerImageView];
     
@@ -246,21 +256,41 @@
     _showView = [[UIView alloc] initWithFrame:CGRectMake(0, self.showUserInfoViewOffsetHeight, CGRectGetWidth(self.bounds), waterDropRefreshHeight)];
     _showView.backgroundColor = [UIColor clearColor];
     
-    _avatarButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, avatarButtonHeight, avatarButtonHeight)];
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, avatarButtonHeight, avatarButtonHeight)];
     
+    [_avatarImageView.layer setCornerRadius:(_avatarImageView.frame.size.height/2)];
+    [_avatarImageView.layer setMasksToBounds:YES];
+    [_avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [_avatarImageView setClipsToBounds:YES];
+    _avatarImageView.layer.shadowColor = [UIColor clearColor].CGColor;
+    _avatarImageView.layer.shadowOffset = CGSizeMake(4, 4);
+    _avatarImageView.layer.shadowOpacity = 0.5;
+    _avatarImageView.layer.shadowRadius = 2.0;
+    _avatarImageView.userInteractionEnabled = NO;
+    _avatarImageView.backgroundColor = [UIColor clearColor];
+
+    
+    LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
+    LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:_bannerImageView.image];
+    //[colorScheme primaryTextColor];
+    //[colorScheme secondaryTextColor];
+    
+    UIColor * backgroundColor = [colorScheme backgroundColor];
+    UIColor * textColor=  [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
+
     _contentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 0, 207, 42)];
-    _contentNameLabel.textColor = [UIColor blackColor];
+    _contentNameLabel.textColor = textColor;
     _contentNameLabel.backgroundColor = [UIColor clearColor];
     _contentNameLabel.font = [UIFont boldSystemFontOfSize:KLargeFontSize];
     _contentDescLabel.numberOfLines=0;
     
     _contentDescLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 42, 207, 48)];
-    _contentDescLabel.textColor = [UIColor blackColor];
+    _contentDescLabel.textColor = textColor;
     _contentDescLabel.backgroundColor = [UIColor clearColor];
     _contentDescLabel.font = [UIFont systemFontOfSize:KSmallFontSize];
     _contentDescLabel.numberOfLines=3;
     
-    [_showView addSubview:self.avatarButton];
+    [_showView addSubview:self.avatarImageView];
     [_showView addSubview:self.contentNameLabel];
     [_showView addSubview:self.contentDescLabel];
     
@@ -271,7 +301,7 @@
     self.bannerImageView = nil;
     self.bannerImageViewWithImageEffects = nil;
     
-    self.avatarButton = nil;
+    self.avatarImageView = nil;
     self.contentNameLabel = nil;
     self.contentDescLabel = nil;
     

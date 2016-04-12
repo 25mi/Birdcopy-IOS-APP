@@ -57,6 +57,18 @@
     return [UIColor colorWithRed:((float)r / 255.0f) green:((float)g / 255.0f) blue:((float)b / 255.0f) alpha:alpha];
 }
 
++(UIColor *)readableForegroundColorForBackgroundColor:(UIColor*)backgroundColor {
+    
+    const CGFloat *componentColors = CGColorGetComponents(backgroundColor.CGColor);
+    
+    CGFloat darknessScore = (((componentColors[0]*255) * 299) + ((componentColors[1]*255) * 587) + ((componentColors[2]*255) * 114)) / 1000;
+    
+    if (darknessScore >= 125) {
+        return [UIColor blackColor];
+    }
+    
+    return [UIColor whiteColor];
+}
 
 
 @end

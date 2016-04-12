@@ -11,21 +11,19 @@
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
 #import "NSString+FlyingExtention.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import <AFNetworking/AFNetworking.h>
 #import "FlyingItemDao.h"
 #import "FlyingItemData.h"
 #import "FlyingItemParser.h"
-#import "SIAlertView.h"
 #import "FlyingSeparateView.h"
 #import "FlyingSoundPlayer.h"
 #import "HCSStarRatingView.h"
 #import "FlyingTaskWordDAO.h"
-#import "FlyingWordCollectVC.h"
 #import <AFNetworking/AFNetworking.h>
 #import "AFHttpTool.h"
 
-@interface FlyingWordAbstractVC()
+@interface FlyingWordAbstractVC()<UIViewControllerRestoration>
 {
     UILabel                 *_wordLabel;
     HCSStarRatingView       *_starRatingView;
@@ -42,6 +40,34 @@
 @end
 
 @implementation FlyingWordAbstractVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (id)initWithTaskWord:(FlyingTaskWordData*) taskWord
 {
@@ -152,13 +178,7 @@
 
 - (void)handleSingleTapFrom: (id) sender
 {
-    FlyingWordCollectVC * vc = [[FlyingWordCollectVC alloc] init];
-
-    [vc setTheWord:self.taskWord.BEWORD];
-    
-    [self presentViewController:vc animated:YES completion:^{
-        //
-    }];
+    [[[FlyingSoundPlayer alloc] init] speechWord:self.taskWord.BEWORD LessonID:self.taskWord.BELESSONID];
 }
 
 - (void)didChangeValue:(HCSStarRatingView *)sender
@@ -255,7 +275,7 @@
             if(lessonData.BEOFFICIAL){
                 
                 [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-                [_coverImageView sd_setImageWithURL:[NSURL URLWithString:lessonData.BEIMAGEURL]];
+                [_coverImageView setImageWithURL:[NSURL URLWithString:lessonData.BEIMAGEURL]];
             }
             else{
                 
@@ -288,7 +308,7 @@
                                            if ( (segmentRange.location==NSNotFound) && (response!=nil) ) {
                                                
                                                [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-                                               [_coverImageView sd_setImageWithURL:[NSURL URLWithString:temStr] ];
+                                               [_coverImageView setImageWithURL:[NSURL URLWithString:temStr]];
                                            }
 
                                        } failure:^(NSError *err) {

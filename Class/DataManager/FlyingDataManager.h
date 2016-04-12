@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
-
 #import "MKStoreKit.h"
 #import "FlyingAppData.h"
+#import "FlyingUserData.h"
+#import "FlyingUserRightData.h"
 
 @interface FlyingDataManager : NSObject
-
 
 //APP数据
 +(void) saveAppData:(FlyingAppData*) appData;
@@ -27,7 +27,6 @@
 
 + (NSString*) getOfficalURL;
 
-
 //终端用户数据
 + (NSString*) getOpenUDID;
 + (NSString*) getRongID;
@@ -37,12 +36,11 @@
 + (NSString*) getUserPassword;
 + (void)      setUserPassword:(NSString*) passWord;
 
-+ (NSString*) getNickName;
-+ (void)      setNickName:(NSString*) nickName;
-+ (NSString*) getUserAbstract;
-+ (void)      setUserAbstract:(NSString*) userAbstract;
-+ (NSString*) getUserPortraitUri;
-+ (void)      setUserPortraitUri:(NSString*) portraitUri;
++ (FlyingUserData*) getUserData:(NSString*)        openUDID;
++ (void)            saveUserData:(FlyingUserData*) userData;
+
++(FlyingUserRightData*) getUserRightForDomainID:(NSString*) domainID domainType:(NSString*) domainType;
++(void) saveUserRightData:(FlyingUserRightData *)userRightData;
 
 //获取openUDID
 +(void)makeOpenUDIDFromLocal;

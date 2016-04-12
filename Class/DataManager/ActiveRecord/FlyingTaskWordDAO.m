@@ -21,19 +21,8 @@
     return [NSString stringWithFormat:sql,  @"BE_TASK_WORD"];
 }
 
--(void)       setUserModle:(BOOL) userModle;
-{
-    if (!userModle) {
-        self.workDbQueue = self.pubUserDBQueue;
-    }
-    else{
-        self.workDbQueue = self.userDBQueue;
-    }
-}
-
 - (FMDatabaseQueue *)dbQueue
 {
-    //默认是用户模式
     if (!self.workDbQueue) {
         self.workDbQueue = self.userDBQueue;
     }

@@ -13,8 +13,7 @@
 
 @interface FlyingScanViewController : FlyingViewController<AVCaptureMetadataOutputObjectsDelegate,
                                                         UINavigationControllerDelegate,
-                                                        UIImagePickerControllerDelegate,
-                                                        UIAlertViewDelegate>
+                                                        UIImagePickerControllerDelegate>
 
 @property (strong,nonatomic)  AVCaptureDevice             *device;
 @property (strong,nonatomic)  AVCaptureDeviceInput        *input;

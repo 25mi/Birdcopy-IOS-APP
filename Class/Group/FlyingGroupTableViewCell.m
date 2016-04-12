@@ -9,7 +9,7 @@
 #import "FlyingGroupTableViewCell.h"
 #import "shareDefine.h"
 #import "FlyingGroupData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "NSString+FlyingExtention.h"
 #import "FlyingGroupUpdateData.h"
 
@@ -17,9 +17,7 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
-    self.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    
+    // Initialization code    
     self.nameLabel.font= [UIFont boldSystemFontOfSize:KLargeFontSize];
     
     self.memberCountLabel.font= [UIFont systemFontOfSize:KSmallFontSize];
@@ -28,13 +26,8 @@
     self.descriptionLabel.font= [UIFont systemFontOfSize:KNormalFontSize];
     
     [self.groupIconImageView setContentMode:UIViewContentModeScaleAspectFill];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
+        
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 + (FlyingGroupTableViewCell*) groupCell
@@ -52,10 +45,12 @@
     self.groupUpdateData = groupUpdateData;
     
     if (groupUpdateData.groupData.logo.length!=0) {
-        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:groupUpdateData.groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
+        
+        [self.groupIconImageView setImageWithURL:[NSURL URLWithString:groupUpdateData.groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     else
     {
+        
         [self.groupIconImageView setImage:[UIImage imageNamed:@"Icon"]];
     }
     

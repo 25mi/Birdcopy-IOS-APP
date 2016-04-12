@@ -7,10 +7,9 @@
 //
 
 #import "FlyingCommentCell.h"
-#import "UIImageView+WebCache.h"
 #import "shareDefine.h"
 #import "NSString+FlyingExtention.h"
-
+#import <UIImageView+AFNetworking.h>
 
 @implementation FlyingCommentCell
 
@@ -29,6 +28,8 @@
     self.profileImageView.layer.shadowOffset = CGSizeMake(4, 4);
     self.profileImageView.layer.shadowOpacity = 0.5;
     self.profileImageView.layer.shadowRadius = 2.0;
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -50,10 +51,11 @@
 -(void)setCommentData:(FlyingCommentData*)commentData
 {
     if (commentData.portraitURL.length!=0) {
-        [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:commentData.portraitURL] placeholderImage:[UIImage imageNamed:@"Icon"]];
+        
+        [self.profileImageView setImageWithURL:[NSURL URLWithString:commentData.portraitURL] placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
-    else
-    {
+    else{
+        
         [self.profileImageView setImage:[UIImage imageNamed:@"Icon"]];
     }
     

@@ -7,7 +7,7 @@
 //
 
 #import "XHWaterDropRefresh.h"
-#import "XHSoundManager.h"
+#import "FlyingSoundPlayer.h"
 
 @interface XHWaterDropRefresh () {
     BOOL _isRefresh;
@@ -157,7 +157,7 @@
     }
     CGPathCloseSubpath(path);
     
-    return path;
+    return (CGMutablePathRef)CFAutorelease(path);
 }
 
 - (void)setCurrentOffset:(float)currentOffset {
@@ -168,25 +168,29 @@
 }
 
 - (void)privateSetCurrentOffset:(float)currentOffset {
+    
     currentOffset = currentOffset>0?0:currentOffset;
     currentOffset = -currentOffset;
     _currentOffset =  currentOffset;
+    
     if(currentOffset < _maxOffset) {
         float wdiff = currentOffset* 0.2;
         float top = self.frame.size.height - 20 - _radius*2 - currentOffset;
         
         CGMutablePathRef path = [self createPathWithOffset:currentOffset];
         _shapeLayer.path = path;
-        CGPathRelease(path);
-        
+        //CGPathRelease(path);
         
         CGMutablePathRef line = CGPathCreateMutable();
         float w = ((_maxOffset - currentOffset)/_maxOffset) + 1;
         CGPathAddRect(line, NULL, CGRectMake(15-w/2, top + wdiff + _radius*2,w, currentOffset-wdiff + self.offsetHeight)); // 最好的+20就是线条的长度
         _lineLayer.path = line;
         
+        CFAutorelease(line);
+        
         self.transform = CGAffineTransformMakeScale(0.8+0.2*(w-1), 1);
     } else {
+        
         if(self.timer == nil)
         {
             _isRefresh = YES;
@@ -206,7 +210,7 @@
         self.timer = nil;
         
         // play refresh stop sound
-        [[XHSoundManager sharedInstance] playRefreshSound];
+        [FlyingSoundPlayer playRefreshSound];
         
         if(self.handleRefreshEvent != nil) {
             self.handleRefreshEvent();

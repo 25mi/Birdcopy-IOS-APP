@@ -9,10 +9,9 @@
 #import "shareDefine.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingLessonParser.h"
-#import "SIAlertView.h"
 #import "FlyingContentListVC.h"
 #import "FlyingPubLessonData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "FlyingWebViewController.h"
 #import "FlyingLoadingView.h"
 #import "FlyingConversationListVC.h"
@@ -34,7 +33,7 @@
 #import "FlyingConversationVC.h"
 
 
-@interface FlyingDiscoverVC ()
+@interface FlyingDiscoverVC ()<UIViewControllerRestoration>
 
 {
     NSInteger            _maxNumOfTags;
@@ -50,6 +49,34 @@
 @end
 
 @implementation FlyingDiscoverVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -75,12 +102,7 @@
         
         self.domainID = [FlyingDataManager getBusinessID];
     }
-    
-    if(!self.domainType)
-    {
-        self.domainType = BC_Business_Domain;
-    }
-    
+        
     [self reloadAll];
 }
 
@@ -100,8 +122,11 @@
 
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
+    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
+    
+    search.domainID = self.domainID;
+    search.domainType = self.domainType;
+    
     [search setSearchType:BEFindLesson];
     [self.navigationController pushViewController:search animated:YES];
 }
@@ -189,7 +214,9 @@
     else
     {
         [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -248,7 +275,9 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
     
     //处理footview

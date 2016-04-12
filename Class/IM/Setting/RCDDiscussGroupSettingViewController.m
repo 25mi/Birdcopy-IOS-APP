@@ -16,8 +16,9 @@
 #import "RCDataBaseManager.h"
 
 #import "FlyingConversationVC.h"
+#import "FlyingUserData.h"
 
-@interface RCDDiscussGroupSettingViewController ()<UIActionSheetDelegate>
+@interface RCDDiscussGroupSettingViewController ()
 
 @property (nonatomic, copy) NSString* discussTitle;
 @property (nonatomic, copy) NSString* creatorId;
@@ -28,6 +29,34 @@
 @end
 
 @implementation RCDDiscussGroupSettingViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -41,9 +70,9 @@
     if (self.conversationType == ConversationType_PRIVATE) {
 
         [FlyingHttpTool getUserInfoByRongID:self.targetId
-                              completion:^(RCUserInfo* user) {
-                                          [self addUsers:@[user]];
-                                          [_members setObject:user forKey:user.userId];
+                              completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
+                                          [self addUsers:@[userInfo]];
+                                          [_members setObject:userInfo forKey:userInfo.userId];
 
                               }];
     }
@@ -71,14 +100,16 @@
                 NSMutableArray *users = [NSMutableArray new];
                 for (NSString *targetId in discussion.memberIdList) {
                         [FlyingHttpTool getUserInfoByopenID:targetId
-                                                              completion:^(RCUserInfo *user) {
-                                                                  if ([discussion.creatorId isEqualToString: user.userId]) {
-                                                                      [users insertObject:user atIndex:0];
+                                                              completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
+                                                                  if ([discussion.creatorId isEqualToString: userInfo.userId]) {
+                                                                      
+                                                                      [users insertObject:userInfo atIndex:0];
+                                                                      
                                                                   }else{
                                                                   
-                                                                       [users addObject:user];
+                                                                       [users addObject:userInfo];
                                                                   }
-                                                                  [_members setObject:user forKey:user.userId];
+                                                                  [_members setObject:userInfo forKey:userInfo.userId];
                                                                   [weakSelf addUsers:users];
                                                               }];
                     
@@ -108,20 +139,21 @@
     _isClick = YES;
 }
 
--(void)buttonAction:(UIButton*)sender{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"删除并且退出讨论组" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil];
-    [actionSheet showInView:self.view];
-    
-}
-#pragma mark-UIActionSheetDelegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+-(void)buttonAction:(UIButton*)sender
 {
-    if ([actionSheet isEqual:self.clearMsgHistoryActionSheet]) {
-        [self clearHistoryMessage];
-    }else{
-        if (0 == buttonIndex) {
-            __weak typeof(&*self)  weakSelf = self;
-            [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
+    
+    NSString *title = @"选择操作方式";
+    NSString *message = nil;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"删除并且退出讨论组" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        __weak typeof(&*self)  weakSelf = self;
+        [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
             NSLog(@"退出讨论组成功");
             UIViewController *temp = nil;
             NSArray *viewControllers = weakSelf.navigationController.viewControllers;
@@ -131,16 +163,27 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popToViewController:temp animated:YES];
                 });
-                }
-            } error:^(RCErrorCode status) {
-                    NSLog(@"quit discussion status is %ld",(long)status);
-                    
-            }];
+            }
+        } error:^(RCErrorCode status) {
+            NSLog(@"quit discussion status is %ld",(long)status);
             
-        }
-    }
-}
+        }];
+    }];
+    
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:doneAction];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{
+        //
+    }];
 
+    
+}
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -217,8 +260,7 @@
     //点击最后一个+号,调出选择联系人UI
     if (indexPathOfSelectedItem.row == settingTableViewHeader.users.count) {
 
-        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingSelectPersonViewController* selectPersonVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"FlyingSelectPersonViewController"];
+        FlyingSelectPersonViewController* selectPersonVC = [[FlyingSelectPersonViewController alloc] init];
         [selectPersonVC setSeletedUsers:users];
         //设置回调
         selectPersonVC.clickDoneCompletion = ^(FlyingSelectPersonViewController* selectPersonViewController, NSArray* selectedUsers) {

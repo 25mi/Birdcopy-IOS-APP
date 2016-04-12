@@ -58,12 +58,10 @@
         _M3u8OrdeID=0;
         self.count=0;
         
-        _saveTo = [FlyingFileManager getLessonDir:self.playlist.lessonID];
+        _saveTo = [FlyingFileManager getMyLessonDir:self.playlist.lessonID];
         _dao=[[FlyingLessonDAO  alloc] init];
-        [_dao setUserModle:NO];
         
         _tempDAO= [[FlyingLessonDAO  alloc] init];
-        [_tempDAO setUserModle:NO];
         
         [self addObserver:self forKeyPath:@"freeDownloadSoure" options:0 context:NULL];
 
@@ -371,7 +369,6 @@
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //
         FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
-        [statisticDAO setUserModle:NO];
         NSString *openID = [FlyingDataManager getOpenUDID];
         NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
         giftCountNow+=10;

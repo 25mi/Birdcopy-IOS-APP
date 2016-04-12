@@ -1,5 +1,4 @@
 //
-//  FlyingMyGroupsVC.m
 //  FlyingEnglish
 //
 //  Created by vincent on 9/4/15.
@@ -45,19 +44,16 @@
 
 #import "FlyingAddressBookVC.h"
 
-@interface FlyingGroupVC ()
+@interface FlyingGroupVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfContents;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
     
     int                  _lastPosition;
 }
 
 @property (strong, nonatomic) UIButton *accessChatbutton;
 @property (strong, nonatomic) UIView   *accessChatContainer;
-
 
 @property (nonatomic, strong) FlyingGroupCoverView *pathCover;
 
@@ -69,11 +65,31 @@
 
 @implementation FlyingGroupVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+        self.groupStreamTableView.restorationIdentifier = @"groupStreamTableView";
     }
     return self;
 }
@@ -88,7 +104,8 @@
     
     [self addBackFunction];
     
-    _refresh=NO;
+    self.domainID = self.groupData.gp_id;
+    self.domainType = BC_Domain_Group;
     
     //更新欢迎语言
     self.title = self.groupData.gp_name;
@@ -112,48 +129,35 @@
     
     //获取权限
     [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
-                                           GroupID:self.groupData.gp_id Completion:^(NSString *result) {
+                                           GroupID:self.groupData.gp_id
+                                        Completion:^(FlyingUserRightData *userRightData) {
                                                //
-                                               if ([result isEqualToString:KGroupMemberVerified]) {
-                                                   
-                                                   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:self.groupData.gp_id];
-                                                   [[NSUserDefaults standardUserDefaults] synchronize];
-                                               }
-                                               else
-                                               {
-                                                   [[NSUserDefaults standardUserDefaults] setBool:NO forKey:self.groupData.gp_id];
-                                                   [[NSUserDefaults standardUserDefaults] synchronize];
-                                               }
                                            }];
 }
 
 -(void) prepareForChatRoom
 {
-    if (INTERFACE_IS_PAD) {
-        
-        return;
-    }
-    
     if(!self.accessChatbutton)
     {
         CGRect chatButtonFrame=self.view.frame;
         
         CGRect frame=self.view.frame;
         
+        chatButtonFrame.origin.x    = frame.size.width*8/10;
+        chatButtonFrame.origin.y    =frame.size.height-frame.size.width/8-frame.size.width*3/40;
         chatButtonFrame.size.width  = frame.size.width/8;
         chatButtonFrame.size.height = frame.size.width/8;
-        chatButtonFrame.origin.x    = frame.size.width*8/10;
-        chatButtonFrame.origin.y    = frame.size.height-frame.size.width/5;
-
+        
         self.accessChatContainer = [[UIView alloc]  initWithFrame:chatButtonFrame];
         
         self.accessChatbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, chatButtonFrame.size.width, chatButtonFrame.size.height)];
-        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"Chat"]
+        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"chat"]
                                           forState:UIControlStateNormal];
         [self.accessChatbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-
         [self.accessChatContainer addSubview:self.accessChatbutton];
-        [self.view addSubview:self.accessChatContainer];
+
+        [self.view  addSubview:self.accessChatContainer];
+        [self.view bringSubviewToFront:self.accessChatContainer];
     }
 }
 
@@ -184,8 +188,10 @@
 - (void) doDiscover
 {
     FlyingDiscoverVC *discoverContent = [[FlyingDiscoverVC alloc] init];
+    
     discoverContent.domainID = self.groupData.gp_id;
-    discoverContent.domainType = BC_Group_Domain;
+    discoverContent.domainType = BC_Domain_Group;
+    
     discoverContent.shoudLoaingFeature = YES;
     discoverContent.hidesBottomBarWhenPushed = YES;
     
@@ -193,15 +199,11 @@
 }
 
 - (void) doChat
-{
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-        
-        return;
-    }
-    
+{    
     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+    
+    chatService.domainID   = self.groupData.gp_id;
+    chatService.domainType = BC_Domain_Group;
     
     chatService.targetId = self.groupData.gp_id;
     chatService.conversationType = ConversationType_CHATROOM;
@@ -212,11 +214,10 @@
 
 -(void) showMember
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingAddressBookVC * membersVC=[storyboard instantiateViewControllerWithIdentifier:@"FlyingAddressBookVC"];
-
+    FlyingAddressBookVC * membersVC=[[FlyingAddressBookVC alloc] init];
+    
     membersVC.domainID = self.groupData.gp_id;
-    membersVC.domainType = BC_Group_Domain;
+    membersVC.domainType = BC_Domain_Group;
     
     membersVC.title = @"群成员";
     membersVC.hidesBottomBarWhenPushed = YES;
@@ -233,6 +234,10 @@
 - (void) touchCover:(FlyingPubLessonData*)lessonPubData
 {
     FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+    
+    contentVC.domainID = self.groupData.gp_id;
+    contentVC.domainType = BC_Domain_Group;
+    
     [contentVC setThePubLesson:lessonPubData];
     contentVC.hidesBottomBarWhenPushed=YES;
     
@@ -260,11 +265,11 @@
         //Add cover view
         int coverHight = CGRectGetWidth(self.view.frame)*9/16;
         _pathCover = [[FlyingGroupCoverView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), coverHight)];
-        [_pathCover setBackgroundImage:[UIImage imageNamed:@"Default"]];
-        [_pathCover setAvatarImage:[UIImage imageNamed:@"Icon"]];
-        
+        [_pathCover setBackgroundImageUrlString:self.groupData.cover];
+        [_pathCover setAvatarImageURL:self.groupData.logo];
+                        
         [FlyingHttpTool getCoverListForDomainID:self.groupData.gp_id
-                                     DomainType:BC_Group_Domain
+                                     DomainType:BC_Domain_Group
                                      PageNumber:1
                                   Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
                                       
@@ -277,6 +282,8 @@
                                   }];
         
         self.groupStreamTableView.tableHeaderView = self.pathCover;
+        self.groupStreamTableView.tableFooterView = [UIView new];
+
         [self.view addSubview:_groupStreamTableView];
 
         __weak FlyingGroupVC *wself = self;
@@ -290,7 +297,10 @@
             if ([wself.currentFeatueContent.contentType isEqualToString:KContentTypePageWeb] ) {
                 
                 UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+                webpage.domainID = wself.domainID;
+                webpage.domainType = wself.domainType;
+                
                 [webpage setThePubLesson:wself.currentFeatueContent];
                 
                 [wself.navigationController pushViewController:webpage animated:YES];
@@ -298,6 +308,9 @@
             else
             {
                 FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+                contentVC.domainID = wself.domainID;
+                contentVC.domainType = wself.domainType;
+                
                 [contentVC setThePubLesson:wself.currentFeatueContent];
                 
                 [wself.navigationController pushViewController:contentVC animated:YES];
@@ -317,8 +330,6 @@
         _maxNumOfContents=NSIntegerMax;
     }
     
-    [self prepareForChatRoom];
-
     [self loadMore];
 }
 
@@ -362,7 +373,7 @@
         _currentLodingIndex++;
         
         [FlyingHttpTool getLessonListForDomainID:self.groupData.gp_id
-                                      DomainType:BC_Group_Domain
+                                      DomainType:BC_Domain_Group
                                    PageNumber:_currentLodingIndex
                             lessonConcentType:nil
                                  DownloadType:nil
@@ -394,8 +405,12 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
+    
+    [self prepareForChatRoom];
 }
 
 //////////////////////////////////////////////////////////////
@@ -427,7 +442,7 @@
     if (indexPath.section == 0)
     {
         // 普通Cell
-        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:CONTENT_CELL_IDENTIFIER];
+        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentCell"];
         
         if (!cell) {
             cell = [FlyingContentCell contentCell];
@@ -467,8 +482,10 @@
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return [tableView fd_heightForCellWithIdentifier:@"FlyingContentCell" configuration:^(id cell) {
-            
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingContentCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(id cell) {
+    
             [self configureCell:cell atIndexPath:indexPath];
         }];
     
@@ -481,8 +498,11 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingPubLessonData *contentData = self.currentData[indexPath.row];
-    [(FlyingContentCell*)cell settingWithContentData:contentData];
+    if (indexPath.row<self.currentData.count) {
+
+        FlyingPubLessonData *contentData = self.currentData[indexPath.row];
+        [(FlyingContentCell*)cell settingWithContentData:contentData];
+    }
 }
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
@@ -524,7 +544,11 @@
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+            
+            webpage.domainID = self.domainID;
+            webpage.domainType = self.domainType;
+            
             [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];
@@ -532,6 +556,10 @@
         else
         {
             FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+            
+            contentVC.domainID = self.groupData.gp_id;
+            contentVC.domainType = BC_Domain_Group;
+            
             [contentVC setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:contentVC animated:YES];

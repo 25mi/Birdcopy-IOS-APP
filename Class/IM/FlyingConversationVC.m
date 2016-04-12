@@ -30,31 +30,72 @@
 #import  "ZXingObjC.h"
 #import "FlyingSoundPlayer.h"
 #import "FlyingScanViewController.h"
-#import "SIAlertView.h"
-#import "FlyingShareWithFriends.h"
 #import "FlyingImagePreivewVC.h"
 #import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
+#import "FlyingShareWithRecent.h"
+#import "FlyingProfileVC.h"
 
-@interface FlyingConversationVC () <UIActionSheetDelegate,
-                                    RCRealTimeLocationObserver,
+@interface FlyingConversationVC () <RCRealTimeLocationObserver,
                                     RealTimeLocationStatusViewDelegate,
-                                    UIAlertViewDelegate,
                                     RCMessageCellDelegate,
-                                    CFShareCircleViewDelegate>
+                                    UIViewControllerRestoration>
 
 @property (nonatomic, weak)id<RCRealTimeLocationProxy> realTimeLocation;
 @property (nonatomic, strong)RealTimeLocationStatusView *realTimeLocationStatusView;
 
 @property (strong,nonatomic) RCMessageModel *theMessagemodel;
 
-@property (nonatomic, strong) CFShareCircleView *shareCircleView;
-
 @end
 
 @implementation  FlyingConversationVC
+
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+
+    [coder encodeObject:self.title forKey:@"self.title"];
+    
+    if (![self.domainID isBlankString]) {
+        
+        [coder encodeObject:self.domainID forKey:@"self.domainID"];
+    }
+    
+    if (![self.domainType isBlankString]) {
+        
+        [coder encodeObject:self.domainType forKey:@"self.domainType"];
+    }
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    
+    self.title =[coder decodeObjectForKey:@"self.title"];
+    self.domainID = [coder decodeObjectForKey:@"self.domainID"];
+    self.domainType = [coder decodeObjectForKey:@"self.domainType"];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -91,7 +132,7 @@
   
     if (self.conversationType == ConversationType_PRIVATE)
     {
-        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:self.theMessagemodel.targetId];
+        RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:self.targetId];
         self.title = userInfo.name;
     }
     
@@ -179,14 +220,6 @@
      */
     
     self.enableContinuousReadUnreadVoice = YES;//开启语音连读功能
-    //打开单聊强制从server 获取用户信息更新本地数据库
-    if (self.conversationType == ConversationType_PRIVATE) {
-        
-        [FlyingHttpTool getUserInfoByRongID:self.targetId completion:^(RCUserInfo *userInfo) {
-            
-            self.title=userInfo.name;
-        }];
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -216,8 +249,29 @@
     if ([self.realTimeLocation getStatus] == RC_REAL_TIME_LOCATION_STATUS_OUTGOING ||
         [self.realTimeLocation getStatus] == RC_REAL_TIME_LOCATION_STATUS_CONNECTED) {
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出当前界面位置共享会终止，确定要退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
-        [alertView show];
+        NSString *title = nil;
+        NSString *message = @"退出当前界面位置共享会终止，确定要退出？";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            
+            [self.realTimeLocation quitRealTimeLocation];
+            [self popupChatViewController];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:doneAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            //
+        }];
         
     } else {
         
@@ -346,8 +400,36 @@
             
             if (self.realTimeLocation) {
                 
-                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发送位置", @"位置实时共享", nil];
-                [actionSheet showInView:self.view];
+                NSString *title = @"选择操作方式";
+                NSString *message = nil;
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                         message:message
+                                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *doneAction1 = [UIAlertAction actionWithTitle:@"发送位置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                   
+                    [super pluginBoardView:self.pluginBoardView clickedItemWithTag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
+                }];
+                
+                UIAlertAction *doneAction2 = [UIAlertAction actionWithTitle:@"位置实时共享" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [self showRealTimeLocationViewController];
+                }];
+                
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                
+                [alertController addAction:doneAction1];
+                [alertController addAction:doneAction2];
+                
+                [alertController addAction:cancelAction];
+                [self presentViewController:alertController animated:YES completion:^{
+                    //
+                }];
+
                 
             } else {
                 
@@ -364,27 +446,26 @@
     }
 }
 
--(void) showMemberInfo:(NSString*)reslutStr
+-(void) showMemberInfo:(FlyingUserRightData*)userRightData
 {
-    NSString * verifiedStr = @"你已经是正式会员，可以参与互动了!";
-    NSString * refuseStr = @"你的成员资格被拒绝!";
-    NSString * reviewStr = @"你的成员资格正在审批中...";
-    
     NSString * infoStr=@"未知错误！";
-
-    if ([reslutStr isEqualToString:KGroupMemberVerified]) {
-        
-        infoStr = verifiedStr;
-    }
-
-    else if ([reslutStr isEqualToString:KGroupMemberRefused]) {
-        
-        infoStr = refuseStr;
-    }
-    else if([reslutStr isEqualToString:KGroupMemberReviewing])
+    
+    if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
     {
-        infoStr = reviewStr;
+        infoStr = @"不存在会员身份！";
+    }
+
+    else if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        infoStr = @"你的成员资格正在审批中...";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Verified]) {
         
+        infoStr =  @"你已经是正式会员，可以参与互动了!";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Refused]) {
+        
+        infoStr = @"你的成员资格被拒绝!";
     }
     
     [self.view makeToast:infoStr duration:2 position:CSToastPositionCenter];
@@ -393,7 +474,7 @@
 -(void) showSurvey
 {
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+    FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
     webpage.title=@"参与设计";
     [webpage setWebURL:@"http://www.mikecrm.com/f.php?t=UkWGrx"];
     
@@ -412,38 +493,54 @@
  */
 - (RCMessageContent *)willSendMessage:(RCMessageContent *)messageCotent
 {
-    BOOL right = [[NSUserDefaults standardUserDefaults] boolForKey:self.targetId];
+    BOOL access = YES;
 
-    if (right) {
+    //如果是群组，那么只有正式会员才能对话
+    if([self.domainType isEqualToString:BC_Domain_Group])
+    {
+        FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:self.domainID
+                                                                              domainType:self.domainType];
+        
+        if (![userRightData checkRightPresent]) {
+            
+            access = NO;
+        }
+    }
+    
+    if (access) {
         
         return messageCotent;
     }
     else
     {
-        NSString *title = @"友情提醒！";
-        NSString *message = @"正式会员才能参与互动，你需要申请成为群组成员吗？";
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"取消"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
+        NSString *title = NSLocalizedString(@"Attenion Please", nil);
+        NSString *message = NSLocalizedString(@"Member can chat freely, Do you want to become a member?", nil);
+               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertView addButtonWithTitle:@"确认"
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {
-                                  
-                                  [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
-                                                              GroupID:self.targetId
-                                                           Completion:^(NSString *result) {
-                                                               //
-                                                               [self showMemberInfo:result];
-                                                               
-                                                           }];
-                              }];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
+                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
+                                        GroupID:self.targetId
+                                     Completion:^(FlyingUserRightData *userRightData) {
+                                         //
+                                         [self showMemberInfo:userRightData];
+                                         
+                                     }];
+        }];
         
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
+                                                               style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:doneAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            //
+        }];
         
         return nil;
     }
@@ -552,35 +649,27 @@
 {
     if(error != NULL)
     {
-        [self.view makeToast:@"保存图片失败！"];
+        [self.view makeToast:@"保存图片失败！"
+                    duration:1
+                    position:CSToastPositionCenter];
+
     }
     else
     {
-        [self.view makeToast:@"成功保存图片！"];
+        [self.view makeToast:@"成功保存图片！"
+                    duration:1
+                    position:CSToastPositionCenter];
+
     }
 }
 
 - (void)didTapCellPortrait:(NSString *)userId
 {
-    if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:userId])
-    {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
-        [self.navigationController pushViewController:myProfileVC animated:YES];
-    }
-    else
-    {
-        if(self.conversationType!=ConversationType_PRIVATE)
-        {
-             FlyingConversationVC *chatService = [[ FlyingConversationVC alloc] init];
-            
-            RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:userId];
-            chatService.targetId = userId;
-            chatService.conversationType = ConversationType_PRIVATE;
-            chatService.title = userInfo.name;
-            [self.navigationController pushViewController:chatService animated:YES];
-        }
-    }
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FlyingProfileVC  *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+    profileVC.userID = userId;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 - (void)didTapMessageCell:(RCMessageModel *)model
@@ -662,16 +751,38 @@
     
     if ([messageCotent isMemberOfClass:[RCImageMessage class]])
     {
-        if ( !_shareCircleView) {
-            
-            _shareCircleView = [[CFShareCircleView alloc] initWithSharers:@[[CFSharer im], [CFSharer save], [CFSharer charge], [CFSharer scan]]];
-            
-            _shareCircleView.delegate = self;
-        }
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择"
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
         
-        if (!_shareCircleView.isShow) {
-            [_shareCircleView show];
-        }
+        UIAlertAction *doneAction1 = [UIAlertAction actionWithTitle:@"保存图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UIImageWriteToSavedPhotosAlbum([(RCImageMessage*)messageCotent originalImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        }];
+        
+        UIAlertAction *doneAction2 = [UIAlertAction actionWithTitle:@"二维码解析" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self handleScan];
+        }];
+        
+        UIAlertAction *doneAction3 = [UIAlertAction actionWithTitle:@"分享图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self handleShare];
+        }];
+        
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:doneAction1];
+        [alertController addAction:doneAction2];
+        [alertController addAction:doneAction3];
+        
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            //
+        }];
     }
     else
     {
@@ -756,22 +867,6 @@
         [super resendMessage:messageContent];
     }
 }
-#pragma mark - UIActionSheet Delegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-        {
-            [super pluginBoardView:self.pluginBoardView clickedItemWithTag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
-        }
-            break;
-        case 1:
-        {
-            [self showRealTimeLocationViewController];
-        }
-            break;
-    }
-}
 
 #pragma mark - RCRealTimeLocationObserver
 - (void)onRealTimeLocationStatusChange:(RCRealTimeLocationStatus)status {
@@ -852,14 +947,6 @@
     
 }
 
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [self.realTimeLocation quitRealTimeLocation];
-        [self popupChatViewController];
-    }
-}
-
 - (RCMessage *)willAppendAndDisplayMessage:(RCMessage *)message
 {
     return message;
@@ -926,27 +1013,6 @@
     }];
 }
 
-- (void)shareCircleView:(CFShareCircleView *)shareCircleView didSelectSharer:(CFSharer *)sharer
-{
-    
-    [_shareCircleView dismissAnimated:YES];
-    
-    if ([sharer.name isEqualToString:@"二维码解析"] ||
-        [sharer.name isEqualToString:@"充值"]
-        ) {
-        
-        [self handleScan];
-    }
-    else if ([sharer.name isEqualToString:@"保存图片"]) {
-        
-        [self handleSave];
-    }
-    else if ([sharer.name isEqualToString:@"聊天好友"]) {
-        
-        [self handleShare];
-    }
-}
-
 - (void)handleSave
 {
     RCMessageContent * messageCotent = self.theMessagemodel.content;
@@ -963,7 +1029,10 @@
         }
         else
         {
-            [self.view makeToast:@"保存图片失败！"];
+            [self.view makeToast:@"保存图片失败！"
+                        duration:1
+                        position:CSToastPositionCenter];
+
         }
     }
     
@@ -977,14 +1046,17 @@
         }
         else
         {
-            [self.view makeToast:@"保存地址图片失败！"];
+            [self.view makeToast:@"保存地址图片失败"
+                        duration:1
+                        position:CSToastPositionCenter];
+
         }
     }
 }
 
 - (void)handleShare
 {
-    FlyingShareWithFriends * shareFriends = [[FlyingShareWithFriends alloc] init];
+    FlyingShareWithRecent *shareFriends = [[FlyingShareWithRecent alloc] init];
     
     shareFriends.message=self.theMessagemodel.content;
     
@@ -1037,7 +1109,7 @@
 
 - (void) showWebLesson:(NSString*) webURL
 {
-    if (webURL) {
+    if (![webURL isBlankString]) {
         
         NSString * lessonID = [NSString getLessonIDFromOfficalURL:webURL];
         
@@ -1050,7 +1122,7 @@
             if (webURL)
             {
                 UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
                 [webpage setWebURL:webURL];
                 
                 [self.navigationController pushViewController:webpage animated:YES];

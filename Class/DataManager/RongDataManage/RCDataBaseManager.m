@@ -7,7 +7,7 @@
 //
 
 #import "RCDataBaseManager.h"
-#import "FlyingUserInfo.h"
+#import "FlyingUserData.h"
 #import "FlyingHttpTool.h"
 #import "DBHelper.h"
 

@@ -13,10 +13,12 @@
 + (FlyingFileManager*)shareInstance;
 
 //文件位置管理
-+ (NSString *) getUserDataDir;
-+ (NSString*)  getDownloadsDir;
-+ (NSString *) getUserShareDir;
-+ (NSString*)  getLessonDir:(NSString*) lessonID;
++ (NSString *) getMyLocalDataDir;
++ (NSString*)  getMyDownloadsDir;
++ (NSString*)  getMyLessonDir:(NSString*) lessonID;
++ (NSString *) getMyDictionaryDir;
++ (NSString*)  getMyRongCloudDir;
++ (NSString*)  getMyUserDataDir;
 
 //监控分享的本地文件夹
 - (void) watchDocumentStateNow;

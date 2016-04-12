@@ -19,12 +19,11 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingFakeHUD.h"
 #import "FlyingStatisticDAO.h"
-#import "SIAlertView.h"
 #import "FlyingTouchDAO.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingLessonParser.h"
 #import "FlyingPubLessonData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
 #import <AFNetworking.h>
 #import "FlyingHttpTool.h"
@@ -34,6 +33,7 @@
 #import "FlyingDataManager.h"
 #import "FlyingCommentVC.h"
 #import "FlyingPubLessonData.h"
+#import "FlyingShareData.h"
 
 @interface FlyingWebViewController ()
 {
@@ -62,15 +62,29 @@
 @property (strong, nonatomic) UIButton *accessChatbutton;
 @property (strong, nonatomic) UIView   *accessChatContainer;
 
+@property (strong, nonatomic) UIButton *shareButton;
+
 @end
 
 @implementation FlyingWebViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -93,14 +107,13 @@
     [freshButton addTarget:self action:@selector(doFresh) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* freshBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:freshButton];
     
-    UIButton* shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    [shareButton addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    self.shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [self.shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [self.shareButton addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,freshBarButtonItem,nil];
 
-    
     [self loadWebview];
     
     //基本辅助信息和工具准备
@@ -214,28 +227,34 @@
 
 - (void) doSomething
 {
-    
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
     if (self.thePubLesson) {
         
-        UIImageView *coverImageView = [[UIImageView alloc] init];
-        [appDelegate shareImageURL:self.thePubLesson.imageURL
-                           withURL:self.thePubLesson.contentURL
-                             Title:self.thePubLesson.title
-                              Text:self.thePubLesson.desc
-                             Image:[coverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)]];
+        FlyingShareData * shareData = [[FlyingShareData alloc] init];
+        
+        shareData.webURL  = [NSURL URLWithString:self.thePubLesson.weburl];
+        shareData.title   = self.thePubLesson.title;
+        shareData.digest  = self.thePubLesson.desc;
+        
+        shareData.imageURL= self.thePubLesson.imageURL;
+        
+        shareData.image   = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareData.imageURL]]] makeThumbnailOfSize:CGSizeMake(90, 120)];
+        
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate shareContent:shareData fromView:self.shareButton];
     }
     else
     {
         
         NSString *theTitle=[self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
         
-        [appDelegate shareImageURL:nil
-                           withURL:self.webURL
-                             Title:theTitle
-                              Text: @"好友分享的网页"
-                             Image:nil];
+        
+        FlyingShareData * shareData = [[FlyingShareData alloc] init];
+        
+        shareData.webURL  = [NSURL URLWithString:self.webURL];
+        shareData.title   = theTitle;
+        
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate shareContent:shareData fromView:self.shareButton];
     }
 }
 
@@ -252,7 +271,7 @@
 
     if(!self.webURL){
         
-        self.webURL = self.thePubLesson.weburl;
+        self.webURL = self.thePubLesson.contentURL;
     }
         
     NSURL *webURL = [NSURL URLWithString:self.webURL];
@@ -318,16 +337,10 @@
             double version = [[[UIDevice currentDevice] systemVersion] doubleValue];
             if (version<7.0) {
 
-                NSString *title = @"友情提醒";
                 NSString *message = [NSString stringWithFormat:@"请升级手机或者IPAD到7.0版本使用！"];
-                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                [alertView addButtonWithTitle:@"知道了"
-                                         type:SIAlertViewButtonTypeCancel
-                                      handler:^(SIAlertView *alertView) {
-                                      }];
-                alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                [alertView show];
+                
+                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [appDelegate makeToast:message];
             }
             else{
             
@@ -437,7 +450,6 @@
     dispatch_async(_background_queue, ^{
         
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
-        [taskWordDAO setUserModle:NO];
         
         NSString *openID = [FlyingDataManager getOpenUDID];
 

@@ -40,12 +40,7 @@ typedef void (^clearHistory)(BOOL isSuccess);
 /**
  *  默认实现的三个cell
  */
-@property(nonatomic, readonly, strong) NSArray *defaultCells;
-
-/**
- *  UIActionSheet
- */
-@property(nonatomic, readonly, strong) UIActionSheet *clearMsgHistoryActionSheet;
+//@property(nonatomic, strong) NSArray *defaultCells;
 
 /**
  *  clearHistoryMessage

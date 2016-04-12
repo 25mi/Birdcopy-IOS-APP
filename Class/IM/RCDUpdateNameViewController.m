@@ -12,9 +12,39 @@
 #import "UIColor+RCColor.h"
 
 
+@interface RCDUpdateNameViewController()<UIViewControllerRestoration>
+
+@end
+
 @implementation RCDUpdateNameViewController
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 -(void)viewDidLoad
 {
@@ -40,8 +70,23 @@
 {
     //保存讨论组名称
     if(self.tfName.text.length == 0){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"请输入讨论组名称!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alertView show];
+
+        NSString *title = @"提示";
+        NSString *message = @"请输入讨论组名称!";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            //
+        }];
+
         return;
     }
     

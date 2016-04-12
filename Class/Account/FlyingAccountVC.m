@@ -15,41 +15,82 @@
 #import "UICKeyChainStore.h"
 #import "FlyingPickColorVCViewController.h"
 #import <RongIMKit/RCIM.h>
-
 #import "shareDefine.h"
 #import "NSString+FlyingExtention.h"
-#import "UIImageView+WebCache.h"
-#import "SIAlertView.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIView+Toast.h"
-
 #import "AFHttpTool.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingNowLessonData.h"
-
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
-
-#import "FlyingMyGroupsVC.h"
-
-#import "FlyingHelpVC.h"
 #import "MKStoreKit.h"
-
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingDataManager.h"
 #import "FlyingWebViewController.h"
+#import "FlyingUserRightData.h"
+#import "FlyingReviewVC.h"
+#import "FlyingConversationVC.h"
+#import "FlyingTaskWordDAO.h"
+#import "FlyingBuyVC.h"
 
-@interface FlyingAccountVC ()
-
+@interface FlyingAccountVC ()<UIViewControllerRestoration>
+{
+    NSInteger _wordCount;
+}
 @property (strong, nonatomic) IBOutlet UIImageView *portraitImageView;
 @property (strong, nonatomic) IBOutlet UILabel *accountNikename;
 @property (strong, nonatomic) IBOutlet UILabel *membership;
+@property (strong, nonatomic) IBOutlet UILabel *englishLabel;
+@property (strong, nonatomic) IBOutlet UILabel *chatSettinglabel;
+@property (strong, nonatomic) IBOutlet UILabel *clearCacheLabel;
+@property (strong, nonatomic) IBOutlet UILabel *styleSetting;
+@property (strong, nonatomic) IBOutlet UILabel *onlineServiceLable;
 
 @end
 
 @implementation FlyingAccountVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    FlyingAccountVC* vc;
+    
+    UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    
+    if (sb) {
+        
+        vc = [sb instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
+        vc.restorationIdentifier = [identifierComponents lastObject];
+        vc.restorationClass = [FlyingAccountVC class];
+    }
+    
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -59,8 +100,13 @@
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self addBackFunction];
-    self.title=@"设置";
     
+    self.restorationIdentifier = NSStringFromClass([self class]);
+    self.restorationClass = [self class];
+
+    //标题
+    self.title = NSLocalizedString(@"Account",nil);
+
     //顶部导航
     if(self.navigationController.viewControllers.count>1)
     {
@@ -72,8 +118,14 @@
     }
     
     //UI相关配置
-    self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
+    //self.tableView.separatorColor = [UIColor grayColor];
     //self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
+    
+    self.membership.text        = NSLocalizedString(@"My Service",nil);
+    self.chatSettinglabel.text  = NSLocalizedString(@"Chat Setting",nil);
+    self.clearCacheLabel.text   = NSLocalizedString(@"Clear Cache",nil);
+    self.styleSetting.text      = NSLocalizedString(@"Style Setting",nil);
+    self.onlineServiceLable.text= NSLocalizedString(@"Service Online",nil);
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -96,7 +148,9 @@
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      [self.view makeToast:@"清理缓存成功！"];
+                                                      [self.view makeToast:NSLocalizedString(@"Cleanning is ok",nil)
+                                                                  duration:1
+                                                                  position:CSToastPositionCenter];
                                                   }];
 }
 
@@ -121,29 +175,36 @@
 
 - (void) updateAccountState
 {
-    NSString *nickName=[FlyingDataManager getNickName];
+    NSString *nickName=[FlyingDataManager getUserData:nil].name;
     
     self.accountNikename.text=nickName;
     
     [self loadPortrait];
     
-    NSString *endDateStr = [[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
     
-    if (endDateStr)
-    {
-        self.membership.text=[NSString stringWithFormat:@"会员至:%@",endDateStr];
-    }
-    else
-    {
-        self.membership.text=@"现在购买会员";
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        NSArray *wordArray =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
+        
+        _wordCount = wordArray.count;
+        if (_wordCount>0) {
+            
+            self.englishLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Scene Dictionary[%@]", nil) , @(_wordCount)];
+        }
+        else
+        {
+            self.englishLabel.text = NSLocalizedString(@"English Tool",nil);
+        }
+
+    });
+
 }
 
 -(void) loadPortrait
 {
-    NSString *portraitUri=[FlyingDataManager getUserPortraitUri];
+    NSString *portraitUri=[FlyingDataManager getUserData:nil].portraitUri;
     
-    if (portraitUri.length==0) {
+    if ([NSString isBlankString:portraitUri]) {
         
         if (![FlyingDataManager getOpenUDID]) {
             
@@ -163,7 +224,10 @@
                                               if (portraitUri.length==0) {
                                                   
                                                   [_portraitImageView setImage:[UIImage imageNamed:@"Icon"]];
-                                                  [self.view makeToast:@"请点击头像图片更新！"];
+                                                  [self.view makeToast:NSLocalizedString(@"Touch portrait to update it!", nil)
+                                                              duration:1
+                                                              position:CSToastPositionCenter];
+
                                               }
                                               else{
                                                   
@@ -173,7 +237,7 @@
                                                   userInfo.name=response[@"name"];
                                                   userInfo.portraitUri=response[@"portraitUri"];
                                                   
-                                                  [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+                                                  [_portraitImageView  setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
                                                   self.accountNikename.text=userInfo.name;
                                               }
                                           }
@@ -191,7 +255,7 @@
     }
     else
     {
-        [_portraitImageView  sd_setImageWithURL:[NSURL URLWithString:portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+        [_portraitImageView  setImageWithURL:[NSURL URLWithString:portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     
     [_portraitImageView.layer setCornerRadius:(_portraitImageView.frame.size.height/2)];
@@ -203,7 +267,7 @@
     _portraitImageView.layer.shadowOpacity = 0.5;
     _portraitImageView.layer.shadowRadius = 2.0;
     _portraitImageView.userInteractionEnabled = YES;
-    _portraitImageView.backgroundColor = [UIColor blackColor];
+    _portraitImageView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -215,59 +279,96 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 0)
-    {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingProfileVC* myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
-        
-        [self.navigationController pushViewController:myProfileVC animated:YES];
-    }
-    else if (indexPath.section == 1 && indexPath.row == 0)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate presentStoreView];
-    }
-    else if (indexPath.section == 2 && indexPath.row == 0)
-    {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
-        
-        [self.navigationController pushViewController:rongCloudSetting animated:YES];
-    }
-    else if (indexPath.section == 2 && indexPath.row == 1) {
-        
-        [self clearCache];
-    }
-    else if (indexPath.section == 3 && indexPath.row == 0) {
-        
-        
-        FlyingPickColorVCViewController * vc= [[FlyingPickColorVCViewController alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        //定制导航条背景颜色
-        [self.navigationController pushViewController:vc animated:YES];
+    switch (indexPath.section) {
+        case 0:
+        {
+            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            FlyingProfileVC* profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+            
+            profileVC.openUDID = [FlyingDataManager getOpenUDID];
+            profileVC.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:profileVC animated:YES];
 
+            break;
+        }
+            
+        case 1:
+        {
+            FlyingBuyVC * buyVC = [[FlyingBuyVC alloc] init];
+            
+            buyVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:buyVC animated:YES];
+
+            break;
+        }
+            
+        case 2:
+        {
+            if (_wordCount>0) {
+                
+                FlyingReviewVC * reviewVC = [[FlyingReviewVC alloc] init];
+                reviewVC.hidesBottomBarWhenPushed = YES;
+                
+                [self.navigationController pushViewController:reviewVC animated:YES];
+            }
+            else
+            {
+                [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
+                            duration:3
+                            position:CSToastPositionCenter];
+            }
+
+            break;
+        }
+            
+        case 3:
+        {
+            if (indexPath.row == 0)
+            {
+                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                id rongCloudSetting = [storyboard instantiateViewControllerWithIdentifier:@"RongCloudSetting"];
+                
+                [self.navigationController pushViewController:rongCloudSetting animated:YES];
+            }
+            else if (indexPath.row == 1) {
+                
+                [self clearCache];
+            }
+            else if (indexPath.row == 2) {
+                
+                
+                FlyingPickColorVCViewController * vc= [[FlyingPickColorVCViewController alloc] init];
+                
+                vc.hidesBottomBarWhenPushed = YES;
+                //定制导航条背景颜色
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+
+            break;
+        }
+            
+        case 4:
+        {
+            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+            
+            chatService.domainID = self.domainID;
+            chatService.domainType = self.domainType;
+            
+            chatService.targetId = self.domainID;
+            chatService.conversationType = ConversationType_CHATROOM;
+            chatService.title = NSLocalizedString(@"Service Online",nil);
+            chatService.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:chatService animated:YES];
+
+            break;
+        }
+            
+        default:
+            break;
     }
-    else if (indexPath.section == 4 && indexPath.row == 0)
-    {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
-        [webpage setWebURL:[FlyingDataManager getOfficalURL]];
-        
-        [self.navigationController pushViewController:webpage animated:YES];
-    }
-    
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-        /*
-#define SERVICE_ID @"kefu114"
-        RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-        chatService.targetName = @"客服";
-        chatService.targetId = SERVICE_ID;
-        chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-        chatService.title = chatService.targetName;
-        [self.navigationController pushViewController:chatService animated:YES];
-         */
-    
 }
 
 

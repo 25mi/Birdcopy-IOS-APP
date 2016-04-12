@@ -8,7 +8,7 @@
 
 #import "RCDConversationSettingTableViewHeaderItem.h"
 #import "UIImage+localFile.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 
 @implementation RCDConversationSettingTableViewHeaderItem
 

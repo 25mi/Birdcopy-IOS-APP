@@ -10,6 +10,9 @@
 
 @interface FlyingViewController : UIViewController
 
+@property (strong, nonatomic)   NSString    *domainID;
+@property (strong, nonatomic)   NSString    *domainType;
+
 - (void) dismissNavigation;
 
 @end

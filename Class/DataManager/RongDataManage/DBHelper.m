@@ -19,7 +19,7 @@ static FMDatabaseQueue *databaseQueue = nil;
 +(FMDatabaseQueue *) getDatabaseQueue
 {
     if (!databaseQueue) {
-        NSString *documentDirectory = [FlyingFileManager getUserDataDir];
+        NSString *documentDirectory = [FlyingFileManager getMyRongCloudDir];
         NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"RongIMDB"];
         databaseQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
     }

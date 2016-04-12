@@ -9,7 +9,30 @@
 #import "FlyingNavigationController.h"
 #import "shareDefine.h"
 
+
+@interface FlyingNavigationController()<UIViewControllerRestoration>
+@end
+
 @implementation FlyingNavigationController
+
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {

@@ -12,4 +12,6 @@
 
 + (UIColor *)colorWithHexString:(NSString *)color alpha:(CGFloat)alpha;
 
++(UIColor *)readableForegroundColorForBackgroundColor:(UIColor*)backgroundColor;
+
 @end

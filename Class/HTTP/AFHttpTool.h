@@ -101,8 +101,8 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getAllGroupsForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                       PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure;
@@ -220,11 +220,27 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                            failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
+#pragma  用户关于课程的计费和统计数据
+//////////////////////////////////////////////////////////////
++ (void) getLessonRightForAccount:account
+                         LessonID:(NSString*) lessonID
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+
+
++ (void)  updateLessonRightForAccount:account
+                             LessonID:(NSString*) lessonID
+                            StartDate:(NSDate *)startDate
+                              EndDate:(NSDate *)endDate
+                              success:(void (^)(id response))success
+                              failure:(void (^)(NSError* err))failure;
+
+//////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
 //获取课程列表相关
-+ (void) lessonListDataByTagForDomainID:(NSString*)domainID
-                             DomainType:(BC_Domain_Type) type
++ (void) lessonListDataByTagForDomainID:(NSString*) domainID
+                             DomainType:(NSString*) type
                            PageNumber:(NSInteger) pageNumber
                     lessonConcentType:  (NSString *) contentType
                          DownloadType:  (NSString *) downloadType
@@ -266,15 +282,15 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //////////////////////////////////////////////////////////////
 #pragma  标签相关
 //////////////////////////////////////////////////////////////
-+ (void)getTagListForDomainID:(NSString*)domainID
-                   DomainType:(BC_Domain_Type) type
++ (void)getTagListForDomainID:(NSString*) domainID
+                   DomainType:(NSString*) type
                  TagString:(NSString*) tagString
                      Count:(NSInteger) count
                    success:(void (^)(id response))success
                    failure:(void (^)(NSError* err))failure;
 
-+ (void) albumListDataForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void) albumListDataForDomainID:(NSString*) domainID
+                       DomainType:(NSString*) type
              lessonConcentType:(NSString*) contentType
                     PageNumber:(NSInteger) pageNumber
                  OnlyRecommend:  (BOOL)    isOnlyRecommend
@@ -292,6 +308,11 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 + (void) dicDataforWord:(NSString *) word
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure;
+
+
++ (void) getWordListby:(NSString *) word
+               success:(void (^)(id response))success
+               failure:(void (^)(NSError* err))failure;
 
 //////////////////////////////////////////////////////////////
 #pragma   供应商相关

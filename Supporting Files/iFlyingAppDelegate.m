@@ -9,90 +9,68 @@
 
 #import "shareDefine.h"
 #import "NSString+FlyingExtention.h"
-#include "OpenUDID.h"
-
+#import "OpenUDID.h"
 #import "FlyingSoundPlayer.h"
 #import "UICKeyChainStore.h"
-
 #import "UIImage+localFile.h"
 #import "UIImageView+thumnail.h"
-
 #import "FlyingM3U8Downloader.h"
-
 #import "HTTPServer.h"
-
 #import "UIView+Autosizing.h"
-
 #import "FlyingFakeHUD.h"
-
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingTaskWordDAO.h"
 #import "FlyingStatisticDAO.h"
-
 #import "FlyingContentListVC.h"
 #import "FlyingGuideViewController.h"
-
-#include <sys/xattr.h>
-
-#import "SIAlertView.h"
-
+#import <sys/xattr.h>
 #import "FlyingDownloadManager.h"
-
 #import "FlyingTouchDAO.h"
-
 #import <Social/Social.h>
 #import "FlyingWebViewController.h"
 #import "FlyingLessonParser.h"
 #import <MediaPlayer/MPNowPlayingInfoCenter.h>
 #import <MediaPlayer/MPMediaItem.h>
-
-#include "common.h"
-
+#import "common.h"
 #import "FlyingMyGroupsVC.h"
 #import "FlyingContentVC.h"
-
 #import "FlyingNavigationController.h"
-#import "FlyingProviderListVC.h"
-
 #import <RongIMKit/RCIM.h>
 #import "AFHttpTool.h"
-#import "FlyingUserInfo.h"
 #import "RCDRCIMDataSource.h"
 #import "UIColor+RCColor.h"
 #import "FlyingHttpTool.h"
-#import "FlyingShareWithFriends.h"
 #import "RCDataBaseManager.h"
-
 #import <AFNetworking/AFNetworking.h>
 #import "AFHttpTool.h"
 #import "FlyingHttpTool.h"
 #import "UIView+Toast.h"
-
 #import "ReaderViewController.h"
 #import "FlyingNowLessonDAO.h"
 #import "CGPDFDocument.h"
 #import "FlyingNowLessonData.h"
 #import "FileHash.h"
-
 #import "FlyingDIscoverGroups.h"
-
-
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
-
 #import "MKStoreKit.h"
 #import <StoreKit/StoreKit.h>
-
 #import "FlyingDBManager.h"
 #import "FlyingDataManager.h"
 #import "FlyingFileManager.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingHomeVC.h"
-
+#import "WeChatMomentsActivity.h"
+#import "WeChatSessionActivity.h"
+#import "FlyingShareData.h"
+#import "FlyingUserRightData.h"
+#import "LEColorPicker.h"
+#import "FlyingShareInAppActivity.h"
+#import "FlyingAccountVC.h"
+#import "UIAlertController+Window.h"
 
 @interface iFlyingAppDelegate ()
 {
@@ -104,17 +82,6 @@
     //发音管理
     NSOperationQueue            *_flyingSoundPlayer_queue;
     AVSpeechSynthesizer         *_synthesizer;
-    
-    //分享管理
-    MFMessageComposeViewController *_msmVC;
-    SLComposeViewController        *_slComposerSheet;
-
-    CFShareCircleView           *_shareCircleView;
-    NSString                    *_sharingTitle;
-    NSString                    *_sharingText;
-    NSString                    *_sharingImageURL;
-    NSString                    *_sharingURL;
-    UIImage                     *_sharingImage;
 }
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
@@ -123,6 +90,32 @@
 
 
 @implementation iFlyingAppDelegate
+
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.window.rootViewController forKey:@"rootVC"];
+}
+
+- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    self.currentRootVC = [coder decodeObjectForKey:@"rootVC"];
+    
+    if ([self.currentRootVC isKindOfClass:[UITabBarController class]]) {
+        
+        self.tabBarController =(UITabBarController*) self.currentRootVC;
+    }
+}
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -143,15 +136,7 @@
                                                 categories:nil];
         [application registerUserNotificationSettings:settings];
         
-    } else {
-        
-        //注册推送，用于iOS8之前的系统
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeAlert |
-        UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
     }
-
     //统计推送打开率1
     [[RCIMClient sharedRCIMClient] recordLaunchOptionsEvent:launchOptions];
     
@@ -166,14 +151,6 @@
         NSLog(@"该启动事件不包含来自融云的推送服务");
     }
     
-    //更改导航条样式
-    [self setnavigationBarWithClearStyle:NO];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveMessageNotification:)
-                                                 name:RCKitDispatchMessageNotification
-                                               object:nil];
-
     return YES;
 }
 
@@ -233,29 +210,40 @@
 //根据是否注册进行不同跳转处理
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-        
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
-    //检查APP是否注册
-    [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
-                                Completion:^(FlyingAppData *appData) {
-                                    //
-                                    if (appData) {
-                                        
-                                        //保存app数据到本地缓存
-                                        [FlyingDataManager saveAppData:appData];
-                                        
-                                        //用户是否有效登录决定是否注册激活
-                                        [self jumpToNext];
-                                    }
-                                }];
-    return YES;
-}
-
-- (void)didReceiveMessageNotification:(NSNotification *)notification {
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber =
-    [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
+    if (self.currentRootVC) {
+        
+        //登录融云
+        [FlyingHttpTool loginRongCloud];
+        
+        self.window = [UIWindow new];
+        self.window.frame = [[UIScreen mainScreen] bounds];
+        self.window.rootViewController = self.currentRootVC;
+        self.window.restorationIdentifier = NSStringFromClass([self.window class]);
+        
+        [self.window makeKeyAndVisible];
+    }
+    else
+    {
+        NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        
+        //检查APP是否注册
+        [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
+                                    Completion:^(FlyingAppData *appData) {
+                                        //
+                                        if (appData) {
+                                            
+                                            //保存app数据到本地缓存
+                                            [FlyingDataManager saveAppData:appData];
+                                            
+                                            //用户是否有效登录决定是否注册激活
+                                            [self jumpToNext];
+                                        }
+                                    }];
+
+    }
+    
+    return YES;
 }
 
 -(void) jumpToNext
@@ -286,16 +274,20 @@
                                      [FlyingHttpTool loginRongCloud];
                                      
                                      self.window = [UIWindow new];
-                                     [self.window makeKeyAndVisible];
                                      self.window.frame = [[UIScreen mainScreen] bounds];
                                      self.window.rootViewController = [self getTabBarController];
+                                     self.window.restorationIdentifier = NSStringFromClass([self.window class]);
+
+                                     [self.window makeKeyAndVisible];
                                  }
                                  else
                                  {
                                      self.window = [UIWindow new];
-                                     [self.window makeKeyAndVisible];
                                      self.window.frame = [[UIScreen mainScreen] bounds];
                                      self.window.rootViewController = [[FlyingGuideViewController alloc] init];
+                                     self.window.restorationIdentifier = NSStringFromClass([self.window class]);
+
+                                     [self.window makeKeyAndVisible];
                                  }
                              }];
 
@@ -393,19 +385,36 @@
 {
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的帐号在别的设备上登录，您被迫下线！" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
+        NSString *title = @"提示";
+        NSString *message = @"您的帐号在别的设备上登录，您被迫下线！";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
     }
     
     else if (status == ConnectionStatus_TOKEN_INCORRECT) {
-
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:nil
-                                   message:@"Token已过期，请重新登录"
-                                  delegate:nil
-                         cancelButtonTitle:@"确定"
-                         otherButtonTitles:nil, nil];
-        [alertView show];
+        
+        NSString *title = @"提示";
+        NSString *message = @"Token已过期，请重新登录";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController show];
     }
 }
 
@@ -414,6 +423,8 @@
 -(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
+    
+    [self refreshTabBadgeValue];
 }
 
 - (void)dealloc
@@ -441,23 +452,22 @@
     //同步重要遗漏数据
     if([[NSUserDefaults standardUserDefaults] boolForKey:KShouldSysMembership])
     {
-        NSString *startDateStr =[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipStartTime];
-        NSString *endDateStr   =[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
+        FlyingUserRightData * userRight = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
+                                        domainType:BC_Domain_Business];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-        NSDate *startDate = [dateFormatter dateFromString:startDateStr];
-        NSDate *endDate = [dateFormatter dateFromString:endDateStr];
-        
-        [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                         StartDate:startDate
-                                           EndDate:endDate
-                                        Completion:^(BOOL result) {
-                                            //
-                                            
-                                            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KShouldSysMembership];
-                                        }];
+        if (userRight) {
+            
+            [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
+                                             StartDate:userRight.startDate
+                                               EndDate:userRight.endDate
+                                            Completion:^(BOOL result) {
+                                                //
+                                                
+                                                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KShouldSysMembership];
+                                            }];
+
+        }
     }
     
     FlyingLessonDAO * dao=[[FlyingLessonDAO alloc] init];
@@ -542,7 +552,7 @@
         
         [_httpServer setPort:12345];
         
-        [_httpServer setDocumentRoot:[FlyingFileManager getDownloadsDir]];
+        [_httpServer setDocumentRoot:[FlyingFileManager getMyDownloadsDir]];
         
         // Start the server (and check for problems)
         NSError *error;
@@ -572,12 +582,12 @@
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
                  interval:NULL forDate:fromDateTime];
-    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
                  interval:NULL forDate:toDateTime];
     
-    NSDateComponents *difference = [calendar components:NSDayCalendarUnit
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
                                                fromDate:fromDate toDate:toDate options:0];
     
     return [difference day];
@@ -614,15 +624,25 @@
 
 - (void) presentViewController:(UIViewController *)viewController
 {
-    [[self getTabBarController] presentViewController:viewController animated:YES completion:nil];
+    [[self getTabBarController]  presentViewController:viewController animated:YES completion:nil];
 }
+
+-(void) makeToast:(NSString*) message
+{
+
+    [self.window makeToast:message
+                  duration:1
+                  position:CSToastPositionCenter];
+
+}
+
 
 - (BOOL) showWebviewWithURL:(NSString *) webURL
 {
     if (webURL) {
         
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
         [webpage setWebURL:webURL];
         
         [self presentViewController:webpage];
@@ -636,90 +656,116 @@
 }
 
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
 -(UITabBarController*) getTabBarController
 {
     if(!self.tabBarController)
     {
         self.tabBarController = [[UITabBarController alloc] init];
         
-        FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingHomeVC alloc] init]];
-        disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现"
+        FlyingHomeVC * homeVC = [[FlyingHomeVC alloc] init];
+        
+        homeVC.domainID = [FlyingDataManager getBusinessID];
+        homeVC.domainType = BC_Domain_Business;
+
+        FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
+        disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Discover",nil)
                                                                image:[UIImage imageNamed:@"Discover"]
                                                                  tag:0];
+        disCoverTab.restorationIdentifier = @"disCoverTab";
         
         FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingMyGroupsVC alloc] init]];
-        myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"群组"
+        myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Group",nil)
                                                                image:[UIImage imageNamed:@"People"]
                                                                  tag:0];
+        myGroupsTab.restorationIdentifier = @"myGroupsTab";
 
-        FlyingNavigationController *myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingConversationListVC alloc] init]];
-        myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息"
+        FlyingConversationListVC * messageList =[[FlyingConversationListVC alloc] init];
+        messageList.restorationIdentifier = @"messageList";
+
+        //设置要显示的会话类型
+        [messageList setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
+        
+        //聚合会话类型
+        [messageList setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
+
+        FlyingNavigationController *myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:messageList];
+        
+        myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Message",nil)
                                                                image:[UIImage imageNamed:@"Message"]
                                                                  tag:0];
+        
+        myMessagersTab.restorationIdentifier = @"myMessagersTab";
+
 
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        id accountVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
+        FlyingAccountVC * accountVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
+        accountVC.domainID = [FlyingDataManager getBusinessID];
+        accountVC.domainType = BC_Domain_Business;
+        
         FlyingNavigationController *myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:accountVC];
-        myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置"
+        myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Account",nil)
                                                                   image:[UIImage imageNamed:@"Account"]
                                                                     tag:0];
+        
+        myAccountTab.restorationIdentifier = @"myAccountTab";
 
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:disCoverTab,myGroupsTab,myMessagersTab,myAccountTab,nil];
+        self.tabBarController.restorationIdentifier =@"tabBarController";
+
+        //更改导航条样式
+        [self setNavigationBarWithLogoStyle:YES];
     }
     
     return self.tabBarController;
 }
 
--(void) setnavigationBarWithClearStyle:(BOOL) clearStyle
-{
+- (void)refreshTabBadgeValue
+{    
+    int unreadMsgCount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                         @(ConversationType_PRIVATE),
+                                                                         @(ConversationType_DISCUSSION),
+                                                                         @(ConversationType_PUBLICSERVICE),
+                                                                         @(ConversationType_PUBLICSERVICE),
+                                                                         @(ConversationType_GROUP)
+                                                                         ]];
     
-    UIColor *backgroundColor;
-
-    if(clearStyle)
-    {
-        backgroundColor = [UIColor clearColor];
+    dispatch_async(dispatch_get_main_queue(), ^{
         
-     }
-    else
-    {
-        NSData * backgroundColorData = [[NSUserDefaults standardUserDefaults] objectForKey:kNavigationBackColor];
-        
-        if(backgroundColorData)
+        if([[self getTabBarController].viewControllers count]==4)
         {
-            backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:backgroundColorData];
+            UITabBarItem * item=[[self getTabBarController].tabBar.items objectAtIndex:2];
             
-            if (!backgroundColor) {
+            if (unreadMsgCount==0) {
                 
-                backgroundColor = [UIColor whiteColor];
+                item.badgeValue=nil;
             }
+            else
+            {
+                item.badgeValue=[NSString stringWithFormat:@"%d",unreadMsgCount];
+            }
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = unreadMsgCount;
         }
-    }
-    
-    [[UINavigationBar appearance] setBarTintColor:backgroundColor];
-    [[UINavigationBar appearance] setBackgroundColor:backgroundColor];
-    
-    UINavigationController * nowNav = (UINavigationController*)[self getTabBarController].selectedViewController;
-    
-    nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
-    nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
-    
-    if (clearStyle)
-    {
-        [nowNav.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        nowNav.navigationBar.shadowImage = [UIImage new];
-    }
-    else
-    {
-        [nowNav.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-        nowNav.navigationBar.shadowImage = nil;
-    }
+        
+    });
 }
 
--(void) resetnavigationBarWithDefaultStyle
+-(void) setNavigationBarWithLogoStyle:(BOOL) logoStyle
 {
+    
     UIColor *backgroundColor = [UIColor whiteColor];
     UIColor *textColor= [UIColor blackColor];
+
+    if(logoStyle)
+    {
+        LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
+        LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:[UIImage imageNamed:@"Icon"]];
+        //[colorScheme primaryTextColor];
+        //[colorScheme secondaryTextColor];
+        
+        backgroundColor = [colorScheme backgroundColor];
+        textColor=  [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
+    }
     
     //统一导航条样式
     UIFont* font = [UIFont systemFontOfSize:19.f];
@@ -729,6 +775,12 @@
     [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
     [[UINavigationBar appearance] setTintColor:textColor];
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
+    
+    
+    [self getTabBarController].tabBar.tintColor =  backgroundColor;
+
+    
+    /*
     
     UINavigationController * nowNav = (UINavigationController*)[self getTabBarController].selectedViewController;
     
@@ -746,12 +798,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:textColorData forKey:kNavigationTextColor];
     [[NSUserDefaults standardUserDefaults] setObject:backgroundColorData forKey:kNavigationBackColor];
     [[NSUserDefaults standardUserDefaults] synchronize];
+     */
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark - Account and Coin  Related
 //////////////////////////////////////////////////////////////
-
 - (void) upgrade
 {
     //金币
@@ -912,17 +964,17 @@
     if([resp isKindOfClass:[SendMessageToWXResp class]])
     {
         
-        NSString*msg,*title;
+        NSString*message,*title;
         
         if (resp.errCode==WXSuccess) {
             
             title = @"分享成功";
-            msg=@"你有机会获得50个金币，查查我的档案吧！";
+            message=@"你有机会获得50个金币，查查我的档案吧！";
         }
         else{
             
             title = @"分享失败或者取消";
-            msg=@"再试试，分享成功有机会获得50个金币奖励哦：）";
+            message=@"再试试，分享成功有机会获得50个金币奖励哦：）";
         }
         
         NSTimeInterval nowTimeSeconds=[[NSDate date] timeIntervalSince1970];
@@ -936,497 +988,70 @@
             [FlyingDataManager awardGold:KBEGoldAwardCount];
         }
         
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
-- (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
-{
-    if (imageURL) {
-        _sharingImageURL=imageURL;
-    }
-    
-    if (webURL) {
-        
-        _sharingURL=webURL;
-    }
-    else{
-
-        _sharingURL=kBEAppstore_China_URL;
-    }
-    
-    if (title)
-    {
-        _sharingTitle=title;
-    }
-    else
-    {
-        
-        NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-        
-        _sharingTitle=appName;
-    }
-    
-    if (text)
-    {
-        _sharingText=text;
-    }
-    else
-    {
-        _sharingText=@"太酷了！马上分享给你!";
-    }
-    
-    if (image) {
-        
-        _sharingImage =image;
-    }
-    else{
-    
-        _sharingImage =[UIImage imageNamed:@"Icon"];
-    }
-
-    if ( !_shareCircleView) {
-        _shareCircleView = [[CFShareCircleView alloc] init];
-        
-        _shareCircleView.delegate = self;
-    }
-    
-    [_shareCircleView show];
-}
-
-
-- (void)shareCircleView:(CFShareCircleView *)shareCircleView didSelectSharer:(CFSharer *)sharer
+- (void) shareContent:(FlyingShareData*) shareData fromView:(UIView*) popView
 {
     
-    if ([sharer.name isEqualToString:@"微信好友"]) {
-        
-        [self shareToWeiXinIsSession:YES];
-    }
-    else if ([sharer.name isEqualToString:@"微信圈"]) {
-        
-        [self shareToWeiXinIsSession:NO];
-    }
-    else if ([sharer.name isEqualToString:@"微博分享"]) {
-        
-        [self shareToWeibo];
-    }
-    else if ([sharer.name isEqualToString:@"短信分享"]) {
-        
-        [self sharetoSMS];
-    }
-    else if ([sharer.name isEqualToString:@"邮件分享"]) {
-        
-        [self shareToEmail];
-    }
-    else if ([sharer.name isEqualToString:@"复制链接"]) {
-        
-        [self copylessonLink];
-    }
-    else if ([sharer.name isEqualToString:@"聊天好友"]) {
-        
-        [self shareToIM];
-    }
-}
+    if (shareData) {
 
-- (void)displaySMS
-{
+        NSMutableArray *activityItems = [NSMutableArray new];
+        
+        [activityItems addObject:shareData];
     
-    _msmVC  = [[MFMessageComposeViewController alloc] init];
-    _msmVC.messageComposeDelegate= self;
-    _msmVC.navigationBar.tintColor= [UIColor blackColor];
-    _sharingText = [NSString stringWithFormat:@"%@ 网址:%@",_sharingTitle,_sharingURL];
-    _msmVC.body = _sharingText; // 默认信息内容
-    // 默认收件人(可多个)
-    //picker.recipients = [NSArray arrayWithObject:@"12345678901", nil];
-    
-    [_shareCircleView dismissAnimated:YES];
-    [self presentViewController:_msmVC];
-}
+        if (shareData.webURL) {
+            
+            [activityItems  addObject:shareData.webURL];
+        }
 
-
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
-                 didFinishWithResult:(MessageComposeResult)result
-{
-    NSString*msg,*title;
-    
-    if (result==MessageComposeResultSent) {
-        
-        title = @"分享成功";
-        msg=@"你有机会获得50个金币，查查我的档案吧！";
-    }
-    else{
-        
-        title = @"分享失败或者取消";
-        msg=@"再试试，分享成功有机会获得50个金币奖励哦：）";
-    }
-    
-    
-    NSTimeInterval nowTimeSeconds=[[NSDate date] timeIntervalSince1970];
-    NSTimeInterval lastTimeSeconds=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BEGIFTAWARDTIME"];
-    
-    if([title isEqualToString: @"分享成功"] && ((nowTimeSeconds-lastTimeSeconds)/(24*60*60)>=1)){
-        
-        [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [FlyingDataManager awardGold:KBEGoldAwardCount];
-    }
-    
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
-    [alertView addButtonWithTitle:@"知道了"
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *alertView) {
-                          }];
-    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-    [alertView show];
-    
-    [controller dismissViewControllerAnimated:YES
-                                   completion:^{
-                                       //
-                                   }];
-}
-
-- (void)sharetoSMS
-{
-    
-    if (INTERFACE_IS_PAD){
-        
-        NSString *title = @"友好提醒";
-        NSString *message = @"设备没有短信功能！";
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {}];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
-    } else {
-        
-        [self displaySMS];
-    }
-}
-
-- (void)shareToWeibo
-{
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo])
-    {
-        _slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
-        
-        _sharingText = [NSString stringWithFormat:@"%@ 网址:%@",_sharingTitle,_sharingURL];
-        [_slComposerSheet setInitialText:_sharingText];
-        [_slComposerSheet addImage:_sharingImage];
-        [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.weibo.com/"]];
-        
-        [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
+        if (![NSString isBlankString:shareData.title]) {
             
-            NSString*msg,*title;
-            
-            if (result==SLComposeViewControllerResultDone) {
-                
-                title = @"分享成功";
-                msg=@"你有机会获得50个金币，查查我的档案吧！";
-            }
-            else{
-                
-                title = @"分享失败或者取消";
-                msg=@"再试试，分享成功有机会获得50个金币奖励哦：）";
-            }
-            
-            NSTimeInterval nowTimeSeconds=[[NSDate date] timeIntervalSince1970];
-            NSTimeInterval lastTimeSeconds=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BEGIFTAWARDTIME"];
-            
-            if([title isEqualToString: @"分享成功"] && ((nowTimeSeconds-lastTimeSeconds)/(24*60*60)>=1)){
-                
-                [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                [FlyingDataManager awardGold:KBEGoldAwardCount];
-            }
-            
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
-            [alertView addButtonWithTitle:@"知道了"
-                                     type:SIAlertViewButtonTypeDefault
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            [alertView show];
-        }];
+            [activityItems  addObject:shareData.title];
+        }
         
-        [_shareCircleView dismissAnimated:YES];
-        [self presentViewController:_slComposerSheet];
-    }
-}
-
-- (void)shareToFacebook
-{
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-    {
-        _slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        _sharingText = [NSString stringWithFormat:@"%@ 网址:%@",_sharingTitle,_sharingURL];
-        [_slComposerSheet setInitialText:_sharingText];
-        [_slComposerSheet addImage:_sharingImage];
-        [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.facebook.com/"]];
-        
-        [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
+        if (shareData.image) {
             
-            NSString*msg,*title;
+            [activityItems  addObject:shareData.image];
+        }
+        
+        NSArray *activities = @[[[FlyingShareInAppActivity alloc] init],
+                                [[WeChatSessionActivity alloc] init],
+                                [[WeChatMomentsActivity alloc] init]];
+        UIActivityViewController *alertController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
+                                                                                   applicationActivities:activities];
+        
+        alertController.excludedActivityTypes = @[UIActivityTypeMessage,
+                                               UIActivityTypeMail,
+                                               UIActivityTypePostToTencentWeibo,
+                                               UIActivityTypePrint,
+                                               UIActivityTypeAssignToContact,
+                                               UIActivityTypeSaveToCameraRoll,
+                                               UIActivityTypeAddToReadingList,
+                                               UIActivityTypePostToFlickr,
+                                               UIActivityTypePostToVimeo];
+        
+        if (INTERFACE_IS_PAD) {
             
-            if (result==SLComposeViewControllerResultDone) {
-                
-                title = @"分享成功";
-                msg=@"你有机会获得50个金币，查查我的档案吧！";
-            }
-            else{
-                
-                title = @"分享失败或者取消";
-                msg=@"再试试，分享成功有机会获得50个金币奖励哦：）";
-            }
+            [alertController setModalPresentationStyle:UIModalPresentationPopover];
             
-            NSTimeInterval nowTimeSeconds=[[NSDate date] timeIntervalSince1970];
-            NSTimeInterval lastTimeSeconds=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BEGIFTAWARDTIME"];
+            UIPopoverPresentationController *popPresenter = [alertController
+                                                             popoverPresentationController];
+            popPresenter.sourceView = popView;
+            popPresenter.sourceRect = popView.bounds;
             
-            if([title isEqualToString: @"分享成功"] && ((nowTimeSeconds-lastTimeSeconds)/(24*60*60)>=1)){
-                
-                [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                [FlyingDataManager awardGold:KBEGoldAwardCount];
-            }
-
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
-            [alertView addButtonWithTitle:@"知道了"
-                                     type:SIAlertViewButtonTypeDefault
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            [alertView show];
-        }];
-        
-        [_shareCircleView dismissAnimated:YES];
-        [self presentViewController:_slComposerSheet];
-    }
-}
-
-- (void)shareToTwitter
-{
-    
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        _slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        _sharingText = [NSString stringWithFormat:@"%@ 网址:%@",_sharingTitle,_sharingURL];
-        [_slComposerSheet setInitialText:_sharingText];
-        [_slComposerSheet addImage:_sharingImage];
-        [_slComposerSheet addURL:[NSURL URLWithString:@"http://www.twitter.com/"]];
-        
-        [_slComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
-            
-            NSString*msg,*title;
-            
-            if (result==SLComposeViewControllerResultDone) {
-                
-                title = @"分享成功";
-                msg=@"你有机会获得50个金币，查查我的档案吧！";
-            }
-            else{
-                
-                title = @"分享失败或者取消";
-                msg=@"再试试，分享成功有机会获得50个金币奖励哦：）";
-            }
-            
-            NSTimeInterval nowTimeSeconds=[[NSDate date] timeIntervalSince1970];
-            NSTimeInterval lastTimeSeconds=[[NSUserDefaults standardUserDefaults] doubleForKey:@"BEGIFTAWARDTIME"];
-            
-            if([title isEqualToString: @"分享成功"] && ((nowTimeSeconds-lastTimeSeconds)/(24*60*60)>=1)){
-                
-                [[NSUserDefaults standardUserDefaults] setDouble:nowTimeSeconds forKey:@"BEGIFTAWARDTIME"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                [FlyingDataManager awardGold:KBEGoldAwardCount];
-            }
-            
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:msg];
-            [alertView addButtonWithTitle:@"知道了"
-                                     type:SIAlertViewButtonTypeDefault
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            [alertView show];
-        }];
-        
-        [_shareCircleView dismissAnimated:YES];
-        [self presentViewController:_slComposerSheet];
-    }
-}
-
-- (void) shareToWeiXinIsSession:(BOOL) isSession
-{
-    if (![WXApi isWXAppInstalled]) 
-    {
-        [self.window makeToast:@"抱歉：只有安装微信才能使用此功能" duration:3 position:CSToastPositionCenter];
-
-        return;
-    }
-
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title =_sharingTitle;
-    message.description = _sharingText;
-    
-    if (!isSession)
-    {
-        UIImage *myIcon = [UIImageView imageWithImage:_sharingImage scaledToSize:CGSizeMake(20, 20)];
-        [message setThumbImage:myIcon];
-    }
-    else
-    {
-        [message setThumbImage:_sharingImage];
-    }
-
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = _sharingURL;
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    
-    if (isSession) {
-        req.scene = WXSceneSession;
-    }
-    else{
-        req.scene = WXSceneTimeline;
-    }
-    
-    [WXApi sendReq:req];
-}
-
-- (void) shareToEmail
-{
-    
-	if ([MFMailComposeViewController canSendMail] == NO) return;
-    
-    NSData *attachment =UIImagePNGRepresentation(_sharingImage);
-    
-    if (attachment != nil) // Ensure that we have valid document file attachment data
-    {
-        MFMailComposeViewController *mailComposer = [MFMailComposeViewController new];
-        
-        [mailComposer addAttachmentData:attachment mimeType:@"image/png" fileName:@"birdengish"];
-        
-        [mailComposer setSubject:[NSString stringWithFormat:@"来自%@的无私分享",[[UIDevice currentDevice] name]]]; // Use the document file name for the subject
-        
-        _sharingText = [NSString stringWithFormat:@"<HTML><B>Hi!</B><BR/>我觉得不错，推荐给你:<a href=\"%@\">%@</a></HTML>",_sharingURL,_sharingTitle];
-        
-        [mailComposer setMessageBody:_sharingText
-                              isHTML:YES];
-        
-        mailComposer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        mailComposer.modalPresentationStyle = UIModalPresentationFormSheet;
-        
-        mailComposer.mailComposeDelegate = self; // Set the delegate
-        
-        [_shareCircleView dismissAnimated:YES];
-        [self presentViewController:mailComposer];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark - Buy  Related
-//////////////////////////////////////////////////////////////
-- (void) presentStoreView
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    //NSString*  startDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipStartTime];
-    NSString*  endDateStr =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KMembershipEndTime];
-    
-    //NSDate *startDate = [dateFormatter dateFromString:startDateStr];
-    NSDate *endDate = [dateFormatter dateFromString:endDateStr];
-
-    NSDate *nowDate = [NSDate date];
-    
-    if ([nowDate compare:endDate] == NSOrderedAscending) {
-        
-        [self.window makeToast:@"你已经是会员，无需购买会员资格!" duration:3 position:CSToastPositionCenter];
-    }
-    else
-    {
-        if ([SKPaymentQueue canMakePayments])
-        {
-            NSArray *availableProducts = [[MKStoreKit  sharedKit] availableProducts];
-            
-            if (availableProducts.count>0) {
-                
-                [FlyingDataManager buyAppleIdentify:availableProducts[0]];
-            }
+            [[self getTabBarController].parentViewController presentViewController:alertController animated:YES completion:^{
+                //
+            }];
         }
         else
         {
-            [self.window makeToast:@"需要打开应用内购买功能才能继续!" duration:3 position:CSToastPositionCenter];
+            [[self getTabBarController] presentViewController:alertController animated:YES completion:nil];
         }
     }
 }
-
-- (void) copylessonLink
-{
-    if (_sharingURL) {
-        
-        UIPasteboard *pb = [UIPasteboard generalPasteboard];
-        [pb setString:_sharingURL];
-        
-        [_shareCircleView dismissAnimated:YES];
-        
-        NSString *title = @"复制内容链接成功";
-        NSString *message = [NSString stringWithFormat:@"你现在可以随意粘贴转发了：）"];
-        SIAlertView *copyAlertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [copyAlertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        copyAlertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        copyAlertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [copyAlertView show];
-    }
-}
-
-- (void) shareToIM
-{
-    if (_sharingURL) {
-        
-        RCRichContentMessage * richMessage = [RCRichContentMessage messageWithTitle:_sharingTitle
-                                                                              digest:_sharingText
-                                                                            imageURL:_sharingImageURL
-                                                                                 url:_sharingURL
-                                                                               extra:@""];
-                                              
-        FlyingShareWithFriends * shareFriends = [[FlyingShareWithFriends alloc] init];
-        
-        shareFriends.message=richMessage;
-        
-        [_shareCircleView dismissAnimated:YES];
-        [self presentViewController:shareFriends];
-    }
-}
-
-#pragma mark MFMailComposeViewControllerDelegate methods
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    
-	[controller dismissViewControllerAnimated:YES completion:NULL]; // Dismiss
-}
-
 
 #pragma mark Remote control Event methods
 
@@ -1434,9 +1059,5 @@
 {
     return YES;
 }
-
-
-
-
 
 @end

@@ -10,8 +10,7 @@
 
 #import "JPSThumbnailAnnotationView.h"
 #import "JPSThumbnail.h"
-#import "UIImageView+WebCache.h"
-
+#import  <UIImageView+AFNetworking.h>
 NSString * const kJPSThumbnailAnnotationViewReuseID = @"JPSThumbnailAnnotationView";
 
 static CGFloat const kJPSThumbnailAnnotationViewStandardWidth     = 75.0f;
@@ -128,8 +127,9 @@ static CGFloat const kJPSThumbnailAnnotationViewAnimationDuration = 0.25f;
     self.coordinate = thumbnail.coordinate;
     self.titleLabel.text = thumbnail.title;
     self.subtitleLabel.text = thumbnail.subtitle;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:thumbnail.imageURL]
-                      placeholderImage:[UIImage imageNamed:@"People"]];
+    
+    [self.imageView setImageWithURL:[NSURL URLWithString:thumbnail.imageURL]
+                   placeholderImage:[UIImage imageNamed:@"People"]];
      
     self.disclosureBlock = thumbnail.disclosureBlock;
 }

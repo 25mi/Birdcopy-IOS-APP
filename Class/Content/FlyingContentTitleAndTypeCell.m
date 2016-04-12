@@ -7,9 +7,13 @@
 //
 
 #import "FlyingContentTitleAndTypeCell.h"
-
+#import "shareDefine.h"
 
 @interface FlyingContentTitleAndTypeCell()
+
+@property (strong, nonatomic) IBOutlet UILabel *contentTitle;
+@property (strong, nonatomic) IBOutlet UIButton *accessButton;
+@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 
 @property (nonatomic,readwrite) BOOL access;
 
@@ -20,7 +24,8 @@
 - (void)awakeFromNib {
     // Initialization code
     
-    self.contentTitle.font = [UIFont systemFontOfSize:(INTERFACE_IS_PAD ? 26.0f : 13.0f)];
+    self.contentTitle.font = [UIFont boldSystemFontOfSize:KNormalFontSize];
+    self.priceLabel.font = [UIFont systemFontOfSize:KLittleFontSize];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -58,17 +63,22 @@
     self.contentTitle.text=title;
 }
 
+-(void) setPrice:(NSString*) price
+{
+    self.priceLabel.text = price;
+}
+
 -(void) setAccessRight:(BOOL) accessRight
 {
     self.access=accessRight;
     
     if (self.access) {
         
-        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
+        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"coin"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"Price"] forState:UIControlStateNormal];
+        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"unlock"] forState:UIControlStateNormal];
     }
 }
 

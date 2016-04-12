@@ -16,7 +16,6 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
-#import "SIAlertView.h"
 #import "AFHttpTool.h"
 #import "FlyingDownloadManager.h"
 
@@ -73,7 +72,6 @@
                                                      
                                                      @autoreleasepool {
                                                          
-                                                         [_dao setUserModle:NO];
                                                          [_dao updateDowloadPercent:percentDone LessonID:lessonID];
                                                          [_dao updateDowloadState:YES LessonID:lessonID];
                                                          [[NSNotificationCenter defaultCenter] postNotificationName:KlessonStateChange object:nil userInfo:[NSDictionary dictionaryWithObject:lessonID forKey:@"lessonID"]];
@@ -129,16 +127,9 @@
              }
              */
             
-            NSString *title = @"版本提醒";
             NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-            [alertView addButtonWithTitle:@"知道了"
-                                     type:SIAlertViewButtonTypeCancel
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            [alertView show];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         else if ([_downloadType isEqualToString:KDownloadTypeM3U8]) {
             
@@ -177,17 +168,9 @@
     else if ([_downloadType isEqualToString:KDownloadTypeMagnet]){
         
         //[(FlyingMagnetDownloader *)_downloader  startDownloadVideo];
-        NSString *title = @"版本提醒";
         NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
-
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
@@ -205,16 +188,9 @@
         
         //[(FlyingMagnetDownloader *)_downloader  cancelDownload];
         
-        NSString *title = @"版本提醒";
         NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
@@ -242,7 +218,6 @@
             }
         }
         FlyingLessonDAO * dao=[[FlyingLessonDAO alloc] init];
-        [dao setUserModle:NO];
         
         NSURL *url =[[NSURL alloc] initWithString:[(FlyingLessonData*)[dao selectWithLessonID:self.lessonID] BECONTENTURL]];
         NSURLRequest *request =  [[NSURLRequest alloc] initWithURL:url];
@@ -265,7 +240,6 @@
     if(textRange.location != NSNotFound)
     {
         FlyingLessonDAO * dao=[[FlyingLessonDAO alloc] init];
-        [dao setUserModle:NO];
         
         [dao updateContentURL:lm3u8 LessonID:_lessonID];
         [self initDownloadM3u8Content];

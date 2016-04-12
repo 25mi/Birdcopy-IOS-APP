@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="FlyingAddressBookTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlyingAddressBookTableViewCell" rowHeight="70" id="Feu-e9-1cb" customClass="FlyingAddressBookTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Feu-e9-1cb" id="gF6-Iy-Hlg">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hoz-UO-kPV">
+                        <rect key="frame" x="14" y="17" width="36" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="54.5" id="Rot-Sh-xfy"/>
+                            <constraint firstAttribute="height" constant="36" id="UFY-36-v8L"/>
+                            <constraint firstAttribute="width" constant="36" id="vbK-A2-G1R"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Rot-Sh-xfy"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="NOf-Mp-Rsx">
+                        <rect key="frame" x="58" y="24" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="hGy-6h-gwm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="NOf-Mp-Rsx" secondAttribute="trailing" constant="492" id="7v2-a9-ZXq"/>
+                    <constraint firstAttribute="centerY" secondItem="hoz-UO-kPV" secondAttribute="centerY" constant="0.5" id="E4B-zI-sJk"/>
+                    <constraint firstItem="NOf-Mp-Rsx" firstAttribute="leading" secondItem="hoz-UO-kPV" secondAttribute="trailing" constant="8" id="RMh-wm-cYC"/>
+                    <constraint firstItem="hoz-UO-kPV" firstAttribute="leading" secondItem="gF6-Iy-Hlg" secondAttribute="leadingMargin" constant="6" id="YSv-ql-xZi"/>
+                    <constraint firstAttribute="centerY" secondItem="NOf-Mp-Rsx" secondAttribute="centerY" constant="-0.25" id="gXV-Hf-GNi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="imgvAva" destination="hoz-UO-kPV" id="hw7-zk-p29"/>
+                <outlet property="lblName" destination="NOf-Mp-Rsx" id="RDq-VA-QMD"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

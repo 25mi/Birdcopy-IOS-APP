@@ -10,18 +10,45 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingConversationListVC.h"
-#import "SIAlertView.h"
 #import "UIView+Toast.h"
 #import "FlyingNavigationController.h"
+#import "UIColor+RCColor.h"
 
-@interface FlyingPickColorVCViewController ()
-
+@interface FlyingPickColorVCViewController ()<UIViewControllerRestoration>
 
 @property (nonatomic, strong) UIImageView *cPicker;
 
 @end
 
 @implementation FlyingPickColorVCViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -34,7 +61,7 @@
     [self addBackFunction];
     
     //更新欢迎语言
-    self.title =@"设置颜色";
+    self.title = NSLocalizedString(@"Style Setting",nil);
     
     //顶部导航
     UIButton* resetButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
@@ -76,7 +103,7 @@
 - (void) doReset
 {
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate resetnavigationBarWithDefaultStyle];
+    [appDelegate setNavigationBarWithLogoStyle:YES];
 }
 
 - (void)handleSingleTapFrom: (UITapGestureRecognizer *)recognizer
@@ -97,7 +124,7 @@
         const CGFloat *components = CGColorGetComponents(backgroundColor.CGColor);
         if (components[3] != 0) {
             
-            textColor = [self readableForegroundColorForBackgroundColor:backgroundColor];
+            textColor = [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
             
             NSDictionary* textAttributes = @{NSFontAttributeName:font,
                                              NSForegroundColorAttributeName:textColor};
@@ -127,19 +154,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:textColorData forKey:kNavigationTextColor];
     [[NSUserDefaults standardUserDefaults] setObject:backgroundColorData forKey:kNavigationBackColor];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(UIColor *)readableForegroundColorForBackgroundColor:(UIColor*)backgroundColor {
-    
-    const CGFloat *componentColors = CGColorGetComponents(backgroundColor.CGColor);
-    
-    CGFloat darknessScore = (((componentColors[0]*255) * 299) + ((componentColors[1]*255) * 587) + ((componentColors[2]*255) * 114)) / 1000;
-    
-    if (darknessScore >= 125) {
-        return [UIColor blackColor];
-    }
-    
-    return [UIColor whiteColor];
 }
 
 

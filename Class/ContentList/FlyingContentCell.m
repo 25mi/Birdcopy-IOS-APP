@@ -9,29 +9,22 @@
 #import "FlyingContentCell.h"
 #import "shareDefine.h"
 #import "FlyingPubLessonData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
+#import "NSString+FlyingExtention.h"
 
 @implementation FlyingContentCell
 
 - (void)awakeFromNib
 {
     // Initialization code
-    self.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    
     self.titleLabel.font        = [UIFont boldSystemFontOfSize:KLargeFontSize];
-    self.descriptionLable.font  = [UIFont systemFontOfSize:KLittleFontSize];
 
     self.dateLabel.font         = [UIFont systemFontOfSize:KSmallFontSize];
     self.commentCountLable.font = [UIFont systemFontOfSize:KSmallFontSize];
     
     [self.coverImageView setContentMode:UIViewContentModeScaleAspectFill];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 + (FlyingContentCell*) contentCell
@@ -43,19 +36,36 @@
     return cell;
 }
 
-
 -(void)settingWithContentData:(FlyingPubLessonData*) contentData
 {
     self.contentData = contentData;
     
     self.titleLabel.text = contentData.title;
-    self.descriptionLable.text = contentData.desc;
     self.dateLabel.text = @"10小时前";
+    
+    if([contentData.timeLamp containsString:@"-"] &&
+       [contentData.timeLamp containsString:@":"])
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *Date = [dateFormatter dateFromString:contentData.timeLamp];
+        
+        self.dateLabel.text =[NSString stringFromTimeInterval:-[Date timeIntervalSinceNow]];
+    }
+    else
+    {
+        NSDate *now = [NSDate date];
+        self.dateLabel.text = [NSString stringFromTimeInterval:-[now timeIntervalSinceNow]];
+    }
+    
+    self.commentCountLable.text = contentData.commentCount;
     
     self.detailTextLabel.text =contentData.desc;
     
     if (contentData.imageURL.length!=0) {
-        [self.coverImageView  sd_setImageWithURL:[NSURL URLWithString:contentData.imageURL] placeholderImage:[UIImage imageNamed:@"Default"]];
+        
+        [self.coverImageView  setImageWithURL:[NSURL URLWithString:contentData.imageURL] placeholderImage:[UIImage imageNamed:@"Default"]];
     }
     else
     {

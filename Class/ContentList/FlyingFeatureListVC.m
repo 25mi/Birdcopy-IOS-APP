@@ -15,10 +15,9 @@
 #import "UIView+Autosizing.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingPubLessonData.h"
-#import "SIAlertView.h"
 #import <AFNetworking.h>
 #import "FlyingSearchViewController.h"
-#import "SDImageCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
 #import "FlyingWebViewController.h"
 #import "UIView+Toast.h"
@@ -29,7 +28,7 @@
 #import "FlyingConversationListVC.h"
 #import "FlyingContentVC.h"
 
-@interface FlyingFeatureListVC ()
+@interface FlyingFeatureListVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfLessons;
     NSInteger            _currentLodingIndex;
@@ -41,6 +40,34 @@
 @end
 
 @implementation FlyingFeatureListVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -109,7 +136,9 @@
     else
     {
         [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 //////////////////////////////////////////////////////////////
@@ -211,7 +240,7 @@
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
             [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];
@@ -300,7 +329,9 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
     
     //处理footview

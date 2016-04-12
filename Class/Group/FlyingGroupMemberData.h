@@ -23,6 +23,9 @@
 @property (nonatomic, assign) BOOL ownerRecom;              //属主是否已推荐
 @property (nonatomic, assign) BOOL sysRecom;                //系统是否已推荐
 
+@property(nonatomic, strong)  NSDate     *startDate;        //生效开始时间
+@property(nonatomic, strong)  NSDate     *endDate;          //生效结束时间
+
 @property (nonatomic, strong) NSString *token;              //融云token
 @property (nonatomic, strong) NSString *name;               //融云用户名称
 @property (nonatomic, strong) NSString *portrait_url;       //融云头像文件url

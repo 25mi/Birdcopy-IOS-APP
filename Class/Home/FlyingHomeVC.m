@@ -1,5 +1,4 @@
 //
-//  FlyingMyGroupsVC.m
 //  FlyingEnglish
 //
 //  Created by vincent on 9/4/15.
@@ -9,58 +8,65 @@
 #import "FlyingHomeVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-
 #import "UIView+Toast.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
-
 #import "FlyingGroupVC.h"
-
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
 #import "FlyingDiscoverVC.h"
-
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
-
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-
 #import "RCDataBaseManager.h"
-
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
-
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
-
 #import "FlyingContentVC.h"
 #import "FlyingContentListVC.h"
 #import "FlyingGroupTableViewCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "shareDefine.h"
-#import "SIAlertView.h"
 #import "FlyingGroupUpdateData.h"
+#import "FlyingWebViewController.h"
+#import "FlyingSoundPlayer.h"
 
-@interface FlyingHomeVC ()
+@interface FlyingHomeVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfGroups;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
-    UIRefreshControl    *_refreshControl;
 }
 
 @end
 
 @implementation FlyingHomeVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -75,13 +81,10 @@
     
     [self addBackFunction];
     
-    _refresh=NO;
-    
-    //更新欢迎语言
-    self.title =@"发现";
+    //标题
+    self.title = NSLocalizedString(@"Discover",nil);
     
     //顶部导航
-    
     UIButton* chatButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
     [chatButton setBackgroundImage:[UIImage imageNamed:@"Help"] forState:UIControlStateNormal];
     [chatButton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
@@ -97,28 +100,28 @@
     
     //顶部导航
     [self reloadAll];
+    
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate refreshTabBadgeValue];
 }
 
 - (void) doDiscover
 {
     FlyingDiscoverVC *discoverContent = [[FlyingDiscoverVC alloc] init];
-    discoverContent.domainID = [FlyingDataManager  getBusinessID];
-    discoverContent.domainType = BC_Business_Domain;
-    discoverContent.hidesBottomBarWhenPushed = YES;
     
+    discoverContent.domainID = self.domainID;
+    discoverContent.domainType = self.domainType;
+    
+    discoverContent.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:discoverContent animated:YES];
 }
 
 - (void) doChat
 {
-    if (INTERFACE_IS_PAD) {
-        
-        [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-        
-        return;
-    }
-    
     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+
+    chatService.domainID = self.domainID;
+    chatService.domainType = self.domainType;
     
     chatService.targetId = [FlyingDataManager getBusinessID];
     chatService.conversationType = ConversationType_CHATROOM;
@@ -135,21 +138,43 @@
 //////////////////////////////////////////////////////////////
 - (void) touchCover:(FlyingPubLessonData*)lessonPubData
 {
-    FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
-    [contentVC setThePubLesson:lessonPubData];
-    contentVC.hidesBottomBarWhenPushed=YES;
-    
-    [self.navigationController pushViewController:contentVC animated:YES];
+    if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb]&&
+        lessonPubData.coinPrice==0)
+    {
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+
+        webpage.domainID = self.domainID;
+        webpage.domainType = self.domainType;
+        
+        webpage.thePubLesson = lessonPubData;
+        
+        webpage.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:webpage animated:YES];
+    }
+    else
+    {
+        FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
+        
+        contentVC.domainID = self.domainID;
+        contentVC.domainType = self.domainType;
+        
+        [contentVC setThePubLesson:lessonPubData];
+        contentVC.hidesBottomBarWhenPushed=YES;
+        
+        [self.navigationController pushViewController:contentVC animated:YES];
+    }
 }
 
 - (void) showFeatureContent
 {
     FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
+
+    contentList.domainID = self.domainID;
+    contentList.domainType = self.domainType;
+
     [contentList setIsOnlyFeatureContent:YES];
-    [contentList setDomainID:[FlyingDataManager getBusinessID]];
-    [contentList setDomainType:BC_Business_Domain];
     contentList.hidesBottomBarWhenPushed=YES;
-    
     [self.navigationController pushViewController:contentList animated:YES];
 }
 
@@ -171,25 +196,25 @@
         self.groupTableView.dataSource = self;
         self.groupTableView.backgroundColor = [UIColor clearColor];
         
+        self.groupTableView.tableFooterView = [UIView new];
+        
         //Add cover view
         CGRect  loadingRect  = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*210/320);
         FlyingCoverView* coverFlow = [[FlyingCoverView alloc] initWithFrame:loadingRect];
         [coverFlow setCoverViewDelegate:self];
         [coverFlow setDomainID:[FlyingDataManager getBusinessID]];
-        [coverFlow setDomainType:BC_Business_Domain];
+        [coverFlow setDomainType:BC_Domain_Business];
         [coverFlow loadData];
         self.groupTableView.tableHeaderView =coverFlow;
-
+        
+        self.groupTableView.restorationIdentifier = @"groupTableView";
+        
         [self.view addSubview:self.groupTableView];
         
         _currentData = [NSMutableArray new];
         
         _currentLodingIndex=0;
         _maxNumOfGroups=NSIntegerMax;
-        
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
-        [self.groupTableView addSubview:_refreshControl];
     }
     else
     {
@@ -201,63 +226,33 @@
     [self loadMore];
 }
 
-- (void)refreshNow:(UIRefreshControl *)refreshControl
+- (void)loadMore
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
-        
-        _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self reloadAll];
-        });
-    }
-    else
+    if (_currentData.count<_maxNumOfGroups)
     {
-        [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
-}
+        _currentLodingIndex++;
 
-- (BOOL)loadMore
-{
-    [FlyingHttpTool getAllGroupsForDomainID:[FlyingDataManager getBusinessID]
-                                 DomainType:BC_Business_Domain
-                                 PageNumber:1
-                                 Completion:^(NSArray *groupList, NSInteger allRecordCount) {
-                                     
-                                     if (groupList.count!=0) {
+        [FlyingHttpTool getAllGroupsForDomainID:[FlyingDataManager getBusinessID]
+                                     DomainType:BC_Domain_Business
+                                     PageNumber:1
+                                     Completion:^(NSArray *groupList, NSInteger allRecordCount) {
                                          
-                                         [self.currentData addObjectsFromArray:groupList];
-                                         _maxNumOfGroups=allRecordCount;
-                                         
-                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                         if (groupList.count!=0) {
                                              
-                                             [self finishLoadingData];
-                                         });
-                                     }
-                                 }];
-    
-    
-    return true;
+                                             [self.currentData addObjectsFromArray:groupList];
+                                             _maxNumOfGroups=allRecordCount;
+                                             
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 
+                                                 [self finishLoadingData];
+                                             });
+                                         }
+                                     }];
+    }
 }
 
 -(void) finishLoadingData
 {
-    //更新下拉刷新
-    if(_refresh)
-    {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
-        
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
-        
-        [_refreshControl endRefreshing];
-        _refresh=NO;
-    }
-    
     //更新界面
     if (_currentData.count>0)
     {
@@ -265,7 +260,9 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -298,7 +295,7 @@
     if (indexPath.section == 0)
     {
         // 普通Cell
-        FlyingGroupTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:GROUPCELL_IDENTIFIER];
+        FlyingGroupTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingGroupTableViewCell"];
         
         if (!cell) {
             cell = [FlyingGroupTableViewCell groupCell];
@@ -338,8 +335,10 @@
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupTableViewCell" configuration:^(id cell) {
-            
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupTableViewCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(id cell) {
+    
             [self configureCell:cell atIndexPath:indexPath];
         }];
     
@@ -389,97 +388,103 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    FlyingGroupUpdateData* groupUpdateData = [_currentData objectAtIndex:indexPath.row];
-    
-    if (groupUpdateData.groupData.is_public_access) {
-        
-        [self enterGroup:groupUpdateData.groupData];
-    }
-    else{
-    
-        [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
-                                               GroupID:groupUpdateData.groupData.gp_id Completion:^(NSString *result) {
-                                                   //
-                                                   if ([result isEqualToString:KGroupMemberVerified]) {
-                                                       
-                                                       [self enterGroup:groupUpdateData.groupData];
-                                                   }
-                                                   else if ([result isEqualToString:KGroupMemberNoexisted])
-                                                   {
-                                                       NSString *title = @"友情提醒！";
-                                                       NSString *message = @"你不是成员，需要申请加入群组吗？";
-                                                       SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                                                       [alertView addButtonWithTitle:@"取消"
-                                                                                type:SIAlertViewButtonTypeCancel
-                                                                             handler:^(SIAlertView *alertView) {
-                                                                             }];
-                                                       
-                                                       [alertView addButtonWithTitle:@"确认"
-                                                                                type:SIAlertViewButtonTypeDefault
-                                                                             handler:^(SIAlertView *alertView) {
-                                                                                 
-                                                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID] 
-                                                                                                             GroupID:groupUpdateData.groupData.gp_id
-                                                                                                          Completion:^(NSString *result) {
-                                                                                                              
-                                                                                                              if ([result isEqualToString:KGroupMemberVerified]) {
-                                                                                                                  [self enterGroup:groupUpdateData.groupData];
-                                                                                                              }
-                                                                                                              else {
-                                                                                                                  
-                                                                                                                  [self showMemberInfo:result];
-                                                                                                              }
-                                                                                                                                                                                                                        }];
-                                                                             }];
+    if ([[self navigationController] topViewController] == self) {
 
-                                                       alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                                                       alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                                                       [alertView show];
-                                                   }
-                                                   else
-                                                   {
+    
+        FlyingGroupUpdateData* groupUpdateData = [_currentData objectAtIndex:indexPath.row];
+        
+        if (groupUpdateData.groupData.is_public_access) {
+            
+            [self enterGroup:groupUpdateData.groupData];
+        }
+        else{
+            
+            [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
+                                                   GroupID:groupUpdateData.groupData.gp_id Completion:^(FlyingUserRightData *userRightData) {
                                                        
-                                                       [self showMemberInfo:result];
-                                                   }
-                                               }];
+                //
+                if ([userRightData checkRightPresent]) {
+                    
+                    [self enterGroup:groupUpdateData.groupData];
+                }
+                else if ([userRightData.memberState isEqualToString:BC_Member_Noexisted])
+                {
+                    NSString *title   = NSLocalizedString(@"Attenion Please", nil);
+                    NSString *message = NSLocalizedString(@"I want to become a member!", nil);
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                             message:message
+                                                                                      preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
+                                                                         style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
+                                                    GroupID:groupUpdateData.groupData.gp_id
+                                                 Completion:^(FlyingUserRightData *userRightData) {
+                                                     
+                                                     [self showMemberInfo:userRightData];
+                                                 }];
+                    }];
+                    
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
+                                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    
+                    [alertController addAction:doneAction];
+                    [alertController addAction:cancelAction];
+                    [self presentViewController:alertController animated:YES completion:^{
+                        //
+                    }];
+                }
+                else
+                {
+                    [self showMemberInfo:userRightData];
+                }
+            }];
+        }
     }
 }
 
 
 -(void) enterGroup:(FlyingGroupData*)groupData
-
 {
-    FlyingGroupVC *groupVC = [FlyingGroupVC new];
+    FlyingGroupVC *groupVC = [[FlyingGroupVC alloc] init];
+    
+    groupVC.domainID = groupData.gp_id;
+    groupVC.domainType = BC_Domain_Group;
+    
     groupVC.groupData=groupData;
     groupVC.hidesBottomBarWhenPushed=YES;
-    
     [self.navigationController pushViewController:groupVC animated:YES];
 }
 
--(void) showMemberInfo:(NSString*)reslutStr
+-(void) showMemberInfo:(FlyingUserRightData*)userRightData
 {
-    NSString * verifiedStr = @"你已经是正式会员，可以参与互动了!";
-    NSString * refuseStr = @"你的成员资格被拒绝!";
-    NSString * reviewStr = @"你的成员资格正在审批中...";
-    
     NSString * infoStr=@"未知错误！";
     
-    if ([reslutStr isEqualToString:KGroupMemberVerified]) {
-        
-        infoStr = verifiedStr;
-    }
-    
-    else if ([reslutStr isEqualToString:KGroupMemberRefused]) {
-        
-        infoStr = refuseStr;
-    }
-    else if([reslutStr isEqualToString:KGroupMemberReviewing])
+    if([userRightData.memberState  isEqualToString:BC_Member_Noexisted])
     {
-        infoStr = reviewStr;
-        
+        infoStr = @"不存在会员身份！";
     }
     
-    [self.view makeToast:infoStr duration:2 position:CSToastPositionCenter];
+    else if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        infoStr = @"你的成员资格正在审批中...";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Verified]) {
+        
+        infoStr =  @"你已经是正式会员，可以参与互动了!";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Refused]) {
+        
+        infoStr = @"你的成员资格被拒绝!";
+    }
+    
+    [self.view makeToast:infoStr
+                duration:2
+                position:CSToastPositionCenter];
 }
 
 //////////////////////////////////////////////////////////////

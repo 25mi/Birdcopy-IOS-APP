@@ -9,10 +9,39 @@
 #import "RCDSettingBaseViewController.h"
 #import <RongIMLib/RongIMLib.h>
 
-@interface RCDSettingBaseViewController () <UIActionSheetDelegate>
+@interface RCDSettingBaseViewController () <UIActionSheetDelegate,
+                                            UIViewControllerRestoration>
 @end
 
 @implementation RCDSettingBaseViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,15 +129,34 @@
  *
  *  @param sender sender description
  */
-- (void)onClickClearMessageHistory:(id)sender {
+- (void)onClickClearMessageHistory:(id)sender
+{
     
-    _clearMsgHistoryActionSheet =
-    [[UIActionSheet alloc] initWithTitle:NSLocalizedStringFromTable(@"IsDeleteHistoryMsg", @"RongCloudKit", nil)
-                                delegate:self
-                       cancelButtonTitle:NSLocalizedStringFromTable(@"Cancel", @"RongCloudKit", nil)
-                  destructiveButtonTitle:NSLocalizedStringFromTable(@"OK", @"RongCloudKit", nil)
-                       otherButtonTitles:nil, nil];
-    [_clearMsgHistoryActionSheet showInView:self.view];
+    NSString *title = @"清除聊天记录";
+    NSString *message = nil;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self clearHistoryMessage];
+    }];
+    
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:doneAction];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{
+        //
+    }];
+
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {

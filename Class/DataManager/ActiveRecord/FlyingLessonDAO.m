@@ -26,16 +26,6 @@
     return [NSString stringWithFormat:sql,  @"BE_PUB_LESSON"];
 }
 
--(void)       setUserModle:(BOOL) userModle;
-{
-    if ( !userModle) {
-        self.workDbQueue = self.pubUserDBQueue;
-    }
-    else{
-        self.workDbQueue = self.userDBQueue;
-    }
-}
-
 - (FMDatabaseQueue *)dbQueue
 {
     //默认是用户模式
@@ -158,7 +148,7 @@
     if (data) {
         
         //删除
-        NSString *lessonDirectory = [FlyingFileManager  getLessonDir:lessonID];
+        NSString *lessonDirectory = [FlyingFileManager  getMyLessonDir:lessonID];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             

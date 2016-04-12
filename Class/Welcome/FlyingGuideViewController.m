@@ -16,7 +16,7 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingDataManager.h"
 
-@interface FlyingGuideViewController()
+@interface FlyingGuideViewController()<UIViewControllerRestoration>
 {
     MBProgressHUD* hud;
 }
@@ -24,6 +24,24 @@
 @end
 
 @implementation FlyingGuideViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {

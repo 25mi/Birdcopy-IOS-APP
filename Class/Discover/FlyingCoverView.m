@@ -9,10 +9,9 @@
 #import "FlyingCoverView.h"
 #import "shareDefine.h"
 #import "FlyingPubLessonData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "NSString+FlyingExtention.h"
 #import "FlyingLessonParser.h"
-#import "SIAlertView.h"
 #import "UIView+Autosizing.h"
 #import  <AFNetworking.h>
 #import "FlyingHttpTool.h"
@@ -181,58 +180,10 @@
 
         [self.coverImageViewDic setObject:coverImageView forKey:@(index)];
         
-        if (!coverImageView.image) {
-            
-            if (INTERFACE_IS_PAD) {
-                
-                [self createActivityIndicatorAt:coverImageView WithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                
-            }
-            else{
-                
-                [self createActivityIndicatorAt:coverImageView WithStyle:UIActivityIndicatorViewStyleWhite];
-            }
-        }
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [coverImageView sd_setImageWithURL:[NSURL URLWithString:lessonData.imageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [weakSelf removeActivityIndicator:(NSUInteger) index];
-        }];
+        [coverImageView setImageWithURL:[NSURL URLWithString:lessonData.imageURL]];
     }
 }
 
--(void) createActivityIndicatorAt:(UIView*) myView  WithStyle:(UIActivityIndicatorViewStyle) activityStyle
-{
-    
-    UIActivityIndicatorView * activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-    activityIndicator.color=[UIColor grayColor];
-    
-    //calculate the correct position
-    float width = activityIndicator.frame.size.width;
-    float height = activityIndicator.frame.size.height;
-    float x = (myView.frame.size.width / 2.0) - width/2;
-    float y = (myView.frame.size.height / 2.0) - height/2;
-    activityIndicator.frame = CGRectMake(x, y, width, height);
-    
-    //_activityIndicator.hidesWhenStopped = YES;
-    [myView addSubview:activityIndicator];
-    
-    if (!activityIndicator.isAnimating) {
-        [activityIndicator startAnimating];
-    }
-}
-
--(void) removeActivityIndicator:(NSUInteger) idx
-{
-    
-    UIImageView * coverImageView=[self.coverImageViewDic objectForKey:@(idx)];
-    
-    if (coverImageView) {
-        
-        [[coverImageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    }
-}
 
 - (void) loadCoverData
 {    

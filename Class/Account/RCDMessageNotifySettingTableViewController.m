@@ -13,7 +13,6 @@
 #import "FlyingScanViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import "MBProgressHUD.h"
-#import "SIAlertView.h"
 #import "FlyingNavigationController.h"
 
 @interface RCDMessageNotifySettingTableViewController ()
@@ -93,8 +92,23 @@
             });
         } error:^(RCErrorCode status) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设置失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-                [alert show];
+                
+                NSString *title = @"提示";
+                NSString *message =@"设置失败";
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                         message:message
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@" 确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                
+                [alertController addAction:cancelAction];
+                [self presentViewController:alertController animated:YES completion:^{
+                    //
+                }];
+                
                 self.notifySwitch.on = YES;
                 [hud hide:YES];
             });
@@ -109,8 +123,23 @@
         } error:^(RCErrorCode status) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"取消失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-                [alert show];
+                
+                NSString *title = @"提示";
+                NSString *message = @"取消失败";
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                         message:message
+                                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                
+                [alertController addAction:cancelAction];
+                [self presentViewController:alertController animated:YES completion:^{
+                    //
+                }];
+                
                 self.notifySwitch.on = NO;
                 [hud hide:YES];
             });

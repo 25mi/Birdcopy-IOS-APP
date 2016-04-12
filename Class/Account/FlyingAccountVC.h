@@ -13,6 +13,9 @@ typedef void (^ChangeNameBlock)();
 
 @interface FlyingAccountVC : UITableViewController
 
+@property(nonatomic, strong) NSString* domainID;
+@property(nonatomic, strong) NSString* domainType;
+
 @property (strong, nonatomic)   ChangeNameBlock disclosureBlock;
 
 @end

@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define GROUPCELL_IDENTIFIER @"groupCell"
-
 @class FlyingGroupUpdateData;
 
 @interface FlyingGroupTableViewCell : UITableViewCell

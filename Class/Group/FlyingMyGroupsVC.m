@@ -9,56 +9,65 @@
 #import "FlyingMyGroupsVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-
 #import "UIView+Toast.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
-
 #import "FlyingGroupVC.h"
-
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
 #import "FlyingDiscoverVC.h"
-
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
-
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-
 #import "RCDataBaseManager.h"
-
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
-
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
-
 #import "FlyingContentVC.h"
 #import "FlyingContentListVC.h"
 #import "FlyingGroupUpdateCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "FlyingGroupUpdateData.h"
+#import "FlyingDataManager.h"
 
-@interface FlyingMyGroupsVC ()
+@interface FlyingMyGroupsVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfGroups;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
-    UIRefreshControl    *_refreshControl;
 }
 
 @end
 
 @implementation FlyingMyGroupsVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+        
+        self.groupTableView.restorationIdentifier = @"groupTableView";
     }
     return self;
 }
@@ -73,10 +82,11 @@
     
     [self addBackFunction];
     
-    _refresh=NO;
+    //标题
+    self.title = NSLocalizedString(@"Group",nil);
     
-    //更新欢迎语言
-    self.title =@"我的群组";
+    self.domainID = [FlyingDataManager getBusinessID];
+    self.domainType = BC_Domain_Business;
         
     //顶部导航
     [self reloadAll];
@@ -104,6 +114,8 @@
         self.groupTableView.dataSource = self;
         self.groupTableView.backgroundColor = [UIColor clearColor];
         
+        self.groupTableView.tableFooterView = [UIView new];
+        
         [self.view addSubview:_groupTableView];
         
         _currentData = [NSMutableArray new];
@@ -111,9 +123,6 @@
         _currentLodingIndex=0;
         _maxNumOfGroups=NSIntegerMax;
         
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
-        [self.groupTableView addSubview:_refreshControl];
     }
     else
     {
@@ -123,25 +132,6 @@
     }
     
     [self loadMore];
-}
-
-- (void)refreshNow:(UIRefreshControl *)refreshControl
-{
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
-        
-        _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self reloadAll];
-        });
-    }
-    else
-    {
-        [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
-    }
 }
 
 - (void) loadMore
@@ -165,18 +155,6 @@
 
 -(void) finishLoadingData
 {
-    //更新下拉刷新
-    if(_refresh)
-    {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
-        
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
-        
-        [_refreshControl endRefreshing];
-        _refresh=NO;
-    }
     
     //更新界面
     if (_currentData.count>0)
@@ -185,7 +163,9 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -218,7 +198,7 @@
     if (indexPath.section == 0)
     {
         // 普通Cell
-        FlyingGroupUpdateCell* cell = [tableView dequeueReusableCellWithIdentifier:GROUPUPDATECELL_IDENTIFIER];
+        FlyingGroupUpdateCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingGroupUpdateCell"];
         
         if (!cell) {
             
@@ -259,8 +239,10 @@
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupUpdateCell" configuration:^(id cell) {
-            
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupUpdateCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(id cell) {
+    
             [self configureCell:cell atIndexPath:indexPath];
         }];
     
@@ -311,7 +293,7 @@
 {
     FlyingGroupUpdateData* groupUpdaeData = [_currentData objectAtIndex:indexPath.row];
 
-    FlyingGroupVC *groupVC = [FlyingGroupVC new];
+    FlyingGroupVC *groupVC = [[FlyingGroupVC alloc] init];
     groupVC.groupData=groupUpdaeData.groupData;
     groupVC.hidesBottomBarWhenPushed=YES;
     

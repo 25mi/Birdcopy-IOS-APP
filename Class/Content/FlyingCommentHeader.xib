@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10089" systemVersion="15E49a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -15,39 +15,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="相关评论" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0Y-Sq-cCs">
-                        <rect key="frame" x="8" y="8" width="68" height="27.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="相关评论" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0Y-Sq-cCs">
+                        <rect key="frame" x="8" y="8" width="262" height="27.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGe-2m-III">
-                        <rect key="frame" x="288" y="10" width="24" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="BMW-yB-qMN"/>
-                            <constraint firstAttribute="width" constant="24" id="D2Z-RQ-OAA"/>
-                        </constraints>
-                        <state key="normal" backgroundImage="Comment"/>
-                        <connections>
-                            <action selector="toCommentVC:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="e3J-Jw-En4"/>
-                        </connections>
-                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxG-tU-nbk">
+                        <rect key="frame" x="270" y="11" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="YxG-tU-nbk" secondAttribute="trailing" id="2t2-k9-oan"/>
                     <constraint firstAttribute="bottomMargin" secondItem="F0Y-Sq-cCs" secondAttribute="bottom" id="9h0-It-MDo"/>
-                    <constraint firstItem="CGe-2m-III" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="H2K-hq-hGu"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="CGe-2m-III" secondAttribute="trailing" id="Zhd-xK-ng6"/>
+                    <constraint firstItem="YxG-tU-nbk" firstAttribute="leading" secondItem="F0Y-Sq-cCs" secondAttribute="trailing" id="fiE-p7-2uc"/>
                     <constraint firstItem="F0Y-Sq-cCs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="o2V-fg-3Rg"/>
                     <constraint firstItem="F0Y-Sq-cCs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="pSe-x7-Fbg"/>
+                    <constraint firstItem="YxG-tU-nbk" firstAttribute="leading" secondItem="F0Y-Sq-cCs" secondAttribute="trailing" id="pZ0-6U-4eP"/>
+                    <constraint firstItem="YxG-tU-nbk" firstAttribute="centerY" secondItem="F0Y-Sq-cCs" secondAttribute="centerY" id="whi-as-Hxm"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="accessButton" destination="CGe-2m-III" id="t00-l2-EKQ"/>
+                <outlet property="commentCountLabel" destination="YxG-tU-nbk" id="e5p-OO-rgN"/>
                 <outlet property="contentTitle" destination="F0Y-Sq-cCs" id="MzY-x3-yIA"/>
             </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="Comment" width="96" height="96"/>
-    </resources>
 </document>

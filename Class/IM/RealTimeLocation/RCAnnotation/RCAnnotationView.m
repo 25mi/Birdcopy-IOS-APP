@@ -7,21 +7,25 @@
 //
 
 #import "RCAnnotationView.h"
-#import "UIImageView+WebCache.h"
 #import "UIImage+localFile.h"
+#import <UIImageView+AFNetworking.h>
 
 @implementation RCAnnotationView
 float fromValue=0.0f;
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation {
+    
     self = [super initWithAnnotation:annotation reuseIdentifier:@"RCAnnotationView"];
     
     if (self) {
+        
         self.canShowCallout = NO;
         self.frame = CGRectMake(0, 0, 40, 40);
         self.backgroundColor = [UIColor clearColor];
         self.centerOffset = CGPointMake(0,0);
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -35, 40, 40)];
-        [_imageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
+        
+        [_imageView setImageWithURL:[NSURL URLWithString:self.imageUrl]
+                   placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
         _imageView.layer.cornerRadius = 20.0;
         _imageView.layer.masksToBounds = YES;
         _imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -57,7 +61,9 @@ float fromValue=0.0f;
     if([keyPath isEqualToString:@"imageUrl"]){
         dispatch_async(dispatch_get_main_queue(), ^{
             if (![[change objectForKey:@"new"] isKindOfClass:[NSNull class]]) {
-                [_imageView sd_setImageWithURL:[NSURL URLWithString:[change objectForKey:@"new"]] placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
+                                
+                [_imageView setImageWithURL:[NSURL URLWithString:[change objectForKey:@"new"]]
+                           placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
 
             }
         });

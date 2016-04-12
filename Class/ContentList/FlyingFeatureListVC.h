@@ -28,9 +28,6 @@
 
 @property (assign, nonatomic)          BOOL               isOnlyFeatureContent;
 
-@property (strong, nonatomic)          NSString           *domainID;
-@property (assign, nonatomic)          BC_Domain_Type      domainType;
-
 - (void) downloadMore;
 
 @end

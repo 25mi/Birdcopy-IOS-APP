@@ -15,12 +15,9 @@
 @property (nonatomic, strong) FMDatabaseQueue *workDbQueue;//使用时的dbQueue
 
 - (FMDatabaseQueue *) userDBQueue;
-- (FMDatabaseQueue *) pubUserDBQueue;
-- (FMDatabaseQueue *) baseDBQueue;
-- (FMDatabaseQueue *) pubBaseDBQueue;
+- (FMDatabaseQueue *) dicDBQueue;
 
 - (NSString *) setTable: (NSString *)sql;
-- (void)       setUserModle:(BOOL) userModle;
 
 - (void)       close;
 

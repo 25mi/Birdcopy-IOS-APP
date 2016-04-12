@@ -33,7 +33,7 @@
     NSInteger seconds = CMTimeGetSeconds(theTime);
     NSDate *date1 = [NSDate new];
     NSDate *date2 = [NSDate dateWithTimeInterval:seconds sinceDate:date1];
-    unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    unsigned int unitFlags = NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     NSDateComponents *converted = [[NSCalendar currentCalendar] components:unitFlags fromDate:date1 toDate:date2 options:0];
     
     NSMutableString *str = [NSMutableString stringWithCapacity:6];
@@ -71,10 +71,13 @@
 }
 
 -(id)initWithCoder:(NSCoder *)decoder {
-    self = [self init];
-    self.startTime = [decoder decodeCMTimeForKey:@"startTime"];
-    self.endTime = [decoder decodeCMTimeForKey:@"endTime"];
-    self.text = [decoder decodeObjectForKey:@"text"];
+    
+    if (self = [self init]) {
+
+        self.startTime = [decoder decodeCMTimeForKey:@"startTime"];
+        self.endTime = [decoder decodeCMTimeForKey:@"endTime"];
+        self.text = [decoder decodeObjectForKey:@"text"];
+    }
     return self;
 }
 

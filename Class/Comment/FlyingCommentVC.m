@@ -5,27 +5,18 @@
 //  Created by vincent sung on 9/19/15.
 //  Copyright © 2015 BirdEngish. All rights reserved.
 //
-
+#import "shareDefine.h"
 #import "FlyingCommentVC.h"
-
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-
 #import "UIView+Toast.h"
-
 #import "FlyingGroupVC.h"
-
 #import "UICKeyChainStore.h"
-#import "shareDefine.h"
-
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
-
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-
 #import "NSString+FlyingExtention.h"
-
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "FlyingLoadingCell.h"
 #import "FlyingContentSummaryCell.h"
@@ -34,8 +25,10 @@
 #import "FlyingConversationVC.h"
 #import "FlyingConversationListVC.h"
 #import "FlyingDataManager.h"
+#import "FlyingUserData.h"
+#import "FlyingProfileVC.h"
 
-@interface FlyingCommentVC ()
+@interface FlyingCommentVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfComments;
     NSInteger            _currentLodingIndex;
@@ -50,11 +43,30 @@
 
 @implementation FlyingCommentVC
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
 - (id)init
 {
     self = [super initWithTableViewStyle:UITableViewStylePlain];
     if (self) {
-        [self commonInit];
+
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -63,6 +75,10 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+
         [self commonInit];
     }
     return self;
@@ -97,6 +113,8 @@
     [self registerClassForTypingIndicatorView:[TypingIndicatorView class]];
 #endif
      */
+    
+    [self.textInputbar setAutoHideRightButton:NO];
     
     self.inverted=false;
     
@@ -300,20 +318,26 @@
         NSInteger actualNumberOfRows = [self.currentData count];
         
         if (actualNumberOfRows == 0) {
-            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell" configuration:^(FlyingContentSummaryCell *cell) {
+            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell"
+                                                 cacheByIndexPath:indexPath
+                                                    configuration:^(FlyingContentSummaryCell *cell) {
                 [self configureCell:cell atIndexPath:indexPath];
             }];
         }
         else
         {
-            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentCell" configuration:^(FlyingCommentCell *cell) {
+            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentCell"
+                                                 cacheByIndexPath:indexPath
+                                                    configuration:^(FlyingCommentCell *cell) {
                 [self configureCell:cell atIndexPath:indexPath];
             }];
         }
     }
     else
     {
-        return [self.tableView fd_heightForCellWithIdentifier:@"FlyingLoadingCell" configuration:^(FlyingLoadingCell *cell) {
+        return [self.tableView fd_heightForCellWithIdentifier:@"FlyingLoadingCell"
+                                             cacheByIndexPath:indexPath
+                                                configuration:^(FlyingLoadingCell *cell) {
             //[self configureCell:cell atIndexPath:indexPath];
         }];
     }
@@ -386,52 +410,12 @@
 //////////////////////////////////////////////////////////////
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
-    if ([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:[commentData.userID MD5]])
-    {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        id myProfileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
-        
-        [self.navigationController pushViewController:myProfileVC animated:YES];
-    }
-    else
-    {
-        if (INTERFACE_IS_PAD) {
-            
-            [self.view makeToast:@"PAD版本暂时不支持聊天功能!！"];
-            
-            return;
-        }
-        
-        if ([FlyingDataManager getUserPortraitUri].length==0) {
-            
-            [self.view makeToast:@"请创建自己头像先！左上角->菜单－》账户->修改头像（昵称）噢"];
-        }
-        else
-        {
-            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-            
-            chatService.targetId = [commentData.userID MD5];
-            chatService.conversationType = ConversationType_PRIVATE;
-            chatService.title = commentData.nickName;
-            [self.navigationController pushViewController:chatService animated:YES];
-        }
-    }
-    /*
-     NSString *openID = [NSString getOpenUDID];
-     
-     if (!openID) {
-     
-     return;
-     }
-     
-     if ([openID isEqualToString:commentData.userID])
-     {
-     //个人档案页
-     }
-     else
-     {
-     }
-     */
+    
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FlyingProfileVC  *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+    profileVC.userID = commentData.userID;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 //////////////////////////////////////////////////////////////
@@ -450,10 +434,11 @@
     
     commentData.userID = [FlyingDataManager getOpenUDID];
     
-    NSString *portraitUri=[FlyingDataManager getUserPortraitUri];
-    commentData.portraitURL=portraitUri;
+    FlyingUserData *userData = [FlyingDataManager getUserData:nil];
     
-    commentData.nickName=[FlyingDataManager getNickName];
+    commentData.portraitURL=userData.portraitUri;
+    commentData.nickName=userData.name;
+
     commentData.commentContent=self.textView.text;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

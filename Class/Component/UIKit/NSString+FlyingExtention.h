@@ -10,10 +10,6 @@
 
 @interface NSString (FlyingExtention)
 
-
-+ (NSString *) base64StringFromData:(NSData *)data
-                             length:(int)length;
-
 + (NSURL *) wordListStrByTag:(NSString *) word;
 
 + (BOOL) checkReadAbilityURL:(NSString *) webpageURL;
@@ -40,8 +36,6 @@
 + (NSString*) getLessonIDFromOfficalURL: (NSString *) webURL;
 + (NSString*) getLoginIDFromQR: (NSString *) qrStr;
 
-+ (BOOL) checkShowPrice: (NSString *) contentURL;
-
 + (NSString*) judgeScanType: (NSString *) scanStr;
 
 + (BOOL) isInMainland;
@@ -53,6 +47,9 @@
 
 + (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
 + (NSString *)transformToPinyin:(NSString *)hanZi;
++ (BOOL) isBlankString:(NSString *)string;
+
+- (BOOL) isBlankString;
 
 - (NSUInteger) numberOfWordsInString;
 - (NSString *) localSrtURL;
@@ -67,11 +64,5 @@
 - (NSString*) SHA1;
 
 - (NSString*) SHA256;
-
-- (NSString *)absolutePathFromBaseDirPath:(NSString *)baseDirPath;
-- (NSString *)relativePathFromBaseDirPath:(NSString *)baseDirPath;
-
-- (NSString *)relativePathFromDocumentDirectory:(NSString *) lessonID;
-- (NSString *)absolutePathFromDocumentDirectory:(NSString *) lessonID;
 
 @end

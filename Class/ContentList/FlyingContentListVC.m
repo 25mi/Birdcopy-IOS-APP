@@ -1,5 +1,4 @@
 //
-//  FlyingMyGroupsVC.m
 //  FlyingEnglish
 //
 //  Created by vincent on 9/4/15.
@@ -41,7 +40,7 @@
 #import "FlyingSearchViewController.h"
 #import "FlyingWebViewController.h"
 
-@interface FlyingContentListVC ()
+@interface FlyingContentListVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfContents;
     NSInteger            _currentLodingIndex;
@@ -54,11 +53,30 @@
 
 @implementation FlyingContentListVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -67,8 +85,9 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    
+    // Do any additional setup after loading the view.
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self addBackFunction];
@@ -110,8 +129,11 @@
 //////////////////////////////////////////////////////////////
 - (void) doSearch
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSearchViewController * search=[storyboard instantiateViewControllerWithIdentifier:@"FlyingSearchViewController"];
+    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
+    
+    search.domainID = self.domainID;
+    search.domainType = self.domainType;
+    
     [self.navigationController pushViewController:search animated:YES];
 }
 
@@ -130,7 +152,9 @@
     else
     {
         [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 //////////////////////////////////////////////////////////////
@@ -150,6 +174,8 @@
         self.contentTableView.delegate = self;
         self.contentTableView.dataSource = self;
         self.contentTableView.backgroundColor = [UIColor clearColor];
+        
+        self.contentTableView.tableFooterView = [UIView new];
         
         [self.view addSubview:_contentTableView];
         
@@ -243,7 +269,9 @@
     }
     else
     {
-        [self.view makeToast:@"请联网后再试一下!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网后再试一下!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -276,7 +304,7 @@
     if (indexPath.section == 0)
     {
         // 普通Cell
-        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:CONTENT_CELL_IDENTIFIER];
+        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentCell"];
         
         if (!cell) {
             
@@ -317,7 +345,9 @@
     if (indexPath.section == 0)
     {
         // 普通Cell的高度
-        return [tableView fd_heightForCellWithIdentifier:@"FlyingContentCell" configuration:^(id cell) {
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingContentCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(id cell) {
             
             [self configureCell:cell atIndexPath:indexPath];
         }];
@@ -374,7 +404,7 @@
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"webpage"];
+            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
             [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];

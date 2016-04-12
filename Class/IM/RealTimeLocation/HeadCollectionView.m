@@ -7,7 +7,7 @@
 //
 
 #import "HeadCollectionView.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
 @interface HeadCollectionView ()
 
@@ -159,7 +159,9 @@
     {
         CGFloat scrollViewWidth = [self getScrollViewWidth];
         UIImageView *userHead = [[UIImageView alloc] init];
-        [userHead sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
+        
+        [userHead setImageWithURL:[NSURL URLWithString:user.portraitUri]
+                 placeholderImage:[UIImage imageNamed:@"default_portrait_msg" ofBundle:@"RongCloud.bundle"]];
         [userHead setFrame:CGRectMake(scrollViewWidth - self.headViewSize, 0, self.headViewSize, self.headViewSize)];
         
         if (self.avatarStyle == RC_USER_AVATAR_CYCLE) {

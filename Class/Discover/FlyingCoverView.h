@@ -24,7 +24,7 @@
 @property (weak,   nonatomic) id <FlyingCoverViewDelegate> coverViewDelegate;
 
 @property (strong, nonatomic) NSString           *domainID;
-@property (assign, nonatomic) BC_Domain_Type      domainType;
+@property (assign, nonatomic) NSString           *domainType;
 
 -(void) loadData;
 

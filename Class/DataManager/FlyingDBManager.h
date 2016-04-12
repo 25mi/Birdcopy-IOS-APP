@@ -26,14 +26,8 @@
 //个人数据库用户管理
 - (FMDatabaseQueue *) shareUserDBQueue;
 
-//个人数据库公用管理
-- (FMDatabaseQueue *) sharePubUserDBQueue;
-
 //大字典数据库用户管理
-- (FMDatabaseQueue *) shareBaseDBQueue;
-
-//大字典数据库公用管理
-- (FMDatabaseQueue *) sharePubBaseDBQueue;
+- (FMDatabaseQueue *) shareDicDBQueue;
 
 - (void) closeDBQueue;
 

@@ -17,8 +17,8 @@
 @end
 
 typedef NS_ENUM(NSUInteger, TLTagsControlMode) {
-    TLTagsControlModeEdit,
     TLTagsControlModeList,
+    TLTagsControlModeEdit,
 };
 
 @interface TLTagsControl : UIScrollView

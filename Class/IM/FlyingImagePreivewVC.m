@@ -7,18 +7,18 @@
 //
 
 #import "FlyingImagePreivewVC.h"
-#import "UIImageView+WebCache.h"
-#import "CFShareCircleView.h"
-#import "FlyingShareWithFriends.h"
+#import <UIImageView+AFNetworking.h>
+#import "FlyingShareWithRecent.h"
 #import "UIView+Toast.h"
 #import  "ZXingObjC.h"
 #import "FlyingSoundPlayer.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingScanViewController.h"
+#import "FlyingShareWithRecent.h"
 
 #import <UIKit/UIKit.h>
 
-@interface FlyingImagePreivewVC ()<CFShareCircleViewDelegate>
+@interface FlyingImagePreivewVC ()<UIViewControllerRestoration>
 {
     CGFloat lastScale;
     CGRect oldFrame;    //保存图片原来的大小
@@ -30,11 +30,27 @@
  */
 @property(nonatomic, strong) UIImageView            *imageView;
 
-@property(nonatomic, strong) CFShareCircleView      *shareCircleView;
-
 @end
 
 @implementation FlyingImagePreivewVC
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
 
 - (void)viewDidLoad
 {
@@ -60,24 +76,8 @@
     {
         if ([self.imageUrl hasPrefix:@"http://"] || [self.imageUrl hasPrefix:@"https://"])
         {
-            // do something
-            if (INTERFACE_IS_PAD) {
-                
-                [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            }
-            else{
-                
-                [self createActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhite];
-            }
-
-            __weak typeof(self) weakSelf = self;
-            [_imageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl]
-                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                     [weakSelf removeActivityIndicator];
-                                     
-                                     [weakSelf prepareGestureRecognizer];
-                                 }];
-
+            [_imageView setImageWithURL:[NSURL URLWithString:self.imageUrl]];
+            [self prepareGestureRecognizer];
         }
         else
         {
@@ -116,31 +116,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
--(void) createActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle
-{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-    
-    //calculate the correct position
-    float width = activityIndicator.frame.size.width;
-    float height = activityIndicator.frame.size.height;
-    float x = (_imageView.frame.size.width / 2.0) - width/2;
-    float y = (_imageView.frame.size.height / 2.0) - height/2;
-    activityIndicator.frame = CGRectMake(x, y, width, height);
-    activityIndicator.color=[UIColor grayColor];
-    
-    activityIndicator.hidesWhenStopped = YES;
-    [_imageView addSubview:activityIndicator];
-    
-    [activityIndicator startAnimating];
-}
-
--(void) removeActivityIndicator
-{
-    [[_imageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-}
-
 
 // 添加所有的手势
 - (void) addGestureRecognizerToView:(UIView *)view
@@ -186,55 +161,64 @@
 - (void) didLongPressView:(UILongPressGestureRecognizer *)longGestureRecognizer
 {
     
-    if ( !_shareCircleView) {
-        
-        _shareCircleView = [[CFShareCircleView alloc] initWithSharers:@[[CFSharer im], [CFSharer save], [CFSharer charge], [CFSharer scan]]];
-        _shareCircleView.delegate=self;
-    }
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
-    if (!_shareCircleView.isShow) {
-        
-        [_shareCircleView show];
-    }
-}
-
-- (void)shareCircleView:(CFShareCircleView *)shareCircleView didSelectSharer:(CFSharer *)sharer
-{
-    [_shareCircleView dismissAnimated:YES];
-    
-    if ([sharer.name isEqualToString:@"二维码解析"] ||
-        [sharer.name isEqualToString:@"充值"]
-        ) {
-        
-        [self handleScan];
-    }
-    else if ([sharer.name isEqualToString:@"保存图片"]) {
+    UIAlertAction *doneAction1 = [UIAlertAction actionWithTitle:@"保存图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-    }
-    else if ([sharer.name isEqualToString:@"聊天好友"]) {
+    }];
+
+    UIAlertAction *doneAction2 = [UIAlertAction actionWithTitle:@"二维码解析" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self handleScan];
+    }];
+
+    UIAlertAction *doneAction3 = [UIAlertAction actionWithTitle:@"分享图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         [self handleShare];
-    }
+    }];
+
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:doneAction1];
+    [alertController addAction:doneAction2];
+    [alertController addAction:doneAction3];
+
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{
+        //
+    }];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     if(error != NULL)
     {
-        [self.view makeToast:@"保存图片失败！"];
+        [self.view makeToast:@"保存图片失败！"
+                    duration:1
+                    position:CSToastPositionCenter];
+
     }
     else
     {
-        [self.view makeToast:@"成功保存图片！"];
+        [self.view makeToast:@"成功保存图片！"
+                    duration:1
+                    position:CSToastPositionCenter];
+
     }
 }
 
 - (void)handleShare
 {
     RCImageMessage * imageMessage = [RCImageMessage messageWithImageURI:_imageUrl];
-    FlyingShareWithFriends * shareFriends = [[FlyingShareWithFriends alloc] init];
+    FlyingShareWithRecent * shareFriends = [[FlyingShareWithRecent alloc] init];
     shareFriends.message=imageMessage;
+    
     [self.navigationController pushViewController:shareFriends animated:YES];
 }
 

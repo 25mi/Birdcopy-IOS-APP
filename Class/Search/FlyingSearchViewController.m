@@ -19,7 +19,6 @@
 #import <AFNetworking.h>
 #import "FlyingScanViewController.h"
 #import "FlyingConversationListVC.h"
-#import "SIAlertView.h"
 
 #import "UICKeyChainStore.h"
 #import "FlyingNavigationController.h"
@@ -30,28 +29,49 @@
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
 
-@interface FlyingSearchViewController ()
-{
-    NSArray                   * _famousResultList;
-    //NSArray                   * _filteredTags;
-    NSString                  * _searchStringForCurrentResult;
-    UISearchDisplayController * _strongSearchDisplayController;
-}
+@interface FlyingSearchViewController ()<UISearchResultsUpdating,
+                                            UISearchBarDelegate,
+                                            UIViewControllerRestoration>
 
-@property (nonatomic, retain) NSMutableArray *searchResults;
-@property (nonatomic, retain) NSOperationQueue *searchQueue;
+@property (strong, nonatomic) UISearchController    *searchController;
+@property (strong, nonatomic) NSMutableArray        *searchResults;
+@property (strong, nonatomic) NSOperationQueue      *searchQueue;
 
-@property (nonatomic, retain) NSString* defaultShowStr;
+
+@property (strong, nonatomic) NSArray   *famousResultList;
+@property (strong, nonatomic) NSString  *searchStringForCurrentResult;
+
+@property (strong, nonatomic) NSString  *defaultShowStr;
 
 @end
 
 @implementation FlyingSearchViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -61,43 +81,52 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [super viewDidLoad];
         
     self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self addBackFunction];
     
     //顶部导航
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    
+    self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
-    self.searchBar.delegate = self;
 
-    _strongSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-    _strongSearchDisplayController.searchResultsDataSource = self;
-    _strongSearchDisplayController.searchResultsDelegate = self;
-    _strongSearchDisplayController.delegate = self;
-    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    [self.view addSubview:self.tableView];
+
+    self.definesPresentationContext = YES;
     
     if (!self.searchType) {
         [self setSearchType:BEFindLesson];
     }
-    
+
     //初始化相关数据
     [self initDefultData];
 }
 
 - (void)initDefultData
 {
+    self.defaultShowStr = @"没有查询结果";
+    self.searchResults = [NSMutableArray array];
+
+    self.searchQueue = [NSOperationQueue new];
+    [self.searchQueue setMaxConcurrentOperationCount:1];
+
     if (self.searchType==BEFindWord)
     {
         self.title=@"查询单词";
-        self.searchBar.placeholder = @"请输入单词";
+        self.searchController.searchBar.placeholder = @"请输入单词";
         [self getWordList];
     }
     else if (self.searchType==BEFindLesson)
     {
         self.title=@"搜索内容（课程）";
-        self.searchBar.placeholder = @"例如：生活大爆炸  第二季";
+        self.searchController.searchBar.placeholder = @"例如：生活大爆炸  第二季";
         
         [self getAllTagListForForDomainID:self.domainID
                                 DomainType:self.domainType Count:1000];
@@ -105,21 +134,14 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     else if (self.searchType==BEFindGroup)
     {
         self.title=@"搜索内容（课程）";
-        self.searchBar.placeholder = @"例如：生活大爆炸  第二季";
+        self.searchController.searchBar.placeholder = @"例如：生活大爆炸  第二季";
         
     }
     else if (self.searchType==BEFindPeople)
     {
         self.title=@"搜索人";
-        self.searchBar.placeholder = @"请输入昵称";
+        self.searchController.searchBar.placeholder = @"请输入昵称";
     }
-    
-    self.defaultShowStr = @"没有查询结果";
-    
-    self.searchResults = [NSMutableArray array];
-    
-    self.searchQueue = [NSOperationQueue new];
-    [self.searchQueue setMaxConcurrentOperationCount:1];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -139,8 +161,8 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 //////////////////////////////////////////////////////////////
 #pragma mark - Download data from Learning center
 //////////////////////////////////////////////////////////////
-- (void)getAllTagListForForDomainID:(NSString*)domainID
-                          DomainType:(BC_Domain_Type) type
+- (void)getAllTagListForForDomainID:(NSString*)  domainID
+                          DomainType:(NSString*) type
                                Count:(NSInteger) count
 {
     [FlyingHttpTool getTagListForDomainID:domainID
@@ -149,8 +171,14 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                                     Count:count
                                Completion:^(NSArray *tagList) {
                                    //
+                                   
                                    if (tagList.count!=0) {
+                                       
                                        _famousResultList = tagList;
+                                       
+                                       [self.searchResults removeAllObjects];
+                                       [self.searchResults addObjectsFromArray:tagList];
+                                       
                                        [self.tableView  reloadData];
                                    }
                                }];
@@ -161,76 +189,15 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     NSString *openID = [FlyingDataManager getOpenUDID];
     
     _famousResultList =[[FlyingTaskWordDAO  alloc] selectWordsWithUserID:openID];
+    
+    [self.searchResults removeAllObjects];
+    
+    if (_famousResultList.count!=0) {
+        
+        [self.searchResults addObjectsFromArray:_famousResultList];
+    }
 
     [self.tableView  reloadData];
-}
-
-- (NSArray *)getWordListby:(NSString *) word
-{
-
-    NSURL *url = [NSString wordListStrByTag:word];
-    
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    }
-	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-    [request setTimeoutInterval:2];
-    
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
-                                               returningResponse:nil error:nil];
-    
-    NSString * temStr =[[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    NSRange segmentRange = [temStr rangeOfString:@"所请求映射类文件不存在"];
-    
-    if ( (segmentRange.location==NSNotFound) && (returnData!=nil) ) {
-
-        NSString *wordListStr =[[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-        
-        if ([wordListStr isEqualToString:@""]) {
-            
-            return nil;
-        }
-        else{
-            
-            return  [wordListStr  componentsSeparatedByString:@";"];
-        }
-    }
-    else{
-    
-        return nil;
-    }
-}
-
-- (void)handleError:(NSError *)error
-{
-    
-    self.title = self.defaultShowStr;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-    // Dispose of any resources that can be recreated.
-    if ([self isViewLoaded] && ([self.view window] == nil) ) {
-        self.view = nil;
-        [self my_viewDidUnload];
-    }
-}
-
-- (void)my_viewDidUnload
-{
-    
-    [self setTableView:nil];
-    [self setSearchBar:nil];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [self my_viewDidUnload];
 }
 
 - (void)dismiss
@@ -269,23 +236,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     }
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    /*
-    if ([segue.identifier isEqualToString:@"fromSearchToList"]) {
-        
-        FlyingLessonListViewController * tempVC = segue.destinationViewController;
-        
-        [tempVC setTagString:(NSString *)sender];
-    }
-    
-    if ([segue.identifier isEqualToString:@"fromSearchToWord"]) {
-        
-    }
-     */
-}
-
-
 #pragma mark - TableView Delegate and DataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -313,13 +263,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.tableView) {
-        
-        return _famousResultList.count;
-    } else {
-        
-        return _searchResults.count;
-    }
+    return self.searchResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -329,13 +273,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier];
     }
     
-    if (tableView == self.tableView) {
-        
-        cell.textLabel.text = [_famousResultList objectAtIndex:indexPath.row];
-    } else {
-        
-        cell.textLabel.text = [_searchResults objectAtIndex:indexPath.row];
-    }
+    cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -345,14 +283,8 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString * tagToSearchFinal=nil;
-    if (tableView == self.tableView) {
-        
-        tagToSearchFinal=(NSString *)[_famousResultList objectAtIndex:indexPath.row];
-    }
-    else{
-        
-        tagToSearchFinal=(NSString *)[_searchResults objectAtIndex:indexPath.row];
-    }
+
+    tagToSearchFinal=(NSString *)[self.searchResults objectAtIndex:indexPath.row];
     
     if (tagToSearchFinal) {
         
@@ -362,121 +294,147 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 #pragma mark - Search Delegate
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar __TVOS_PROHIBITED;   // called when cancel button pressed
 {
-    if (_searchResults.count==0) {
-        
-        if (_searchStringForCurrentResult) {
-            
-            [self dealWtihTapString:_searchStringForCurrentResult];
-        }
-    }
-    else{
-        
-        if (NSNotFound!=[_searchResults indexOfObject:_searchStringForCurrentResult]) {
-            
-            [self dealWtihTapString:_searchStringForCurrentResult];
-        }
-        else{
-            
-            self.title = self.defaultShowStr ;
-        }
-    }
+    
+    [self.searchQueue cancelAllOperations];
+    
+    [self.searchResults removeAllObjects];
+    [self.searchResults addObjectsFromArray:_famousResultList];
+    
+    _searchStringForCurrentResult = @"";
+    
+    [self refreshSearchResult];
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
+    
+    NSString *searchString = searchController.searchBar.text;
     
     BOOL refreshResult =NO;
     
     if  (searchString.length==0)
     {
         
-        [_searchResults removeAllObjects];
-        [self.searchResults addObjectsFromArray:_famousResultList];
+        if (self.searchResults.count==_famousResultList.count) {
+            
+            refreshResult = NO;
+        }
+        else
+        {
+            [self.searchResults removeAllObjects];
+            [self.searchResults addObjectsFromArray:_famousResultList];
         
-        refreshResult = YES;
+            refreshResult = YES;
+        }
     }
     else
     {
         if (_searchStringForCurrentResult.length > 0 && [searchString rangeOfString:_searchStringForCurrentResult].location == 0) {
             // If the new search string starts with the last search string, reuse the already filtered array so searching is faster
-            NSArray * resultsToReuse = _searchResults;
+            
+            NSArray * resultsToReuse = self.searchResults;
             
             NSArray *results = [resultsToReuse filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchString]];
             
-            if (results.count==0) {
+            [self.searchResults removeAllObjects];
+            
+            if (results.count!=0) {
                 
-                refreshResult = NO;
             }
             else
             {
-                
-                [self.searchResults removeAllObjects];
                 [self.searchResults addObjectsFromArray:results];
-
-                refreshResult = YES;
             }
+
+            refreshResult = YES;
         }
         else
         {
             [self.searchQueue cancelAllOperations];
-            [self.searchQueue addOperationWithBlock:^{
-                
-                if (self.searchType==BEFindWord)
-                {
-                    [self getWordListby:searchString];
-                    
-                }
-                else if (self.searchType==BEFindLesson)
-                {
-                    
-                    [FlyingHttpTool getTagListForDomainID:self.domainID
-                                               DomainType:self.domainType
-                                                TagString:searchString
-                                                    Count:10000
-                                               Completion:^(NSArray *tagList) {
-                                                   
-                                                   [self refreshSearchResult:tagList];
-                                               }];
-                }
-            }];
             
-            refreshResult = NO;
+            NSArray * resultsToReuse = _famousResultList;
+            NSArray *results = [resultsToReuse filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchString]];
+            
+            [self.searchResults removeAllObjects];
+            
+            if (results.count!=0) {
+                
+                refreshResult = YES;
+                
+                [self.searchResults addObjectsFromArray:results];
+            }
+            else
+            {
+                refreshResult = NO;
+                
+                [self.searchQueue addOperationWithBlock:^{
+                    
+                    if (self.searchType==BEFindWord)
+                    {
+                        [FlyingHttpTool getWordListby:searchString
+                                           Completion:^(NSArray *wordList, NSInteger allRecordCount) {
+                                               
+                                               //
+                                               [self.searchResults removeAllObjects];
+                                               
+                                               if (wordList.count>0) {
+                                                   
+                                                   [self.searchResults addObjectsFromArray:wordList];
+                                               }
+                                               
+                                               // Reload your search results table data.
+                                               [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                   
+                                                   [self refreshSearchResult];
+                                               }];
+
+                                           }];
+                        
+                    }
+                    else if (self.searchType==BEFindLesson)
+                    {
+                        
+                        [FlyingHttpTool getTagListForDomainID:self.domainID
+                                                   DomainType:self.domainType
+                                                    TagString:searchString
+                                                        Count:10000
+                                                   Completion:^(NSArray *tagList) {
+                                                       
+                                                       [self.searchResults removeAllObjects];
+
+                                                       if (tagList.count>0) {
+                                                           
+                                                           [self.searchResults addObjectsFromArray:tagList];
+                                                       }
+                                                       
+                                                       // Reload your search results table data.
+                                                       [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                           
+                                                           [self refreshSearchResult];
+                                                       }];
+                                                   }];
+                    }
+                }];
+            }
         }
     }
     
     if (refreshResult) {
         
         _searchStringForCurrentResult = searchString;
-    }
-    
-    return refreshResult;
-}
-
--(void) refreshSearchResult:(NSArray*) result
-{
-    
-    [self.searchResults removeAllObjects];
-    
-    if (result.count==0) {
         
-        [_searchResults addObject:self.defaultShowStr];
+        [self refreshSearchResult];
     }
-    else
-    {
-        [self.searchResults addObjectsFromArray:result];
-    }
-    
-    // Reload your search results table data.
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [_strongSearchDisplayController.searchResultsTableView reloadData];
-    }];
 }
 
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+-(void) refreshSearchResult
 {
-    [self.searchQueue cancelAllOperations];
+    
+    [self.tableView reloadData];
+
 }
 
 //////////////////////////////////////////////////////////////

@@ -18,7 +18,6 @@
 #import "FlyingItemDao.h"
 #import "FlyingSoundPlayer.h"
 #import <AFNetworking.h>
-#import "FlyingWordCollectVC.h"
 #import "AFHttpTool.h"
 
 #define TAG_ACTIVITY_INDICATOR 149462
@@ -447,13 +446,6 @@
 -(void) touchMagnetImage
 {
     [[[FlyingSoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
-    
-    FlyingWordCollectVC * wordVC= [[FlyingWordCollectVC alloc] init];
-    wordVC.theWord = self.word;
-    
-    [[self parentViewController] presentViewController:wordVC animated:YES completion:^{
-        //
-    }];
 }
 
 - (UIViewController *)parentViewController

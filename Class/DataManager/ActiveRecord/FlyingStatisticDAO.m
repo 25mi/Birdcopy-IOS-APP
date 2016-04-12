@@ -23,17 +23,6 @@
     return [NSString stringWithFormat:sql,  @"BE_STATISTIC"];
 }
 
--(void)       setUserModle:(BOOL) userModle;
-{
-    
-    if (!userModle) {
-        self.workDbQueue = self.pubUserDBQueue;
-    }
-    else{
-        self.workDbQueue = self.userDBQueue;
-    }
-}
-
 - (FMDatabaseQueue *)dbQueue
 {
     //默认是用户模式

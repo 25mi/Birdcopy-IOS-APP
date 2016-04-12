@@ -30,7 +30,7 @@
 #import "UIImage+localFile.h"
 #import "FlyingSubTitle.h"
 #import "UIView+Autosizing.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
 
 #import "FlyingWebViewController.h"
@@ -222,6 +222,26 @@ static void *TrackObservationContext         = &TrackObservationContext;
 
 @implementation FlyingMediaVC
 
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -329,7 +349,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     else
     {
-        [self.view makeToast:@"请联网再试..." duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"请联网再试..."
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -395,8 +417,16 @@ static void *TrackObservationContext         = &TrackObservationContext;
     [self.slider setTintColor:[UIColor redColor]];
     
     UIImage *thumbImage = [UIImage imageNamed:@"thumb"];
-    [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(16,16)] forState:UIControlStateHighlighted];
-    [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(16,16)] forState:UIControlStateNormal];
+    if (INTERFACE_IS_PAD) {
+        
+        [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(32,32)] forState:UIControlStateHighlighted];
+        [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(32,32)] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(24,24)] forState:UIControlStateHighlighted];
+        [self.slider setThumbImage:[self OriginImage:thumbImage scaleToSize:CGSizeMake(24,24)] forState:UIControlStateNormal];
+    }
 
     
     [self.slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
@@ -419,7 +449,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         self.timeLabel.font     = [UIFont systemFontOfSize:7.0];
     }
     
-    self.magicImageView.image = [UIImage imageNamed:@"subtitle"];
+    self.magicImageView.image = [UIImage imageNamed:@"off"];
     self.magicImageView.userInteractionEnabled=YES;
     
     self.magicImageView.contentMode=UIViewContentModeScaleAspectFit;
@@ -441,7 +471,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     self.fullImageView.hidden=NO;
     
     //字幕基本设置|默认黑底风格字幕
-    self.subtitleTextView.text=@"Welcome!";
+    self.subtitleTextView.text=@"";
     self.subtitleTextView.hidden=YES;
 
     //设置智能字幕和控制
@@ -622,8 +652,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
     if (!asset.playable)
     {
         /* Generate an error describing the failure. */
-        NSString *localizedDescription = NSLocalizedString(@"Item cannot be played", @"Item cannot be played description");
-        NSString *localizedFailureReason = NSLocalizedString(@"The assets tracks were loaded, but could not be made playable.", @"Item cannot be played failure reason");
+        NSString *localizedDescription = NSLocalizedString(@"Item cannot be played", nil);
+        NSString *localizedFailureReason = NSLocalizedString(@"The assets tracks were loaded, but could not be made playable.",nil);
         NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                    localizedDescription, NSLocalizedDescriptionKey,
                                    localizedFailureReason, NSLocalizedFailureReasonErrorKey,
@@ -725,9 +755,13 @@ static void *TrackObservationContext         = &TrackObservationContext;
         {
             case AVPlayerStatusUnknown:
             {
-                [self.view makeToast:@"如果加载时间很长，建议离线后再使用：）" duration:3 position:CSToastPositionCenter];
+                /*
+                [self.view makeToast:@"如果加载时间很长，建议离线后再使用：）"
+                            duration:1
+                            position:CSToastPositionCenter];
                 
                 [self  performSelector:@selector(autoReportLessonError) withObject:nil afterDelay:10];
+                 */
             }
                 break;
                 
@@ -856,12 +890,16 @@ static void *TrackObservationContext         = &TrackObservationContext;
                                   
                                   if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
                                   {
-                                      [self.view makeToast:@"如果还有问题，建议删除课程更新一下：）" duration:3 position:CSToastPositionCenter];
+                                      [self.view makeToast:@"如果还有问题，建议删除课程更新一下：）"
+                                                  duration:1
+                                                  position:CSToastPositionCenter];
                                       
                                   }
                                   else
                                   {
-                                      [self.view makeToast:@"我们正在处理你碰到的问题..." duration:3 position:CSToastPositionCenter];
+                                      [self.view makeToast:@"我们正在处理你碰到的问题..."
+                                                  duration:1
+                                                  position:CSToastPositionCenter];
                                   }
                                   
                               } failure:^(NSError *err) {
@@ -1021,7 +1059,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt<0)
         {
-            [self.view makeToast:@"已经播放完毕.." duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:@"已经播放完毕.."
+                        duration:1
+                        position:CSToastPositionCenter];
         }
         else
         {
@@ -1076,7 +1116,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt>duration)
         {
-            [self.view makeToast:@"已经播放完毕!" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:@"已经播放完毕!"
+                        duration:1
+                        position:CSToastPositionCenter];
         }
         else
         {
@@ -1400,15 +1442,17 @@ static void *TrackObservationContext         = &TrackObservationContext;
 //课程结束，进行相关处理
 - (void)afterStopplaying
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
     //[self.subtitleTextView removeObserver:self forKeyPath:@"contentSize"];
     
     [self.playerItem  removeObserver:self forKeyPath:kStatusKey];
     [self.playerItem  removeObserver:self forKeyPath:kTracksKey];
     
-    [self.player  removeObserver:self       forKeyPath:kRateKey];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVPlayerItemDidPlayToEndTimeNotification
+                                                  object:self.playerItem];
+
+    
+    [self.player  removeObserver:self     forKeyPath:kRateKey];
     [self.player  removeTimeObserver:self.playerObserver];
     [self.player  replaceCurrentItemWithPlayerItem:nil];
     
@@ -1553,14 +1597,14 @@ static void *TrackObservationContext         = &TrackObservationContext;
             //片头字幕区
             if (freshTimeInSeconds < ([_subtitleFile getStartSubtitleTime]-1) ) {
                 
-                [self.subtitleTextView setText:@"Welcome!"];
+                [self.subtitleTextView setText:@""];
                 
             }
             else{
                 
                 if ( freshTimeInSeconds > [_subtitleFile getEndSubtitleTime] ) {
                     
-                    [self.subtitleTextView setText:@"Game over,you are great!"];
+                    [self.subtitleTextView setText:@""];
                 }
                 else{
                     //延迟字幕一秒钟,不更新
@@ -1846,6 +1890,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self.subtitleTextView setHidden:NO];
         
         [self.aiLearningView setAImagnifyEnabled:YES];
+        
+        self.magicImageView.image = [UIImage imageNamed:@"off"];
     }
     else{
         
@@ -1854,6 +1900,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self.subtitleTextView setHidden:YES];
         
         [self.aiLearningView setAImagnifyEnabled:NO];
+        
+        self.magicImageView.image = [UIImage imageNamed:@"on"];
     }
 }
 
@@ -1989,7 +2037,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     dispatch_async(_background_queue, ^{
         
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
-        [taskWordDAO setUserModle:NO];
         
         //保存截图(例句视频不截图)
         if (_contentType==BELocalMp4Vedio || _contentType==BEWebMp4Vedio) {
@@ -2074,7 +2121,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     else
     {
-        [self.view makeToast:@"没有字幕,不能智能学习.." duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"没有字幕,不能智能学习.."
+                    duration:1
+                    position:CSToastPositionCenter];
         
         _enableAISub=NO;
     }
@@ -2085,12 +2134,16 @@ static void *TrackObservationContext         = &TrackObservationContext;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
         
-        [self.view makeToast:@"如有英文，点击自动解释!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"如有英文，点击自动解释!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BESwipRight"])
     {
         
-        [self.view makeToast:@"右划跳转到上一个场景!" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:@"右划跳转到上一个场景!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -2134,7 +2187,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         NSString * wordPicURL =[NSString picPathForWord:word];
         UIImage *screen=[UIImage imageWithCGImage:halfWayImage];
         
-        //如果没有封面图片文件就创建一个
+        //如果没有图片文件就创建一个
         if (![[NSFileManager defaultManager] fileExistsAtPath:wordPicURL]){
             [[NSFileManager defaultManager] createFileAtPath:wordPicURL contents:nil attributes:nil];
         }

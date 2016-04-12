@@ -17,7 +17,11 @@
 #import "RCLocationConvert.h"
 #import "UIImage+localFile.h"
 
-@interface RealTimeLocationViewController () <RCRealTimeLocationObserver, MKMapViewDelegate,HeadCollectionTouchDelegate,UIActionSheetDelegate>
+@interface RealTimeLocationViewController () <RCRealTimeLocationObserver,
+                                                MKMapViewDelegate,
+                                                HeadCollectionTouchDelegate,
+                                                UIActionSheetDelegate,
+                                                UIViewControllerRestoration>
 
 @property(nonatomic, strong) MKMapView *mapView;
 @property(nonatomic, strong) UIView *headBackgroundView;
@@ -33,10 +37,31 @@
 
 @implementation RealTimeLocationViewController
 
-- (instancetype)init {
-    
-    if (self = [super init]) {
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -86,12 +111,22 @@
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusDenied) {
         [self.hud hide:YES];
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"无法访问"  message:@"没有权限访问位置信息，请从设置-隐私-定位服务 中打开位置访问权限"
-                                  delegate:nil
-                         cancelButtonTitle:@"确定"
-                         otherButtonTitles:nil];
-        [alertView show];
+
+        NSString *title = @"无法访问";
+        NSString *message =@"没有权限访问位置信息，请从设置-隐私-定位服务 中打开位置访问权限";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@" 确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            //
+        }];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated {

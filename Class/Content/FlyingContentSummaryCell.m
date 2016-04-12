@@ -22,12 +22,6 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 + (FlyingContentSummaryCell*) contentSummaryCell
 {
     FlyingContentSummaryCell * cell = [[[NSBundle mainBundle] loadNibNamed:@"FlyingContentSummaryCell" owner:self options:nil] objectAtIndex:0];

@@ -9,7 +9,7 @@
 #import "FlyingGroupUpdateCell.h"
 #import "shareDefine.h"
 #import "FlyingGroupUpdateData.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "NSString+FlyingExtention.h"
 
 @implementation FlyingGroupUpdateCell
@@ -17,8 +17,6 @@
 - (void)awakeFromNib
 {
     // Initialization code
-    self.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    
     self.nameLabel.font         = [UIFont boldSystemFontOfSize:KLargeFontSize];
     
     self.memberCountLabel.font  = [UIFont systemFontOfSize:KSmallFontSize];
@@ -28,13 +26,8 @@
     self.updateContentLabel.font= [UIFont systemFontOfSize:KLittleFontSize];
     
     [self.groupIconImageView setContentMode:UIViewContentModeScaleAspectFill];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 + (FlyingGroupUpdateCell*) groupCell
@@ -52,7 +45,9 @@
     self.updateGroupData = updateGroupData;
     
     if (updateGroupData.groupData.logo.length!=0) {
-        [self.groupIconImageView sd_setImageWithURL:[NSURL URLWithString:updateGroupData.groupData.logo] placeholderImage:[UIImage imageNamed:@"Icon"]];
+        
+        [self.groupIconImageView setImageWithURL:[NSURL URLWithString:updateGroupData.groupData.logo]
+                                placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
     else
     {
@@ -79,7 +74,9 @@
     }
     
     if (updateGroupData.recentLessonData.imageURL.length!=0) {
-        [self.updateImageView sd_setImageWithURL:[NSURL URLWithString:updateGroupData.recentLessonData.imageURL] placeholderImage:[UIImage imageNamed:@"Default"]];
+                
+        [self.updateImageView setImageWithURL:[NSURL URLWithString:updateGroupData.recentLessonData.imageURL]
+                             placeholderImage:[UIImage imageNamed:@"Default"]];
     }
     else
     {

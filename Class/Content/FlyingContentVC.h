@@ -19,6 +19,7 @@
 #import "FlyingContentTitleAndTypeCell.h"
 #import "FlyingCommentVC.h"
 #import "FlyingViewController.h"
+#import "KMNetworkLoadingViewController.h"
 
 @interface FlyingContentVC :FlyingViewController<
                                                 TLTagsControlDelegate,
@@ -28,9 +29,9 @@
                                                 QLPreviewControllerDataSource,
                                                 QLPreviewControllerDelegate,
                                                 FlyingMediaVCDelegate,
-                                                FlyingCommentHeaderDelegate,
                                                 FlyingContentTitleAndTypeCellDelegate,
-                                                FlyingCommentVCDelegate>
+                                                FlyingCommentVCDelegate,
+                                                KMNetworkLoadingViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 

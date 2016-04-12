@@ -3,7 +3,29 @@
 <plist version="1.0">
 <dict>
 	<key>Consumables</key>
-	<dict/>
+	<dict>
+		<key>500coins.e.birdcopy.com</key>
+		<dict>
+			<key>ConsumableCount</key>
+			<integer>500</integer>
+			<key>ConsumableId</key>
+			<string>MyVirtualCurrencyWallet</string>
+		</dict>
+		<key>2000coins.e.birdcopy.com</key>
+		<dict>
+			<key>ConsumableCount</key>
+			<integer>2000</integer>
+			<key>ConsumableId</key>
+			<string>MyVirtualCurrencyWallet</string>
+		</dict>
+		<key>10000coins.e.birdcopy.com</key>
+		<dict>
+			<key>ConsumableCount</key>
+			<integer>10000</integer>
+			<key>ConsumableId</key>
+			<string>MyVirtualCurrencyWallet</string>
+		</dict>
+	</dict>
 	<key>Others</key>
 	<array>
 		<string>beiyangmembership</string>

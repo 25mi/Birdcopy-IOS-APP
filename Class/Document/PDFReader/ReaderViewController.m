@@ -40,7 +40,6 @@
 #import "ReaderThumbQueue.h"
 #import "FlyinglessonDAO.h"
 #import "FlyingLessonData.h"
-#import "SIAlertView.h"
 #import "FlyingSoundPlayer.h"
 #import "FlyingStatisticDAO.h"
 #import "FlyingTouchDAO.h"
@@ -66,6 +65,7 @@
 
 #import "CGPDFDocument.h"
 #import "FlyingDataManager.h"
+#import "UIAlertController+Window.h"
 
 enum
 {
@@ -84,7 +84,7 @@ enum
 	BIRDMODE_DELETE
 };
 
-@interface ReaderViewController ()
+@interface ReaderViewController ()<UIViewControllerRestoration>
 {
 	ReaderDocument *document;
 
@@ -133,6 +133,34 @@ enum
 @end
 
 @implementation ReaderViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -632,13 +660,38 @@ enum
         {
             if (document.password==NULL)
             {
-                UIAlertView *shakingAlert = [[UIAlertView alloc] initWithTitle:@"请输入文档密码"
-                                                                       message:nil
-                                                                      delegate:self
-                                                             cancelButtonTitle:@"取消"
-                                                             otherButtonTitles:@"确定", nil];
-                [shakingAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-                [shakingAlert show];
+                NSString *title = @"提示";
+                NSString *message = @"请输入文档密码";
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                         message:message
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+
+                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSString * msg = alertController.textFields[0].text;
+
+                    if (msg) {
+                        
+                        [self reloadReaderDocument:msg];
+                    }
+
+                }];
+
+                [alertController addTextFieldWithConfigurationHandler:^(UITextField*textField) {
+                    
+                    textField.placeholder=@"密码";
+                }];
+
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    //[self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                
+                [alertController addAction:doneAction];
+                [alertController addAction:cancelAction];
+                [alertController show];
             }
             else
             {
@@ -708,37 +761,45 @@ enum
         }
         else
         {
-            UIAlertView *shakingAlert = [[UIAlertView alloc] initWithTitle:@"密码错误，请重新输入！"
-                                                                   message:nil
-                                                                  delegate:self
-                                                         cancelButtonTitle:@"取消"
-                                                         otherButtonTitles:@"确定", nil];
-            [shakingAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            [shakingAlert show];
+            NSString *title = @"提示";
+            NSString *message = @"密码错误，请重新输入！";
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                     message:message
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSString * msg = alertController.textFields[0].text;
+                
+                if (msg) {
+                    
+                    [self reloadReaderDocument:msg];
+                }
+                
+            }];
+            
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField*textField) {
+                
+                textField.placeholder=@"密码";
+            }];
+            
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                //[self dismissViewControllerAnimated:YES completion:nil];
+            }];
+            
+            [alertController addAction:doneAction];
+            [alertController addAction:cancelAction];
+            [alertController show];
         }
     }
     else
     {
-        [self.view makeToast:@"无法打开，请重试或者重新下载!" duration:3 position:CSToastPositionCenter];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"确定"]){
-        UITextField *tf=[alertView textFieldAtIndex:0];//获得输入框
-        NSString * resultStr=tf.text;//获得值
-        
-        if (resultStr) {
-            
-            [self reloadReaderDocument:resultStr];
-        }
-    }
-    else{
-    
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.view makeToast:@"无法打开，请重试或者重新下载!"
+                    duration:1
+                    position:CSToastPositionCenter];
     }
 }
 
@@ -1058,7 +1119,6 @@ enum
     dispatch_async(_background_queue, ^{
         
         FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
-        [taskWordDAO setUserModle:NO];
         
         [taskWordDAO insertWithUesrID:_currentPassport
                                  Word:[touchWord lowercaseString]
@@ -1272,7 +1332,7 @@ enum
     
     if ([(FlyingLessonData*)[[FlyingLessonDAO alloc] selectWithLessonID:self.lessonID] BEOFFICIAL]) {
         
-        localPath = [FlyingFileManager getLessonDir:self.lessonID];
+        localPath = [FlyingFileManager getMyLessonDir:self.lessonID];
     }
     
     NSString *filePath = [localPath stringByAppendingPathComponent:fileName];

@@ -19,13 +19,13 @@
 #import "OpenUDID.h"
 #import "FlyingStatisticDAO.h"
 #import "FlyingStatisticData.h"
-#import "SIAlertView.h"
 #import "FlyingSoundPlayer.h"
 
 #import "FlyingTaskWordDAO.h"
 #import "FlyingTouchDAO.h"
 #import "FlyingFileManager.h"
 #import "FlyingDownloadManager.h"
+#import "MKStoreKit.h"
 
 @implementation FlyingDataManager
 
@@ -145,6 +145,8 @@
     [UICKeyChainStore keyChainStore][kUserName]=userName;
     
     [[NSUserDefaults standardUserDefaults] setObject:userName forKey:kUserName];
+    
+    [[NSUserDefaults standardUserDefaults]  synchronize];
 }
 
 
@@ -161,71 +163,60 @@
     
 }
 
-+ (NSString*) getNickName
++ (FlyingUserData*) getUserData:(NSString*) openUDID
 {
-    NSString *nickName=[UICKeyChainStore keyChainStore][kUserNickName];
-    
-    if (nickName.length==0) {
+    if (openUDID) {
+
+        NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:openUDID];
         
-        nickName=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserNickName];
-        
-        if (nickName.length==0) {
+        if (data) {
             
-            nickName =[[UIDevice currentDevice] name];
+            return (FlyingUserData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }
+        else
+        {
+            return nil;
         }
     }
-    
-    return nickName;
-}
-
-+ (void) setNickName:(NSString*) nickName
-{
-    [UICKeyChainStore keyChainStore][kUserNickName]=nickName;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:kUserNickName];
-}
-
-+ (NSString*) getUserAbstract
-{
-    NSString *userAbstract=[UICKeyChainStore keyChainStore][kUserAbstract];
-    
-    if (userAbstract.length==0) {
-        
-        userAbstract=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserAbstract];
-        
-        if (userAbstract.length==0) {
-            
-            userAbstract =@"我的简介";
-        }
+    else
+    {
+        NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:[FlyingDataManager getOpenUDID]];
+        return (FlyingUserData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
-    
-    return userAbstract;
 }
 
-+ (void)  setUserAbstract:(NSString*) userAbstract;
++ (void) saveUserData:(FlyingUserData*) userData
 {
-    [UICKeyChainStore keyChainStore][kUserAbstract]=userAbstract;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:userAbstract forKey:kUserAbstract];
+
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:userData]
+                                              forKey:userData.openUDID];
+    [[NSUserDefaults standardUserDefaults]  synchronize];
 }
 
-+ (NSString*) getUserPortraitUri
+
++(FlyingUserRightData*) getUserRightForDomainID:(NSString*) domainID domainType:(NSString*) domainType
 {
-    NSString *portraitUri=[UICKeyChainStore keyChainStore][kUserPortraitUri];
     
-    if (portraitUri.length==0) {
+    NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:domainID];
+    
+    if (data) {
         
-        portraitUri=(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:kUserPortraitUri];
+        return (FlyingUserRightData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
-    
-    return portraitUri;
+    else
+    {
+        return nil;
+    }
 }
 
-+ (void)      setUserPortraitUri:(NSString*) portraitUri;
++(void) saveUserRightData:(FlyingUserRightData *)userRightData;
 {
-    [UICKeyChainStore keyChainStore][kUserPortraitUri]=portraitUri;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:portraitUri forKey:kUserPortraitUri];
+    if (userRightData.domainID) {
+
+        [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:userRightData]
+                                                  forKey:userRightData.domainID];
+        [[NSUserDefaults standardUserDefaults]  synchronize];
+    }
 }
 
 //获取openUDID
@@ -243,25 +234,6 @@
     
     if(openID==nil)
     {
-        //从本地终端生成账号
-        openID = [OpenUDID value];
-        keychain[KOPENUDIDKEY]=openID;
-    }
-    //如果有旧账号
-    else if (openID && openID.length==32)
-    {
-        //dbPath： 数据库路径，在dbDire中。
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [FlyingFileManager getUserDataDir];
-        
-        NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
-        NSEnumerator *e = [contents objectEnumerator];
-        NSString *filename;
-        while ((filename = [e nextObject]))
-        {
-            [fileManager removeItemAtPath:[documentsDirectory stringByAppendingPathComponent:filename] error:NULL];
-        }
-        
         //从本地终端生成账号
         openID = [OpenUDID value];
         keychain[KOPENUDIDKEY]=openID;
@@ -284,16 +256,13 @@
     
     //个人头像和昵称
     [FlyingHttpTool getUserInfoByopenID:openID
-                             completion:^(RCUserInfo *user) {
+                             completion:^(FlyingUserData *userData,RCUserInfo *userInfo) {
                                  
-                                 //同步个人信息
-                                 [FlyingDataManager setNickName:user.name];
-                                 [FlyingDataManager setUserPortraitUri:user.portraitUri];
                              }];
     
     //会员信息
     [FlyingHttpTool getMembershipForAccount:openID
-                                 Completion:^(NSDate *startDate, NSDate *endDate) {
+                                 Completion:^(FlyingUserRightData *userRightData) {
                                           //
                                       }];
     
@@ -405,15 +374,10 @@
     
     if (((KBEFreeTouchCount+staticDat.BEQRCOUNT+staticDat.BEMONEYCOUNT+staticDat.BEGIFTCOUNT)-staticDat.BETOUCHCOUNT)<0) {
         
-        NSString *title = @"友情提醒！";
         NSString *message = @"帐户金币数不足,请尽快在《我的档案》充值！";
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:@"知道了"
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {}];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        [alertView show];
+        
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
@@ -427,21 +391,46 @@
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      NSCalendar *calendar = [NSCalendar currentCalendar];
-                                                      NSDate *startDate = [NSDate date];
+                                                      NSArray *availableProducts = [MKStoreKit configs][@"Others"];;
                                                       
-                                                      NSDateComponents *components = [[NSDateComponents alloc] init];
-                                                      [components setYear:1];
-                                                      
-                                                      NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
-                                                      
-                                                      [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                                                                       StartDate:startDate
-                                                                                         EndDate:endDate
-                                                                                      Completion:^(BOOL result) {
-                                                                                          //
-                                                                                          [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
-                                                                                      }];
+                                                      if ([product.productIdentifier isEqualToString:availableProducts[0]]) {
+                                                          
+                                                          NSCalendar *calendar = [NSCalendar currentCalendar];
+                                                          NSDate *startDate = [NSDate date];
+                                                          
+                                                          NSDateComponents *components = [[NSDateComponents alloc] init];
+                                                          [components setYear:1];
+                                                          
+                                                          NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
+                                                          
+                                                          [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
+                                                                                           StartDate:startDate
+                                                                                             EndDate:endDate
+                                                                                          Completion:^(BOOL result) {
+                                                                                              //
+                                                                                              [FlyingSoundPlayer soundEffect:@"LootCoinSmall"];
+                                                                                              [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
+                                                                                          }];
+                                                      }
+                                                      else
+                                                      {
+                                                          NSDictionary *availableConsumables = [MKStoreKit configs][@"Consumables"];
+                                                          NSDictionary *thisConsumable = availableConsumables[product.productIdentifier];
+                                                          
+                                                          NSNumber *consumableCount = thisConsumable[@"ConsumableCount"];
+                                                          
+                                                          FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
+                                                          NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:[FlyingDataManager getOpenUDID]];
+
+                                                          appleMoneyCountNow+=consumableCount.integerValue;
+                                                          [statisticDAO updateWithUserID:[FlyingDataManager getOpenUDID] AppleMoneyCount:appleMoneyCountNow];
+                                                          
+                                                          [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
+                                                              //
+                                                              [FlyingSoundPlayer soundEffect:@"LootCoinSmall"];
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
+                                                          }];
+                                                      }
                                                   }];
     
     
@@ -452,14 +441,7 @@
                                                       
                                                       NSLog(@"Failed restoring purchases with error: %@", [note object]);
                                                       
-                                                      
-                                                      UIAlertView *shakingAlert = [[UIAlertView alloc] initWithTitle:@"重要提醒"
-                                                                                                             message:@"购买失败，好事耐磨哦：）"
-                                                                                                            delegate:nil
-                                                                                                   cancelButtonTitle:@"确认"
-                                                                                                   otherButtonTitles:nil, nil];
-                                                      [shakingAlert show];
-
+                                                      [[NSNotificationCenter defaultCenter] postNotificationName:KAPPBuyFail object:nil];
                                                   }];
 }
 
@@ -469,7 +451,6 @@
     
     //奖励金币
     FlyingStatisticDAO * statisticDAO = [[FlyingStatisticDAO alloc] init];
-    [statisticDAO setUserModle:NO];
     
     NSInteger giftCountNow=[statisticDAO giftCountWithUserID:openID];
     giftCountNow+=KBEGoldAwardCount;
@@ -485,7 +466,6 @@
         
         NSString *openID = [FlyingDataManager getOpenUDID];
         FlyingStatisticDAO * statistic = [[FlyingStatisticDAO alloc] init];
-        [statistic setUserModle:NO];
         
         //学习次数加一
         NSInteger learnedTimes = [statistic timesWithUserID:openID];

@@ -6,27 +6,21 @@
 //  Copyright © 2015 BirdEngish. All rights reserved.
 
 #import "FlyingConversationListVC.h"
-#import "RCDSearchFriendViewController.h"
 #import "FlyingSelectPersonViewController.h"
-//#import "RCDRCIMDataSource.h"
 #import "FlyingConversationVC.h"
 #import "UIColor+RCColor.h"
-#import "RCDChatListCell.h"
-//#import "RCDAddFriendTableViewController.h"
 #import "FlyingHttpTool.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import <RongIMKit/RongIMKit.h>
-#import "FlyingUserInfo.h"
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
 #import "FlyingSearchViewController.h"
-#import "FlyingMyGroupsVC.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 
 #define MenuTag  1234
 
-@interface FlyingConversationListVC ()<UIActionSheetDelegate>
+@interface FlyingConversationListVC ()<UIViewControllerRestoration>
 
 @property (nonatomic,strong) RCConversationModel *tempModel;
 
@@ -36,6 +30,35 @@
 @end
 
 @implementation FlyingConversationListVC
+
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -58,8 +81,8 @@
     [chatButton addTarget:self action:@selector(chatWithPeople) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
     
-    //更新欢迎语言
-    self.title =@"消息";
+    //标题
+    self.title = NSLocalizedString(@"Message",nil);
     
     //备用
     /*
@@ -72,12 +95,6 @@
      */
     
     self.navigationItem.rightBarButtonItem= searchBarButtonItem;
-    
-    //设置要显示的会话类型
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    //聚合会话类型
-    [self setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
     
     //设置为不用默认渲染方式
     /*self.tabBarItem.image = [[UIImage imageNamed:@"icon_chat"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -140,16 +157,11 @@
 
 - (void)updateBadgeValueForTabBarItem
 {
-    __weak typeof(self) __weakSelf = self;
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        int count = [[RCIMClient sharedRCIMClient]getUnreadCount:self.displayConversationTypeArray];
-        if (count>0) {
-            __weakSelf.tabBarItem.badgeValue = [[NSString alloc]initWithFormat:@"%d",count];
-        }else
-        {
-            __weakSelf.tabBarItem.badgeValue = nil;
-        }
         
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate refreshTabBadgeValue];
     });
 }
 
@@ -178,6 +190,9 @@
             if (model.conversationType == ConversationType_SYSTEM) {
                 _conversationVC.title = @"系统消息";
             }
+            
+            _conversationVC.hidesBottomBarWhenPushed = YES;
+            
             [self.navigationController pushViewController:_conversationVC animated:YES];
         }
         
@@ -185,10 +200,12 @@
         else if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_COLLECTION) {
             
             FlyingConversationListVC *temp = [[FlyingConversationListVC alloc] init];
-            NSArray *array = [NSArray arrayWithObject:[NSNumber numberWithInt:model.conversationType]];
-            [temp setDisplayConversationTypes:array];
+            
+            [temp setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
             [temp setCollectionConversationType:nil];
             temp.isEnteredToCollectionViewController = YES;
+            
+            temp.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:temp animated:YES];
         }
         
@@ -199,6 +216,9 @@
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
             _conversationVC.unReadMessage = model.unreadMessageCount;
+            
+            _conversationVC.hidesBottomBarWhenPushed =YES;
+            
             [self.navigationController pushViewController:_conversationVC animated:YES];
         }
     }
@@ -213,24 +233,34 @@
 - (void)showRightMenu:(UIButton *)sender
 {
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发起聊天", @"通讯录", nil];
+    NSString *title = nil;
+    NSString *message = nil;
     
-    [actionSheet showInView:self.view];
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-        {
-            [self pushChat];
-        }
-            break;
-        case 1:
-        {
-        }
-            break;
-    }
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *doneAction1 = [UIAlertAction actionWithTitle:@"发起聊天" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self pushChat];
+    }];
+    
+    UIAlertAction *doneAction2 = [UIAlertAction actionWithTitle:@"通讯录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:doneAction1];
+    [alertController addAction:doneAction2];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{
+        //
+    }];
 }
 
 /**
@@ -239,8 +269,7 @@
  */
 - (void) pushChat
 {
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingSelectPersonViewController *selectPersonVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"RCDSelectPersonViewController"];
+    FlyingSelectPersonViewController *selectPersonVC = [[FlyingSelectPersonViewController alloc] init];
     
     //设置点击确定之后回传被选择联系人操作
     __weak typeof(&*self)  weakSelf = self;
@@ -271,7 +300,7 @@
                 [userIdList addObject:user.userId];
             }
             [discussionTitle deleteCharactersInRange:NSMakeRange(discussionTitle.length - 1, 1)];
-            
+                        
             [[RCIMClient sharedRCIMClient] createDiscussion:discussionTitle userIdList:userIdList success:^(RCDiscussion *discussion) {
                 NSLog(@"create discussion ssucceed!");
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -291,6 +320,8 @@
             return;
         }
     };
+    
+    selectPersonVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController :selectPersonVC animated:YES];
 }

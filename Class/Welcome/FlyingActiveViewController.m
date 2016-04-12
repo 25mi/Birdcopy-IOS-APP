@@ -40,6 +40,7 @@
     [FlyingDataManager clearAllUserDate];
   
     hud.labelText = @"准备新数据...";
+    
     //从服务器获取新数据
     [FlyingDataManager creatLocalUSerProfileWithServer];
     

@@ -8,22 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol FlyingCommentHeaderDelegate <NSObject>
-
-@optional
-- (void)commentHeaderPressed;
-@end
-
 @interface FlyingCommentHeader : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIButton *accessButton;
 @property (strong, nonatomic) IBOutlet UILabel *contentTitle;
-
-@property(nonatomic,assign) id<FlyingCommentHeaderDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UILabel *commentCountLabel;
 
 + (FlyingCommentHeader*) commentHeaderCell;
 
 -(void) setTitle:(NSString*) title;
+-(void) setCommentCount:(NSString*) count;
 
 
 @end

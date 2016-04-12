@@ -11,15 +11,10 @@
 #import "FlyingViewController.h"
 
 @interface FlyingSearchViewController : FlyingViewController<UITableViewDataSource,
-                                                        UITableViewDelegate,
-                                                        UISearchBarDelegate,
-                                                        UISearchDisplayDelegate>
+                                                        UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView         *tableView;
-@property (strong, nonatomic) IBOutlet UISearchBar         *searchBar;
+@property (strong, nonatomic)  UITableView         *tableView;
 
-@property (assign, nonatomic)          BESearchType         searchType;
-@property (strong, nonatomic) NSString                      *domainID;
-@property (assign, nonatomic)          BC_Domain_Type       domainType;
+@property (assign, nonatomic)  BESearchType         searchType;
 
 @end

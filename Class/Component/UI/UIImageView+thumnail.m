@@ -9,45 +9,8 @@
 #import "UIImageView+thumnail.h"
 #import "UIImage+localFile.m"
 #import "shareDefine.h"
-#import "SDImageCache.h"
 
 @implementation UIImageView (thumnail)
-
-- (void)setThumnailImageWithPath:(NSString *)path thumnailSize:(CGSize)size completed:(BEImageThumnailCompletedBlock)completedBlock
-{
-
-    SDImageCache * imageCache =[SDImageCache sharedImageCache];
-    UIImage *image = [imageCache imageFromDiskCacheForKey:path];
-    
-    if (image)
-    {
-        [self setImage:image];
-        
-        if (completedBlock)
-        {
-            completedBlock(image);
-        }
-    }
-    else{
-        
-        __weak UIImageView *wself = self;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIImage *  thumbnailImage = [UIImage thumnailImageWithPath:path withSize:size];
-            if (thumbnailImage) {
-                
-                [imageCache storeImage:thumbnailImage forKey:path];
-                [wself setImage:thumbnailImage];
-            }
-            
-            if (completedBlock)
-            {
-                completedBlock(thumbnailImage);
-            }
-        });
-    }
-}
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
 {

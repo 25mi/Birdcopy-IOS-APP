@@ -13,6 +13,7 @@
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 #import "FlyingDownloadManager.h"
+#import "NSString+FlyingExtention.h"
 
 //#define ContentType @"text/plain"
 //#define ContentType @"text/html"
@@ -296,17 +297,17 @@
     
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openId}];
     
-    
-    if (name.length!=0) {
+    if (![NSString isBlankString:name]){
+
         [params setObject:name forKey:@"name"];
     }
     
-    if (portraitUri.length!=0) {
+    if (![NSString isBlankString:portraitUri]){
         
         [params setObject:portraitUri forKey:@"portrait_uri"];
     }
     
-    if (br_intro.length!=0) {
+    if (![NSString isBlankString:br_intro]){
         
         [params setObject:br_intro forKey:@"br_intro"];
     }
@@ -351,36 +352,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
-+ (void) getAllGroupsForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getAllGroupsForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                       PageNumber:(NSInteger) pageNumber
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
-    switch (type) {
-            
-        case BC_Business_Domain:
-        {
-            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
-            break;
-        }
-            
-        case BC_Group_Domain:
-        {
-            [params setObject:domainID forKey:@"gp_id"];
-            break;
-        }
-            
-        case BC_Author_Domain:
-        {
-            [params setObject:domainID forKey:@"ln_owner"];
-            break;
-        }
-            
-        default:
-            break;
+    
+    if ([type isEqualToString:BC_Domain_Business]) {
+        
+        [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+    }
+    else if ([type isEqualToString:BC_Domain_Group]) {
+        
+        [params setObject:domainID forKey:@"gp_id"];
+    }
+    else if ([type isEqualToString:BC_Domain_Author]) {
+        
+        [params setObject:domainID forKey:@"ln_owner"];
     }
     
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
@@ -476,7 +467,7 @@
     [params setObject:groupID forKey:@"gp_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_member_info_from_tn.action"
+                              url:@"ga_get_member_list_from_tn.action"
                            params:params
          responseSerializerIsJson:true
                           success:success
@@ -490,7 +481,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
     
-    [params setObject:[@(kGroupMemberCount) stringValue] forKey:@"perPageCount"];
+    [params setObject:[@(BC_GroupMember_Count) stringValue] forKey:@"perPageCount"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_get_member_list_from_tn.action"
@@ -532,27 +523,27 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
 
-    if (commentData.contentID.length!=0) {
+    if (![NSString isBlankString:commentData.contentID]){
         
         [params setObject:commentData.contentID forKey:@"ct_id"];
     }
     
-    if (commentData.contentType.length!=0) {
+    if (![NSString isBlankString:commentData.contentType]){
         
         [params setObject:commentData.contentType forKey:@"ct_type"];
     }
     
-    if (commentData.nickName.length!=0) {
+    if (![NSString isBlankString:commentData.nickName]){
         
         [params setObject:commentData.nickName forKey:@"name"];
     }
     
-    if (commentData.portraitURL.length!=0) {
+    if (![NSString isBlankString:commentData.portraitURL]){
         
         [params setObject:commentData.portraitURL forKey:@"portrait_url"];
     }
 
-    if (commentData.commentContent.length!=0) {
+    if (![NSString isBlankString:commentData.commentContent]){
         
         [params setObject:commentData.commentContent forKey:@"content"];
     }
@@ -610,12 +601,12 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key_d":currentID}];
     
-    if (userName.length!=0) {
-        
+    if (![NSString isBlankString:userName]){
+
         [params setObject:userName forKey:@"tuser_uid_s"];
     }
 
-    if (password.length!=0) {
+    if (![NSString isBlankString:password]){
         
         [params setObject:password forKey:@"tuser_pwd_s"];
     }
@@ -650,6 +641,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":account}];
     [params setObject:@"validth" forKey:@"type"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_get_user_info_from_hp.action"
@@ -807,11 +799,62 @@
 }
 
 //////////////////////////////////////////////////////////////
+#pragma  用户关于课程的计费和统计数据
+//////////////////////////////////////////////////////////////
++ (void) getLessonRightForAccount:account
+                         LessonID:(NSString*) lessonID
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
+    [params setObject:@"lnvalidth" forKey:@"type"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:lessonID forKey:@"ln_md5"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_ua_get_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
+}
+
++ (void)  updateLessonRightForAccount:account
+                             LessonID:(NSString*) lessonID
+                           StartDate:(NSDate *)startDate
+                             EndDate:(NSDate *)endDate
+                             success:(void (^)(id response))success
+                             failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:lessonID forKey:@"ln_md5"];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *startDateString = [formatter stringFromDate:startDate];
+    NSString *endDateString = [formatter stringFromDate:endDate];
+    
+    [params setObject:startDateString forKey:@"start_time"];
+    [params setObject:endDateString forKey:@"end_time"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_sync_lnvalidth_from_tn.action"
+                           params:params
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
+    
+}
+
+
+//////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
 //获取课程列表相关
-+ (void) lessonListDataByTagForDomainID:(NSString*)domainID
-                             DomainType:(BC_Domain_Type) type
++ (void) lessonListDataByTagForDomainID:(NSString*) domainID
+                             DomainType:(NSString*) type
                            PageNumber:(NSInteger) pageNumber
                     lessonConcentType:  (NSString *) contentType
                          DownloadType:  (NSString *) downloadType
@@ -840,46 +883,32 @@
         [params setObject:tag forKey:@"ln_tag"];
     }
     
-    switch (type) {
-            
-        case BC_Business_Domain:
+    if ([type isEqualToString:BC_Domain_Business]) {
+        
+        [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+        
+        if(isOnlyRecommend)
         {
-            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"sys_recom"];
-            }
-
-            break;
+            [params setObject:@"1" forKey:@"sys_recom"];
         }
-            
-        case BC_Group_Domain:
+    }
+    else if([type isEqualToString:BC_Domain_Group])
+    {
+        [params setObject:domainID forKey:@"gp_id"];
+        
+        if(isOnlyRecommend)
         {
-            [params setObject:domainID forKey:@"gp_id"];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"sys_recom"];
-            }
-
-            break;
+            [params setObject:@"1" forKey:@"sys_recom"];
         }
-            
-        case BC_Author_Domain:
+    }
+    else if([type isEqualToString:BC_Domain_Author])
+    {
+        [params setObject:domainID forKey:@"ln_owner"];
+        
+        if(isOnlyRecommend)
         {
-            [params setObject:domainID forKey:@"ln_owner"];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"owner_recom"];
-            }
-
-            break;
+            [params setObject:@"1" forKey:@"owner_recom"];
         }
-            
-        default:
-            break;
     }
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -942,8 +971,8 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionary];
     
-    if (resourceType.length!=0)
-    {
+    if (![NSString isBlankString:resourceType]){
+
         [params setObject:resourceType forKey:@"type"];
     }
 
@@ -956,13 +985,13 @@
         [params setObject:@"content" forKey:@"getType"];
     }
 
-    if (lessonID.length!=0)
-    {
+    if (![NSString isBlankString:lessonID]){
+
         [params setObject:lessonID forKey:@"md5_value"];
     }
     
-    if (contentURL.length!=0)
-    {
+    if (![NSString isBlankString:contentURL]){
+
         [params setObject:contentURL forKey:@"req_url"];
     }
     
@@ -994,8 +1023,8 @@
 //////////////////////////////////////////////////////////////
 #pragma  标签相关
 //////////////////////////////////////////////////////////////
-+ (void)getTagListForDomainID:(NSString*)domainID
-                   DomainType:(BC_Domain_Type) type
++ (void)getTagListForDomainID:(NSString*) domainID
+                   DomainType:(NSString*) type
                  TagString:(NSString*) tagString
                      Count:(NSInteger) count
                    success:(void (^)(id response))success
@@ -1003,30 +1032,21 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3"}];
     
-    switch (type) {
-        case BC_Business_Domain:
-        {
-            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
-            break;
-        }
-            
-        case BC_Group_Domain:
-        {
-            [params setObject:domainID forKey:@"gp_id"];
-            break;
-        }
-            
-        case BC_Author_Domain:
-        {
-            [params setObject:domainID forKey:@"ln_owner"];
-            break;
-        }
-            
-        default:
-            break;
+    if ([type isEqualToString:BC_Domain_Business]) {
+        
+        [params setObject:domainID forKey:KAPI_BusinessID_KEY];
     }
+    else if ([type isEqualToString:BC_Domain_Group]) {
+        
+        [params setObject:domainID forKey:@"gp_id"];
+    }
+    else if ([type isEqualToString:BC_Domain_Author]) {
+        
+        [params setObject:domainID forKey:@"ln_owner"];
+    }
+   
+    if (![NSString isBlankString:tagString]){
 
-    if (tagString) {
         [params setObject:tagString forKey:@"ln_tag"];
     }
     
@@ -1042,8 +1062,8 @@
 }
 
 //推荐标签
-+ (void) albumListDataForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void) albumListDataForDomainID:(NSString*) domainID
+                       DomainType:(NSString*) type
               lessonConcentType:(NSString*) contentType
                      PageNumber:(NSInteger) pageNumber
                   OnlyRecommend:  (BOOL)    isOnlyRecommend
@@ -1054,49 +1074,35 @@
     
     [params setObject:[@(pageNumber) stringValue] forKey:@"page"];
     
-    switch (type) {
-            
-        case BC_Business_Domain:
+    if ([type isEqualToString:BC_Domain_Business]) {
+        
+        [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+        
+        if(isOnlyRecommend)
         {
-            [params setObject:domainID forKey:KAPI_BusinessID_KEY];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"sys_recom"];
-            }
-            
-            break;
+            [params setObject:@"1" forKey:@"sys_recom"];
         }
-            
-        case BC_Group_Domain:
-        {
-            [params setObject:domainID forKey:@"gp_id"];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"sys_recom"];
-            }
-            
-            break;
-        }
-            
-        case BC_Author_Domain:
-        {
-            [params setObject:domainID forKey:@"ln_owner"];
-            
-            if(isOnlyRecommend)
-            {
-                [params setObject:@"1" forKey:@"owner_recom"];
-            }
-            
-            break;
-        }
-            
-        default:
-            break;
     }
-    
-    if (contentType.length!=0)
+    else if ([type isEqualToString:BC_Domain_Group]) {
+        
+        [params setObject:domainID forKey:@"gp_id"];
+        
+        if(isOnlyRecommend)
+        {
+            [params setObject:@"1" forKey:@"sys_recom"];
+        }
+    }
+    else if ([type isEqualToString:BC_Domain_Author]) {
+        
+        [params setObject:domainID forKey:@"ln_owner"];
+        
+        if(isOnlyRecommend)
+        {
+            [params setObject:@"1" forKey:@"owner_recom"];
+        }
+    }
+
+    if (![NSString isBlankString:contentType])
     {
         [params setObject:contentType forKey:@"res_type"];
     }
@@ -1132,6 +1138,18 @@
 {
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"la_get_dic_list_for_hp.action"
+                           params:@{@"word":word}
+         responseSerializerIsJson:NO
+                          success:success
+                          failure:failure];
+}
+
++ (void) getWordListby:(NSString *) word
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"la_get_word_string_for_hp.action"
                            params:@{@"word":word}
          responseSerializerIsJson:NO
                           success:success

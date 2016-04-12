@@ -10,54 +10,31 @@
 #import <RongIMLib/RCUserInfo.h>
 #import <RongIMLib/RCGroup.h>
 #import "shareDefine.h"
-#import "FlyingUserInfo.h"
+#import "FlyingUserData.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingCommentData.h"
 #import "FlyingGroupData.h"
 #import "FlyingAppData.h"
+#import "FlyingUserRightData.h"
 
 @interface FlyingHttpTool : NSObject
-
-//查看是否好友
--(void) isMyFriendWithUserInfo:(FlyingUserInfo *)userInfo
-                    completion:(void(^)(BOOL isFriend)) completion;
-
-
-//获取好友列表
--(void) getFriends:(void (^)(NSMutableArray* result))friendList;
-
-//按昵称搜素好友
--(void) searchFriendListByName:(NSString*)name
-                      complete:(void (^)(NSMutableArray* result))friendList;
-//按邮箱搜素好友
--(void) searchFriendListByEmail:(NSString*)email
-                       complete:(void (^)(NSMutableArray* result))friendList;
-
-//请求加好友
--(void) requestFriend:(NSString*) userId
-             complete:(void (^)(BOOL result))result;
-//处理请求加好友
--(void) processRequestFriend:(NSString*) userId withIsAccess:(BOOL)isAccess
-                    complete:(void (^)(BOOL result))result;
-//删除好友
--(void) deleteFriend:(NSString*) userId
-            complete:(void (^)(BOOL result))result;
 
 //////////////////////////////////////////////////////////////////////////////////
 #pragma  登录问题
 //////////////////////////////////////////////////////////////////////////////////
 
 +(void) loginRongCloud;
+
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 个人账户昵称头像
 //////////////////////////////////////////////////////////////////////////////////
 //获取个人信息(通用版本)
 +(void) getUserInfoByopenID:(NSString *) openID
-                 completion:(void (^)(RCUserInfo *user)) completion;
+                 completion:(void (^)(FlyingUserData *userData,RCUserInfo *userInfo)) completion;
 
 //获取个人信息(融云版本)
 +(void) getUserInfoByRongID:(NSString *) rongID
-                 completion:(void (^)(RCUserInfo *user)) completion;
+                 completion:(void (^)(FlyingUserData *userData,RCUserInfo *userInfo)) completion;
 
 //上传用户头像图片
 + (void) requestUploadPotraitWithOpenID:openID
@@ -68,8 +45,8 @@
 #pragma  社群相关
 //////////////////////////////////////////////////////////////
 //获取所有群组
-+ (void)  getAllGroupsForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void)  getAllGroupsForDomainID:(NSString*) domainID
+                       DomainType:(NSString*) type
                      PageNumber:(NSInteger) pageNumber
                      Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
 
@@ -84,7 +61,7 @@
 //加入聊天群组
 + (void) joinGroupForAccount:(NSString*) account
                       GroupID:(NSString*) groupID
-                  Completion:(void (^)(NSString* result)) completion;
+                  Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
 
 //退出聊天群组
 + (void)quitGroupForAccount:(NSString*) account
@@ -94,7 +71,7 @@
 //获取用户在群的信息
 + (void) checkGroupMemberInfoForAccount:(NSString*) account
                                 GroupID:(NSString*) groupID
-                             Completion:(void (^)(NSString* result)) completion;
+                             Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
 
 //获取群组成员的信息
 + (void) getMemberListForGroupID:(NSString*) groupID
@@ -119,12 +96,13 @@
 #pragma  会员相关
 //////////////////////////////////////////////////////////////
 + (void) getMembershipForAccount:(NSString*) account
-                      Completion:(void (^)(NSDate * startDate,NSDate * endDate)) completion;
+                      Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
 
 + (void) updateMembershipForAccount:(NSString*) account
                           StartDate:(NSDate *)startDate
                           EndDate:(NSDate *)endDate
                       Completion:(void (^)(BOOL result)) completion;
+
 //////////////////////////////////////////////////////////////
 #pragma  金币相关
 //////////////////////////////////////////////////////////////
@@ -143,6 +121,20 @@
            WithOpenID:(NSString*) openudid
            Completion:(void (^)(BOOL result)) completion;
 
+//////////////////////////////////////////////////////////////
+#pragma  用户关于课程的计费和统计数据
+//////////////////////////////////////////////////////////////
++ (void) getLessonRightForAccount:(NSString*) account
+                         LessonID:(NSString*) lessonID
+                      Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
+
++ (void) updateLessonRightForAccount:(NSString*) account
+                            LessonID:(NSString*) lessonID
+                          StartDate:(NSDate *)startDate
+                            EndDate:(NSDate *)endDate
+                         Completion:(void (^)(BOOL result)) completion;
+
+
 //向服务器获课程统计数据
 +(void) getStatisticDetailWithOpenID:(NSString*) openudid
                                  Completion:(void (^)(BOOL result)) completion;
@@ -153,15 +145,15 @@
 //////////////////////////////////////////////////////////////
 #pragma  内容相关
 //////////////////////////////////////////////////////////////
-+ (void) getAlbumListForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getAlbumListForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                   ContentType:(NSString*) contentType
                    PageNumber:(NSInteger) pageNumber
                 OnlyRecommend:(BOOL)    isOnlyRecommend
                    Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
 
-+ (void) getLessonListForDomainID:(NSString*)domainID
-                       DomainType:(BC_Domain_Type) type
++ (void) getLessonListForDomainID:(NSString*) domainID
+                       DomainType:(NSString*) type
                     PageNumber:   (NSInteger) pageNumber
              lessonConcentType:  (NSString *) contentType
                   DownloadType:  (NSString *) downloadType
@@ -169,8 +161,8 @@
                  OnlyRecommend:(BOOL)    isOnlyRecommend
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
-+ (void) getCoverListForDomainID:(NSString*)domainID
-                      DomainType:(BC_Domain_Type) type
++ (void) getCoverListForDomainID:(NSString*) domainID
+                      DomainType:(NSString*) type
                     PageNumber:(NSInteger) pageNumber
                     Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
@@ -195,8 +187,8 @@
 //////////////////////////////////////////////////////////////
 #pragma  标签相关
 //////////////////////////////////////////////////////////////
-+ (void)getTagListForDomainID:(NSString*)domainID
-                   DomainType:(BC_Domain_Type) type
++ (void)getTagListForDomainID:(NSString*) domainID
+                   DomainType:(NSString*) type
                  TagString:(NSString*) tagString
                      Count:(NSInteger) count
                 Completion:(void (^)(NSArray *tagList)) completion;
@@ -207,18 +199,15 @@
 + (void) getItemsforWord:(NSString *) word
              Completion:(void (^)(NSArray *itemList,NSInteger allRecordCount)) completion;
 
++ (void) getWordListby:(NSString *) word
+              Completion:(void (^)(NSArray *wordList,NSInteger allRecordCount)) completion;
+
 //////////////////////////////////////////////////////////////
 #pragma  供应商（作者）相关
 //////////////////////////////////////////////////////////////
 
 + (void) getAppDataforBounldeID:(NSString *) boundleID
                      Completion:(void (^)(FlyingAppData *appData)) completion;
-
-
-+ (void) getProviderListForlatitude:(NSString*)latitude
-                           longitude:(NSString*)longitude
-                          PageNumber:(NSInteger) pageNumber
-                          Completion:(void (^)(NSArray *providerList,NSInteger allRecordCount)) completion;
 
 
 @end

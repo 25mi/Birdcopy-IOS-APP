@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "WXApi.h"
-#import "CFShareCircleView.h"
 #import <MessageUI/MessageUI.h>
 #import <RongIMKit/RongIMKit.h>
 #import "RCDRCIMDataSource.h"
@@ -21,30 +20,23 @@
 @class FMDatabase;
 @class FlyingBonjourServer;
 @class FlyingPubLessonData;
-
+@class FlyingShareData;
 
 @interface iFlyingAppDelegate : UIResponder <UIApplicationDelegate,
                                                 WXApiDelegate,
-                                                CFShareCircleViewDelegate,
-                                                MFMessageComposeViewControllerDelegate,
-                                                MFMailComposeViewControllerDelegate,
                                                 RCIMConnectionStatusDelegate,
                                                 RCIMReceiveMessageDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-
-
+@property (strong, nonatomic) UIViewController   *currentRootVC;
 
 //本地环境准备
 +(void) preparelocalEnvironment;
 
 //社会化资源管理
-- (void) shareImageURL:(NSString *)imageURL  withURL:(NSString*) webURL  Title:(NSString*) title  Text:(NSString*) text  Image:(UIImage *)image;
+- (void) shareContent:(FlyingShareData*) shareData fromView:(UIView*) popView;
 - (void) shakeNow;
-
-//购买管理
-- (void)presentStoreView;
 
 //发音管理
 - (NSOperationQueue    *) get_flyingSoundPlayer_queue;
@@ -56,12 +48,14 @@
 
 - (void) closeMyresource;
 
-- (void) setnavigationBarWithClearStyle:(BOOL) clearStyle;
-- (void) resetnavigationBarWithDefaultStyle;
+- (void) setNavigationBarWithLogoStyle:(BOOL) logoStyle;
 
 //界面跳转管理
 
 - (UITabBarController*) getTabBarController;
+
+- (void)refreshTabBadgeValue;
+
 
 - (BOOL) handleOpenURL:(NSURL *)url;
 
@@ -70,5 +64,7 @@
 - (BOOL) showWebviewWithURL:(NSString *) webURL;
 
 - (void) presentViewController:(UIViewController *)viewController;
+
+- (void) makeToast:(NSString*) message;
 
 @end

@@ -8,20 +8,18 @@
 
 #import "FlyingScanViewController.h"
 #import "iFlyingAppDelegate.h"
-#import "SIAlertView.h"
 #import "FlyingWebViewController.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingSoundPlayer.h"
 #import  "ZXingObjC.h"
 #import "FlyingNavigationController.h"
 #import "UIView+Toast.h"
-#import "FlyingMyGroupsVC.h"
 
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
 
-@interface FlyingScanViewController ()
+@interface FlyingScanViewController ()<UIViewControllerRestoration>
 {
     int num;
     BOOL upOrdown;
@@ -36,6 +34,34 @@
 @end
 
 @implementation FlyingScanViewController
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -249,15 +275,10 @@
                           WithOpenID:[FlyingDataManager getOpenUDID]
                           Completion:^(BOOL result) {
                               //
-                              NSString *title = @"友情提醒！";
                               NSString *message = @"登录网站成功！";
-                              SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-                              [alertView addButtonWithTitle:@"知道了"
-                                                       type:SIAlertViewButtonTypeDefault
-                                                    handler:^(SIAlertView *alertView) {}];
-                              alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-                              alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-                              [alertView show];                              
+                              iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                              
+                              [appDelegate makeToast:message];
                           }];
     }
 }
@@ -383,28 +404,11 @@
             
         } else
         {
-            [self.view makeToast:@"提醒：图片中没有发现二维码!" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:@"提醒：图片中没有发现二维码!"
+                        duration:1
+                        position:CSToastPositionCenter];
         }
     }];
-}
-
-
-// Called when a button is clicked. The view will be automatically dismissed after this call returns
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"确定"]){
-        UITextField *tf=[alertView textFieldAtIndex:0];//获得输入框
-        NSString * resultStr=tf.text;//获得值
-        
-        if (resultStr.length!=0) {
-            
-            [_session stopRunning];
-            [timer invalidate];
-            [FlyingScanViewController processingSCanResult:resultStr];
-        }
-    }
 }
 
 -(BOOL) isRSSLesson:(NSString*) url

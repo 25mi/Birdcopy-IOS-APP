@@ -1,0 +1,83 @@
+/* 
+  Localizable.strings
+  FlyingEnglish
+
+  Created by vincent sung on 4/4/2016.
+  Copyright © 2016 BirdEngish. All rights reserved.
+*/
+
+//首页
+"Discover"  = "Discover";
+"Group"     = "Group";
+"Message"   = "Message";
+"Account"   = "Account";
+
+//时间
+"%@ days ago"       =  "%@d";
+"%@ hours ago"      =  "%@h";
+"%@ minutes ago"    =  "%@m";
+"%@ seconds ago"    =  "%@s";
+
+// 设置
+"My Service"        = "My Service";
+"English Tool"      = "English Tool";
+"Scene Dictionary[%@]"      = "Scene Dictionary[%@]";
+"Chat Setting"      = "Chat Setting";
+"Clear Cache"       = "Clear Cache";
+"Style Setting"     = "Style Setting";
+"Service Online"    = "Service Online";
+
+
+//我的账户
+"Profile"           = "Profile";
+"Portrait"          = "Portrait";
+"NickName"          = "NickName";
+"Who am I"          = "Who am I";
+"Login/Register"    = "Login|Register";
+"Login Out"         = "Login Out";
+"Chat Now"          = "沟通｜聊天";
+
+//购买
+"Member User"       = "Member User";
+"Member Start:%@"   = "Start:%@";
+"Member End:%@"     = "End  :%@";
+
+"Price Info:500"    = "500 Gold Coins:$0.99";
+"Price Info:2000"   = "2000 Gold Coins:$2.99";
+"Price Info:10000"  = "10000 Gold Coins:$9.99";
+"Price Info:member" = "Membership:$109.99";
+
+"CurrentCount"      = "Presnet Coin";
+"BuyCount"          = "Buyed Coin";
+"WwardCount"        = "Awarded Coin";
+"ConsumeCount"      = "Uesd Coin";
+
+//评论
+"Send" = "send";
+"Save" = "Save";
+
+"Cleanning is ok"   =  "Cleanning is ok！";
+"Touch portrait to update it!"   =  "Touch portrait to update it!";
+"Touch subtitle and learn there!" = "Touch subtitle and learn there!";
+
+"Attenion Please"   = "Attenion Please";
+"Destructive"       = "OK";
+"Cancel"            = "Cancel";
+
+"I want to become a member!"          = "I want to become a member!";
+"Member can chat freely, Do you want to become a member?" = "Member can chat freely, Do you want to become a member?";
+"You are member alreaday!"           =  "You are member alreaday!";
+"In App Purchasing Disabled"         =  "In App Purchasing Disabled!";
+"Upload your portrait first please!" =  "Upload your portrait first please!";
+
+"Take Photo" = "Take Photo";
+"Choose From Album" = "Choose From Album";
+
+
+"I want to enjoy it!" = "I want to enjoy it!";
+"No enough coins!"  = "No enough coins!";
+
+
+//视频播放
+"Item cannot be played" = "Item cannot be played";
+"The assets tracks were loaded, but could not be made playable." = "The assets tracks were loaded, but could not be made playable.";
