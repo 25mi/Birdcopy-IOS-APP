@@ -10,7 +10,7 @@
 
 @class FlyingLessonData;
 
-@interface FlyingPubLessonData : NSObject
+@interface FlyingPubLessonData : NSObject<NSCoding>
 
 @property (nonatomic, strong) NSString *lessonID;
 @property (nonatomic, strong) NSString *title;              //课程名称
@@ -38,5 +38,12 @@
 
 - (id)initWithLessonData:(FlyingLessonData*) lessonData;
 - (void) getValueFromLessonData:(FlyingLessonData*) lessonData;
+
+
+-(void)encodeWithCoder:(NSCoder *)encoder;
+-(id)  initWithCoder:(NSCoder *)decoder;
+
+- (BOOL) isEqual:(id)object;
+
 
 @end

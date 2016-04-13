@@ -18,7 +18,7 @@
 - (void)awakeFromNib
 {
     // Initialization code    
-    self.nameLabel.font= [UIFont boldSystemFontOfSize:KLargeFontSize];
+    self.nameLabel.font= [UIFont systemFontOfSize:KLargeFontSize];
     
     self.memberCountLabel.font= [UIFont systemFontOfSize:KSmallFontSize];
     self.contentCountLabel.font= [UIFont systemFontOfSize:KSmallFontSize];

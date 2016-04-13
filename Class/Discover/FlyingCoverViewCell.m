@@ -44,21 +44,8 @@
         _titleLabel.textColor       = [UIColor blackColor];
         _titleLabel.backgroundColor = [UIColor clearColor];
         
-        if (INTERFACE_IS_PAD)
-        {
-            _titleLabel.font = [UIFont systemFontOfSize:15];
-        }
-        else{
-            _titleLabel.font = [UIFont systemFontOfSize:10];
-        }
-        
-        
-        if (INTERFACE_IS_PAD){
-            _descriptionLable.font = [UIFont systemFontOfSize:15];
-        }
-        else{
-            _descriptionLable.font = [UIFont systemFontOfSize:10];
-        }
+        _titleLabel.font = [UIFont boldSystemFontOfSize:KNormalFontSize];
+        _descriptionLable.font = [UIFont systemFontOfSize:KNormalFontSize];
         
         _descriptionLable.numberOfLines     = 0;
         _descriptionLable.textAlignment     = NSTextAlignmentLeft;

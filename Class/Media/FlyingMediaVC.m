@@ -230,6 +230,24 @@ static void *TrackObservationContext         = &TrackObservationContext;
     return vc;
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    [coder decodeObjectForKey:@"self.thePubLesson"];
+    
+    if (self.thePubLesson) {
+        
+        [self initData];
+        [self watchNetworkStateNow];
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -246,8 +264,11 @@ static void *TrackObservationContext         = &TrackObservationContext;
 {
     [super viewDidLoad];
     
-    [self initData];
-    [self watchNetworkStateNow];
+    if (self.thePubLesson) {
+
+        [self initData];
+        [self watchNetworkStateNow];
+    }
     
     //监控
     [[NSNotificationCenter defaultCenter] addObserver:self

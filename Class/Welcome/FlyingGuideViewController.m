@@ -16,36 +16,25 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingDataManager.h"
 
-@interface FlyingGuideViewController()<UIViewControllerRestoration>
+@interface FlyingGuideViewController()
 {
     MBProgressHUD* hud;
 }
+
+@property (strong, nonatomic) NSOperationQueue      *loginQueue;
+
 
 @end
 
 @implementation FlyingGuideViewController
 
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
-                                                            coder:(NSCoder *)coder
-{
-    UIViewController *vc = [self new];
-    return vc;
-}
-
-- (id)init
-{
-    if ((self = [super init]))
-    {
-        // Custom initialization
-        self.restorationIdentifier = NSStringFromClass([self class]);
-        self.restorationClass = [self class];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loginQueue = [NSOperationQueue new];
+    [self.loginQueue setMaxConcurrentOperationCount:1];
+
     
 	// Do any additional setup after loading the view.
     self.view.autoresizesSubviews=UIViewAutoresizingNone;
@@ -55,7 +44,7 @@
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
 
-    [self BeginMagic];
+    [self tryLogin];
 
     self.timer=[NSTimer scheduledTimerWithTimeInterval:5
                                                 target:self
@@ -66,39 +55,92 @@
 
 -(void)timerFired
 {
-    [self BeginMagic];
+    [self tryLogin];
 }
 
-- (void)BeginMagic
+-(void) tryLogin
 {
-    if (!hud) {
+    [self.loginQueue cancelAllOperations];
+    
+    [self.loginQueue addOperationWithBlock:^{
+        
+        if (!hud) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelColor = self.textColor;
+                hud.labelText = @"激活设备准备登陆中...";
+            }];
+        }
+        
+        //清理旧数据，如果有
+        [FlyingDataManager clearAllUserDate];
+        
+        //检查APP是否注册
+        NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
+                                    Completion:^(FlyingAppData *appData) {
+                                        //
+                                        if (appData) {
+                                            
+                                            //保存app数据到本地缓存
+                                            [FlyingDataManager saveAppData:appData];
+                                            
+                                            //用户是否有效登录决定是否注册激活
+                                            [self checkUserRight];
+                                        }
+                                        else
+                                        {
+                                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                
+                                                hud.labelText = @"非授权APP设备...";
+                                            }];
+                                        }
+                                    }];
 
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"激活设备中...";
-    }
-    
-    [FlyingDataManager clearAllUserDate];
-    
-    //注册终端设备
-    [FlyingHttpTool regOpenUDID:[FlyingDataManager getOpenUDID]
-                             Completion:^(BOOL result) {
-                                 
-                                 //注册成功
-                                 if (result) {
-                                     
-                                     [self accountActive];
-                                 }
-                             }];
+    }];
 }
+
+-(void) checkUserRight
+{
+    [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
+                        Completion:^(BOOL result) {
+                            //有注册记录
+                            if (result) {
+                                
+                                //从服务器获取新数据
+                                [FlyingDataManager creatLocalUSerProfileWithServer];
+                                
+                                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                    
+                                    [self accountActive];
+                                }];
+                            }
+                            else
+                            {
+                                //注册终端设备
+                                [FlyingHttpTool regOpenUDID:[FlyingDataManager getOpenUDID]
+                                                 Completion:^(BOOL result) {
+                                                     
+                                                     //注册成功
+                                                     if (result) {
+                                                         
+                                                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                             
+                                                             [self accountActive];
+                                                         }];
+                                                     }
+                                                 }];
+                            }
+                        }];
+}
+
 
 - (void)accountActive
 {
-    //登录融云
-    [FlyingHttpTool loginRongCloud];
-    
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = [appDelegate getTabBarController];
-    [appDelegate.window makeKeyAndVisible];
     
     [self.timer invalidate];
     
@@ -110,7 +152,7 @@
 //屏幕单击
 - (void)handleSingleTapFrom: (id) sender
 {
-    [self BeginMagic];
+    [self tryLogin];
 }
 
 @end

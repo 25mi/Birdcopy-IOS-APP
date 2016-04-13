@@ -12,4 +12,6 @@
 
 @property (weak,nonatomic)    NSTimer                 *timer;
 
+@property (strong,nonatomic) UIColor*                 textColor;
+
 @end

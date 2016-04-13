@@ -403,8 +403,7 @@
         
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
-            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+            FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
             [webpage setThePubLesson:lessonPubData];
             
             [self.navigationController pushViewController:webpage animated:YES];

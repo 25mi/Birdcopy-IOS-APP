@@ -434,7 +434,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     
     [self.tableView reloadData];
-
 }
 
 //////////////////////////////////////////////////////////////

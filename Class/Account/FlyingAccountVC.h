@@ -9,12 +9,9 @@
 typedef void (^ChangeNameBlock)();
 
 
-#import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
-@interface FlyingAccountVC : UITableViewController
-
-@property(nonatomic, strong) NSString* domainID;
-@property(nonatomic, strong) NSString* domainType;
+@interface FlyingAccountVC : FlyingViewController
 
 @property (strong, nonatomic)   ChangeNameBlock disclosureBlock;
 

@@ -141,8 +141,7 @@
     if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb]&&
         lessonPubData.coinPrice==0)
     {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+        FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
 
         webpage.domainID = self.domainID;
         webpage.domainType = self.domainType;
@@ -207,7 +206,10 @@
         [coverFlow loadData];
         self.groupTableView.tableHeaderView =coverFlow;
         
-        self.groupTableView.restorationIdentifier = @"groupTableView";
+        self.groupTableView.restorationIdentifier = self.restorationIdentifier;
+        
+        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, 1)];
+
         
         [self.view addSubview:self.groupTableView];
         

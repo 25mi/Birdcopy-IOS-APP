@@ -71,7 +71,6 @@ typedef enum BESearchType
 #define KOPENUDIDKEY              @"com.birdcopy.openudid"
 
 #define KBEAccountChange          @"KBEAccountChange"
-#define KBEFIRSTLAUNCH            @"KBEFIRSTLAUNCH"
 
 #define KAPPBuyFail               @"KAPPBuyFail"
 
@@ -103,6 +102,12 @@ typedef enum BESearchType
 #define KNotificationMessage      @"KNotificationMessage"
 
 #define KMAX_GROUPS_VALUE         100
+
+
+#define KNoticeNewMessage         @"KNoticeNewMessage"
+#define KNoticeDetailMessage      @"KNoticeDetailMessage"
+#define KNoticeVoiceMessage       @"KNoticeVoiceMessage"
+#define KNoticeShockMessage       @"KNoticeShockMessage"
 
 
 //IM相关

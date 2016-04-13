@@ -473,8 +473,7 @@
 
 -(void) showSurvey
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+    FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
     webpage.title=@"参与设计";
     [webpage setWebURL:@"http://www.mikecrm.com/f.php?t=UkWGrx"];
     
@@ -665,8 +664,7 @@
 
 - (void)didTapCellPortrait:(NSString *)userId
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingProfileVC  *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+    FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
     profileVC.userID = userId;
     
     [self.navigationController pushViewController:profileVC animated:YES];
@@ -1121,8 +1119,7 @@
             
             if (webURL)
             {
-                UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+                FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
                 [webpage setWebURL:webURL];
                 
                 [self.navigationController pushViewController:webpage animated:YES];

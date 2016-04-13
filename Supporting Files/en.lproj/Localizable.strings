@@ -56,22 +56,32 @@
 "Send" = "send";
 "Save" = "Save";
 
+
+//聊天设置
+"Notification ON"      = "Notifications";
+"Notification Voice"   = "In-App Alert Sound";
+
+//档案设置
+"Touch portrait to update it!"      =  "Touch portrait to update it!";
+"Touch nickName to update it!"      =  "Update nike name please！";
+"Touch digest to update it!"        =  "Update your abstract please！";
+
+"Take Photo" = "Take Photo";
+"Choose From Album" = "Choose From Album";
+
 "Cleanning is ok"   =  "Cleanning is ok！";
-"Touch portrait to update it!"   =  "Touch portrait to update it!";
-"Touch subtitle and learn there!" = "Touch subtitle and learn there!";
+"Touch subtitle and learn there!"   = "Touch subtitle and learn there!";
 
 "Attenion Please"   = "Attenion Please";
 "Destructive"       = "OK";
 "Cancel"            = "Cancel";
 
+//购买会员设置
 "I want to become a member!"          = "I want to become a member!";
 "Member can chat freely, Do you want to become a member?" = "Member can chat freely, Do you want to become a member?";
 "You are member alreaday!"           =  "You are member alreaday!";
 "In App Purchasing Disabled"         =  "In App Purchasing Disabled!";
 "Upload your portrait first please!" =  "Upload your portrait first please!";
-
-"Take Photo" = "Take Photo";
-"Choose From Album" = "Choose From Album";
 
 
 "I want to enjoy it!" = "I want to enjoy it!";

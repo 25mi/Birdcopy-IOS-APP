@@ -36,6 +36,7 @@
                                                             coder:(NSCoder *)coder
 {
     UIViewController *vc = [self new];
+    
     return vc;
 }
 
@@ -460,7 +461,8 @@
     [self updateBadgeValueForTabBarItem];
 }
 
-- (void)receiveNeedRefreshNotification:(NSNotification *)status {
+- (void)receiveNeedRefreshNotification:(NSNotification *)status
+{
     __weak typeof(&*self) __blockSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (__blockSelf.displayConversationTypeArray.count == 1 && [self.displayConversationTypeArray[0] integerValue]== ConversationType_DISCUSSION) {

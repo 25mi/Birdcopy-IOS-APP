@@ -21,6 +21,7 @@
 @class FlyingBonjourServer;
 @class FlyingPubLessonData;
 @class FlyingShareData;
+@class FlyingTabBarController;
 
 @interface iFlyingAppDelegate : UIResponder <UIApplicationDelegate,
                                                 WXApiDelegate,
@@ -28,8 +29,6 @@
                                                 RCIMReceiveMessageDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) UIViewController   *currentRootVC;
 
 //本地环境准备
 +(void) preparelocalEnvironment;

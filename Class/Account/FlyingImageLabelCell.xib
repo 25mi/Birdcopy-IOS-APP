@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="FlyingImageLabelCell" selectionStyle="default" indentationWidth="10" rowHeight="48" id="t9K-mM-bss" customClass="FlyingImageLabelCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t9K-mM-bss" id="OlX-On-D4I">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500金币 6元（$0.99）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdK-pg-Jkd">
+                        <rect key="frame" x="8" y="13" width="176" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Price" translatesAutoresizingMaskIntoConstraints="NO" id="uuQ-KC-6b4">
+                        <rect key="frame" x="272" y="4" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="Bon-Bt-oWG"/>
+                            <constraint firstAttribute="height" constant="40" id="zga-2q-uf9"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bdK-pg-Jkd" firstAttribute="leading" secondItem="OlX-On-D4I" secondAttribute="leadingMargin" id="Bjl-9i-EG5"/>
+                    <constraint firstItem="bdK-pg-Jkd" firstAttribute="centerY" secondItem="OlX-On-D4I" secondAttribute="centerY" id="LaZ-0x-gNP"/>
+                    <constraint firstItem="uuQ-KC-6b4" firstAttribute="trailing" secondItem="OlX-On-D4I" secondAttribute="trailingMargin" id="NML-Gr-Ad1"/>
+                    <constraint firstItem="uuQ-KC-6b4" firstAttribute="centerY" secondItem="OlX-On-D4I" secondAttribute="centerY" id="zqT-aQ-uMV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="itemLabel" destination="bdK-pg-Jkd" id="kUH-09-4B3"/>
+                <outlet property="theImageView" destination="uuQ-KC-6b4" id="AXn-Z5-nzt"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Price" width="64" height="64"/>
+    </resources>
+</document>

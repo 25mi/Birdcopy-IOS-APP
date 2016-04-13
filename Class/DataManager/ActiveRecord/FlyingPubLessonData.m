@@ -23,7 +23,8 @@
         self.pronunciationURL = [decoder decodeObjectForKey:@"pronunciationURL"];
         self.level            = [decoder decodeObjectForKey:@"level"];
 
-        self.duration         = [decoder decodeIntForKey:@"duration"];
+        self.duration         = [decoder decodeIntegerForKey:@"duration"];
+        
         self.contentType      = [decoder decodeObjectForKey:@"contentType"];
         self.downloadType     = [decoder decodeObjectForKey:@"downloadType"];
         self.tag              = [decoder decodeObjectForKey:@"tag"];
@@ -32,6 +33,13 @@
         
         self.ISBN             = [decoder decodeObjectForKey:@"ISBN"];
         self.relativeURL      = [decoder decodeObjectForKey:@"relativeURL"];
+        
+        self.relativeURL      = [decoder decodeObjectForKey:@"relativeURL"];
+        
+        self.canDownloaded    = [decoder decodeBoolForKey:@"canDownloaded"];
+        self.author           = [decoder decodeObjectForKey:@"author"];
+        self.timeLamp         = [decoder decodeObjectForKey:@"timeLamp"];
+        self.commentCount     = [decoder decodeObjectForKey:@"commentCount"];
     }
     
     return self;
@@ -58,6 +66,12 @@
     
     [encoder encodeObject:self.ISBN             forKey:@"ISBN"];
     [encoder encodeObject:self.relativeURL      forKey:@"relativeURL"];
+    
+    
+    [encoder encodeBool:self.canDownloaded             forKey:@"canDownloaded"];
+    [encoder encodeObject:self.author      forKey:@"author"];
+    [encoder encodeObject:self.timeLamp             forKey:@"timeLamp"];
+    [encoder encodeObject:self.commentCount      forKey:@"commentCount"];
 }
 
 
@@ -94,6 +108,12 @@
     self.relativeURL      = lessonData.BERELATIVEURL;
     
     self.canDownloaded    = YES;
+}
+
+
+- (BOOL) isEqual:(id)object
+{
+    return [[(FlyingPubLessonData *)object lessonID] isEqualToString:self.lessonID];
 }
 
 @end

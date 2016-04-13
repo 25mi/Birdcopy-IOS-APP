@@ -31,13 +31,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i6-wM-GKj">
-                        <rect key="frame" x="86" y="43" width="28" height="14.5"/>
+                        <rect key="frame" x="90" y="41" width="28" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1y-fC-PGV">
-                        <rect key="frame" x="150" y="42.5" width="28" height="14.5"/>
+                        <rect key="frame" x="158" y="40.5" width="28" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -49,21 +49,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="People" translatesAutoresizingMaskIntoConstraints="NO" id="h7a-Xd-7Xz">
-                        <rect key="frame" x="66" y="42" width="16" height="16"/>
+                        <rect key="frame" x="66" y="38" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="ArS-lg-VWx"/>
-                            <constraint firstAttribute="width" constant="16" id="dOP-6I-kjq"/>
+                            <constraint firstAttribute="height" constant="20" id="ArS-lg-VWx"/>
+                            <constraint firstAttribute="width" constant="20" id="dOP-6I-kjq"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Discover" translatesAutoresizingMaskIntoConstraints="NO" id="F8I-ue-KPi">
-                        <rect key="frame" x="130" y="42" width="16" height="16"/>
+                        <rect key="frame" x="134" y="38" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="RmB-52-RjK"/>
-                            <constraint firstAttribute="width" constant="16" id="XOE-bs-xPh"/>
+                            <constraint firstAttribute="height" constant="20" id="RmB-52-RjK"/>
+                            <constraint firstAttribute="width" constant="20" id="XOE-bs-xPh"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="9月5日14点32分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-69-d7q">
-                        <rect key="frame" x="194" y="42.5" width="341" height="14.5"/>
+                        <rect key="frame" x="202" y="40.5" width="333" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>

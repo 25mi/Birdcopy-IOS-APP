@@ -150,9 +150,7 @@
     cell_clearHistory.nameLabel.text =
     NSLocalizedStringFromTable(@"ClearRecord", @"RongCloudKit", nil); //@"清除聊天记录";
     
-    NSArray *_defaultCells = @[ _cell_isTop, _cell_newMessageNotify, cell_clearHistory ];
-    
-    return _defaultCells;
+    return @[ _cell_isTop, _cell_newMessageNotify, cell_clearHistory ];    
 }
 
 - (void)setSwitch_isTop:(BOOL)switch_isTop {

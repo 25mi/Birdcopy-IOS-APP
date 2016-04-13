@@ -6,9 +6,9 @@
 //  Copyright © 2015 BirdEngish. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "FlyingViewController.h"
 
-@interface FlyingProfileVC : UITableViewController
+@interface FlyingProfileVC : FlyingViewController
 
 @property (strong, nonatomic) NSString *openUDID;
 @property (strong, nonatomic) NSString *userID;

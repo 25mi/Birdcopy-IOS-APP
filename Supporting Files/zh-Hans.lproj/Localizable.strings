@@ -59,22 +59,31 @@
 "Send" = "发送";
 "Save" = "保存";
 
-"Cleanning is ok"                 =  "清理缓存成功！";
+//聊天设置
+"Notification ON"      = "新消息提醒";
+"Notification Voice"   = "声音提醒";
+
+//档案设置
 "Touch portrait to update it!"    =  "请点击头像图片更新！";
+"Touch nickName to update it!"    =  "请给自己起个昵称吧！";
+"Touch digest to update it!"      =  "请给自己来个简单介绍吧！";
+
+"Take Photo"        = "拍照";
+"Choose From Album" = "从相册选取";
+
+"Cleanning is ok"                 =  "清理缓存成功！";
 "Touch subtitle and learn there!" = "请点击屏幕的英文字幕,屏幕取词的结果会自动记录在这里，供你学习使用。";
 
 "Attenion Please"   = "友情提醒！";
 "Destructive"       = "确认";
 "Cancel"            = "取消";
 
+//购买会员设置
 "I want to become a member!"          = "申请成为正式会员？";
 "Member can chat free, Do you want to become a member?" ="正式会员才能参与互动，你需要申请成为群组成员吗？";
 "You are member alreaday!"           = "你已经是会员，无需购买会员资格!";
 "In App Purchasing Disabled"         = "请打开购买手机的应用购买功能";
 "Upload your portrait first please!" = "请首先在设置->点击修改头像（昵称）噢";
-
-"Take Photo"        = "拍照";
-"Choose From Album" = "从相册选取";
 
 "I want to enjoy it!" = "我要解锁课程！";
 "No enough coins!"  = "没有足够的金币了：（";

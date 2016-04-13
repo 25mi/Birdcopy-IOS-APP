@@ -71,6 +71,7 @@
 #import "FlyingShareInAppActivity.h"
 #import "FlyingAccountVC.h"
 #import "UIAlertController+Window.h"
+#import "FlyingTabBarController.h"
 
 @interface iFlyingAppDelegate ()
 {
@@ -84,7 +85,7 @@
     AVSpeechSynthesizer         *_synthesizer;
 }
 
-@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (strong, nonatomic) FlyingTabBarController *tabBarController;
 
 @end
 
@@ -109,11 +110,24 @@
 
 - (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    self.currentRootVC = [coder decodeObjectForKey:@"rootVC"];
+    UIViewController *vc = [coder decodeObjectForKey:@"rootVC"];
     
-    if ([self.currentRootVC isKindOfClass:[UITabBarController class]]) {
+    if (vc) {
         
-        self.tabBarController =(UITabBarController*) self.currentRootVC;
+        UIWindow * window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        window.rootViewController = vc;
+        window.restorationIdentifier = NSStringFromClass([window class]);
+        
+        // The green color is just to make it obvious if our view didn't load properly.
+        // It can be removed when you are finished debugging.
+        window.backgroundColor = [UIColor greenColor];
+        
+        self.window = window;
+    }
+    
+    if ([vc isKindOfClass:[FlyingTabBarController class]]) {
+        
+        self.tabBarController = (FlyingTabBarController*)vc;
     }
 }
 
@@ -210,87 +224,33 @@
 //根据是否注册进行不同跳转处理
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if (!self.window) {
+        
+        UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        
+        // The blue color is just to make it obvious if our view didn't load properly.
+        // It can be removed when you are finished debugging.
+        
+        UIColor *backgroundColor;
+        UIColor *textColor;
+        
+        LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
+        LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:[UIImage imageNamed:@"Icon"]];
+        
+        backgroundColor = [colorScheme backgroundColor];
+        textColor=  [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
+        
+        window.backgroundColor = backgroundColor;
+        window.restorationIdentifier = NSStringFromClass([window class]);
+        self.window = window;
+        FlyingGuideViewController * guidVC =[[FlyingGuideViewController alloc] init];
+        guidVC.textColor = textColor;
+        self.window.rootViewController = guidVC;
+    }
     
-    if (self.currentRootVC) {
-        
-        //登录融云
-        [FlyingHttpTool loginRongCloud];
-        
-        self.window = [UIWindow new];
-        self.window.frame = [[UIScreen mainScreen] bounds];
-        self.window.rootViewController = self.currentRootVC;
-        self.window.restorationIdentifier = NSStringFromClass([self.window class]);
-        
-        [self.window makeKeyAndVisible];
-    }
-    else
-    {
-        NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-        
-        //检查APP是否注册
-        [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
-                                    Completion:^(FlyingAppData *appData) {
-                                        //
-                                        if (appData) {
-                                            
-                                            //保存app数据到本地缓存
-                                            [FlyingDataManager saveAppData:appData];
-                                            
-                                            //用户是否有效登录决定是否注册激活
-                                            [self jumpToNext];
-                                        }
-                                    }];
-
-    }
+    [self.window makeKeyAndVisible];
     
     return YES;
-}
-
--(void) jumpToNext
-{
-    [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
-                        Completion:^(BOOL result) {
-                                 //有注册记录
-                                 if (result) {
-                                     
-                                     [[NSUserDefaults standardUserDefaults] boolForKey:KBEFIRSTLAUNCH];
-                                     
-                                     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
-                                         
-                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
-                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-                                     }
-                                     else{
-                                         
-                                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
-                                     }
-
-                                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
-                                         //从服务器获取新数据
-                                         [FlyingDataManager creatLocalUSerProfileWithServer];
-                                     }
-
-                                     //登录融云
-                                     [FlyingHttpTool loginRongCloud];
-                                     
-                                     self.window = [UIWindow new];
-                                     self.window.frame = [[UIScreen mainScreen] bounds];
-                                     self.window.rootViewController = [self getTabBarController];
-                                     self.window.restorationIdentifier = NSStringFromClass([self.window class]);
-
-                                     [self.window makeKeyAndVisible];
-                                 }
-                                 else
-                                 {
-                                     self.window = [UIWindow new];
-                                     self.window.frame = [[UIScreen mainScreen] bounds];
-                                     self.window.rootViewController = [[FlyingGuideViewController alloc] init];
-                                     self.window.restorationIdentifier = NSStringFromClass([self.window class]);
-
-                                     [self.window makeKeyAndVisible];
-                                 }
-                             }];
-
 }
 
 //本地环境准备
@@ -327,7 +287,6 @@
     
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
-    
     [[RCIM sharedRCIM] setConnectionStatusDelegate:(iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate]];
     
     //设置会话列表头像和会话界面头像
@@ -641,8 +600,7 @@
 {
     if (webURL) {
         
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingWebViewController * webpage=[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+        FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
         [webpage setWebURL:webURL];
         
         [self presentViewController:webpage];
@@ -660,57 +618,7 @@
 {
     if(!self.tabBarController)
     {
-        self.tabBarController = [[UITabBarController alloc] init];
-        
-        FlyingHomeVC * homeVC = [[FlyingHomeVC alloc] init];
-        
-        homeVC.domainID = [FlyingDataManager getBusinessID];
-        homeVC.domainType = BC_Domain_Business;
-
-        FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
-        disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Discover",nil)
-                                                               image:[UIImage imageNamed:@"Discover"]
-                                                                 tag:0];
-        disCoverTab.restorationIdentifier = @"disCoverTab";
-        
-        FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingMyGroupsVC alloc] init]];
-        myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Group",nil)
-                                                               image:[UIImage imageNamed:@"People"]
-                                                                 tag:0];
-        myGroupsTab.restorationIdentifier = @"myGroupsTab";
-
-        FlyingConversationListVC * messageList =[[FlyingConversationListVC alloc] init];
-        messageList.restorationIdentifier = @"messageList";
-
-        //设置要显示的会话类型
-        [messageList setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-        
-        //聚合会话类型
-        [messageList setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
-
-        FlyingNavigationController *myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:messageList];
-        
-        myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Message",nil)
-                                                               image:[UIImage imageNamed:@"Message"]
-                                                                 tag:0];
-        
-        myMessagersTab.restorationIdentifier = @"myMessagersTab";
-
-
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FlyingAccountVC * accountVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingAccountVC"];
-        accountVC.domainID = [FlyingDataManager getBusinessID];
-        accountVC.domainType = BC_Domain_Business;
-        
-        FlyingNavigationController *myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:accountVC];
-        myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Account",nil)
-                                                                  image:[UIImage imageNamed:@"Account"]
-                                                                    tag:0];
-        
-        myAccountTab.restorationIdentifier = @"myAccountTab";
-
-        self.tabBarController.viewControllers = [NSArray arrayWithObjects:disCoverTab,myGroupsTab,myMessagersTab,myAccountTab,nil];
-        self.tabBarController.restorationIdentifier =@"tabBarController";
+        self.tabBarController = [[FlyingTabBarController alloc] init];
 
         //更改导航条样式
         [self setNavigationBarWithLogoStyle:YES];

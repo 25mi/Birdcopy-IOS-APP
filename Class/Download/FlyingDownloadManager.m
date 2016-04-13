@@ -363,10 +363,7 @@
         switch (status) {
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 // -- Reachable -- //
-                if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
-                    
-                    [self resumeAllDownloader];
-                }
+                [self resumeAllDownloader];
                 
                 break;
             case AFNetworkReachabilityStatusNotReachable:

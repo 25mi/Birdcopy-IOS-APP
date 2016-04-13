@@ -66,8 +66,6 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
-        
-        self.groupTableView.restorationIdentifier = @"groupTableView";
     }
     return self;
 }
@@ -114,9 +112,11 @@
         self.groupTableView.dataSource = self;
         self.groupTableView.backgroundColor = [UIColor clearColor];
         
-        self.groupTableView.tableFooterView = [UIView new];
+        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, 1)];
         
-        [self.view addSubview:_groupTableView];
+        self.groupTableView.restorationIdentifier = self.restorationIdentifier;
+
+        [self.view addSubview:self.groupTableView];
         
         _currentData = [NSMutableArray new];
         

@@ -18,7 +18,6 @@
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
 #import "NSString+FlyingExtention.h"
-#import "StoryBoardUtilities.h"
 #import "UIView+Toast.h"
 #import "FlyingContentSummaryCell.h"
 #import "FlyingTagCell.h"
@@ -96,11 +95,15 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    [coder decodeObjectForKey:@"self.thePubLesson"];
+    
+    [self commonInit];
 }
 
 - (id)init
@@ -135,7 +138,10 @@
     
     self.navigationItem.rightBarButtonItem = shareBarButtonItem;
     
-    [self commonInit];
+    if (self.thePubLesson) {
+        
+        [self commonInit];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -237,7 +243,10 @@
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.separatorColor = [UIColor grayColor];
-        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+        
+        self.tableView.restorationIdentifier = self.restorationIdentifier;
         
         [self.view addSubview:self.tableView];
     }
@@ -357,7 +366,8 @@
 {
     if(!self.networkLoadingViewController)
     {
-        KMNetworkLoadingViewController* loadingVC = (KMNetworkLoadingViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMNetworkLoadingViewController" class:[KMNetworkLoadingViewController class]];
+        KMNetworkLoadingViewController* loadingVC = [[KMNetworkLoadingViewController alloc] initWithNibName:@"KMNetworkLoadingViewController"
+                                                                                                     bundle:nil];
         
         self.networkLoadingViewController= loadingVC;
         self.networkLoadingViewController.delegate = self;
@@ -542,8 +552,6 @@
 
 - (void) playLesson:(NSString *) lessonID
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
     if([self.thePubLesson.contentType isEqualToString:KContentTypeVideo])
     {
         if([self.thePubLesson.downloadType isEqualToString:KDownloadTypeM3U8] || [NSString checkMp4URL:self.thePubLesson.contentURL])
@@ -554,7 +562,7 @@
         {
             if(self.thePubLesson.contentURL!=nil)
             {
-                FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+                FlyingWebViewController * webVC =[[FlyingWebViewController alloc] init];
                 
                 webVC.domainID = self.domainID;
                 webVC.domainType = self.domainType;
@@ -594,7 +602,7 @@
     }
     else if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
-        FlyingWebViewController * webVC =[storyboard instantiateViewControllerWithIdentifier:@"FlyingWebViewController"];
+        FlyingWebViewController * webVC =[[FlyingWebViewController alloc] init];
         
         webVC.domainID = self.domainID;
         webVC.domainType= self.domainType;
@@ -665,34 +673,32 @@
     [self loadMore];
 }
 
-- (BOOL)loadMore
+- (void)loadMore
 {
-    if (_currentData.count<_maxNumOfComments)
-    {
-        _currentLodingIndex++;
-        
-        [FlyingHttpTool getCommentListForContentID:self.thePubLesson.lessonID
-                                       ContentType:self.thePubLesson.contentType
-                                        PageNumber:_currentLodingIndex
-                                        Completion:^(NSArray *commentList, NSInteger allRecordCount) {
-                                            
-                                            if (commentList.count!=0) {
+    
+    if (self.thePubLesson) {
+
+        if (_currentData.count<_maxNumOfComments)
+        {
+            _currentLodingIndex++;
+            
+            [FlyingHttpTool getCommentListForContentID:self.thePubLesson.lessonID
+                                           ContentType:self.thePubLesson.contentType
+                                            PageNumber:_currentLodingIndex
+                                            Completion:^(NSArray *commentList, NSInteger allRecordCount) {
                                                 
-                                                [self.currentData addObjectsFromArray:commentList];
-                                                _maxNumOfComments=allRecordCount;
-                                                
-                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                if (commentList.count!=0) {
                                                     
-                                                    [self.tableView reloadData];
-                                                });
-                                            }
-                                        }];
-        return true;
-    }
-    else
-    {
-        
-        return false;
+                                                    [self.currentData addObjectsFromArray:commentList];
+                                                    _maxNumOfComments=allRecordCount;
+                                                    
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        
+                                                        [self.tableView reloadData];
+                                                    });
+                                                }
+                                            }];
+        }
     }
 }
 
@@ -944,21 +950,30 @@
         switch (indexPath.row) {
             case 0:
             {
-                [(FlyingContentTitleAndTypeCell *)cell setTitle:self.thePubLesson.title];
-                [(FlyingContentTitleAndTypeCell *)cell setAccessRight:self.accessRight];
-                [(FlyingContentTitleAndTypeCell *)cell setPrice:@(self.thePubLesson.coinPrice).stringValue];
+                if (self.thePubLesson) {
+
+                    [(FlyingContentTitleAndTypeCell *)cell setTitle:self.thePubLesson.title];
+                    [(FlyingContentTitleAndTypeCell *)cell setAccessRight:self.accessRight];
+                    [(FlyingContentTitleAndTypeCell *)cell setPrice:@(self.thePubLesson.coinPrice).stringValue];
+                }
 
                 break;
             }
             case 1:
             {
-                [(FlyingContentSummaryCell*)cell setSummaryText:self.thePubLesson.desc];
+                if (self.thePubLesson.desc) {
+                    
+                    [(FlyingContentSummaryCell*)cell setSummaryText:self.thePubLesson.desc];
+                }
 
                 break;
             }
             case 2:
             {
-                [(FlyingTagCell*)cell setTagList:self.thePubLesson.tag DataSourceDelegate:self];
+                if (self.thePubLesson.tag) {
+                    
+                    [(FlyingTagCell*)cell setTagList:self.thePubLesson.tag DataSourceDelegate:self];
+                }
                 break;
             }
                 
@@ -1076,8 +1091,7 @@
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
     
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingProfileVC  *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+    FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
     profileVC.userID = commentData.userID;
     
     [self.navigationController pushViewController:profileVC animated:YES];
@@ -1225,7 +1239,10 @@
 
 -(void)retryRequest;
 {
-    [self checkUserAccessRight];
+    if(self.thePubLesson)
+    {
+        [self checkUserAccessRight];
+    }
 }
 
 #pragma mark - QLPreviewControllerDataSource

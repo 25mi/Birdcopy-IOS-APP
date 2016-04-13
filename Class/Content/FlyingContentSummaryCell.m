@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     // Initialization code
     
-    self.contentSummaryLabel.font= [UIFont systemFontOfSize:KLittleFontSize];
+    self.contentSummaryLabel.font= [UIFont systemFontOfSize:KNormalFontSize];
     
     self.contentSummaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.contentSummaryLabel.textAlignment = NSTextAlignmentLeft;

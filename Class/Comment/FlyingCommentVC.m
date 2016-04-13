@@ -411,8 +411,7 @@
 - (void)profileImageViewPressed:(FlyingCommentData*)commentData
 {
     
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FlyingProfileVC  *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+    FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
     profileVC.userID = commentData.userID;
     
     [self.navigationController pushViewController:profileVC animated:YES];

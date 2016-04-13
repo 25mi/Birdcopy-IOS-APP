@@ -11,7 +11,7 @@
 #import "FlyingMemberTableViewCell.h"
 #import "FlyingStatisitcTableViewCell.h"
 #import <UITableView+FDTemplateLayoutCell.h>
-#import "FlyingBuyViewCell.h"
+#import "FlyingImageTextCell.h"
 #import "FlyingDataManager.h"
 #import "FlyingStatisticDAO.h"
 #import "UIView+Toast.h"
@@ -115,8 +115,8 @@
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingStatisitcTableViewCell" bundle:nil]
                     forCellReuseIdentifier:@"FlyingStatisitcTableViewCell"];
         
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingBuyViewCell" bundle:nil]
-                    forCellReuseIdentifier:@"FlyingBuyViewCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageTextCell" bundle:nil]
+                    forCellReuseIdentifier:@"FlyingImageTextCell"];
         
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -208,10 +208,10 @@
     else if (indexPath.section == 1)
     {
         //金币相关
-        FlyingBuyViewCell *buyTabelViewCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingBuyViewCell"];
+        FlyingImageTextCell *buyTabelViewCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingImageTextCell"];
         
         if(buyTabelViewCell == nil)
-            buyTabelViewCell = [FlyingBuyViewCell buyTableCell];
+            buyTabelViewCell = [FlyingImageTextCell imageTextCell];
         
         [self configureCell:buyTabelViewCell atIndexPath:indexPath];
         
@@ -333,7 +333,9 @@
                 break;
         }
 
-        [(FlyingBuyViewCell*)cell setPriceInfo:priceStr];
+        [(FlyingImageTextCell*)cell setImageIcon:[UIImage imageNamed:@"Price"]];
+
+        [(FlyingImageTextCell*)cell setCellText:priceStr];
     }
 }
 

@@ -62,15 +62,9 @@
         
         self.coverTitle = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.coverScrollView.frame.size.height, self.bounds.size.width*200/320, self.bounds.size.width*30/320)];
         self.coverTitle.backgroundColor=[UIColor clearColor];
-        self.coverTitle.font         = [UIFont systemFontOfSize:12.0];
+        self.coverTitle.font         = [UIFont systemFontOfSize:KNormalFontSize];
         self.coverTitle.textAlignment=NSTextAlignmentCenter;
         self.coverTitle.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
-        
-        if (INTERFACE_IS_PAD )
-        {
-            //封面推荐
-            self.coverTitle.font         = [UIFont systemFontOfSize:20.0];
-        }
         [self addSubview:self.coverTitle];
         
         self.coverControl=[[UIPageControl alloc] initWithFrame:CGRectMake(self.bounds.size.width*200/320+1, self.coverScrollView.frame.size.height, self.bounds.size.width*100/320, self.bounds.size.width*30/320)];

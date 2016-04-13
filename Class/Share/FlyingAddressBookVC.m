@@ -261,12 +261,12 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         
         if ([userRightData checkRightPresent]) {
             
-            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            FlyingProfileVC* profileVC = [storyboard instantiateViewControllerWithIdentifier:@"FlyingProfileVC"];
+            FlyingProfileVC* profileVC = [[FlyingProfileVC alloc] init];
             
             FlyingGroupMemberData * groupMemberData = (FlyingGroupMemberData *)[_allMemberDic objectForKey:resultString];
-            
             profileVC.openUDID = groupMemberData.openUDID;
+            
+            profileVC.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:profileVC animated:YES];
         }

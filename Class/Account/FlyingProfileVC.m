@@ -24,27 +24,23 @@
 #import "FlyingUserData.h"
 #import "RCDataBaseManager.h"
 #import "FlyingConversationVC.h"
+#import "FlyingImageLabelCell.h"
+#import "FlyingTextLableCell.h"
+#import "FlyingTextOnlyCell.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
 @interface FlyingProfileVC ()<UINavigationControllerDelegate,
                             UIImagePickerControllerDelegate,
                             RSKImageCropViewControllerDelegate,
+                            UITableViewDataSource,
+                            UITableViewDelegate,
                             UIViewControllerRestoration>
 
-@property (strong, nonatomic) IBOutlet UILabel *portraitLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *portraitImageView;
 
-@property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *nickName;
-
-@property (strong, nonatomic) IBOutlet UILabel *abstractLabel;
-@property (strong, nonatomic) IBOutlet UILabel *userAbstract;
-
-@property (strong, nonatomic) IBOutlet UILabel *loginLabel;
+@property (strong, nonatomic) UITableView        *tableView;
 
 @property (strong, nonatomic) FlyingUserData    *userdata;
-
 
 @end
 
@@ -83,11 +79,10 @@
     [super decodeRestorableStateWithCoder:coder];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
-    if (self) {
+    if ((self = [super init]))
+    {
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
@@ -116,73 +111,20 @@
         self.navigationItem.leftBarButtonItem = backBarButtonItem;
     }
     
-    self.portraitLabel.text = NSLocalizedString(@"Portrait", nil);
-    self.nickNameLabel.text = NSLocalizedString(@"NickName", nil);
-    self.abstractLabel.text = NSLocalizedString(@"Who am I", nil);
+    [self reloadAll];
 }
 
-- (void) loadData
-{
-    NSString * openID = [FlyingDataManager getOpenUDID];
-    NSString * userID = [FlyingDataManager getRongID];
-    
-    if ([openID isEqualToString:self.openUDID] ||
-          [userID isEqualToString:self.userID]){
-        
-        self.userdata = [FlyingDataManager getUserData:[FlyingDataManager getOpenUDID]];
-    }
-    else
-    {
-        if (self.openUDID) {
-            
-            [FlyingHttpTool getUserInfoByopenID:self.openUDID
-                                     completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
-                                         //
-                                         [FlyingDataManager saveUserData:userData];
-                                         
-                                         self.userdata = userData;
-
-                                         //用户融云数据库
-                                         [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
-                                         //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                         [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
-                                         
-                                         [self refreshAccountView];
-                                     }];
-        }
-        else if(self.userID){
-            
-            [FlyingHttpTool getUserInfoByRongID:self.userID
-                                     completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
-                                         //
-                                         [FlyingDataManager saveUserData:userData];
-                                         
-                                         self.userdata = userData;
-                                         
-                                         //用户融云数据库
-                                         [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
-                                         //* 本地用户信息改变，调用此方法更新kit层用户缓存信息
-                                         [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:userInfo.userId];
-                                         
-                                         [self refreshAccountView];
-                                     }];
-        }
-    }
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self loadData];
-    [self refreshAccountView];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:KBEAccountChange
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      [self refreshAccountView];
+                                                      [self.tableView reloadData];
                                                   }];
 }
 
@@ -205,104 +147,382 @@
 {
 }
 
-- (void) refreshAccountView
+
+//////////////////////////////////////////////////////////////
+#pragma mark - Loading data and setup view
+//////////////////////////////////////////////////////////////
+
+- (void)reloadAll
 {
+    if (!self.tableView)
+    {
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageLabelCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingImageLabelCell"];
+
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextLableCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingTextLableCell"];
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextOnlyCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingTextOnlyCell"];
+
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        
+        self.tableView.backgroundColor = [UIColor clearColor];
+        //self.tableView.separatorColor = [UIColor clearColor];
+        
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+        
+        [self.view addSubview:self.tableView];
+    }
     
-    [self.portraitImageView  setImageWithURL:[NSURL URLWithString:self.userdata.portraitUri]
-                            placeholderImage:[UIImage imageNamed:@"Icon"]];
-    
-    self.nickName.text= self.userdata.name;
-    self.userAbstract.text=self.userdata.digest;
-    
+    [self loadData];
+}
+
+- (void) loadData
+{
     NSString * openID = [FlyingDataManager getOpenUDID];
     NSString * userID = [FlyingDataManager getRongID];
     
     if ([openID isEqualToString:self.openUDID] ||
         [userID isEqualToString:self.userID]){
         
-        if(![NSString isBlankString:[FlyingDataManager getUserName]])
-        {
-            self.loginLabel.text=NSLocalizedString(@"Login Out",nil);
-        }
-        else
-        {
-            self.loginLabel.text=NSLocalizedString(@"Login/Register",nil);
-        }
+        self.userdata = [FlyingDataManager getUserData:[FlyingDataManager getOpenUDID]];
     }
     else
     {
-        self.title = self.userdata.name;
-        self.loginLabel.text=NSLocalizedString(@"Chat Now", nil);
+        if (self.openUDID) {
+            
+            [FlyingHttpTool getUserInfoByopenID:self.openUDID
+                                     completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                         //
+                                         self.userdata = userData;
+                                         [self.tableView reloadData];
+                                     }];
+        }
+        else if(self.userID){
+            
+            [FlyingHttpTool getUserInfoByRongID:self.userID
+                                     completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                         //
+                                         self.userdata = userData;
+                                         [self.tableView reloadData];
+                                     }];
+        }
     }
+}
+//////////////////////////////////////////////////////////////
+#pragma mark - UITableView Datasource
+//////////////////////////////////////////////////////////////
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 22;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 3;
+    }
+    else if (section == 1)
+    {
+        return 1;
+    }
+    
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = nil;
+    
+    
+    if (indexPath.section == 0){
+        
+        switch (indexPath.row) {
+            case 0:
+            {
+                FlyingImageLabelCell  *portraitCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingImageLabelCell"];
+                
+                if(portraitCell == nil)
+                    portraitCell = [FlyingImageLabelCell imageLabelCell];
+                
+                [self configureCell:portraitCell atIndexPath:indexPath];
+                
+                cell = portraitCell;
+                
+                break;
+            }
+                
+            case 1:
+            case 2:
+            {
+                FlyingTextLableCell  *textLableCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingTextLableCell"];
+                
+                if(textLableCell == nil)
+                    textLableCell = [FlyingTextLableCell textLabelCell];
+                
+                [self configureCell:textLableCell atIndexPath:indexPath];
+                
+                cell = textLableCell;
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    else if (indexPath.section == 1){
+        
+        FlyingTextOnlyCell  *textOnlyCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingTextOnlyCell"];
+        
+        if(textOnlyCell == nil)
+            textOnlyCell = [FlyingTextOnlyCell textOnlyCell];
+        
+        [self configureCell:textOnlyCell atIndexPath:indexPath];
+        
+        cell = textOnlyCell;
+
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row ==0)
+    {
+    
+        return 56;
+    }
+    else
+    {
+        return 47.5;
+    }
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+    {
+        switch (indexPath.row) {
+                
+            case 0:
+            {
+                [(FlyingImageLabelCell *)cell setItemText:NSLocalizedString(@"Portrait", nil)];
+                
+                NSString *portraitUri=[FlyingDataManager getUserData:nil].portraitUri;
+                
+                if (![NSString isBlankString:portraitUri]){
+                    [(FlyingImageLabelCell *)cell setImageIconURL:portraitUri];
+                }
+                else{
+                    
+                    if (![FlyingDataManager getOpenUDID]) {
+                        
+                        return;
+                    }
+                    
+                    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID]
+                                             completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                                 //
+                                                 if ([userData.portraitUri isBlankString]) {
+                                                     
+                                                     [self.view makeToast:NSLocalizedString(@"Touch portrait to update it!", nil)
+                                                                 duration:1
+                                                                 position:CSToastPositionCenter];
+                                                 }
+                                                 else
+                                                 {
+                                                     [(FlyingImageLabelCell *)cell setImageIconURL:userData.portraitUri];
+                                                 }
+                                             }];
+                }
+                
+                break;
+            }
+            case 1:
+            {
+                [(FlyingTextLableCell *)cell setItemText:NSLocalizedString(@"NickName", nil)];
+                
+                NSString *nickname=[FlyingDataManager getUserData:nil].name;
+                
+                if (![nickname isBlankString]){
+                    
+                    [(FlyingTextLableCell *)cell setCellText:nickname];
+                }
+                else{
+                    
+                    if (![FlyingDataManager getOpenUDID]) {
+                        
+                        return;
+                    }
+                    
+                    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID]
+                                             completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                                 //
+                                                 if ([userData.portraitUri isBlankString]) {
+                                                     
+                                                     [self.view makeToast:NSLocalizedString(@"Touch nickName to update it!", nil)
+                                                                 duration:1
+                                                                 position:CSToastPositionCenter];
+                                                 }
+                                                 else
+                                                 {
+                                                     [(FlyingTextLableCell *)cell setCellText:userData.name];
+                                                 }
+                                                 
+                                             }];
+                }
+
+                break;
+            }
+            case 2:
+            {
+                [(FlyingTextLableCell *)cell setItemText:NSLocalizedString(@"Who am I", nil)];
+                
+                NSString *digest=[FlyingDataManager getUserData:nil].digest;
+                
+                if (![digest isBlankString]){
+                    
+                    [(FlyingTextLableCell *)cell setCellText:digest];
+                }
+                else{
+                    
+                    if (![FlyingDataManager getOpenUDID]) {
+                        
+                        return;
+                    }
+                    
+                    [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID]
+                                             completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                                 //
+                                                 if ([userData.portraitUri isBlankString]) {
+                                                     
+                                                     [self.view makeToast:NSLocalizedString(@"Touch digest to update it!", nil)
+                                                                 duration:1
+                                                                 position:CSToastPositionCenter];
+                                                 }
+                                                 else
+                                                 {
+                                                     [(FlyingTextLableCell *)cell setCellText:userData.digest];
+                                                 }
+                                                 
+                                             }];
+                }
+                
+                break;
+            }
+
+                
+            default:
+                break;
+        }
+
+        
+        
+    }
+    else if (indexPath.section == 1)
+    {
+        NSString * openID = [FlyingDataManager getOpenUDID];
+        NSString * userID = [FlyingDataManager getRongID];
+        
+        if ([openID isEqualToString:self.openUDID] ||
+            [userID isEqualToString:self.userID]){
+            
+            if(![NSString isBlankString:[FlyingDataManager getUserName]])
+            {
+                
+                [(FlyingTextOnlyCell*)cell setItemText:NSLocalizedString(@"Login Out",nil)];
+            }
+            else
+            {
+                [(FlyingTextOnlyCell*)cell setItemText:NSLocalizedString(@"Login/Register",nil)];
+            }
+        }
+        else
+        {
+            self.title = self.userdata.name;
+
+            [(FlyingTextOnlyCell*)cell setItemText:NSLocalizedString(@"Chat Now",nil)];
+        }
+    }
+}
+
+- (void) updateProflie
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * openID = [FlyingDataManager getOpenUDID];
-    NSString * userID = [FlyingDataManager getRongID];
-    
-    if ([openID isEqualToString:self.openUDID] ||
-        [userID isEqualToString:self.userID]){
-        
-        if (indexPath.section == 0 )
-        {
-            
-            switch (indexPath.row) {
-                case 0:
-                {
-                    [self editPortrait];
-                    
-                    break;
-                }
-                case 1:
-                {
-                    FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
-                    editVC.someText=self.userdata.name;
-                    editVC.isNickName=YES;
-                    
-                    [self.navigationController pushViewController:editVC animated:YES];
-                    
-                    break;
-                }
-                    
-                case 2:
-                {
-                    FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
-                    editVC.someText=self.userdata.digest;
-                    editVC.isNickName=NO;
-                    
-                    [self.navigationController pushViewController:editVC animated:YES];
-                    
-                    break;
-                }
-                    
-                default:
-                    break;
+    if (indexPath.section == 0 )
+    {
+        switch (indexPath.row) {
+            case 0:
+            {
+                [self editPortrait];
+                
+                break;
             }
+            case 1:
+            {
+                FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
+                editVC.someText=self.userdata.name;
+                editVC.isNickName=YES;
+                
+                [self.navigationController pushViewController:editVC animated:YES];
+                
+                break;
+            }
+                
+            case 2:
+            {
+                FlyingEditVC *editVC =[[FlyingEditVC alloc] init];
+                editVC.someText=self.userdata.digest;
+                editVC.isNickName=NO;
+                
+                [self.navigationController pushViewController:editVC animated:YES];
+                
+                break;
+            }
+                
+            default:
+                break;
         }
-        else if (indexPath.section == 1 )
-        {
+    }
+    else if (indexPath.section == 1 )
+    {
+        
+        NSString * openID = [FlyingDataManager getOpenUDID];
+        NSString * userID = [FlyingDataManager getRongID];
+        
+        if ([openID isEqualToString:self.openUDID] ||
+            [userID isEqualToString:self.userID]){
+            
             [self.navigationController presentViewController:[[FlyingLoginVC alloc] init]
                                                     animated:YES
                                                   completion:^{
                                                       //
                                                   }];
         }
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }
-    else
-    {
-        if (indexPath.section == 1 )
+        else
         {
-            if ([NSString isBlankString:[FlyingDataManager getUserData:nil].portraitUri]) {
+            if ([[FlyingDataManager getUserData:nil].portraitUri isBlankString]) {
                 
                 [self.view makeToast:NSLocalizedString(@"Upload your portrait first please!", nil)
                             duration:1
                             position:CSToastPositionCenter];
-
             }
             else
             {
@@ -315,9 +535,9 @@
                 [self.navigationController pushViewController:chatService animated:YES];
             }
         }
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)editPortrait
@@ -388,8 +608,12 @@
         
         UIPopoverPresentationController *popPresenter = [alertController
                                                          popoverPresentationController];
-        popPresenter.sourceView = self.portraitImageView;
-        popPresenter.sourceRect = self.portraitImageView.bounds;
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+        popPresenter.sourceView = cell;
+        popPresenter.sourceRect = cell.bounds;
         [self presentViewController:alertController animated:YES completion:nil];
 
     }
@@ -449,7 +673,8 @@
                                             //
                                             if (result) {
                                                 //
-                                                [self.portraitImageView  setImageWithURL:[NSURL URLWithString:self.userdata.portraitUri]  placeholderImage:[UIImage imageNamed:@"Icon"]];
+                                                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                                                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                                                 [self.view makeToast:@"上传头像成功！"
                                                             duration:1
                                                             position:CSToastPositionCenter];
@@ -468,7 +693,7 @@
                    didCropImage:(UIImage *)croppedImage
                   usingCropRect:(CGRect)cropRect
 {
-    self.portraitImageView.image = croppedImage;
+    //self.portraitImageView.image = croppedImage;
     [self dealWithImage:croppedImage];
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -480,7 +705,7 @@
                   usingCropRect:(CGRect)cropRect
                   rotationAngle:(CGFloat)rotationAngle
 {
-    self.portraitImageView.image = croppedImage;
+    //self.portraitImageView.image = croppedImage;
     [self dealWithImage:croppedImage];
     
     [self.navigationController popViewControllerAnimated:YES];

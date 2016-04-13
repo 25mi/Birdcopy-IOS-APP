@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FlyingGroupData : NSObject
+@interface FlyingGroupData : NSObject<NSCoding>
 
 @property (nonatomic, strong) NSString *gp_id;         //群组id
 @property (nonatomic, strong) NSString *gp_name;       //群组名称
@@ -32,5 +32,11 @@
 
 @property (nonatomic, strong) NSString *gp_member_sum; //成员数
 @property (nonatomic, strong) NSString *gp_ln_sum;     //课程数
+
+-(void)encodeWithCoder:(NSCoder *)encoder;
+-(id) initWithCoder:(NSCoder *)decoder;
+
+- (BOOL) isEqual:(id)object;
+
 
 @end
