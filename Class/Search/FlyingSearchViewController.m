@@ -80,10 +80,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     [super viewDidLoad];
         
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-
-    [self addBackFunction];
+    self.edgesForExtendedLayout = UIRectEdgeAll;
     
     //顶部导航
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -436,52 +433,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [self.tableView reloadData];
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void) addBackFunction
-{
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
-}
 
 #pragma only portart events
 //////////////////////////////////////////////////////////////

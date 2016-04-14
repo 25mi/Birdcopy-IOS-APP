@@ -32,11 +32,14 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    [coder encodeObject:self.tabBar.tintColor  forKey:@"tabBar.tintColor"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    self.tabBar.tintColor = [coder decodeObjectForKey:@"tabBar.tintColor"];
 }
 
 - (id)init
@@ -101,6 +104,10 @@
 
     self.viewControllers = [NSArray arrayWithObjects:disCoverTab,myGroupsTab,myMessagersTab,myAccountTab,nil];
     
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+    UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+    
+    self.tabBar.tintColor =  backgroundColor;
     //登录融云
     [FlyingHttpTool loginRongCloud];
 }
@@ -109,6 +116,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

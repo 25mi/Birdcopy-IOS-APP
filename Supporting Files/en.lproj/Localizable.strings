@@ -52,10 +52,13 @@
 "WwardCount"        = "Awarded Coin";
 "ConsumeCount"      = "Uesd Coin";
 
+
+//群
+"Memberships" = "Memberships";
+
 //评论
 "Send" = "send";
 "Save" = "Save";
-
 
 //聊天设置
 "Notification ON"      = "Notifications";

@@ -51,11 +51,15 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:self.title forKey:@"self.title"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    self.title = [coder decodeObjectForKey:@"self.title"];
+    
+    [self loadData];
 }
 
 - (id)init
@@ -65,6 +69,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        self.tableView.restorationIdentifier = self.restorationIdentifier;
     }
     return self;
 }
@@ -78,11 +83,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (void) commonInit
 {
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
     //顶部导航
     if (!self.searchController) {
 
@@ -106,10 +106,10 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     self.definesPresentationContext = YES;
     
     //初始化相关数据
-    [self initDefultData];
+    [self loadData];
 }
 
-- (void)initDefultData
+- (void)loadData
 {
     self.defaultShowStr = @"没有查询结果";
     self.searchController.searchBar.placeholder = @"请输入昵称";
@@ -265,9 +265,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
             
             FlyingGroupMemberData * groupMemberData = (FlyingGroupMemberData *)[_allMemberDic objectForKey:resultString];
             profileVC.openUDID = groupMemberData.openUDID;
-            
-            profileVC.hidesBottomBarWhenPushed = YES;
-            
+                        
             [self.navigationController pushViewController:profileVC animated:YES];
         }
         else
@@ -491,53 +489,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     
     [self.tableView reloadData];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void) addBackFunction
-{
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 #pragma only portart events

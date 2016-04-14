@@ -57,6 +57,8 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -65,7 +67,7 @@
 {
     [super viewDidLoad];
     
-    [self addBackFunction];
+    self.edgesForExtendedLayout = UIRectEdgeAll;
     
     //顶部导航
     if(self.navigationController.viewControllers.count>1)
@@ -84,6 +86,16 @@
     
     //标题
     self.title = NSLocalizedString(@"Message",nil);
+    
+    if (self.displayConversationTypeArray.count==0) {
+
+        //设置要显示的会话类型
+        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP),@(ConversationType_CHATROOM)]];
+        
+        //聚合会话类型
+        [self setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM),@(ConversationType_CHATROOM)]];
+
+    }
     
     //备用
     /*
@@ -151,7 +163,6 @@
     chatService.targetId = [FlyingDataManager getBusinessID];
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title = @"公共聊天室";
-    chatService.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:chatService animated:YES];
 }
@@ -192,8 +203,6 @@
                 _conversationVC.title = @"系统消息";
             }
             
-            _conversationVC.hidesBottomBarWhenPushed = YES;
-            
             [self.navigationController pushViewController:_conversationVC animated:YES];
         }
         
@@ -202,7 +211,7 @@
             
             FlyingConversationListVC *temp = [[FlyingConversationListVC alloc] init];
             
-            [temp setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
+            [temp setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM),@(ConversationType_CHATROOM)]];
             [temp setCollectionConversationType:nil];
             temp.isEnteredToCollectionViewController = YES;
             
@@ -217,9 +226,7 @@
             _conversationVC.targetId = model.targetId;
             _conversationVC.title = model.conversationTitle;
             _conversationVC.unReadMessage = model.unreadMessageCount;
-            
-            _conversationVC.hidesBottomBarWhenPushed =YES;
-            
+                        
             [self.navigationController pushViewController:_conversationVC animated:YES];
         }
     }
@@ -470,55 +477,6 @@
         }
         
     });
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 @end

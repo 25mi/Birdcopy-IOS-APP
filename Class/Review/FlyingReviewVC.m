@@ -26,7 +26,6 @@
 
 @property (strong,nonatomic) MAOFlipViewController *flipViewController;
 
-@property (strong,nonatomic)     NSString           *currentPassPort;
 @property (strong,nonatomic)     NSMutableArray     *currentData;
 
 
@@ -66,13 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
+        
     //更新欢迎语言
     self.title =@"我的魔词";
     
@@ -84,11 +77,7 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    NSString *openID = [FlyingDataManager getOpenUDID];
-
-    self.currentPassPort = openID;
-    
-    self.currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:self.currentPassPort];
+    self.currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
     
     if (self.currentData.count==0)
     {
@@ -120,7 +109,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^
                    {
-                       [[[FlyingTaskWordDAO alloc] init] cleanTaskWithUSerID:self.currentPassPort];
+                       [[[FlyingTaskWordDAO alloc] init] cleanTaskWithUSerID:[FlyingDataManager getOpenUDID]];
                    });
 }
 
@@ -169,52 +158,4 @@
 {
     //[(FlyingNavigationController*)self.navigationController dismiss];
 }
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
-}
-
 @end

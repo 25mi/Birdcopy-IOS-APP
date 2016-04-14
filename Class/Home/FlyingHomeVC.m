@@ -67,6 +67,8 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -75,12 +77,8 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+
     //标题
     self.title = NSLocalizedString(@"Discover",nil);
     
@@ -112,7 +110,6 @@
     discoverContent.domainID = self.domainID;
     discoverContent.domainType = self.domainType;
     
-    discoverContent.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:discoverContent animated:YES];
 }
 
@@ -126,7 +123,6 @@
     chatService.targetId = [FlyingDataManager getBusinessID];
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title = @"客服聊天室";
-    chatService.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatService animated:YES];
 }
 
@@ -141,15 +137,13 @@
     if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb]&&
         lessonPubData.coinPrice==0)
     {
-        FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-
-        webpage.domainID = self.domainID;
-        webpage.domainType = self.domainType;
+        FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+        webVC.domainID = self.domainID;
+        webVC.domainType = self.domainType;
         
-        webpage.thePubLesson = lessonPubData;
+        webVC.thePubLesson = lessonPubData;
         
-        webpage.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:webpage animated:YES];
+        [self.navigationController pushViewController:webVC animated:YES];
     }
     else
     {
@@ -159,7 +153,6 @@
         contentVC.domainType = self.domainType;
         
         [contentVC setThePubLesson:lessonPubData];
-        contentVC.hidesBottomBarWhenPushed=YES;
         
         [self.navigationController pushViewController:contentVC animated:YES];
     }
@@ -173,7 +166,6 @@
     contentList.domainType = self.domainType;
 
     [contentList setIsOnlyFeatureContent:YES];
-    contentList.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:contentList animated:YES];
 }
 
@@ -259,12 +251,6 @@
     if (_currentData.count>0)
     {
         [self.groupTableView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
 }
 
@@ -458,7 +444,6 @@
     groupVC.domainType = BC_Domain_Group;
     
     groupVC.groupData=groupData;
-    groupVC.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:groupVC animated:YES];
 }
 
@@ -487,55 +472,6 @@
     [self.view makeToast:infoStr
                 duration:2
                 position:CSToastPositionCenter];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 @end

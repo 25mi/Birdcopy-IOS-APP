@@ -83,13 +83,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+        
     if (INTERFACE_IS_PAD)
     {
         

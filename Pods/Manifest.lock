@@ -16,6 +16,11 @@ PODS:
     - AFNetworking/NSURLSession
   - INTULocationManager (4.2.0)
   - MBProgressHUD (0.9.2)
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
   - RongCloudIMKit (2.4.11)
   - SlackTextViewController (1.9.1)
   - UICKeyChainStore (2.1.0)
@@ -25,6 +30,7 @@ DEPENDENCIES:
   - AFNetworking
   - INTULocationManager
   - MBProgressHUD
+  - NJKWebViewProgress
   - RongCloudIMKit
   - SlackTextViewController
   - UICKeyChainStore
@@ -34,6 +40,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   RongCloudIMKit: 40fefc63541927aad728e06c731d12d34de1c5fa
   SlackTextViewController: 6b0d1030c53937226fc5358f217af2a34fc211cf
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432

@@ -872,11 +872,6 @@
 		823697FB1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FC1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FD1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
-		823C29D01CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */; };
-		823C29D11CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */; };
-		823C29D21CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */; };
-		823C29D31CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */; };
-		823C29D41CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */; };
 		823C29F01CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
 		823C29F11CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
 		823C29F21CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
@@ -2127,7 +2122,6 @@
 		823697E71C8449C50000221C /* XHWaterDropRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHWaterDropRefresh.m; sourceTree = "<group>"; };
 		823697E81C8449C50000221C /* XHWaterDropRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWaterDropRefresh.h; sourceTree = "<group>"; };
 		823697F81C8452D50000221C /* pullrefresh.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = pullrefresh.aif; sourceTree = "<group>"; };
-		823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingWebViewController.xib; sourceTree = "<group>"; };
 		823C29EE1CBC9FD5005CD298 /* FlyingImageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingImageTextCell.h; sourceTree = "<group>"; };
 		823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingImageTextCell.m; sourceTree = "<group>"; };
 		823C29F51CBCA0C0005CD298 /* FlyingImageTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingImageTextCell.xib; sourceTree = "<group>"; };
@@ -3423,7 +3417,6 @@
 				82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */,
 				82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */,
 				82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */,
-				823C29CF1CBC8D86005CD298 /* FlyingWebViewController.xib */,
 				82F7066E1C4664830068C791 /* TLTagsControl.h */,
 				82F7066F1C4664830068C791 /* TLTagsControl.m */,
 			);
@@ -4285,7 +4278,6 @@
 				82A21D971CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
 				824940381C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				FA23C6BF1B14A63200D9E13A /* Images.xcassets in Resources */,
-				823C29D01CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */,
 				823C2A031CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
 				82501C821C0D8F7500C58789 /* BirdEnglish.entitlements in Resources */,
@@ -4324,7 +4316,6 @@
 				82A21D9B1CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
 				8249402A1C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				C81F8BDA1BD7E4A2004146F0 /* MKStoreKitConfigs.plist in Resources */,
-				823C29D41CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */,
 				823C2A071CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				826D3FC31C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */,
@@ -4366,7 +4357,6 @@
 				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
 				8247E66C1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E6791CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
-				823C29D11CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */,
 				8247E65A1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A591CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
 				82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */,
@@ -4406,7 +4396,6 @@
 				82501C811C0D8F6E00C58789 /* beiyang.entitlements in Resources */,
 				8247E66D1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E67A1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
-				823C29D21CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */,
 				8247E65B1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A5A1CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
 				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
@@ -4446,7 +4435,6 @@
 				FA5ACC331B706A370051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				8247E66E1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E67B1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
-				823C29D31CBC8D86005CD298 /* FlyingWebViewController.xib in Resources */,
 				8247E65C1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A5B1CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
 				FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */,

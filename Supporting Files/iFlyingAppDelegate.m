@@ -120,7 +120,7 @@
         
         // The green color is just to make it obvious if our view didn't load properly.
         // It can be removed when you are finished debugging.
-        window.backgroundColor = [UIColor greenColor];
+        window.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
         
         self.window = window;
     }
@@ -231,20 +231,13 @@
         // The blue color is just to make it obvious if our view didn't load properly.
         // It can be removed when you are finished debugging.
         
-        UIColor *backgroundColor;
-        UIColor *textColor;
-        
-        LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
-        LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:[UIImage imageNamed:@"Icon"]];
-        
-        backgroundColor = [colorScheme backgroundColor];
-        textColor=  [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+        UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
         
         window.backgroundColor = backgroundColor;
         window.restorationIdentifier = NSStringFromClass([window class]);
         self.window = window;
         FlyingGuideViewController * guidVC =[[FlyingGuideViewController alloc] init];
-        guidVC.textColor = textColor;
         self.window.rootViewController = guidVC;
     }
     
@@ -318,9 +311,8 @@
                                                  name:KBEJumpToLesson
                                                object:nil];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-    });
+    //准备APP Style
+    [self prepairAppStyle];
 }
 
 - (void) CalledToJumpToLessinID:(NSNotification*) aNotification
@@ -600,10 +592,10 @@
 {
     if (webURL) {
         
-        FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-        [webpage setWebURL:webURL];
+        FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+        [webVC setWebURL:webURL];
         
-        [self presentViewController:webpage];
+        [self presentViewController:webVC];
         
         return YES;
     }
@@ -619,9 +611,6 @@
     if(!self.tabBarController)
     {
         self.tabBarController = [[FlyingTabBarController alloc] init];
-
-        //更改导航条样式
-        [self setNavigationBarWithLogoStyle:YES];
     }
     
     return self.tabBarController;
@@ -658,6 +647,35 @@
     });
 }
 
++(void) prepairAppStyle
+{
+    UIColor *backgroundColor;
+    UIColor *textColor;
+    
+    LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
+    LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:[UIImage imageNamed:@"Icon"]];
+    //[colorScheme primaryTextColor];
+    //[colorScheme secondaryTextColor];
+    
+    backgroundColor = [colorScheme backgroundColor];
+    textColor=  [UIColor readableForegroundColorForBackgroundColor:backgroundColor];
+    
+    //统一导航条样式
+    UIFont* font = [UIFont systemFontOfSize:19.f];
+    NSDictionary* textAttributes = @{NSFontAttributeName:font,
+                                     NSForegroundColorAttributeName:textColor};
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    [[UINavigationBar appearance] setTintColor:textColor];
+    [[UINavigationBar appearance] setBarTintColor:backgroundColor];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:backgroundColor]
+                                              forKey:@"backgroundColor"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:textColor]
+                                              forKey:@"textColor"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(void) setNavigationBarWithLogoStyle:(BOOL) logoStyle
 {
     
@@ -686,27 +704,6 @@
     
     
     [self getTabBarController].tabBar.tintColor =  backgroundColor;
-
-    
-    /*
-    
-    UINavigationController * nowNav = (UINavigationController*)[self getTabBarController].selectedViewController;
-    
-    nowNav.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor;
-    nowNav.navigationBar.backgroundColor = [UINavigationBar appearance].backgroundColor;
-    
-    [nowNav.navigationBar setBackgroundImage:nil
-                               forBarMetrics:UIBarMetricsDefault];
-    nowNav.navigationBar.shadowImage = nil;
-    nowNav.navigationBar.translucent = NO;
-    
-    NSData *textColorData = [NSKeyedArchiver archivedDataWithRootObject:textColor];
-    NSData *backgroundColorData = [NSKeyedArchiver archivedDataWithRootObject:backgroundColor];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:textColorData forKey:kNavigationTextColor];
-    [[NSUserDefaults standardUserDefaults] setObject:backgroundColorData forKey:kNavigationBackColor];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-     */
 }
 
 //////////////////////////////////////////////////////////////

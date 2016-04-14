@@ -69,7 +69,6 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelColor = self.textColor;
                 hud.labelText = @"激活设备准备登陆中...";
             }];
         }

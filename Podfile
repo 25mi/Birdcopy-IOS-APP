@@ -9,7 +9,7 @@ pod 'SlackTextViewController'
 pod 'UITableView+FDTemplateLayoutCell'
 
 
-
+pod 'NJKWebViewProgress'
 
 
 

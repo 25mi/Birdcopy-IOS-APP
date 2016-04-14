@@ -85,13 +85,6 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    
-    // Do any additional setup after loading the view.
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
     //更新欢迎语言
     self.title =@"内容列表";
     if (self.tagString) {
@@ -152,9 +145,6 @@
     else
     {
         [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
 }
 //////////////////////////////////////////////////////////////
@@ -266,12 +256,6 @@
     if (_currentData.count>0)
     {
         [self.contentTableView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
 }
 
@@ -403,10 +387,10 @@
         
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
-            FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-            [webpage setThePubLesson:lessonPubData];
+            FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+            [webVC setThePubLesson:lessonPubData];
             
-            [self.navigationController pushViewController:webpage animated:YES];
+            [self.navigationController pushViewController:webVC animated:YES];
         }
         else
         {
@@ -415,55 +399,6 @@
             
             [self.navigationController pushViewController:contentVC animated:YES];
         }
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
     }
 }
 

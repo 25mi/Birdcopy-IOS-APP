@@ -34,9 +34,13 @@
 #import "FlyingCommentVC.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingShareData.h"
+#import <NJKWebViewProgressView.h>
 
 @interface FlyingWebViewController ()
 {
+    NJKWebViewProgressView *_progressView;
+    NJKWebViewProgress *_progressProxy;
+
     
     FlyingUIWebView         *_webView;
     
@@ -92,14 +96,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    //self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.webView.backgroundColor = [UIColor clearColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.title = @"网页内容";
-    
-    [self addBackFunction];
     
     //顶部导航
     UIButton* freshButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
@@ -113,7 +111,24 @@
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,freshBarButtonItem,nil];
-
+    
+    _webView = [[FlyingUIWebView alloc] initWithFrame:self.view.frame];
+    _webView.delegate = self;
+    _webView.flyingwebviewdelegate = self;
+    [_webView initContextMenu];
+    [self.view addSubview:_webView];
+    
+    _progressProxy = [[NJKWebViewProgress alloc] init];
+    _webView.delegate = _progressProxy;
+    _progressProxy.webViewProxyDelegate = self;
+    _progressProxy.progressDelegate = self;
+    
+    CGFloat progressBarHeight = 2.f;
+    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
+    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
+    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
     [self loadWebview];
     
     //基本辅助信息和工具准备
@@ -141,11 +156,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar addSubview:_progressView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [_progressView removeFromSuperview];
 }
 
 - (void) willDismiss
@@ -158,12 +177,7 @@
 }
 
 -(void) prepareForChatRoom
-{
-    if (INTERFACE_IS_PAD) {
-        
-        return;
-    }
-    
+{    
     if(!self.accessChatbutton)
     {
         CGRect chatButtonFrame=self.view.frame;
@@ -218,9 +232,7 @@
     commentVC.contentID=self.thePubLesson.lessonID;
     commentVC.contentType=self.thePubLesson.contentType;
     commentVC.commentTitle=self.thePubLesson.title;
-    
-    commentVC.hidesBottomBarWhenPushed=YES;
-    
+        
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
@@ -245,8 +257,7 @@
     else
     {
         
-        NSString *theTitle=[self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-        
+        NSString *theTitle=[_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
         
         FlyingShareData * shareData = [[FlyingShareData alloc] init];
         
@@ -265,9 +276,6 @@
 
 -(void) loadWebview
 {
-    [_webView setDelegate:self];
-    [_webView setFlyingwebviewdelegate:self];
-    [_webView initContextMenu];
 
     if(!self.webURL){
         
@@ -285,6 +293,13 @@
     [_webView loadRequest:request];
 }
 
+#pragma mark - NJKWebViewProgressDelegate
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
+{
+    [_progressView setProgress:progress animated:YES];
+    self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
+
 //////////////////////////////////////////////////////////////
 #pragma mark UIWebViewDelegate
 //////////////////////////////////////////////////////////////
@@ -296,21 +311,9 @@
     return YES;
 }
 
-- (void) webViewDidStartLoad:(UIWebView *)webView
-{
-    //隐藏状态显示
-    self.stateBar.alpha=1;
-}
-
 
 - (void) webViewDidFinishLoad:(UIWebView *)webView
 {
-
-    //隐藏状态显示
-    if (self.stateBar.alpha==1) {
-        
-        [self.stateBar dismissViewAnimated:YES];
-    }
     
     _currentURL = webView.request.URL.absoluteString;
 }
@@ -524,56 +527,6 @@
                           }];
     
     return result;
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL) canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void) viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-    
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 @end

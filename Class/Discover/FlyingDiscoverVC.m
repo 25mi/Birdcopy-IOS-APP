@@ -12,7 +12,6 @@
 #import "FlyingContentListVC.h"
 #import "FlyingPubLessonData.h"
 #import <UIImageView+AFNetworking.h>
-#import "FlyingWebViewController.h"
 #import "FlyingLoadingView.h"
 #import "FlyingConversationListVC.h"
 #import "FlyingSearchViewController.h"
@@ -82,13 +81,9 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    
     _refresh=NO;
         
     self.title=@"推荐";
-    [self addBackFunction];
     
     //顶部导航
     UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
@@ -214,9 +209,6 @@
     else
     {
         [_refreshControl endRefreshing];
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
 }
 
@@ -272,12 +264,6 @@
     if (_currentData.count!=0)
     {
         [self.homeFeatureTagPSColeectionView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
     
     //处理footview
@@ -384,54 +370,6 @@
 - (void) pushViewController:(UIViewController *)viewController animated:(BOOL) animated
 {
     [self.navigationController pushViewController:viewController animated:animated];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-        
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 @end

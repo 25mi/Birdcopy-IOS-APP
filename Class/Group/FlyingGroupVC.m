@@ -105,19 +105,6 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
-    //更新欢迎语言
-    
-    if (self.groupData) {
-        
-        self.title = self.groupData.gp_name;
-    }
-    
     //顶部导航
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(200, 7, 24, 24)];
     [discoverButton setBackgroundImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
@@ -200,7 +187,6 @@
         discoverContent.domainType = BC_Domain_Group;
         
         discoverContent.shoudLoaingFeature = YES;
-        discoverContent.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:discoverContent animated:YES];
     }
@@ -219,7 +205,6 @@
         chatService.targetId = self.groupData.gp_id;
         chatService.conversationType = ConversationType_CHATROOM;
         chatService.title =self.groupData.gp_name;
-        chatService.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:chatService animated:YES];
     }
 }
@@ -234,8 +219,7 @@
         membersVC.domainID = self.groupData.gp_id;
         membersVC.domainType = BC_Domain_Group;
         
-        membersVC.title = @"群成员";
-        membersVC.hidesBottomBarWhenPushed = YES;
+        membersVC.title = NSLocalizedString(@"Memberships", nil);
         
         [self.navigationController pushViewController:membersVC animated:YES];
     }
@@ -257,7 +241,6 @@
         contentVC.domainType = BC_Domain_Group;
         
         [contentVC setThePubLesson:lessonPubData];
-        contentVC.hidesBottomBarWhenPushed=YES;
         
         [self.navigationController pushViewController:contentVC animated:YES];
     }
@@ -271,6 +254,9 @@
 {
     self.domainID = self.groupData.gp_id;
     self.domainType = BC_Domain_Group;
+    
+    //更新欢迎语言
+    self.title = self.groupData.gp_name;
     
     if (!self.groupStreamTableView)
     {
@@ -321,13 +307,13 @@
             
             if ([wself.currentFeatueContent.contentType isEqualToString:KContentTypePageWeb] ) {
                 
-                FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-                webpage.domainID = wself.domainID;
-                webpage.domainType = wself.domainType;
+                FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+                webVC.domainID = wself.domainID;
+                webVC.domainType = wself.domainType;
                 
-                [webpage setThePubLesson:wself.currentFeatueContent];
+                [webVC setThePubLesson:wself.currentFeatueContent];
                 
-                [wself.navigationController pushViewController:webpage animated:YES];
+                [wself.navigationController pushViewController:webVC animated:YES];
             }
             else
             {
@@ -426,12 +412,6 @@
     if (_currentData.count>0)
     {
         [self.groupStreamTableView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
     
     [self prepareForChatRoom];
@@ -567,14 +547,13 @@
         
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
-            FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
+            FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+            webVC.domainID = self.domainID;
+            webVC.domainType = self.domainType;
             
-            webpage.domainID = self.domainID;
-            webpage.domainType = self.domainType;
+            [webVC setThePubLesson:lessonPubData];
             
-            [webpage setThePubLesson:lessonPubData];
-            
-            [self.navigationController pushViewController:webpage animated:YES];
+            [self.navigationController pushViewController:webVC animated:YES];
         }
         else
         {
@@ -587,55 +566,6 @@
             
             [self.navigationController pushViewController:contentVC animated:YES];
         }
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
     }
 }
 

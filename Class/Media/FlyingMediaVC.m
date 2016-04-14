@@ -33,8 +33,6 @@
 #import <UIImageView+AFNetworking.h>
 #import "UIImage+localFile.h"
 
-#import "FlyingWebViewController.h"
-
 #import "FlyingLoadingView.h"
 #import "FlyingLessonParser.h"
 #import "ReaderViewController.h"
@@ -368,12 +366,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self showLoadingIndicator];
         [self playVedio];
     }
-    else
-    {
-        [self.view makeToast:@"请联网再试..."
-                    duration:1
-                    position:CSToastPositionCenter];
-    }
 }
 
 -(void) showLoadingIndicator
@@ -494,6 +486,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     //字幕基本设置|默认黑底风格字幕
     self.subtitleTextView.text=@"";
     self.subtitleTextView.hidden=YES;
+    self.subtitleTextView.font = [UIFont systemFontOfSize:KLargeFontSize];;
 
     //设置智能字幕和控制
     [self prepareControlAndAI];

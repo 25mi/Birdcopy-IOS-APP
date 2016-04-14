@@ -12,16 +12,71 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
 
-@interface FlyingViewController ()
+@interface FlyingViewController ()<UIViewControllerRestoration>
 
 @end
 
 @implementation FlyingViewController
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    
+    if (self.domainID) {
+        
+        [coder encodeObject:self.domainID forKey:@"self.domainID"];
+    }
+    
+    if (self.domainType) {
+        
+        [coder encodeObject:self.domainType forKey:@"self.domainType"];
+    }
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+        
+    self.domainID =[coder decodeObjectForKey:@"self.domainID"];
+    self.domainType =[coder decodeObjectForKey:@"self.domainType"];
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationClass = [self class];
+        
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    
+    // Do any additional setup after loading the view.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    [self addBackFunction];
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
     
     if ([self.navigationController.viewControllers count]>1) {
         
@@ -30,16 +85,13 @@
         [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
         self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
+        [self.tabBarController.tabBar setHidden:YES];
     }
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-
-    [super viewWillAppear:animated];
-    
-    //iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[appDelegate setNavigationBarWithLogoStyle:YES];
+    else
+    {
+        [self.tabBarController.tabBar setHidden:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,5 +111,55 @@
 - (void) willDismiss
 {
 }
+
+
+//////////////////////////////////////////////////////////////
+#pragma mark controller events
+//////////////////////////////////////////////////////////////
+
+-(BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewDidDisappear:animated];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+    {
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate shakeNow];
+    }
+}
+
+- (void) addBackFunction
+{
+    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
+    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(handleSwipeFrom:)];
+    
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
+}
+
+-(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
+{
+    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+        
+        [self dismissNavigation];
+    }
+}
+
 
 @end

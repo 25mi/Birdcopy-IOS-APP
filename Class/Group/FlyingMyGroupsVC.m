@@ -66,6 +66,8 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -74,12 +76,8 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
-    
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+
     //标题
     self.title = NSLocalizedString(@"Group",nil);
     
@@ -155,17 +153,10 @@
 
 -(void) finishLoadingData
 {
-    
     //更新界面
     if (_currentData.count>0)
     {
         [self.groupTableView reloadData];
-    }
-    else
-    {
-        [self.view makeToast:@"请联网后再试一下!"
-                    duration:1
-                    position:CSToastPositionCenter];
     }
 }
 
@@ -295,58 +286,8 @@
 
     FlyingGroupVC *groupVC = [[FlyingGroupVC alloc] init];
     groupVC.groupData=groupUpdaeData.groupData;
-    groupVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:groupVC animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
-    }
 }
 
 @end

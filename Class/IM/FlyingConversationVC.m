@@ -93,6 +93,8 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -102,7 +104,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    //self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     
     [self addBackFunction];
     
@@ -473,11 +475,11 @@
 
 -(void) showSurvey
 {
-    FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-    webpage.title=@"参与设计";
-    [webpage setWebURL:@"http://www.mikecrm.com/f.php?t=UkWGrx"];
+    FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+    webVC.title=@"参与设计";
+    [webVC setWebURL:@"http://www.mikecrm.com/f.php?t=UkWGrx"];
     
-    [self.navigationController pushViewController:webpage animated:YES];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 /*!
@@ -1119,10 +1121,10 @@
             
             if (webURL)
             {
-                FlyingWebViewController * webpage=[[FlyingWebViewController alloc] init];
-                [webpage setWebURL:webURL];
+                FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
+                [webVC setWebURL:webURL];
                 
-                [self.navigationController pushViewController:webpage animated:YES];
+                [self.navigationController pushViewController:webVC animated:YES];
             }
         }
     }

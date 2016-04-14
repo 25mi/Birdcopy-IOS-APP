@@ -55,6 +55,9 @@
 "ConsumeCount"      = "消费金币";
 
 
+//群
+"Memberships" = "群成员";
+
 //评论
 "Send" = "发送";
 "Save" = "保存";

@@ -101,9 +101,13 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    [coder decodeObjectForKey:@"self.thePubLesson"];
     
-    [self commonInit];
+    self.thePubLesson =[coder decodeObjectForKey:@"self.thePubLesson"];
+    
+    if (self.thePubLesson) {
+
+        [self commonInit];
+    }
 }
 
 - (id)init
@@ -120,12 +124,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self addBackFunction];
     
     //更新欢迎语言
     self.title =@"详情";
@@ -250,8 +248,6 @@
         
         [self.view addSubview:self.tableView];
     }
-        
-    [self addBackFunction];
     
     [self requestRelatedComments];
     
@@ -337,7 +333,6 @@
     chatService.targetId = self.domainID;
     chatService.conversationType = ConversationType_CHATROOM;
     chatService.title =@"群组聊天室";
-    chatService.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatService animated:YES];
 }
 
@@ -542,12 +537,6 @@
             }
         }
     }
-    else
-    {
-        [self.view makeToast:@"请联网再试..."
-                    duration:1
-                    position:CSToastPositionCenter];
-    }
 }
 
 - (void) playLesson:(NSString *) lessonID
@@ -562,8 +551,7 @@
         {
             if(self.thePubLesson.contentURL!=nil)
             {
-                FlyingWebViewController * webVC =[[FlyingWebViewController alloc] init];
-                
+                FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
                 webVC.domainID = self.domainID;
                 webVC.domainType = self.domainType;
                 
@@ -602,8 +590,7 @@
     }
     else if ([self.thePubLesson.contentType isEqualToString:KContentTypePageWeb])
     {
-        FlyingWebViewController * webVC =[[FlyingWebViewController alloc] init];
-        
+        FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
         webVC.domainID = self.domainID;
         webVC.domainType= self.domainType;
         
@@ -1158,7 +1145,6 @@
     commentVC.commentTitle=self.thePubLesson.title;
     
     commentVC.reloadDatadelegate=self;
-    commentVC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
@@ -1289,55 +1275,6 @@
             
             [self playVedio];
         }];
-    }
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark controller events
-//////////////////////////////////////////////////////////////
-
--(BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self becomeFirstResponder];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shakeNow];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
-    [super viewDidDisappear:animated];
-}
-
-- (void) addBackFunction
-{
-    
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UISwipeGestureRecognizer *recognizer= [[UISwipeGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
-}
-
--(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self dismissNavigation];
     }
 }
 
