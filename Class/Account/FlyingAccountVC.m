@@ -37,6 +37,8 @@
 #import "FlyingBuyVC.h"
 #import "FlyingImageTextCell.h"
 #import "FlyingMessageNotifySettingVC.h"
+#import "FlyingScanViewController.h"
+#import "FlyingSearchViewController.h"
 
 @interface FlyingAccountVC ()<UITableViewDataSource,
                                 UITableViewDelegate,
@@ -87,9 +89,15 @@
         
     //标题
     self.title = NSLocalizedString(@"Account",nil);
-    
     self.edgesForExtendedLayout = UIRectEdgeAll;
     
+    UIButton* sacanButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [sacanButton setBackgroundImage:[UIImage imageNamed:@"scan"] forState:UIControlStateNormal];
+    [sacanButton addTarget:self action:@selector(doScan) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:sacanButton];
+
+    self.navigationItem.rightBarButtonItem= scanBarButtonItem;
+
     [self reloadAll];
 }
 
@@ -115,6 +123,10 @@
                                                                   duration:1
                                                                   position:CSToastPositionCenter];
                                                   }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -134,6 +146,13 @@
 
 - (void) willDismiss
 {
+}
+
+-(void) doScan
+{
+    
+    [self.navigationController pushViewController:[[FlyingScanViewController alloc] init]
+                                         animated:YES];
 }
 
 //////////////////////////////////////////////////////////////
@@ -177,7 +196,6 @@
     return 22;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
@@ -190,7 +208,7 @@
     }
     else if (section == 2)
     {
-        return 1;
+        return 2;
     }
     else if (section == 3)
     {
@@ -278,17 +296,26 @@
     
     else if (indexPath.section == 2)
     {
-        NSString * englishLabel = NSLocalizedString(@"English Tool",nil);
-
-        NSArray *wordArray =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
-        _wordCount = wordArray.count;
-        if (_wordCount>0) {
-            
-            englishLabel= [NSString stringWithFormat:NSLocalizedString(@"Scene Dictionary[%@]", nil) , @(_wordCount)];
-        }
         
-        [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"Word"]];
-        [(FlyingImageTextCell *)cell setCellText:englishLabel];
+        if (indexPath.row == 0)
+        {
+            NSString * englishLabel = NSLocalizedString(@"English Tool",nil);
+            
+            NSArray *wordArray =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
+            _wordCount = wordArray.count;
+            if (_wordCount>0) {
+                
+                englishLabel= [NSString stringWithFormat:NSLocalizedString(@"Scene Dictionary[%@]", nil) , @(_wordCount)];
+            }
+            
+            [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"Word"]];
+            [(FlyingImageTextCell *)cell setCellText:englishLabel];
+        }
+        else
+        {
+            [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"dictionary"]];
+            [(FlyingImageTextCell *)cell setCellText:NSLocalizedString(@"Dictionary",nil)];
+        }
     }
     
     else if (indexPath.section == 3)
@@ -360,18 +387,29 @@
             
         case 2:
         {
-            if (_wordCount>0) {
-                
-                FlyingReviewVC * reviewVC = [[FlyingReviewVC alloc] init];
-                reviewVC.hidesBottomBarWhenPushed = YES;
-                
-                [self.navigationController pushViewController:reviewVC animated:YES];
+            
+            if (indexPath.row == 0)
+            {
+                if (_wordCount>0) {
+                    
+                    FlyingReviewVC * reviewVC = [[FlyingReviewVC alloc] init];
+                    reviewVC.hidesBottomBarWhenPushed = YES;
+                    
+                    [self.navigationController pushViewController:reviewVC animated:YES];
+                }
+                else
+                {
+                    [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
+                                duration:3
+                                position:CSToastPositionCenter];
+                }
             }
             else
             {
-                [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
-                            duration:3
-                            position:CSToastPositionCenter];
+                FlyingSearchViewController* search = [[FlyingSearchViewController alloc] init];
+                [search setSearchType:BEFindWord];
+                
+                [self.navigationController pushViewController:search animated:YES];
             }
 
             break;
@@ -403,16 +441,34 @@
             
         case 4:
         {
-            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+            //获取管理员聊天ID
+            NSString * adminUserID = [FlyingDataManager getAppData].domainID;;
             
-            chatService.domainID = self.domainID;
-            chatService.domainType = self.domainType;
+            if (adminUserID)
+            {
+                
+                [FlyingHttpTool getOpenIDForUserID:adminUserID
+                                        Completion:^(NSString *openUDID)
+                 {
+                     //
+                     if (openUDID)
+                     {
+                         NSString* targetID = [openUDID MD5];
+                         
+                         
+                         FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+                         
+                         chatService.domainID = self.domainID;
+                         chatService.domainType = self.domainType;
+                         
+                         chatService.targetId = targetID;
+                         chatService.conversationType = ConversationType_PRIVATE;
+                         chatService.title = NSLocalizedString(@"Service Online",nil);
+                         [self.navigationController pushViewController:chatService animated:YES];
+                     }
+                }];
+            }
             
-            chatService.targetId = self.domainID;
-            chatService.conversationType = ConversationType_CHATROOM;
-            chatService.title = NSLocalizedString(@"Service Online",nil);
-            [self.navigationController pushViewController:chatService animated:YES];
-
             break;
         }
             

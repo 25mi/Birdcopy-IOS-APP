@@ -50,32 +50,32 @@
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         
-        [self comminit];
+        [self commoninit];
         
     }
     return self;
 }
 
--(void) comminit
+-(void) commoninit
 {
+    //发现
     FlyingHomeVC * homeVC = [[FlyingHomeVC alloc] init];
-    
-    homeVC.domainID = [FlyingDataManager getBusinessID];
-    homeVC.domainType = BC_Domain_Business;
-    
     FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
     disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Discover",nil)
                                                            image:[UIImage imageNamed:@"Discover"]
                                                              tag:0];
     disCoverTab.restorationIdentifier = @"disCoverTab";
     
-    FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:[[FlyingMyGroupsVC alloc] init]];
+    //群组
+    FlyingMyGroupsVC * myGroupVC = [[FlyingMyGroupsVC alloc] init];
+    FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:myGroupVC];
     
     myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Group",nil)
                                                            image:[UIImage imageNamed:@"People"]
                                                              tag:0];
     myGroupsTab.restorationIdentifier = @"myGroupsTab";
     
+    //消息
     FlyingConversationListVC * messageList =[[FlyingConversationListVC alloc] init];
     //设置要显示的会话类型
     [messageList setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
@@ -91,10 +91,9 @@
     
     myMessagersTab.restorationIdentifier = @"myMessagersTab";
     
-    FlyingAccountVC * accountVC = [[FlyingAccountVC alloc] init];
-    accountVC.domainID = [FlyingDataManager getBusinessID];
-    accountVC.domainType = BC_Domain_Business;
     
+    //账户
+    FlyingAccountVC * accountVC = [[FlyingAccountVC alloc] init];
     FlyingNavigationController *myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:accountVC];
     myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Account",nil)
                                                             image:[UIImage imageNamed:@"Account"]
@@ -116,9 +115,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

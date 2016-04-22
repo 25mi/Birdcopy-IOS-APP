@@ -37,6 +37,7 @@
 #import "FlyingDataManager.h"
 #import "FlyingShareWithRecent.h"
 #import "FlyingProfileVC.h"
+#import "FlyingGroupVC.h"
 
 @interface FlyingConversationVC () <RCRealTimeLocationObserver,
                                     RealTimeLocationStatusViewDelegate,
@@ -65,6 +66,8 @@
     [super encodeRestorableStateWithCoder:coder];
 
     [coder encodeObject:self.title forKey:@"self.title"];
+    [coder encodeObject:self.targetId forKey:@"self.targetId"];
+    [coder encodeInteger:self.conversationType forKey:@"self.conversationType"];
     
     if (![self.domainID isBlankString]) {
         
@@ -82,8 +85,12 @@
     [super decodeRestorableStateWithCoder:coder];
     
     self.title =[coder decodeObjectForKey:@"self.title"];
+    self.conversationType = [coder decodeIntegerForKey:@"self.conversationType"];
+    self.targetId = [coder decodeObjectForKey:@"self.targetId"];
     self.domainID = [coder decodeObjectForKey:@"self.domainID"];
     self.domainType = [coder decodeObjectForKey:@"self.domainType"];
+    
+    [self.conversationMessageCollectionView reloadData];
 }
 
 - (id)init
@@ -224,9 +231,25 @@
     self.enableContinuousReadUnreadVoice = YES;//开启语音连读功能
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
+    
+    if ([self.navigationController.viewControllers count]>1) {
+        
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+    else
+    {
+        [self.tabBarController.tabBar setHidden:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -448,31 +471,6 @@
     }
 }
 
--(void) showMemberInfo:(FlyingUserRightData*)userRightData
-{
-    NSString * infoStr=@"未知错误！";
-    
-    if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
-    {
-        infoStr = @"不存在会员身份！";
-    }
-
-    else if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
-    {
-        infoStr = @"你的成员资格正在审批中...";
-    }
-    else if ([userRightData.memberState isEqualToString:BC_Member_Verified]) {
-        
-        infoStr =  @"你已经是正式会员，可以参与互动了!";
-    }
-    else if ([userRightData.memberState isEqualToString:BC_Member_Refused]) {
-        
-        infoStr = @"你的成员资格被拒绝!";
-    }
-    
-    [self.view makeToast:infoStr duration:2 position:CSToastPositionCenter];
-}
-
 -(void) showSurvey
 {
     FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
@@ -495,13 +493,12 @@
 - (RCMessageContent *)willSendMessage:(RCMessageContent *)messageCotent
 {
     BOOL access = YES;
-
+    
+    FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:self.domainID
+                                                                          domainType:self.domainType];
     //如果是群组，那么只有正式会员才能对话
     if([self.domainType isEqualToString:BC_Domain_Group])
     {
-        FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:self.domainID
-                                                                              domainType:self.domainType];
-        
         if (![userRightData checkRightPresent]) {
             
             access = NO;
@@ -514,35 +511,8 @@
     }
     else
     {
-        NSString *title = NSLocalizedString(@"Attenion Please", nil);
-        NSString *message = NSLocalizedString(@"Member can chat freely, Do you want to become a member?", nil);
-               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                 message:message
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
-                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
-                                        GroupID:self.targetId
-                                     Completion:^(FlyingUserRightData *userRightData) {
-                                         //
-                                         [self showMemberInfo:userRightData];
-                                         
-                                     }];
-        }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
-                                                               style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        
-        [alertController addAction:doneAction];
-        [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:^{
-            //
-        }];
-        
+        [FlyingGroupVC showMemberInfo:userRightData
+                                 inVC:self];
         return nil;
     }
 }

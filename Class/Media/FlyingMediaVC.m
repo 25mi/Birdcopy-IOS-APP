@@ -68,8 +68,6 @@
 #import "ACMagnifyingGlass.h"
 #import "FlyingLessonData.h"
 #import "FlyingLessonDAO.h"
-#import "FlyingNowLessonData.h"
-#import "FlyingNowLessonDAO.h"
 #import "FlyingTaskWordDAO.h"
 #import "UICKeyChainStore.h"
 #import "FlyingTagTransform.h"
@@ -117,13 +115,10 @@ static void *SubtitlStatusObserverContext    = &SubtitlStatusObserverContext;
 static void *RateObservationContext          = &RateObservationContext;
 static void *TrackObservationContext         = &TrackObservationContext;
 
-@interface FlyingMediaVC ()
+@interface FlyingMediaVC ()<UIViewControllerRestoration>
 {
     FlyingLessonDAO     *  _lessonDAO;
-    FlyingNowLessonDAO  *  _nowLessonDAO;
-    
     FlyingLessonData    *_lessonData;
-    FlyingNowLessonData *_nowLessonData;
     
     NSString            * _currentPassport;
     
@@ -155,7 +150,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     dispatch_source_t         _NPLSource;
     
     FlyingSoundPlayer              *_speechPlayer;
-    NSTimeInterval            _initialPlaybackTime;
     
     NSInteger                 _balanceCoin;
     NSInteger                 _touchWordCount;
@@ -231,18 +225,37 @@ static void *TrackObservationContext         = &TrackObservationContext;
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    
+    if (self.thePubLesson) {
+        
+        [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    }
+    
+    if (self.delegate) {
+        
+        [coder encodeObject:self.delegate forKey:@"self.delegate"];
+    }
+    
+    if (self.timestamp>0) {
+
+        [coder encodeDouble:self.timestamp forKey:@"self.timestamp"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    [coder decodeObjectForKey:@"self.thePubLesson"];
+
+    self.timestamp = [coder decodeDoubleForKey:@"self.timestamp"];
+    self.delegate  = [coder decodeObjectForKey:@"self.delegate"];
+    
+    self.thePubLesson = [coder decodeObjectForKey:@"self.thePubLesson"];
     
     if (self.thePubLesson) {
         
         [self initData];
-        [self watchNetworkStateNow];
+        [self showLoadingIndicator];
+        [self playVedio];
     }
 }
 
@@ -265,7 +278,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
     if (self.thePubLesson) {
 
         [self initData];
-        [self watchNetworkStateNow];
+        [self showLoadingIndicator];
+        [self playVedio];
     }
     
     //监控
@@ -345,29 +359,14 @@ static void *TrackObservationContext         = &TrackObservationContext;
         _lessonDAO = [[FlyingLessonDAO alloc] init];
     }
     
-    if (!_nowLessonDAO) {
-        
-        _nowLessonDAO =[[FlyingNowLessonDAO alloc] init];
-    }
-    
     self.toFullScreen=YES;
     
     _lessonData    = [_lessonDAO selectWithLessonID:self.thePubLesson.lessonID];
-    _nowLessonData = [_nowLessonDAO selectWithUserID:_currentPassport LessonID:self.thePubLesson.lessonID];
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark - loading prosessing
 //////////////////////////////////////////////////////////////
-- (void) watchNetworkStateNow
-{
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        [self showLoadingIndicator];
-        [self playVedio];
-    }
-}
-
 -(void) showLoadingIndicator
 {
     [self.indicatorView setHidden:NO];
@@ -594,9 +593,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
     //播放起始时间
     _initialPlaybackTime = 0;
     
-    if(_nowLessonData){
+    if(self.timestamp){
         
-        _initialPlaybackTime=_nowLessonData.BESTAMP;
+        self.initialPlaybackTime=self.timestamp;
     }
     
     self.timestamp=_initialPlaybackTime;
@@ -1470,14 +1469,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     [self.player  removeTimeObserver:self.playerObserver];
     [self.player  replaceCurrentItemWithPlayerItem:nil];
     
-    if(_nowLessonData){
-        
-        _nowLessonData.BESTAMP=self.timestamp;
-        _nowLessonData.BEORDER++;
-        
-        FlyingNowLessonDAO * nowLessonDAO = [[FlyingNowLessonDAO alloc] init];
-        [nowLessonDAO insertWithData:_nowLessonData];
-    }
 }
 
 #pragma mark - Timer Fire (Subtitle Upate and play time update)
@@ -1757,7 +1748,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     if (!aTagWordView) {
         
-        CGRect frame=CGRectMake(0, 0, 100, 100);
+        CGRect frame=CGRectMake(0, 0, 160, 160);
         
         if (INTERFACE_IS_PAD || !self.toFullScreen) {
             
@@ -1821,7 +1812,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     [_annotationWordViews removeAllObjects];
 }
-
 
 #pragma mark - 字幕相关手势 FlyingAILearningViewDelegate
 
@@ -2072,17 +2062,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KGodIsComing    object:nil];
     
-    //保存截图(例句视频不截图)
-    if ( self.player &&
-        self.timestamp!=0 && _nowLessonData!=nil) {
-        
-        [self.player pause];
-        [self screenCopy];
-    }
-    
     [self stop];
 }
-
 
 //从网络获取字幕
 - (void) getSrtFromBE
@@ -2158,34 +2139,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self.view makeToast:@"右划跳转到上一个场景!"
                     duration:1
                     position:CSToastPositionCenter];
-    }
-}
-
--(void) screenCopy
-{
-    AVAsset *myAsset = self.player.currentItem.asset;
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:myAsset];
-    
-    CGImageRef halfWayImage = [imageGenerator copyCGImageAtTime:self.player.currentTime actualTime:nil error:nil];
-    
-    if (halfWayImage != NULL) {
-        
-        _lastScreen=[UIImage imageWithCGImage:halfWayImage];
-        
-        //如果没有封面图片文件就创建一个
-        if (_lastScreen && ![[NSFileManager defaultManager] fileExistsAtPath:_nowLessonData.BELOCALCOVER]){
-            
-            if(![[NSFileManager defaultManager] createFileAtPath:_nowLessonData.BELOCALCOVER contents:nil attributes:nil])
-            {
-                NSLog(@"Error was code: %d - message: %s", errno, strerror(errno));
-            }
-        }
-        
-        //CGSize size = [self sizeForItemsInInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-        [UIImageJPEGRepresentation(_lastScreen,0) writeToFile:_nowLessonData.BELOCALCOVER atomically:YES];
-        _lastScreen=nil;
-        // Do something interesting with the image.
-        CGImageRelease(halfWayImage);
     }
 }
 

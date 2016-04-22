@@ -86,6 +86,23 @@
                                             //保存app数据到本地缓存
                                             [FlyingDataManager saveAppData:appData];
                                             
+                                            NSString * adminUserID = appData.domainID;;
+
+                                            [FlyingHttpTool getOpenIDForUserID:adminUserID
+                                                                    Completion:^(NSString *openUDID)
+                                             {
+                                                 //
+                                                 if (openUDID)
+                                                 {
+                                                     //获取APP（Owner）信息
+                                                     [FlyingHttpTool getUserInfoByopenID:openUDID
+                                                                              completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                                                                  //
+                                                                              }];
+
+                                                 }
+                                             }];
+
                                             //用户是否有效登录决定是否注册激活
                                             [self checkUserRight];
                                         }

@@ -237,8 +237,17 @@
         window.backgroundColor = backgroundColor;
         window.restorationIdentifier = NSStringFromClass([window class]);
         self.window = window;
-        FlyingGuideViewController * guidVC =[[FlyingGuideViewController alloc] init];
-        self.window.rootViewController = guidVC;
+        
+        if([FlyingDataManager getUserData:[FlyingDataManager getOpenUDID]])
+        {
+            
+            self.window.rootViewController = [self getTabBarController];
+        }
+        else
+        {
+            FlyingGuideViewController * guidVC =[[FlyingGuideViewController alloc] init];
+            self.window.rootViewController = guidVC;
+        }
     }
     
     [self.window makeKeyAndVisible];
@@ -276,7 +285,7 @@
     [FlyingDBManager prepareDB];
     
     //准备融云的初始化环境
-    NSString* rongAPPkey=[FlyingDataManager getRongAppKey];
+    NSString* rongAPPkey=[FlyingDataManager getRongKey];
     
     //初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:rongAPPkey];
@@ -553,7 +562,8 @@
                                   FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                                   vc.thePubLesson=lesson;
                                   
-                                  [self presentViewController:vc];
+                                  [self pushViewController:vc
+                                                  animated:YES];
                               }];
 }
 
@@ -564,13 +574,21 @@
                               FlyingContentVC * vc=[[FlyingContentVC alloc] init];
                               vc.thePubLesson=pubLesson;
                               
-                              [self presentViewController:vc];
+                              [self pushViewController:vc
+                                              animated:YES];
                           }];
 }
 
 - (void) shakeNow
 {
-    [[self getTabBarController] setSelectedIndex:0];
+}
+
+- (void) pushViewController:(UIViewController *)viewController animated:(BOOL) animated
+{
+
+    [(FlyingNavigationController*)[self getTabBarController].selectedViewController
+     pushViewController:viewController
+     animated:YES];
 }
 
 - (void) presentViewController:(UIViewController *)viewController
@@ -595,7 +613,8 @@
         FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
         [webVC setWebURL:webURL];
         
-        [self presentViewController:webVC];
+        [self pushViewController:webVC
+                        animated:YES];
         
         return YES;
     }

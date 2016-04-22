@@ -326,84 +326,112 @@
     }];
 }
 
++(void)  getOpenIDForUserID:(NSString*) userID
+           Completion:(void (^)(NSString* openUDID)) completion;
+{
+    [AFHttpTool getOpenIDFor:userID
+                     success:^(id response) {
+                         //
+                         
+                         NSString * openID = nil;
+                         if (response)
+                         {
+                             NSString *code = response[@"rc"];
+                             
+                             if ([@"1" isEqualToString:code])
+                             {
+                                 openID = response[@"tuser_key"];
+                             }
+                         }
+                         
+                         if (completion)
+                         {
+                             completion(openID);
+                         }
+
+                     } failure:^(NSError *err) {
+                         //
+                     }];
+}
+
 //////////////////////////////////////////////////////////////
 #pragma  group related (not IM)
 //////////////////////////////////////////////////////////////
 + (void)  getAllGroupsForDomainID:(NSString*) domainID
                        DomainType:(NSString*) type
                         PageNumber:(NSInteger) pageNumber
-                         Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion
+                         Completion:(void (^)(NSArray *groupUpdateList,NSInteger allRecordCount)) completion
 {
     [AFHttpTool getAllGroupsForDomainID:domainID
                              DomainType:type
                                PageNumber:pageNumber
-                                  success:^(id response) {
-                                      
-                                      NSMutableArray *tempArr = [NSMutableArray new];
-                                      NSArray *allGroups = response[@"rs"];
-                                      
-                                      if (allGroups) {
-                                          
-                                          for (NSDictionary *dic in allGroups)
-                                          {
-                                              FlyingGroupData *group = [[FlyingGroupData alloc] init];
-                                              
-                                              group.gp_id    = [dic objectForKey:@"gp_id"];
-                                              group.gp_name  = [dic objectForKey:@"gp_name"];
-                                              group.gp_owner = [dic objectForKey:@"gp_owner"];
-                                              group.gp_desc  = [dic objectForKey:@"gp_desc"];
-                                              
-                                              group.logo     = [dic objectForKey:@"logo"];
-                                              group.cover     = [dic objectForKey:@"cover"];
-                                              
-                                              group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                                              group.is_rc_gp = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
-                                              
-                                              group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                                              group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                                              group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                                              group.is_public_access= [[dic  objectForKey:@"is_public"] isEqualToString:@"1"]?YES:NO ;
-                                              
-                                              NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
-                                              group.gp_member_sum = [groupSum[@"gp_member_sum"] stringValue];
-                                              group.gp_ln_sum = [groupSum[@"gp_ln_sum"] stringValue];
-                                              
-                                              
-                                              FlyingGroupUpdateData * updata = [[FlyingGroupUpdateData alloc] init];
-                                              updata.groupData = group;
-                                              
-                                              NSDictionary *upadateLessonDataDic = [dic objectForKey:@"latest_ln"];
-                                              
-                                              if(![upadateLessonDataDic isKindOfClass:[NSNull class]])
-                                              {
-                                                  FlyingPubLessonData *lesson = [[FlyingPubLessonData alloc] init];
-                                                  
-                                                  lesson.lessonID         = [upadateLessonDataDic objectForKey:@"ln_id"];
-                                                  lesson.title            = [upadateLessonDataDic objectForKey:@"ln_title"];
-                                                  lesson.desc             = [upadateLessonDataDic objectForKey:@"ln_desc"];
-                                                  lesson.imageURL         = [upadateLessonDataDic objectForKey:@"img_file"];
-                                                  lesson.contentType      = [upadateLessonDataDic objectForKey:@"res_type"];
-                                                  lesson.tag              = [upadateLessonDataDic objectForKey:@"ln_tag"];
-                                                  lesson.coinPrice        = [[upadateLessonDataDic objectForKey:@"ln_price"] integerValue];
-                                                  
-                                                  lesson.author           = [upadateLessonDataDic objectForKey:@"ln_owner"];
-                                                  lesson.commentCount     = [upadateLessonDataDic objectForKey:@"ln_cmt_sum"];
-                                                  lesson.timeLamp         = [upadateLessonDataDic objectForKey:@"upd_time"];
-                                                  
-                                                  updata.recentLessonData = lesson;
-                                              }
-                                              
-                                              [tempArr addObject:updata];
-                                          }
-                                      }
-                                      
-                                      if (completion) {
-                                          completion(tempArr,[response[@"allRecordCount"] integerValue]);
-                                      }
-
-                                  } failure:^(NSError *err) {
-                                      //
-                                  }];
+                                  success:^(id response)
+    {
+        NSMutableArray *tempArr = [NSMutableArray new];
+        NSArray *allGroups = response[@"rs"];
+        
+        if (allGroups) {
+            
+            for (NSDictionary *dic in allGroups)
+            {
+                FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                
+                group.gp_id    = [dic objectForKey:@"gp_id"];
+                group.gp_name  = [dic objectForKey:@"gp_name"];
+                group.gp_owner = [dic objectForKey:@"gp_owner"];
+                group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                
+                group.logo     = [dic objectForKey:@"logo"];
+                group.cover     = [dic objectForKey:@"cover"];
+                
+                group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                group.is_rc_gp = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                
+                group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                group.is_public_access= [[dic  objectForKey:@"is_public"] isEqualToString:@"1"]?YES:NO ;
+                
+                NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
+                group.gp_member_sum = [groupSum[@"gp_member_sum"] stringValue];
+                group.gp_ln_sum = [groupSum[@"gp_ln_sum"] stringValue];
+                
+                
+                FlyingGroupUpdateData * updata = [[FlyingGroupUpdateData alloc] init];
+                updata.groupData = group;
+                
+                NSDictionary *upadateLessonDataDic = [dic objectForKey:@"latest_ln"];
+                
+                if(![upadateLessonDataDic isKindOfClass:[NSNull class]])
+                {
+                    FlyingPubLessonData *lesson = [[FlyingPubLessonData alloc] init];
+                    
+                    lesson.lessonID         = [upadateLessonDataDic objectForKey:@"ln_id"];
+                    lesson.title            = [upadateLessonDataDic objectForKey:@"ln_title"];
+                    lesson.desc             = [upadateLessonDataDic objectForKey:@"ln_desc"];
+                    lesson.imageURL         = [upadateLessonDataDic objectForKey:@"img_file"];
+                    lesson.contentType      = [upadateLessonDataDic objectForKey:@"res_type"];
+                    lesson.tag              = [upadateLessonDataDic objectForKey:@"ln_tag"];
+                    lesson.coinPrice        = [[upadateLessonDataDic objectForKey:@"ln_price"] integerValue];
+                    
+                    lesson.author           = [upadateLessonDataDic objectForKey:@"ln_owner"];
+                    lesson.commentCount     = [upadateLessonDataDic objectForKey:@"ln_cmt_sum"];
+                    lesson.timeLamp         = [upadateLessonDataDic objectForKey:@"upd_time"];
+                    
+                    updata.recentLessonData = lesson;
+                }
+                
+                [tempArr addObject:updata];
+            }
+        }
+        
+        if (completion) {
+            completion(tempArr,[response[@"allRecordCount"] integerValue]);
+        }
+        
+    } failure:^(NSError *err) {
+        //
+    }];
 }
 
 + (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
@@ -429,14 +457,14 @@
                 group.logo     = [dic objectForKey:@"logo"];
                 group.cover     = [dic objectForKey:@"cover"];
                 
-                group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                group.is_rc_gp = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                group.is_audit_join = [@"1" isEqualToString:[dic  objectForKey:@"is_audit_join"]]?YES:NO ;
+                group.is_rc_gp = [@"1" isEqualToString:[dic  objectForKey:@"is_rc_gp"]]?YES:NO ;
                 
-                group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                group.is_public_access= [[dic  objectForKey:@"is_public"] isEqualToString:@"1"]?YES:NO ;
-
+                group.is_audit_rcgp = [@"1" isEqualToString:[dic  objectForKey:@"is_audit_rcgp"]]?YES:NO ;
+                group.owner_recom = [@"1" isEqualToString:[dic  objectForKey:@"owner_recom"]]?YES:NO ;
+                group.sys_recom = [@"1" isEqualToString:[dic  objectForKey:@"sys_recom"]]?YES:NO ;
+                group.is_public_access= [@"1" isEqualToString:[dic  objectForKey:@"is_public"]]?YES:NO ;
+                
                 NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
                 group.gp_member_sum = [groupSum[@"gp_member_sum"] stringValue];
                 group.gp_ln_sum = [groupSum[@"gp_ln_sum"] stringValue];
@@ -481,43 +509,77 @@
 
 //根据id获取单个群组
 + (void) getGroupByID:(NSString *) groupID
-    successCompletion:(void (^)(FlyingGroupData *group)) completion
+    successCompletion:(void (^)(FlyingGroupUpdateData*updata)) completion
 {
-
     [AFHttpTool getGroupByID:groupID
-                     success:^(id response) {
-                         //
-                         NSMutableArray *tempArr = [NSMutableArray new];
-                         NSArray *allGroups = response[@"rs"];
-                         
-                         if (allGroups) {
-                             for (NSDictionary *dic in allGroups) {
-                                 FlyingGroupData *group = [[FlyingGroupData alloc] init];
-                                 group.gp_id    = [dic objectForKey:@"gp_id"];
-                                 group.gp_name  = [dic objectForKey:@"gp_name"];
-                                 group.gp_owner = [dic objectForKey:@"gp_owner"];
-                                 group.gp_desc  = [dic objectForKey:@"gp_owner"];
-                                 
-                                 group.logo     = [dic objectForKey:@"logo"];
-                                 group.cover    = [dic objectForKey:@"cover"];
-                                 group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
-                                 group.is_audit_join = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
-                                 
-                                 group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
-                                 group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
-                                 group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
-                                 
-                                 [tempArr addObject:group];
-                             }
-                         }
-                         
-                         if (tempArr) {
-                             completion(tempArr[0]);
-                         }
-
-                     } failure:^(NSError *err) {
-                         //
-                     }];
+                     success:^(id response)
+     {
+         NSMutableArray *tempArr = [NSMutableArray new];
+         NSArray *allGroups = response[@"rs"];
+         
+         if (allGroups) {
+             
+             for (NSDictionary *dic in allGroups)
+             {
+                 FlyingGroupData *group = [[FlyingGroupData alloc] init];
+                 
+                 group.gp_id    = [dic objectForKey:@"gp_id"];
+                 group.gp_name  = [dic objectForKey:@"gp_name"];
+                 group.gp_owner = [dic objectForKey:@"gp_owner"];
+                 group.gp_desc  = [dic objectForKey:@"gp_desc"];
+                 
+                 group.logo     = [dic objectForKey:@"logo"];
+                 group.cover     = [dic objectForKey:@"cover"];
+                 
+                 group.is_audit_join = [[dic  objectForKey:@"is_audit_join"] isEqualToString:@"1"]?YES:NO ;
+                 group.is_rc_gp = [[dic  objectForKey:@"is_rc_gp"] isEqualToString:@"1"]?YES:NO ;
+                 
+                 group.is_audit_rcgp = [[dic  objectForKey:@"is_audit_rcgp"] isEqualToString:@"1"]?YES:NO ;
+                 group.owner_recom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
+                 group.sys_recom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
+                 group.is_public_access= [[dic  objectForKey:@"is_public"] isEqualToString:@"1"]?YES:NO ;
+                 
+                 NSDictionary *groupSum = [dic objectForKey:@"gp_stat"];
+                 group.gp_member_sum = [groupSum[@"gp_member_sum"] stringValue];
+                 group.gp_ln_sum = [groupSum[@"gp_ln_sum"] stringValue];
+                 
+                 
+                 FlyingGroupUpdateData * updata = [[FlyingGroupUpdateData alloc] init];
+                 updata.groupData = group;
+                 
+                 NSDictionary *upadateLessonDataDic = [dic objectForKey:@"latest_ln"];
+                 
+                 if(![upadateLessonDataDic isKindOfClass:[NSNull class]])
+                 {
+                     FlyingPubLessonData *lesson = [[FlyingPubLessonData alloc] init];
+                     
+                     lesson.lessonID         = [upadateLessonDataDic objectForKey:@"ln_id"];
+                     lesson.title            = [upadateLessonDataDic objectForKey:@"ln_title"];
+                     lesson.desc             = [upadateLessonDataDic objectForKey:@"ln_desc"];
+                     lesson.imageURL         = [upadateLessonDataDic objectForKey:@"img_file"];
+                     lesson.contentType      = [upadateLessonDataDic objectForKey:@"res_type"];
+                     lesson.tag              = [upadateLessonDataDic objectForKey:@"ln_tag"];
+                     lesson.coinPrice        = [[upadateLessonDataDic objectForKey:@"ln_price"] integerValue];
+                     
+                     lesson.author           = [upadateLessonDataDic objectForKey:@"ln_owner"];
+                     lesson.commentCount     = [upadateLessonDataDic objectForKey:@"ln_cmt_sum"];
+                     lesson.timeLamp         = [upadateLessonDataDic objectForKey:@"upd_time"];
+                     
+                     updata.recentLessonData = lesson;
+                 }
+                 
+                 [tempArr addObject:updata];
+             }
+         }
+         
+         if (completion &&
+             tempArr.count==1) {
+             completion(tempArr[0]);
+         }
+         
+     } failure:^(NSError *err) {
+         //
+     }];
 }
 
 //加入聊天群组
@@ -688,19 +750,20 @@
                                             memberData.ownerRecom = [[dic  objectForKey:@"owner_recom"] isEqualToString:@"1"]?YES:NO ;
                                             memberData.sysRecom = [[dic  objectForKey:@"sys_recom"] isEqualToString:@"1"]?YES:NO ;
 
-                                            
                                             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                                             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                                             
                                             memberData.startDate = [dateFormatter dateFromString:response[@"start_time"]];
                                             memberData.endDate = [dateFormatter dateFromString:response[@"end_time"]];
 
-                                            
                                             memberData.token  = [dic objectForKey:@"token"];
                                             memberData.name     = [dic objectForKey:@"name"];
                                             memberData.portrait_url    = [dic objectForKey:@"portrait_url"];
                                             
-                                            [tempArr addObject:memberData];
+                                            if(![BC_Member_Refused isEqualToString:memberData.ayJoinStatus])
+                                            {
+                                                [tempArr addObject:memberData];
+                                            }
                                         }
                                     }
 
@@ -844,6 +907,50 @@
                         
                     }];
 }
+
+//绑定终端和后台用户
++(void) boundTerminalWithQR:(NSString*)boundID
+                 Completion:(void (^)(BOOL result)) completion
+
+{
+    NSString *openID = [FlyingDataManager getOpenUDID];
+    
+    if(!openID)
+    {
+        return;
+    }
+    
+    [AFHttpTool boundWithQR:boundID
+                    openUDID:openID
+                    success:^(id response)
+    {
+        //
+        BOOL result = NO;
+        if (response)
+        {
+            
+            NSString *code = response[@"rc"];
+            
+            if ([@"1" isEqualToString:code])
+            {
+                result = YES;
+            }
+        }
+        
+        if (completion)
+        {
+            completion(result);
+        }
+        
+    } failure:^(NSError *err) {
+        //
+        NSLog(@"boundWithQR:%@",err.description);
+        if (completion) {
+            completion(NO);
+        }
+    }];
+}
+
 //////////////////////////////////////////////////////////////
 #pragma  会员相关
 //////////////////////////////////////////////////////////////

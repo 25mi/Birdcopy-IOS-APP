@@ -26,7 +26,8 @@
     self.descriptionLabel.font= [UIFont systemFontOfSize:KNormalFontSize];
     
     [self.groupIconImageView setContentMode:UIViewContentModeScaleAspectFill];
-        
+    [self.isPublicIcon setContentMode:UIViewContentModeScaleAspectFill];
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -43,6 +44,16 @@
 -(void)settingWithGroupData:(FlyingGroupUpdateData*) groupUpdateData;
 {
     self.groupUpdateData = groupUpdateData;
+    
+    
+    if (groupUpdateData.groupData.is_public_access) {
+        
+        [self.isPublicIcon setImage:[UIImage imageNamed:@"unlock"]];
+    }
+    else
+    {
+        [self.isPublicIcon setImage:[UIImage imageNamed:@"lock"]];
+    }
     
     if (groupUpdateData.groupData.logo.length!=0) {
         

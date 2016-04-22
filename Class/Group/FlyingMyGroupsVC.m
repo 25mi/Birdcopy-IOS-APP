@@ -68,6 +68,9 @@
         self.restorationClass = [self class];
         
         self.hidesBottomBarWhenPushed = NO;
+        
+        self.domainID = [FlyingDataManager getAppData].domainID;
+        self.domainType = BC_Domain_Business;
     }
     return self;
 }
@@ -81,9 +84,6 @@
     //标题
     self.title = NSLocalizedString(@"Group",nil);
     
-    self.domainID = [FlyingDataManager getBusinessID];
-    self.domainType = BC_Domain_Business;
-        
     //顶部导航
     [self reloadAll];
 }
@@ -122,13 +122,11 @@
         _maxNumOfGroups=NSIntegerMax;
         
     }
-    else
-    {
-        [_currentData removeAllObjects];
-        _currentLodingIndex=0;
-        _maxNumOfGroups=NSIntegerMax;
-    }
-    
+
+    [_currentData removeAllObjects];
+    _currentLodingIndex=0;
+    _maxNumOfGroups=NSIntegerMax;
+
     [self loadMore];
 }
 
@@ -141,12 +139,30 @@
          [FlyingHttpTool getMyGroupsForPageNumber:_currentLodingIndex
                                        Completion:^(NSArray *groupUpdateList, NSInteger allRecordCount) {
                                            //
-                                           [self.currentData addObjectsFromArray:groupUpdateList];
                                            _maxNumOfGroups=allRecordCount;
                                            
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               [self finishLoadingData];
-                                           });
+                                           if (groupUpdateList.count!=0) {
+                                               
+                                               NSArray *tempArray=[self.currentData arrayByAddingObjectsFromArray:groupUpdateList];
+                                               NSArray *sortedArray = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                                                   
+                                                   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                   [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                                   
+                                                   NSDate *first = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)a recentLessonData].timeLamp];
+                                                   
+                                                   NSDate *second = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)b recentLessonData].timeLamp];
+                                                   
+                                                   return [second compare:first];
+                                               }];
+                                               
+                                               [self.currentData removeAllObjects];
+                                               [self.currentData addObjectsFromArray:sortedArray];
+                                               
+                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                   [self finishLoadingData];
+                                               });
+                                           }
                                        }];
      }
 }
@@ -279,15 +295,10 @@
     [indicator stopAnimating];
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupUpdateData* groupUpdaeData = [_currentData objectAtIndex:indexPath.row];
-
-    FlyingGroupVC *groupVC = [[FlyingGroupVC alloc] init];
-    groupVC.groupData=groupUpdaeData.groupData;
-    
-    [self.navigationController pushViewController:groupVC animated:YES];
+    FlyingGroupUpdateData *groupUpData = self.currentData[indexPath.row];
+    [FlyingGroupVC enterGroup:groupUpData.groupData inVC:self];
 }
 
 @end

@@ -53,11 +53,47 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    [coder encodeObject:self.title forKey:@"self.title"];
+    
+    if (![self.domainID isBlankString]) {
+        
+        [coder encodeObject:self.domainID forKey:@"self.domainID"];
+    }
+    
+    if (![self.domainType isBlankString]) {
+        
+        [coder encodeObject:self.domainType forKey:@"self.domainType"];
+    }
+
+    if (![self.contentID isBlankString]) {
+        
+        [coder encodeObject:self.contentID forKey:@"self.contentID"];
+    }
+
+    if (![self.contentType isBlankString]) {
+        
+        [coder encodeObject:self.contentType forKey:@"self.contentType"];
+    }
+    if (![self.commentTitle isBlankString]) {
+        
+        [coder encodeObject:self.commentTitle forKey:@"self.commentTitle"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    self.title =[coder decodeObjectForKey:@"self.title"];
+    self.domainID = [coder decodeObjectForKey:@"self.domainID"];
+    self.domainType = [coder decodeObjectForKey:@"self.domainType"];
+    
+    self.contentID = [coder decodeObjectForKey:@"self.contentID"];
+    self.contentType = [coder decodeObjectForKey:@"self.contentType"];
+    self.commentTitle = [coder decodeObjectForKey:@"self.commentTitle"];
+
+    [self reloadAll];
 }
 
 - (id)init
@@ -67,20 +103,9 @@
 
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-
-        self.restorationIdentifier = NSStringFromClass([self class]);
-        self.restorationClass = [self class];
         
         self.hidesBottomBarWhenPushed=YES;
-
+        
         [self commonInit];
     }
     return self;
@@ -93,7 +118,6 @@
 
 - (void)commonInit
 {
-    
     UINib *nib = [UINib nibWithNibName:@"FlyingCommentCell" bundle: nil];
     [self.tableView registerNib:nib  forCellReuseIdentifier:@"FlyingCommentCell"];
     
@@ -127,11 +151,8 @@
 {
     [super viewDidLoad];
     
-    //更新欢迎语言
-    if(self.commentTitle)
-    {
-        self.title =self.commentTitle;
-    }
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
     
     if(self.navigationController.viewControllers.count>1)
     {
@@ -148,6 +169,21 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if ([self.navigationController.viewControllers count]>1) {
+        
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+    else
+    {
+        [self.tabBarController.tabBar setHidden:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -185,36 +221,40 @@
     _currentLodingIndex=0;
     _maxNumOfComments=NSIntegerMax;
     
+    //更新欢迎语言
+    if(self.commentTitle)
+    {
+        self.title =self.commentTitle;
+    }
+    
     [self loadMore];
 }
 
-- (BOOL)loadMore
+- (void)loadMore
 {
-    if (_currentData.count<_maxNumOfComments)
-    {
-        _currentLodingIndex++;
-        
-        [FlyingHttpTool getCommentListForContentID:self.contentID
-                                       ContentType:self.contentType
-                                        PageNumber:_currentLodingIndex
-                                        Completion:^(NSArray *commentList, NSInteger allRecordCount) {
-                                            
-                                            if (commentList.count!=0) {
+    if (self.contentID) {
+
+        if (_currentData.count<_maxNumOfComments)
+        {
+            _currentLodingIndex++;
+            
+            [FlyingHttpTool getCommentListForContentID:self.contentID
+                                           ContentType:self.contentType
+                                            PageNumber:_currentLodingIndex
+                                            Completion:^(NSArray *commentList, NSInteger allRecordCount) {
                                                 
-                                                [self.currentData addObjectsFromArray:commentList];
-                                                _maxNumOfComments=allRecordCount;
-                                                
-                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                if (commentList.count!=0) {
                                                     
-                                                    [self.tableView reloadData];
-                                                });
-                                            }
-                                        }];
-        return true;
-    }
-    else
-    {
-        return false;
+                                                    [self.currentData addObjectsFromArray:commentList];
+                                                    _maxNumOfComments=allRecordCount;
+                                                    
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        
+                                                        [self.tableView reloadData];
+                                                    });
+                                                }
+                                            }];
+        }
     }
 }
 

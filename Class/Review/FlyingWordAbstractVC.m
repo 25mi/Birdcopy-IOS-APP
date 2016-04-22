@@ -22,6 +22,9 @@
 #import "FlyingTaskWordDAO.h"
 #import <AFNetworking/AFNetworking.h>
 #import "AFHttpTool.h"
+#import "FlyingHttpTool.h"
+#import "FlyingWordDetailVC.h"
+#import "iFlyingAppDelegate.h"
 
 @interface FlyingWordAbstractVC()<UIViewControllerRestoration>
 {
@@ -83,7 +86,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
+    self.view.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
+    
     if (INTERFACE_IS_PAD)
     {
         
@@ -163,16 +168,29 @@
     
     [self prepareLessonrealted];
     [self prepareAbstract];
-    
-    // 单击的 Recognizer
-    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapFrom:)];
-    singleRecognizer.numberOfTapsRequired = 1; // 单击
-    [self.view addGestureRecognizer:singleRecognizer];
 }
 
 - (void)handleSingleTapFrom: (id) sender
 {
+    
     [[[FlyingSoundPlayer alloc] init] speechWord:self.taskWord.BEWORD LessonID:self.taskWord.BELESSONID];
+}
+
+-(void) touchTopicImage
+{
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (self.taskWord.BELESSONID) {
+        
+        [appDelegate showLessonViewWithID:self.taskWord.BELESSONID];
+    }
+    else
+    {
+        FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
+        [wordDetail setTheWord:self.taskWord.BEWORD];
+        
+        [appDelegate pushViewController:wordDetail animated:YES];
+    }
 }
 
 - (void)didChangeValue:(HCSStarRatingView *)sender
@@ -219,14 +237,27 @@
 -(void) prepareLessonrealted
 {
     CGSize size = self.view.frame.size;
-
+    
     _coverImageView   = [[UIImageView alloc] initWithFrame:CGRectMake(0,
                                                                       _sentenceLabel.frame.origin.y+_sentenceLabel.frame.size.height,
                                                                       size.width,
                                                                       size.width*9/16)];
     
-    [self.view addSubview:_coverImageView];
+    // 单击的 Recognizer
+    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchTopicImage)];
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
+    _coverImageView.userInteractionEnabled =YES;
+    [_coverImageView addGestureRecognizer:singleRecognizer];
     
+    //整个界面的 Recognizer
+    UITapGestureRecognizer *wholeUIRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapFrom:)];
+    wholeUIRecognizer.numberOfTapsRequired = 1; // 单击
+    wholeUIRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:wholeUIRecognizer];
+    
+    [wholeUIRecognizer requireGestureRecognizerToFail:singleRecognizer];
+    
+    [self.view addSubview:_coverImageView];
     
     _lessonTitleLabel                = [[UILabel alloc] initWithFrame:
                                         CGRectMake(_margin,
@@ -248,101 +279,53 @@
         lessonFontSize           = 16;
     }
     _lessonTitleLabel.font    = [UIFont systemFontOfSize:lessonFontSize];
-
+    
     [self.view addSubview:_lessonTitleLabel];
     
-    FlyingLessonData * lessonData = [[[FlyingLessonDAO alloc] init] selectWithLessonID:self.taskWord.BELESSONID];
-    
-    if (lessonData.BETITLE) {
-        
-        _lessonTitleLabel.text       = lessonData.BETITLE;
-        
-        NSString * picPath = [NSString picPathForWord:self.taskWord.BEWORD];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:picPath]){
-            
-            [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-            [_coverImageView  setImage:[[UIImage alloc] initWithContentsOfFile:picPath]]; //获取图片
-        }
-        else{
-            
-            if(lessonData.BEOFFICIAL){
-                
-                [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-                [_coverImageView setImageWithURL:[NSURL URLWithString:lessonData.BEIMAGEURL]];
-            }
-            else{
-                
-                [_coverImageView setImage:[UIImage imageNamed:@"Default"]];
-            }
-        }
-    }
-    else{
-        
-        NSString * picPath = [NSString picPathForWord:self.taskWord.BEWORD];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:picPath]){
-            
-            [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-            [_coverImageView  setImage:[[UIImage alloc] initWithContentsOfFile:picPath]]; //获取图片
-        }
-        else{
-            
-            if(self.taskWord.BELESSONID){
-                
-                [AFHttpTool lessonResourceType:kResource_Cover
-                                      lessonID:self.taskWord.BELESSONID
-                                    contentURL:nil
-                                         isURL:YES
-                                       success:^(id response) {
-                                           //
-                                           NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                           NSRange segmentRange = [temStr rangeOfString:@"所请求映射类文件不存在"];
-                                           
-                                           if ( (segmentRange.location==NSNotFound) && (response!=nil) ) {
-                                               
-                                               [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
-                                               [_coverImageView setImageWithURL:[NSURL URLWithString:temStr]];
-                                           }
+    [FlyingHttpTool getLessonForLessonID:self.taskWord.BELESSONID
+                              Completion:^(FlyingPubLessonData *pubLesson)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
 
-                                       } failure:^(NSError *err) {
-                                           //
-                                       }];
-            }
-            else{
-                
-                [_coverImageView setImage:[UIImage imageNamed:@"Default"]];
-            }
-        }
-        
-        if(self.taskWord.BELESSONID){
-            
-            
-            
-            [AFHttpTool lessonResourceType:kResource_Title
-                                  lessonID:self.taskWord.BELESSONID
-                                contentURL:nil
-                                     isURL:NO
-                                   success:^(id response) {
-                                       //
-                                       NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                       NSRange segmentRange = [temStr rangeOfString:@"所请求映射类文件不存在"];
-                                       
-                                       if ( (segmentRange.location==NSNotFound) && (response!=nil) ) {
-                                           
-                                           
-                                           _lessonTitleLabel.text = temStr;
-                                       }
-                                       
-                                   } failure:^(NSError *err) {
-                                       //
-                                   }];
-        }
-        else{
-            
-            _lessonTitleLabel.text       = @"来自用户自有内容。";
-        }
-    }
+             //
+             NSString * picPath = [NSString picPathForWord:self.taskWord.BEWORD];
+             
+             if ([[NSFileManager defaultManager] fileExistsAtPath:picPath])
+             {
+                 
+                 [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
+                 [_coverImageView setImage:[[UIImage alloc] initWithContentsOfFile:picPath]]; //获取图片
+             }
+             else
+             {
+                 [_coverImageView setContentMode:UIViewContentModeScaleAspectFit];
+                 [_coverImageView setImageWithURL:[NSURL URLWithString:pubLesson.imageURL]];
+             }
+             
+             _lessonTitleLabel.text = pubLesson.title;
+             
+             //添加内容类型
+             UIImageView * contentTypeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,40, 40)];
+             
+             if ([pubLesson.contentType isEqualToString:KContentTypeText])
+             {
+                 [contentTypeImageView setImage:[UIImage imageNamed:PlayDocIcon]];
+             }
+             else if ([pubLesson.contentType isEqualToString:KContentTypeVideo])
+             {
+                 [contentTypeImageView setImage:[UIImage imageNamed:PlayVideoIcon]];
+             }
+             else  if ([pubLesson.contentType isEqualToString:KContentTypeAudio])
+             {
+                 [contentTypeImageView setImage:[UIImage imageNamed:PlayAudioIcon]];
+             }
+             else  if ([pubLesson.contentType isEqualToString:KContentTypePageWeb])
+             {
+                 [contentTypeImageView setImage:[UIImage imageNamed:PlayWebIcon]];
+             }
+             [_coverImageView addSubview:contentTypeImageView];
+         });
+     }];
 }
 
 -(void) prepareAbstract

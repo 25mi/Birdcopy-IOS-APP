@@ -217,6 +217,22 @@
     return nil;
 }
 
++ (NSString*) getboundCodeFromQR: (NSString *) qrStr
+{
+    NSRange range;
+    
+    range = [qrStr rangeOfString:KBEboundFlag];
+    if (range.location != NSNotFound)
+    {
+        NSUInteger length = qrStr.length-range.location-range.length;
+        
+        range.location = range.location+range.length;
+        range.length=length;
+        return [qrStr substringWithRange:range];
+    }
+    
+    return nil;
+}
 
 + (BOOL) checkWeixinSchem:  (NSString *) contentURL
 {
@@ -255,27 +271,35 @@
         }
         else
         {
-            if([NSString checkIsURL:scanStr]){
+            if ([NSString checkBoundToken:scanStr])
+            {
                 
-                resultType =  KQRTyepeWebURL;
+                resultType = KQRTypeBound;
             }
             else
             {
-                NSString * string = [scanStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSCharacterSet *numberOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-                NSCharacterSet *pureStr = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
-                
-                NSString * numOnlyString = [string stringByTrimmingCharactersInSet:[numberOnly invertedSet]];
-                NSString * pureString = [string stringByTrimmingCharactersInSet:[pureStr invertedSet]];
-                
-                if(pureString.length==33 && string.length==33)
-                {
+                if([NSString checkIsURL:scanStr]){
                     
-                    return KQRTyepeChargeCard;
+                    resultType =  KQRTyepeWebURL;
                 }
-                else if(numOnlyString.length==string.length){
+                else
+                {
+                    NSString * string = [scanStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    NSCharacterSet *numberOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+                    NSCharacterSet *pureStr = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
                     
-                    return KQRTyepeCode;
+                    NSString * numOnlyString = [string stringByTrimmingCharactersInSet:[numberOnly invertedSet]];
+                    NSString * pureString = [string stringByTrimmingCharactersInSet:[pureStr invertedSet]];
+                    
+                    if(pureString.length==33 && string.length==33)
+                    {
+                        
+                        return KQRTyepeChargeCard;
+                    }
+                    else if(numOnlyString.length==string.length){
+                        
+                        return KQRTyepeCode;
+                    }
                 }
             }
         }
@@ -305,6 +329,26 @@
     }
 }
 
++ (BOOL) checkBoundToken:   (NSString *) contentURL
+{
+    
+    NSRange textRange;
+    textRange =[contentURL rangeOfString:KBEboundFlag];
+    
+    if(contentURL==nil)
+    {
+        return NO;
+    }
+    
+    if(textRange.location == NSNotFound)
+    {
+        return NO;
+    }
+    else{
+        
+        return YES;
+    }
+}
 
 + (BOOL) checkMagnetURL:(NSString *) contentURL
 {

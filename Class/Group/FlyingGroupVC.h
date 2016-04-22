@@ -15,4 +15,23 @@
 
 @property (strong, nonatomic) FlyingGroupData    *groupData;
 
+@property (strong, nonatomic) NSMutableArray     *currentData;
+
+
++(void) checkGroupMembershipWith:(FlyingGroupData*)groupData
+                            inVC:(UIViewController*) vc;
+
++(void) enterGroup:(FlyingGroupData*)groupData
+              inVC:(UIViewController*) vc;
+
++ (void) showMemberInfo:(FlyingUserRightData*)userRightData
+                   inVC:(UIViewController*) vc;
+
++(void) contactAdminWithGroupGID:(NSString*) groupID
+                         message:(NSString*) message;
+
+
 @end
+
+
+

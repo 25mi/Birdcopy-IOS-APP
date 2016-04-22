@@ -41,7 +41,7 @@
     
     //顶部右上角导航
     UIButton* playButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    [playButton setBackgroundImage:[UIImage imageNamed:@"PlayAudio"] forState:UIControlStateNormal];
+    [playButton setBackgroundImage:[UIImage imageNamed:@"speaker"] forState:UIControlStateNormal];
     [playButton addTarget:self action:@selector(soundWord) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* playButtonItem= [[UIBarButtonItem alloc] initWithCustomView:playButton];
     
@@ -86,7 +86,6 @@
     
     [self.navigationController pushViewController:search animated:YES];
 }
-
 
 -(void) showItemList
 {
@@ -178,9 +177,7 @@
     }
     
     v.detailData=[self.itemList objectAtIndex:index];
-    
     [v collectionView:self.wordDetailCollectView fillCellWithObject:[self.itemList objectAtIndex:index] atIndex:index];
-    
     [v setLittleShadow];
     
     return v;
@@ -195,6 +192,7 @@
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index
 {
     // Get the current index
+    [self soundWord];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didDeleteCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index

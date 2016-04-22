@@ -1100,6 +1100,16 @@
 		826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
 		826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
 		826D3FC31C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */; };
+		827A71C31CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */; };
+		827A71C41CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */; };
+		827A71C51CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */; };
+		827A71C61CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */; };
+		827A71C71CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */; };
+		827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */; };
+		827A71C91CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */; };
+		827A71CA1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */; };
+		827A71CB1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */; };
+		827A71CC1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */; };
 		827AD7F81CBDF7CC00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
 		827AD7F91CBDF7CC00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
 		827AD7FA1CBDF7CD00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
@@ -2196,6 +2206,9 @@
 		826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentHeader.h; sourceTree = "<group>"; };
 		826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentHeader.m; sourceTree = "<group>"; };
 		826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingCommentHeader.xib; sourceTree = "<group>"; };
+		827A71C01CC75B5400E708C7 /* FlyingtAuthorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingtAuthorCell.h; sourceTree = "<group>"; };
+		827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingtAuthorCell.m; sourceTree = "<group>"; };
+		827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingtAuthorCell.xib; sourceTree = "<group>"; };
 		827AD7F61CBDF7CC00C5309D /* FlyingTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTabBarController.h; sourceTree = "<group>"; };
 		827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTabBarController.m; sourceTree = "<group>"; };
 		828BC0AF1CA8D967005C30F5 /* libSlackTextViewController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSlackTextViewController.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-cctuxzhuzoyxopgjiwzpoelkjcqy/Build/Products/Debug-iphoneos/libSlackTextViewController.a"; sourceTree = "<group>"; };
@@ -3413,6 +3426,9 @@
 				8249407E1C07FFEF000A2306 /* FlyingTagCell.h */,
 				8249407F1C07FFEF000A2306 /* FlyingTagCell.m */,
 				824940801C07FFEF000A2306 /* FlyingTagCell.xib */,
+				827A71C01CC75B5400E708C7 /* FlyingtAuthorCell.h */,
+				827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */,
+				827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */,
 				82E3B4D11C943D22002B2327 /* FlyingUIWebView.h */,
 				82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */,
 				82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */,
@@ -4292,6 +4308,7 @@
 				8247E6781CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				82A21DAB1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A101CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
+				827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
 				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
@@ -4330,6 +4347,7 @@
 				8247E67C1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				82A21DAF1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A141CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
+				827A71CC1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				8249403C1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */,
@@ -4378,6 +4396,7 @@
 				824940271C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */,
 				823C29F71CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
+				827A71C91CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4417,6 +4436,7 @@
 				824940281C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA632A8C1B51091400A1222E /* userModel.db in Resources */,
 				823C29F81CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
+				827A71CA1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4456,6 +4476,7 @@
 				824940291C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */,
 				823C29F91CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
+				827A71CB1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4768,6 +4789,7 @@
 				82A21D831CAA3B6B00AFAECC /* LEColorPicker.m in Sources */,
 				8214E9A41C2995460014B6BD /* FlyingHttpTool.m in Sources */,
 				82A21DB01CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
+				827A71C31CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57C1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
 				8212F63A1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				C88B7661173BFC2200955BC2 /* iFlyingAppDelegate.m in Sources */,
@@ -5045,6 +5067,7 @@
 				82A21D871CAA3B6B00AFAECC /* LEColorPicker.m in Sources */,
 				8214E9761C298BF40014B6BD /* DDContextFilterLogFormatter.m in Sources */,
 				82A21DB41CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
+				827A71C71CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F6021C321BC8009C9F86 /* ACMagnifyingView.m in Sources */,
 				C81F8AAD1BD7B488004146F0 /* MuAnnotSelectView.m in Sources */,
 				8212F5801C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
@@ -5322,6 +5345,7 @@
 				82A21D841CAA3B6B00AFAECC /* LEColorPicker.m in Sources */,
 				82493FDB1C07F67D000A2306 /* FlyingCoverData.m in Sources */,
 				82A21DB11CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
+				827A71C41CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57D1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
 				8212F63B1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */,
@@ -5599,6 +5623,7 @@
 				82A21D851CAA3B6B00AFAECC /* LEColorPicker.m in Sources */,
 				8212F6001C321BC8009C9F86 /* ACMagnifyingView.m in Sources */,
 				82A21DB21CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
+				827A71C51CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */,
 				82493FDC1C07F67D000A2306 /* FlyingCoverData.m in Sources */,
 				8212F57E1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
 				8212F63C1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
@@ -5876,6 +5901,7 @@
 				82A21D861CAA3B6B00AFAECC /* LEColorPicker.m in Sources */,
 				8212F4AA1C321B8E009C9F86 /* DBHelper.m in Sources */,
 				82A21DB31CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
+				827A71C61CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57F1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
 				8212F63D1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				82493FDD1C07F67D000A2306 /* FlyingCoverData.m in Sources */,

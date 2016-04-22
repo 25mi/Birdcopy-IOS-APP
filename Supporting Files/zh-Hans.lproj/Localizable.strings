@@ -22,8 +22,9 @@
 
 // 设置
 "My Service"        = "我的服务";
-"English Tool"      = "英语工具";
-"Scene Dictionary[%@]"      = "母语场景[%@]";
+"English Tool"      = "我的生词";
+"Scene Dictionary[%@]"    = "我的生词[%@]";
+"Dictionary"        = "英汉词典";
 "Chat Setting"      = "聊天设置";
 "Clear Cache"       = "清除缓存";
 "Style Setting"     = "风格设置";
@@ -57,6 +58,7 @@
 
 //群
 "Memberships" = "群成员";
+"Membership will end in %@days"   = "你还可以使用：%@s天！";
 
 //评论
 "Send" = "发送";
@@ -69,7 +71,7 @@
 //档案设置
 "Touch portrait to update it!"    =  "请点击头像图片更新！";
 "Touch nickName to update it!"    =  "请给自己起个昵称吧！";
-"Touch digest to update it!"      =  "请给自己来个简单介绍吧！";
+"Touch digest to update it!"      =  "请给自己来个简介吧！";
 
 "Take Photo"        = "拍照";
 "Choose From Album" = "从相册选取";
@@ -81,8 +83,12 @@
 "Destructive"       = "确认";
 "Cancel"            = "取消";
 
+"QR Code| Bar Code" = "扫描二维｜条形码";
+"Bounding is ok!"   = "网站账户和手机绑定成果!";
+"Bounding is fail!" = "绑定失败";
+
 //购买会员设置
-"I want to become a member!"          = "申请成为正式会员？";
+"I want to become a member!"          = "我要申请成为正式会员";
 "Member can chat free, Do you want to become a member?" ="正式会员才能参与互动，你需要申请成为群组成员吗？";
 "You are member alreaday!"           = "你已经是会员，无需购买会员资格!";
 "In App Purchasing Disabled"         = "请打开购买手机的应用购买功能";
@@ -90,6 +96,19 @@
 
 "I want to enjoy it!" = "我要解锁课程！";
 "No enough coins!"  = "没有足够的金币了：（";
+
+"I want to buy membership service!" = "我希望购买会员服务!";
+"Unknow erro!"  = "未知错误!";
+"You are not a member of the group!" = "你不是这个群组的成员!";
+"Your membership is in review..." = "你的成员资格正在审批中...";
+"You are a member of the group!" = "你已通过会员资格申请!";
+"You are not a member of the group!" = "你不是这个群组的成员！";
+"You are rejected by the group!" = "你的成员资格被拒绝!";
+
+
+"I want to become a member! Group  Name:%@"      = "我要申请成为[群组:%@]的正式会员!";
+"I want to buy membership service! Group Name:%@" = "我希望购买[群组:%@]的会员服务!";
+
 
 //视频播放
 "Item cannot be played" = "资源不能被识别";

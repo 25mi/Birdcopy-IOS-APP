@@ -349,6 +349,22 @@
                           failure:failure];
 }
 
++(void)  getOpenIDFor:(NSString*) userID
+              success:(void (^)(id response))success
+              failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_id":userID}];
+    [params setObject:@"tuserurms" forKey:@"type"];
+    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_ua_get_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
@@ -360,10 +376,9 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
-    
     if ([type isEqualToString:BC_Domain_Business]) {
         
-        [params setObject:domainID forKey:KAPI_BusinessID_KEY];
+        [params setObject:domainID forKey:@"gp_owner"];
     }
     else if ([type isEqualToString:BC_Domain_Group]) {
         
@@ -414,7 +429,7 @@
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"gp_id":groupID}];
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
-                              url:@"ga_get_gp_info_from_tn.action"
+                              url:@"ga_get_gp_list_from_tn.action"
                            params:params
          responseSerializerIsJson:true
                           success:success
@@ -430,7 +445,6 @@
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
     [params setObject:groupID forKey:@"gp_id"];
 
-    
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ga_apply_member_from_tn.action"
                            params:params
@@ -632,6 +646,25 @@
                           success:success
                           failure:failure];
 }
+
++ (void) boundWithQR:(NSString*) boundQR
+             openUDID:(NSString*) openUDID
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure
+{
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"type":@"tuserurms"}];
+    
+    [params setObject:openUDID forKey:@"tuser_key"];
+    [params setObject:boundQR  forKey:@"para1"];
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"tu_ua_send_matrix_info_from_tn.action"
+                           params:params
+         responseSerializerIsJson:YES
+                          success:success
+                          failure:failure];
+}
+
 //////////////////////////////////////////////////////////////
 #pragma  账户信息
 //////////////////////////////////////////////////////////////
@@ -898,7 +931,7 @@
         
         if(isOnlyRecommend)
         {
-            [params setObject:@"1" forKey:@"sys_recom"];
+            [params setObject:@"1" forKey:@"sys_recom_c"];
         }
     }
     else if([type isEqualToString:BC_Domain_Author])
@@ -1089,7 +1122,7 @@
         
         if(isOnlyRecommend)
         {
-            [params setObject:@"1" forKey:@"sys_recom"];
+            [params setObject:@"1" forKey:@"sys_recom_c"];
         }
     }
     else if ([type isEqualToString:BC_Domain_Author]) {

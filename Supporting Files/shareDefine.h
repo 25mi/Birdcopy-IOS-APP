@@ -31,18 +31,10 @@ typedef enum BESearchType
 #define BC_Member_Refused       @"4"
 
 #define BC_GroupMember_Count    2000
+#define BC_GroupMember_AlertDays    7
 
 //APP相关
-#define KAPP_Birdcopy_APPID         @"KAPP_Birdcopy_APPID"
-#define KAPP_Domain_ID              @"KAPP_Domain_ID"
-
-#define KAPP_SERVER_ADDRESS         @"KAPP_SERVER_ADDRESS"
-#define KAPP_Weixin_ID              @"KAPP_Weixin_ID"
-#define KAPP_RongCloud_Key          @"KAPP_RongCloud_Key"
-
 #define SERVER_DOMAIN               @"http://e.birdcopy.com"
-
-//产品用户相关
 #define KAPI_BusinessID_KEY         @"app_id"
 
 
@@ -156,13 +148,6 @@ typedef enum BESearchType
 
 #define KPriceIDstr               @"金币"
 
-#define KBELesssonIDFlag          @"ffa_ld="
-#define KBELesssonIDFlag1         @"comment_id="
-#define KBELesssonIDFlag2         @"_lnviewlnid="
-
-#define KBELoginFlag              @"_loginsenid="
-#define KBERQloginOK              @"KBERQloginOK"
-
 //服务机构相关
 #define KLessonOwnerTempKind      @"t"
 #define KLessonOwnerPersonKind    @"0"
@@ -235,6 +220,20 @@ typedef NSInteger BE_Item_Content_Type;
 #define KQRTyepeCode             @"KQRTyepeCode"
 #define KQRTypeLogin             @"KQRTypeLogin"
 #define KQRTypemagnet            @"KQRTypeMagnet"
+#define KQRTypeBound             @"KQRTypeBound"
+
+#define KBELesssonIDFlag          @"ffa_ld="
+#define KBELesssonIDFlag1         @"comment_id="
+#define KBELesssonIDFlag2         @"_lnviewlnid="
+
+#define KBELoginFlag              @"_loginsenid="
+#define KBEboundFlag              @"matrix_tuserurms="
+
+#define KBERQloginOK              @"KBERQloginOK"
+#define KBERQBoundsOK             @"KBERQBoundsOK"
+#define KBERQloginFail            @"KBERQloginFail"
+#define KBERQBoundsFail           @"KBERQBoundsFail"
+
 
 //下载相关
 #define NSOffState   0

@@ -178,12 +178,10 @@
         [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
         [self.contentTableView addSubview:_refreshControl];
     }
-    else
-    {
-        [_currentData removeAllObjects];
-        _currentLodingIndex=0;
-        _maxNumOfContents=NSIntegerMax;
-    }
+
+    [_currentData removeAllObjects];
+    _currentLodingIndex=0;
+    _maxNumOfContents=NSIntegerMax;
     
     [self loadMore];
 }

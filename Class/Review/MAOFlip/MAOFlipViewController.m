@@ -14,7 +14,6 @@
                                     UIViewControllerTransitioningDelegate,
                                     UINavigationControllerDelegate>
 
-@property (nonatomic) UINavigationController *flipNavigationController;
 @property (nonatomic) MAOFlipInteraction *flipInteraction;
 @property (nonatomic) MAOFlipTransition *flipTransition;
 @end

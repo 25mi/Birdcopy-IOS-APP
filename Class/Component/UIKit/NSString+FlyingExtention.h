@@ -27,6 +27,8 @@
 + (BOOL) checkOtherVedioURL:(NSString *) contentURL;
 + (BOOL) checkWeixinSchem:  (NSString *) contentURL;
 + (BOOL) checkLoginToken:   (NSString *) contentURL;
++ (BOOL) checkBoundToken:   (NSString *) contentURL;
+
 
 + (BOOL) checkIsURL:        (NSString *) contentURL;
 
@@ -35,6 +37,7 @@
 
 + (NSString*) getLessonIDFromOfficalURL: (NSString *) webURL;
 + (NSString*) getLoginIDFromQR: (NSString *) qrStr;
++ (NSString*) getboundCodeFromQR: (NSString *) qrStr;
 
 + (NSString*) judgeScanType: (NSString *) scanStr;
 

@@ -28,7 +28,7 @@ static NSString* const kRelativeStr= @"ln_relatve";
 static NSString* const kDownloadStr= @"res_status";
 static NSString* const kTimeLampStr= @"upd_time";
 static NSString* const kCommentCountStr= @"ln_cmt_sum";
-
+static NSString* const KContentOwner= @"ln_owner";
 
 @interface FlyingLessonParser () <NSXMLParserDelegate>
 @property (nonatomic, strong) NSData *dataToParse;
@@ -52,7 +52,7 @@ static NSString* const kCommentCountStr= @"ln_cmt_sum";
         self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr,
                                 kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,
                                 kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,
-                                kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,nil];
+                                kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,KContentOwner,nil];
 	}
 	return self;
 }
@@ -64,7 +64,7 @@ static NSString* const kCommentCountStr= @"ln_cmt_sum";
     self.elementsToParse = [NSArray arrayWithObjects:kTitleStr, kDescripStr,kImageURLStr,
                             kContentURL,kSubURLStr, kLevelStr,kProURLStr,kDurationStr,
                             kStartTimeStr,kTagStr,kPriceStr,kWebUrlStr,kISBNStr,
-                            kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,nil];
+                            kRelativeStr,kDownloadStr,kTimeLampStr,kCommentCountStr,KContentOwner,nil];
 }
 
 
@@ -190,10 +190,11 @@ static NSString* const kCommentCountStr= @"ln_cmt_sum";
             else if ([elementName isEqualToString:kTimeLampStr])
                 self.workingEntry.timeLamp  = trimmedString;
 
-            
             else if ([elementName isEqualToString:kCommentCountStr])
                 self.workingEntry.commentCount  = trimmedString;
-
+            
+            else if ([elementName isEqualToString:KContentOwner])
+                self.workingEntry.author  = trimmedString;
 		}
 	}
 }

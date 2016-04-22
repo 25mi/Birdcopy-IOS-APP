@@ -65,7 +65,14 @@
 
 -(void) setPrice:(NSString*) price
 {
-    self.priceLabel.text = price;
+    if([@"0" isEqualToString:price])
+    {
+        self.priceLabel.text = @"免费";
+    }
+    else
+    {
+        self.priceLabel.text = price;
+    }
 }
 
 -(void) setAccessRight:(BOOL) accessRight

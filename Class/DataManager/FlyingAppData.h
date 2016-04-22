@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FlyingAppData : NSObject
+@interface FlyingAppData : NSObject<NSCoding>
 
 @property(nonatomic, strong) NSString* appID;
 @property(nonatomic, strong) NSString* boundleID;
@@ -23,8 +23,8 @@
 @property(nonatomic, strong) NSString* rongAppKey;
 
 
-
-
+-(void)encodeWithCoder:(NSCoder *)encoder;
+-(id) initWithCoder:(NSCoder *)decoder;
 
 
 @end

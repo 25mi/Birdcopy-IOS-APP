@@ -108,6 +108,21 @@
     {
         self.title=NSLocalizedString(@"Who am I", nil);
     }
+    
+    if ([self.navigationController.viewControllers count]>1) {
+        
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+    else
+    {
+        [self.tabBarController.tabBar setHidden:NO];
+    }
 
     [super viewWillAppear:animated];
 }

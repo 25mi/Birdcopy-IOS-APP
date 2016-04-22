@@ -9,17 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UITouch (TouchSorting)
-
-- (NSComparisonResult)compareAddress:(id)obj;
-
-@end
-
 @interface FlyingItemView : UIView
-{
-    CGAffineTransform         originalTransform;
-    CFMutableDictionaryRef    touchBeginPoints;
-}
 
 @property (strong, nonatomic)  NSString        *word;
 @property (strong, nonatomic)  NSString        *lemma;

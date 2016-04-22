@@ -45,6 +45,8 @@
 #import "FlyingProfileVC.h"
 #import "FlyingStatisticDAO.h"
 #import "FlyingSoundPlayer.h"
+#import "FlyingtAuthorCell.h"
+#import "FlyingGroupVC.h"
 
 @interface FlyingContentVC ()<UIViewControllerRestoration>
 {
@@ -65,7 +67,8 @@
 
 @property (strong, nonatomic) FlyingLoadingCell *loadingCommentIndicatorCell;
 
-@property (strong, nonatomic) FlyingContentTitleAndTypeCell *contentTitleAndTypeCellcell;
+@property (strong, nonatomic) FlyingContentTitleAndTypeCell *contentTitleAndTypeCell;
+@property (strong, nonatomic) FlyingtAuthorCell *authoTablecell;
 
 @property (strong, nonatomic) UITableView       *tableView;
 
@@ -79,6 +82,8 @@
 
 @property (strong, nonatomic) UIButton *accessChatbutton;
 @property (strong, nonatomic) UIView   *accessChatContainer;
+
+@property (strong, nonatomic) FlyingUserData    *authorUserData;
 
 @end
 
@@ -96,6 +101,8 @@
 {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    [coder encodeObject:self.mediaVC forKey:@"self.mediaVC"];
+    [coder encodeObject:self.authorUserData forKey:@"self.authorUserData"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
@@ -103,11 +110,15 @@
     [super decodeRestorableStateWithCoder:coder];
     
     self.thePubLesson =[coder decodeObjectForKey:@"self.thePubLesson"];
+    self.authorUserData = [coder decodeObjectForKey:@"self.authorUserData"];
+
+    self.mediaVC = [coder decodeObjectForKey:@"self.mediaVC"];
+    self.mediaVC.restorationIdentifier = self.restorationIdentifier;
     
     if (self.thePubLesson) {
 
         [self commonInit];
-    }
+    }    
 }
 
 - (id)init
@@ -135,7 +146,7 @@
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
     
     self.navigationItem.rightBarButtonItem = shareBarButtonItem;
-    
+        
     if (self.thePubLesson) {
         
         [self commonInit];
@@ -164,7 +175,6 @@
 {
     if (self.thePubLesson.weburl)
     {
-        
         FlyingShareData * shareData = [[FlyingShareData alloc] init];
         
         shareData.webURL  = [NSURL URLWithString:self.thePubLesson.weburl];
@@ -201,8 +211,8 @@
         }
         
         //检查是否年费会员
-        if (self.accessRight==NO) {
-            
+        if (self.accessRight==NO)
+        {
             userRightdata = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
                                                                                  domainType:BC_Domain_Business];
             if ([userRightdata checkRightPresent]) {
@@ -211,6 +221,24 @@
             }
         }
     }
+    
+    //作者信息获取
+    [FlyingHttpTool getOpenIDForUserID:self.thePubLesson.author
+                            Completion:^(NSString *openUDID)
+     {
+         //
+         if (openUDID)
+         {
+             [FlyingHttpTool getUserInfoByopenID:openUDID
+                                      completion:^(FlyingUserData *userData, RCUserInfo *userInfo)
+              {
+                  self.authorUserData = userData;
+                  
+                  [self.authoTablecell setAuthorIconWithURL:self.authorUserData.portraitUri];
+                  [self.authoTablecell setAuthorText:self.authorUserData.name];
+              }];
+         }
+     }];
 
     [self prepareCoverView];
 
@@ -220,6 +248,8 @@
         
         //必须在设置delegate之前
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentTitleAndTypeCell" bundle:nil] forCellReuseIdentifier:@"FlyingContentTitleAndTypeCell"];
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingtAuthorCell" bundle:nil] forCellReuseIdentifier:@"FlyingtAuthorCell"];
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentSummaryCell" bundle:nil]
              forCellReuseIdentifier:@"FlyingContentSummaryCell"];
@@ -266,11 +296,9 @@
     
     if([self.domainType  isEqualToString:BC_Domain_Group])
     {
-        
         [self prepareForChatRoom];
     }
 }
-
 
 -(void) prepareForChatRoom
 {
@@ -353,7 +381,6 @@
     }
 }
 
-
 #pragma mark -
 #pragma mark Network Request Methods
 
@@ -418,7 +445,7 @@
     if(self.accessRight==YES)
     {
         infoStr=@"同步权限成功！";
-        [self.contentTitleAndTypeCellcell setAccessRight:self.accessRight];
+        [self.contentTitleAndTypeCell setAccessRight:self.accessRight];
     }
     
     [self.view makeToast:infoStr
@@ -503,38 +530,35 @@
 //////////////////////////////////////////////////////////////
 - (void)showContent:(id)sender
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    //获取权限相关数据
+    if(!self.accessRight)
     {
-        //获取权限相关数据
-        if(!self.accessRight)
+        [self checkUserAccessRight];
+    }
+    else
+    {
+        FlyingLessonData * lessonData = [[FlyingLessonData alloc] initWithPubData:self.thePubLesson];
+        
+        //插入公共课程记录
+        [[FlyingLessonDAO new] insertWithData:lessonData];
+        
+        if ([self.thePubLesson.contentType isEqualToString:KContentTypeText])
         {
-            [self checkUserAccessRight];
+            [self showLoadingCoverContentIndicator];
+            
+            //监控下载是否完成
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(updateDownloadOk:)
+                                                         name:KlessonFinishTask
+                                                       object:nil];
+            
+            [[FlyingDownloadManager shareInstance] startDownloaderForID:self.thePubLesson.lessonID];
         }
         else
         {
-            FlyingLessonData * lessonData = [[FlyingLessonData alloc] initWithPubData:self.thePubLesson];
+            [FlyingDownloadManager downloadRelated:lessonData];
             
-            //插入公共课程记录
-            [[FlyingLessonDAO new] insertWithData:lessonData];
-            
-            if ([self.thePubLesson.contentType isEqualToString:KContentTypeText])
-            {
-                [self showLoadingCoverContentIndicator];
-                
-                //监控下载是否完成
-                [[NSNotificationCenter defaultCenter] addObserver:self
-                                                         selector:@selector(updateDownloadOk:)
-                                                             name:KlessonFinishTask
-                                                           object:nil];
-                
-                [[FlyingDownloadManager shareInstance] startDownloaderForID:self.thePubLesson.lessonID];
-            }
-            else
-            {
-                [FlyingDownloadManager downloadRelated:lessonData];
-
-                [self playLesson:self.thePubLesson.lessonID];
-            }
+            [self playLesson:self.thePubLesson.lessonID];
         }
     }
 }
@@ -615,6 +639,7 @@
         
         self.mediaVC = [[FlyingMediaVC alloc] initWithNibName:@"FlyingMediaVC" bundle:nil];
         self.mediaVC.thePubLesson=self.thePubLesson;
+        self.mediaVC.restorationIdentifier = self.restorationIdentifier;
     }
     
     self.mediaVC.view.frame=self.coverContentView.bounds;
@@ -694,7 +719,7 @@
 //////////////////////////////////////////////////////////////
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1)
+    if (section == 2)
     {
         CGFloat height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentHeader" 
                                                           configuration:^(FlyingCommentHeader *cell) {
@@ -712,7 +737,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 1)
+    if (section == 2)
     {
         FlyingCommentHeader *commentHeader = [tableView dequeueReusableCellWithIdentifier:@"FlyingCommentHeader"];
         
@@ -734,19 +759,24 @@
 {
     if (_currentData.count && _currentData.count<_maxNumOfComments)
     {
-        return 3; // 增加一个加载更多
+        return 4; // 增加一个加载更多
     }
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
     {
-        return 3;
+        return 2;
     }
     else if (section == 1)
+    {
+        return 2;
+    }
+
+    else if (section == 2)
     {
         NSInteger actualNumberOfRows = [self.currentData count];
         return actualNumberOfRows+1;
@@ -764,7 +794,8 @@
     
     if (indexPath.section == 0)
     {
-        switch (indexPath.row) {
+        switch (indexPath.row)
+        {
             case 0:
             {
                 FlyingContentTitleAndTypeCell *contentTitleCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentTitleAndTypeCell"];
@@ -777,11 +808,32 @@
                 [self configureCell:contentTitleCell atIndexPath:indexPath];
                 cell = contentTitleCell;
                 
-                self.contentTitleAndTypeCellcell=contentTitleCell;
-                
+                self.contentTitleAndTypeCell=contentTitleCell;
                 break;
             }
             case 1:
+            {
+                FlyingtAuthorCell *authorCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingtAuthorCell"];
+                
+                if(authorCell == nil)
+                    authorCell = [FlyingtAuthorCell authorCell];
+                
+                [self configureCell:authorCell atIndexPath:indexPath];
+                cell = authorCell;
+                
+                self.authoTablecell = authorCell;
+                break;
+            }
+                
+            default:
+            break;
+        }
+    }
+    else if (indexPath.section == 1)
+    {
+        switch (indexPath.row)
+        {
+            case 0:
             {
                 FlyingContentSummaryCell *contentSummaryCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentSummaryCell"];
                 
@@ -790,10 +842,11 @@
                 
                 [self configureCell:contentSummaryCell atIndexPath:indexPath];
                 cell = contentSummaryCell;
-            }
-                break;
                 
-            case 2:
+                break;
+            }
+                
+            case 1:
             {
                 FlyingTagCell *tagCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingTagCell"];
                 
@@ -808,10 +861,10 @@
             }
                 
             default:
-            break;
+                break;
         }
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 2)
     {
         NSInteger actualNumberOfRows = [self.currentData count];
         
@@ -859,18 +912,37 @@
     
     if (indexPath.section == 0)
     {
-        switch (indexPath.row) {
-                
+        switch (indexPath.row)
+        {
             case 0:
             {
                 height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentTitleAndTypeCell"
                                                        cacheByIndexPath:indexPath
                                                           configuration:^(FlyingContentTitleAndTypeCell *cell) {
-                    [self configureCell:cell atIndexPath:indexPath];
-                }];
+                                                              [self configureCell:cell atIndexPath:indexPath];
+                                                          }];
                 break;
             }
             case 1:
+            {
+                height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingtAuthorCell"
+                                                       cacheByIndexPath:indexPath
+                                                          configuration:^(FlyingtAuthorCell *cell) {
+                                                              [self configureCell:cell atIndexPath:indexPath];
+                                                          }];
+                
+                break;
+            }
+        }
+        
+        // 普通Cell的高度
+        return 56;
+    }
+    else if (indexPath.section == 1)
+    {
+        switch (indexPath.row) {
+                
+            case 0:
             {
                 height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell"
                                                        cacheByIndexPath:indexPath
@@ -880,7 +952,7 @@
                 
                 break;
             }
-            case 2:
+            case 1:
             {
                 if (self.thePubLesson.tag.length== 0)
                 {
@@ -899,7 +971,7 @@
         return height;
     }
     
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 2)
     {
         NSInteger actualNumberOfRows = [self.currentData count];
         
@@ -934,30 +1006,51 @@
 {
     if (indexPath.section == 0)
     {
-        switch (indexPath.row) {
+        switch (indexPath.row)
+        {
             case 0:
             {
-                if (self.thePubLesson) {
-
+                if (self.thePubLesson)
+                {
                     [(FlyingContentTitleAndTypeCell *)cell setTitle:self.thePubLesson.title];
                     [(FlyingContentTitleAndTypeCell *)cell setAccessRight:self.accessRight];
                     [(FlyingContentTitleAndTypeCell *)cell setPrice:@(self.thePubLesson.coinPrice).stringValue];
                 }
-
+                
                 break;
             }
             case 1:
             {
-                if (self.thePubLesson.desc) {
+                if (self.authorUserData )
+                {
+                    [(FlyingtAuthorCell*)cell setAuthorIconWithURL:self.authorUserData.portraitUri];
+                    [(FlyingtAuthorCell*)cell setAuthorText:self.authorUserData.name];
+                }
+                
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }
+
+    else if (indexPath.section == 1)
+    {
+        switch (indexPath.row)
+        {
+            case 0:
+            {
+                if (![self.thePubLesson.desc isBlankString]) {
                     
                     [(FlyingContentSummaryCell*)cell setSummaryText:self.thePubLesson.desc];
                 }
 
                 break;
             }
-            case 2:
+            case 1:
             {
-                if (self.thePubLesson.tag) {
+                if (![self.thePubLesson.tag isBlankString]) {
                     
                     [(FlyingTagCell*)cell setTagList:self.thePubLesson.tag DataSourceDelegate:self];
                 }
@@ -968,7 +1061,7 @@
                 break;
         }
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 2)
     {
         NSInteger actualNumberOfRows = [self.currentData count];
         
@@ -998,7 +1091,9 @@
 //////////////////////////////////////////////////////////////
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 || indexPath.section == 1)
+    if (indexPath.section == 0 ||
+        indexPath.section == 1 ||
+        indexPath.section == 2)
     {
         return;
     }
@@ -1012,7 +1107,9 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 || indexPath.section == 1)
+    if (indexPath.section == 0 ||
+        indexPath.section == 1 ||
+        indexPath.section == 2)
     {
         return;
     }
@@ -1021,25 +1118,87 @@
     [self.loadingCommentIndicatorCell stopAnimating];
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
     {
-        switch (indexPath.row) {
-                
+        switch (indexPath.row)
+        {
+            case 0:
+            {
+                break;
+            }
+
             case 1:
             {
+                if(self.accessRight)
+                {
+                    //群组可以和老师直接沟通
+                    if ([BC_Domain_Group isEqualToString:self.domainType])
+                    {
+                        if (self.authorUserData.openUDID)
+                        {
+                            NSString* targetID = [self.authorUserData.openUDID MD5];
+                            
+                            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+                            
+                            chatService.domainID = self.domainID;
+                            chatService.domainType = self.domainType;
+                            
+                            chatService.targetId = targetID;
+                            chatService.conversationType = ConversationType_PRIVATE;
+                            [self.navigationController pushViewController:chatService animated:YES];                        }
+                    }
+                    //和APP客服沟通
+                    else
+                    {
+                        NSString * serviceID = [FlyingDataManager getAppData].domainID;
+                        
+                        if (serviceID)
+                        {
+                            //获取客服绑定的终端ID
+                            [FlyingHttpTool getOpenIDForUserID:serviceID
+                                                    Completion:^(NSString *openUDID)
+                             {
+                                 //
+                                 if (openUDID)
+                                 {
+                                     NSString* targetID = [openUDID MD5];
+                                     
+                                     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+                                     
+                                     chatService.domainID = self.domainID;
+                                     chatService.domainType = self.domainType;
+                                     
+                                     chatService.targetId = targetID;
+                                     chatService.conversationType = ConversationType_PRIVATE;
+                                     [self.navigationController pushViewController:chatService animated:YES];
+                                 }
+                             }];
+                        }
+                    }
+                }
+                
                 break;
             }
         }
     }
     else if (indexPath.section == 1)
     {
-        
+        switch (indexPath.row) {
+                
+            case 0:
+            {
+                break;
+            }
+        }
+    }
+    else if (indexPath.section == 2)
+    {
         NSInteger actualNumberOfRows = [self.currentData count];
         
-        if (actualNumberOfRows == indexPath.row) {
+        if (actualNumberOfRows == indexPath.row)
+        {
             
             [self commentHeaderPressed];
         }
@@ -1057,7 +1216,8 @@
 //////////////////////////////////////////////////////////////
 
 #pragma mark - TLTagsControlDelegate
-- (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
+- (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index
+{
     
     NSString *tagName = tagsControl.tags[index];
     
@@ -1086,7 +1246,8 @@
 
 - (void)accessButtonPressed
 {
-    if (!self.accessRight) {
+    if (!self.accessRight)
+    {
         
         NSString * title = NSLocalizedString(@"Attenion Please", nil);
         NSString * message= NSLocalizedString(@"I want to enjoy it!", nil);

@@ -11,7 +11,8 @@
 
 @implementation FlyingContentSummaryCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     
     self.contentSummaryLabel.font= [UIFont systemFontOfSize:KNormalFontSize];

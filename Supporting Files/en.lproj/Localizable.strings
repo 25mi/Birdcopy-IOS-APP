@@ -20,13 +20,13 @@
 
 // 设置
 "My Service"        = "My Service";
-"English Tool"      = "English Tool";
-"Scene Dictionary[%@]"      = "Scene Dictionary[%@]";
+"English Tool"      = "My Words";
+"Scene Dictionary[%@]"  = "My Words[%@]";
+"Dictionary"        = "Dictionary";
 "Chat Setting"      = "Chat Setting";
 "Clear Cache"       = "Clear Cache";
 "Style Setting"     = "Style Setting";
 "Service Online"    = "Service Online";
-
 
 //我的账户
 "Profile"           = "Profile";
@@ -56,6 +56,9 @@
 //群
 "Memberships" = "Memberships";
 
+"Membership will end in %@days"   = "Membership will end in %@days";
+
+
 //评论
 "Send" = "send";
 "Save" = "Save";
@@ -78,6 +81,9 @@
 "Attenion Please"   = "Attenion Please";
 "Destructive"       = "OK";
 "Cancel"            = "Cancel";
+"QR Code| Bar Code" = "QR Code| Bar Code";
+"Bounding is ok!"  = "Bounding is ok!";
+"Bounding is fail!" = "Bounding is fail!";
 
 //购买会员设置
 "I want to become a member!"          = "I want to become a member!";
@@ -89,6 +95,17 @@
 
 "I want to enjoy it!" = "I want to enjoy it!";
 "No enough coins!"  = "No enough coins!";
+
+"I want to buy membership service!" = "I want to buy membership service!";
+"Unknow erro!"  = "Unknow erro!";
+"You are not a member of the group!" = "You are not a member of the group!";
+"Your membership is in review..." = "Your membership is in review...";
+"You are a member of the group!" = "You are a member of the group!";
+"You are not a member of the group!" = "You are not a member of the group!";
+"You are rejected by the group!" = "You are rejected by the group!";
+
+"I want to become a member! Group  Name:%@"     = "I want to become a member! Group  Name：%@";
+"I want to buy membership service! Group Name:%@" = "I want to buy membership service! Group Name:%@";
 
 
 //视频播放

@@ -25,6 +25,8 @@
 #import "FlyingDataManager.h"
 
 #import "FlyingHttpTool.h"
+#import "FlyingReviewVC.h"
+#import "UIView+Toast.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
@@ -83,6 +85,16 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     self.edgesForExtendedLayout = UIRectEdgeAll;
     
     //顶部导航
+    if(BEFindWord ==self.searchType)
+    {
+        UIButton* myWordsButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+        [myWordsButton setBackgroundImage:[UIImage imageNamed:@"Word"] forState:UIControlStateNormal];
+        [myWordsButton addTarget:self action:@selector(doWord) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* dictionaryBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:myWordsButton];
+        
+        self.navigationItem.rightBarButtonItem = dictionaryBarButtonItem;
+    }
+    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
@@ -153,6 +165,25 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (void) willDismiss
 {
+}
+
+-(void)doWord
+{
+    NSArray *wordArray =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
+
+    if (wordArray.count>0) {
+        
+        FlyingReviewVC * reviewVC = [[FlyingReviewVC alloc] init];
+        reviewVC.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:reviewVC animated:YES];
+    }
+    else
+    {
+        [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
+                    duration:3
+                    position:CSToastPositionCenter];
+    }
 }
 
 //////////////////////////////////////////////////////////////

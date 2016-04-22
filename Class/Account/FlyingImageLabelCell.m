@@ -9,6 +9,7 @@
 #import "FlyingImageLabelCell.h"
 #import "shareDefine.h"
 #import <UIImageView+AFNetworking.h>
+#import <AFImageDownloader.h>
 
 @interface FlyingImageLabelCell()
 
@@ -53,6 +54,7 @@
     [self.theImageView setImageWithURL:[NSURL URLWithString:imageURL]
                        placeholderImage:[UIImage imageNamed:@"Icon"]];
 }
+
 
 -(void) setImageIcon:(UIImage *)image
 {

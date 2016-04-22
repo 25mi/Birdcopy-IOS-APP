@@ -57,7 +57,6 @@
 
 @property (nonatomic, strong) FlyingGroupCoverView *pathCover;
 
-@property (strong, nonatomic) NSMutableArray     *currentData;
 @property (strong, nonatomic) UITableView        *groupStreamTableView;
 @property (strong, nonatomic) FlyingPubLessonData    *currentFeatueContent;
 
@@ -105,9 +104,11 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+    
     //顶部导航
     UIButton* discoverButton= [[UIButton alloc] initWithFrame:CGRectMake(200, 7, 24, 24)];
-    [discoverButton setBackgroundImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
+    [discoverButton setBackgroundImage:[UIImage imageNamed:@"Favorite"] forState:UIControlStateNormal];
     [discoverButton addTarget:self action:@selector(doDiscover) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem* discoverButtonItem= [[UIBarButtonItem alloc] initWithCustomView:discoverButton];
@@ -119,11 +120,18 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:discoverButtonItem,chatBarButtonItems,nil];
     
-    //顶部导航
     if (self.groupData) {
+        
+        [self checkUserRightForNotice];
         
         [self reloadAll];
     }
+}
+
+-(void) checkUserRightForNotice
+{
+    [FlyingGroupVC checkGroupMembershipWith:self.groupData
+                                       inVC:self];
 }
 
 -(void) prepareForChatRoom
@@ -185,9 +193,7 @@
         
         discoverContent.domainID = self.groupData.gp_id;
         discoverContent.domainType = BC_Domain_Group;
-        
-        discoverContent.shoudLoaingFeature = YES;
-        
+                
         [self.navigationController pushViewController:discoverContent animated:YES];
     }
 }
@@ -219,7 +225,7 @@
         membersVC.domainID = self.groupData.gp_id;
         membersVC.domainType = BC_Domain_Group;
         
-        membersVC.title = NSLocalizedString(@"Memberships", nil);
+        membersVC.title = self.groupData.gp_name;
         
         [self.navigationController pushViewController:membersVC animated:YES];
     }
@@ -308,8 +314,8 @@
             if ([wself.currentFeatueContent.contentType isEqualToString:KContentTypePageWeb] ) {
                 
                 FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
-                webVC.domainID = wself.domainID;
-                webVC.domainType = wself.domainType;
+                webVC.domainID = wself.groupData.gp_id;
+                webVC.domainType = BC_Domain_Group;
                 
                 [webVC setThePubLesson:wself.currentFeatueContent];
                 
@@ -318,8 +324,8 @@
             else
             {
                 FlyingContentVC *contentVC = [[FlyingContentVC alloc] init];
-                contentVC.domainID = wself.domainID;
-                contentVC.domainType = wself.domainType;
+                contentVC.domainID =wself.groupData.gp_id;
+                contentVC.domainType = BC_Domain_Group;
                 
                 [contentVC setThePubLesson:wself.currentFeatueContent];
                 
@@ -328,18 +334,16 @@
         }];
 
         
-        _currentData = [NSMutableArray new];
+        self.currentData = [NSMutableArray new];
         
         _currentLodingIndex=0;
         _maxNumOfContents=NSIntegerMax;
     }
-    else
-    {
-        [_currentData removeAllObjects];
-        _currentLodingIndex=0;
-        _maxNumOfContents=NSIntegerMax;
-    }
-    
+
+    [self.currentData removeAllObjects];
+    _currentLodingIndex=0;
+    _maxNumOfContents=NSIntegerMax;
+
     [self loadMore];
 }
 
@@ -378,7 +382,7 @@
 
 - (void)loadMore
 {
-    if (_currentData.count<_maxNumOfContents)
+    if (self.currentData.count<_maxNumOfContents)
     {
         _currentLodingIndex++;
         
@@ -409,7 +413,7 @@
     [self.pathCover stopRefresh];
 
     //更新界面
-    if (_currentData.count>0)
+    if (self.currentData.count>0)
     {
         [self.groupStreamTableView reloadData];
     }
@@ -422,7 +426,7 @@
 //////////////////////////////////////////////////////////////
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentData.count && _currentData.count<_maxNumOfContents)
+    if (self.currentData.count && self.currentData.count<_maxNumOfContents)
     {
         return 2; // 增加一个加载更多
     }
@@ -541,15 +545,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_currentData.count!=0) {
+    if (self.currentData.count!=0) {
         
-        FlyingPubLessonData* lessonPubData = [_currentData objectAtIndex:indexPath.row];
+        FlyingPubLessonData* lessonPubData = [self.currentData objectAtIndex:indexPath.row];
         
         if ([lessonPubData.contentType isEqualToString:KContentTypePageWeb] ) {
             
             FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
-            webVC.domainID = self.domainID;
-            webVC.domainType = self.domainType;
+            webVC.domainID = self.groupData.gp_id;
+            webVC.domainType = self.groupData.gp_id;
             
             [webVC setThePubLesson:lessonPubData];
             
@@ -567,6 +571,234 @@
             [self.navigationController pushViewController:contentVC animated:YES];
         }
     }
+}
+
++(void) checkGroupMembershipWith:(FlyingGroupData*)groupData
+                            inVC:(UIViewController*) vc
+{
+    //实时检查会员资格问题
+    [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
+                                           GroupID:groupData.gp_id
+                                        Completion:^(FlyingUserRightData *userRightData)
+    {
+        //区分是否详细展示会员资格问题
+        BOOL showStateDetail=NO;
+        NSInteger alertDays;
+        
+        //是否合格会员
+        if ([userRightData checkRightPresent])
+        {
+            //离截止日期还有多久
+            alertDays = [userRightData daysLeft];
+            
+            if (alertDays<=BC_GroupMember_AlertDays)
+            {
+                //只剩7天以内有效期就提醒用户
+                showStateDetail = YES;
+            }
+        }
+        
+        //显示详细会员信息
+        if (showStateDetail)
+        {
+            //窗口提示
+            NSString * message =[NSString stringWithFormat: NSLocalizedString(@"Membership will end in %@days", nil), @(alertDays).stringValue];
+            
+            [vc.view makeToast:message
+                      duration:3
+                      position:CSToastPositionCenter];
+        }
+        //显示会员状态信息
+        else
+        {
+            [FlyingGroupVC showMemberInfo:userRightData
+                                     inVC:vc];
+        }
+    }];
+}
+
+
++(void) enterGroup:(FlyingGroupData*)groupData
+              inVC:(UIViewController*) vc
+{
+    
+    FlyingGroupVC *groupVC =  [[FlyingGroupVC alloc] init];
+    groupVC.groupData = groupData;
+    
+    //公开群组直接进入
+    if (groupData.is_public_access)
+    {
+        
+        [vc.navigationController pushViewController:groupVC animated:YES];
+    }
+    //隐私群组需要获取权限
+    else
+    {
+        //从服务器实时获取成员权限
+        [FlyingHttpTool checkGroupMemberInfoForAccount:[FlyingDataManager getOpenUDID]
+                                               GroupID:groupData.gp_id
+                                            Completion:^(FlyingUserRightData *userRightData)
+        {
+            //新成员提醒申请成为会员
+            if ([userRightData.memberState isEqualToString:BC_Member_Noexisted]){
+                
+                NSString *title   = NSLocalizedString(@"Attenion Please", nil);
+                NSString *message = NSLocalizedString(@"I want to become a member!", nil);
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                         message:message
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
+                                                                     style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
+                                             {
+                                                 [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
+                                                                             GroupID:groupData.gp_id
+                                                                          Completion:^(FlyingUserRightData *userRightData)
+                                                  {
+                                                      
+                                                      [FlyingGroupVC showMemberInfo:userRightData inVC:vc];
+                                                      
+                                                      NSString * message = [NSString stringWithFormat:NSLocalizedString(@"I want to become a member! Group  Name：%@", nil),groupData.gp_name];
+                                                      
+                                                      //直接联系客服
+                                                      [FlyingGroupVC contactAdminWithGroupGID:groupData.gp_id
+                                                                                      message:message];
+
+                                                  }];
+                                             }];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
+                                                                       style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+                                               {
+                                                   //
+                                               }];
+
+                [alertController addAction:doneAction];
+                [alertController addAction:cancelAction];
+                
+                [vc presentViewController:alertController animated:YES completion:^{
+                    //
+                }];
+            }
+            //现有审核通过成员
+            else if ([BC_Member_Verified isEqualToString:userRightData.memberState])
+            {
+                //在成员开始和截止时期内
+                if ([userRightData periodOK])
+                {
+                    [vc.navigationController pushViewController:groupVC animated:YES];
+                }
+                //不在开始和截止时间内
+                else
+                {
+                    NSString *title   = NSLocalizedString(@"Attenion Please", nil);
+                    NSString *message = NSLocalizedString(@"I want to buy membership service!", nil);
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                             message:message
+                                                                                      preferredStyle:UIAlertControllerStyleAlert];
+                    //购买会员服务
+                    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
+                                                                         style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
+                    {
+                        NSString * message = [NSString stringWithFormat:NSLocalizedString(@"I want to buy membership service! Group Name:%@", nil),groupData.gp_name];
+                        
+                        //直接联系客服
+                        [FlyingGroupVC contactAdminWithGroupGID:groupData.gp_id
+                                                        message:message];
+                    }];
+                    
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
+                                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                                                               
+                                                                           }];
+                    
+                    [alertController addAction:doneAction];
+                    [alertController addAction:cancelAction];
+                    [vc presentViewController:alertController animated:YES completion:^{
+                        //
+                    }];
+                }
+                
+            }
+            //其他情况,友情提醒
+            else
+            {
+                [FlyingGroupVC showMemberInfo:userRightData inVC:vc];
+            }
+        }];
+    }
+}
+
+
++ (void) showMemberInfo:(FlyingUserRightData*)userRightData
+                   inVC:(UIViewController*) vc
+{
+    NSString * infoStr= NSLocalizedString(@"Unknow erro!", nil);
+    
+    if([userRightData.memberState  isEqualToString:BC_Member_Noexisted])
+    {
+        infoStr = NSLocalizedString(@"You are not a member of the group!", nil);
+        
+    }
+    
+    else if([userRightData.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        infoStr = @"你的成员资格正在审批中...";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Verified]) {
+        
+        infoStr =  @"你已经是正式会员，可以参与互动了!";
+    }
+    else if ([userRightData.memberState isEqualToString:BC_Member_Refused]) {
+        
+        infoStr = @"你的成员资格被拒绝!";
+    }
+    
+    [vc.view makeToast:infoStr
+              duration:2
+              position:CSToastPositionCenter];
+}
+
++(void) contactAdminWithGroupGID:(NSString*) groupID
+                  message:(NSString*) message
+{
+    [FlyingHttpTool getGroupByID:groupID
+               successCompletion:^(FlyingGroupUpdateData *updata)
+    {
+        //获取管理员聊天ID
+        NSString * adminUserID = updata.groupData.gp_owner;
+        if (adminUserID)
+        {
+            
+            [FlyingHttpTool getOpenIDForUserID:adminUserID
+                                    Completion:^(NSString *openUDID)
+            {
+                //
+                if (openUDID)
+                {
+                    
+                    NSString* targetID = [openUDID MD5];
+                    
+                    RCTextMessage *textMsg = [[RCTextMessage alloc] init];
+                    textMsg.content = message;
+                    
+                    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
+                                                      targetId:targetID
+                                                       content:textMsg
+                                                   pushContent:nil
+                                                      pushData:nil
+                                                       success:^(long messageId)
+                     {
+                         //
+                     } error:^(RCErrorCode nErrorCode, long messageId) {
+                         //
+                     }];
+
+                }
+            }];
+        }
+    }];
 }
 
 @end

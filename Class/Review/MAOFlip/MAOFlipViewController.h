@@ -21,5 +21,8 @@
 @end
 
 @interface MAOFlipViewController : UIViewController
+
+@property (nonatomic,strong) UINavigationController *flipNavigationController;
 @property (nonatomic, weak) id<MAOFlipViewControllerDelegate> delegate;
+
 @end

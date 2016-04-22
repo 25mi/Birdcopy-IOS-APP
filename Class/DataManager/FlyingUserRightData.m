@@ -55,20 +55,55 @@
 -(BOOL) checkRightPresent
 {
 
-    if ([self.memberState isEqualToString:BC_Member_Verified]) {
+    if ([self.memberState isEqualToString:BC_Member_Verified] &&
+        [self periodOK]) {
         
-        NSDate *nowDate = [NSDate date];
-        
-        if ([nowDate compare:self.endDate] == NSOrderedAscending ||
-            [nowDate compare:self.startDate] == NSOrderedDescending)
-        {
-
-            return YES;
-        }
+        return YES;
     }
-    
-    return NO;
+    else
+    {
+        return NO;
+    }
 }
 
+-(BOOL) periodOK
+{
+    NSDate *nowDate = [NSDate date];
+    
+    if ( [nowDate compare:self.startDate] == NSOrderedAscending ||
+        [nowDate compare:self.endDate] == NSOrderedDescending ){
+        
+        return NO;
+    }
+    else{
+        
+        return YES;
+    }
+}
+
+-(NSInteger) daysLeft
+{
+    NSDate *nowDate = [NSDate date];
+    
+    return [FlyingUserRightData daysBetweenDate:nowDate andDate:self.endDate];
+}
+
++ (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return [difference day];
+}
 
 @end

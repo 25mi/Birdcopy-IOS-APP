@@ -64,6 +64,7 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    [self reloadAll];
 }
 
 - (id)init
@@ -185,11 +186,11 @@
     {
         [(FlyingCoverView*)self.homeFeatureTagPSColeectionView.headerView loadData];
         [(FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView showTitle:nil];
-        
-        [_currentData removeAllObjects];
-        _currentLodingIndex=0;
-        _maxNumOfTags=NSIntegerMax;
     }
+
+    [_currentData removeAllObjects];
+    _currentLodingIndex=0;
+    _maxNumOfTags=NSIntegerMax;
     
     [self downloadMore];
 }

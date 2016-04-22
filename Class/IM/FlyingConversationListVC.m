@@ -43,11 +43,24 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (![self.domainID isBlankString]) {
+        
+        [coder encodeObject:self.domainID forKey:@"self.domainID"];
+    }
+    
+    if (![self.domainType isBlankString]) {
+        
+        [coder encodeObject:self.domainType forKey:@"self.domainType"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    self.domainID = [coder decodeObjectForKey:@"self.domainID"];
+    self.domainType = [coder decodeObjectForKey:@"self.domainType"];
 }
 
 - (id)init
@@ -59,6 +72,9 @@
         self.restorationClass = [self class];
         
         self.hidesBottomBarWhenPushed = NO;
+        
+        self.domainID = [FlyingDataManager getBusinessID];
+        self.domainType = BC_Domain_Business;
     }
     return self;
 }
@@ -69,6 +85,9 @@
     
     self.edgesForExtendedLayout = UIRectEdgeAll;
     
+    //标题
+    self.title = NSLocalizedString(@"Message",nil);
+
     //顶部导航
     if(self.navigationController.viewControllers.count>1)
     {
@@ -81,12 +100,10 @@
 
     UIButton* chatButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     [chatButton setBackgroundImage:[UIImage imageNamed:@"Help"] forState:UIControlStateNormal];
-    [chatButton addTarget:self action:@selector(chatWithPeople) forControlEvents:UIControlEventTouchUpInside];
+    [chatButton addTarget:self action:@selector(doHelp) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:chatButton];
-    
-    //标题
-    self.title = NSLocalizedString(@"Message",nil);
-    
+    self.navigationItem.rightBarButtonItem= searchBarButtonItem;
+
     if (self.displayConversationTypeArray.count==0) {
 
         //设置要显示的会话类型
@@ -107,7 +124,6 @@
      self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
      */
     
-    self.navigationItem.rightBarButtonItem= searchBarButtonItem;
     
     //设置为不用默认渲染方式
     /*self.tabBarItem.image = [[UIImage imageNamed:@"icon_chat"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -122,9 +138,25 @@
     //    self.conversationListTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 12)];
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
+    
+    if ([self.navigationController.viewControllers count]>1) {
+        
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(dismissNavigation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+    else
+    {
+        [self.tabBarController.tabBar setHidden:NO];
+    }
     
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(receiveNeedRefreshNotification:)
@@ -134,6 +166,8 @@
     _isClick = YES;
     [self notifyUpdateUnreadMessageCount];
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -157,14 +191,34 @@
 {
 }
 
-- (void) chatWithPeople
+- (void) doHelp
 {
-    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    chatService.targetId = [FlyingDataManager getBusinessID];
-    chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title = @"公共聊天室";
+    //获取管理员聊天ID
+    NSString * adminUserID = [FlyingDataManager getAppData].domainID;;
     
-    [self.navigationController pushViewController:chatService animated:YES];
+    if (adminUserID)
+    {
+        
+        [FlyingHttpTool getOpenIDForUserID:adminUserID
+                                Completion:^(NSString *openUDID)
+         {
+             if (openUDID) {
+                 
+                 NSString* targetID = [openUDID MD5];
+                 
+                 FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+                 
+                 chatService.domainID = self.domainID;
+                 chatService.domainType = self.domainType;
+                 
+                 chatService.targetId = targetID;
+                 chatService.conversationType = ConversationType_PRIVATE;
+                 chatService.title = NSLocalizedString(@"Service Online",nil);
+                 [self.navigationController pushViewController:chatService animated:YES];
+             }
+             //
+         }];
+    }
 }
 
 - (void)updateBadgeValueForTabBarItem

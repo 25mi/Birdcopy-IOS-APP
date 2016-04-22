@@ -24,13 +24,14 @@
 
 @property (strong, nonatomic) FlyingPubLessonData * thePubLesson;
 
-@property (nonatomic, weak, readwrite) id <FlyingMediaVCDelegate> delegate;
+@property (nonatomic,weak,readwrite) id <FlyingMediaVCDelegate> delegate;
 
--(void)play;
--(void)pause;
+@property (assign,nonatomic) NSTimeInterval  initialPlaybackTime;
 
-- (void)dismiss;
+- (void) play;
+- (void) pause;
 
+- (void) dismiss;
 
 + (UIImage*) thumbnailImageForMp3:(NSURL *)mp3fURL;
 + (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;

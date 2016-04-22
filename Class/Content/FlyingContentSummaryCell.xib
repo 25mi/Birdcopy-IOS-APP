@@ -29,6 +29,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="2NN-Xr-Evu" secondAttribute="trailing" id="iL1-a4-LAR"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="contentSummaryLabel" destination="2NN-Xr-Evu" id="teG-50-ETb"/>
             </connections>

@@ -98,6 +98,11 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
                      success:(void (^)(id response))success
                      failure:(void (^)(NSError* err))failure;
 
++(void)  getOpenIDFor:(NSString*) userID
+              success:(void (^)(id response))success
+              failure:(void (^)(NSError* err))failure;
+
+
 //////////////////////////////////////////////////////////////////////////////////
 #pragma 群相关操作
 //////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +172,11 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 
 + (void) loginWithQR:(NSString*) loginQR
              Account:(NSString*) passport
+             success:(void (^)(id response))success
+             failure:(void (^)(NSError* err))failure;
+
++ (void) boundWithQR:(NSString*) boundQR
+            openUDID:(NSString*) openUDID
              success:(void (^)(id response))success
              failure:(void (^)(NSError* err))failure;
 

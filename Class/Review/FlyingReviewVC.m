@@ -20,14 +20,19 @@
 #import "UIView+Toast.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
+#import "FlyingWordDetailVC.h"
+#import "FlyingTaskWordData.h"
+#import "MAOFlipViewController.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate,
                                 UIViewControllerRestoration>
+{
+    NSInteger _currentContentIndex;
+}
 
 @property (strong,nonatomic) MAOFlipViewController *flipViewController;
 
 @property (strong,nonatomic)     NSMutableArray     *currentData;
-
 
 @end
 
@@ -65,17 +70,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
+    
+    _currentContentIndex=0;
+
     //更新欢迎语言
-    self.title =@"我的魔词";
+    self.title =NSLocalizedString(@"English Tool",nil);
     
     //顶部导航
-    UIButton* searchButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    [searchButton setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* searchBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    UIButton* dictionaryButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [dictionaryButton setBackgroundImage:[UIImage imageNamed:@"dictionary"] forState:UIControlStateNormal];
+    [dictionaryButton addTarget:self action:@selector(doDictionary) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* dictionaryBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:dictionaryButton];
     
-    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    self.navigationItem.rightBarButtonItem = dictionaryBarButtonItem;
     
     self.currentData =  [[[FlyingTaskWordDAO alloc] init] selectWithUserID:[FlyingDataManager getOpenUDID]];
     
@@ -113,18 +121,44 @@
                    });
 }
 
-- (void) doSearch
+-(void) doDictionary
 {
-    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
-    [search setSearchType:BEFindWord];
+    BOOL showSearch = true;
+    NSString * word;
     
-    [self.navigationController pushViewController:search animated:YES];
+    _currentContentIndex = self.flipViewController.flipNavigationController.viewControllers.count-1;
+    
+    if (_currentContentIndex>=0 && _currentContentIndex<self.currentData.count) {
+        
+        word =[(FlyingTaskWordData*)[self.currentData objectAtIndex:_currentContentIndex] BEWORD];
+        
+        if (word) {
+
+            showSearch = NO;
+        }
+    }
+
+    if (showSearch) {
+
+        FlyingSearchViewController * search= [[FlyingSearchViewController alloc] init];
+        [search setSearchType:BEFindWord];
+        
+        [self.navigationController pushViewController:search animated:YES];
+    }
+    else{
+    
+        FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
+        [wordDetail setTheWord:word];
+        [self.navigationController pushViewController:wordDetail animated:YES];
+    }
 }
 
 #pragma mark - MAOFlipViewControllerDelegate
 
 - (UIViewController*)flipViewController:(MAOFlipViewController *)flipViewController contentIndex:(NSUInteger)contentIndex
 {
+    
+    _currentContentIndex = contentIndex;
     
     if (self.currentData.count!=0)
     {

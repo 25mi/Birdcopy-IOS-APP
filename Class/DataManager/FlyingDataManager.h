@@ -16,14 +16,16 @@
 @interface FlyingDataManager : NSObject
 
 //APP数据
+
++ (NSString*) getServerAddress;
++ (NSString*) getWeixinID;
++ (NSString*) getRongKey;
+
 +(void) saveAppData:(FlyingAppData*) appData;
++(FlyingAppData*) getAppData;
 
 + (NSString*) getBusinessID;
 + (NSString*) getBirdcopyAppID;
-
-+ (NSString*) getServerAddress;
-+ (NSString*) getRongAppKey;
-+ (NSString*) getWeixinID;
 
 + (NSString*) getOfficalURL;
 

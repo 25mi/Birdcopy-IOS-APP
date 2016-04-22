@@ -35,8 +35,9 @@
 #import "FlyingPubLessonData.h"
 #import "FlyingShareData.h"
 #import <NJKWebViewProgressView.h>
+#import "FlyingConversationVC.h"
 
-@interface FlyingWebViewController ()
+@interface FlyingWebViewController ()<UIViewControllerRestoration>
 {
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -72,15 +73,28 @@
 
 @implementation FlyingWebViewController
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:self.webURL forKey:@"self.webURL"];
+    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    self.webURL = [coder decodeObjectForKey:@"self.webURL"];
+    self.thePubLesson = [coder decodeObjectForKey:@"self.thePubLesson"];
+    
+    [self loadWebview];
 }
 
 - (id)init
@@ -88,7 +102,9 @@
     if ((self = [super init]))
     {
         // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        _webView.restorationIdentifier = self.restorationIdentifier;
     }
     return self;
 }
@@ -97,20 +113,22 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+
     self.title = @"网页内容";
     
     //顶部导航
-    UIButton* freshButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    [freshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
-    [freshButton addTarget:self action:@selector(doFresh) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* freshBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:freshButton];
+    UIButton* commentButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    [commentButton setBackgroundImage:[UIImage imageNamed:@"Comment"] forState:UIControlStateNormal];
+    [commentButton addTarget:self action:@selector(doCommnet) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* commentBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:commentButton];
     
     self.shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
     [self.shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,freshBarButtonItem,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,commentBarButtonItem,nil];
     
     _webView = [[FlyingUIWebView alloc] initWithFrame:self.view.frame];
     _webView.delegate = self;
@@ -149,8 +167,6 @@
     
     //
     [self prepairNLP];
-    
-    [self prepareForChatRoom];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -184,20 +200,22 @@
         
         CGRect frame=self.view.frame;
         
+        chatButtonFrame.origin.x    = frame.size.width*8/10;
+        chatButtonFrame.origin.y    =frame.size.height-frame.size.width/8-frame.size.width*3/40-CGRectGetHeight(self.navigationController.navigationBar.frame);
+        
         chatButtonFrame.size.width  = frame.size.width/8;
         chatButtonFrame.size.height = frame.size.width/8;
-        chatButtonFrame.origin.x    = frame.size.width*8/10;
-        chatButtonFrame.origin.y    = frame.size.height-frame.size.width/5;
         
         self.accessChatContainer = [[UIView alloc]  initWithFrame:chatButtonFrame];
         
         self.accessChatbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, chatButtonFrame.size.width, chatButtonFrame.size.height)];
-        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"Comment"]
+        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"chat"]
                                          forState:UIControlStateNormal];
-        [self.accessChatbutton addTarget:self action:@selector(doComment) forControlEvents:UIControlEventTouchUpInside];
-        
+        [self.accessChatbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
         [self.accessChatContainer addSubview:self.accessChatbutton];
-        [self.view addSubview:self.accessChatContainer];
+        
+        [self.view  addSubview:self.accessChatContainer];
+        [self.view bringSubviewToFront:self.accessChatContainer];
     }
 }
 
@@ -225,14 +243,28 @@
     [aView.layer addAnimation:animation forKey:nil];
 }
 
-- (void)doComment
+- (void) doChat
 {
+    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+    
+    chatService.domainID = self.domainID;
+    chatService.domainType = self.domainType;
+    
+    chatService.targetId = self.domainID;
+    chatService.conversationType = ConversationType_CHATROOM;
+    chatService.title =@"群组聊天室";
+    [self.navigationController pushViewController:chatService animated:YES];
+}
+
+-(void) doCommnet
+{
+
     FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
     
     commentVC.contentID=self.thePubLesson.lessonID;
     commentVC.contentType=self.thePubLesson.contentType;
     commentVC.commentTitle=self.thePubLesson.title;
-        
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
@@ -276,6 +308,10 @@
 
 -(void) loadWebview
 {
+    if([BC_Domain_Group  isEqualToString:self.domainType])
+    {
+        [self prepareForChatRoom];
+    }
 
     if(!self.webURL){
         

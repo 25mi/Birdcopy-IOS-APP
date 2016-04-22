@@ -29,27 +29,50 @@
 
 @implementation FlyingDataManager
 
++ (NSString*) getServerAddress
+{
+    return @"http://e.birdcopy.com";
+}
+
++ (NSString*) getWeixinID
+{
+    return @"wx120047123f35e00e";
+}
+
++ (NSString*) getRongKey
+{
+    return @"e5t4ouvptjtsa";
+}
 
 +(void) saveAppData:(FlyingAppData*) appData
-{
-    [[NSUserDefaults standardUserDefaults] setObject:appData.appID      forKey:KAPP_Birdcopy_APPID];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.domainID   forKey:KAPP_Domain_ID];
+{    
+    if (appData) {
 
-    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.wexinID    forKey:KAPP_Weixin_ID];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.rongAppKey forKey:KAPP_RongCloud_Key];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
-    [[NSUserDefaults standardUserDefaults] setObject:appData.webaddress forKey:KAPP_SERVER_ADDRESS];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:appData]
+                                                  forKey:appData.boundleID];
+        [[NSUserDefaults standardUserDefaults]  synchronize];
+    }
+}
+
++(FlyingAppData*) getAppData
+{
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:bundleIdentifier];
+    
+    if (data) {
+        
+        return (FlyingAppData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 + (NSString*) getBirdcopyAppID
 {
-    NSString *appID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Birdcopy_APPID];;
-    
-    return appID;
+    return [FlyingDataManager getAppData].appID;
 }
 
 + (NSString*) getBusinessID
@@ -62,43 +85,9 @@
     //return businessID;
 }
 
-+ (NSString*) getChannelID
-{
-    return [FlyingDataManager getBirdcopyAppID];
-}
-
-+ (NSString*) getServerAddress
-{
-    return @"http://e.birdcopy.com";
-
-    /*
-    NSString *serverNetAddress =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_SERVER_ADDRESS];;
-    
-    return serverNetAddress;
-     */
-}
-
-+ (NSString*) getRongAppKey
-{
-    NSString *rongAPPkey =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_RongCloud_Key];;
-    
-    return rongAPPkey;
-}
-
-
-+ (NSString*) getWeixinID
-{
-    NSString *weixinAPPID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Weixin_ID];;
-    
-    return weixinAPPID;
-}
-
-
-
 + (NSString*) getOfficalURL
 {
     NSString* officalURL=@"http://www.birdcopy.com";
-    
     
     return officalURL;
 }
@@ -196,12 +185,18 @@
 
 +(FlyingUserRightData*) getUserRightForDomainID:(NSString*) domainID domainType:(NSString*) domainType
 {
-    
-    NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:domainID];
-    
-    if (data) {
+    if (domainID) {
+
+        NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:domainID];
         
-        return (FlyingUserRightData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if (data) {
+            
+            return (FlyingUserRightData*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }
+        else
+        {
+            return nil;
+        }
     }
     else
     {

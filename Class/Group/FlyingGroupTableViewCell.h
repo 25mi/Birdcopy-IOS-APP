@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UILabel       * dateLabel;
 
 @property (nonatomic, strong) IBOutlet UILabel       * descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *isPublicIcon;
 
 @property (nonatomic, strong) FlyingGroupUpdateData* groupUpdateData;
 

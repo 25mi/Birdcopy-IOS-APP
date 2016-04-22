@@ -67,7 +67,7 @@
     [super viewDidLoad];
     
     //更新欢迎语言
-    self.title =@"扫描二维｜条形码";
+    self.title = NSLocalizedString(@"QR Code| Bar Code",nil);
     
     //顶部导航
     UIButton* scanButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
@@ -117,16 +117,72 @@
     self.descLabel.text=@"将二维码或者条码放入框内";
     
     [self.view addSubview:self.descLabel];
+    
+    [self setupCamera];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBERQloginOK
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note)
+     {
+         
+         [self scanningOK:NSLocalizedString(@"Scanning is ok",nil)];
+     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBERQBoundsOK
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note)
+    {
+        
+        [self scanningOK:NSLocalizedString(@"Bounding is ok!", nil)];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBERQloginFail
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note)
+     {
+         
+         [self scanningOK:NSLocalizedString(@"Bounding is fail!", nil)];
+     }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:KBERQBoundsFail
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note)
+     {
+         
+         [self scanningOK:NSLocalizedString(@"Bounding is fail!", nil)];
+     }];
+
+}
+
+-(void) scanningOK:(NSString*) message
+{
+    [self.view makeToast:message
+                duration:1
+                position:CSToastPositionCenter];
+    
+    [_session stopRunning];
+    [timer invalidate];
+    [self setupCamera];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBERQloginOK    object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBERQBoundsOK    object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBERQloginFail    object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KBERQBoundsFail    object:nil];
 }
 
 - (void) willDismiss
@@ -174,9 +230,7 @@
     upOrdown = NO;
     num =0;
     
-    if (!timer) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation) userInfo:nil repeats:YES];
-    }
+    timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation) userInfo:nil repeats:YES];
     
     // Device
     
@@ -242,21 +296,29 @@
     
     NSString * qrType = [NSString judgeScanType:resultStr];
     
-
-    if([qrType isEqualToString:KQRTypeLogin]){
-        
+    if([qrType isEqualToString:KQRTypeBound])
+    {
+        //绑定终端和后台作者
+        [FlyingScanViewController processBound:resultStr];
+    }
+    else if([qrType isEqualToString:KQRTypeLogin])
+    {
+        //终端登陆
         [FlyingScanViewController processLogin:resultStr];
     }
-    else if([qrType isEqualToString:KQRTyepeChargeCard]){
-        
+    else if([qrType isEqualToString:KQRTyepeChargeCard])
+    {
+        //扫描充值卡
         [FlyingScanViewController charge:resultStr];
     }
-    else if([qrType isEqualToString:KQRTyepeWebURL]){
-        
+    else if([qrType isEqualToString:KQRTyepeWebURL])
+    {
+        //扫描课程
         [FlyingScanViewController  showWebLesson:resultStr];
     }
-    else if([qrType isEqualToString:KQRTyepeCode]){
-        
+    else if([qrType isEqualToString:KQRTyepeCode])
+    {
+        //扫描条形码
         [FlyingScanViewController  processCode:resultStr];
     }
 }
@@ -305,6 +367,49 @@
             
             [FlyingHttpTool loginWebsiteWithQR:loginID];
         }
+        else
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KBERQloginFail object:nil];
+        }
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KBERQloginFail object:nil];
+    }
+}
+
++(void) processBound:(NSString*) boundQRStr
+{
+    if(boundQRStr)
+    {
+        NSString * boundID = [NSString getboundCodeFromQR:boundQRStr];
+        
+        if (boundID) {
+            
+            [FlyingHttpTool boundTerminalWithQR:boundID
+                                     Completion:^(BOOL result)
+            {
+                if (result)
+                {
+                    NSLog(@"绑定成功");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KBERQBoundsOK object:nil];
+                }
+                else
+                {
+                    NSLog(@"绑定失败");
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KBERQBoundsFail object:nil];
+                }
+            }];
+        }
+        else
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KBERQBoundsFail object:nil];
+        }
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KBERQBoundsFail object:nil];
     }
 }
 

@@ -62,6 +62,7 @@
 - (void) showLessonViewWithCode:(NSString*) code;
 - (BOOL) showWebviewWithURL:(NSString *) webURL;
 
+- (void) pushViewController:(UIViewController *)viewController animated:(BOOL) animated;
 - (void) presentViewController:(UIViewController *)viewController;
 
 - (void) makeToast:(NSString*) message;

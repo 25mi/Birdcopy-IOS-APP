@@ -42,6 +42,8 @@
 
 @property (strong, nonatomic) FlyingUserData    *userdata;
 
+@property (strong, nonatomic) FlyingImageLabelCell * portraitCell;
+
 @end
 
 @implementation FlyingProfileVC
@@ -115,12 +117,14 @@
 {
     [super viewWillAppear:animated];
     
+    [self reloadAll];
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:KBEAccountChange
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      [self.tableView reloadData];
+                                                      [self reloadAll];
                                                   }];
 }
 
@@ -141,8 +145,8 @@
 //子类具体实现具体功能
 - (void) willDismiss
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
 }
-
 
 //////////////////////////////////////////////////////////////
 #pragma mark - Loading data and setup view
@@ -260,6 +264,8 @@
                 [self configureCell:portraitCell atIndexPath:indexPath];
                 
                 cell = portraitCell;
+                
+                self.portraitCell = portraitCell;
                 
                 break;
             }
@@ -638,8 +644,8 @@
                                             //
                                             if (result) {
                                                 //
-                                                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                                                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                                //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                                                //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                                                 [self.view makeToast:@"上传头像成功！"
                                                             duration:1
                                                             position:CSToastPositionCenter];
@@ -658,7 +664,7 @@
                    didCropImage:(UIImage *)croppedImage
                   usingCropRect:(CGRect)cropRect
 {
-    //self.portraitImageView.image = croppedImage;
+    [self.portraitCell setImageIcon:croppedImage];
     [self dealWithImage:croppedImage];
     
     [self.navigationController popViewControllerAnimated:YES];

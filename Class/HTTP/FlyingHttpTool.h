@@ -13,7 +13,7 @@
 #import "FlyingUserData.h"
 #import "FlyingPubLessonData.h"
 #import "FlyingCommentData.h"
-#import "FlyingGroupData.h"
+#import "FlyingGroupUpdateData.h"
 #import "FlyingAppData.h"
 #import "FlyingUserRightData.h"
 
@@ -41,6 +41,9 @@
                                       data:imageData
                                 Completion:(void (^)(BOOL result)) completion;
 
+//获取某个作者的终端ID
++(void)  getOpenIDForUserID:(NSString*) userID
+           Completion:(void (^)(NSString* openUDID)) completion;
 //////////////////////////////////////////////////////////////
 #pragma  社群相关
 //////////////////////////////////////////////////////////////
@@ -48,7 +51,7 @@
 + (void)  getAllGroupsForDomainID:(NSString*) domainID
                        DomainType:(NSString*) type
                      PageNumber:(NSInteger) pageNumber
-                     Completion:(void (^)(NSArray *groupList,NSInteger allRecordCount)) completion;
+                     Completion:(void (^)(NSArray *groupUpdateList,NSInteger allRecordCount)) completion;
 
 //获取我的群组
 + (void) getMyGroupsForPageNumber:(NSInteger) pageNumber
@@ -56,7 +59,7 @@
 
 //根据id获取单个群组
 + (void) getGroupByID:(NSString *) groupID
-      successCompletion:(void (^)(FlyingGroupData *group)) completion;
+    successCompletion:(void (^)(FlyingGroupUpdateData*updata)) completion;
 
 //加入聊天群组
 + (void) joinGroupForAccount:(NSString*) account
@@ -91,6 +94,9 @@
               Completion:(void (^)(BOOL result)) completion;
 
 +(void) loginWebsiteWithQR:(NSString*)loginID;
+
++(void) boundTerminalWithQR:(NSString*)boundID
+                 Completion:(void (^)(BOOL result)) completion;
 
 //////////////////////////////////////////////////////////////
 #pragma  会员相关

@@ -22,4 +22,7 @@
 
 -(BOOL) checkRightPresent;
 
+-(BOOL) periodOK;
+-(NSInteger) daysLeft;
+
 @end
