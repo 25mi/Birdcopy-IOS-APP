@@ -9,7 +9,6 @@
 #import "FlyingImageLabelCell.h"
 #import "shareDefine.h"
 #import <UIImageView+AFNetworking.h>
-#import <AFImageDownloader.h>
 
 @interface FlyingImageLabelCell()
 
@@ -20,7 +19,8 @@
 
 @implementation FlyingImageLabelCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     // Initialization code
     

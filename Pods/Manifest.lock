@@ -21,8 +21,8 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
-  - RongCloudIMKit (2.4.11)
-  - SlackTextViewController (1.9.1)
+  - RongCloudIMKit (2.5.0)
+  - SlackTextViewController (1.9.2)
   - UICKeyChainStore (2.1.0)
   - UITableView+FDTemplateLayoutCell (1.4)
 
@@ -41,8 +41,8 @@ SPEC CHECKSUMS:
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
-  RongCloudIMKit: 40fefc63541927aad728e06c731d12d34de1c5fa
-  SlackTextViewController: 6b0d1030c53937226fc5358f217af2a34fc211cf
+  RongCloudIMKit: 3d8473f022c7588db80ef81caf0208e5c2fa4789
+  SlackTextViewController: bac3350ccc639bc446bb14cbd09da238f5e01f32
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 

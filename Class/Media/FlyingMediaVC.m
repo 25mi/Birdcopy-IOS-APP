@@ -1634,7 +1634,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
 -(void) prepareNLP
 {
     //准备语法解析
-    if (_tagAndTokens==NULL) _tagAndTokens = [[NSMutableArray alloc] initWithCapacity:KCounts_Average_Screen_Subtitle];
+    if (_tagAndTokens==NULL) _tagAndTokens = [[NSMutableArray alloc] init];
     
     if (_flyingNPL==NULL) {
         

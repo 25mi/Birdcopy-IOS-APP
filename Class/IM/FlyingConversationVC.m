@@ -142,7 +142,20 @@
     if (self.conversationType == ConversationType_PRIVATE)
     {
         RCUserInfo* userInfo =[[RCDataBaseManager shareInstance] getUserByUserId:self.targetId];
-        self.title = userInfo.name;
+        
+        if (userInfo)
+        {
+            
+            self.title = userInfo.name;
+        }
+        else
+        {
+            [FlyingHttpTool getUserInfoByRongID:self.targetId
+                                     completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                         //
+                                     }];
+        }
+        
     }
     
     /*******************实时地理位置共享***************/
@@ -170,7 +183,6 @@
     if (self.conversationType == ConversationType_PRIVATE) {
         self.displayUserNameInCell = NO;
     }
-    
     
     [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"Help"]
                                         title:@"参与设计"
@@ -512,7 +524,7 @@
     else
     {
         [FlyingGroupVC showMemberInfo:userRightData
-                                 inVC:self];
+                                 inView:self.view];
         return nil;
     }
 }

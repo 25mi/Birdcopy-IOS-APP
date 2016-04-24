@@ -19,6 +19,4 @@
 -(void) setImageIconURL:(NSString*) imageURL;
 -(void) setImageIcon:(UIImage *)image;
 
-
-
 @end

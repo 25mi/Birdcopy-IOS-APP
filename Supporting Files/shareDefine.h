@@ -284,23 +284,7 @@ typedef NSInteger BE_Vedio_Type;
 
 #define kMargin 8.0
 
-#define KLoginNickName            @"nickname"
 
-#define KCounts_Average_Screen_Subtitle 30 //
-#define KCounts_Gridview_IPHONE  6  //
-#define KCounts_Gridview_IPHONE5 8  //
-#define KCounts_Gridview_PAD    12  //
-
-#define KMAXCountsLoading       16  //
-
-#define kLessonIPhoneSize         CGSizeMake(140, 110)
-#define kLessonIPADSize           CGSizeMake(230, 175)
-
-#define kIPhoneCollectionWidth     140
-#define kIPADCollectionWidth       230
-
-#define kLessonAbstractIPADLenth   60
-#define kLessonAbstractPhoneLenth  48
 
 enum {
     BEAISubHideBackgroundStyle=0,      //隐藏背景字幕

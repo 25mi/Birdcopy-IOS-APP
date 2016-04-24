@@ -18,9 +18,9 @@
 @property (nonatomic, strong) UIImageView *bannerImageViewWithImageEffects;
 
 // user info
-@property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UILabel *contentNameLabel;
-@property (nonatomic, strong) UILabel *contentDescLabel;
+@property (nonatomic, strong) UIImageView   *avatarImageView;
+@property (nonatomic, strong) UILabel       *contentNameLabel;
+@property (nonatomic, strong) UILabel       *contentDescLabel;
 
 
 //scrollView call back

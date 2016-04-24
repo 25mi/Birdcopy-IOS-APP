@@ -218,7 +218,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                                               [FlyingGroupVC contactAdminWithGroupGID:self.domainID
                                                                               message:message];
                                               
-                                              [FlyingGroupVC showMemberInfo:userRightData inVC:self];
+                                              [FlyingGroupVC showMemberInfo:userRightData inView:self.view];
                                           }];
                                      }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
@@ -242,7 +242,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         {
             //仅仅提示信息
             [FlyingGroupVC showMemberInfo:userRightData
-                                     inVC:self];
+                                     inView:self.view];
         }
         //不在开始和截止时间内
         else
@@ -281,7 +281,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     //其他情况,友情提醒
     else
     {
-        [FlyingGroupVC showMemberInfo:userRightData inVC:self];
+        [FlyingGroupVC showMemberInfo:userRightData inView:self.view];
     }
 }
 
@@ -385,7 +385,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         {
            //显示会员状态信息
             [FlyingGroupVC  showMemberInfo:userRightData
-                                      inVC:self];
+                                      inView:self.view];
         }
     }
 }

@@ -25,7 +25,7 @@
               inVC:(UIViewController*) vc;
 
 + (void) showMemberInfo:(FlyingUserRightData*)userRightData
-                   inVC:(UIViewController*) vc;
+                 inView:(UIView*) view;
 
 +(void) contactAdminWithGroupGID:(NSString*) groupID
                          message:(NSString*) message;

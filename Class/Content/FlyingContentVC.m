@@ -55,8 +55,6 @@
     
     NSInteger            _maxNumOfComments;
     NSInteger            _currentLodingIndex;
-    
-    int                  _lastPosition;
 }
 
 @property (nonatomic, strong) KMNetworkLoadingViewController* networkLoadingViewController;
@@ -273,9 +271,7 @@
         self.tableView.separatorColor = [UIColor grayColor];
         
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
-        
         self.tableView.restorationIdentifier = self.restorationIdentifier;
-        
         [self.view addSubview:self.tableView];
     }
     
@@ -292,92 +288,6 @@
     else
     {
         [self checkUserAccessRight];
-    }
-    
-    if([self.domainType  isEqualToString:BC_Domain_Group])
-    {
-        [self prepareForChatRoom];
-    }
-}
-
--(void) prepareForChatRoom
-{
-    if(!self.accessChatbutton)
-    {
-        CGRect chatButtonFrame=self.view.frame;
-        
-        CGRect frame=self.view.frame;
-        
-        chatButtonFrame.origin.x    = frame.size.width*8/10;
-        chatButtonFrame.origin.y    =frame.size.height-frame.size.width/8-frame.size.width*3/40-CGRectGetHeight(self.navigationController.navigationBar.frame);
-        
-        chatButtonFrame.size.width  = frame.size.width/8;
-        chatButtonFrame.size.height = frame.size.width/8;
-        
-        self.accessChatContainer = [[UIView alloc]  initWithFrame:chatButtonFrame];
-        
-        self.accessChatbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, chatButtonFrame.size.width, chatButtonFrame.size.height)];
-        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"chat"]
-                                         forState:UIControlStateNormal];
-        [self.accessChatbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-        [self.accessChatContainer addSubview:self.accessChatbutton];
-        
-        [self.view  addSubview:self.accessChatContainer];
-        [self.view bringSubviewToFront:self.accessChatContainer];
-    }
-}
-
-- (void) shakeToShow:(UIView*)aView
-
-{
-    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    
-    animation.duration = 1.5;// 动画时间
-    
-    NSMutableArray *values = [NSMutableArray array];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-    
-    // 这三个数字，我只研究了前两个，所以最后一个数字我还是按照它原来写1.0；前两个是控制view的大小的；
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)]];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.6, 1.6, 1.0)]];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(2.0, 2.0, 1.0)]];
-    
-    animation.values = values;
-    
-    [aView.layer addAnimation:animation forKey:nil];
-}
-
-- (void) doChat
-{
-    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    
-    chatService.domainID = self.domainID;
-    chatService.domainType = self.domainType;
-    
-    chatService.targetId = self.domainID;
-    chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title =@"群组聊天室";
-    [self.navigationController pushViewController:chatService animated:YES];
-}
-
-#pragma mark - scroll delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    
-    int currentPostion = scrollView.contentOffset.y;
-    if (currentPostion - _lastPosition > 25) {
-        _lastPosition = currentPostion;
-    }
-    else if (_lastPosition - currentPostion > 25)
-    {
-        _lastPosition = currentPostion;
-        
-        [self shakeToShow:self.accessChatContainer];
     }
 }
 

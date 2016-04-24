@@ -612,7 +612,7 @@
         else
         {
             [FlyingGroupVC showMemberInfo:userRightData
-                                     inVC:vc];
+                                     inView:vc.view];
         }
     }];
 }
@@ -657,7 +657,8 @@
                                                                           Completion:^(FlyingUserRightData *userRightData)
                                                   {
                                                       
-                                                      [FlyingGroupVC showMemberInfo:userRightData inVC:vc];
+                                                      [FlyingGroupVC showMemberInfo:userRightData
+                                                                             inView:vc.view];
                                                       
                                                       NSString * message = [NSString stringWithFormat:NSLocalizedString(@"I want to become a member! Group  Name：%@", nil),groupData.gp_name];
                                                       
@@ -724,15 +725,15 @@
             //其他情况,友情提醒
             else
             {
-                [FlyingGroupVC showMemberInfo:userRightData inVC:vc];
+                [FlyingGroupVC showMemberInfo:userRightData
+                                       inView:vc.view];
             }
         }];
     }
 }
 
-
 + (void) showMemberInfo:(FlyingUserRightData*)userRightData
-                   inVC:(UIViewController*) vc
+                   inView:(UIView*) view
 {
     NSString * infoStr= NSLocalizedString(@"Unknow erro!", nil);
     
@@ -755,7 +756,7 @@
         infoStr = @"你的成员资格被拒绝!";
     }
     
-    [vc.view makeToast:infoStr
+    [view makeToast:infoStr
               duration:2
               position:CSToastPositionCenter];
 }

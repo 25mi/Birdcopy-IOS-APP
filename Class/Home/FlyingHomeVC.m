@@ -32,8 +32,9 @@
 #import "FlyingGroupUpdateData.h"
 #import "FlyingWebViewController.h"
 #import "FlyingSoundPlayer.h"
-#import "FlyingGroupUpdateCell.h"
 #import "FlyingGroupVC.h"
+#import "FlyingIndexedCollectionView.h"
+#import "FlyingAuthorCollectionViewCell.h"
 
 @interface FlyingHomeVC ()<UIViewControllerRestoration>
 {
@@ -178,9 +179,6 @@
         
         //必须在设置delegate之前
         [self.groupTableView registerNib:[UINib nibWithNibName:@"FlyingGroupTableViewCell" bundle: nil]  forCellReuseIdentifier:@"FlyingGroupTableViewCell"];
-        
-        [self.groupTableView registerNib:[UINib nibWithNibName:@"FlyingGroupUpdateCell" bundle: nil]  forCellReuseIdentifier:@"FlyingGroupUpdateCell"];
-
         
         self.groupTableView.delegate = self;
         self.groupTableView.dataSource = self;
@@ -329,34 +327,14 @@
 {
     if (indexPath.section == 0)
     {
+        FlyingGroupTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingGroupTableViewCell"];
         
-        FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
+        if (!cell) {
+            cell = [FlyingGroupTableViewCell groupCell];
+        }
         
-        if(groupData.groupData.is_public_access)
-        {
-            
-            //公开群组
-            FlyingGroupUpdateCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingGroupUpdateCell"];
-            
-            if (!cell) {
-                cell = [FlyingGroupUpdateCell groupCell];
-            }
-            
-            [self configureCell:cell atIndexPath:indexPath];
-            return cell;
-        }
-        else
-        {
-            //非公开群组
-            FlyingGroupTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingGroupTableViewCell"];
-            
-            if (!cell) {
-                cell = [FlyingGroupTableViewCell groupCell];
-            }
-            
-            [self configureCell:cell atIndexPath:indexPath];
-            return cell;
-        }
+        [self configureCell:cell atIndexPath:indexPath];
+        return cell;
     }
     
     // 加载更多
@@ -385,50 +363,26 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.section == 0)
     {
-        
-        FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
-        
-        if(groupData.groupData.is_public_access)
-        {
-            //公开群组
-            return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupUpdateCell"
-                                            cacheByIndexPath:indexPath
-                                               configuration:^(id cell) {
-                                                   
-                                                   [self configureCell:cell atIndexPath:indexPath];
-                                               }];
-        }
-        else
-        {
-            //非公开群组
-            return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupTableViewCell"
-                                            cacheByIndexPath:indexPath
-                                               configuration:^(id cell) {
-                                                   
-                                                   [self configureCell:cell atIndexPath:indexPath];
-                                               }];
-        }
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingGroupTableViewCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(id cell) {
+                                               
+                                               [self configureCell:cell atIndexPath:indexPath];
+                                           }];
     }
     
     // 加载更多
     return 44;
 }
 
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
     
-    if(groupData.groupData.is_public_access)
-    {
-        [(FlyingGroupUpdateCell*)cell  settingWithGroupData:groupData];
-    }
-    else
-    {
-        [(FlyingGroupTableViewCell*)cell settingWithGroupData:groupData];
-    }
+    [(FlyingGroupTableViewCell*)cell settingWithGroupData:groupData];
 }
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods

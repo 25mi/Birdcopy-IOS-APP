@@ -258,17 +258,11 @@
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, avatarButtonHeight, avatarButtonHeight)];
     
-    [_avatarImageView.layer setCornerRadius:(_avatarImageView.frame.size.height/2)];
-    [_avatarImageView.layer setMasksToBounds:YES];
     [_avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [_avatarImageView setClipsToBounds:YES];
-    _avatarImageView.layer.shadowColor = [UIColor clearColor].CGColor;
-    _avatarImageView.layer.shadowOffset = CGSizeMake(4, 4);
-    _avatarImageView.layer.shadowOpacity = 0.5;
-    _avatarImageView.layer.shadowRadius = 2.0;
     _avatarImageView.userInteractionEnabled = NO;
-    _avatarImageView.backgroundColor = [UIColor clearColor];
-
+    
+    _avatarImageView.layer.cornerRadius = _avatarImageView.frame.size.width/2;
+    _avatarImageView.clipsToBounds = YES;
     
     LEColorPicker *colorPicker = [[LEColorPicker alloc] init];
     LEColorScheme *colorScheme = [colorPicker colorSchemeFromImage:_bannerImageView.image];
