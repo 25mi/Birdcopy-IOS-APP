@@ -26,7 +26,8 @@
 
 #import "FlyingHttpTool.h"
 #import "FlyingReviewVC.h"
-#import "UIView+Toast.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
@@ -66,7 +67,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     [super decodeRestorableStateWithCoder:coder];
 }
 
-
 - (id)init
 {
     if ((self = [super init]))
@@ -95,18 +95,25 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         self.navigationItem.rightBarButtonItem = dictionaryBarButtonItem;
     }
     
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.delegate = self;
+    if (!self.searchController)
+    {
+        self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        self.searchController.searchResultsUpdater = self;
+        self.searchController.dimsBackgroundDuringPresentation = NO;
+        self.searchController.searchBar.delegate = self;
+    }
     
-    self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+    if (!self.tableView)
+    {
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
+        
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
+        
+        self.tableView.tableHeaderView = self.searchController.searchBar;
+        [self.view addSubview:self.tableView];
+    }
     
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    [self.view addSubview:self.tableView];
 
     self.definesPresentationContext = YES;
     
@@ -180,9 +187,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     }
     else
     {
-        [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
-                    duration:3
-                    position:CSToastPositionCenter];
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"click the words in the subtitles for translation", nil);
+
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 

@@ -107,6 +107,11 @@
     UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
     
     self.tabBar.tintColor =  backgroundColor;
+    
+    NSInteger height = self.tabBar.frame.size.height;
+    [[NSUserDefaults standardUserDefaults] setInteger:height forKey:KTabBarHeight];
+    [[NSUserDefaults standardUserDefaults]  synchronize];
+    
     //登录融云
     [FlyingHttpTool loginRongCloud];
 }

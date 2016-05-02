@@ -32,15 +32,9 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [self.authorImageView.layer setCornerRadius:(self.authorImageView.frame.size.height/2)];
-    [self.authorImageView.layer setMasksToBounds:YES];
-    [self.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.authorImageView setClipsToBounds:YES];
-    self.authorImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.authorImageView.layer.shadowOffset = CGSizeMake(4, 4);
-    self.authorImageView.layer.shadowOpacity = 0.5;
-    self.authorImageView.layer.shadowRadius = 2.0;
-    self.authorImageView.userInteractionEnabled = YES;
+    self.authorImageView.layer.cornerRadius = self.authorImageView.frame.size.width/2;
+    self.authorImageView.clipsToBounds = YES;
+    
     self.authorImageView.backgroundColor = [UIColor clearColor];
 }
 

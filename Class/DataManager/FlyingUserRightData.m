@@ -85,7 +85,7 @@
 {
     NSDate *nowDate = [NSDate date];
     
-    return [FlyingUserRightData daysBetweenDate:nowDate andDate:self.endDate];
+    return [FlyingUserRightData daysBetweenDate:nowDate andDate:self.endDate]+1;
 }
 
 + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
@@ -105,5 +105,145 @@
     
     return [difference day];
 }
+
+-(NSString*) getMemberStateInfo
+{
+    NSString * infoStr= NSLocalizedString(@"Unknow erro!", nil);
+    
+    if([self.memberState  isEqualToString:BC_Member_Noexisted])
+    {
+        infoStr = NSLocalizedString(@"You are not a member of the group!", nil);
+        
+    }
+    else if([self.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        infoStr = NSLocalizedString(@"Your membership is in review...", nil);
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Verified])
+    {
+        //是否合格会员
+        if ([self periodOK])
+        {
+            //离截止日期还有多久
+            NSInteger alertDays = [self daysLeft];
+            
+            if (alertDays<=BC_GroupMember_AlertDays)
+            {
+                //只剩7天以内有效期就提醒用户
+                infoStr =[NSString stringWithFormat: NSLocalizedString(@"%@days remaining!", nil), @(alertDays).stringValue];
+            }
+            else
+            {
+                infoStr = NSLocalizedString(@"You are a member of the group!", nil);
+            }
+        }
+        //会员过期
+        else
+        {
+            infoStr =NSLocalizedString(@"Membership has expired!",nil);
+        }
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Refused])
+    {
+        infoStr = NSLocalizedString(@"You are rejected by the group!", nil);
+    }
+    
+    return infoStr;
+}
+
+
+-(NSString*) getChatTutorForMemberstate
+{
+    NSString * infoStr= NSLocalizedString(@"Unknow erro!", nil);
+    
+    if([self.memberState  isEqualToString:BC_Member_Noexisted])
+    {
+        infoStr = NSLocalizedString(@"Enter Chatroom", nil);
+    }
+    else if([self.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        infoStr = NSLocalizedString(@"Reviewing", nil);
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Verified])
+    {        
+        //是否合格会员
+        if ([self periodOK])
+        {
+            //离截止日期还有多久
+            NSInteger alertDays = [self daysLeft];
+            
+            if (alertDays<=BC_GroupMember_AlertDays)
+            {
+                //只剩7天以内有效期就提醒用户
+                infoStr =[NSString stringWithFormat: NSLocalizedString(@"%@days remaining!", nil), @(alertDays).stringValue];
+            }
+            else
+            {
+                infoStr = NSLocalizedString(@"Enter Chatroom", nil);
+            }
+        }
+        //会员过期
+        else
+        {
+            infoStr =NSLocalizedString(@"Membership has expired!",nil);
+        }
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Refused])
+    {
+        
+        infoStr = NSLocalizedString(@"You are rejected by the group!", nil);
+    }
+    
+    return infoStr;
+}
+
+-(UIColor*) getMemberTutorColor
+{
+    UIColor * returnColor=nil;
+    
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+    UIColor *logoStyle  = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+
+    
+    if([self.memberState  isEqualToString:BC_Member_Noexisted])
+    {
+        returnColor = logoStyle;
+    }
+    else if([self.memberState  isEqualToString:BC_Member_Reviewing])
+    {
+        returnColor = nil;
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Verified])
+    {
+        //是否合格会员
+        if ([self periodOK])
+        {
+            //离截止日期还有多久
+            NSInteger alertDays = [self daysLeft];
+            if (alertDays<=BC_GroupMember_AlertDays)
+            {
+                returnColor = [UIColor redColor];
+            }
+            else
+            {
+                returnColor = logoStyle;
+            }
+        }
+        //会员过期
+        else
+        {
+            returnColor = [UIColor redColor];
+        }
+
+    }
+    else if ([self.memberState isEqualToString:BC_Member_Refused])
+    {
+        
+        returnColor = [UIColor redColor];
+    }
+    
+    return returnColor;
+}
+
 
 @end

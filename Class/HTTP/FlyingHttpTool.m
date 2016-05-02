@@ -13,32 +13,26 @@
 #import "AFHttpTool.h"
 #import "RCDRCIMDataSource.h"
 #import "RCDataBaseManager.h"
-
 #import "FlyingLessonParser.h"
 #import "FlyingItemParser.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingCoverDataParser.h"
-
 #import "FlyingGroupData.h"
 #import "FlyingGroupMemberData.h"
 #import "FlyingPubLessonData.h"
-
 #import "FlyingStatisticData.h"
 #import "FlyingStatisticDAO.h"
-
 #import "FlyingTouchDAO.h"
 #import "FlyingTouchRecord.h"
-
 #import "FlyingNowLessonDAO.h"
 #import "FlyingLessonData.h"
-
 #import "FlyingLessonDAO.h"
 #import "FlyingLessonData.h"
-
 #import "FlyingDataManager.h"
 #import <UICKeyChainStore.h>
 #import "FlyingGroupUpdateData.h"
-#import "iFlyingAppDelegate.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 @implementation FlyingHttpTool
 
@@ -1296,8 +1290,12 @@
                                                             responseStr = [NSString stringWithFormat:@"充值成功:充值金币数目:%@",[@(resultNum-userData.BEQRCOUNT) stringValue]];
                                                     }
                                                     
-                                                    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-                                                    [appDelegate makeToast:responseStr];
+                                                    [FlyingSoundPlayer noticeSound];
+                                                    [CRToastManager showNotificationWithMessage:responseStr
+                                                                                completionBlock:^{
+                                                                                    //:"
+                                                                                }];
+
                                                 }
                                                 
                                                 if (completion) {
@@ -1306,10 +1304,12 @@
                                             }
                                             else
                                             {
-                                                NSString *message = @"服务器繁忙或者网络故障请稍后再试！";
-                                                
-                                                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-                                                [appDelegate makeToast:message];
+                                                [FlyingSoundPlayer noticeSound];
+                                                NSString *message = NSLocalizedString(@"服务器繁忙或者网络故障请稍后再试！",nil);
+                                                [CRToastManager showNotificationWithMessage:message
+                                                                            completionBlock:^{
+                                                                                //:"
+                                                                            }];
 
                                                 if (completion) {
                                                     completion(false);
@@ -1830,9 +1830,19 @@
                                //
                                NSString * temStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                                
-                               if (temStr && completion) {
+                               if (temStr && completion)
+                               {
+                                   NSArray * tempArr = [temStr  componentsSeparatedByString:@","];
                                    
-                                   completion([temStr  componentsSeparatedByString:@","]);
+                                   if ([BC_Domain_Author isEqualToString:type])
+                                   {
+                                       completion(tempArr);
+                                   }
+                                   else
+                                   {
+                                       NSSet *set = [NSSet setWithArray:tempArr];
+                                       completion([set allObjects]);
+                                   }
                                }
                                
                            } failure:^(NSError *err) {

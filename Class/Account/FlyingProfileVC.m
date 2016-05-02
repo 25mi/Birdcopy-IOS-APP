@@ -12,7 +12,6 @@
 #import "AFHttpTool.h"
 #import "RSKImageCropViewController.h"
 #import "FlyingEditVC.h"
-#import "UIView+Toast.h"
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
 #import "FlyingActiveViewController.h"
@@ -27,6 +26,8 @@
 #import "FlyingImageLabelCell.h"
 #import "FlyingTextLableCell.h"
 #import "FlyingTextOnlyCell.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -333,14 +334,18 @@
                 {
                     [(FlyingImageLabelCell *)cell setItemText:NSLocalizedString(@"Portrait", nil)];
                     
-                    if ([self.userdata.portraitUri isBlankString]){
+                    if ([self.userdata.portraitUri isBlankString])
+                    {
                         
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [self.view makeToast:NSLocalizedString(@"Touch portrait to update it!", nil)
-                                        duration:1
-                                        position:CSToastPositionCenter];
+                            [FlyingSoundPlayer noticeSound];
+                            NSString * message =NSLocalizedString(@"Touch portrait to update it!", nil);
+                            [CRToastManager showNotificationWithMessage:message
+                                                        completionBlock:^{
+                                                            NSLog(@"Completed");
+                                                        }];
                         }
                     }
                     else{
@@ -359,10 +364,12 @@
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [self.view makeToast:NSLocalizedString(@"Touch nickName to update it!", nil)
-                                        duration:1
-                                        position:CSToastPositionCenter];
-                            
+                            [FlyingSoundPlayer noticeSound];
+                            NSString * message =NSLocalizedString(@"Touch nickName to update it!", nil);
+                            [CRToastManager showNotificationWithMessage:message
+                                                        completionBlock:^{
+                                                            NSLog(@"Completed");
+                                                        }];
                         }
                     }
                     else{
@@ -382,9 +389,13 @@
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [self.view makeToast:NSLocalizedString(@"Touch digest to update it!", nil)
-                                        duration:1
-                                        position:CSToastPositionCenter];
+                            [FlyingSoundPlayer noticeSound];
+                            NSString * message =NSLocalizedString(@"Touch digest to update it!", nil);
+                            [CRToastManager showNotificationWithMessage:message
+                                                        completionBlock:^{
+                                                            NSLog(@"Completed");
+                                                        }];
+
                         }
                     }
                     else{
@@ -488,11 +499,15 @@
             }
             else
             {
-                if ([[FlyingDataManager getUserData:nil].portraitUri isBlankString]) {
+                if ([[FlyingDataManager getUserData:nil].portraitUri isBlankString])
+                {
                     
-                    [self.view makeToast:NSLocalizedString(@"Upload your portrait first please!", nil)
-                                duration:1
-                                position:CSToastPositionCenter];
+                    [FlyingSoundPlayer noticeSound];
+                    NSString * message = NSLocalizedString(@"Upload your portrait first please!", nil);
+                    [CRToastManager showNotificationWithMessage:message
+                                                completionBlock:^{
+                                                    NSLog(@"Completed");
+                                                }];
                 }
                 else
                 {
@@ -642,13 +657,14 @@
                                               data:imageData
                                         Completion:^(BOOL result) {
                                             //
-                                            if (result) {
-                                                //
-                                                //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                                                //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                                [self.view makeToast:@"上传头像成功！"
-                                                            duration:1
-                                                            position:CSToastPositionCenter];
+                                            if (result)
+                                            {
+                                                [FlyingSoundPlayer noticeSound];
+                                                NSString * message = NSLocalizedString(@"上传头像成功！",nil);
+                                                [CRToastManager showNotificationWithMessage:message
+                                                                            completionBlock:^{
+                                                                                NSLog(@"Completed");
+                                                                            }];
                                             }
                                         }];
 }

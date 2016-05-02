@@ -15,43 +15,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ei-Zz-PsE">
-                        <rect key="frame" x="246" y="10" width="24" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="24" id="MNh-vF-5bq"/>
-                            <constraint firstAttribute="height" constant="24" id="ev7-Bq-iDM"/>
-                        </constraints>
-                        <state key="normal" backgroundImage="coin"/>
-                        <connections>
-                            <action selector="accessButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gv4-xe-aP7"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hU7-fe-i4u">
-                        <rect key="frame" x="278" y="12" width="34" height="21"/>
+                        <rect key="frame" x="278" y="13" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="277" translatesAutoresizingMaskIntoConstraints="NO" id="QD1-st-YQ7">
-                        <rect key="frame" x="8" y="12" width="230" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="有智慧雷元第22期－－超能陆战队 失败时是成功之母" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="277" translatesAutoresizingMaskIntoConstraints="NO" id="QD1-st-YQ7">
+                        <rect key="frame" x="8" y="3" width="230" height="41"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="n3k-uA-5xr">
+                        <rect key="frame" x="246" y="11" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="udw-Ef-EZG"/>
+                            <constraint firstAttribute="width" constant="24" id="uxF-Gk-rvT"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="hU7-fe-i4u" firstAttribute="centerY" secondItem="5ei-Zz-PsE" secondAttribute="centerY" id="C9X-Qc-B7X"/>
-                    <constraint firstItem="hU7-fe-i4u" firstAttribute="leading" secondItem="5ei-Zz-PsE" secondAttribute="trailing" constant="8" id="I5o-Vd-ido"/>
-                    <constraint firstItem="5ei-Zz-PsE" firstAttribute="leading" secondItem="QD1-st-YQ7" secondAttribute="trailing" constant="8" id="K58-Ao-hd4"/>
-                    <constraint firstItem="5ei-Zz-PsE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KO5-oG-xLX"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="hU7-fe-i4u" secondAttribute="trailing" id="Lom-HB-4bb"/>
-                    <constraint firstItem="QD1-st-YQ7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bkR-hN-lpH"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="QD1-st-YQ7" secondAttribute="leading" id="eXY-WB-XbV"/>
+                    <constraint firstItem="QD1-st-YQ7" firstAttribute="centerY" secondItem="n3k-uA-5xr" secondAttribute="centerY" id="7HY-Ii-XGp"/>
+                    <constraint firstItem="QD1-st-YQ7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="I4y-4D-16N"/>
+                    <constraint firstItem="hU7-fe-i4u" firstAttribute="leading" secondItem="n3k-uA-5xr" secondAttribute="trailing" constant="8" id="LHc-x8-nAa"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="hU7-fe-i4u" secondAttribute="trailing" id="bb8-vp-76c"/>
+                    <constraint firstItem="n3k-uA-5xr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="dny-c0-VCG"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="n3k-uA-5xr" secondAttribute="bottom" id="kPg-WK-yt7"/>
+                    <constraint firstItem="n3k-uA-5xr" firstAttribute="leading" secondItem="QD1-st-YQ7" secondAttribute="trailing" constant="8" id="mMZ-af-ahg"/>
+                    <constraint firstItem="hU7-fe-i4u" firstAttribute="centerY" secondItem="n3k-uA-5xr" secondAttribute="centerY" id="n8W-iA-W63"/>
                 </constraints>
             </tableViewCellContentView>
-            <inset key="separatorInset" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="accessButton" destination="5ei-Zz-PsE" id="Jof-97-kKa"/>
+                <outlet property="accessImageView" destination="n3k-uA-5xr" id="f54-Bq-SS1"/>
                 <outlet property="contentTitle" destination="QD1-st-YQ7" id="E0A-Aq-2Dd"/>
                 <outlet property="priceLabel" destination="hU7-fe-i4u" id="qvR-DH-War"/>
             </connections>

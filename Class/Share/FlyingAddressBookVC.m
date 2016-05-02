@@ -12,12 +12,13 @@
 #import "FlyingGroupMemberData.h"
 #import "FlyingAddressBookTableViewCell.h"
 #import "iFlyingAppDelegate.h"
-#import "UIView+Toast.h"
+#import <CRToastManager.h>
 #import "FlyingDataManager.h"
 #import "FlyingProfileVC.h"
 #import <RongIMLib/RongIMLib.h>
 #import "RCDataBaseManager.h"
 #import "FlyingGroupVC.h"
+#import "FlyingSoundPlayer.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
@@ -81,7 +82,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     
     //顶部导航
     UIButton* membershipButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    [membershipButton setBackgroundImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    [membershipButton setBackgroundImage:[UIImage imageNamed:@"plus"] forState:UIControlStateNormal];
     [membershipButton addTarget:self action:@selector(joinMembership) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* membershipBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:membershipButton];
     
@@ -192,97 +193,23 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         return;
     }
     
-    FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:self.domainID domainType:self.domainType];
+    [self applyingMembership:self.domainID];
+}
+
+- (void) applyingMembership:(NSString*)groupID
+{
+    [FlyingGroupVC doMemberRightInVC:self
+                             GroupID:groupID
+                          Completion:^(FlyingUserRightData *userRightData) {
+                              //即时反馈
+                              [FlyingSoundPlayer noticeSound];
+                              NSString * message = [userRightData getMemberStateInfo];
+                              [CRToastManager showNotificationWithMessage:message
+                                                          completionBlock:^{
+                                                              NSLog(@"Completed");
+                                                          }];
+                          }];
     
-    //新成员提醒申请成为会员
-    if ([BC_Member_Noexisted isEqualToString:userRightData.memberState]){
-        
-        NSString *title   = NSLocalizedString(@"Attenion Please", nil);
-        NSString *message = NSLocalizedString(@"I want to become a member!", nil);
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                 message:message
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
-                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
-                                     {
-                                         [FlyingHttpTool joinGroupForAccount:[FlyingDataManager getOpenUDID]
-                                                                     GroupID:self.domainID
-                                                                  Completion:^(FlyingUserRightData *userRightData)
-                                          {
-                                              
-                                              NSString * message = [NSString stringWithFormat:NSLocalizedString(@"I want to become a member! Group  Name：%@", nil),self.title];
-
-                                              //直接联系客服
-                                              [FlyingGroupVC contactAdminWithGroupGID:self.domainID
-                                                                              message:message];
-                                              
-                                              [FlyingGroupVC showMemberInfo:userRightData inView:self.view];
-                                          }];
-                                     }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
-                                                               style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
-                                       {
-                                           //
-                                       }];
-        
-        [alertController addAction:doneAction];
-        [alertController addAction:cancelAction];
-        
-        [self presentViewController:alertController animated:YES completion:^{
-            //
-        }];
-    }
-    //现有审核通过成员
-    else if ([BC_Member_Verified isEqualToString:userRightData.memberState])
-    {
-        //在成员开始和截止时期内
-        if ([userRightData periodOK])
-        {
-            //仅仅提示信息
-            [FlyingGroupVC showMemberInfo:userRightData
-                                     inView:self.view];
-        }
-        //不在开始和截止时间内
-        else
-        {
-            NSString *title   = NSLocalizedString(@"Attenion Please", nil);
-            NSString *message = NSLocalizedString(@"I want to buy membership service!", nil);
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                     message:message
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
-            //购买会员服务
-            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
-                                                                 style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
-                                         {
-                                             NSString * message = [NSString stringWithFormat:NSLocalizedString(@"I want to buy membership service! Group Name:%@", nil),self.title];
-
-                                             //直接联系客服
-                                             [FlyingGroupVC contactAdminWithGroupGID:self.domainID
-                                                                             message:message];
-
-                                         }];
-            
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
-                                                                   style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                                                       
-                                                                   }];
-            
-            [alertController addAction:doneAction];
-            [alertController addAction:cancelAction];
-            [self presentViewController:alertController animated:YES completion:^{
-                //
-            }];
-        }
-        
-    }
-    //其他情况,友情提醒
-    else
-    {
-        [FlyingGroupVC showMemberInfo:userRightData inView:self.view];
-    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -304,7 +231,11 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                                              
                                              [memberList enumerateObjectsUsingBlock:^(FlyingGroupMemberData* obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                                  
-                                                 [self.allMemberDic setObject:obj forKey:[NSString transformToPinyin:obj.name]];
+                                                 if (obj.name)
+                                                 {
+                                                     
+                                                     [self.allMemberDic setObject:obj forKey:[NSString transformToPinyin:obj.name]];
+                                                 }
                                              }];
                                          }
                                          
@@ -384,8 +315,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         else
         {
            //显示会员状态信息
-            [FlyingGroupVC  showMemberInfo:userRightData
-                                      inView:self.view];
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = [userRightData getMemberStateInfo];
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+
         }
     }
 }

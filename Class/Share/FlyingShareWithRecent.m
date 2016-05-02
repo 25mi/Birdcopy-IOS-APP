@@ -9,7 +9,6 @@
 #import "FlyingShareWithRecent.h"
 #import "UIColor+RCColor.h"
 #import "iFlyingAppDelegate.h"
-#import "UIView+Toast.h"
 #import "NSString+FlyingExtention.h"
 
 @interface FlyingShareWithRecent ()<UIViewControllerRestoration>
@@ -86,14 +85,15 @@
 - (void) dismissNavigation
 {
     [self willDismiss];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    });
 }
 
 - (void) willDismiss
 {
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        //
-    }];
 }
 
 /**
@@ -105,12 +105,21 @@
  */
 -(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel *)model atIndexPath:(NSIndexPath *)indexPath
 {
-    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL) {
+    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL)
+    {
+        
+        NSString *message = nil;
+        
+        if ([self.message isKindOfClass:[RCRichContentMessage class]])
+        {
+            RCRichContentMessage * richContent = (RCRichContentMessage * )self.message;
+    
+            message = richContent.title;
+        }
         
         
-        RCRichContentMessage * richContent = (RCRichContentMessage * )self.message;
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"分享课程"
-                                                                         message:richContent.title
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"分享"
+                                                                         message:message
                                                                   preferredStyle:UIAlertControllerStyleAlert];
         
         [alertVC addTextFieldWithConfigurationHandler:^(UITextField*textField) {
@@ -124,7 +133,7 @@
             // 调用RCIMClient的sendMessage方法进行发送，结果会通过回调进行反馈。
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
                                               targetId:model.targetId
-                                               content:richContent
+                                               content:self.message
                                            pushContent:nil
                                               pushData:nil
                                                success:^(long messageId) {

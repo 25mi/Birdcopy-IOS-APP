@@ -8,10 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "FlyingViewController.h"
 #import "shareDefine.h"
+#import "YALSunnyRefreshControl.h"
+
 
 @interface FlyingContentListVC : FlyingViewController<
                                                     UITableViewDataSource,
-                                                    UITableViewDelegate>
+                                                    UITableViewDelegate,
+                                                    YALSunnyRefreshControlDelegate>
+
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 @property (strong, nonatomic) NSString           *tagString;

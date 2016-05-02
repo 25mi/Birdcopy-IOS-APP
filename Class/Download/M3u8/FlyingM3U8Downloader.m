@@ -374,7 +374,7 @@
         giftCountNow+=10;
         [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
         
-        [FlyingSoundPlayer soundEffect:@"calloutLight"];
+        [FlyingSoundPlayer noticeSound];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //

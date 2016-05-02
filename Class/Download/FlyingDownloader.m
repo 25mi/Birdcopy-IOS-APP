@@ -18,6 +18,8 @@
 #import "iFlyingAppDelegate.h"
 #import "AFHttpTool.h"
 #import "FlyingDownloadManager.h"
+#import <CRToastManager.h>
+#import <CRToastManager.h>
 
 #import <Foundation/NSURLSession.h>
 
@@ -126,10 +128,12 @@
              _downloader=nil;
              }
              */
-            
-            NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate makeToast:message];
+            [FlyingSoundPlayer noticeSound];
+            NSString *message = NSLocalizedString(@"请使用专业版!",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
         else if ([_downloadType isEqualToString:KDownloadTypeM3U8]) {
             
@@ -168,9 +172,12 @@
     else if ([_downloadType isEqualToString:KDownloadTypeMagnet]){
         
         //[(FlyingMagnetDownloader *)_downloader  startDownloadVideo];
-        NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate makeToast:message];
+        
+        NSString *message = NSLocalizedString(@"请使用专业版!",nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 
@@ -187,10 +194,12 @@
     else if ([_downloadType isEqualToString:KDownloadTypeMagnet]){
         
         //[(FlyingMagnetDownloader *)_downloader  cancelDownload];
-        
+        [FlyingSoundPlayer noticeSound];
         NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate makeToast:message];
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 

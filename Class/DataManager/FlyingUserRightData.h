@@ -24,5 +24,10 @@
 
 -(BOOL) periodOK;
 -(NSInteger) daysLeft;
+-(NSString*) getMemberStateInfo;
+
+-(NSString*) getChatTutorForMemberstate;
+-(UIColor*) getMemberTutorColor;
+
 
 @end

@@ -23,7 +23,6 @@
 #import "FlyingCoverViewCell.h"
 #import "UICKeyChainStore.h"
 #import <AFNetworking/AFNetworking.h>
-#import "UIView+Toast.h"
 #import "AFHttpTool.h"
 #import "FlyingHttpTool.h"
 
@@ -37,13 +36,10 @@
 {
     NSInteger            _maxNumOfTags;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
-    UIRefreshControl    *_refreshControl;
 }
 
-@property (nonatomic,strong) UIButton* menuButton;
-
+@property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+@property (atomic,assign)    BOOL refresh;
 
 @end
 
@@ -100,6 +96,8 @@
     }
         
     [self reloadAll];
+    
+    [self setupRefreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -177,10 +175,6 @@
         _currentData = [NSMutableArray new];
         _currentLodingIndex=0;
         _maxNumOfTags=NSIntegerMax;
-        
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
-        [self.homeFeatureTagPSColeectionView addSubview:_refreshControl];
     }
     else
     {
@@ -195,22 +189,39 @@
     [self downloadMore];
 }
 
-- (void)refreshNow:(UIRefreshControl *)refreshControl
+# pragma mark - YALSunyRefreshControl methods
+
+-(void)setupRefreshControl
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
-        
+    _refresh = NO;
+    self.sunnyRefreshControl = [YALSunnyRefreshControl new];
+    self.sunnyRefreshControl.delegate = self;
+    [self.sunnyRefreshControl attachToScrollView:self.homeFeatureTagPSColeectionView];
+}
+
+-(void)beginRefreshing
+{
+    if (_refresh)
+    {
+        return;
+    }
+    
+    // start loading something
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
         _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self reloadAll];
-        });
+        [self reloadAll];
     }
     else
     {
-        [_refreshControl endRefreshing];
+        [self endAnimationHandle];
     }
+}
+
+-(void)endAnimationHandle
+{
+    [self.sunnyRefreshControl endRefreshing];
+    _refresh=NO;
 }
 
 //////////////////////////////////////////////////////////////
@@ -251,14 +262,7 @@
     //更新下拉刷新
     if(_refresh)
     {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
-        
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
-        
-        [_refreshControl endRefreshing];
-        _refresh=NO;
+        [self endAnimationHandle];
     }
     
     //更新界面

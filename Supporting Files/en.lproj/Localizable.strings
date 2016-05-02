@@ -21,7 +21,7 @@
 // 设置
 "My Service"        = "My Service";
 "English Tool"      = "My Words";
-"Scene Dictionary[%@]"  = "My Words[%@]";
+"My Dictionary[%@]"  = "My Words[%@]";
 "Dictionary"        = "Dictionary";
 "Chat Setting"      = "Chat Setting";
 "Clear Cache"       = "Clear Cache";
@@ -35,7 +35,7 @@
 "Who am I"          = "Who am I";
 "Login/Register"    = "Login|Register";
 "Login Out"         = "Login Out";
-"Chat Now"          = "沟通｜聊天";
+"Chat Now"          = "Chat Now";
 
 //购买
 "Member User"       = "Member User";
@@ -56,8 +56,37 @@
 //群
 "Memberships" = "Memberships";
 
-"Membership will end in %@days"   = "Membership will end in %@days";
+"You are not a member of the group!"            = "You are not a member of the group!";
 
+"I am applying to join the group!"              = "I am applying to join the group!";
+"I am applying to join the group:%@"            = "I am applying to join the group:%@";
+
+"Your membership is in review..."               = "Your membership is in review...";
+
+"You are a member of the group!"                = "You are a member of the group!";
+
+"You are rejected by the group!"                = "You are rejected by the group!";
+"You are rejected by the group! Complain it!"   = "You are rejected by the group! Complain it!!";
+"You are rejected by the group! Group Name:%@"   = "You are rejected by the group! Group Name:%@";
+
+"%@days remaining!"                = "%@days remaining!";
+"%@days remaining!Renew it!"      = "%@days remaining! Renew it!";
+"%@days remaining!Group Name:%@"   = "%@days remaining!Group Name:%@";
+
+"Membership has expired!"           = "Membership has expired!";
+"Membership has expired! Renew it!" = "Membership has expired! Renew it";
+"Membership has expired! Group Name:%@" = "Membership has expired! Group Name:%@";
+
+"Your Message has sent to us..."    = "Your Message has sent to us...";
+
+
+"Join Now"  =  "Join Now";
+"Reviewing" = "In Reviewing";
+"Enter Chatroom"  = "Enter Chatroom";
+"Appeal Now"= "Appeal Now";
+
+"Free chat is for members only!" ="Free chat is for members only!";
+"I need help in the group:%@"    = "I need help in the group:%@";
 
 //评论
 "Send" = "send";
@@ -66,6 +95,8 @@
 //聊天设置
 "Notification ON"      = "Notifications";
 "Notification Voice"   = "In-App Alert Sound";
+
+"%@ is sending something..."  =  "%@ is sending something...";
 
 //档案设置
 "Touch portrait to update it!"      =  "Touch portrait to update it!";
@@ -76,7 +107,7 @@
 "Choose From Album" = "Choose From Album";
 
 "Cleanning is ok"   =  "Cleanning is ok！";
-"Touch subtitle and learn there!"   = "Touch subtitle and learn there!";
+"click the words in the subtitles for translation"   = "Click the words in the subtitles for translation";
 
 "Attenion Please"   = "Attenion Please";
 "Destructive"       = "OK";
@@ -85,10 +116,9 @@
 "Bounding is ok!"  = "Bounding is ok!";
 "Bounding is fail!" = "Bounding is fail!";
 
-//购买会员设置
-"I want to become a member!"          = "I want to become a member!";
-"Member can chat freely, Do you want to become a member?" = "Member can chat freely, Do you want to become a member?";
-"You are member alreaday!"           =  "You are member alreaday!";
+//购买年费会员设置
+"I want to purchase year-membership" = "Do you want to purchase one-year-membership!";
+"You are a year-member now!"         = "You are a year-member now!";
 "In App Purchasing Disabled"         =  "In App Purchasing Disabled!";
 "Upload your portrait first please!" =  "Upload your portrait first please!";
 
@@ -96,17 +126,7 @@
 "I want to enjoy it!" = "I want to enjoy it!";
 "No enough coins!"  = "No enough coins!";
 
-"I want to buy membership service!" = "I want to buy membership service!";
 "Unknow erro!"  = "Unknow erro!";
-"You are not a member of the group!" = "You are not a member of the group!";
-"Your membership is in review..." = "Your membership is in review...";
-"You are a member of the group!" = "You are a member of the group!";
-"You are not a member of the group!" = "You are not a member of the group!";
-"You are rejected by the group!" = "You are rejected by the group!";
-
-"I want to become a member! Group  Name:%@"     = "I want to become a member! Group  Name：%@";
-"I want to buy membership service! Group Name:%@" = "I want to buy membership service! Group Name:%@";
-
 
 //视频播放
 "Item cannot be played" = "Item cannot be played";

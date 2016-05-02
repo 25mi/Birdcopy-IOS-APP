@@ -37,29 +37,6 @@
     [[appDelegate getSpeechSynthesizer] speakUtterance:utterance];
 }
 
-+(void) soundEffect:(NSString *)sound
-{
-    
-    NSString *type = @"mp3";
-    
-    SystemSoundID soundID;
-    NSString *path = [[NSBundle mainBundle] pathForResource:sound ofType:type];
-    
-    if (!path) {
-        path = [[NSBundle mainBundle] pathForResource:sound ofType:@"wav"];
-    }
-    
-    if (!path) {
-        NSString *tempPath = NSTemporaryDirectory();
-        NSString * fileName =[sound stringByAppendingString:@".mp3"];
-        path= [tempPath stringByAppendingPathComponent:fileName];
-    }
-    
-    NSURL *url = [NSURL fileURLWithPath:path];
-    AudioServicesCreateSystemSoundID ((__bridge CFURLRef)url, &soundID);
-    AudioServicesPlaySystemSound(soundID);
-}
-
 + (void) soundWordMp3:(NSString *)wordMP3File
 {
     [FlyingSoundPlayer cancelPreviousPerformRequestsWithTarget:self];
@@ -81,7 +58,7 @@
     }
 }
 
-+  (void)playRefreshSound
++  (void)noticeSound
 {
     SystemSoundID refreshSound;
 
@@ -160,7 +137,7 @@
 
 - (void)handleError:(NSError *)error
 {
-    [FlyingSoundPlayer soundEffect:SECalloutLight];
+    [FlyingSoundPlayer noticeSound];
 }
 
 @end

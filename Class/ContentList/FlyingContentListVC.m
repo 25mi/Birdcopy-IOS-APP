@@ -7,36 +7,25 @@
 
 #import "FlyingContentListVC.h"
 #import "FlyingHttpTool.h"
-
-#import "UIView+Toast.h"
-
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
-
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
 #import "FlyingDiscoverVC.h"
-
 #import <AFNetworking/AFNetworking.h>
 #import "iFlyingAppDelegate.h"
-
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
-
 #import "RCDataBaseManager.h"
-
 #import "UICKeyChainStore.h"
 #import "NSString+FlyingExtention.h"
-
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
-
 #import "FlyingContentVC.h"
 #import "FlyingContentListVC.h"
 #import "FlyingContentCell.h"
 #import "FlyingPubLessonData.h"
 #import "UITableView+FDTemplateLayoutCell.h"
-
 #import "FlyingSearchViewController.h"
 #import "FlyingWebViewController.h"
 
@@ -44,10 +33,10 @@
 {
     NSInteger            _maxNumOfContents;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
-    UIRefreshControl    *_refreshControl;
 }
+
+@property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+@property (atomic,assign)    BOOL refresh;
 
 @end
 
@@ -101,6 +90,8 @@
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     [self reloadAll];
+    
+    [self setupRefreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -130,23 +121,6 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 
-- (void)refreshNow:(UIRefreshControl *)refreshControl
-{
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            [self reloadAll];
-        });
-    }
-    else
-    {
-        [_refreshControl endRefreshing];
-    }
-}
 //////////////////////////////////////////////////////////////
 #pragma mark - Loading data and setup view
 //////////////////////////////////////////////////////////////
@@ -173,10 +147,6 @@
         
         _currentLodingIndex=0;
         _maxNumOfContents=NSIntegerMax;
-        
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
-        [self.contentTableView addSubview:_refreshControl];
     }
 
     [_currentData removeAllObjects];
@@ -185,6 +155,45 @@
     
     [self loadMore];
 }
+
+# pragma mark - YALSunyRefreshControl methods
+
+-(void)setupRefreshControl
+{
+    _refresh = NO;
+    self.sunnyRefreshControl = [YALSunnyRefreshControl new];
+    self.sunnyRefreshControl.delegate = self;
+    [self.sunnyRefreshControl attachToScrollView:self.contentTableView];
+}
+
+-(void)beginRefreshing
+{
+    if (_refresh)
+    {
+        return;
+    }
+    
+    // start loading something
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        _refresh=YES;
+        [self reloadAll];
+    }
+    else
+    {
+        [self endAnimationHandle];
+    }
+}
+
+-(void)endAnimationHandle
+{
+    [self.sunnyRefreshControl endRefreshing];
+    _refresh=NO;
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark - Download data from Learning center
+//////////////////////////////////////////////////////////////
 
 - (void)loadMore
 {
@@ -240,14 +249,7 @@
     //更新下拉刷新
     if(_refresh)
     {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdate = [NSString stringWithFormat:@"刷新时间：%@", [formatter stringFromDate:[NSDate date]]];
-        
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdate];
-        
-        [_refreshControl endRefreshing];
-        _refresh=NO;
+        [self endAnimationHandle];
     }
     
     //更新界面

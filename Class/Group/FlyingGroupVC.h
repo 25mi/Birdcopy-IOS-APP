@@ -7,29 +7,31 @@
 
 #import <UIKit/UIKit.h>
 #import "FlyingViewController.h"
-#import "FlyingGroupCoverView.h"
+#import "FlyingGroupBoard.h"
+#import "FlyingGroupMemberStartView.h"
+#import "YALSunnyRefreshControl.h"
 
 @interface FlyingGroupVC : FlyingViewController<
                                                 UITableViewDataSource,
-                                                UITableViewDelegate>
+                                                UITableViewDelegate,
+                                                FlyingGroupMemberStartViewDelegate,
+                                                YALSunnyRefreshControlDelegate,
+                                                FlyingGroupBoardDelegate>
 
 @property (strong, nonatomic) FlyingGroupData    *groupData;
 
-@property (strong, nonatomic) NSMutableArray     *currentData;
+@property (strong, atomic)    NSMutableArray     *currentData;
 
++(void) contactAdminWithGroupID:(NSString*) groupID
+                         message:(NSString*) message
+                           inVC:(UIViewController*) vc;
 
-+(void) checkGroupMembershipWith:(FlyingGroupData*)groupData
-                            inVC:(UIViewController*) vc;
++(void) contactAppServiceWithMessage:(NSString*) message
+                                inVC:(UIViewController*) vc;
 
-+(void) enterGroup:(FlyingGroupData*)groupData
-              inVC:(UIViewController*) vc;
-
-+ (void) showMemberInfo:(FlyingUserRightData*)userRightData
-                 inView:(UIView*) view;
-
-+(void) contactAdminWithGroupGID:(NSString*) groupID
-                         message:(NSString*) message;
-
++(void) doMemberRightInVC:(UIViewController*) vc
+                   GroupID:(NSString*)groupID
+                Completion:(void (^)(FlyingUserRightData *userRightData)) completion;
 
 @end
 

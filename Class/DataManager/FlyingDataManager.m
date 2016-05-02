@@ -20,12 +20,12 @@
 #import "FlyingStatisticDAO.h"
 #import "FlyingStatisticData.h"
 #import "FlyingSoundPlayer.h"
-
 #import "FlyingTaskWordDAO.h"
 #import "FlyingTouchDAO.h"
 #import "FlyingFileManager.h"
 #import "FlyingDownloadManager.h"
 #import "MKStoreKit.h"
+#import <CRToastManager.h>
 
 @implementation FlyingDataManager
 
@@ -134,7 +134,6 @@
     [UICKeyChainStore keyChainStore][kUserName]=userName;
     
     [[NSUserDefaults standardUserDefaults] setObject:userName forKey:kUserName];
-    
     [[NSUserDefaults standardUserDefaults]  synchronize];
 }
 
@@ -367,12 +366,14 @@
     }
     FlyingStatisticData * staticDat = [[[FlyingStatisticDAO alloc] init] selectWithUserID:openID];
     
-    if (((KBEFreeTouchCount+staticDat.BEQRCOUNT+staticDat.BEMONEYCOUNT+staticDat.BEGIFTCOUNT)-staticDat.BETOUCHCOUNT)<0) {
-        
-        NSString *message = @"帐户金币数不足,请尽快在《我的档案》充值！";
-        
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate makeToast:message];
+    if (((KBEFreeTouchCount+staticDat.BEQRCOUNT+staticDat.BEMONEYCOUNT+staticDat.BEGIFTCOUNT)-staticDat.BETOUCHCOUNT)<0)
+    {
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString( @"帐户金币数不足,请尽快在《我的档案》充值！", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 
@@ -384,49 +385,50 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchasedNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
+                                                  usingBlock:^(NSNotification *note)
+    {
                                                       
-                                                      NSArray *availableProducts = [MKStoreKit configs][@"Others"];;
-                                                      
-                                                      if ([product.productIdentifier isEqualToString:availableProducts[0]]) {
-                                                          
-                                                          NSCalendar *calendar = [NSCalendar currentCalendar];
-                                                          NSDate *startDate = [NSDate date];
-                                                          
-                                                          NSDateComponents *components = [[NSDateComponents alloc] init];
-                                                          [components setYear:1];
-                                                          
-                                                          NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
-                                                          
-                                                          [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
-                                                                                           StartDate:startDate
-                                                                                             EndDate:endDate
-                                                                                          Completion:^(BOOL result) {
-                                                                                              //
-                                                                                              [FlyingSoundPlayer soundEffect:@"LootCoinSmall"];
-                                                                                              [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
-                                                                                          }];
-                                                      }
-                                                      else
-                                                      {
-                                                          NSDictionary *availableConsumables = [MKStoreKit configs][@"Consumables"];
-                                                          NSDictionary *thisConsumable = availableConsumables[product.productIdentifier];
-                                                          
-                                                          NSNumber *consumableCount = thisConsumable[@"ConsumableCount"];
-                                                          
-                                                          FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
-                                                          NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:[FlyingDataManager getOpenUDID]];
-
-                                                          appleMoneyCountNow+=consumableCount.integerValue;
-                                                          [statisticDAO updateWithUserID:[FlyingDataManager getOpenUDID] AppleMoneyCount:appleMoneyCountNow];
-                                                          
-                                                          [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
-                                                              //
-                                                              [FlyingSoundPlayer soundEffect:@"LootCoinSmall"];
-                                                              [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
-                                                          }];
-                                                      }
-                                                  }];
+        NSArray *availableProducts = [MKStoreKit configs][@"Others"];;
+        
+        if ([product.productIdentifier isEqualToString:availableProducts[0]]) {
+            
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *startDate = [NSDate date];
+            
+            NSDateComponents *components = [[NSDateComponents alloc] init];
+            [components setYear:1];
+            
+            NSDate *endDate =[calendar dateByAddingComponents:components toDate:startDate options:0]      ;
+            
+            [FlyingHttpTool updateMembershipForAccount:[FlyingDataManager getOpenUDID]
+                                             StartDate:startDate
+                                               EndDate:endDate
+                                            Completion:^(BOOL result) {
+                                                //
+                                                [FlyingSoundPlayer noticeSound];
+                                                [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
+                                            }];
+        }
+        else
+        {
+            NSDictionary *availableConsumables = [MKStoreKit configs][@"Consumables"];
+            NSDictionary *thisConsumable = availableConsumables[product.productIdentifier];
+            
+            NSNumber *consumableCount = thisConsumable[@"ConsumableCount"];
+            
+            FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
+            NSInteger appleMoneyCountNow =[statisticDAO appleMoneyWithUserID:[FlyingDataManager getOpenUDID]];
+            
+            appleMoneyCountNow+=consumableCount.integerValue;
+            [statisticDAO updateWithUserID:[FlyingDataManager getOpenUDID] AppleMoneyCount:appleMoneyCountNow];
+            
+            [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
+                //
+                [FlyingSoundPlayer noticeSound];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
+            }];
+        }
+    }];
     
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMKStoreKitProductPurchaseFailedNotification
@@ -451,7 +453,7 @@
     giftCountNow+=KBEGoldAwardCount;
     [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
     
-    [FlyingSoundPlayer soundEffect:@"iMoneyDialogClose"];
+    [FlyingSoundPlayer noticeSound];
 }
 
 

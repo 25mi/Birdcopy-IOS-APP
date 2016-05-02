@@ -8,12 +8,15 @@
 #import <UIKit/UIKit.h>
 #import "FlyingViewController.h"
 #import "FlyingCoverView.h"
+#import "YALSunnyRefreshControl.h"
 
-@interface FlyingHomeVC : FlyingViewController<FlyingCoverViewDelegate,
-                                                UITableViewDataSource,
-                                                UITableViewDelegate>
+@interface FlyingHomeVC : FlyingViewController<UITableViewDataSource,
+                                                UITableViewDelegate,
+                                                FlyingCoverViewDelegate,
+                                                YALSunnyRefreshControlDelegate>
 
-@property (strong, nonatomic) NSMutableArray     *currentData;
+@property (strong, nonatomic) FlyingCoverView    *coverFlow;
+@property (strong, atomic)    NSMutableArray     *currentData;
 @property (strong, nonatomic) UITableView        *groupTableView;
 
 @end

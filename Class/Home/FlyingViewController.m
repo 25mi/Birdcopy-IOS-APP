@@ -11,6 +11,8 @@
 #import <RongIMLib/RCIMClient.h>
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
+#import "FlyingSoundPlayer.h"
+#import <CRToast.h>
 
 @interface FlyingViewController ()<UIViewControllerRestoration>
 
@@ -69,7 +71,6 @@
     
     // Do any additional setup after loading the view.
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
     [self addBackFunction];
 }
 
@@ -78,7 +79,8 @@
 
     [super viewWillAppear:animated];
     
-    if ([self.navigationController.viewControllers count]>1) {
+    if ([self.navigationController.viewControllers count]>1)
+    {
         
         UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
         [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -92,7 +94,29 @@
     {
         [self.tabBarController.tabBar setHidden:NO];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:KNotificationMessage
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note)
+     {
+         
+         [FlyingSoundPlayer noticeSound];
+         [CRToastManager showNotificationWithMessage:[note object]
+                                     completionBlock:^{
+                                         //:"
+                                     }];
+     }];
+
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     
@@ -111,7 +135,6 @@
 - (void) willDismiss
 {
 }
-
 
 //////////////////////////////////////////////////////////////
 #pragma mark controller events

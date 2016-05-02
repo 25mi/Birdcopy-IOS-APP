@@ -81,32 +81,22 @@
 #import "UIView+Autosizing.h"
 #import "UIImage+localFile.h"
 #import "FlyingM3U8Downloader.h"
-
 #import "FlyingPlayerView.h"
-
 #import "NSString+FlyingExtention.h"
-
 #import "FlyingItemView.h"
 #import "FlyingItemData.h"
 #import "MotionOrientation.h"
-
 #import <MediaPlayer/MPVolumeView.h>
 #import "FlyingTaskWordDAO.h"
-
-#import "UIView+Toast.h"
-
+#import <CRToastManager.h>
 #import <AFNetworking.h>
-#import "UIView+Toast.h"
 #import "AFHttpTool.h"
-
 #import "iFlyingAppDelegate.h"
 #import "FlyingItemParser.h"
 #import "FlyingItemDao.h"
 #import "SSZipArchive.h"
-
 #import "FlyingContentVC.h"
 #import "FlyingDownloadManager.h"
-
 #import "FlyingConversationVC.h"
 #import "FlyingDataManager.h"
 
@@ -897,28 +887,34 @@ static void *TrackObservationContext         = &TrackObservationContext;
     [AFHttpTool reportLessonErrorType:type
                            contentURL:_movieURLStr
                              lessonID:self.thePubLesson.lessonID
-                              success:^(id response) {
-                                  //
-                                  NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                  
-                                  if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
-                                  {
-                                      [self.view makeToast:@"如果还有问题，建议删除课程更新一下：）"
-                                                  duration:1
-                                                  position:CSToastPositionCenter];
-                                      
-                                  }
-                                  else
-                                  {
-                                      [self.view makeToast:@"我们正在处理你碰到的问题..."
-                                                  duration:1
-                                                  position:CSToastPositionCenter];
-                                  }
-                                  
-                              } failure:^(NSError *err) {
-                                  //
-                                  NSLog(@"reportLessonErrorType:%@",err.description);
-                              }];
+                              success:^(id response)
+    {
+        //
+        NSString * tempStr =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+        
+        if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
+        {
+            [FlyingSoundPlayer noticeSound];
+            NSString *message = NSLocalizedString(@"如果还有问题，建议删除课程更新一下：）",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+        }
+        else
+        {
+            [FlyingSoundPlayer noticeSound];
+            NSString *message = NSLocalizedString(@"我们正在处理你碰到的问题...",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+        }
+        
+    } failure:^(NSError *err) {
+        //
+        NSLog(@"reportLessonErrorType:%@",err.description);
+    }];
 }
 
 //////////////////////////////////////////////////////////////
@@ -1072,9 +1068,12 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt<0)
         {
-            [self.view makeToast:@"已经播放完毕.."
-                        duration:1
-                        position:CSToastPositionCenter];
+            [FlyingSoundPlayer noticeSound];
+            NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
         else
         {
@@ -1129,9 +1128,13 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt>duration)
         {
-            [self.view makeToast:@"已经播放完毕!"
-                        duration:1
-                        position:CSToastPositionCenter];
+            [FlyingSoundPlayer noticeSound];
+            NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
+
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
         else
         {
@@ -2116,10 +2119,12 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     else
     {
-        [self.view makeToast:@"没有字幕,不能智能学习.."
-                    duration:1
-                    position:CSToastPositionCenter];
-        
+        [FlyingSoundPlayer noticeSound];
+        NSString *message = NSLocalizedString(@"没有字幕,不能智能学习..",nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
         _enableAISub=NO;
     }
 }
@@ -2128,17 +2133,22 @@ static void *TrackObservationContext         = &TrackObservationContext;
 {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
-        
-        [self.view makeToast:@"如有英文，点击自动解释!"
-                    duration:1
-                    position:CSToastPositionCenter];
+        [FlyingSoundPlayer noticeSound];
+        NSString *message = NSLocalizedString(@"如有英文，点击自动解释!",nil);
+
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BESwipRight"])
     {
-        
-        [self.view makeToast:@"右划跳转到上一个场景!"
-                    duration:1
-                    position:CSToastPositionCenter];
+        [FlyingSoundPlayer noticeSound];
+        NSString *message = NSLocalizedString(@"右划跳转到上一个场景!",nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 

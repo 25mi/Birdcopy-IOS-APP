@@ -47,13 +47,11 @@
 #import <AFNetworking/AFNetworking.h>
 #import "AFHttpTool.h"
 #import "FlyingHttpTool.h"
-#import "UIView+Toast.h"
 #import "ReaderViewController.h"
 #import "FlyingNowLessonDAO.h"
 #import "CGPDFDocument.h"
 #import "FlyingNowLessonData.h"
 #import "FileHash.h"
-#import "FlyingDIscoverGroups.h"
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
 #import "MKStoreKit.h"
@@ -72,6 +70,7 @@
 #import "FlyingAccountVC.h"
 #import "UIAlertController+Window.h"
 #import "FlyingTabBarController.h"
+#import <CRToastManager.h>
 
 @interface iFlyingAppDelegate ()
 {
@@ -382,9 +381,26 @@
 
 -(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage object:nil userInfo:nil];
-    
     [self refreshTabBadgeValue];
+    
+    
+    switch (message.conversationType) {
+        case ConversationType_PRIVATE:
+        case ConversationType_CUSTOMERSERVICE:
+        case ConversationType_SYSTEM:
+        {
+            
+            NSString * somebody = message.content.senderUserInfo.name;
+            
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ is sending something...", nil),somebody];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage
+                                                                object:message];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)dealloc
@@ -595,16 +611,6 @@
 {
     [[self getTabBarController]  presentViewController:viewController animated:YES completion:nil];
 }
-
--(void) makeToast:(NSString*) message
-{
-
-    [self.window makeToast:message
-                  duration:1
-                  position:CSToastPositionCenter];
-
-}
-
 
 - (BOOL) showWebviewWithURL:(NSString *) webURL
 {
@@ -912,8 +918,12 @@
             [FlyingDataManager awardGold:KBEGoldAwardCount];
         }
         
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate makeToast:message];
+        [FlyingSoundPlayer noticeSound];
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
+
     }
 }
 

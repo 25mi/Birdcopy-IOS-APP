@@ -33,10 +33,22 @@ typedef enum BESearchType
 #define BC_GroupMember_Count    2000
 #define BC_GroupMember_AlertDays    7
 
-//APP相关
-#define SERVER_DOMAIN               @"http://e.birdcopy.com"
-#define KAPI_BusinessID_KEY         @"app_id"
+#define BC_GroupStream_MaxCount  100
 
+typedef enum BC_NextType
+{
+    BC_Next_Chatroom,
+    BC_Next_Favor,
+    BC_Next_Members,
+} BC_NextType;
+
+
+//APP相关
+#define APP_SERVER_ENGLISH         @"http://e.birdcopy.com"
+#define APP_WEIXINID_BEYOND        @"wx120047123f35e00e"
+#define APP_RONGKEY_ENGLISH        @"e5t4ouvptjtsa"
+
+#define KAPI_BusinessID_KEY         @"app_id"
 
 //文件夹以及数据库管理
 #define BC_FileName_DicBase       @"mydic.db"
@@ -95,15 +107,12 @@ typedef enum BESearchType
 
 #define KMAX_GROUPS_VALUE         100
 
-
 #define KNoticeNewMessage         @"KNoticeNewMessage"
 #define KNoticeDetailMessage      @"KNoticeDetailMessage"
 #define KNoticeVoiceMessage       @"KNoticeVoiceMessage"
 #define KNoticeShockMessage       @"KNoticeShockMessage"
 
-
 //IM相关
-
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"
 
 #define kUserName                 @"kUserName"
@@ -116,6 +125,8 @@ typedef enum BESearchType
 //UI
 #define kNavigationBackColor      @"kNavigationBackColor"
 #define kNavigationTextColor      @"kNavigationTextColor"
+
+#define KTabBarHeight             @"KTabBarHeight"
 
 //文件格式和文件名
 #define KUserDBResource           @"userModel"
@@ -319,10 +330,10 @@ enum
 };
 
 //字体
-#define KLargeFontSize   (INTERFACE_IS_PAD ? 24.0f : 16.0f)
-#define KNormalFontSize  (INTERFACE_IS_PAD ? 20.0f : 13.0f)
-#define KLittleFontSize  (INTERFACE_IS_PAD ? 18.0f : 12.0f)
-#define KSmallFontSize   (INTERFACE_IS_PAD ? 15.0f : 10.0f)
+#define KLargeFontSize   (INTERFACE_IS_PAD ? 20.0f : 16.0f)
+#define KNormalFontSize  (INTERFACE_IS_PAD ? 18.0f : 13.0f)
+#define KLittleFontSize  (INTERFACE_IS_PAD ? 16.0f : 12.0f)
+#define KSmallFontSize   (INTERFACE_IS_PAD ? 12.0f : 10.0f)
 
 //加载
 #define  kLoadMoreIndicatorTag  7

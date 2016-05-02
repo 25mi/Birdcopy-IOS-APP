@@ -8,7 +8,6 @@
 #import "FlyingHomeVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-#import "UIView+Toast.h"
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
 #import "FlyingGroupVC.h"
@@ -35,15 +34,16 @@
 #import "FlyingGroupVC.h"
 #import "FlyingIndexedCollectionView.h"
 #import "FlyingAuthorCollectionViewCell.h"
+#import <CRToastManager.h>
 
 @interface FlyingHomeVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfGroups;
     NSInteger            _currentLodingIndex;
-    
-    BOOL                 _refresh;
-    UIRefreshControl    *_refreshControl;
 }
+
+@property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+@property (atomic,assign)    BOOL refresh;
 
 @end
 
@@ -86,10 +86,6 @@
 {
     [super viewDidLoad];
     
-    _refresh=NO;
-    
-    self.edgesForExtendedLayout = UIRectEdgeAll;
-
     //标题
     self.title = NSLocalizedString(@"Discover",nil);
     
@@ -107,6 +103,8 @@
     
     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate refreshTabBadgeValue];
+    
+    [self setupRefreshControl];
 }
 
 - (void) doDiscover
@@ -168,14 +166,14 @@
 
 - (void)reloadAll
 {
-    if (!self.domainID) {
-        
+    if (!self.domainID)
+    {
         return;
     }
     
     if (!self.groupTableView)
     {
-        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
         
         //必须在设置delegate之前
         [self.groupTableView registerNib:[UINib nibWithNibName:@"FlyingGroupTableViewCell" bundle: nil]  forCellReuseIdentifier:@"FlyingGroupTableViewCell"];
@@ -184,21 +182,16 @@
         self.groupTableView.dataSource = self;
         self.groupTableView.backgroundColor = [UIColor clearColor];
         
-        self.groupTableView.tableFooterView = [UIView new];
-        
         //Add cover view
         CGRect  loadingRect  = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*210/320);
-        FlyingCoverView* coverFlow = [[FlyingCoverView alloc] initWithFrame:loadingRect];
-        [coverFlow setCoverViewDelegate:self];
-        [coverFlow setDomainID:[FlyingDataManager getBusinessID]];
-        [coverFlow setDomainType:BC_Domain_Business];
-        [coverFlow loadData];
-        self.groupTableView.tableHeaderView =coverFlow;
+        self.coverFlow = [[FlyingCoverView alloc] initWithFrame:loadingRect];
+        [self.coverFlow setCoverViewDelegate:self];
+        self.groupTableView.tableHeaderView =self.coverFlow;
         
         self.groupTableView.restorationIdentifier = self.restorationIdentifier;
         
-        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, 1)];
-
+        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, bottom)];
         
         [self.view addSubview:self.groupTableView];
         
@@ -206,10 +199,6 @@
         
         _currentLodingIndex=0;
         _maxNumOfGroups=NSIntegerMax;
-        
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(refreshNow:) forControlEvents:UIControlEventValueChanged];
-        [self.groupTableView addSubview:_refreshControl];
     }
     else
     {
@@ -218,32 +207,55 @@
         _maxNumOfGroups=NSIntegerMax;
     }
     
-    [self loadMore];
+    //加载内容推荐区
+    [self.coverFlow setDomainID:[FlyingDataManager getBusinessID]];
+    [self.coverFlow setDomainType:BC_Domain_Business];
+    [self.coverFlow loadData];
+
+    //加载群组推荐区
+    [self loadMoreGroups];
 }
 
-- (void)refreshNow:(UIRefreshControl *)refreshControl
+# pragma mark - YALSunyRefreshControl methods
+
+-(void)setupRefreshControl
 {
-    if ([AFNetworkReachabilityManager sharedManager].reachable) {
-        
+    _refresh = NO;
+    self.sunnyRefreshControl = [YALSunnyRefreshControl new];
+    self.sunnyRefreshControl.delegate = self;
+    [self.sunnyRefreshControl attachToScrollView:self.groupTableView];
+}
+
+-(void)beginRefreshing
+{
+    if (_refresh)
+    {
+        return;
+    }
+    
+    // start loading something
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
         _refresh=YES;
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self reloadAll];
-        });
+        [self reloadAll];
     }
     else
     {
-        [_refreshControl endRefreshing];
+        [self endAnimationHandle];
     }
+}
+
+-(void)endAnimationHandle
+{
+    [self.sunnyRefreshControl endRefreshing];
+    _refresh=NO;
 }
 
 //////////////////////////////////////////////////////////////
 #pragma mark - Download data from Learning center
 //////////////////////////////////////////////////////////////
 
-- (void)loadMore
+- (void)loadMoreGroups
 {
     if (self.currentData.count<_maxNumOfGroups)
     {
@@ -252,34 +264,34 @@
         [FlyingHttpTool getAllGroupsForDomainID:[FlyingDataManager getAppData].domainID
                                      DomainType:BC_Domain_Business
                                      PageNumber:1
-                                     Completion:^(NSArray *groupUpdateList, NSInteger allRecordCount) {
-                                         
-                                         _maxNumOfGroups=allRecordCount;
-
-                                         if (groupUpdateList.count!=0) {
-                                             
-                                             NSArray *tempArray=[self.currentData arrayByAddingObjectsFromArray:groupUpdateList];
-                                             NSArray *sortedArray = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                                                 
-                                                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                                                 
-                                                 NSDate *first = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)a recentLessonData].timeLamp];
-
-                                                 NSDate *second = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)b recentLessonData].timeLamp];
-
-                                                 return [second compare:first];
-                                             }];
-                                             
-                                             [self.currentData removeAllObjects];
-                                             [self.currentData addObjectsFromArray:sortedArray];
-                                             
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 
-                                                 [self finishLoadingData];
-                                             });
-                                         }
-                                     }];
+                                     Completion:^(NSArray *groupUpdateList, NSInteger allRecordCount)
+        {
+            _maxNumOfGroups=allRecordCount;
+            
+            if (groupUpdateList.count!=0) {
+                
+                NSArray *tempArray=[self.currentData arrayByAddingObjectsFromArray:groupUpdateList];
+                NSArray *sortedArray = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                    
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    
+                    NSDate *first = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)a recentLessonData].timeLamp];
+                    
+                    NSDate *second = [dateFormatter dateFromString: [(FlyingGroupUpdateData *)b recentLessonData].timeLamp];
+                    
+                    return [second compare:first];
+                }];
+                
+                [self.currentData removeAllObjects];
+                [self.currentData addObjectsFromArray:sortedArray];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self finishLoadingData];
+                });
+            }
+        }];
     }
 }
 
@@ -288,8 +300,7 @@
     //更新下拉刷新
     if(_refresh)
     {
-        [_refreshControl endRefreshing];
-        _refresh=NO;
+        [self endAnimationHandle];
     }
     
     //更新界面
@@ -380,9 +391,11 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
-    
-    [(FlyingGroupTableViewCell*)cell settingWithGroupData:groupData];
+    if (indexPath.row<self.currentData.count)
+    {
+        FlyingGroupUpdateData *groupData = self.currentData[indexPath.row];
+        [(FlyingGroupTableViewCell*)cell settingWithGroupData:groupData];
+    }
 }
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
@@ -399,7 +412,7 @@
     [indicator startAnimating];
     
     // 加载下一页
-    [self loadMore];
+    [self loadMoreGroups];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -414,11 +427,26 @@
     [indicator stopAnimating];
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FlyingGroupUpdateData *groupUpData = self.currentData[indexPath.row];
-    [FlyingGroupVC enterGroup:groupUpData.groupData inVC:self];
+    FlyingGroupVC *groupVC =  [[FlyingGroupVC alloc] init];
+    groupVC.groupData = groupUpData.groupData;
+    
+    //公开群组直接进入
+    if (groupUpData.groupData.is_public_access)
+    {
+        [self.navigationController pushViewController:groupVC animated:YES];
+    }
+    else
+    {
+        [FlyingGroupVC doMemberRightInVC:self
+                                 GroupID:groupUpData.groupData.gp_id
+                              Completion:^(FlyingUserRightData *userRightData) {
+                                  //
+                                  [self.navigationController pushViewController:groupVC animated:YES];
+                              }];
+    }
 }
 
 @end

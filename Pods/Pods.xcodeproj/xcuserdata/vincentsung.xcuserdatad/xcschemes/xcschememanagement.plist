@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CRToast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>INTULocationManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Sheriff.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,12 +57,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>134B5FF6B9FA8071D7F2BE5276449256</key>
+		<key>10FEBE64EE2B4481B076FEBDB1FE3519</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>512EFD86D89D98BACFEA0085F855E300</key>
+		<key>6779C086AA63EBDFA149239217327C2D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7112751ACED56349A420B879DDAD76F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,22 +77,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>99490915E39A6E4239AB6246FBDA2833</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A643C23BD057501B435E637F8BFE8933</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B4A3E08D49931371F7247521A50EAF79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEC038BD6D95D852BA73839003177774</key>
+		<key>C034C270DFDA221F0EE4C798C193BCF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E07A1B93D0B5E99C6E979FACDA81D9B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F4FF39EB7A6C18FD4074AA544422A467</key>
 		<dict>
 			<key>primary</key>
 			<true/>

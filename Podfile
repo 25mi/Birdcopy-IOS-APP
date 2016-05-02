@@ -8,8 +8,9 @@ pod 'UICKeyChainStore'
 pod 'SlackTextViewController'
 pod 'UITableView+FDTemplateLayoutCell'
 
-
 pod 'NJKWebViewProgress'
+pod 'Sheriff'
+pod 'CRToast'
 
 
 

@@ -475,10 +475,15 @@
 
 + (NSString *)transformToPinyin:(NSString *)hanZi
 {
-    NSMutableString *mutableString = [NSMutableString stringWithString:hanZi];
-    CFStringTransform((CFMutableStringRef)mutableString, NULL, kCFStringTransformToLatin, false);
-    mutableString = (NSMutableString *)[mutableString stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
-    return [mutableString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    if (hanZi)
+    {
+        NSMutableString *mutableString = [NSMutableString stringWithString:hanZi];
+        CFStringTransform((CFMutableStringRef)mutableString, NULL, kCFStringTransformToLatin, false);
+        mutableString = (NSMutableString *)[mutableString stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
+        return [mutableString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    }
+    
+    return nil;
 }
 
 

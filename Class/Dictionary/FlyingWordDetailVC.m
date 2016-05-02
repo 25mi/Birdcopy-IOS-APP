@@ -18,10 +18,9 @@
 #import "FlyingSearchViewController.h"
 #import "FlyingSoundPlayer.h"
 #import "iFlyingAppDelegate.h"
-#import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
-
 #import "FlyingNavigationController.h"
+#import <CRToastManager.h>
 
 @interface FlyingWordDetailVC ()
 {
@@ -150,12 +149,14 @@
             }];
         });
     }
-    else{
-        
-        [self.view makeToast:@"我们会尽快补充词典！"
-                    duration:1
-                    position:CSToastPositionCenter];
-
+    else
+    {
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"我们会尽快补充词典！", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 

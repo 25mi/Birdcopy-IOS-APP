@@ -17,12 +17,13 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingNavigationController.h"
 #import "FlyingConversationListVC.h"
-#import "UIView+Toast.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingDataManager.h"
 #import "FlyingWordDetailVC.h"
 #import "FlyingTaskWordData.h"
 #import "MAOFlipViewController.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate,
                                 UIViewControllerRestoration>
@@ -179,10 +180,14 @@
 }
 
 -(void)reachEnd
-{    
-    [self.view makeToast:@"已经没有更多了!"
-                duration:1
-                position:CSToastPositionCenter];
+{
+    [FlyingSoundPlayer noticeSound];
+    NSString * message =NSLocalizedString(@"已经没有更多了!", nil);
+    [CRToastManager showNotificationWithMessage:message
+                                completionBlock:^{
+                                    NSLog(@"Completed");
+                                }];
+
 }
 
 //////////////////////////////////////////////////////////////

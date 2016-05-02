@@ -14,7 +14,8 @@
 #import "FlyingImageTextCell.h"
 #import "FlyingDataManager.h"
 #import "FlyingStatisticDAO.h"
-#import "UIView+Toast.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 @interface FlyingBuyVC()<
                         UITableViewDataSource,
@@ -363,7 +364,7 @@
     {
         NSString *title = NSLocalizedString(@"Attenion Please",nil);
         
-        NSString *message =NSLocalizedString(@"I want to become a member!", nil);
+        NSString *message =NSLocalizedString(@"I want to purchase year-membership", nil);
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:message
@@ -489,9 +490,13 @@
         }
         else
         {
-            [self.view makeToast:NSLocalizedString(@"In App Purchasing Disabled", nil)
-                          duration:3
-                          position:CSToastPositionCenter];
+            //即时反馈
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = NSLocalizedString(@"In App Purchasing Disabled", nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
     }
 }

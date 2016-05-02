@@ -10,7 +10,4 @@
 
 @implementation FlyingGroupMemberData
 
-
-
-
 @end

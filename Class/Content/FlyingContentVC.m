@@ -9,7 +9,6 @@
 #import "FlyingContentVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-#import "UIView+Toast.h"
 #import "FlyingGroupVC.h"
 #import "UICKeyChainStore.h"
 #import "shareDefine.h"
@@ -18,11 +17,8 @@
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
 #import "NSString+FlyingExtention.h"
-#import "UIView+Toast.h"
 #import "FlyingContentSummaryCell.h"
-#import "FlyingTagCell.h"
 #import "FlyingCommentCell.h"
-#import "FlyingContentListVC.h"
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "FlyingLoadingCell.h"
 #import "FlyingLessonDAO.h"
@@ -47,6 +43,8 @@
 #import "FlyingSoundPlayer.h"
 #import "FlyingtAuthorCell.h"
 #import "FlyingGroupVC.h"
+#import "FlyingSummaryheader.h"
+#import <CRToastManager.h>
 
 @interface FlyingContentVC ()<UIViewControllerRestoration>
 {
@@ -249,11 +247,11 @@
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingtAuthorCell" bundle:nil] forCellReuseIdentifier:@"FlyingtAuthorCell"];
         
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingSummaryheader" bundle:nil]
+             forCellReuseIdentifier:@"FlyingSummaryheader"];
+        
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingContentSummaryCell" bundle:nil]
              forCellReuseIdentifier:@"FlyingContentSummaryCell"];
-        
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTagCell" bundle:nil]
-             forCellReuseIdentifier:@"FlyingTagCell"];
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingCommentCell" bundle:nil]
              forCellReuseIdentifier:@"FlyingCommentCell"];
@@ -320,7 +318,6 @@
                                               self.accessRight=YES;
                                           }
                                           
-                                          
                                           if (self.accessRight) {
                                               
                                               [self showContent:nil];
@@ -350,17 +347,20 @@
 
 -(void)showAccessRightInfo
 {
-    NSString * infoStr=@"抱歉，你没有相关权限。请在个人帐户购买会员或者直接点击课程标题的购买图标！";
+    NSString * message=NSLocalizedString(@"抱歉，你没有相关权限。请在个人帐户购买会员或者直接点击课程标题的购买图标！",nil);
     
     if(self.accessRight==YES)
     {
-        infoStr=@"同步权限成功！";
+        message=NSLocalizedString(@"同步权限成功！",nil);
         [self.contentTitleAndTypeCell setAccessRight:self.accessRight];
     }
     
-    [self.view makeToast:infoStr
-                duration:1
-                position:CSToastPositionCenter];
+    //即时反馈
+    [FlyingSoundPlayer noticeSound];
+    [CRToastManager showNotificationWithMessage:message
+                                completionBlock:^{
+                                    NSLog(@"Completed");
+                                }];
 }
 
 -(void) prepareCoverView
@@ -537,9 +537,13 @@
     }
     else
     {
-        [self.view makeToast:@"抱歉：请升级支持新课程类型！"
-                    duration:1
-                    position:CSToastPositionCenter];
+        //即时反馈
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"抱歉：请升级支持新课程类型！", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 
@@ -713,8 +717,6 @@
                 if(contentTitleCell == nil)
                     contentTitleCell = [FlyingContentTitleAndTypeCell contentTitleAndTypeCell];
                 
-                contentTitleCell.delegate=self;
-                
                 [self configureCell:contentTitleCell atIndexPath:indexPath];
                 cell = contentTitleCell;
                 
@@ -745,6 +747,19 @@
         {
             case 0:
             {
+                FlyingSummaryheader *summayHeader = [tableView dequeueReusableCellWithIdentifier:@"FlyingSummaryheader"];
+                
+                if(summayHeader == nil)
+                    summayHeader = [FlyingSummaryheader summaryHeaderCell];
+                
+                [self configureCell:summayHeader atIndexPath:indexPath];
+                
+                cell = summayHeader;
+                
+                break;
+            }
+            case 1:
+            {
                 FlyingContentSummaryCell *contentSummaryCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentSummaryCell"];
                 
                 if(contentSummaryCell == nil)
@@ -752,20 +767,6 @@
                 
                 [self configureCell:contentSummaryCell atIndexPath:indexPath];
                 cell = contentSummaryCell;
-                
-                break;
-            }
-                
-            case 1:
-            {
-                FlyingTagCell *tagCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingTagCell"];
-                
-                if(tagCell == nil)
-                    tagCell = [FlyingTagCell tagCell];
-                
-                [self configureCell:tagCell atIndexPath:indexPath];
-                
-                cell = tagCell;
                 
                 break;
             }
@@ -845,8 +846,7 @@
             }
         }
         
-        // 普通Cell的高度
-        return 56;
+        return height;
     }
     else if (indexPath.section == 1)
     {
@@ -854,9 +854,9 @@
                 
             case 0:
             {
-                height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell"
+                height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingSummaryheader"
                                                        cacheByIndexPath:indexPath
-                                                          configuration:^(FlyingContentSummaryCell *cell) {
+                                                          configuration:^(FlyingSummaryheader *cell) {
                     [self configureCell:cell atIndexPath:indexPath];
                 }];
                 
@@ -864,15 +864,12 @@
             }
             case 1:
             {
-                if (self.thePubLesson.tag.length== 0)
-                {
-                    height = 0;
-                }
-                else
-                {
-                    height = 40;
-                }
-
+                height = [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell"
+                                                       cacheByIndexPath:indexPath
+                                                          configuration:^(FlyingSummaryheader *cell) {
+                                                              [self configureCell:cell atIndexPath:indexPath];
+                                                          }];
+                
                 break;
             }
          }
@@ -951,19 +948,16 @@
         {
             case 0:
             {
+                [(FlyingSummaryheader*)cell setTitle:@"相关简介"];
+                break;
+            }
+            case 1:
+            {
                 if (![self.thePubLesson.desc isBlankString]) {
                     
                     [(FlyingContentSummaryCell*)cell setSummaryText:self.thePubLesson.desc];
                 }
 
-                break;
-            }
-            case 1:
-            {
-                if (![self.thePubLesson.tag isBlankString]) {
-                    
-                    [(FlyingTagCell*)cell setTagList:self.thePubLesson.tag DataSourceDelegate:self];
-                }
                 break;
             }
                 
@@ -1036,59 +1030,13 @@
         {
             case 0:
             {
+                [self askAccess];
                 break;
             }
 
             case 1:
             {
-                if(self.accessRight)
-                {
-                    //群组可以和老师直接沟通
-                    if ([BC_Domain_Group isEqualToString:self.domainType])
-                    {
-                        if (self.authorUserData.openUDID)
-                        {
-                            NSString* targetID = [self.authorUserData.openUDID MD5];
-                            
-                            FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-                            
-                            chatService.domainID = self.domainID;
-                            chatService.domainType = self.domainType;
-                            
-                            chatService.targetId = targetID;
-                            chatService.conversationType = ConversationType_PRIVATE;
-                            [self.navigationController pushViewController:chatService animated:YES];                        }
-                    }
-                    //和APP客服沟通
-                    else
-                    {
-                        NSString * serviceID = [FlyingDataManager getAppData].domainID;
-                        
-                        if (serviceID)
-                        {
-                            //获取客服绑定的终端ID
-                            [FlyingHttpTool getOpenIDForUserID:serviceID
-                                                    Completion:^(NSString *openUDID)
-                             {
-                                 //
-                                 if (openUDID)
-                                 {
-                                     NSString* targetID = [openUDID MD5];
-                                     
-                                     FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-                                     
-                                     chatService.domainID = self.domainID;
-                                     chatService.domainType = self.domainType;
-                                     
-                                     chatService.targetId = targetID;
-                                     chatService.conversationType = ConversationType_PRIVATE;
-                                     [self.navigationController pushViewController:chatService animated:YES];
-                                 }
-                             }];
-                        }
-                    }
-                }
-                
+                [self askHelpNow];
                 break;
             }
         }
@@ -1124,39 +1072,19 @@
 //////////////////////////////////////////////////////////////
 #pragma cell related
 //////////////////////////////////////////////////////////////
-
-#pragma mark - TLTagsControlDelegate
-- (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index
+- (void)askAccess
 {
-    
-    NSString *tagName = tagsControl.tags[index];
-    
-    if ([tagName isEqualToString:@"没有标签"] || [tagName isEqualToString:@""] || !tagName ) {
-        
-        return;
+    if (self.accessRight)
+    {
+        //即时反馈
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"如果咨询问题，点击“求助”", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
-    
-    FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
-    
-    contentList.domainID = self.domainID;
-    contentList.domainID = self.domainType;
-    
-    [contentList setTagString:tagName];
-    [self.navigationController pushViewController:contentList animated:YES];
-}
-
-- (void)profileImageViewPressed:(FlyingCommentData*)commentData
-{
-    
-    FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
-    profileVC.userID = commentData.userID;
-    
-    [self.navigationController pushViewController:profileVC animated:YES];
-}
-
-- (void)accessButtonPressed
-{
-    if (!self.accessRight)
+    else
     {
         
         NSString * title = NSLocalizedString(@"Attenion Please", nil);
@@ -1167,34 +1095,41 @@
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Destructive",nil)
-                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                                                                 
-                                                                 //
-                                                                 FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
-                                                                 NSInteger touchMoneyCountNow =[statisticDAO touchCountWithUserID:[FlyingDataManager getOpenUDID]];
-                                                                 
-                                                                 if (touchMoneyCountNow<self.thePubLesson.coinPrice) {
-                                                                     
-                                                                     [self.view makeToast:NSLocalizedString(@"No enough coins!", nil)];
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     touchMoneyCountNow-=self.thePubLesson.coinPrice;
-                                                                     [statisticDAO updateWithUserID:[FlyingDataManager getOpenUDID] TouchCount:touchMoneyCountNow];
-                                                                     
-                                                                     [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
-                                                                         //
-                                                                         [FlyingSoundPlayer soundEffect:@"LootCoinSmall"];
-                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
-                                                                     }];
-                                                                 }
-                                                                 
-        }];
+                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
+                                     {
+                                         //
+                                         FlyingStatisticDAO * statisticDAO=[[FlyingStatisticDAO alloc] init];
+                                         NSInteger touchMoneyCountNow =[statisticDAO touchCountWithUserID:[FlyingDataManager getOpenUDID]];
+                                         
+                                         if (touchMoneyCountNow<self.thePubLesson.coinPrice)
+                                         {
+                                             //即时反馈
+                                             [FlyingSoundPlayer noticeSound];
+                                             NSString * message = NSLocalizedString(@"No enough coins!", nil);
+
+                                             [CRToastManager showNotificationWithMessage:message
+                                                                         completionBlock:^{
+                                                                             NSLog(@"Completed");
+                                                                         }];
+                                         }
+                                         else
+                                         {
+                                             touchMoneyCountNow-=self.thePubLesson.coinPrice;
+                                             [statisticDAO updateWithUserID:[FlyingDataManager getOpenUDID] TouchCount:touchMoneyCountNow];
+                                             
+                                             [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
+                                                 //
+                                                 [FlyingSoundPlayer noticeSound];
+                                                 [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
+                                             }];
+                                         }
+                                         
+                                     }];
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
                                                                style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
+                                                                   
+                                                               }];
         
         [alertController addAction:doneAction];
         [alertController addAction:cancelAction];
@@ -1202,6 +1137,87 @@
             //
         }];
     }
+}
+
+-(void) askHelpNow
+{
+    //没有内容获取权限
+    if(!self.accessRight)
+    {
+        //和APP的客服沟通
+        NSString *message = [NSString stringWithFormat:@"我要咨询。可能是:如何获取内容权限， 相关内容:%@",self.thePubLesson.title];
+        [FlyingGroupVC contactAppServiceWithMessage:message
+                                               inVC:self];
+    }
+    else
+    {
+        //群组内
+        if ([BC_Domain_Group isEqualToString:self.domainType])
+        {
+            [FlyingGroupVC doMemberRightInVC:self
+                                     GroupID:self.domainID
+                                  Completion:^(FlyingUserRightData *userRightData)
+            {
+                //
+                if ([userRightData checkRightPresent])
+                {
+                    [self contactWithAuhor];
+                }
+                else
+                {
+                    //和APP的客服沟通
+                    [FlyingSoundPlayer noticeSound];
+                    NSString * message = NSLocalizedString(@"已经帮你转接客服人员...", nil);
+                    
+                    [CRToastManager showNotificationWithMessage:message completionBlock:^{
+                        //
+                        NSString *message = [NSString stringWithFormat:@"我想咨询，相关内容:%@",self.thePubLesson.title];
+                        [FlyingGroupVC contactAppServiceWithMessage:message
+                                                               inVC:self];
+                    }];
+                }
+            }];
+        }
+        else
+        {
+            //和APP的客服沟通
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = NSLocalizedString(@"已经帮你转接客服人员...", nil);
+            [CRToastManager showNotificationWithMessage:message completionBlock:^{
+                //
+                NSString *message = [NSString stringWithFormat:@"我想咨询，相关内容:%@",self.thePubLesson.title];
+                [FlyingGroupVC contactAppServiceWithMessage:message
+                                                       inVC:self];
+            }];
+        }
+    }
+}
+
+-(void) contactWithAuhor
+{
+    //直接和老师沟通
+    if (self.authorUserData.openUDID)
+    {
+        NSString* targetID = [self.authorUserData.openUDID MD5];
+        
+        FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
+        
+        chatService.domainID = self.domainID;
+        chatService.domainType = self.domainType;
+        
+        chatService.targetId = targetID;
+        chatService.conversationType = ConversationType_PRIVATE;
+        [self.navigationController pushViewController:chatService animated:YES];
+    }
+}
+
+- (void)profileImageViewPressed:(FlyingCommentData*)commentData
+{
+    
+    FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
+    profileVC.userID = commentData.userID;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 - (void)commentHeaderPressed

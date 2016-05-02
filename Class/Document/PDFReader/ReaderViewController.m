@@ -50,22 +50,18 @@
 #import "FlyingItemView.h"
 #import "UIView+Autosizing.h"
 #import "NSString+FlyingExtention.h"
-
 #import "MuPageViewNormal.h"
 #import "MuPageViewReflow.h"
 #import "MuPageView.h"
 #import "FlyingWebViewController.h"
 #import "ACMagnifyingGlass.h"
-#import "UIView+Toast.h"
-
 #import "FlyingNowLessonDAO.h"
-
 #import "AFHttpTool.h"
 #import "FlyingFileManager.h"
-
 #import "CGPDFDocument.h"
 #import "FlyingDataManager.h"
 #import "UIAlertController+Window.h"
+#import <CRToastManager.h>
 
 enum
 {
@@ -797,9 +793,14 @@ enum
     }
     else
     {
-        [self.view makeToast:@"无法打开，请重试或者重新下载!"
-                    duration:1
-                    position:CSToastPositionCenter];
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"无法打开，请重试或者重新下载!", nil);
+
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        //:"
+                                    }];
+
     }
 }
 

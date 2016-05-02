@@ -9,14 +9,13 @@
 #import "FlyingImagePreivewVC.h"
 #import <UIImageView+AFNetworking.h>
 #import "FlyingShareWithRecent.h"
-#import "UIView+Toast.h"
 #import  "ZXingObjC.h"
 #import "FlyingSoundPlayer.h"
 #import "NSString+FlyingExtention.h"
 #import "FlyingScanViewController.h"
 #import "FlyingShareWithRecent.h"
-
 #import <UIKit/UIKit.h>
+#import <CRToastManager.h>
 
 @interface FlyingImagePreivewVC ()<UIViewControllerRestoration>
 {
@@ -199,17 +198,21 @@
 {
     if(error != NULL)
     {
-        [self.view makeToast:@"保存图片失败！"
-                    duration:1
-                    position:CSToastPositionCenter];
-
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString( @"保存图片失败！", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
     else
     {
-        [self.view makeToast:@"成功保存图片！"
-                    duration:1
-                    position:CSToastPositionCenter];
-
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString( @"成功保存图片！", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 
@@ -248,7 +251,7 @@
         // The barcode format, such as a QR code or UPC-A
         //ZXBarcodeFormat format = result.barcodeFormat;
         
-        [FlyingSoundPlayer soundEffect:SECalloutLight];
+        [FlyingSoundPlayer noticeSound];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
         [FlyingScanViewController processingSCanResult:contents];

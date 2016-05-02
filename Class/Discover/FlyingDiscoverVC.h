@@ -10,11 +10,13 @@
 #import "FlyingCoverView.h"
 #import "FlyingLoadingView.h"
 #import "FlyingViewController.h"
+#import "YALSunnyRefreshControl.h"
 
 @interface FlyingDiscoverVC : FlyingViewController<FlyingCoverViewDelegate,
                                                     PSCollectionViewDataSource,
                                                     PSCollectionViewDelegate,
-                                                    FlyingLoadingViewDelegate>
+                                                    FlyingLoadingViewDelegate,
+                                                    YALSunnyRefreshControlDelegate>
 
 @property (strong, nonatomic) NSMutableArray     *currentData;
 @property (strong, nonatomic) PSCollectionView   *homeFeatureTagPSColeectionView;

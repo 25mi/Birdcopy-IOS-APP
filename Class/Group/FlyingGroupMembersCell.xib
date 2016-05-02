@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="FlyingGroupMembersCell">
+            <rect key="frame" x="0.0" y="0.0" width="459" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="459" height="124.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVG-Ge-Y7P">
+                        <rect key="frame" x="8" y="16.5" width="443" height="100"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="qc2-Ye-26T"/>
+                        </constraints>
+                    </view>
+                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Kzk-UX-hKf" customClass="FlyingIndexedCollectionView">
+                        <rect key="frame" x="8" y="8" width="443" height="108.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BIF-Yk-Oyv">
+                            <size key="itemSize" width="40" height="64"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="KVG-Ge-Y7P" secondAttribute="trailing" id="0U4-bg-bjP"/>
+                    <constraint firstItem="Kzk-UX-hKf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="2lp-Cs-hVS"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Kzk-UX-hKf" secondAttribute="trailing" id="3lg-9W-k1c"/>
+                    <constraint firstItem="KVG-Ge-Y7P" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="62P-7d-BiF"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Kzk-UX-hKf" secondAttribute="bottom" id="6fj-7P-3eV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KVG-Ge-Y7P" secondAttribute="bottom" id="TLg-ai-iAj"/>
+                    <constraint firstItem="Kzk-UX-hKf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="VeZ-Nv-Shw"/>
+                    <constraint firstItem="KVG-Ge-Y7P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="qtf-wm-uxM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="collectionHeight" destination="qc2-Ye-26T" id="dnb-dj-cL6"/>
+                <outlet property="collectionView" destination="Kzk-UX-hKf" id="l60-GG-Z0w"/>
+            </connections>
+            <point key="canvasLocation" x="395.5" y="382.5"/>
+        </tableViewCell>
+    </objects>
+</document>

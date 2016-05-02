@@ -9,7 +9,6 @@
 #import "FlyingMyGroupsVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-#import "UIView+Toast.h"
 #import "FlyingConversationListVC.h"
 #import "FlyingConversationVC.h"
 #import "FlyingGroupVC.h"
@@ -31,12 +30,16 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "FlyingGroupUpdateData.h"
 #import "FlyingDataManager.h"
+#import "YALSunnyRefreshControl.h"
 
 @interface FlyingMyGroupsVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfGroups;
     NSInteger            _currentLodingIndex;
 }
+
+@property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+@property (atomic,assign)    BOOL refresh;
 
 @end
 
@@ -78,18 +81,53 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.edgesForExtendedLayout = UIRectEdgeAll;
-
+        
     //标题
     self.title = NSLocalizedString(@"Group",nil);
     
     //顶部导航
     [self reloadAll];
+    
+    [self setupRefreshControl];
 }
 
 - (void) willDismiss
 {
+}
+
+# pragma mark - YALSunyRefreshControl methods
+
+-(void)setupRefreshControl
+{
+    _refresh = NO;
+    self.sunnyRefreshControl = [YALSunnyRefreshControl new];
+    self.sunnyRefreshControl.delegate = self;
+    [self.sunnyRefreshControl attachToScrollView:self.groupTableView];
+}
+
+-(void)beginRefreshing
+{
+    if (_refresh)
+    {
+        return;
+    }
+    
+    // start loading something
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        _refresh=YES;
+        [self reloadAll];
+    }
+    else
+    {
+        [self endAnimationHandle];
+    }
+}
+
+-(void)endAnimationHandle
+{
+    [self.sunnyRefreshControl endRefreshing];
+    _refresh=NO;
 }
 
 //////////////////////////////////////////////////////////////
@@ -100,7 +138,7 @@
 {
     if (!self.groupTableView)
     {
-        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
         
         //必须在设置delegate之前
         UINib *nib = [UINib nibWithNibName:@"FlyingGroupUpdateCell" bundle: nil];
@@ -110,10 +148,11 @@
         self.groupTableView.dataSource = self;
         self.groupTableView.backgroundColor = [UIColor clearColor];
         
-        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, 1)];
-        
         self.groupTableView.restorationIdentifier = self.restorationIdentifier;
-
+        
+        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, bottom)];
+        
         [self.view addSubview:self.groupTableView];
         
         _currentData = [NSMutableArray new];
@@ -169,6 +208,8 @@
 
 -(void) finishLoadingData
 {
+    [self endAnimationHandle];
+    
     //更新界面
     if (_currentData.count>0)
     {
@@ -262,8 +303,11 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupUpdateData *updateData = self.currentData[indexPath.row];
-    [(FlyingGroupUpdateCell*)cell settingWithGroupData:updateData];
+    if (indexPath.row<self.currentData.count)
+    {
+        FlyingGroupUpdateData *updateData = self.currentData[indexPath.row];
+        [(FlyingGroupUpdateCell*)cell settingWithGroupData:updateData];
+    }
 }
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Delegate methods
@@ -298,7 +342,23 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FlyingGroupUpdateData *groupUpData = self.currentData[indexPath.row];
-    [FlyingGroupVC enterGroup:groupUpData.groupData inVC:self];
+    FlyingGroupVC *groupVC =  [[FlyingGroupVC alloc] init];
+    groupVC.groupData = groupUpData.groupData;
+    
+    //公开群组直接进入
+    if (groupUpData.groupData.is_public_access)
+    {
+        [self.navigationController pushViewController:groupVC animated:YES];
+    }
+    else
+    {
+        [FlyingGroupVC doMemberRightInVC:self
+                                 GroupID:groupUpData.groupData.gp_id
+                              Completion:^(FlyingUserRightData *userRightData) {
+                                  //
+                                  [self.navigationController pushViewController:groupVC animated:YES];
+                              }];
+    }
 }
 
 @end

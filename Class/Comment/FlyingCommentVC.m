@@ -9,7 +9,6 @@
 #import "FlyingCommentVC.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupData.h"
-#import "UIView+Toast.h"
 #import "FlyingGroupVC.h"
 #import "UICKeyChainStore.h"
 #import <AFNetworking/AFNetworking.h>
@@ -21,12 +20,12 @@
 #import "FlyingLoadingCell.h"
 #import "FlyingContentSummaryCell.h"
 #import "FlyingNavigationController.h"
-
 #import "FlyingConversationVC.h"
 #import "FlyingConversationListVC.h"
 #import "FlyingDataManager.h"
 #import "FlyingUserData.h"
 #import "FlyingProfileVC.h"
+#import <CRToastManager.h>
 
 @interface FlyingCommentVC ()<UIViewControllerRestoration>
 {
@@ -141,7 +140,8 @@
      */
     
     [self.textInputbar setAutoHideRightButton:NO];
-    
+    [self registerPrefixesForAutoCompletion:[NSArray arrayWithObject:@""]];
+
     self.inverted=false;
     
     _refresh=NO;

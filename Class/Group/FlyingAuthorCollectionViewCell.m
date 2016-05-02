@@ -9,6 +9,7 @@
 #import "FlyingAuthorCollectionViewCell.h"
 #import <UIImageView+AFNetworking.h>
 #import "shareDefine.h"
+#import "NSString+FlyingExtention.h"
 
 @interface FlyingAuthorCollectionViewCell()
 
@@ -43,13 +44,20 @@
 
 -(void) setItemText:(NSString*) itemText;
 {
-    self.itemLabel.text = itemText;
+    if ([itemText isBlankString])
+    {
+        self.itemLabel.text = @"未命名";
+    }
+    else
+    {
+        self.itemLabel.text = itemText;
+    }
 }
 
 -(void) setImageIconURL:(NSString*) imageURL
 {
     [self.theImageView setImageWithURL:[NSURL URLWithString:imageURL]
-                      placeholderImage:[UIImage imageNamed:@"Icon"]];
+                      placeholderImage:[UIImage imageNamed:@"Account"]];
 }
 
 

@@ -12,11 +12,10 @@
 #import "FlyingSoundPlayer.h"
 #import  "ZXingObjC.h"
 #import "FlyingNavigationController.h"
-#import "UIView+Toast.h"
-
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
+#import <CRToastManager.h>
 
 @interface FlyingScanViewController ()<UIViewControllerRestoration>
 {
@@ -165,10 +164,11 @@
 
 -(void) scanningOK:(NSString*) message
 {
-    [self.view makeToast:message
-                duration:1
-                position:CSToastPositionCenter];
-    
+    [FlyingSoundPlayer noticeSound];
+    [CRToastManager showNotificationWithMessage:message
+                                completionBlock:^{
+                                    NSLog(@"Completed");
+                                }];
     [_session stopRunning];
     [timer invalidate];
     [self setupCamera];
@@ -331,10 +331,12 @@
                           WithOpenID:[FlyingDataManager getOpenUDID]
                           Completion:^(BOOL result) {
                               //
-                              NSString *message = @"登录网站成功！";
-                              iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-                              
-                              [appDelegate makeToast:message];
+                              [FlyingSoundPlayer noticeSound];
+                              NSString * message = NSLocalizedString( @"登录网站成功！", nil);
+                              [CRToastManager showNotificationWithMessage:message
+                                                          completionBlock:^{
+                                                              NSLog(@"Completed");
+                                                          }];
                           }];
     }
 }
@@ -447,7 +449,7 @@
             [_session stopRunning];
             [timer invalidate];
             
-            [FlyingSoundPlayer soundEffect:SECalloutLight];
+            [FlyingSoundPlayer noticeSound];
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             
             [FlyingScanViewController processingSCanResult:resultStr];
@@ -496,16 +498,19 @@
             [_session stopRunning];
             [timer invalidate];
             
-            [FlyingSoundPlayer soundEffect:SECalloutLight];
+            [FlyingSoundPlayer noticeSound];
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             
             [FlyingScanViewController processingSCanResult:contents];
             
         } else
         {
-            [self.view makeToast:@"提醒：图片中没有发现二维码!"
-                        duration:1
-                        position:CSToastPositionCenter];
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = NSLocalizedString(@"提醒：图片中没有发现二维码!", nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
     }];
 }

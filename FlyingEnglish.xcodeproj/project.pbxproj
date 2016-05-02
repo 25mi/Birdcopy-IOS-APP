@@ -332,11 +332,6 @@
 		8212F6371C321BC8009C9F86 /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F51F1C321BC8009C9F86 /* UIView+Autosizing.m */; };
 		8212F6381C321BC8009C9F86 /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F51F1C321BC8009C9F86 /* UIView+Autosizing.m */; };
 		8212F6391C321BC8009C9F86 /* UIView+Autosizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F51F1C321BC8009C9F86 /* UIView+Autosizing.m */; };
-		8212F63A1C321BC8009C9F86 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5211C321BC8009C9F86 /* UIView+Toast.m */; };
-		8212F63B1C321BC8009C9F86 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5211C321BC8009C9F86 /* UIView+Toast.m */; };
-		8212F63C1C321BC8009C9F86 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5211C321BC8009C9F86 /* UIView+Toast.m */; };
-		8212F63D1C321BC8009C9F86 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5211C321BC8009C9F86 /* UIView+Toast.m */; };
-		8212F63E1C321BC8009C9F86 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5211C321BC8009C9F86 /* UIView+Toast.m */; };
 		8212F63F1C321BC8009C9F86 /* UIWebView+Clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5231C321BC8009C9F86 /* UIWebView+Clean.m */; };
 		8212F6401C321BC8009C9F86 /* UIWebView+Clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5231C321BC8009C9F86 /* UIWebView+Clean.m */; };
 		8212F6411C321BC8009C9F86 /* UIWebView+Clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 8212F5231C321BC8009C9F86 /* UIWebView+Clean.m */; };
@@ -849,11 +844,6 @@
 		823645C71C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823645BD1C81D77900499190 /* FlyingGroupUpdateCell.xib */; };
 		823697D01C83F32A0000221C /* FlyingContentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697CF1C83F32A0000221C /* FlyingContentListVC.m */; };
 		823697D31C83FF1C0000221C /* FlyingGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D21C83FF1C0000221C /* FlyingGroupVC.m */; };
-		823697D61C8400630000221C /* FlyingGroupCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D51C8400630000221C /* FlyingGroupCoverView.m */; };
-		823697D71C8400630000221C /* FlyingGroupCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D51C8400630000221C /* FlyingGroupCoverView.m */; };
-		823697D81C8400630000221C /* FlyingGroupCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D51C8400630000221C /* FlyingGroupCoverView.m */; };
-		823697D91C8400630000221C /* FlyingGroupCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D51C8400630000221C /* FlyingGroupCoverView.m */; };
-		823697DA1C8400630000221C /* FlyingGroupCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D51C8400630000221C /* FlyingGroupCoverView.m */; };
 		823697DB1C8410800000221C /* FlyingGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D21C83FF1C0000221C /* FlyingGroupVC.m */; };
 		823697DC1C8410800000221C /* FlyingGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D21C83FF1C0000221C /* FlyingGroupVC.m */; };
 		823697DD1C8410820000221C /* FlyingGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697D21C83FF1C0000221C /* FlyingGroupVC.m */; };
@@ -862,16 +852,16 @@
 		823697E01C8410880000221C /* FlyingContentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697CF1C83F32A0000221C /* FlyingContentListVC.m */; };
 		823697E11C8410890000221C /* FlyingContentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697CF1C83F32A0000221C /* FlyingContentListVC.m */; };
 		823697E21C84108A0000221C /* FlyingContentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697CF1C83F32A0000221C /* FlyingContentListVC.m */; };
-		823697F31C8449C50000221C /* XHWaterDropRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697E71C8449C50000221C /* XHWaterDropRefresh.m */; };
-		823697F41C8449C50000221C /* XHWaterDropRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697E71C8449C50000221C /* XHWaterDropRefresh.m */; };
-		823697F51C8449C50000221C /* XHWaterDropRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697E71C8449C50000221C /* XHWaterDropRefresh.m */; };
-		823697F61C8449C50000221C /* XHWaterDropRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697E71C8449C50000221C /* XHWaterDropRefresh.m */; };
-		823697F71C8449C50000221C /* XHWaterDropRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 823697E71C8449C50000221C /* XHWaterDropRefresh.m */; };
 		823697F91C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FA1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FB1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FC1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
 		823697FD1C8452D50000221C /* pullrefresh.aif in Resources */ = {isa = PBXBuildFile; fileRef = 823697F81C8452D50000221C /* pullrefresh.aif */; };
+		823903751CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */; };
+		823903761CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */; };
+		823903771CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */; };
+		823903781CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */; };
+		823903791CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */; };
 		823C29F01CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
 		823C29F11CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
 		823C29F21CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */; };
@@ -1115,6 +1105,36 @@
 		827AD7FA1CBDF7CD00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
 		827AD7FB1CBDF7CD00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
 		827AD7FC1CBDF7CD00C5309D /* FlyingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */; };
+		828A7FB21CD4612B00987DDE /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */; };
+		828A7FB31CD4612B00987DDE /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */; };
+		828A7FB41CD463A300987DDE /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */; };
+		828A7FB51CD463A400987DDE /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */; };
+		828A7FB61CD463A400987DDE /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */; };
+		828A7FB71CD463A500987DDE /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */; };
+		828A7FB81CD463A900987DDE /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */; };
+		828A7FB91CD463AA00987DDE /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */; };
+		828A7FBA1CD463AB00987DDE /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */; };
+		828A7FBB1CD463AB00987DDE /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */; };
+		828A7FBD1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */; };
+		828A7FBE1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */; };
+		828A7FBF1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */; };
+		828A7FC01CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */; };
+		828A7FC11CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */; };
+		828A7FC41CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */; };
+		828A7FC51CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */; };
+		828A7FC61CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */; };
+		828A7FC71CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */; };
+		828A7FC81CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */; };
+		828A7FCC1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */; };
+		828A7FCD1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */; };
+		828A7FCE1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */; };
+		828A7FCF1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */; };
+		828A7FD01CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */; };
+		828A7FD11CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */; };
+		828A7FD21CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */; };
+		828A7FD31CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */; };
+		828A7FD41CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */; };
+		828A7FD51CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */; };
 		828BC0AE1CA8D72C005C30F5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
 		828BC0B01CA8D967005C30F5 /* libSlackTextViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828BC0AF1CA8D967005C30F5 /* libSlackTextViewController.a */; };
 		828BC0B21CA8D96C005C30F5 /* libUICKeyChainStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828BC0B11CA8D96C005C30F5 /* libUICKeyChainStore.a */; };
@@ -1159,6 +1179,16 @@
 		828BC0E71CA91462005C30F5 /* FlyingShareWithRecent.m in Sources */ = {isa = PBXBuildFile; fileRef = 828BC0E41CA91462005C30F5 /* FlyingShareWithRecent.m */; };
 		828BC0E81CA91462005C30F5 /* FlyingShareWithRecent.m in Sources */ = {isa = PBXBuildFile; fileRef = 828BC0E41CA91462005C30F5 /* FlyingShareWithRecent.m */; };
 		828BC0E91CA91462005C30F5 /* FlyingShareWithRecent.m in Sources */ = {isa = PBXBuildFile; fileRef = 828BC0E41CA91462005C30F5 /* FlyingShareWithRecent.m */; };
+		829831461CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */ = {isa = PBXBuildFile; fileRef = 829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */; };
+		829831471CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */ = {isa = PBXBuildFile; fileRef = 829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */; };
+		829831481CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */ = {isa = PBXBuildFile; fileRef = 829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */; };
+		829831491CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */ = {isa = PBXBuildFile; fileRef = 829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */; };
+		8298314A1CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */ = {isa = PBXBuildFile; fileRef = 829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */; };
+		8298314B1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */; };
+		8298314C1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */; };
+		8298314D1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */; };
+		8298314E1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */; };
+		8298314F1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */; };
 		82A1878D1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */; };
 		82A1878E1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */; };
 		82A1878F1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */; };
@@ -1295,7 +1325,6 @@
 		C81F8B171BD7B488004146F0 /* MuInkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8CDD681B030821004152C2 /* MuInkView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C81F8B2D1BD7B488004146F0 /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11E77319CD526200D97FDB /* ReaderThumbView.m */; };
 		C81F8B331BD7B488004146F0 /* FlyingAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5F93B1B1ADA6E0041DF89 /* FlyingAccountVC.m */; };
-		C81F8B381BD7B488004146F0 /* FlyingDIscoverGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */; };
 		C81F8B3A1BD7B488004146F0 /* FlyingCommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FE20121BB154C8009C8D48 /* FlyingCommentData.m */; };
 		C81F8B3E1BD7B488004146F0 /* FlyingWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFE81AD0E0FB0092A970 /* FlyingWordDetailVC.m */; };
 		C81F8B3F1BD7B488004146F0 /* FlyingWordItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8BCFEA1AD0E0FB0092A970 /* FlyingWordItemCell.m */; };
@@ -1355,11 +1384,6 @@
 		C81F8BAE1BD7B488004146F0 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		C81F8BAF1BD7B488004146F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC415F4E2DA00754FE2 /* Foundation.framework */; };
 		C81F8BB01BD7B488004146F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
-		C81F8BB21BD7B488004146F0 /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
-		C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
-		C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		C81F8BC01BD7B488004146F0 /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		C81F8BC31BD7B488004146F0 /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		C81F8BD71BD7E47A004146F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BCC1BD7B552004146F0 /* InfoPlist.strings */; };
 		C81F8BD81BD7E482004146F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81F8BCE1BD7B552004146F0 /* Images.xcassets */; };
@@ -1374,11 +1398,6 @@
 		C82D8AAA195D76BC001ACB77 /* libmupdf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8AA3195D76BC001ACB77 /* libmupdf.a */; };
 		C82D8AAB195D76BC001ACB77 /* libopenjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8AA4195D76BC001ACB77 /* libopenjpeg.a */; };
 		C82D8AAC195D76BC001ACB77 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82D8AA5195D76BC001ACB77 /* libz.a */; };
-		C85AC342181CA39D00B83580 /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
-		C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
-		C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		C85AC375181CA39D00B83580 /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		C85D91AA18CDB71000A02B21 /* FlyingScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */; };
 		C85F1F9D15FB0EC1004A99CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
@@ -1426,10 +1445,6 @@
 		FA04BF951B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */; };
 		FA04BF961B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */; };
 		FA04BF971B99CFD1000F29A5 /* FlyingMyGroupsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */; };
-		FA04C0071B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */; };
-		FA04C0081B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */; };
-		FA04C0091B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */; };
-		FA04C00A1B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */; };
 		FA0AF8081B904C1900E24EF6 /* libINTULocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */; };
 		FA0AF8091B904C1900E24EF6 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */; };
 		FA0AF80A1B904C1900E24EF6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0AF8041B904C1900E24EF6 /* libPods.a */; };
@@ -1662,11 +1677,6 @@
 		FA632A7D1B51091400A1222E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		FA632A7F1B51091400A1222E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC415F4E2DA00754FE2 /* Foundation.framework */; };
 		FA632A801B51091400A1222E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
-		FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
-		FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
-		FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		FA632A8C1B51091400A1222E /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA632A961B510A0000A1222E /* InfoPlist.strings */; };
 		FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA632A981B510A0000A1222E /* Images.xcassets */; };
@@ -1766,11 +1776,6 @@
 		FA8C3EDA1B535A1500DEA02D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		FA8C3EDB1B535A1500DEA02D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC415F4E2DA00754FE2 /* Foundation.framework */; };
 		FA8C3EDC1B535A1500DEA02D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
-		FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
-		FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA8C3EE41B535A1500DEA02D /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
-		FA8C3EE61B535A1500DEA02D /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		FA8C3EFA1B535B9100DEA02D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8C3EF51B535B9100DEA02D /* InfoPlist.strings */; };
 		FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA8C3EF71B535B9100DEA02D /* Images.xcassets */; };
@@ -1929,8 +1934,6 @@
 		8212F51D1C321BC8009C9F86 /* UIImageView+thumnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+thumnail.m"; sourceTree = "<group>"; };
 		8212F51E1C321BC8009C9F86 /* UIView+Autosizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autosizing.h"; sourceTree = "<group>"; };
 		8212F51F1C321BC8009C9F86 /* UIView+Autosizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Autosizing.m"; sourceTree = "<group>"; };
-		8212F5201C321BC8009C9F86 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
-		8212F5211C321BC8009C9F86 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		8212F5221C321BC8009C9F86 /* UIWebView+Clean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Clean.h"; sourceTree = "<group>"; };
 		8212F5231C321BC8009C9F86 /* UIWebView+Clean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Clean.m"; sourceTree = "<group>"; };
 		8212F5271C321BC8009C9F86 /* FlyingTagTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTagTransform.h; sourceTree = "<group>"; };
@@ -2134,19 +2137,17 @@
 		823645A71C81D4A500499190 /* FlyingGroupTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FlyingGroupTableViewCell.xib; path = ../Group/FlyingGroupTableViewCell.xib; sourceTree = "<group>"; };
 		823645A81C81D4A500499190 /* FlyingGroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupTableViewCell.h; path = ../Group/FlyingGroupTableViewCell.h; sourceTree = "<group>"; };
 		823645A91C81D4A500499190 /* FlyingGroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupTableViewCell.m; path = ../Group/FlyingGroupTableViewCell.m; sourceTree = "<group>"; };
-		823645BB1C81D77900499190 /* FlyingGroupUpdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupUpdateCell.h; sourceTree = "<group>"; };
-		823645BC1C81D77900499190 /* FlyingGroupUpdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupUpdateCell.m; sourceTree = "<group>"; };
-		823645BD1C81D77900499190 /* FlyingGroupUpdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingGroupUpdateCell.xib; sourceTree = "<group>"; };
+		823645BB1C81D77900499190 /* FlyingGroupUpdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupUpdateCell.h; path = Group/FlyingGroupUpdateCell.h; sourceTree = "<group>"; };
+		823645BC1C81D77900499190 /* FlyingGroupUpdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupUpdateCell.m; path = Group/FlyingGroupUpdateCell.m; sourceTree = "<group>"; };
+		823645BD1C81D77900499190 /* FlyingGroupUpdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FlyingGroupUpdateCell.xib; path = Group/FlyingGroupUpdateCell.xib; sourceTree = "<group>"; };
 		823697CD1C83F0630000221C /* FlyingContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingContentCell.h; sourceTree = "<group>"; };
 		823697CE1C83F32A0000221C /* FlyingContentListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingContentListVC.h; sourceTree = "<group>"; };
 		823697CF1C83F32A0000221C /* FlyingContentListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingContentListVC.m; sourceTree = "<group>"; };
 		823697D11C83FF1C0000221C /* FlyingGroupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupVC.h; sourceTree = "<group>"; };
 		823697D21C83FF1C0000221C /* FlyingGroupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupVC.m; sourceTree = "<group>"; };
-		823697D41C8400630000221C /* FlyingGroupCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupCoverView.h; sourceTree = "<group>"; };
-		823697D51C8400630000221C /* FlyingGroupCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupCoverView.m; sourceTree = "<group>"; };
-		823697E71C8449C50000221C /* XHWaterDropRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHWaterDropRefresh.m; sourceTree = "<group>"; };
-		823697E81C8449C50000221C /* XHWaterDropRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWaterDropRefresh.h; sourceTree = "<group>"; };
 		823697F81C8452D50000221C /* pullrefresh.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = pullrefresh.aif; sourceTree = "<group>"; };
+		823903731CCF255E00643612 /* FlyingGroupMemberStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupMemberStartView.h; sourceTree = "<group>"; };
+		823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupMemberStartView.m; sourceTree = "<group>"; };
 		823C29EE1CBC9FD5005CD298 /* FlyingImageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingImageTextCell.h; sourceTree = "<group>"; };
 		823C29EF1CBC9FD5005CD298 /* FlyingImageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingImageTextCell.m; sourceTree = "<group>"; };
 		823C29F51CBCA0C0005CD298 /* FlyingImageTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingImageTextCell.xib; sourceTree = "<group>"; };
@@ -2226,6 +2227,15 @@
 		827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingtAuthorCell.xib; sourceTree = "<group>"; };
 		827AD7F61CBDF7CC00C5309D /* FlyingTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingTabBarController.h; sourceTree = "<group>"; };
 		827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTabBarController.m; sourceTree = "<group>"; };
+		828A7FAF1CD4612B00987DDE /* YALSunnyRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALSunnyRefreshControl.h; sourceTree = "<group>"; };
+		828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALSunnyRefreshControl.m; sourceTree = "<group>"; };
+		828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YALSunnyRefreshControl.xib; sourceTree = "<group>"; };
+		828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingGroupBoard.xib; sourceTree = "<group>"; };
+		828A7FC21CD4F61C00987DDE /* FlyingGroupBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupBoard.h; sourceTree = "<group>"; };
+		828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupBoard.m; sourceTree = "<group>"; };
+		828A7FC91CD5C47400987DDE /* FlyingGroupMembersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupMembersCell.h; sourceTree = "<group>"; };
+		828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupMembersCell.m; sourceTree = "<group>"; };
+		828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingGroupMembersCell.xib; sourceTree = "<group>"; };
 		828BC0AF1CA8D967005C30F5 /* libSlackTextViewController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSlackTextViewController.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-cctuxzhuzoyxopgjiwzpoelkjcqy/Build/Products/Debug-iphoneos/libSlackTextViewController.a"; sourceTree = "<group>"; };
 		828BC0B11CA8D96C005C30F5 /* libUICKeyChainStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUICKeyChainStore.a; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-cctuxzhuzoyxopgjiwzpoelkjcqy/Build/Products/Debug-iphoneos/libUICKeyChainStore.a"; sourceTree = "<group>"; };
 		828BC0B31CA8D971005C30F5 /* libUITableView+FDTemplateLayoutCell.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUITableView+FDTemplateLayoutCell.a"; path = "../../Library/Developer/Xcode/DerivedData/FlyingEnglish-cctuxzhuzoyxopgjiwzpoelkjcqy/Build/Products/Debug-iphoneos/libUITableView+FDTemplateLayoutCell.a"; sourceTree = "<group>"; };
@@ -2241,6 +2251,9 @@
 		828BC0DD1CA90442005C30F5 /* FlyingShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareData.m; sourceTree = "<group>"; };
 		828BC0E31CA91462005C30F5 /* FlyingShareWithRecent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingShareWithRecent.h; sourceTree = "<group>"; };
 		828BC0E41CA91462005C30F5 /* FlyingShareWithRecent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingShareWithRecent.m; sourceTree = "<group>"; };
+		829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSummaryheader.m; sourceTree = "<group>"; };
+		829831441CD1C1BF0080D53E /* FlyingSummaryheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSummaryheader.h; sourceTree = "<group>"; };
+		829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingSummaryheader.xib; sourceTree = "<group>"; };
 		82A1878B1CCA3BED00DAD77C /* FlyingIndexedCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingIndexedCollectionView.h; sourceTree = "<group>"; };
 		82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingIndexedCollectionView.m; sourceTree = "<group>"; };
 		82A187921CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingAuthorCollectionViewCell.h; path = ../Group/FlyingAuthorCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2264,8 +2277,8 @@
 		82A21DA31CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingSelectPersonTableViewCell.xib; sourceTree = "<group>"; };
 		82A21DA41CAB8F5000AFAECC /* FlyingSelectPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSelectPersonViewController.h; sourceTree = "<group>"; };
 		82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSelectPersonViewController.m; sourceTree = "<group>"; };
-		82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupUpdateData.h; sourceTree = "<group>"; };
-		82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupUpdateData.m; sourceTree = "<group>"; };
+		82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupUpdateData.h; path = Group/FlyingGroupUpdateData.h; sourceTree = "<group>"; };
+		82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupUpdateData.m; path = Group/FlyingGroupUpdateData.m; sourceTree = "<group>"; };
 		82E3B4D11C943D22002B2327 /* FlyingUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUIWebView.h; sourceTree = "<group>"; };
 		82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUIWebView.m; sourceTree = "<group>"; };
 		82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingWebViewController.h; sourceTree = "<group>"; };
@@ -2360,10 +2373,8 @@
 		C8FE20141BB154C8009C8D48 /* FlyingCommentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingCommentVC.m; sourceTree = "<group>"; };
 		C8FFCEAE1610634900DA6BFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CCE30CC5C9933FD3CBD059DA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		FA04BF921B99CFD1000F29A5 /* FlyingMyGroupsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMyGroupsVC.h; sourceTree = "<group>"; };
-		FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMyGroupsVC.m; sourceTree = "<group>"; };
-		FA04C0051B9B39C1000F29A5 /* FlyingDIscoverGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingDIscoverGroups.h; sourceTree = "<group>"; };
-		FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingDIscoverGroups.m; sourceTree = "<group>"; };
+		FA04BF921B99CFD1000F29A5 /* FlyingMyGroupsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingMyGroupsVC.h; path = Group/FlyingMyGroupsVC.h; sourceTree = "<group>"; };
+		FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingMyGroupsVC.m; path = Group/FlyingMyGroupsVC.m; sourceTree = "<group>"; };
 		FA0AF8011B904C1900E24EF6 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		FA0AF8021B904C1900E24EF6 /* libINTULocationManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libINTULocationManager.a; path = "Pods/../build/Debug-iphoneos/libINTULocationManager.a"; sourceTree = "<group>"; };
 		FA0AF8031B904C1900E24EF6 /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
@@ -2442,8 +2453,8 @@
 		FA1EEC951ACE99D700BBA0FA /* FlyingWordAbstractVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingWordAbstractVC.h; sourceTree = "<group>"; };
 		FA1EEC961ACE99D700BBA0FA /* FlyingWordAbstractVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingWordAbstractVC.m; sourceTree = "<group>"; };
 		FA23C6BE1B14A63200D9E13A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupData.h; sourceTree = "<group>"; };
-		FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupData.m; sourceTree = "<group>"; };
+		FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupData.h; path = Group/FlyingGroupData.h; sourceTree = "<group>"; };
+		FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupData.m; path = Group/FlyingGroupData.m; sourceTree = "<group>"; };
 		FA349F651B8C403100DDF56E /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		FA349F671B8C408600DDF56E /* libINTULocationManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libINTULocationManager.a; path = "Pods/../build/Debug-iphoneos/libINTULocationManager.a"; sourceTree = "<group>"; };
 		FA349F691B8C408A00DDF56E /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
@@ -3006,6 +3017,7 @@
 		8212F4DE1C321BC8009C9F86 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				828A7FAE1CD4612B00987DDE /* YALSunnyRefreshControll */,
 				8212F4DF1C321BC8009C9F86 /* ACEExpandableTextCell */,
 				8212F4F01C321BC8009C9F86 /* CollectionView */,
 				8212F4FB1C321BC8009C9F86 /* FlyingFakeHUD.h */,
@@ -3025,8 +3037,6 @@
 				8212F51D1C321BC8009C9F86 /* UIImageView+thumnail.m */,
 				8212F51E1C321BC8009C9F86 /* UIView+Autosizing.h */,
 				8212F51F1C321BC8009C9F86 /* UIView+Autosizing.m */,
-				8212F5201C321BC8009C9F86 /* UIView+Toast.h */,
-				8212F5211C321BC8009C9F86 /* UIView+Toast.m */,
 				8212F5221C321BC8009C9F86 /* UIWebView+Clean.h */,
 				8212F5231C321BC8009C9F86 /* UIWebView+Clean.m */,
 			);
@@ -3425,9 +3435,28 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
+		823903721CCDB35000643612 /* My Groups */ = {
+			isa = PBXGroup;
+			children = (
+				82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */,
+				82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */,
+				823645BB1C81D77900499190 /* FlyingGroupUpdateCell.h */,
+				823645BC1C81D77900499190 /* FlyingGroupUpdateCell.m */,
+				823645BD1C81D77900499190 /* FlyingGroupUpdateCell.xib */,
+				FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */,
+				FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */,
+				FA04BF921B99CFD1000F29A5 /* FlyingMyGroupsVC.h */,
+				FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */,
+			);
+			name = "My Groups";
+			sourceTree = "<group>";
+		};
 		82493F8F1C07F53E000A2306 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */,
+				829831441CD1C1BF0080D53E /* FlyingSummaryheader.h */,
+				829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */,
 				826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */,
 				826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */,
 				826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */,
@@ -3488,6 +3517,16 @@
 				82493FD71C07F67D000A2306 /* FlyingCoverViewCell.m */,
 			);
 			path = Discover;
+			sourceTree = "<group>";
+		};
+		828A7FAE1CD4612B00987DDE /* YALSunnyRefreshControll */ = {
+			isa = PBXGroup;
+			children = (
+				828A7FAF1CD4612B00987DDE /* YALSunnyRefreshControl.h */,
+				828A7FB01CD4612B00987DDE /* YALSunnyRefreshControl.m */,
+				828A7FB11CD4612B00987DDE /* YALSunnyRefreshControl.xib */,
+			);
+			path = YALSunnyRefreshControll;
 			sourceTree = "<group>";
 		};
 		828BC0BF1CA8F4C5005C30F5 /* Share */ = {
@@ -3726,6 +3765,7 @@
 				8214E99A1C2995460014B6BD /* HTTP */,
 				FA0C58921B0F6101000D98BA /* IM */,
 				8220E7131C3A615500265815 /* Media */,
+				823903721CCDB35000643612 /* My Groups */,
 				C806574A17FE53BB00CADF4F /* Review */,
 				C85D91A718CDB71000A02B21 /* Scan */,
 				C806575317FE53BB00CADF4F /* Search */,
@@ -3805,27 +3845,20 @@
 		FA04BEF41B995812000F29A5 /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				FA04C0051B9B39C1000F29A5 /* FlyingDIscoverGroups.h */,
-				FA04C0061B9B39C1000F29A5 /* FlyingDIscoverGroups.m */,
-				823697D41C8400630000221C /* FlyingGroupCoverView.h */,
-				823697D51C8400630000221C /* FlyingGroupCoverView.m */,
-				FA2559D21BA13DCF00FA9A1E /* FlyingGroupData.h */,
-				FA2559D31BA13DCF00FA9A1E /* FlyingGroupData.m */,
 				821012C61C8FDDD5000B7DB2 /* FlyingGroupMemberData.h */,
 				821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */,
-				823645BB1C81D77900499190 /* FlyingGroupUpdateCell.h */,
-				823645BC1C81D77900499190 /* FlyingGroupUpdateCell.m */,
-				823645BD1C81D77900499190 /* FlyingGroupUpdateCell.xib */,
-				82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */,
-				82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */,
 				823697D11C83FF1C0000221C /* FlyingGroupVC.h */,
 				823697D21C83FF1C0000221C /* FlyingGroupVC.m */,
-				FA04BF921B99CFD1000F29A5 /* FlyingMyGroupsVC.h */,
-				FA04BF931B99CFD1000F29A5 /* FlyingMyGroupsVC.m */,
-				823697E81C8449C50000221C /* XHWaterDropRefresh.h */,
-				823697E71C8449C50000221C /* XHWaterDropRefresh.m */,
 				82A1878B1CCA3BED00DAD77C /* FlyingIndexedCollectionView.h */,
 				82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */,
+				823903731CCF255E00643612 /* FlyingGroupMemberStartView.h */,
+				823903741CCF255E00643612 /* FlyingGroupMemberStartView.m */,
+				828A7FBC1CD4F20300987DDE /* FlyingGroupBoard.xib */,
+				828A7FC21CD4F61C00987DDE /* FlyingGroupBoard.h */,
+				828A7FC31CD4F61C00987DDE /* FlyingGroupBoard.m */,
+				828A7FC91CD5C47400987DDE /* FlyingGroupMembersCell.h */,
+				828A7FCA1CD5C47400987DDE /* FlyingGroupMembersCell.m */,
+				828A7FCB1CD5C47400987DDE /* FlyingGroupMembersCell.xib */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -4312,8 +4345,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				823C2A581CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
-				C85AC342181CA39D00B83580 /* calloutLight.mp3 in Resources */,
 				8220E7251C3A615500265815 /* FlyingMediaVC.xib in Resources */,
+				828A7FBD1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
 				826D3FBF1C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				823697F91C8452D50000221C /* pullrefresh.aif in Resources */,
 				82A21D971CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
@@ -4321,10 +4354,11 @@
 				FA23C6BF1B14A63200D9E13A /* Images.xcassets in Resources */,
 				82A1879A1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				823C2A031CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
-				C85AC354181CA39D00B83580 /* iMoneyDialogClose.wav in Resources */,
 				82501C821C0D8F7500C58789 /* BirdEnglish.entitlements in Resources */,
 				8247E6591CB20C190038EF05 /* Localizable.strings in Resources */,
+				828A7FD11CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				824940421C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
+				828A7FB31CD4612B00987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C29F61CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
 				824B78F81C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				824940821C07FFEF000A2306 /* FlyingTagCell.xib in Resources */,
@@ -4335,11 +4369,9 @@
 				82A21DAB1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A101CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
-				C85AC357181CA39D00B83580 /* LootCoinLarge.wav in Resources */,
-				C85AC355181CA39D00B83580 /* iMoneyDialogOpen.wav in Resources */,
+				8298314B1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
 				823C2A441CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
-				C85AC358181CA39D00B83580 /* LootCoinSmall.wav in Resources */,
 				824940261C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				823645AC1C81D4A500499190 /* FlyingGroupTableViewCell.xib in Resources */,
 				8247E66B1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
@@ -4353,7 +4385,7 @@
 			files = (
 				823C2A5C1CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
 				8220E7381C3CE8CA00265815 /* FlyingMediaVC.xib in Resources */,
-				C81F8BB21BD7B488004146F0 /* calloutLight.mp3 in Resources */,
+				828A7FC11CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
 				C81F8BD81BD7E482004146F0 /* Images.xcassets in Resources */,
 				823697FD1C8452D50000221C /* pullrefresh.aif in Resources */,
 				82A21D9B1CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
@@ -4362,24 +4394,23 @@
 				82A1879E1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				823C2A071CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				826D3FC31C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
-				C81F8BB61BD7B488004146F0 /* iMoneyDialogClose.wav in Resources */,
 				8247E65D1CB20C190038EF05 /* Localizable.strings in Resources */,
+				828A7FD51CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				C81F8BD71BD7E47A004146F0 /* InfoPlist.strings in Resources */,
+				828A7FB71CD463A500987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C29FA1CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
 				824B78FC1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				824940461C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
-				C81F8BBD1BD7B488004146F0 /* LootCoinLarge.wav in Resources */,
 				823C2A2E1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				823645C71C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				8247E67C1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				82A21DAF1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A141CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				827A71CC1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
+				8298314F1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				8249403C1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
-				C81F8BBE1BD7B488004146F0 /* iMoneyDialogOpen.wav in Resources */,
 				823C2A481CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
-				C81F8BC01BD7B488004146F0 /* LootCoinSmall.wav in Resources */,
 				8249408E1C080955000A2306 /* FlyingTagCell.xib in Resources */,
 				823645B01C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
 				8247E66F1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
@@ -4394,6 +4425,7 @@
 				8220E7351C3CE8C700265815 /* FlyingMediaVC.xib in Resources */,
 				823C2A451CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */,
+				8298314C1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				826D3FC01C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				824940391C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAC1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
@@ -4404,10 +4436,12 @@
 				8247E6791CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				8247E65A1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A591CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
+				828A7FD21CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */,
 				824940431C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				823645C41C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				823645AD1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
+				828A7FB41CD463A300987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823697FA1C8452D50000221C /* pullrefresh.aif in Resources */,
 				FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */,
 				8249408B1C080952000A2306 /* FlyingTagCell.xib in Resources */,
@@ -4416,6 +4450,7 @@
 				FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */,
 				823C2A2B1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78F91C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
+				828A7FBE1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
 				FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */,
 				82A1879B1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D981CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
@@ -4433,19 +4468,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				8220E7361C3CE8C900265815 /* FlyingMediaVC.xib in Resources */,
+				828A7FB51CD463A400987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C2A461CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
-				FA632A831B51091400A1222E /* calloutLight.mp3 in Resources */,
+				828A7FBF1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
+				8298314D1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403A1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAD1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
+				828A7FD31CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
 				82501C811C0D8F6E00C58789 /* beiyang.entitlements in Resources */,
 				8247E66D1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E67A1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				8247E65B1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A5A1CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
-				FA632A861B51091400A1222E /* iMoneyDialogClose.wav in Resources */,
 				824940441C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				823645C51C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				823645AE1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4454,13 +4491,10 @@
 				8249408C1C080953000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401E1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A051CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
-				FA632A881B51091400A1222E /* LootCoinLarge.wav in Resources */,
 				823C2A2C1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FA1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
-				FA632A891B51091400A1222E /* iMoneyDialogOpen.wav in Resources */,
 				82A1879C1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D991CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
-				FA632A8A1B51091400A1222E /* LootCoinSmall.wav in Resources */,
 				823C2A121CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940281C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA632A8C1B51091400A1222E /* userModel.db in Resources */,
@@ -4474,19 +4508,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				8220E7371C3CE8C900265815 /* FlyingMediaVC.xib in Resources */,
+				828A7FB61CD463A400987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C2A471CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
-				FA8C3EDF1B535A1500DEA02D /* calloutLight.mp3 in Resources */,
+				828A7FC01CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
+				8298314E1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403B1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAE1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				82501C831C0D8F7900C58789 /* inet.entitlements in Resources */,
+				828A7FD41CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
 				FA5ACC331B706A370051A3EA /* MKStoreKitConfigs.plist in Resources */,
 				8247E66E1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E67B1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				8247E65C1CB20C190038EF05 /* Localizable.strings in Resources */,
 				823C2A5B1CBCFD72005CD298 /* FlyingSwitchCell.xib in Resources */,
-				FA8C3EE21B535A1500DEA02D /* iMoneyDialogClose.wav in Resources */,
 				FA8C3EFA1B535B9100DEA02D /* InfoPlist.strings in Resources */,
 				823645C61C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				823645AF1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4495,13 +4531,10 @@
 				8249408D1C080954000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401F1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A061CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
-				FA8C3EE41B535A1500DEA02D /* LootCoinLarge.wav in Resources */,
 				823C2A2D1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FB1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
-				FA8C3EE61B535A1500DEA02D /* iMoneyDialogOpen.wav in Resources */,
 				82A1879D1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D9A1CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
-				FA8C3EE71B535A1500DEA02D /* LootCoinSmall.wav in Resources */,
 				823C2A131CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940291C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */,
@@ -4758,8 +4791,10 @@
 				FA8CDD791B030821004152C2 /* MuDocRef.m in Sources */,
 				8214EBD91C2AE8D20014B6BD /* RCAnnotationView.m in Sources */,
 				8247E6731CB27FE40038EF05 /* FlyingMemberTableViewCell.m in Sources */,
+				829831461CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */,
 				FA8CDD7F1B030821004152C2 /* MuTapResult.m in Sources */,
 				8212F5B31C321BC8009C9F86 /* SZTextView.m in Sources */,
+				828A7FC41CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */,
 				823645BE1C81D77900499190 /* FlyingGroupUpdateCell.m in Sources */,
 				82A1878D1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */,
 				8214E91D1C298BF40014B6BD /* HTTPDynamicFileResponse.m in Sources */,
@@ -4822,13 +4857,13 @@
 				82A21DB01CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
 				827A71C31CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57C1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
-				8212F63A1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				C88B7661173BFC2200955BC2 /* iFlyingAppDelegate.m in Sources */,
 				8214E9221C298BF40014B6BD /* HTTPErrorResponse.m in Sources */,
 				8212F4161C321B8E009C9F86 /* FlyingBaseDao.m in Sources */,
 				8212F42A1C321B8E009C9F86 /* FlyingLessonDAO.m in Sources */,
 				8212F6C11C321BC8009C9F86 /* unzip.c in Sources */,
 				8212F64E1C321BC8009C9F86 /* KMGillSansLabel.m in Sources */,
+				828A7FCC1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */,
 				8214E9541C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				8214E94F1C298BF40014B6BD /* GCDAsyncUdpSocket.m in Sources */,
 				8214EBED1C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
@@ -4875,7 +4910,6 @@
 				8214EC731C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
 				8212F69E1C321BC8009C9F86 /* UIDevice+SpeedCategory.m in Sources */,
 				8214EB931C2AE8D20014B6BD /* FlyingImagePreivewVC.m in Sources */,
-				823697D61C8400630000221C /* FlyingGroupCoverView.m in Sources */,
 				8214EC1A1C2AE8D20014B6BD /* RCDDiscussSettingCell.m in Sources */,
 				8214E9771C298BF40014B6BD /* DDDispatchQueueLogFormatter.m in Sources */,
 				8212F4571C321B8E009C9F86 /* FlyingTouchDAO.m in Sources */,
@@ -4904,7 +4938,6 @@
 				828BC0DE1CA90442005C30F5 /* FlyingShareData.m in Sources */,
 				8212F5EF1C321BC8009C9F86 /* FlyingSeparateView.m in Sources */,
 				8212F6BC1C321BC8009C9F86 /* SSZipArchive.m in Sources */,
-				823697F31C8449C50000221C /* XHWaterDropRefresh.m in Sources */,
 				823C29F01CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */,
 				8214EC151C2AE8D20014B6BD /* RCDDiscussGroupSettingViewController.m in Sources */,
 				8212F42F1C321B8E009C9F86 /* FlyingLessonData.m in Sources */,
@@ -4948,7 +4981,6 @@
 				FAB5F9441B1ADA6E0041DF89 /* FlyingAccountVC.m in Sources */,
 				82A21D731CA93B2000AFAECC /* FlyingUserData.m in Sources */,
 				823C2A4E1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
-				FA04C0071B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				C8FE201F1BB154C8009C8D48 /* FlyingCommentData.m in Sources */,
 				8214EC061C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				82E91CB91C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
@@ -5018,12 +5050,14 @@
 				8212F47F1C321B8E009C9F86 /* FMTokenizers.m in Sources */,
 				8214E9181C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				FA11E7B419CD526200D97FDB /* ReaderThumbsView.m in Sources */,
+				823903751CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
 				8214E98B1C298BF40014B6BD /* FlyingM3U8List.m in Sources */,
 				C88B7665173BFC2200955BC2 /* main.m in Sources */,
 				823697D01C83F32A0000221C /* FlyingContentListVC.m in Sources */,
 				8212F5951C321BC8009C9F86 /* UIImage+RSKImageCropper.m in Sources */,
 				823C29FE1CBCB809005CD298 /* FlyingTextLableCell.m in Sources */,
 				8214E95E1C298BF40014B6BD /* DDFileLogger.m in Sources */,
+				828A7FB21CD4612B00987DDE /* YALSunnyRefreshControl.m in Sources */,
 				8220E7231C3A615500265815 /* FlyingGestureControlView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5038,8 +5072,10 @@
 				8214E9991C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				C81F8A711BD7B488004146F0 /* MuDocRef.m in Sources */,
 				8247E6771CB27FE40038EF05 /* FlyingMemberTableViewCell.m in Sources */,
+				8298314A1CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */,
 				C81F8A731BD7B488004146F0 /* MuTapResult.m in Sources */,
 				8212F5B71C321BC8009C9F86 /* SZTextView.m in Sources */,
+				828A7FC81CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */,
 				823645C21C81D77A00499190 /* FlyingGroupUpdateCell.m in Sources */,
 				82A187911CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */,
 				8214EBE71C2AE8D20014B6BD /* RCLocationView.m in Sources */,
@@ -5104,11 +5140,11 @@
 				8212F6021C321BC8009C9F86 /* ACMagnifyingView.m in Sources */,
 				C81F8AAD1BD7B488004146F0 /* MuAnnotSelectView.m in Sources */,
 				8212F5801C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
-				8212F63E1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				8214EC0A1C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				8214EBF61C2AE8D20014B6BD /* RealTimeLocationStatusView.m in Sources */,
 				C81F8AAE1BD7B488004146F0 /* FlyingPickColorVCViewController.m in Sources */,
 				8220E7301C3CE89E00265815 /* FlyingGestureControlView.m in Sources */,
+				828A7FD01CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */,
 				8214E93A1C298BF40014B6BD /* DAVConnection.m in Sources */,
 				8212F6C51C321BC8009C9F86 /* unzip.c in Sources */,
 				8212F6521C321BC8009C9F86 /* KMGillSansLabel.m in Sources */,
@@ -5182,7 +5218,6 @@
 				8214E90D1C298BF40014B6BD /* MultipartMessageHeader.m in Sources */,
 				828BC0E21CA90442005C30F5 /* FlyingShareData.m in Sources */,
 				C81F8AFA1BD7B488004146F0 /* ReaderThumbRender.m in Sources */,
-				823697F71C8449C50000221C /* XHWaterDropRefresh.m in Sources */,
 				8212F6AC1C321BC8009C9F86 /* UIView+AnimatedFrame.m in Sources */,
 				8212F6201C321BC8009C9F86 /* CERoundProgressView.m in Sources */,
 				823C29F41CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */,
@@ -5231,7 +5266,6 @@
 				82493FA81C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				C81F8B2D1BD7B488004146F0 /* ReaderThumbView.m in Sources */,
 				C81F8B331BD7B488004146F0 /* FlyingAccountVC.m in Sources */,
-				C81F8B381BD7B488004146F0 /* FlyingDIscoverGroups.m in Sources */,
 				C81F8B3A1BD7B488004146F0 /* FlyingCommentData.m in Sources */,
 				8214E9031C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8212F4241C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
@@ -5244,7 +5278,6 @@
 				8220E74B1C3D095D00265815 /* FlyingFileManager.m in Sources */,
 				8214E8EF1C298BF40014B6BD /* DDRange.m in Sources */,
 				8214EBF11C2AE8D20014B6BD /* RealTimeLocationStartCell.m in Sources */,
-				823697DA1C8400630000221C /* FlyingGroupCoverView.m in Sources */,
 				8212F5AD1C321BC8009C9F86 /* FlyingSubTitle.m in Sources */,
 				8214E9121C298BF40014B6BD /* MultipartMessageHeaderField.m in Sources */,
 				82E91CBD1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
@@ -5298,12 +5331,14 @@
 				8212F69D1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				8214E91C1C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				824940411C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
+				823903791CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
 				82B240241C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
 				8214E98F1C298BF40014B6BD /* FlyingM3U8List.m in Sources */,
 				C81F8B771BD7B488004146F0 /* ReaderThumbsView.m in Sources */,
 				C81F8B7A1BD7B488004146F0 /* main.m in Sources */,
 				823C2A021CBCB809005CD298 /* FlyingTextLableCell.m in Sources */,
 				8212F5991C321BC8009C9F86 /* UIImage+RSKImageCropper.m in Sources */,
+				828A7FBB1CD463AB00987DDE /* YALSunnyRefreshControl.m in Sources */,
 				8214E9621C298BF40014B6BD /* DDFileLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5318,8 +5353,10 @@
 				FA1BE49A1B27DD5A00AA1AFD /* MuDocRef.m in Sources */,
 				8212F4761C321B8E009C9F86 /* FMResultSet.m in Sources */,
 				8247E6741CB27FE40038EF05 /* FlyingMemberTableViewCell.m in Sources */,
+				829831471CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */,
 				FA1BE49B1B27DD5A00AA1AFD /* MuTapResult.m in Sources */,
 				823645BF1C81D77A00499190 /* FlyingGroupUpdateCell.m in Sources */,
+				828A7FC51CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */,
 				8212F5B41C321BC8009C9F86 /* SZTextView.m in Sources */,
 				82A1878E1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */,
 				8212F4991C321B8E009C9F86 /* MKStoreKit.m in Sources */,
@@ -5382,13 +5419,13 @@
 				82A21DB11CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
 				827A71C41CC75B5500E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57D1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
-				8212F63B1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				FA1BE4CA1B27DD5A00AA1AFD /* MuAnnotSelectView.m in Sources */,
 				8212F4B21C321B8E009C9F86 /* RCDRCIMDataSource.m in Sources */,
 				8220E72D1C3CE89B00265815 /* FlyingGestureControlView.m in Sources */,
 				FA1BE4CB1B27DD5A00AA1AFD /* FlyingPickColorVCViewController.m in Sources */,
 				8212F6C21C321BC8009C9F86 /* unzip.c in Sources */,
 				8212F64F1C321BC8009C9F86 /* KMGillSansLabel.m in Sources */,
+				828A7FCD1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */,
 				82E91CBA1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				FA1BE4D21B27DD5A00AA1AFD /* HCSStarRatingView.m in Sources */,
 				FA1BE4D51B27DD5A00AA1AFD /* iFlyingAppDelegate.m in Sources */,
@@ -5461,7 +5498,6 @@
 				8214E9821C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				FA1BE4FC1B27DD5A00AA1AFD /* ThumbsMainToolbar.m in Sources */,
 				8214EBFD1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
-				823697F41C8449C50000221C /* XHWaterDropRefresh.m in Sources */,
 				8212F4491C321B8E009C9F86 /* FlyingStatisticData.m in Sources */,
 				823C29F11CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */,
 				8212F6A91C321BC8009C9F86 /* UIView+AnimatedFrame.m in Sources */,
@@ -5523,9 +5559,7 @@
 				FA1BE5371B27DD5A00AA1AFD /* FlyingAccountVC.m in Sources */,
 				8220E7481C3D095D00265815 /* FlyingFileManager.m in Sources */,
 				8212F5AA1C321BC8009C9F86 /* FlyingSubTitle.m in Sources */,
-				823697D71C8400630000221C /* FlyingGroupCoverView.m in Sources */,
 				8214E8F11C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
-				FA04C0081B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				8212F58C1C321BC8009C9F86 /* RSKTouchView.m in Sources */,
 				8212F4261C321B8E009C9F86 /* FlyingItemData.m in Sources */,
 				FA1BE53E1B27DD5A00AA1AFD /* FlyingWordDetailVC.m in Sources */,
@@ -5578,12 +5612,14 @@
 				FA2559D51BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8212F69A1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240211C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
+				823903761CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
 				8214E9961C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				8212F4531C321B8E009C9F86 /* FlyingTaskWordData.m in Sources */,
 				FA1BE56A1B27DD5A00AA1AFD /* ReaderThumbsView.m in Sources */,
 				FA1BE56E1B27DD5A00AA1AFD /* main.m in Sources */,
 				823C29FF1CBCB809005CD298 /* FlyingTextLableCell.m in Sources */,
 				8212F5961C321BC8009C9F86 /* UIImage+RSKImageCropper.m in Sources */,
+				828A7FB81CD463A900987DDE /* YALSunnyRefreshControl.m in Sources */,
 				8214EC2A1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5598,8 +5634,10 @@
 				8214E9101C298BF40014B6BD /* MultipartMessageHeaderField.m in Sources */,
 				FA63297B1B51091400A1222E /* FlyingSearchViewController.m in Sources */,
 				8247E6751CB27FE40038EF05 /* FlyingMemberTableViewCell.m in Sources */,
+				829831481CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */,
 				FA63297E1B51091400A1222E /* MuDocRef.m in Sources */,
 				8212F4771C321B8E009C9F86 /* FMResultSet.m in Sources */,
+				828A7FC61CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */,
 				FA63297F1B51091400A1222E /* MuTapResult.m in Sources */,
 				82A1878F1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */,
 				823645C01C81D77A00499190 /* FlyingGroupUpdateCell.m in Sources */,
@@ -5663,12 +5701,12 @@
 				827A71C51CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */,
 				82493FDC1C07F67D000A2306 /* FlyingCoverData.m in Sources */,
 				8212F57E1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
-				8212F63C1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				FA6329AE1B51091400A1222E /* MuAnnotSelectView.m in Sources */,
 				8212F4B31C321B8E009C9F86 /* RCDRCIMDataSource.m in Sources */,
 				8220E72E1C3CE89C00265815 /* FlyingGestureControlView.m in Sources */,
 				FA6329AF1B51091400A1222E /* FlyingPickColorVCViewController.m in Sources */,
 				8212F6C31C321BC8009C9F86 /* unzip.c in Sources */,
+				828A7FCE1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */,
 				8212F6501C321BC8009C9F86 /* KMGillSansLabel.m in Sources */,
 				82E91CBB1C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				FA6329B61B51091400A1222E /* HCSStarRatingView.m in Sources */,
@@ -5742,7 +5780,6 @@
 				8214E9831C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
 				FA6329DF1B51091400A1222E /* ThumbsMainToolbar.m in Sources */,
 				8214EBFE1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
-				823697F51C8449C50000221C /* XHWaterDropRefresh.m in Sources */,
 				823C29F21CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */,
 				8212F44A1C321B8E009C9F86 /* FlyingStatisticData.m in Sources */,
 				8212F6AA1C321BC8009C9F86 /* UIView+AnimatedFrame.m in Sources */,
@@ -5804,9 +5841,7 @@
 				FA632A181B51091400A1222E /* FlyingAccountVC.m in Sources */,
 				8220E7491C3D095D00265815 /* FlyingFileManager.m in Sources */,
 				8212F5AB1C321BC8009C9F86 /* FlyingSubTitle.m in Sources */,
-				823697D81C8400630000221C /* FlyingGroupCoverView.m in Sources */,
 				8214E8F21C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
-				FA04C0091B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				8212F58D1C321BC8009C9F86 /* RSKTouchView.m in Sources */,
 				8212F4271C321B8E009C9F86 /* FlyingItemData.m in Sources */,
 				FA632A1F1B51091400A1222E /* FlyingWordDetailVC.m in Sources */,
@@ -5858,12 +5893,14 @@
 				FA2559D61BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8212F69B1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240221C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
+				823903771CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
 				8214E9971C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				8212F4541C321B8E009C9F86 /* FlyingTaskWordData.m in Sources */,
 				FA632A4A1B51091400A1222E /* ReaderThumbsView.m in Sources */,
 				FA632A4E1B51091400A1222E /* main.m in Sources */,
 				823C2A001CBCB809005CD298 /* FlyingTextLableCell.m in Sources */,
 				8212F5971C321BC8009C9F86 /* UIImage+RSKImageCropper.m in Sources */,
+				828A7FB91CD463AA00987DDE /* YALSunnyRefreshControl.m in Sources */,
 				8214EC2B1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5878,8 +5915,10 @@
 				FA8C3DDA1B535A1500DEA02D /* MuDocRef.m in Sources */,
 				8212F4781C321B8E009C9F86 /* FMResultSet.m in Sources */,
 				8247E6761CB27FE40038EF05 /* FlyingMemberTableViewCell.m in Sources */,
+				829831491CD1C1BF0080D53E /* FlyingSummaryheader.m in Sources */,
 				FA8C3DDB1B535A1500DEA02D /* MuTapResult.m in Sources */,
 				823645C11C81D77A00499190 /* FlyingGroupUpdateCell.m in Sources */,
+				828A7FC71CD4F61C00987DDE /* FlyingGroupBoard.m in Sources */,
 				8212F5B61C321BC8009C9F86 /* SZTextView.m in Sources */,
 				82A187901CCA3BED00DAD77C /* FlyingIndexedCollectionView.m in Sources */,
 				8212F49B1C321B8E009C9F86 /* MKStoreKit.m in Sources */,
@@ -5942,13 +5981,13 @@
 				82A21DB31CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */,
 				827A71C61CC75B5600E708C7 /* FlyingtAuthorCell.m in Sources */,
 				8212F57F1C321BC8009C9F86 /* CGGeometry+RSKImageCropper.m in Sources */,
-				8212F63D1C321BC8009C9F86 /* UIView+Toast.m in Sources */,
 				82493FDD1C07F67D000A2306 /* FlyingCoverData.m in Sources */,
 				8212F4B41C321B8E009C9F86 /* RCDRCIMDataSource.m in Sources */,
 				8220E72F1C3CE89D00265815 /* FlyingGestureControlView.m in Sources */,
 				FA8C3E0A1B535A1500DEA02D /* MuAnnotSelectView.m in Sources */,
 				8212F6C41C321BC8009C9F86 /* unzip.c in Sources */,
 				8212F6511C321BC8009C9F86 /* KMGillSansLabel.m in Sources */,
+				828A7FCF1CD5C47400987DDE /* FlyingGroupMembersCell.m in Sources */,
 				FA8C3E0B1B535A1500DEA02D /* FlyingPickColorVCViewController.m in Sources */,
 				FA8C3E121B535A1500DEA02D /* HCSStarRatingView.m in Sources */,
 				FA8C3E151B535A1500DEA02D /* iFlyingAppDelegate.m in Sources */,
@@ -6021,7 +6060,6 @@
 				8214E8E41C298BF40014B6BD /* DDData.m in Sources */,
 				FA8C3E391B535A1500DEA02D /* ReaderConstants.m in Sources */,
 				8214E9841C298BF40014B6BD /* DispatchQueueLogFormatter.m in Sources */,
-				823697F61C8449C50000221C /* XHWaterDropRefresh.m in Sources */,
 				8214EBFF1C2AE8D20014B6BD /* RCDConversationSettingBaseViewController.m in Sources */,
 				823C29F31CBC9FD5005CD298 /* FlyingImageTextCell.m in Sources */,
 				8212F44B1C321B8E009C9F86 /* FlyingStatisticData.m in Sources */,
@@ -6083,9 +6121,7 @@
 				FA8C3E741B535A1500DEA02D /* FlyingAccountVC.m in Sources */,
 				8220E74A1C3D095D00265815 /* FlyingFileManager.m in Sources */,
 				8212F5AC1C321BC8009C9F86 /* FlyingSubTitle.m in Sources */,
-				823697D91C8400630000221C /* FlyingGroupCoverView.m in Sources */,
 				8214E8F31C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
-				FA04C00A1B9B39C1000F29A5 /* FlyingDIscoverGroups.m in Sources */,
 				8212F58E1C321BC8009C9F86 /* RSKTouchView.m in Sources */,
 				8212F4281C321B8E009C9F86 /* FlyingItemData.m in Sources */,
 				FA8C3E7B1B535A1500DEA02D /* FlyingWordDetailVC.m in Sources */,
@@ -6138,12 +6174,14 @@
 				FA2559D71BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
 				8212F69C1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240231C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
+				823903781CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
 				8214E9981C298BF40014B6BD /* FlyingM3U8Segment.m in Sources */,
 				8212F4551C321B8E009C9F86 /* FlyingTaskWordData.m in Sources */,
 				FA8C3EA61B535A1500DEA02D /* ReaderThumbsView.m in Sources */,
 				FA8C3EAA1B535A1500DEA02D /* main.m in Sources */,
 				823C2A011CBCB809005CD298 /* FlyingTextLableCell.m in Sources */,
 				8212F5981C321BC8009C9F86 /* UIImage+RSKImageCropper.m in Sources */,
+				828A7FBA1CD463AB00987DDE /* YALSunnyRefreshControl.m in Sources */,
 				8214EC2C1C2AE8D20014B6BD /* RCDPrivateSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,10 +13,8 @@
 @interface FlyingSoundPlayer : NSObject
 
 + (void) soundSentence:(NSString*)sentence;
-+ (void) soundEffect:(NSString *)sound;
 
-+  (void)playRefreshSound;
-
++  (void)noticeSound;
 
 - (void) speechWord:(NSString *) word LessonID:(NSString *) lessonID;
 

@@ -12,7 +12,7 @@
 @interface FlyingContentTitleAndTypeCell()
 
 @property (strong, nonatomic) IBOutlet UILabel *contentTitle;
-@property (strong, nonatomic) IBOutlet UIButton *accessButton;
+@property (strong, nonatomic) IBOutlet UIImageView *accessImageView;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 
 @property (nonatomic,readwrite) BOOL access;
@@ -79,21 +79,13 @@
 {
     self.access=accessRight;
     
-    if (self.access) {
-        
-        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"coin"] forState:UIControlStateNormal];
+    if (self.access)
+    {
+        [self.accessImageView setImage:[UIImage imageNamed:@"coin"]];
     }
     else
     {
-        [self.accessButton setBackgroundImage:[UIImage imageNamed:@"unlock"] forState:UIControlStateNormal];
-    }
-}
-
-- (IBAction)accessButtonPressed:(id)sender
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(accessButtonPressed)])
-    {
-        [self.delegate accessButtonPressed];
+        [self.accessImageView setImage:[UIImage imageNamed:@"unlock"]];
     }
 }
 

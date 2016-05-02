@@ -18,7 +18,6 @@
 #import "shareDefine.h"
 #import "NSString+FlyingExtention.h"
 #import <UIImageView+AFNetworking.h>
-#import "UIView+Toast.h"
 #import "AFHttpTool.h"
 #import "FlyingNowLessonDAO.h"
 #import "FlyingNowLessonData.h"
@@ -39,6 +38,9 @@
 #import "FlyingMessageNotifySettingVC.h"
 #import "FlyingScanViewController.h"
 #import "FlyingSearchViewController.h"
+#import "FlyingGroupVC.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 @interface FlyingAccountVC ()<UITableViewDataSource,
                                 UITableViewDelegate,
@@ -117,12 +119,16 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:KBELocalCacheClearOK
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      
-                                                      [self.view makeToast:NSLocalizedString(@"Cleanning is ok",nil)
-                                                                  duration:1
-                                                                  position:CSToastPositionCenter];
-                                                  }];
+                                                  usingBlock:^(NSNotification *note)
+     {
+         //即时反馈
+         [FlyingSoundPlayer noticeSound];
+         NSString * message = NSLocalizedString(@"Cleanning is ok",nil);
+         [CRToastManager showNotificationWithMessage:message
+                                     completionBlock:^{
+                                         NSLog(@"Completed");
+                                     }];
+     }];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
 
@@ -263,11 +269,16 @@
             [FlyingHttpTool getUserInfoByopenID:[FlyingDataManager getOpenUDID]
                                      completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
                                          //
-                                         if ([userData.portraitUri isBlankString]) {
-                                             
-                                             [self.view makeToast:NSLocalizedString(@"Touch portrait to update it!", nil)
-                                                         duration:1
-                                                         position:CSToastPositionCenter];
+                                         if ([userData.portraitUri isBlankString])
+                                         {
+                                             //即时反馈
+                                             [FlyingSoundPlayer noticeSound];
+                                             NSString * message = NSLocalizedString(@"Touch portrait to update it!", nil);
+                                             [CRToastManager showNotificationWithMessage:message
+                                                                         completionBlock:^{
+                                                                             NSLog(@"Completed");
+                                                                         }];
+
                                          }
                                          else
                                          {
@@ -305,7 +316,7 @@
             _wordCount = wordArray.count;
             if (_wordCount>0) {
                 
-                englishLabel= [NSString stringWithFormat:NSLocalizedString(@"Scene Dictionary[%@]", nil) , @(_wordCount)];
+                englishLabel= [NSString stringWithFormat:NSLocalizedString(@"My Dictionary[%@]", nil) , @(_wordCount)];
             }
             
             [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"Word"]];
@@ -399,9 +410,13 @@
                 }
                 else
                 {
-                    [self.view makeToast:NSLocalizedString(@"Touch subtitle and learn there!", nil)
-                                duration:3
-                                position:CSToastPositionCenter];
+                    //即时反馈
+                    [FlyingSoundPlayer noticeSound];
+                    NSString * message = NSLocalizedString(@"Click the words in the subtitles for translation", nil);
+                    [CRToastManager showNotificationWithMessage:message
+                                                completionBlock:^{
+                                                    NSLog(@"Completed");
+                                                }];
                 }
             }
             else
@@ -441,34 +456,8 @@
             
         case 4:
         {
-            //获取管理员聊天ID
-            NSString * adminUserID = [FlyingDataManager getAppData].domainID;;
-            
-            if (adminUserID)
-            {
-                
-                [FlyingHttpTool getOpenIDForUserID:adminUserID
-                                        Completion:^(NSString *openUDID)
-                 {
-                     //
-                     if (openUDID)
-                     {
-                         NSString* targetID = [openUDID MD5];
-                         
-                         
-                         FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-                         
-                         chatService.domainID = self.domainID;
-                         chatService.domainType = self.domainType;
-                         
-                         chatService.targetId = targetID;
-                         chatService.conversationType = ConversationType_PRIVATE;
-                         chatService.title = NSLocalizedString(@"Service Online",nil);
-                         [self.navigationController pushViewController:chatService animated:YES];
-                     }
-                }];
-            }
-            
+            [FlyingGroupVC contactAppServiceWithMessage:NSLocalizedString(@"Service Online",nil)
+                                                   inVC:self];
             break;
         }
             

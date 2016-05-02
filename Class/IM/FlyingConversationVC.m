@@ -6,17 +6,13 @@
 //  Copyright © 2015 BirdEngish. All rights reserved.
 //
 #import "FlyingConversationVC.h"
-
 #import "RCDataBaseManager.h"
-
 #import "RealTimeLocationViewController.h"
 #import "RealTimeLocationStartCell.h"
 #import "RealTimeLocationStatusView.h"
 #import "RealTimeLocationEndCell.h"
-
 #import "RCDPrivateSettingViewController.h"
 #import "RCDRoomSettingViewController.h"
-
 #import "FlyingHttpTool.h"
 #import "iFlyingAppDelegate.h"
 #import "UICKeyChainStore.h"
@@ -31,13 +27,13 @@
 #import "FlyingSoundPlayer.h"
 #import "FlyingScanViewController.h"
 #import "FlyingImagePreivewVC.h"
-#import "UIView+Toast.h"
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
 #import "FlyingShareWithRecent.h"
 #import "FlyingProfileVC.h"
 #import "FlyingGroupVC.h"
+#import <CRToastManager.h>
 
 @interface FlyingConversationVC () <RCRealTimeLocationObserver,
                                     RealTimeLocationStatusViewDelegate,
@@ -68,7 +64,7 @@
     [coder encodeObject:self.title forKey:@"self.title"];
     [coder encodeObject:self.targetId forKey:@"self.targetId"];
     [coder encodeInteger:self.conversationType forKey:@"self.conversationType"];
-    
+        
     if (![self.domainID isBlankString]) {
         
         [coder encodeObject:self.domainID forKey:@"self.domainID"];
@@ -100,6 +96,8 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        self.conversationMessageCollectionView.restorationIdentifier = self.restorationIdentifier;
         
         self.hidesBottomBarWhenPushed = YES;
     }
@@ -523,8 +521,13 @@
     }
     else
     {
-        [FlyingGroupVC showMemberInfo:userRightData
-                                 inView:self.view];
+        //显示会员状态信息
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = [userRightData getMemberStateInfo];
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
         return nil;
     }
 }
@@ -632,17 +635,21 @@
 {
     if(error != NULL)
     {
-        [self.view makeToast:@"保存图片失败！"
-                    duration:1
-                    position:CSToastPositionCenter];
-
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"保存图片失败!",nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
     else
     {
-        [self.view makeToast:@"成功保存图片！"
-                    duration:1
-                    position:CSToastPositionCenter];
-
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"成功保存图片！",nil) ;
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
     }
 }
 
@@ -686,7 +693,6 @@
         
         [self showRealTimeLocationViewController];
     }
-    
     else
     {
         [super didTapMessageCell:model];
@@ -1011,10 +1017,12 @@
         }
         else
         {
-            [self.view makeToast:@"保存图片失败！"
-                        duration:1
-                        position:CSToastPositionCenter];
-
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = NSLocalizedString(@"保存图片失败！",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
     }
     
@@ -1028,10 +1036,12 @@
         }
         else
         {
-            [self.view makeToast:@"保存地址图片失败"
-                        duration:1
-                        position:CSToastPositionCenter];
-
+            [FlyingSoundPlayer noticeSound];
+            NSString * message = NSLocalizedString( @"保存地址图片失败！",nil);
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
         }
     }
 }
@@ -1080,7 +1090,7 @@
                 // The barcode format, such as a QR code or UPC-A
                 //ZXBarcodeFormat format = result.barcodeFormat;
                 
-                [FlyingSoundPlayer soundEffect:SECalloutLight];
+                [FlyingSoundPlayer noticeSound];
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                 
                 [FlyingScanViewController processingSCanResult:contents];

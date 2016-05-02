@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 #import "FlyingPubLessonData.h"
 #import "FlyingCommentCell.h"
-#import "TLTagsControl.h"
 
 #import <QuickLook/QuickLook.h>
 
@@ -22,14 +21,12 @@
 #import "KMNetworkLoadingViewController.h"
 
 @interface FlyingContentVC :FlyingViewController<
-                                                TLTagsControlDelegate,
                                                 UITableViewDataSource,
                                                 UITableViewDelegate,
                                                 FlyingCommentCellDelegate,
                                                 QLPreviewControllerDataSource,
                                                 QLPreviewControllerDelegate,
                                                 FlyingMediaVCDelegate,
-                                                FlyingContentTitleAndTypeCellDelegate,
                                                 FlyingCommentVCDelegate,
                                                 KMNetworkLoadingViewDelegate>
 

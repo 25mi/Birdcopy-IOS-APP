@@ -19,6 +19,8 @@
 #import "FlyingDataManager.h"
 #import "FlyingConversationVC.h"
 #import "iFlyingAppDelegate.h"
+#import <CRToastManager.h>
+#import "FlyingSoundPlayer.h"
 
 @interface FlyingGroupTableViewCell()
 
@@ -168,9 +170,13 @@
          }
          else
          {
-             //显示会员信息
-             [FlyingGroupVC showMemberInfo:userRightData
-                                      inView:self];
+             //显示会员状态信息
+             [FlyingSoundPlayer noticeSound];
+             NSString* message = [userRightData getMemberStateInfo];
+             [CRToastManager showNotificationWithMessage:message
+                                         completionBlock:^{
+                                             NSLog(@"Completed");
+                                         }];
          }
      }];
 }

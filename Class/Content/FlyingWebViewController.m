@@ -27,7 +27,7 @@
 #import "UIImage+localFile.h"
 #import <AFNetworking.h>
 #import "FlyingHttpTool.h"
-#import "UIView+Toast.h"
+#import <CRToastManager.h>
 
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
@@ -372,19 +372,7 @@
         
         if (times.count>2) {
             //是句子
-            
-            double version = [[[UIDevice currentDevice] systemVersion] doubleValue];
-            if (version<7.0) {
-
-                NSString *message = [NSString stringWithFormat:@"请升级手机或者IPAD到7.0版本使用！"];
-                
-                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-                [appDelegate makeToast:message];
-            }
-            else{
-            
-                [FlyingSoundPlayer soundSentence:word];
-            }
+            [FlyingSoundPlayer soundSentence:word];
         }
         else
         {
