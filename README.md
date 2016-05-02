@@ -2,7 +2,7 @@
 
 [birdengcopy]: http://www.birdcopy.com
 
-Birdcopy是菜鸟微云提供的一个手机应用,旨在帮助小微社群提供文件管理云平台。
+Birdcopy是菜鸟微云提供的一个手机应用,旨在帮助小微社群提供会员和内容管理云平台。
 关于菜鸟微云的介绍请见[Birdcopy 官网][birdengcopy]。
 
 ## 特点
