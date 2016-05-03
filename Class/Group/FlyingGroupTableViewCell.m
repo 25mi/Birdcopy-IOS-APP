@@ -47,6 +47,7 @@
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell"];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.collectionView.supportTouch=NO;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -66,7 +67,7 @@
     
     if (groupUpdateData.groupData.is_public_access)
     {
-        self.collectionHeight.constant = 64;
+        self.collectionHeight.constant = 40;
         if (!self.memberList) {
             
             [self loadMemberList];

@@ -98,6 +98,15 @@
 {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+
+    CGRect frame = self.navigationController.navigationBar.frame;
+    UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, frame.size.width, frame.size.height+20)];
+    alphaView.backgroundColor = [UIColor blueColor];
+    alphaView.userInteractionEnabled = NO;
+    [self.navigationController.navigationBar insertSubview: alphaView atIndex:0];
+    
     //顶部导航
     UIButton* memberButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
     [memberButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
@@ -593,7 +602,7 @@
 {
     if (indexPath.section == 0)
     {
-        [self doMembers];
+        //[self doMembers];
     }
     else if (indexPath.section == 1)
     {

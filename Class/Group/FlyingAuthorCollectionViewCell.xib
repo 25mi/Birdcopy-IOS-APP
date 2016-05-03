@@ -9,30 +9,23 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FlyingAuthorCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="40" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="40" height="64"/>
+                <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-ci-wH0">
-                        <rect key="frame" x="0.0" y="0.0" width="40" height="64"/>
+                        <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9EY-fq-H47">
-                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="AU7-ff-m9H"/>
-                                    <constraint firstAttribute="width" secondItem="9EY-fq-H47" secondAttribute="height" multiplier="1:1" id="W3Q-I3-67w"/>
-                                    <constraint firstAttribute="height" constant="40" id="WWJ-k1-tsC"/>
+                                    <constraint firstAttribute="width" secondItem="9EY-fq-H47" secondAttribute="height" multiplier="1:1" id="Jep-m8-9G3"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="W3Q-I3-67w"/>
-                                    </mask>
-                                </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是测试人员的账号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezt-wg-fpe">
-                                <rect key="frame" x="0.0" y="48" width="40" height="13.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是测试" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezt-wg-fpe">
+                                <rect key="frame" x="0.0" y="24" width="24" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -45,7 +38,8 @@
                             <constraint firstItem="ezt-wg-fpe" firstAttribute="centerX" secondItem="jZr-ci-wH0" secondAttribute="centerX" id="P2H-jX-bH3"/>
                             <constraint firstItem="9EY-fq-H47" firstAttribute="top" secondItem="jZr-ci-wH0" secondAttribute="top" id="UYj-oN-N0f"/>
                             <constraint firstItem="ezt-wg-fpe" firstAttribute="leading" secondItem="jZr-ci-wH0" secondAttribute="leading" id="ZuN-tb-qj5"/>
-                            <constraint firstItem="ezt-wg-fpe" firstAttribute="top" secondItem="9EY-fq-H47" secondAttribute="bottom" constant="8" id="z5f-z1-x4U"/>
+                            <constraint firstAttribute="bottom" secondItem="ezt-wg-fpe" secondAttribute="bottom" id="qgr-Mx-0G8"/>
+                            <constraint firstItem="ezt-wg-fpe" firstAttribute="top" secondItem="9EY-fq-H47" secondAttribute="bottom" id="z5f-z1-x4U"/>
                         </constraints>
                     </view>
                 </subviews>

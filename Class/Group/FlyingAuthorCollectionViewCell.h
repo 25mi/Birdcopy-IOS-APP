@@ -13,7 +13,6 @@
 
 + (FlyingAuthorCollectionViewCell*) authorCollectionViewCell;
 
-
 -(void) setItemText:(NSString*) itemText;
 
 -(void) setImageIconURL:(NSString*) imageURL;

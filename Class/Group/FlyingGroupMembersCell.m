@@ -32,13 +32,15 @@
     
     UINib *nib = [UINib nibWithNibName:@"FlyingAuthorCollectionViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell"];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
+    self.collectionView.dataSource      = self;
+    self.collectionView.delegate        = self;
+    self.collectionView.supportTouch    = YES;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
@@ -178,6 +180,5 @@
          }
      }];
 }
-
 
 @end
