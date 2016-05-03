@@ -319,11 +319,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-viewWillAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Class/Group/FlyingGroupVC.m"
+            timestampString = "483940272.432114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-showMemberState:"
             landmarkType = "5">
          </BreakpointContent>
@@ -335,28 +351,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "-showMemberState:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "-reloadAll"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "-touchTopRight"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,12 +399,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
-            landmarkName = "+contactAppServiceWithMessage:inVC:"
+            startingLineNumber = "681"
+            endingLineNumber = "681"
+            landmarkName = "+contactAdminWithGroupID:message:inVC:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -415,11 +415,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "697"
-            endingLineNumber = "697"
+            startingLineNumber = "688"
+            endingLineNumber = "688"
             landmarkName = "+contactAppServiceWithMessage:inVC:"
             landmarkType = "5">
          </BreakpointContent>
@@ -575,12 +575,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
-            landmarkName = "-finishLoadingData"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
+            landmarkName = "-loadMore"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -591,11 +591,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "-beginRefreshing"
             landmarkType = "5">
          </BreakpointContent>
@@ -655,12 +655,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
-            landmarkName = "-setupRefreshControl"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "-reloadAll"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -735,11 +735,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "-reloadAll"
             landmarkType = "5">
          </BreakpointContent>
@@ -751,11 +751,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -767,11 +767,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483796722.985182"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "-reloadAll"
             landmarkType = "5">
          </BreakpointContent>
@@ -795,7 +795,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingMyGroupsVC.m"
@@ -815,13 +815,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483797917.185451"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
-            landmarkName = "+doMemberRightInVC:GroupID:Completion:"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
+            landmarkName = "+contactAppServiceWithMessage:inVC:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__51+[FlyingGroupVC contactAppServiceWithMessage:inVC:]_block_invoke"
+                  moduleName = "beiyang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentsung/Documents/Birdcopy-IOS-APP/Class/Group/FlyingGroupVC.m"
+                  timestampString = "483940599.036904"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "728"
+                  endingLineNumber = "728"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.372"
+                  moduleName = "beiyang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentsung/Documents/Birdcopy-IOS-APP/Class/Group/FlyingGroupVC.m"
+                  timestampString = "483940599.037061"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "728"
+                  endingLineNumber = "728"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.373"
+                  moduleName = "beiyang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentsung/Documents/Birdcopy-IOS-APP/Class/Group/FlyingGroupVC.m"
+                  timestampString = "483940599.037169"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "728"
+                  endingLineNumber = "728"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -831,11 +878,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Class/Group/FlyingGroupVC.m"
-            timestampString = "483797921.62366"
+            timestampString = "483940272.432114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "742"
-            endingLineNumber = "742"
+            startingLineNumber = "733"
+            endingLineNumber = "733"
             landmarkName = "+doMemberRightInVC:GroupID:Completion:"
             landmarkType = "5">
          </BreakpointContent>
