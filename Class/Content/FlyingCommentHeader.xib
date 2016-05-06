@@ -8,41 +8,53 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FlyingCommentHeader">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlyingCommentHeader" id="cXn-nK-VLe" userLabel="Flying Comment Header" customClass="FlyingCommentHeader">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cXn-nK-VLe" id="qfP-01-cAc">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="相关评论" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0Y-Sq-cCs">
-                        <rect key="frame" x="8" y="8" width="262" height="27.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="相关评论" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="277" translatesAutoresizingMaskIntoConstraints="NO" id="c66-ar-pv4">
+                        <rect key="frame" x="7.5" y="13.5" width="243" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxG-tU-nbk">
-                        <rect key="frame" x="270" y="11" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dQ-q5-IdO">
+                        <rect key="frame" x="291" y="13" width="21" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comment" translatesAutoresizingMaskIntoConstraints="NO" id="CdV-WO-ukx">
+                        <rect key="frame" x="259" y="11" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="MCu-HH-fQj"/>
+                            <constraint firstAttribute="width" constant="24" id="sZ5-PC-pWP"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="YxG-tU-nbk" secondAttribute="trailing" id="2t2-k9-oan"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="F0Y-Sq-cCs" secondAttribute="bottom" id="9h0-It-MDo"/>
-                    <constraint firstItem="YxG-tU-nbk" firstAttribute="leading" secondItem="F0Y-Sq-cCs" secondAttribute="trailing" id="fiE-p7-2uc"/>
-                    <constraint firstItem="F0Y-Sq-cCs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="o2V-fg-3Rg"/>
-                    <constraint firstItem="F0Y-Sq-cCs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="pSe-x7-Fbg"/>
-                    <constraint firstItem="YxG-tU-nbk" firstAttribute="leading" secondItem="F0Y-Sq-cCs" secondAttribute="trailing" id="pZ0-6U-4eP"/>
-                    <constraint firstItem="YxG-tU-nbk" firstAttribute="centerY" secondItem="F0Y-Sq-cCs" secondAttribute="centerY" id="whi-as-Hxm"/>
+                    <constraint firstItem="0dQ-q5-IdO" firstAttribute="leading" secondItem="CdV-WO-ukx" secondAttribute="trailing" constant="8" id="0gf-6T-jE2"/>
+                    <constraint firstItem="CdV-WO-ukx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qfP-01-cAc" secondAttribute="topMargin" id="1nP-43-98M"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="CdV-WO-ukx" secondAttribute="bottom" id="3LY-jK-FrZ"/>
+                    <constraint firstItem="0dQ-q5-IdO" firstAttribute="centerY" secondItem="CdV-WO-ukx" secondAttribute="centerY" id="4aV-Ko-eKo"/>
+                    <constraint firstItem="CdV-WO-ukx" firstAttribute="leading" secondItem="c66-ar-pv4" secondAttribute="trailing" constant="8" id="YmA-8C-lac"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="0dQ-q5-IdO" secondAttribute="trailing" id="dty-7w-h80"/>
+                    <constraint firstItem="c66-ar-pv4" firstAttribute="leading" secondItem="qfP-01-cAc" secondAttribute="leadingMargin" id="mIb-9A-Imw"/>
+                    <constraint firstItem="c66-ar-pv4" firstAttribute="centerY" secondItem="CdV-WO-ukx" secondAttribute="centerY" id="mmB-2S-OU1"/>
                 </constraints>
             </tableViewCellContentView>
-            <inset key="separatorInset" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="commentCountLabel" destination="YxG-tU-nbk" id="e5p-OO-rgN"/>
-                <outlet property="contentTitle" destination="F0Y-Sq-cCs" id="MzY-x3-yIA"/>
+                <outlet property="commentCountLabel" destination="0dQ-q5-IdO" id="LRo-Ul-bWY"/>
+                <outlet property="contentTitle" destination="c66-ar-pv4" id="5qq-uK-wds"/>
             </connections>
+            <point key="canvasLocation" x="139" y="365"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Comment" width="96" height="96"/>
+    </resources>
 </document>

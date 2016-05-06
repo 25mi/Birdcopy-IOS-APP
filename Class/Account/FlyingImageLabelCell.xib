@@ -21,7 +21,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Price" translatesAutoresizingMaskIntoConstraints="NO" id="uuQ-KC-6b4">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="uuQ-KC-6b4">
                         <rect key="frame" x="272" y="4" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Bon-Bt-oWG"/>
@@ -44,6 +44,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Price" width="64" height="64"/>
+        <image name="Icon" width="57" height="57"/>
     </resources>
 </document>

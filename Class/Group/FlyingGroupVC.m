@@ -97,7 +97,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
     //顶部导航
     UIButton* memberButton= [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 24, 24)];
     [memberButton setBackgroundImage:[UIImage imageNamed:@"People"] forState:UIControlStateNormal];
@@ -314,6 +314,11 @@
         self.groupStreamTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupStreamTableView.frame.size.width, bottom)];
 
         self.groupStreamTableView.restorationIdentifier = self.restorationIdentifier;
+
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
+        {
+            self.groupStreamTableView.cellLayoutMarginsFollowReadableWidth = NO;
+        }
 
         [self.view addSubview:self.groupStreamTableView];
         

@@ -17,7 +17,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
-    self.titleLabel.font        = [UIFont boldSystemFontOfSize:KLargeFontSize];
+    self.titleLabel.font        = [UIFont systemFontOfSize:KLargeFontSize];
 
     self.dateLabel.font         = [UIFont systemFontOfSize:KSmallFontSize];
     self.commentCountLable.font = [UIFont systemFontOfSize:KSmallFontSize];

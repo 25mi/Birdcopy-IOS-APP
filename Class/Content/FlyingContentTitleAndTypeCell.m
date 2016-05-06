@@ -81,11 +81,11 @@
     
     if (self.access)
     {
-        [self.accessImageView setImage:[UIImage imageNamed:@"coin"]];
+        [self.accessImageView setImage:[UIImage imageNamed:@"share"]];
     }
     else
     {
-        [self.accessImageView setImage:[UIImage imageNamed:@"unlock"]];
+        [self.accessImageView setImage:[UIImage imageNamed:@"coin"]];
     }
 }
 

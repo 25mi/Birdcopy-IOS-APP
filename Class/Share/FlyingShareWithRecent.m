@@ -86,10 +86,7 @@
 {
     [self willDismiss];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    });
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) willDismiss
@@ -129,6 +126,7 @@
         
         UIAlertAction *doneAction = [UIAlertAction   actionWithTitle:@"发送" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             //
+            [self dismissNavigation];
             
             // 调用RCIMClient的sendMessage方法进行发送，结果会通过回调进行反馈。
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
@@ -158,12 +156,8 @@
                                                         }];
                                                    }
                                                    
-                                                   [self dismissNavigation];
-                                                   
                                                } error:^(RCErrorCode nErrorCode, long messageId) {
                                                    
-                                                   
-                                                   [self dismissNavigation];
                                                }];
 
         } ];

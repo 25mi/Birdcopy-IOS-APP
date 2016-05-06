@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>NJKWebViewProgress.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -40,6 +35,11 @@
 			<false/>
 		</dict>
 		<key>SlackTextViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Toast.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,12 +57,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>10FEBE64EE2B4481B076FEBDB1FE3519</key>
+		<key>2CC91B8D8C7928E9203A49CE3805B2F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6779C086AA63EBDFA149239217327C2D</key>
+		<key>459FC8645BBBD31D76E6850EC5BE2C7D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>47EC445CEDFAD34D743C9C4ECF040403</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>516E57E3F900DC7A6ACC102B0BA2CEB9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,27 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99490915E39A6E4239AB6246FBDA2833</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A643C23BD057501B435E637F8BFE8933</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B4A3E08D49931371F7247521A50EAF79</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C034C270DFDA221F0EE4C798C193BCF3</key>
+		<key>CCA9D62CC7CB39054D94B95D1E571DAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E07A1B93D0B5E99C6E979FACDA81D9B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7D2F5BC3FFA82EB5EA86BC37FFBC9A9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

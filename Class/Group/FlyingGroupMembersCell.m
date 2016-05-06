@@ -34,7 +34,6 @@
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell"];
     self.collectionView.dataSource      = self;
     self.collectionView.delegate        = self;
-    self.collectionView.supportTouch    = YES;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

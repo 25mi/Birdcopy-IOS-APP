@@ -37,6 +37,7 @@
 #import "FlyingDataManager.h"
 #import "KMNetworkLoadingViewController.h"
 #import <UIImageView+AFNetworking.h>
+#import <UIButton+AFNetworking.h>
 #import "FlyingShareData.h"
 #import "FlyingProfileVC.h"
 #import "FlyingStatisticDAO.h"
@@ -73,8 +74,6 @@
 @property (strong, nonatomic) FlyingMediaVC     *mediaVC;
 
 @property (strong, nonatomic) UIActivityIndicatorView  *loadingCoverConntentIndicatorView;
-
-@property (strong, nonatomic) UIButton          *shareButton;
 
 @property (strong, nonatomic) UIButton *accessChatbutton;
 @property (strong, nonatomic) UIView   *accessChatContainer;
@@ -135,18 +134,52 @@
     //更新欢迎语言
     self.title =@"详情";
     
-    //顶部右上角导航
-    self.shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [self.shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    [self.shareButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
-    
-    self.navigationItem.rightBarButtonItem = shareBarButtonItem;
-        
     if (self.thePubLesson) {
         
         [self commonInit];
     }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    NSLog(@"%s = %d", __func__, decelerate);
+    
+    // 1.判断是否有惯性, 如果没有惯性手动调用scrollViewDidEndDecelerating告知已经完全停止滚动
+    if (decelerate == NO) {
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+
+    CGRect cellRect = [self.tableView rectForRowAtIndexPath:indexPath];
+    cellRect = CGRectOffset(cellRect, -self.tableView.contentOffset.x, -self.tableView.contentOffset.y);
+
+    if (cellRect.origin.y<5)
+    {
+        if (self.authorUserData.portraitUri)
+        {
+            [self setRightNavItem:self.authorUserData.portraitUri];
+        }
+    }
+}
+
+-(void) setRightNavItem:(NSString*) authorIconURL
+{
+    //顶部右上角导航
+    UIButton *askHelpButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [askHelpButton setBackgroundImageForState:UIControlStateNormal
+                                      withURL:[NSURL URLWithString:authorIconURL]
+                             placeholderImage:[UIImage imageNamed:@"Help"]];
+    
+    askHelpButton.layer.cornerRadius = askHelpButton.frame.size.width/2;
+    askHelpButton.clipsToBounds = YES;
+    
+    [askHelpButton addTarget:self action:@selector(askHelpNow) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* askHelpBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:askHelpButton];
+    
+    self.navigationItem.rightBarButtonItem = askHelpBarButtonItem;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -165,6 +198,8 @@
     {
         [self.mediaVC dismiss];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
 }
 
 -(void)doShare
@@ -181,7 +216,7 @@
         shareData.image   = [self.contentCoverImageView.image makeThumbnailOfSize:CGSizeMake(90, 120)];
         
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shareContent:shareData fromView:self.shareButton];
+        [appDelegate shareContent:shareData fromView:self.contentTitleAndTypeCell];
     }
 }
 
@@ -270,6 +305,12 @@
         
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
         self.tableView.restorationIdentifier = self.restorationIdentifier;
+        
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
+        {
+            self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+        }
+
         [self.view addSubview:self.tableView];
     }
     
@@ -973,12 +1014,7 @@
         {
             if(actualNumberOfRows==0)
             {
-                [(FlyingContentSummaryCell*)cell setSummaryText:@"我要第一个评论!"];
-                [(FlyingContentSummaryCell*)cell setTextAlignment:NSTextAlignmentCenter];
-            }
-            else
-            {
-                [(FlyingContentSummaryCell*)cell setSummaryText:@"我要评论..."];
+                [(FlyingContentSummaryCell*)cell setSummaryText:@"点击这里开始评论..."];
                 [(FlyingContentSummaryCell*)cell setTextAlignment:NSTextAlignmentCenter];
             }
         }
@@ -1030,7 +1066,7 @@
         {
             case 0:
             {
-                [self askAccess];
+                [self didTouchAccess];
                 break;
             }
 
@@ -1047,6 +1083,14 @@
                 
             case 0:
             {
+                //即时反馈
+                [FlyingSoundPlayer noticeSound];
+                NSString * message = NSLocalizedString(@"如果咨询问题，点击“求助”", nil);
+                [CRToastManager showNotificationWithMessage:message
+                                            completionBlock:^{
+                                                NSLog(@"Completed");
+                                            }];
+
                 break;
             }
         }
@@ -1072,17 +1116,11 @@
 //////////////////////////////////////////////////////////////
 #pragma cell related
 //////////////////////////////////////////////////////////////
-- (void)askAccess
+- (void)didTouchAccess
 {
     if (self.accessRight)
     {
-        //即时反馈
-        [FlyingSoundPlayer noticeSound];
-        NSString * message = NSLocalizedString(@"如果咨询问题，点击“求助”", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        [self doShare];
     }
     else
     {
@@ -1215,7 +1253,8 @@
 {
     
     FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
-    profileVC.userID = commentData.userID;
+    profileVC.openUDID = commentData.openUDID;
+    profileVC.title = commentData.nickName;
     
     [self.navigationController pushViewController:profileVC animated:YES];
 }

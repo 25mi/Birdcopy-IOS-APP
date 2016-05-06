@@ -140,6 +140,10 @@
      */
     
     [self.textInputbar setAutoHideRightButton:NO];
+    [self.textInputbar setMaxCharCount:200];
+    [self.textInputbar.leftButton setImage:[UIImage imageNamed:@"icn_arrow_down"]
+                                  forState:UIControlStateNormal];
+    
     [self registerPrefixesForAutoCompletion:[NSArray arrayWithObject:@""]];
 
     self.inverted=false;
@@ -448,7 +452,7 @@
 {
     
     FlyingProfileVC  *profileVC = [[FlyingProfileVC alloc] init];
-    profileVC.userID = commentData.userID;
+    profileVC.openUDID = commentData.openUDID;
     
     [self.navigationController pushViewController:profileVC animated:YES];
 }
@@ -467,7 +471,7 @@
     commentData.contentID=self.contentID;
     commentData.contentType=self.contentType;
     
-    commentData.userID = [FlyingDataManager getOpenUDID];
+    commentData.openUDID = [FlyingDataManager getOpenUDID];
     
     FlyingUserData *userData = [FlyingDataManager getUserData:nil];
     

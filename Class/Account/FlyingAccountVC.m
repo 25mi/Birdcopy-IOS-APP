@@ -41,6 +41,7 @@
 #import "FlyingGroupVC.h"
 #import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
+#import <Toast/UIView+Toast.h>
 
 @interface FlyingAccountVC ()<UITableViewDataSource,
                                 UITableViewDelegate,
@@ -274,11 +275,9 @@
                                              //即时反馈
                                              [FlyingSoundPlayer noticeSound];
                                              NSString * message = NSLocalizedString(@"Touch portrait to update it!", nil);
-                                             [CRToastManager showNotificationWithMessage:message
-                                                                         completionBlock:^{
-                                                                             NSLog(@"Completed");
-                                                                         }];
-
+                                             [self.view makeToast:message
+                                                         duration:3.0
+                                                         position: CSToastPositionCenter];
                                          }
                                          else
                                          {
@@ -413,10 +412,9 @@
                     //即时反馈
                     [FlyingSoundPlayer noticeSound];
                     NSString * message = NSLocalizedString(@"Click the words in the subtitles for translation", nil);
-                    [CRToastManager showNotificationWithMessage:message
-                                                completionBlock:^{
-                                                    NSLog(@"Completed");
-                                                }];
+                    [self.view makeToast:message
+                                duration:3.0
+                                position: CSToastPositionCenter];
                 }
             }
             else

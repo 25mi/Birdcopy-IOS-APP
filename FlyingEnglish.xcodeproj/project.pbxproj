@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82053BD01CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
+		82053BD11CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
+		82053BD21CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
+		82053BD31CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
+		82053BD41CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
+		82053BD81CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
+		82053BD91CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
+		82053BDA1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
+		82053BDB1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
+		82053BDC1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
+		82053BDD1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */; };
+		82053BDE1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */; };
+		82053BDF1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */; };
+		82053BE01CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */; };
+		82053BE11CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */; };
 		821012C81C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
 		821012C91C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
 		821012CA1C8FDDD5000B7DB2 /* FlyingGroupMemberData.m in Sources */ = {isa = PBXBuildFile; fileRef = 821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */; };
@@ -1259,13 +1274,8 @@
 		82B240221C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
 		82B240231C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
 		82B240241C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
-		82E3B4D51C943D22002B2327 /* FlyingUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */; };
 		82E3B4D61C943D22002B2327 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */; };
-		82E3B4D71C943EEB002B2327 /* FlyingUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */; };
 		82E3B4D81C943EFD002B2327 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */; };
-		82E3B4D91C943F13002B2327 /* FlyingUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */; };
-		82E3B4DA1C943F14002B2327 /* FlyingUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */; };
-		82E3B4DB1C943F15002B2327 /* FlyingUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */; };
 		82E3B4DC1C943F19002B2327 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */; };
 		82E3B4DD1C943F1A002B2327 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */; };
 		82E3B4DE1C943F1B002B2327 /* FlyingWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */; };
@@ -1559,11 +1569,6 @@
 		FA1BE59D1B27DD5A00AA1AFD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85F1F9C15FB0EC1004A99CE /* CoreMedia.framework */; };
 		FA1BE59F1B27DD5A00AA1AFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC415F4E2DA00754FE2 /* Foundation.framework */; };
 		FA1BE5A01B27DD5A00AA1AFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81C2BC615F4E2DA00754FE2 /* CoreGraphics.framework */; };
-		FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C85AC307181CA39D00B83580 /* calloutLight.mp3 */; };
-		FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */; };
-		FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */; };
-		FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */; };
-		FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */; };
 		FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */ = {isa = PBXBuildFile; fileRef = C85AC33A181CA39D00B83580 /* userModel.db */; };
 		FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA1BE5CA1B27DF3400AA1AFD /* InfoPlist.strings */; };
 		FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1BE5E91B27E8BF00AA1AFD /* Images.xcassets */; };
@@ -1800,6 +1805,10 @@
 /* Begin PBXFileReference section */
 		1ECB9300DEFE7871D649D4E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7B78710A6B62E33FAD31163C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectJSForVideo.js; sourceTree = "<group>"; };
+		82053BD51CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMemberIconCellCollectionViewCell.h; sourceTree = "<group>"; };
+		82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMemberIconCellCollectionViewCell.m; sourceTree = "<group>"; };
+		82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingMemberIconCellCollectionViewCell.xib; sourceTree = "<group>"; };
 		821012C61C8FDDD5000B7DB2 /* FlyingGroupMemberData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingGroupMemberData.h; sourceTree = "<group>"; };
 		821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingGroupMemberData.m; sourceTree = "<group>"; };
 		8210AE791C151C97009EBD76 /* FlyingActiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingActiveViewController.h; sourceTree = "<group>"; };
@@ -2256,9 +2265,9 @@
 		829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingSummaryheader.xib; sourceTree = "<group>"; };
 		82A1878B1CCA3BED00DAD77C /* FlyingIndexedCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingIndexedCollectionView.h; sourceTree = "<group>"; };
 		82A1878C1CCA3BED00DAD77C /* FlyingIndexedCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingIndexedCollectionView.m; sourceTree = "<group>"; };
-		82A187921CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingAuthorCollectionViewCell.h; path = ../Group/FlyingAuthorCollectionViewCell.h; sourceTree = "<group>"; };
-		82A187931CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingAuthorCollectionViewCell.m; path = ../Group/FlyingAuthorCollectionViewCell.m; sourceTree = "<group>"; };
-		82A187941CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FlyingAuthorCollectionViewCell.xib; path = ../Group/FlyingAuthorCollectionViewCell.xib; sourceTree = "<group>"; };
+		82A187921CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingAuthorCollectionViewCell.h; sourceTree = "<group>"; };
+		82A187931CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingAuthorCollectionViewCell.m; sourceTree = "<group>"; };
+		82A187941CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingAuthorCollectionViewCell.xib; sourceTree = "<group>"; };
 		82A21D711CA93B2000AFAECC /* FlyingUserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUserData.h; sourceTree = "<group>"; };
 		82A21D721CA93B2000AFAECC /* FlyingUserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUserData.m; sourceTree = "<group>"; };
 		82A21D781CA949D500AFAECC /* FlyingUserRightData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUserRightData.h; sourceTree = "<group>"; };
@@ -2279,8 +2288,6 @@
 		82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSelectPersonViewController.m; sourceTree = "<group>"; };
 		82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupUpdateData.h; path = Group/FlyingGroupUpdateData.h; sourceTree = "<group>"; };
 		82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupUpdateData.m; path = Group/FlyingGroupUpdateData.m; sourceTree = "<group>"; };
-		82E3B4D11C943D22002B2327 /* FlyingUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingUIWebView.h; sourceTree = "<group>"; };
-		82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingUIWebView.m; sourceTree = "<group>"; };
 		82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingWebViewController.h; sourceTree = "<group>"; };
 		82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingWebViewController.m; sourceTree = "<group>"; };
 		82E91CB01C11767B00B0EC70 /* FlyingProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingProfileVC.h; sourceTree = "<group>"; };
@@ -2318,11 +2325,6 @@
 		C82D8AA5195D76BC001ACB77 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = libraries/Mupdf/libz.a; sourceTree = "<group>"; };
 		C833315A18CA998B0081B96D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C85A70291BDE525B003E8AF8 /* ibag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ibag.entitlements; sourceTree = "<group>"; };
-		C85AC307181CA39D00B83580 /* calloutLight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = calloutLight.mp3; sourceTree = "<group>"; };
-		C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = iMoneyDialogClose.wav; sourceTree = "<group>"; };
-		C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = iMoneyDialogOpen.wav; sourceTree = "<group>"; };
-		C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LootCoinLarge.wav; sourceTree = "<group>"; };
-		C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LootCoinSmall.wav; sourceTree = "<group>"; };
 		C85AC33A181CA39D00B83580 /* userModel.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = userModel.db; sourceTree = "<group>"; };
 		C85D91A818CDB71000A02B21 /* FlyingScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingScanViewController.h; sourceTree = "<group>"; };
 		C85D91A918CDB71000A02B21 /* FlyingScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingScanViewController.m; sourceTree = "<group>"; };
@@ -3478,8 +3480,6 @@
 				827A71C01CC75B5400E708C7 /* FlyingtAuthorCell.h */,
 				827A71C11CC75B5400E708C7 /* FlyingtAuthorCell.m */,
 				827A71C21CC75B5400E708C7 /* FlyingtAuthorCell.xib */,
-				82E3B4D11C943D22002B2327 /* FlyingUIWebView.h */,
-				82E3B4D21C943D22002B2327 /* FlyingUIWebView.m */,
 				82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */,
 				82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */,
 				82F7066E1C4664830068C791 /* TLTagsControl.h */,
@@ -3561,9 +3561,6 @@
 		C806570D17FE53BB00CADF4F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				82A187921CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.h */,
-				82A187931CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.m */,
-				82A187941CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib */,
 				823645A81C81D4A500499190 /* FlyingGroupTableViewCell.h */,
 				823645A91C81D4A500499190 /* FlyingGroupTableViewCell.m */,
 				823645A71C81D4A500499190 /* FlyingGroupTableViewCell.xib */,
@@ -3575,6 +3572,9 @@
 				8214ECFB1C2D37D70014B6BD /* FlyingViewController.m */,
 				827AD7F61CBDF7CC00C5309D /* FlyingTabBarController.h */,
 				827AD7F71CBDF7CC00C5309D /* FlyingTabBarController.m */,
+				82053BD51CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.h */,
+				82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */,
+				82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3779,12 +3779,8 @@
 			isa = PBXGroup;
 			children = (
 				823697F81C8452D50000221C /* pullrefresh.aif */,
-				C85AC307181CA39D00B83580 /* calloutLight.mp3 */,
-				C85AC319181CA39D00B83580 /* iMoneyDialogClose.wav */,
-				C85AC31A181CA39D00B83580 /* iMoneyDialogOpen.wav */,
-				C85AC31C181CA39D00B83580 /* LootCoinLarge.wav */,
-				C85AC31D181CA39D00B83580 /* LootCoinSmall.wav */,
 				C85AC33A181CA39D00B83580 /* userModel.db */,
+				82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -3845,6 +3841,9 @@
 		FA04BEF41B995812000F29A5 /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				82A187921CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.h */,
+				82A187931CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.m */,
+				82A187941CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib */,
 				821012C61C8FDDD5000B7DB2 /* FlyingGroupMemberData.h */,
 				821012C71C8FDDD5000B7DB2 /* FlyingGroupMemberData.m */,
 				823697D11C83FF1C0000221C /* FlyingGroupVC.h */,
@@ -4358,6 +4357,7 @@
 				8247E6591CB20C190038EF05 /* Localizable.strings in Resources */,
 				828A7FD11CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				824940421C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
+				82053BDD1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				828A7FB31CD4612B00987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C29F61CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
 				824B78F81C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
@@ -4371,6 +4371,7 @@
 				827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				8298314B1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
+				82053BD01CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				823C2A441CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				824940261C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				823645AC1C81D4A500499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4397,6 +4398,7 @@
 				8247E65D1CB20C190038EF05 /* Localizable.strings in Resources */,
 				828A7FD51CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				C81F8BD71BD7E47A004146F0 /* InfoPlist.strings in Resources */,
+				82053BE11CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				828A7FB71CD463A500987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823C29FA1CBCA0C0005CD298 /* FlyingImageTextCell.xib in Resources */,
 				824B78FC1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
@@ -4410,6 +4412,7 @@
 				8298314F1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				8249403C1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
+				82053BD41CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				823C2A481CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				8249408E1C080955000A2306 /* FlyingTagCell.xib in Resources */,
 				823645B01C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4424,14 +4427,13 @@
 			files = (
 				8220E7351C3CE8C700265815 /* FlyingMediaVC.xib in Resources */,
 				823C2A451CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
-				FA1BE5A31B27DD5A00AA1AFD /* calloutLight.mp3 in Resources */,
 				8298314C1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				826D3FC01C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				824940391C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAC1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */,
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
-				FA1BE5A61B27DD5A00AA1AFD /* iMoneyDialogClose.wav in Resources */,
+				82053BD11CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				8247E66C1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E6791CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				8247E65A1CB20C190038EF05 /* Localizable.strings in Resources */,
@@ -4443,7 +4445,6 @@
 				823645AD1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
 				828A7FB41CD463A300987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823697FA1C8452D50000221C /* pullrefresh.aif in Resources */,
-				FA1BE5A81B27DD5A00AA1AFD /* LootCoinLarge.wav in Resources */,
 				8249408B1C080952000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401D1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A041CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
@@ -4451,10 +4452,9 @@
 				823C2A2B1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78F91C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				828A7FBE1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
-				FA1BE5A91B27DD5A00AA1AFD /* iMoneyDialogOpen.wav in Resources */,
+				82053BDE1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879B1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D981CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
-				FA1BE5AA1B27DD5A00AA1AFD /* LootCoinSmall.wav in Resources */,
 				823C2A111CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940271C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */,
@@ -4475,6 +4475,7 @@
 				826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403A1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAD1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
+				82053BD21CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
 				828A7FD31CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
@@ -4493,6 +4494,7 @@
 				823C2A051CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				823C2A2C1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FA1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
+				82053BDF1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879C1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D991CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
 				823C2A121CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
@@ -4515,6 +4517,7 @@
 				826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403B1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAE1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
+				82053BD31CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				82501C831C0D8F7900C58789 /* inet.entitlements in Resources */,
 				828A7FD41CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
@@ -4533,6 +4536,7 @@
 				823C2A061CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				823C2A2D1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FB1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
+				82053BE01CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879D1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D9A1CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
 				823C2A131CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
@@ -4819,7 +4823,6 @@
 				8236459C1C81AE1C00499190 /* FlyingDiscoverVC.m in Sources */,
 				FA1EEC971ACE99D700BBA0FA /* FlyingWordAbstractVC.m in Sources */,
 				FA1EEC861ACE908500BBA0FA /* FlyingReviewVC.m in Sources */,
-				82E3B4D51C943D22002B2327 /* FlyingUIWebView.m in Sources */,
 				8212F62B1C321BC8009C9F86 /* UIImage+localFile.m in Sources */,
 				FA11E7AB19CD526200D97FDB /* ReaderDocument.m in Sources */,
 				82E3B4D61C943D22002B2327 /* FlyingWebViewController.m in Sources */,
@@ -4986,6 +4989,7 @@
 				82E91CB91C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
 				8214E8FF1C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8212F6AD1C321BC8009C9F86 /* UIView+Border.m in Sources */,
+				82053BD81CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */,
 				8212F4201C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
 				827AD7F81CBDF7CC00C5309D /* FlyingTabBarController.m in Sources */,
 				823E177A1C19C4B600E08A5F /* FlyingLoginVC.m in Sources */,
@@ -5266,6 +5270,7 @@
 				82493FA81C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				C81F8B2D1BD7B488004146F0 /* ReaderThumbView.m in Sources */,
 				C81F8B331BD7B488004146F0 /* FlyingAccountVC.m in Sources */,
+				82053BDC1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */,
 				C81F8B3A1BD7B488004146F0 /* FlyingCommentData.m in Sources */,
 				8214E9031C298BF40014B6BD /* HTTPServer.m in Sources */,
 				8212F4241C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
@@ -5286,7 +5291,6 @@
 				C81F8B471BD7B488004146F0 /* ReaderContentTile.m in Sources */,
 				8214EC771C2AEC200014B6BD /* RCDUpdateNameViewController.m in Sources */,
 				822F2AE91C7C120B007A9E4A /* FlyingHomeVC.m in Sources */,
-				82E3B4DB1C943F15002B2327 /* FlyingUIWebView.m in Sources */,
 				8214ECF21C2D12180014B6BD /* FlyingConversationVC.m in Sources */,
 				8214EBD81C2AE8D20014B6BD /* RCAnnotation.m in Sources */,
 				8212F5B21C321BC8009C9F86 /* ACEExpandableTextCell.m in Sources */,
@@ -5547,6 +5551,7 @@
 				8210AE7C1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
 				C8C805231BD21494009F3712 /* FlyingCommentVC.m in Sources */,
 				8212F4211C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
+				82053BD91CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */,
 				8214E8F61C298BF40014B6BD /* HTTPConnection.m in Sources */,
 				8212F45D1C321B8E009C9F86 /* FlyingTouchRecord.m in Sources */,
 				8212F42B1C321B8E009C9F86 /* FlyingLessonDAO.m in Sources */,
@@ -5566,7 +5571,6 @@
 				FA1BE53F1B27DD5A00AA1AFD /* FlyingWordItemCell.m in Sources */,
 				8214E95F1C298BF40014B6BD /* DDFileLogger.m in Sources */,
 				8212F5A51C321BC8009C9F86 /* FlyingSubRipItem.m in Sources */,
-				82E3B4D91C943F13002B2327 /* FlyingUIWebView.m in Sources */,
 				82493FA51C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				8214E9551C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				822F2AE61C7C120B007A9E4A /* FlyingHomeVC.m in Sources */,
@@ -5629,7 +5633,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				82E3B4D81C943EFD002B2327 /* FlyingWebViewController.m in Sources */,
-				82E3B4D71C943EEB002B2327 /* FlyingUIWebView.m in Sources */,
 				8212F5881C321BC8009C9F86 /* RSKImageScrollView.m in Sources */,
 				8214E9101C298BF40014B6BD /* MultipartMessageHeaderField.m in Sources */,
 				FA63297B1B51091400A1222E /* FlyingSearchViewController.m in Sources */,
@@ -5829,6 +5832,7 @@
 				8210AE7D1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
 				C8C805241BD21495009F3712 /* FlyingCommentVC.m in Sources */,
 				8212F4221C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
+				82053BDA1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */,
 				8214E8F71C298BF40014B6BD /* HTTPConnection.m in Sources */,
 				8212F45E1C321B8E009C9F86 /* FlyingTouchRecord.m in Sources */,
 				8212F42C1C321B8E009C9F86 /* FlyingLessonDAO.m in Sources */,
@@ -6109,6 +6113,7 @@
 				8249404A1C07FB5D000A2306 /* FlyingContentVC.m in Sources */,
 				C8C805251BD21495009F3712 /* FlyingCommentVC.m in Sources */,
 				8212F4231C321B8E009C9F86 /* FlyingItemDao.m in Sources */,
+				82053BDB1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */,
 				8214E8F81C298BF40014B6BD /* HTTPConnection.m in Sources */,
 				8212F45F1C321B8E009C9F86 /* FlyingTouchRecord.m in Sources */,
 				8212F42D1C321B8E009C9F86 /* FlyingLessonDAO.m in Sources */,
@@ -6128,7 +6133,6 @@
 				FA8C3E7C1B535A1500DEA02D /* FlyingWordItemCell.m in Sources */,
 				8214E9611C298BF40014B6BD /* DDFileLogger.m in Sources */,
 				8212F5A71C321BC8009C9F86 /* FlyingSubRipItem.m in Sources */,
-				82E3B4DA1C943F14002B2327 /* FlyingUIWebView.m in Sources */,
 				82493FA71C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				8214E9571C298BF40014B6BD /* DDAbstractDatabaseLogger.m in Sources */,
 				822F2AE81C7C120B007A9E4A /* FlyingHomeVC.m in Sources */,

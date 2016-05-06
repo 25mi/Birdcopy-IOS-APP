@@ -16,9 +16,7 @@
 #import "MuUpdater.h"
 #import "MuWord.h"
 
-#import "FlyingUIWebview.h"
-
-@interface MuPageViewNormal : UIScrollView <UIScrollViewDelegate,MuPageView,FlyingUIWebViewDelegate>
+@interface MuPageViewNormal : UIScrollView <UIScrollViewDelegate,MuPageView>
 {
     NSString   *wholeText;
     NSArray    *wordsArray;

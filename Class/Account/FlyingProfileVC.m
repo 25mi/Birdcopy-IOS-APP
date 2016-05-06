@@ -336,7 +336,8 @@
                     
                     if ([self.userdata.portraitUri isBlankString])
                     {
-                        
+                        [(FlyingImageLabelCell *)cell setImageIcon:[UIImage imageNamed:@"Icon"]];
+
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             

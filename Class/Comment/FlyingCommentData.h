@@ -10,7 +10,7 @@
 
 @interface FlyingCommentData : NSObject
 
-@property (nonatomic, strong) NSString *userID;       //用户ID
+@property (nonatomic, strong) NSString *openUDID;       //用户ID
 
 @property (nonatomic, strong) NSString *nickName;     //用户昵称
 @property (nonatomic, strong) NSString *portraitURL;  //用户头像

@@ -535,7 +535,7 @@
                success:(void (^)(id response))success
                failure:(void (^)(NSError* err))failure
 {
-    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.userID}];
+    NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":commentData.openUDID}];
 
     if (![NSString isBlankString:commentData.contentID]){
         

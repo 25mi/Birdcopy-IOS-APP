@@ -303,14 +303,8 @@ enum {
 };
 typedef NSInteger BE_AI_SubStytle;
 
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
-//隔空传课用，保留
-#define kBEDeviceType             @"BEDeviceType"
-#define kBEDeviceIsIPhone         @"iphone"
-#define kBEDeviceSize             @"BEDeviceSize"
-#define kBEDeviceIsFive           @"iphone5"
-
 
 // 手势方向
 typedef enum ScrollDirection {

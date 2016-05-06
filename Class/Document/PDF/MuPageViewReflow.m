@@ -153,7 +153,7 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 
 -(void) setMessageDelegate:(id)delegate
 {
-    self.flyingwebviewdelegate=delegate;
+    self.messagerDelegate=delegate;
 }
 
 - (void)processLongTap:(CGPoint)point;

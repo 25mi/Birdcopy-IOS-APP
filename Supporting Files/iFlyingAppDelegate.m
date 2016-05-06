@@ -71,6 +71,8 @@
 #import "UIAlertController+Window.h"
 #import "FlyingTabBarController.h"
 #import <CRToastManager.h>
+#import <CRToast/CRToastConfig.h>
+
 
 @interface iFlyingAppDelegate ()
 {
@@ -321,6 +323,13 @@
     
     //准备APP Style
     [self prepairAppStyle];
+    
+    //设置消息提醒风格
+    NSDictionary *options = @{
+                              kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar)
+                              };
+    
+    [CRToastManager setDefaultOptions:options];
 }
 
 - (void) CalledToJumpToLessinID:(NSNotification*) aNotification

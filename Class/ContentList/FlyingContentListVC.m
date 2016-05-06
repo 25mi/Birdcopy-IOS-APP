@@ -141,6 +141,14 @@
         
         self.contentTableView.tableFooterView = [UIView new];
         
+        
+        self.contentTableView.restorationIdentifier = self.restorationIdentifier;
+        
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
+        {
+            self.contentTableView.cellLayoutMarginsFollowReadableWidth = NO;
+        }
+        
         [self.view addSubview:_contentTableView];
         
         _currentData = [NSMutableArray new];

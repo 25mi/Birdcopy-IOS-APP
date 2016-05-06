@@ -7,67 +7,33 @@
 //
 
 #import "FlyingWebViewController.h"
-#import "FlyingItemView.h"
-#import "UIView+Autosizing.h"
-#import "FlyingSoundPlayer.h"
-#import "UICKeyChainStore.h"
-#import "shareDefine.h"
-#import "iFlyingAppDelegate.h"
-#import "FlyingTaskWordDAO.h"
-#import "FlyingLessonDAO.h"
-#import "FlyingLessonData.h"
-#import "NSString+FlyingExtention.h"
-#import "FlyingFakeHUD.h"
-#import "FlyingStatisticDAO.h"
-#import "FlyingTouchDAO.h"
-#import "FlyingNowLessonDAO.h"
-#import "FlyingLessonParser.h"
-#import "FlyingPubLessonData.h"
-#import <UIImageView+AFNetworking.h>
-#import "UIImage+localFile.h"
-#import <AFNetworking.h>
-#import "FlyingHttpTool.h"
-#import <CRToastManager.h>
-
-#import "FlyingNavigationController.h"
-#import "FlyingDataManager.h"
+#import <WebKit/WebKit.h>
 #import "FlyingCommentVC.h"
-#import "FlyingPubLessonData.h"
 #import "FlyingShareData.h"
-#import <NJKWebViewProgressView.h>
-#import "FlyingConversationVC.h"
+#import "iFlyingAppDelegate.h"
+#import "UIImage+localFile.h"
+#import "shareDefine.h"
+#import <AFNetworking.h>
+#import "NSString+FlyingExtention.h"
+#import <MediaPlayer/MediaPlayer.h>
 
-@interface FlyingWebViewController ()<UIViewControllerRestoration>
+@interface FlyingWebViewController ()<UIViewControllerRestoration,
+                                        WKNavigationDelegate,
+                                        WKUIDelegate,
+                                        WKScriptMessageHandler>
 {
-    NJKWebViewProgressView *_progressView;
-    NJKWebViewProgress *_progressProxy;
-
-    
-    FlyingUIWebView         *_webView;
-    
-    FlyingItemView          *_aWordView;
-    
-    FlyingSoundPlayer       *_speechPlayer;
-    dispatch_queue_t         _background_queue;
-    
-    FlyingStatisticDAO      *_statisticDAO;
-    NSInteger                _balanceCoin;
-    NSInteger                _touchWordCount;
-    
-    FlyingTouchDAO          *_touchDAO;
-    
-    NSString                *_currentURL;
-    
-    NSLinguisticTagger      * _flyingNPL;
-    
     //跳转App内部逻辑用
-    FlyingLessonParser      *_parser;
+    //FlyingLessonParser      *_parser;
 }
 
-@property (strong, nonatomic) UIButton *accessChatbutton;
-@property (strong, nonatomic) UIView   *accessChatContainer;
+@property(nonatomic,strong)  WKWebView * webView;
+@property(nonatomic,strong)  UIProgressView *  progressView;
+
+@property(nonatomic,strong)  WKUserContentController *userContentController;
 
 @property (strong, nonatomic) UIButton *shareButton;
+
+@property (strong,nonatomic) MPMoviePlayerViewController *playerVC;
 
 @end
 
@@ -104,7 +70,7 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
-        _webView.restorationIdentifier = self.restorationIdentifier;
+        self.webView.restorationIdentifier = self.restorationIdentifier;
     }
     return self;
 }
@@ -130,92 +96,105 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,commentBarButtonItem,nil];
     
-    _webView = [[FlyingUIWebView alloc] initWithFrame:self.view.frame];
-    _webView.delegate = self;
-    _webView.flyingwebviewdelegate = self;
-    [_webView initContextMenu];
-    [self.view addSubview:_webView];
+    if (!self.webView)
+    {
+        //注册供js调用的方法
+        self.userContentController =[[WKUserContentController alloc] init];
+        [self.userContentController addScriptMessageHandler:self  name:@"playvideo"];
+        
+        // 根据生成的WKUserScript对象，初始化WKWebViewConfiguration
+        WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
+        
+        //打开JavaScript交互 默认为YES
+        configuration.preferences.javaScriptEnabled = YES;
+        configuration.userContentController = self.userContentController;
+        
+        //允许视频播放
+        configuration.allowsAirPlayForMediaPlayback = YES;
+        
+        // 允许在线播放
+        configuration.allowsInlineMediaPlayback = YES;
+        
+        // 允许可以与网页交互，选择视图
+        configuration.selectionGranularity = YES;
+        
+        // 是否支持记忆读取
+        configuration.suppressesIncrementalRendering = YES;
+        
+        self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
+        
+        // 设置代理
+        self.webView.navigationDelegate = self;
+        self.webView.UIDelegate = self;
+        
+        // 添加进度监控
+        
+        /*
+         NSKeyValueObservingOptionNew 把更改之前的值提供给处理方法
+         
+         　　NSKeyValueObservingOptionOld 把更改之后的值提供给处理方法
+         
+         　　NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册，立马就会调用一次。通常它会带有新值，而不会带有旧值。
+         
+         　　NSKeyValueObservingOptionPrior 分2次调用。在值改变之前和值改变之后。
+         
+         */
+        
+        [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        
+        //开启手势触摸
+        self.webView.allowsBackForwardNavigationGestures = YES;
+        
+        // 设置 可以前进 和 后退
+        //适应你设定的尺寸
+        [self.webView sizeToFit];
+        
+        [self.view addSubview:self.webView];
+    }
     
-    _progressProxy = [[NJKWebViewProgress alloc] init];
-    _webView.delegate = _progressProxy;
-    _progressProxy.webViewProxyDelegate = self;
-    _progressProxy.progressDelegate = self;
-    
-    CGFloat progressBarHeight = 2.f;
-    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
-    CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
-    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
-    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    if (!self.progressView)
+    {
+        
+        self.progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
+        
+        CGRect barFrame = CGRectMake(0, 64, self.view.frame.size.width, 1);
+        
+        self.progressView.frame = barFrame;
+        
+        // 设置进度条的色彩
+        
+        [self.progressView setTrackTintColor:[UIColor clearColor]];
+        
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+        UIColor *tintColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+
+        self.progressView.progressTintColor = tintColor;
+        
+        [self.view addSubview:self.progressView];
+    }
     
     [self loadWebview];
-    
-    //基本辅助信息和工具准备
-    _background_queue = dispatch_queue_create("com.birdengcopy.background.processing", NULL);
-    _speechPlayer = [[FlyingSoundPlayer alloc] init];
-    [self autoRemoveWordView];
-    
-    //收费相关
-    _statisticDAO = [[FlyingStatisticDAO alloc] init];
-    
-    NSString *openID = [FlyingDataManager getOpenUDID];
-    
-    [_statisticDAO initDataForUserID:openID];
-    _touchDAO     = [[FlyingTouchDAO alloc] init];
-    
-    _touchWordCount = [_statisticDAO touchCountWithUserID:openID];
-    _balanceCoin  = [_statisticDAO finalMoneyWithUserID:openID];
-    
-    //
-    [self prepairNLP];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar addSubview:_progressView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [_progressView removeFromSuperview];
+    [self.userContentController removeScriptMessageHandlerForName:@"playvideo"];
 }
 
 - (void) willDismiss
 {
     if (_webView) {
         
+        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
         [_webView stopLoading];
-        _webView=nil;
-    }
-}
-
--(void) prepareForChatRoom
-{    
-    if(!self.accessChatbutton)
-    {
-        CGRect chatButtonFrame=self.view.frame;
-        
-        CGRect frame=self.view.frame;
-        
-        chatButtonFrame.origin.x    = frame.size.width*8/10;
-        chatButtonFrame.origin.y    =frame.size.height-frame.size.width/8-frame.size.width*3/40-CGRectGetHeight(self.navigationController.navigationBar.frame);
-        
-        chatButtonFrame.size.width  = frame.size.width/8;
-        chatButtonFrame.size.height = frame.size.width/8;
-        
-        self.accessChatContainer = [[UIView alloc]  initWithFrame:chatButtonFrame];
-        
-        self.accessChatbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, chatButtonFrame.size.width, chatButtonFrame.size.height)];
-        [self.accessChatbutton setBackgroundImage:[UIImage imageNamed:@"chat"]
-                                         forState:UIControlStateNormal];
-        [self.accessChatbutton addTarget:self action:@selector(doChat) forControlEvents:UIControlEventTouchUpInside];
-        [self.accessChatContainer addSubview:self.accessChatbutton];
-        
-        [self.view  addSubview:self.accessChatContainer];
-        [self.view bringSubviewToFront:self.accessChatContainer];
+        //_webView=nil;
     }
 }
 
@@ -243,22 +222,8 @@
     [aView.layer addAnimation:animation forKey:nil];
 }
 
-- (void) doChat
-{
-    FlyingConversationVC *chatService = [[FlyingConversationVC alloc] init];
-    
-    chatService.domainID = self.domainID;
-    chatService.domainType = self.domainType;
-    
-    chatService.targetId = self.domainID;
-    chatService.conversationType = ConversationType_CHATROOM;
-    chatService.title =@"群组聊天室";
-    [self.navigationController pushViewController:chatService animated:YES];
-}
-
 -(void) doCommnet
 {
-
     FlyingCommentVC *commentVC =[[FlyingCommentVC alloc] init];
     
     commentVC.contentID=self.thePubLesson.lessonID;
@@ -267,7 +232,6 @@
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
-
 
 - (void) doSomething
 {
@@ -288,13 +252,10 @@
     }
     else
     {
-        
-        NSString *theTitle=[_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-        
         FlyingShareData * shareData = [[FlyingShareData alloc] init];
         
         shareData.webURL  = [NSURL URLWithString:self.webURL];
-        shareData.title   = theTitle;
+        shareData.title   = self.title;
         
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate shareContent:shareData fromView:self.shareButton];
@@ -308,11 +269,9 @@
 
 -(void) loadWebview
 {
-    if([BC_Domain_Group  isEqualToString:self.domainType])
-    {
-        [self prepareForChatRoom];
-    }
-
+    //Test useing
+    self.webURL = @"http://e.birdcopy.com/ua_get_article_detail.action?ua_id=308&from=pw2&f=p&u=1%402&ln_id=1909&comment_id=747bad3435c4dd916aad0080c0121d88";
+    
     if(!self.webURL){
         
         self.webURL = self.thePubLesson.contentURL;
@@ -329,228 +288,201 @@
     [_webView loadRequest:request];
 }
 
-#pragma mark - NJKWebViewProgressDelegate
--(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
-{
-    [_progressView setProgress:progress animated:YES];
-    self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-}
-
 //////////////////////////////////////////////////////////////
-#pragma mark UIWebViewDelegate
+#pragma mark WKWebViewDelegate
 //////////////////////////////////////////////////////////////
+//这个是网页加载完成，导航的变化
 
-- (BOOL) webView:(UIWebView *)webView
-    shouldStartLoadWithRequest:(NSURLRequest *)request
-                navigationType:(UIWebViewNavigationType)navigationType
-{
-    return YES;
-}
-
-
-- (void) webViewDidFinishLoad:(UIWebView *)webView
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     
-    _currentURL = webView.request.URL.absoluteString;
+    self.progressView.hidden = YES;
+    
+    /*
+     主意：这个方法是当网页的内容全部显示（网页内的所有图片必须都正常显示）的时候调用（不是出现的时候就调用），，否则不显示，或则部分显示时这个方法就不调用。
+     
+     */
+    NSLog(@"加载完成调用");
+    
+    // 获取加载网页的标题
+    self.title = self.webView.title;
+    
+    //遍历网页中的视频资源 并加上播放标示
+    NSString *javaScript=[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"injectJSForVideo" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+
+    
+    [webView evaluateJavaScript:javaScript completionHandler:nil];
 }
 
-- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-
-}
-
-//////////////////////////////////////////////////////////////
-#pragma mark FlyingUIWebViewDelegate
-//////////////////////////////////////////////////////////////
-
-- (void) willShowWordView:(NSString*) word
+//开始加载
+-(void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
     
-    if (word) {
+    //开始加载的时候，让加载进度条显示
+    self.progressView.hidden = NO;
+}
+
+//内容返回时调用
+
+-(void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
+{
+    
+    NSLog(@"当内容返回的时候调用");
+    
+    NSLog(@"%lf",   self.webView.estimatedProgress);
+    
+    //屏蔽放大镜
+    NSString *javascript = @"var meta = document.createElement('meta');meta.setAttribute('name', 'viewport');meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');document.getElementsByTagName('head')[0].appendChild(meta);";
+    
+    [webView evaluateJavaScript:javascript completionHandler:nil];
+    
+}
+
+-(void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation
+{
+    
+    NSLog(@"这是服务器请求跳转的时候调用");
+    
+}
+
+-(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    
+    // 内容加载失败时候调用
+    
+    NSLog(@"这是加载失败时候调用");
+    
+    NSLog(@"%@",error);
+    
+}
+
+-(void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    
+    NSLog(@"通过导航跳转失败的时候调用");
+    
+}
+
+-(void)webViewDidClose:(WKWebView *)webView
+{
+    
+    NSLog(@"网页关闭的时候调用");
+    
+}
+
+-(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
+{
+    
+    NSLog(@"%lf",   webView.estimatedProgress);
+    
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    // 首先，判断是哪个路径
+    if ([keyPath isEqualToString:@"estimatedProgress"])
+    {
+        // 判断是哪个对象
+        if (object == self.webView)
+        {
+            NSLog(@"进度信息：%lf",self.webView.estimatedProgress);
+            
+            if (self.webView.estimatedProgress == 1.0)
+            {
+                //隐藏
+                self.progressView.hidden = YES;
+                
+            }else
+            {
+                // 添加进度数值
+                self.progressView.progress = self.webView.estimatedProgress;
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark 实现WKScriptMessageHandler的协议方法
+//////////////////////////////////////////////////////////////
+
+-(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+
+{
+    //message.name  js发送的方法名称
+    
+    if([message.name  isEqualToString:@"playvideo"])
         
-        NSArray *times = [word componentsSeparatedByString:@" "];
+    {
+        NSString * body = message.body;
         
-        if (times.count>2) {
-            //是句子
-            [FlyingSoundPlayer soundSentence:word];
+        NSString * lessonID = [NSString getLessonIDFromOfficalURL:body];
+        
+        if (lessonID)
+        {
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate showLessonViewWithID:lessonID];
+            
+            //// Optional data
+            NSSet *websiteDataTypes
+            = [NSSet setWithArray:@[
+                                    WKWebsiteDataTypeDiskCache,
+                                    //WKWebsiteDataTypeOfflineWebApplicationCache,
+                                    WKWebsiteDataTypeMemoryCache,
+                                    //WKWebsiteDataTypeLocalStorage,
+                                    //WKWebsiteDataTypeCookies,
+                                    //WKWebsiteDataTypeSessionStorage,
+                                    //WKWebsiteDataTypeIndexedDBDatabases,
+                                    //WKWebsiteDataTypeWebSQLDatabases
+                                    ]];
+            //// All kinds of data
+            //NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+            //// Date from
+            NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+            //// Execute
+            [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+                // Done
+            }];
         }
         else
         {
-            NSString * newWord = [self NLPTheString:word];
+            NSURL *url = [NSURL URLWithString:body];
             
-            [self showWordView:newWord];
-                        
-            //更新点击次数和课程相关记录
-            NSString * currentLessonID = self.thePubLesson.lessonID;
-            if(!currentLessonID){
-                
-                currentLessonID =@"BirdCopyCommonID";
-            }
-            
-            NSString *openID = [FlyingDataManager getOpenUDID];
-            
-            [_touchDAO countPlusWithUserID:openID LessonID:currentLessonID];
-            
-            //纪录点击单词
-            [self addToucLammaRecord:newWord];
+            MPMoviePlayerViewController *playerVC = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            [self presentMoviePlayerViewControllerAnimated:playerVC];
         }
+
+        NSLog(@"%@", body);
+
     }
 }
 
-- (void) showWordView:(NSString*) word
+/**  确认框 */
+-(void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
 {
     
-    if(word){
-        
-        [_speechPlayer speechWord:word LessonID:self.thePubLesson.lessonID];
-
-        if(![_aWordView.word isEqualToString:word]){
-            
-            CGRect frame=CGRectMake(0, 0, 200, 200);
-            if (INTERFACE_IS_PAD ) {
-                
-                frame=CGRectMake(0, 0, 400, 400);
-            }
-            
-            _aWordView =[[FlyingItemView alloc] initWithFrame:frame];
-            [_aWordView setFullScreenModle:YES];
-            [_aWordView setLessonID:self.thePubLesson.lessonID];
-            [_aWordView setWord:word];
-            [_aWordView  drawWithLemma:[word lowercaseString] AppTag:nil];
-            
-            //随机散开磁贴的显示位置
-            srand((unsigned int)_aWordView.lemma.hash);
-            
-            CGFloat x = (self.view.frame.size.width-_aWordView.frame.size.width)*rand()/(RAND_MAX+1.0);
-            CGFloat y=  (self.view.frame.size.height-_aWordView.frame.size.height)*rand()/(RAND_MAX+1.0);
-            
-            _aWordView.frame =CGRectMake(x, y, _aWordView.frame.size.width, _aWordView.frame.size.height) ;
-            
-            [_aWordView adjustForAutosizing];
-            [self.view addSubview:_aWordView];
-            
-            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                
-                _aWordView.alpha=1;
-                
-            } completion:^(BOOL finished) {}];
-        }
-        else{
-            
-            [_aWordView bringSubviewToFront:_aWordView];
-        }
-    }
-    else{
+    // 获取js 里面的提示
     
-        [_aWordView dismissViewAnimated:YES];
-    }
+    [[[UIAlertView alloc] initWithTitle:@"标题" message:message delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] show];
+    completionHandler();
+
 }
 
-- (void) autoRemoveWordView
-{
-    //在一个函数里面（初始化等）里面添加要识别触摸事件的范围
-    UITapGestureRecognizer *recognizer= [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handleTapFrom:)];
-    [recognizer setDelegate:self];
-    [_webView addGestureRecognizer:recognizer];
-}
-
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
-
--(void) handleTapFrom:(UITapGestureRecognizer *)sender
-{
-    if(_aWordView){
-    
-        [_aWordView dismissViewAnimated:YES];
-        _aWordView =nil;
-    }
-}
-
-//把点击单词纪录下来
--(void) addToucLammaRecord:(NSString *) touchWord
+/**  警告框 */
+-(void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler
 {
     
-    dispatch_async(_background_queue, ^{
-        
-        FlyingTaskWordDAO * taskWordDAO   = [[FlyingTaskWordDAO alloc] init];
-        
-        NSString *openID = [FlyingDataManager getOpenUDID];
-
-        [taskWordDAO insertWithUesrID:openID
-                                 Word:[touchWord lowercaseString]
-                           Sentence:nil
-                             LessonID:self.thePubLesson.lessonID];
-    });
+    // js 信息的交流
+    
+    [[[UIAlertView alloc] initWithTitle:@"标题" message:message delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] show];
+    
 }
 
-
-#pragma mark - Flying Magic NLP & AIColor
-//解析当前字幕
-
--(void) prepairNLP
-{
+/**  输入框 */
+-(void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler{
     
-    if (_flyingNPL==nil) {
-        
-        //忽略空格、符号和连接词
-        NSLinguisticTaggerOptions options = NSLinguisticTaggerOmitWhitespace |NSLinguisticTaggerOmitPunctuation |
-        NSLinguisticTaggerOmitOther | NSLinguisticTaggerJoinNames;
-        
-        //只需要词性和名称
-        NSArray * tagSchemes = [NSArray arrayWithObjects:NSLinguisticTagSchemeNameTypeOrLexicalClass,NSLinguisticTagSchemeLemma,nil];
-        
-        _flyingNPL = [[NSLinguisticTagger alloc] initWithTagSchemes:tagSchemes options:options];
-    }
+    // 交互。可输入的文本。
+    
 }
 
--(NSString*) NLPTheString:(NSString *) string
-{
-    
-    //如果没有学习字幕，返回
-    if (string==nil) {
-        return nil;
-    }
-    
-    // This range contains the entire string, since we want to parse it completely
-    NSRange stringRange = NSMakeRange(0, string.length);
-    
-    if (stringRange.length==0) {
-        return nil;
-    }
-    
-    //忽略空格、符号和连接词
-    NSLinguisticTaggerOptions options = NSLinguisticTaggerOmitWhitespace |NSLinguisticTaggerOmitPunctuation |
-    NSLinguisticTaggerOmitOther | NSLinguisticTaggerJoinNames;
-    
-    // Dictionary with a language map
-    NSArray *language = [NSArray arrayWithObjects:@"en",nil];
-    NSDictionary* languageMap = [NSDictionary dictionaryWithObject:language forKey:@"Latn"];
-    NSOrthography * orthograsphy = [NSOrthography orthographyWithDominantScript:@"Latn" languageMap:languageMap];
-    
-    __block NSString * result;
-    
-    [_flyingNPL setString:string];
-    [_flyingNPL setOrthography:orthograsphy range:stringRange];
-    [_flyingNPL enumerateTagsInRange:stringRange
-                              scheme:NSLinguisticTagSchemeLemma
-                             options:options
-                          usingBlock:^(NSString *tag, NSRange tokenRange, NSRange sentenceRange, BOOL *stop) {
-                              
-                              if (tag) {
-                               
-                                  result = tag;
-                              }
-                              else{
-                                  
-                                  result = [string substringWithRange:tokenRange];
-                              }
-                          }];
-    
-    return result;
-}
 
 @end

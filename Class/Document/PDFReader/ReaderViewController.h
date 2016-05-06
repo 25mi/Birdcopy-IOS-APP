@@ -18,7 +18,6 @@
 #import "MuPageView.h"
 #import "MuDialogCreator.h"
 #import "MuUpdater.h"
-#import "FlyingUIWebView.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface ReaderViewController : UIViewController<UIScrollViewDelegate,
@@ -26,7 +25,6 @@
                                                 MFMailComposeViewControllerDelegate,
                                                 ReaderMainToolbarDelegate,
                                                 ReaderMainPagebarDelegate,
-                                                FlyingUIWebViewDelegate,
                                                 ThumbsViewControllerDelegate,
                                                 MuDialogCreator,
                                                 MuUpdater,

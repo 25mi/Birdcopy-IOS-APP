@@ -12,7 +12,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "NSString+FlyingExtention.h"
 #import "FlyingGroupUpdateData.h"
-#import "FlyingAuthorCollectionViewCell.h"
+#import "FlyingMemberIconCellCollectionViewCell.h"
 #import "FlyingGroupMemberData.h"
 #import "FlyingHttpTool.h"
 #import "FlyingGroupVC.h"
@@ -43,11 +43,10 @@
     [self.groupIconImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.isPublicIcon setContentMode:UIViewContentModeScaleAspectFill];
     
-    UINib *nib = [UINib nibWithNibName:@"FlyingAuthorCollectionViewCell" bundle: nil];
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell"];
+    UINib *nib = [UINib nibWithNibName:@"FlyingMemberIconCellCollectionViewCell" bundle: nil];
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingMemberIconCellCollectionViewCell"];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.supportTouch=NO;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -68,6 +67,7 @@
     if (groupUpdateData.groupData.is_public_access)
     {
         self.collectionHeight.constant = 40;
+        
         if (!self.memberList) {
             
             [self loadMemberList];
@@ -129,15 +129,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    FlyingAuthorCollectionViewCell* cell = (FlyingAuthorCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell" forIndexPath:indexPath];
+    FlyingMemberIconCellCollectionViewCell* cell = (FlyingMemberIconCellCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"FlyingMemberIconCellCollectionViewCell" forIndexPath:indexPath];
     
     if(cell == nil)
-        cell = [FlyingAuthorCollectionViewCell authorCollectionViewCell];
+        cell = [FlyingMemberIconCellCollectionViewCell memberIconCell];
     
     FlyingGroupMemberData* memberData =(FlyingGroupMemberData*)[_memberList objectAtIndex:indexPath.row];
     
     [cell setImageIconURL:memberData.portrait_url];
-    [cell setItemText:memberData.name];
     
     return cell;
 }

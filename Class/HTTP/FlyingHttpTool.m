@@ -1760,7 +1760,7 @@
                                             
                                             commentDate.contentID      = [dic objectForKey:@"contentID"];
                                             commentDate.contentType    = [dic objectForKey:@"contentType"];
-                                            commentDate.userID         = [dic objectForKey:@"userID"];
+                                            commentDate.openUDID         = [dic objectForKey:@"userID"];
                                             commentDate.nickName       = [dic objectForKey:@"nickName"];
                                             commentDate.portraitURL    = [dic objectForKey:@"portraitURL"];
                                             

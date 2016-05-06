@@ -193,6 +193,11 @@
         NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
         self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, bottom)];
         
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
+        {
+            self.groupTableView.cellLayoutMarginsFollowReadableWidth = NO;
+        }
+        
         [self.view addSubview:self.groupTableView];
         
         self.currentData = [NSMutableArray new];
@@ -213,7 +218,7 @@
     [self.coverFlow loadData];
 
     //加载群组推荐区
-    [self loadMoreGroups];
+    [self loadMore];
 }
 
 # pragma mark - YALSunyRefreshControl methods
@@ -255,7 +260,7 @@
 #pragma mark - Download data from Learning center
 //////////////////////////////////////////////////////////////
 
-- (void)loadMoreGroups
+- (void)loadMore
 {
     if (self.currentData.count<_maxNumOfGroups)
     {
@@ -263,7 +268,7 @@
 
         [FlyingHttpTool getAllGroupsForDomainID:[FlyingDataManager getAppData].domainID
                                      DomainType:BC_Domain_Business
-                                     PageNumber:1
+                                     PageNumber:_currentLodingIndex
                                      Completion:^(NSArray *groupUpdateList, NSInteger allRecordCount)
         {
             _maxNumOfGroups=allRecordCount;
@@ -412,7 +417,7 @@
     [indicator startAnimating];
     
     // 加载下一页
-    [self loadMoreGroups];
+    [self loadMore];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
