@@ -60,9 +60,17 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (![self.title isBlankString])
+    {
+        [coder encodeObject:self.title forKey:@"self.title"];
+    }
+    
+    if (![self.targetId isBlankString])
+    {
+        [coder encodeObject:self.targetId forKey:@"self.targetId"];
+    }
 
-    [coder encodeObject:self.title forKey:@"self.title"];
-    [coder encodeObject:self.targetId forKey:@"self.targetId"];
     [coder encodeInteger:self.conversationType forKey:@"self.conversationType"];
         
     if (![self.domainID isBlankString]) {
@@ -80,11 +88,35 @@
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.title =[coder decodeObjectForKey:@"self.title"];
+    NSString * title =[coder decodeObjectForKey:@"self.title"];
+    
+    if (![title isBlankString])
+    {
+        self.title =title;
+    }
+    
     self.conversationType = [coder decodeIntegerForKey:@"self.conversationType"];
-    self.targetId = [coder decodeObjectForKey:@"self.targetId"];
-    self.domainID = [coder decodeObjectForKey:@"self.domainID"];
-    self.domainType = [coder decodeObjectForKey:@"self.domainType"];
+    
+    NSString * targetId = [coder decodeObjectForKey:@"self.targetId"];
+    
+    if (![targetId isBlankString])
+    {
+        self.targetId =targetId;
+    }
+    
+    NSString * domainID = [coder decodeObjectForKey:@"self.domainID"];
+    
+    if (![domainID isBlankString])
+    {
+        self.domainID = domainID;
+    }
+    
+    NSString * domainType = [coder decodeObjectForKey:@"self.domainType"];
+    
+    if (![domainType isBlankString])
+    {
+        self.domainType = domainType;
+    }
     
     [self.conversationMessageCollectionView reloadData];
 }

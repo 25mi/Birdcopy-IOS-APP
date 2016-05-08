@@ -81,12 +81,12 @@
         [FlyingHttpTool getAppDataforBounldeID:bundleIdentifier
                                     Completion:^(FlyingAppData *appData) {
                                         //
-                                        if (appData) {
-                                            
+                                        if (appData)
+                                        {
                                             //保存app数据到本地缓存
                                             [FlyingDataManager saveAppData:appData];
                                             
-                                            NSString * adminUserID = appData.domainID;;
+                                            NSString * adminUserID = appData.ownerID;;
 
                                             [FlyingHttpTool getOpenIDForUserID:adminUserID
                                                                     Completion:^(NSString *openUDID)
@@ -99,7 +99,6 @@
                                                                               completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
                                                                                   //
                                                                               }];
-
                                                  }
                                              }];
 

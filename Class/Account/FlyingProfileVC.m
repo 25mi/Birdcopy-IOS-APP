@@ -76,11 +76,25 @@
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.openUDID = [coder decodeObjectForKey:@"self.openUDID"];
-    self.userID = [coder decodeObjectForKey:@"self.userID"];
+    NSString * openUDID = [coder decodeObjectForKey:@"self.openUDID"];
     
-    [self reloadAll];
+    if (![openUDID isBlankString])
+    {
+        self.openUDID = openUDID;
+    }
     
+    NSString * userID = [coder decodeObjectForKey:@"self.userID"];
+    
+    if (![userID isBlankString])
+    {
+        self.userID = userID;
+    }
+    
+    if (self.openUDID ||
+        self.userID)
+    {
+        [self reloadAll];
+    }
 }
 
 - (id)init
@@ -110,7 +124,36 @@
         self.navigationItem.leftBarButtonItem = backBarButtonItem;
     }
     
-    [self reloadAll];
+    if (!self.tableView)
+    {
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageLabelCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingImageLabelCell"];
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextLableCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingTextLableCell"];
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextOnlyCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingTextOnlyCell"];
+        
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        
+        self.tableView.backgroundColor = [UIColor clearColor];
+        //self.tableView.separatorColor = [UIColor clearColor];
+        
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+        
+        [self.view addSubview:self.tableView];
+    }
+    
+    if (self.openUDID ||
+        self.userID)
+    {
+        [self reloadAll];
+    }
 }
 
 
@@ -155,36 +198,7 @@
 
 - (void)reloadAll
 {
-    if (!self.tableView)
-    {
-        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
-        
-        //必须在设置delegate之前
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageLabelCell" bundle:nil]
-             forCellReuseIdentifier:@"FlyingImageLabelCell"];
-
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextLableCell" bundle:nil]
-             forCellReuseIdentifier:@"FlyingTextLableCell"];
-        
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingTextOnlyCell" bundle:nil]
-             forCellReuseIdentifier:@"FlyingTextOnlyCell"];
-
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        
-        self.tableView.backgroundColor = [UIColor clearColor];
-        //self.tableView.separatorColor = [UIColor clearColor];
-        
-        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
-        
-        [self.view addSubview:self.tableView];
-    }
-    
-    if (self.openUDID ||
-        self.userID) {
-        
-        [self loadData];
-    }
+    [self loadData];
 }
 
 - (void) loadData

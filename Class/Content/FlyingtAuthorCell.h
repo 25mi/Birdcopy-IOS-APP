@@ -17,4 +17,6 @@
 -(void) setAuthorIcon:(UIImage*) icon;
 -(void) setAuthorIconWithURL:(NSString*) iconURL;
 
+-(void) setHelpText:(NSString*) helpText;
+
 @end

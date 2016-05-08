@@ -56,13 +56,13 @@
     NSInteger            _currentLodingIndex;
 }
 
+@property (strong, nonatomic) FlyingLoadingCell *loadingMoreIndicatorCell;
+
 @property (nonatomic, strong) KMNetworkLoadingViewController* networkLoadingViewController;
 
 @property (strong, nonatomic) UIView            *coverContentView;
 @property (strong, nonatomic) UIImageView       *contentCoverImageView;
 @property (strong, nonatomic) UIImageView       *contentTypeIcon;
-
-@property (strong, nonatomic) FlyingLoadingCell *loadingCommentIndicatorCell;
 
 @property (strong, nonatomic) FlyingContentTitleAndTypeCell *contentTitleAndTypeCell;
 @property (strong, nonatomic) FlyingtAuthorCell *authoTablecell;
@@ -95,20 +95,48 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
-    [coder encodeObject:self.mediaVC forKey:@"self.mediaVC"];
-    [coder encodeObject:self.authorUserData forKey:@"self.authorUserData"];
+    
+    if (self.thePubLesson)
+    {
+        [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    }
+
+    if (self.mediaVC)
+    {
+        [coder encodeObject:self.mediaVC forKey:@"self.mediaVC"];
+    }
+    
+    if (self.authorUserData)
+    {
+        [coder encodeObject:self.authorUserData forKey:@"self.authorUserData"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.thePubLesson =[coder decodeObjectForKey:@"self.thePubLesson"];
-    self.authorUserData = [coder decodeObjectForKey:@"self.authorUserData"];
+    FlyingPubLessonData * thePubLesson =[coder decodeObjectForKey:@"self.thePubLesson"];
+    
+    if (thePubLesson)
+    {
+        self.thePubLesson = thePubLesson;
+    }
+    
+    FlyingUserData * authorUserData = [coder decodeObjectForKey:@"self.authorUserData"];
 
-    self.mediaVC = [coder decodeObjectForKey:@"self.mediaVC"];
-    self.mediaVC.restorationIdentifier = self.restorationIdentifier;
+    if (authorUserData)
+    {
+        self.authorUserData = authorUserData;
+    }
+    
+    FlyingMediaVC * mediaVC = [coder decodeObjectForKey:@"self.mediaVC"];
+    
+    if (self.mediaVC)
+    {
+        self.mediaVC = mediaVC;
+        self.mediaVC.restorationIdentifier = self.restorationIdentifier;
+    }
     
     if (self.thePubLesson) {
 
@@ -244,7 +272,7 @@
         //检查是否年费会员
         if (self.accessRight==NO)
         {
-            userRightdata = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
+            userRightdata = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getAppData].appID
                                                                                  domainType:BC_Domain_Business];
             if ([userRightdata checkRightPresent]) {
                 
@@ -672,6 +700,34 @@
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Datasource
 //////////////////////////////////////////////////////////////
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4; // 增加一个加载更多
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 2;
+    }
+    else if (section == 1)
+    {
+        return 2;
+    }
+    
+    else if (section == 2)
+    {
+        return [self.currentData count];;
+    }
+    else
+    {
+        // 加载更多
+        return 1;
+    }
+}
+
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 2)
@@ -707,39 +763,6 @@
     else
     {
         return nil;
-    }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if (_currentData.count && _currentData.count<_maxNumOfComments)
-    {
-        return 4; // 增加一个加载更多
-    }
-    
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section == 0)
-    {
-        return 2;
-    }
-    else if (section == 1)
-    {
-        return 2;
-    }
-
-    else if (section == 2)
-    {
-        NSInteger actualNumberOfRows = [self.currentData count];
-        return actualNumberOfRows+1;
-    }
-    else
-    {
-        // 加载更多
-        return 1;
     }
 }
 
@@ -818,30 +841,14 @@
     }
     else if (indexPath.section == 2)
     {
-        NSInteger actualNumberOfRows = [self.currentData count];
+        FlyingCommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingCommentCell"];
         
-        if(indexPath.row==actualNumberOfRows)
-        {
-            // Produce a special cell with the "list is now empty" message
-            FlyingContentSummaryCell *contentSummaryCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentSummaryCell"];
-            
-            if(contentSummaryCell == nil)
-                contentSummaryCell = [FlyingContentSummaryCell contentSummaryCell];
-            
-            [self configureCell:contentSummaryCell atIndexPath:indexPath];
-            cell = contentSummaryCell;
-        }
-        else
-        {
-            FlyingCommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingCommentCell"];
-            
-            if(commentCell == nil)
-                commentCell = [FlyingCommentCell commentCell];
-            
-            [self configureCell:commentCell atIndexPath:indexPath];
-            
-            cell = commentCell;
-        }
+        if(commentCell == nil)
+            commentCell = [FlyingCommentCell commentCell];
+        
+        [self configureCell:commentCell atIndexPath:indexPath];
+        
+        cell = commentCell;
     }
     else
     {
@@ -852,7 +859,7 @@
         
         cell = loadingCell;
         
-        self.loadingCommentIndicatorCell=loadingCell;
+        self.loadingMoreIndicatorCell=loadingCell;
     }
     
     return cell;
@@ -921,24 +928,11 @@
     
     else if (indexPath.section == 2)
     {
-        NSInteger actualNumberOfRows = [self.currentData count];
-        
-        if (indexPath.row == actualNumberOfRows)
-        {
-            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingContentSummaryCell"
-                                                 cacheByIndexPath:indexPath
-                                                    configuration:^(FlyingContentSummaryCell *cell) {
-                [self configureCell:cell atIndexPath:indexPath];
-            }];
-        }
-        else
-        {
-            return [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentCell"
-                                                 cacheByIndexPath:indexPath
-                                                    configuration:^(FlyingCommentCell *cell) {
-                [self configureCell:cell atIndexPath:indexPath];
-            }];
-        }
+        return [self.tableView fd_heightForCellWithIdentifier:@"FlyingCommentCell"
+                                             cacheByIndexPath:indexPath
+                                                configuration:^(FlyingCommentCell *cell) {
+                                                    [self configureCell:cell atIndexPath:indexPath];
+                                                }];
     }
     else
     {
@@ -973,6 +967,7 @@
                 {
                     [(FlyingtAuthorCell*)cell setAuthorIconWithURL:self.authorUserData.portraitUri];
                     [(FlyingtAuthorCell*)cell setAuthorText:self.authorUserData.name];
+                    [(FlyingtAuthorCell*)cell setHelpText:NSLocalizedString(@"help", nil)];
                 }
                 
                 break;
@@ -1008,21 +1003,8 @@
     }
     else if (indexPath.section == 2)
     {
-        NSInteger actualNumberOfRows = [self.currentData count];
-        
-        if (indexPath.row == actualNumberOfRows)
-        {
-            if(actualNumberOfRows==0)
-            {
-                [(FlyingContentSummaryCell*)cell setSummaryText:@"点击这里开始评论..."];
-                [(FlyingContentSummaryCell*)cell setTextAlignment:NSTextAlignmentCenter];
-            }
-        }
-        else
-        {
-            FlyingCommentData *commentData = self.currentData[indexPath.row];
-            [(FlyingCommentCell*)cell setCommentData:commentData];
-        }
+        FlyingCommentData *commentData = self.currentData[indexPath.row];
+        [(FlyingCommentCell*)cell setCommentData:commentData];
     }
 }
 
@@ -1031,31 +1013,22 @@
 //////////////////////////////////////////////////////////////
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 ||
-        indexPath.section == 1 ||
-        indexPath.section == 2)
+    if (indexPath.section == 3)
     {
-        return;
+        if (_currentData.count>0&&
+            _currentData.count<_maxNumOfComments)
+        {
+            // 加载更多
+            [self.loadingMoreIndicatorCell startAnimating:@"尝试加载更多..."];
+            
+            // 加载下一页
+            [self loadMore];
+        }
+        else
+        {
+            [self.loadingMoreIndicatorCell stopAnimating:@"点击这里开始评论..."];
+        }
     }
-    
-    // 加载更多
-    [self.loadingCommentIndicatorCell startAnimating:@"尝试加载更多..."];
-    
-    // 加载下一页
-    [self loadMore];
-}
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 ||
-        indexPath.section == 1 ||
-        indexPath.section == 2)
-    {
-        return;
-    }
-    
-    // 加载更多
-    [self.loadingCommentIndicatorCell stopAnimating];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1097,19 +1070,13 @@
     }
     else if (indexPath.section == 2)
     {
-        NSInteger actualNumberOfRows = [self.currentData count];
+        FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
         
-        if (actualNumberOfRows == indexPath.row)
-        {
-            
-            [self commentHeaderPressed];
-        }
-        else
-        {
-            FlyingCommentData* commentData = [_currentData objectAtIndex:indexPath.row];
-            
-            [self profileImageViewPressed:commentData];
-        }
+        [self profileImageViewPressed:commentData];
+    }
+    else if (indexPath.section == 3)
+    {
+        [self commentHeaderPressed];
     }
 }
 

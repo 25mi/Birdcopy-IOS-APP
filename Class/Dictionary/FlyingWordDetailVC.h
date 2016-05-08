@@ -21,8 +21,6 @@
 @property (strong, nonatomic)      FlyingItemParser   *itemParser;
 
 @property (strong, nonatomic)      NSString   *theWord;
-
-
-
+@property (assign, nonatomic)      NSString   *showingModle;
 
 @end

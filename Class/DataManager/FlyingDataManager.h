@@ -24,9 +24,6 @@
 +(void) saveAppData:(FlyingAppData*) appData;
 +(FlyingAppData*) getAppData;
 
-+ (NSString*) getBusinessID;
-+ (NSString*) getBirdcopyAppID;
-
 + (NSString*) getOfficalURL;
 
 //终端用户数据

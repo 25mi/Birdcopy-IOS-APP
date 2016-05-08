@@ -54,11 +54,27 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (self.taskWord)
+    {
+        [coder encodeObject:self.taskWord forKey:@"self.taskWord"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    FlyingTaskWordData * taskWord = [coder decodeObjectForKey:@"self.taskWord"];
+    if (taskWord)
+    {
+        self.taskWord = taskWord;
+    }
+    
+    if (self.taskWord)
+    {
+        [self loadWordContent];
+    }
 }
 
 - (id)init
@@ -156,16 +172,21 @@
     
     _sentenceLabel.font    = [UIFont systemFontOfSize:sentencFontSize];
     
-    if(self.taskWord.BESENTENCE)
-    {
-        _sentenceLabel.text     = self.taskWord.BESENTENCE;
-    }
-    else
-    {
-        _sentenceLabel.text     = @"场景例句暂未纪录...";
-    }
+    _sentenceLabel.text     = @"场景例句暂未纪录...";
+
     [self.view addSubview:_sentenceLabel];
     
+    if (self.taskWord)
+    {
+        [self loadWordContent];
+    }
+}
+
+-(void) loadWordContent
+{
+    _wordLabel.text         = self.taskWord.BEWORD;
+    _sentenceLabel.text     = self.taskWord.BESENTENCE;
+
     [self prepareLessonrealted];
     [self prepareAbstract];
 }

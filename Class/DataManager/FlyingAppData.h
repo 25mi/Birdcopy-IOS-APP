@@ -12,8 +12,7 @@
 
 @property(nonatomic, strong) NSString* appID;
 @property(nonatomic, strong) NSString* boundleID;
-@property(nonatomic, strong) NSString* domainID;
-@property(nonatomic, strong) NSString* domainType;
+@property(nonatomic, strong) NSString* ownerID;
 @property(nonatomic, strong) NSString* appNname;
 @property(nonatomic, strong) NSString* logo;
 @property(nonatomic, strong) NSString* authors;

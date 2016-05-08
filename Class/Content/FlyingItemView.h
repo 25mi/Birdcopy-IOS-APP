@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 
+@protocol FlyingItemViewDelegate <NSObject>
+
+@optional
+- (void) itemPressed:(NSString*)lemma;
+@end
+
+
 @interface FlyingItemView : UIView
 
 @property (strong, nonatomic)  NSString        *word;
@@ -19,6 +26,8 @@
 @property (strong, nonatomic)  NSString *lessonID;  //为了方便发音保存的冗余信息
 
 @property (assign, nonatomic)  BOOL  fullScreenModle;
+@property (nonatomic,assign) id<FlyingItemViewDelegate> delegate;
+
 
 - (void)  drawWithLemma:(NSString *) lemma      AppTag: (NSString*) appTag;
 - (void)  dismissViewAnimated:(BOOL) animated;

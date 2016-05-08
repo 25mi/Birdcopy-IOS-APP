@@ -15,6 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *indicatorText;
 
 - (void)startAnimating:(NSString*) text;
-- (void)stopAnimating;
+- (void)stopAnimating:(NSString*) text;
 
 @end

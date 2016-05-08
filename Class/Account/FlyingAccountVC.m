@@ -92,7 +92,7 @@
         
     //标题
     self.title = NSLocalizedString(@"Account",nil);
-    self.edgesForExtendedLayout = UIRectEdgeAll;
+    //self.edgesForExtendedLayout = UIRectEdgeAll;
     
     UIButton* sacanButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     [sacanButton setBackgroundImage:[UIImage imageNamed:@"scan"] forState:UIControlStateNormal];
@@ -100,8 +100,26 @@
     UIBarButtonItem* scanBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:sacanButton];
 
     self.navigationItem.rightBarButtonItem= scanBarButtonItem;
-
-    [self reloadAll];
+    
+    if (!self.tableView)
+    {
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageTextCell" bundle:nil]
+             forCellReuseIdentifier:@"FlyingImageTextCell"];
+        
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        
+        self.tableView.backgroundColor = [UIColor clearColor];
+        //self.tableView.separatorColor = [UIColor clearColor];
+        
+        //self.tableView.tableFooterView = [UIView new];
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+        
+        [self.view addSubview:self.tableView];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -165,30 +183,6 @@
 //////////////////////////////////////////////////////////////
 #pragma mark - Loading data and setup view
 //////////////////////////////////////////////////////////////
-
-- (void)reloadAll
-{
-    if (!self.tableView)
-    {
-        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
-        
-        //必须在设置delegate之前
-        [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageTextCell" bundle:nil]
-             forCellReuseIdentifier:@"FlyingImageTextCell"];
-        
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        
-        self.tableView.backgroundColor = [UIColor clearColor];
-        //self.tableView.separatorColor = [UIColor clearColor];
-        
-        //self.tableView.tableFooterView = [UIView new];
-        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
-
-        
-        [self.view addSubview:self.tableView];
-    }
-}
 
 //////////////////////////////////////////////////////////////
 #pragma mark - UITableView Datasource
@@ -420,7 +414,7 @@
             else
             {
                 FlyingSearchViewController* search = [[FlyingSearchViewController alloc] init];
-                [search setSearchType:BEFindWord];
+                [search setSearchType:BC_Search_Word];
                 
                 [self.navigationController pushViewController:search animated:YES];
             }

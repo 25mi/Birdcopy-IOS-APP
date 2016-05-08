@@ -171,7 +171,6 @@
                                       }
                                       else
                                       {
-                                          
                                           //系统用户数据
                                           FlyingUserData * userData = [[FlyingUserData alloc] init];
                                           userData.openUDID = [FlyingDataManager getOpenUDID];
@@ -977,7 +976,7 @@
                                                 
                                                 userDataRight =[[FlyingUserRightData alloc] init];
 
-                                                userDataRight.domainID = [FlyingDataManager getBusinessID];
+                                                userDataRight.domainID = [FlyingDataManager getAppData].appID;
                                                 userDataRight.domainType = BC_Domain_Business;
                                                 userDataRight.memberState= BC_Member_Verified;
                                                 userDataRight.startDate = startDate;
@@ -1022,7 +1021,7 @@
                                             result =true;
                                             
                                             FlyingUserRightData * userDataRight =[[FlyingUserRightData alloc] init];
-                                            userDataRight.domainID = [FlyingDataManager getBusinessID];
+                                            userDataRight.domainID = [FlyingDataManager getAppData].appID;
                                             userDataRight.domainType = BC_Domain_Business;
                                             userDataRight.memberState= BC_Member_Verified;
                                             userDataRight.startDate = startDate;
@@ -1951,7 +1950,7 @@
                                                                                       
                                            appData.appID         = [dic objectForKey:@"app_id"];
                                            appData.boundleID     = [dic objectForKey:@"st_id"];
-                                           appData.domainID      = [dic objectForKey:@"app_owner"];
+                                           appData.ownerID      = [dic objectForKey:@"app_owner"];
                                            appData.webaddress    =  [dic objectForKey:@"domain"];
                                            appData.rongAppKey    =  [dic objectForKey:@"rc_app_key"];
                                            appData.wexinID       = [dic objectForKey:@"wx_id"];

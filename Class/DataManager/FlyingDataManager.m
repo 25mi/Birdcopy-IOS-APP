@@ -70,21 +70,6 @@
     }
 }
 
-+ (NSString*) getBirdcopyAppID
-{
-    return [FlyingDataManager getAppData].appID;
-}
-
-+ (NSString*) getBusinessID
-{
-    
-    return [FlyingDataManager getBirdcopyAppID];
-    
-    //NSString *businessID =(NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:KAPP_Domain_ID];;
-    
-    //return businessID;
-}
-
 + (NSString*) getOfficalURL
 {
     NSString* officalURL=@"http://www.birdcopy.com";

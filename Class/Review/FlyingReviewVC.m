@@ -142,7 +142,7 @@
     if (showSearch) {
 
         FlyingSearchViewController * search= [[FlyingSearchViewController alloc] init];
-        [search setSearchType:BEFindWord];
+        [search setSearchType:BC_Search_Word];
         
         [self.navigationController pushViewController:search animated:YES];
     }

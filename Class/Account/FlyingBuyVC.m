@@ -269,7 +269,7 @@
             {
                 [(FlyingMemberTableViewCell *)cell setPortraitURL:[FlyingDataManager getUserData:[FlyingDataManager getOpenUDID]].portraitUri];
                 
-                FlyingUserRightData* userRight = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
+                FlyingUserRightData* userRight = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getAppData].appID
                                                                                  domainType:BC_Domain_Business];
                 
                 [(FlyingMemberTableViewCell *)cell setStart:userRight.startDate];
@@ -335,7 +335,7 @@
 
 -(void) toBuyMember
 {
-    FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
+    FlyingUserRightData * userRightData = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getAppData].appID
                                                                           domainType:BC_Domain_Business];
     if ([userRightData checkRightPresent]) {
         

@@ -59,8 +59,19 @@
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.domainID = [coder decodeObjectForKey:@"self.domainID"];
-    self.domainType = [coder decodeObjectForKey:@"self.domainType"];
+    NSString * domainID = [coder decodeObjectForKey:@"self.domainID"];
+    
+    if (![domainID isBlankString])
+    {
+        self.domainID = domainID;
+    }
+    
+    NSString * domainType = [coder decodeObjectForKey:@"self.domainType"];
+    
+    if (![domainType isBlankString])
+    {
+        self.domainType = domainType;
+    }
 }
 
 - (id)init
@@ -73,7 +84,7 @@
         
         self.hidesBottomBarWhenPushed = NO;
         
-        self.domainID = [FlyingDataManager getBusinessID];
+        self.domainID = [FlyingDataManager getAppData].appID;
         self.domainType = BC_Domain_Business;
     }
     return self;
@@ -83,7 +94,7 @@
 {
     [super viewDidLoad];
     
-    self.edgesForExtendedLayout = UIRectEdgeAll;
+    //self.edgesForExtendedLayout = UIRectEdgeAll;
     
     //标题
     self.title = NSLocalizedString(@"Message",nil);
@@ -194,7 +205,7 @@
 - (void) doHelp
 {
     //获取管理员聊天ID
-    NSString * adminUserID = [FlyingDataManager getAppData].domainID;;
+    NSString * adminUserID = [FlyingDataManager getAppData].ownerID;;
     
     if (adminUserID)
     {

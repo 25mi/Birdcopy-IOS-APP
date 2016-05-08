@@ -47,47 +47,53 @@
         }
     }
     
-    if (self.AImagnifyEnabled) {
-        
-        if (!INTERFACE_IS_PAD) {
-            
+    if (self.AImagnifyEnabled)
+    {
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
+
+        if (CGRectContainsPoint(self.subtitleTextView.frame, touchPoint) &&
+            !INTERFACE_IS_PAD)
+        {
             [super  touchesBegan:touches withEvent:event];
         }
         
-        UITouch *touch = [touches anyObject];
-        CGPoint touchPoint = [touch locationInView:self];
         [self.delegate touchOnSubtileBegin:touchPoint];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    
-    if (self.AImagnifyEnabled) {
+    if (self.AImagnifyEnabled)
+    {
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
         
-        if (!INTERFACE_IS_PAD) {
+        if (CGRectContainsPoint(self.subtitleTextView.frame, touchPoint) &&
+            !INTERFACE_IS_PAD)
+        {
             
             [super touchesMoved:touches withEvent:event];
         }
         
-        UITouch *touch = [touches anyObject];
-        CGPoint touchPoint = [touch locationInView:self];
         [self.delegate touchOnSubtileMoved:touchPoint];
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    
-    if (self.AImagnifyEnabled) {
+    if (self.AImagnifyEnabled)
+    {
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
         
-        if (!INTERFACE_IS_PAD) {
+        if (CGRectContainsPoint(self.subtitleTextView.frame, touchPoint) &&
+            !INTERFACE_IS_PAD)
+        {
             
             [super touchesEnded:touches withEvent:event];
         }
         
-        UITouch *touch = [touches anyObject];
-        CGPoint touchPoint = [touch locationInView:self];
         [self.delegate touchOnSubtileEnd:touchPoint];
     }
 }
@@ -96,14 +102,17 @@
 {
     
     if (self.AImagnifyEnabled) {
+
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
         
-        if (!INTERFACE_IS_PAD) {
+        if (CGRectContainsPoint(self.subtitleTextView.frame, touchPoint) &&
+            !INTERFACE_IS_PAD)
+        {
             
             [super touchesEnded:touches withEvent:event];
         }
         
-        UITouch *touch = [touches anyObject];
-        CGPoint touchPoint = [touch locationInView:self];
         [self.delegate touchOnSubtileCancelled:touchPoint];
     }
 }

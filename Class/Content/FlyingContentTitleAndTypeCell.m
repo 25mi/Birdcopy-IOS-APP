@@ -67,7 +67,7 @@
 {
     if([@"0" isEqualToString:price])
     {
-        self.priceLabel.text = @"免费";
+        self.priceLabel.text = NSLocalizedString(@"share",nil);
     }
     else
     {

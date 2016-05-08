@@ -40,7 +40,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 @property (strong, nonatomic) NSMutableArray        *searchResults;
 @property (strong, nonatomic) NSOperationQueue      *searchQueue;
 
-
 @property (strong, nonatomic) NSArray   *famousResultList;
 @property (strong, nonatomic) NSString  *searchStringForCurrentResult;
 
@@ -60,11 +59,39 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (![self.searchType isBlankString])
+    {
+        [coder encodeObject:self.searchType forKey:@"self.searchType"];
+    }
+    
+    if (!CGRectEqualToRect(self.tableView.frame,CGRectZero))
+    {
+        [coder encodeCGRect:self.tableView.frame forKey:@"self.tableView.frame"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    CGRect frame = [coder decodeCGRectForKey:@"self.tableView.frame"];
+    if (!CGRectEqualToRect(frame,CGRectZero))
+    {
+        self.tableView.frame = frame;
+    }
+    
+    NSString * searchType = [coder decodeObjectForKey:@"self.searchType"];
+    
+    if (![searchType isBlankString])
+    {
+        self.searchType = searchType;
+    }
+    
+    if (![self.searchType isBlankString]) {
+
+        [self initDefultData];
+    }    
 }
 
 - (id)init
@@ -85,7 +112,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     self.edgesForExtendedLayout = UIRectEdgeAll;
     
     //顶部导航
-    if(BEFindWord ==self.searchType)
+    if([BC_Search_Word isEqualToString:self.searchType])
     {
         UIButton* myWordsButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
         [myWordsButton setBackgroundImage:[UIImage imageNamed:@"Word"] forState:UIControlStateNormal];
@@ -105,7 +132,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     
     if (!self.tableView)
     {
-        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
         
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
@@ -117,12 +144,11 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
     self.definesPresentationContext = YES;
     
-    if (!self.searchType) {
-        [self setSearchType:BEFindLesson];
+    if (![self.searchType isBlankString])
+    {
+        //初始化相关数据
+        [self initDefultData];
     }
-
-    //初始化相关数据
-    [self initDefultData];
 }
 
 - (void)initDefultData
@@ -133,13 +159,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     self.searchQueue = [NSOperationQueue new];
     [self.searchQueue setMaxConcurrentOperationCount:1];
 
-    if (self.searchType==BEFindWord)
+    if([BC_Search_Word isEqualToString:self.searchType])
     {
         self.title=@"查询单词";
         self.searchController.searchBar.placeholder = @"请输入单词";
         [self getWordList];
     }
-    else if (self.searchType==BEFindLesson)
+    else if([BC_Search_Lesson isEqualToString:self.searchType])
     {
         self.title=@"搜索内容（课程）";
         self.searchController.searchBar.placeholder = @"例如：生活大爆炸  第二季";
@@ -147,13 +173,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         [self getAllTagListForForDomainID:self.domainID
                                 DomainType:self.domainType Count:1000];
     }
-    else if (self.searchType==BEFindGroup)
+    else if([BC_Search_Group isEqualToString:self.searchType])
     {
         self.title=@"搜索内容（课程）";
         self.searchController.searchBar.placeholder = @"例如：生活大爆炸  第二季";
         
     }
-    else if (self.searchType==BEFindPeople)
+    else if([BC_Search_People isEqualToString:self.searchType])
     {
         self.title=@"搜索人";
         self.searchController.searchBar.placeholder = @"请输入昵称";
@@ -248,16 +274,15 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     if (![resultString isEqualToString:self.defaultShowStr]) {
         
-        if (self.searchType==BEFindLesson) {
-            
+        if([BC_Search_Lesson isEqualToString:self.searchType])
+        {
             FlyingContentListVC *conetentList = [[FlyingContentListVC alloc] init];
             [conetentList setTagString:resultString];
             
             [self.navigationController pushViewController:conetentList animated:YES];
-
         }
-        if (self.searchType==BEFindWord) {
-
+        else if([BC_Search_Word isEqualToString:self.searchType])
+        {
             FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
             [wordDetail setTheWord:resultString];
             [self.navigationController pushViewController:wordDetail animated:YES];
@@ -411,7 +436,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                 
                 [self.searchQueue addOperationWithBlock:^{
                     
-                    if (self.searchType==BEFindWord)
+                    if([BC_Search_Word isEqualToString:self.searchType])
                     {
                         [FlyingHttpTool getWordListby:searchString
                                            Completion:^(NSArray *wordList, NSInteger allRecordCount) {
@@ -433,7 +458,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                                            }];
                         
                     }
-                    else if (self.searchType==BEFindLesson)
+                    else if([BC_Search_Lesson isEqualToString:self.searchType])
                     {
                         
                         [FlyingHttpTool getTagListForDomainID:self.domainID

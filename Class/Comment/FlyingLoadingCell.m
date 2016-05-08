@@ -47,11 +47,14 @@
     [self.indicator startAnimating];
 }
 
-- (void)stopAnimating
+- (void)stopAnimating:(NSString*) text
 {
-    self.indicatorText.text=@"加载完毕...";
+    if (!text) {
+        text=@"加载完毕...";
+    }
+
+    self.indicatorText.text=text;
     [self.indicator stopAnimating];
-    self.hidden=true;
 }
 
 @end

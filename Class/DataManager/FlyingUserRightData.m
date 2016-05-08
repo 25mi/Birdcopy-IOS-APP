@@ -42,7 +42,7 @@
     
     if (self = [super init]) {
         
-        self.domainID = [FlyingDataManager getBusinessID];
+        self.domainID = [FlyingDataManager getAppData].appID;
         self.domainType = BC_Domain_Business;
         self.memberState = BC_Member_Noexisted;
         self.startDate   = [NSDate date];

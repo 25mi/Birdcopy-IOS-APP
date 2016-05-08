@@ -15,8 +15,7 @@
     
     [encoder encodeObject:self.appID        forKey:@"appID"];
     [encoder encodeObject:self.boundleID    forKey:@"boundleID"];
-    [encoder encodeObject:self.domainID     forKey:@"domainID"];
-    [encoder encodeObject:self.domainType   forKey:@"domainType"];
+    [encoder encodeObject:self.ownerID      forKey:@"ownerID"];
     [encoder encodeObject:self.appNname     forKey:@"appNname"];
     [encoder encodeObject:self.logo         forKey:@"logo"];
     [encoder encodeObject:self.authors      forKey:@"authors"];
@@ -31,8 +30,7 @@
         
         self.appID       = [decoder decodeObjectForKey:@"appID"];
         self.boundleID   = [decoder decodeObjectForKey:@"boundleID"];
-        self.domainID    = [decoder decodeObjectForKey:@"domainID"];
-        self.domainType  = [decoder decodeObjectForKey:@"domainType"];
+        self.ownerID     = [decoder decodeObjectForKey:@"ownerID"];
         self.appNname    = [decoder decodeObjectForKey:@"appNname"];
         self.logo        = [decoder decodeObjectForKey:@"logo"];
         self.authors     = [decoder decodeObjectForKey:@"authors"];
@@ -50,8 +48,6 @@
         
         self.appID        = @"";
         self.boundleID    = @"";
-        self.domainID     = @"";
-        self.domainType   = BC_Domain_Business;
         self.appNname     = @"";
         self.logo         = @"";
         self.authors      = @"";

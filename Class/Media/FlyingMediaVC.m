@@ -105,7 +105,7 @@ static void *SubtitlStatusObserverContext    = &SubtitlStatusObserverContext;
 static void *RateObservationContext          = &RateObservationContext;
 static void *TrackObservationContext         = &TrackObservationContext;
 
-@interface FlyingMediaVC ()<UIViewControllerRestoration>
+@interface FlyingMediaVC ()<UIViewControllerRestoration,FlyingItemViewDelegate>
 {
     FlyingLessonDAO     *  _lessonDAO;
     FlyingLessonData    *_lessonData;
@@ -239,7 +239,11 @@ static void *TrackObservationContext         = &TrackObservationContext;
     self.timestamp = [coder decodeDoubleForKey:@"self.timestamp"];
     self.delegate  = [coder decodeObjectForKey:@"self.delegate"];
     
-    self.thePubLesson = [coder decodeObjectForKey:@"self.thePubLesson"];
+    FlyingPubLessonData * thePubLesson =  [coder decodeObjectForKey:@"self.thePubLesson"];
+    if (thePubLesson)
+    {
+        self.thePubLesson = thePubLesson;
+    }
     
     if (self.thePubLesson) {
         
@@ -475,7 +479,9 @@ static void *TrackObservationContext         = &TrackObservationContext;
     //字幕基本设置|默认黑底风格字幕
     self.subtitleTextView.text=@"";
     self.subtitleTextView.hidden=YES;
-    self.subtitleTextView.font = [UIFont systemFontOfSize:KLargeFontSize];;
+    self.subtitleTextView.font = [UIFont systemFontOfSize:KLargeFontSize];
+    
+    self.aiLearningView.subtitleTextView = self.subtitleTextView;
 
     //设置智能字幕和控制
     [self prepareControlAndAI];
@@ -1768,6 +1774,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         [aTagWordView setWord:[self.subtitleTextView.text substringWithRange:tagWord.tokenRange]];
         [aTagWordView  drawWithLemma:tagWord.getLemma AppTag:tagWord.tag];
+        aTagWordView.delegate = self;
         
         //纪录下来,为了复用
         [_annotationWordViews setObject:aTagWordView forKey:[tagWord getIDKey]];
@@ -1814,6 +1821,14 @@ static void *TrackObservationContext         = &TrackObservationContext;
         }
     }
     [_annotationWordViews removeAllObjects];
+}
+
+- (void) itemPressed:(NSString*)lemma
+{
+    FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
+    [wordDetail setTheWord:lemma];
+    
+    [self.navigationController pushViewController:wordDetail animated:YES];
 }
 
 #pragma mark - 字幕相关手势 FlyingAILearningViewDelegate

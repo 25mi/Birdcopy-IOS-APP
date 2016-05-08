@@ -32,12 +32,14 @@
 #import "FlyingAddressBookVC.h"
 #import "FlyingSoundPlayer.h"
 #import "FlyingGroupMembersCell.h"
+#import "FlyingLoadingCell.h"
 
 @interface FlyingGroupVC ()<UIViewControllerRestoration>
 {
     NSInteger            _maxNumOfContents;
     NSInteger            _currentLodingIndex;
 }
+@property (strong, nonatomic) FlyingLoadingCell *loadingMoreIndicatorCell;
 
 @property (nonatomic, strong) FlyingGroupBoard  *groupBoard;
 @property (strong, nonatomic) UITableView        *groupStreamTableView;
@@ -47,9 +49,6 @@
 
 @property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
 @property (atomic,assign)    BOOL refresh;
-
-@property (atomic,assign)    BOOL restorationState;
-@property (atomic,assign)    CGRect restoreFrame;
 
 @end
 
@@ -66,19 +65,36 @@
 {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:self.groupData forKey:@"self.groupData"];
-    [coder encodeCGRect:self.groupStreamTableView.frame forKey:@"self.groupStreamTableView.frame"];
+    if (self.groupData)
+    {
+        [coder encodeObject:self.groupData forKey:@"self.groupData"];
+    }
+    
+    if (!CGRectEqualToRect(self.groupStreamTableView.frame,CGRectZero))
+    {
+        [coder encodeCGRect:self.groupStreamTableView.frame forKey:@"self.groupStreamTableView.frame"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    self.groupData = [coder decodeObjectForKey:@"self.groupData"];
-    self.restoreFrame = [coder decodeCGRectForKey:@"self.groupStreamTableView.frame"];
     
+    FlyingGroupData * groupData = [coder decodeObjectForKey:@"self.groupData"];
+    
+    if (groupData)
+    {
+        self.groupData = groupData;
+    }
+    
+    CGRect frame = [coder decodeCGRectForKey:@"self.groupStreamTableView.frame"];
+    if (!CGRectEqualToRect(frame,CGRectZero))
+    {
+        self.groupStreamTableView.frame = [coder decodeCGRectForKey:@"self.groupStreamTableView.frame"];
+    }
+
     if (self.groupData)
     {
-        self.restorationState = YES;
         [self reloadAll];
     }
 }
@@ -106,12 +122,50 @@
     
     self.navigationItem.rightBarButtonItem = chatBarButtonItem;
     
+    if (!self.groupStreamTableView)
+    {
+        self.groupStreamTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        [self.groupStreamTableView registerNib:[UINib nibWithNibName:@"FlyingGroupMembersCell" bundle: nil]  forCellReuseIdentifier:@"FlyingGroupMembersCell"];
+        [self.groupStreamTableView registerNib:[UINib nibWithNibName:@"FlyingContentCell" bundle: nil]  forCellReuseIdentifier:@"FlyingContentCell"];
+        [self.groupStreamTableView registerNib:[UINib nibWithNibName:@"FlyingLoadingCell" bundle: nil]
+                        forCellReuseIdentifier:@"FlyingLoadingCell"];
+        
+        self.groupStreamTableView.delegate = self;
+        self.groupStreamTableView.dataSource = self;
+        self.groupStreamTableView.backgroundColor = [UIColor clearColor];
+        
+        //Add cover view
+        self.groupBoard = [FlyingGroupBoard groupBoard];
+        int coverHight = CGRectGetWidth(self.view.frame)*9/16;
+        [self.groupBoard setFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), coverHight)];
+        [self.groupBoard setDelegate:self];
+        self.groupStreamTableView.tableHeaderView = self.groupBoard;
+        
+        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        self.groupStreamTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupStreamTableView.frame.size.width, bottom)];
+        
+        self.groupStreamTableView.restorationIdentifier = self.restorationIdentifier;
+        
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
+        {
+            self.groupStreamTableView.cellLayoutMarginsFollowReadableWidth = NO;
+        }
+        
+        [self.view addSubview:self.groupStreamTableView];
+        
+        self.currentData = [NSMutableArray new];
+        _currentLodingIndex=0;
+        _maxNumOfContents=NSIntegerMax;
+    }
+    
+    [self setupRefreshControl];
+
     if (self.groupData)
     {
         [self reloadAll];
     }
-    
-    [self setupRefreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -281,52 +335,6 @@
     //更新欢迎语言
     self.title = self.groupData.gp_name;
     
-    if (!self.groupStreamTableView)
-    {
-        if (self.restorationState)
-        {
-            self.groupStreamTableView = [[UITableView alloc] initWithFrame:self.restoreFrame
-                                                                     style:UITableViewStylePlain];
-            
-            self.restorationState = NO;
-        }
-        else
-        {
-            self.groupStreamTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
-        }
-        
-        //必须在设置delegate之前
-        [self.groupStreamTableView registerNib:[UINib nibWithNibName:@"FlyingGroupMembersCell" bundle: nil]  forCellReuseIdentifier:@"FlyingGroupMembersCell"];
-        [self.groupStreamTableView registerNib:[UINib nibWithNibName:@"FlyingContentCell" bundle: nil]  forCellReuseIdentifier:@"FlyingContentCell"];
-
-        self.groupStreamTableView.delegate = self;
-        self.groupStreamTableView.dataSource = self;
-        self.groupStreamTableView.backgroundColor = [UIColor clearColor];
-        
-        //Add cover view
-        self.groupBoard = [FlyingGroupBoard groupBoard];
-        int coverHight = CGRectGetWidth(self.view.frame)*9/16;
-        [self.groupBoard setFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), coverHight)];
-        [self.groupBoard setDelegate:self];
-        self.groupStreamTableView.tableHeaderView = self.groupBoard;
-
-        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
-        self.groupStreamTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupStreamTableView.frame.size.width, bottom)];
-
-        self.groupStreamTableView.restorationIdentifier = self.restorationIdentifier;
-
-        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_8_1)
-        {
-            self.groupStreamTableView.cellLayoutMarginsFollowReadableWidth = NO;
-        }
-
-        [self.view addSubview:self.groupStreamTableView];
-        
-        self.currentData = [NSMutableArray new];
-        _currentLodingIndex=0;
-        _maxNumOfContents=NSIntegerMax;
-    }
-    
     //更新群组封面
     [self.groupBoard settingWithGroupData:self.groupData];
     [FlyingHttpTool getCoverListForDomainID:self.groupData.gp_id
@@ -440,14 +448,7 @@
 //////////////////////////////////////////////////////////////
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentData.count
-        && self.currentData.count<_maxNumOfContents
-        && self.currentData.count<BC_GroupStream_MaxCount)
-    {
-        return 3; // 增加一个加载更多
-    }
-    
-    return 2;
+    return 3; // 增加一个加载更多
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -460,13 +461,17 @@
     {
         return [self.currentData count];
     }
-    
-    // 加载更多
-    return 1;
+    else
+    {
+        // 加载更多
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell* cell = nil;
+
     if (indexPath.section == 0)
     {
         //会员Cell
@@ -478,44 +483,33 @@
         
         [self configureCell:membersCell atIndexPath:indexPath];
 
-        return membersCell;
+        cell = membersCell;
     }
     else if (indexPath.section == 1)
     {
         //流Cell
-        FlyingContentCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentCell"];
+        FlyingContentCell* contentCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingContentCell"];
         
-        if (!cell) {
-            cell = [FlyingContentCell contentCell];
+        if (!contentCell) {
+            contentCell = [FlyingContentCell contentCell];
         }
         
-        [self configureCell:cell atIndexPath:indexPath];
+        [self configureCell:contentCell atIndexPath:indexPath];
         
-        return cell;
+        cell =contentCell;
     }
-    
-    // 加载更多
-    static NSString *CellIdentifierLoadMore = @"CellIdentifierLoadMore";
-    
-    UITableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierLoadMore];
-    if (!loadCell)
+    else
     {
-        loadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierLoadMore];
-        loadCell.backgroundColor = [UIColor clearColor];
-        loadCell.contentView.backgroundColor = [UIColor clearColor];
+        FlyingLoadingCell *loadingCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingLoadingCell"];
         
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicator.tag = kLoadMoreIndicatorTag;
-        indicator.hidesWhenStopped = YES;
-        indicator.center =loadCell.center;
-        indicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|
-        UIViewAutoresizingFlexibleRightMargin|
-        UIViewAutoresizingFlexibleTopMargin|
-        UIViewAutoresizingFlexibleBottomMargin;
-        [loadCell.contentView addSubview:indicator];
+        if(loadingCell == nil)
+            loadingCell = [FlyingLoadingCell loadingCell];
+        
+        cell = loadingCell;
+        self.loadingMoreIndicatorCell=loadingCell;
     }
-        
-    return loadCell;
+    
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -540,9 +534,14 @@
                                            }];
         
     }
-    
-    // 加载更多
-    return 44;
+    else
+    {
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingLoadingCell"
+                                             cacheByIndexPath:indexPath
+                                                configuration:^(FlyingLoadingCell *cell) {
+                                                    //[self configureCell:cell atIndexPath:indexPath];
+                                                }];
+    }
 }
 
 
@@ -566,33 +565,25 @@
 //////////////////////////////////////////////////////////////
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 ||
-        indexPath.section == 1)
+    if (indexPath.section == 2)
     {
-        return;
+        if (_currentData.count>0&&
+            _currentData.count<_maxNumOfContents &&
+            _currentData.count<BC_GroupStream_MaxCount
+            )
+        {
+            // 加载更多
+            [self.loadingMoreIndicatorCell startAnimating:@"尝试加载更多..."];
+            
+            // 加载下一页
+            [self loadMore];
+        }
+        else
+        {
+            [self.loadingMoreIndicatorCell stopAnimating:@"查看更多精彩推荐"];
+        }
     }
-    
-    // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator startAnimating];
-    
-    // 加载下一页
-    [self loadMore];
 }
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 ||
-        indexPath.section == 1)
-    {
-        return;
-    }
-    
-    // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator stopAnimating];
-}
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -628,6 +619,10 @@
                 [self.navigationController pushViewController:contentVC animated:YES];
             }
         }
+    }
+    else if (indexPath.section == 2)
+    {
+        [self touchLeft];
     }
 }
 
@@ -690,7 +685,7 @@
 +(void) contactAppServiceWithMessage:(NSString*) message
                                 inVC:(UIViewController*) vc
 {
-    NSString * serviceID = [FlyingDataManager getAppData].domainID;
+    NSString * serviceID = [FlyingDataManager getAppData].ownerID;
     
     if (serviceID)
     {

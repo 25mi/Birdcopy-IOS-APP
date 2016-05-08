@@ -22,7 +22,7 @@
 #import "FlyingNavigationController.h"
 #import <CRToastManager.h>
 
-@interface FlyingWordDetailVC ()
+@interface FlyingWordDetailVC ()<UIViewControllerRestoration>
 {
     FlyingSoundPlayer                *_soundPlayer;
 }
@@ -30,6 +30,64 @@
 @end
 
 @implementation FlyingWordDetailVC
+
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    UIViewController *vc = [self new];
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    
+    if (![self.theWord isBlankString])
+    {
+        [coder encodeObject:self.theWord forKey:@"self.theWord"];
+    }
+    
+    if (![self.showingModle isBlankString])
+    {
+        [coder encodeObject:self.showingModle forKey:@"self.showingModle"];
+    }
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    
+    NSString * theWord = [coder decodeObjectForKey:@"self.theWord"];
+    
+    if ([theWord isBlankString])
+    {
+        self.theWord = theWord;
+    }
+    
+    NSString * showingModle =  [coder decodeObjectForKey:@"self.showingModle"];
+    
+    if (![showingModle isBlankString])
+    {
+        self.showingModle = showingModle;
+    }
+    
+    if (![self.theWord isBlankString])
+    {
+        [self loadWordContent];
+    }
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // Custom initialization
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -51,9 +109,17 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:playButtonItem, searchBarButtonItem, nil];
     
+    if (self.theWord)
+    {
+        [self loadWordContent];
+    }
+}
+
+-(void) loadWordContent
+{
     FlyingItemDao * pubDAO = [[FlyingItemDao alloc] init];
     self.itemList = [pubDAO selectWithWord:self.theWord];
-
+    
     if (self.itemList.count==0) {
         
         [self showWebData];
@@ -61,6 +127,15 @@
     else{
         
         [self showItemList];
+    }
+
+    if([BC_Presented_State isEqualToString:self.showingModle])
+    {
+        UIButton* backButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(closeAndExit) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* backBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backBarButtonItem;
     }
 }
 
@@ -78,10 +153,17 @@
 {
 }
 
+-(void) closeAndExit
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
+}
+
 - (void) doSearch
 {
     FlyingSearchViewController * search= [[FlyingSearchViewController alloc] init];
-    [search setSearchType:BEFindWord];
+    [search setSearchType:BC_Search_Word];
     
     [self.navigationController pushViewController:search animated:YES];
 }

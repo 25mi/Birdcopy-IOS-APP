@@ -60,7 +60,11 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    [self reloadAll];
+    
+    if (self.domainID)
+    {
+        [self reloadAll];
+    }
 }
 
 - (id)init
@@ -90,46 +94,6 @@
     
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
-    if (!self.domainID) {
-        
-        self.domainID = [FlyingDataManager getBusinessID];
-    }
-        
-    [self reloadAll];
-    
-    [self setupRefreshControl];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void) willDismiss
-{
-}
-
-- (void) doSearch
-{
-    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
-    
-    search.domainID = self.domainID;
-    search.domainType = self.domainType;
-    
-    [search setSearchType:BEFindLesson];
-    [self.navigationController pushViewController:search animated:YES];
-}
-
-//////////////////////////////////////////////////////////////
-#pragma  Data related
-//////////////////////////////////////////////////////////////
--(void) reloadAll
-{
     if (!self.homeFeatureTagPSColeectionView)
     {
         self.homeFeatureTagPSColeectionView = [[PSCollectionView alloc] initWithFrame:CGRectMake(0.0f, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -181,7 +145,44 @@
         [(FlyingCoverView*)self.homeFeatureTagPSColeectionView.headerView loadData];
         [(FlyingLoadingView*)self.homeFeatureTagPSColeectionView.footerView showTitle:nil];
     }
+    [self setupRefreshControl];
+    
+    if (self.domainID)
+    {
+        [self reloadAll];
+    }
+}
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void) willDismiss
+{
+}
+
+- (void) doSearch
+{
+    FlyingSearchViewController * search=[[FlyingSearchViewController alloc] init];
+    
+    search.domainID = self.domainID;
+    search.domainType = self.domainType;
+    
+    [search setSearchType:BC_Search_Lesson];
+    [self.navigationController pushViewController:search animated:YES];
+}
+
+//////////////////////////////////////////////////////////////
+#pragma  Data related
+//////////////////////////////////////////////////////////////
+-(void) reloadAll
+{
     [_currentData removeAllObjects];
     _currentLodingIndex=0;
     _maxNumOfTags=NSIntegerMax;
@@ -366,7 +367,8 @@
 - (void) showFeatureContent
 {
     FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
-    [contentList setIsOnlyFeatureContent:YES];
+    [contentList setOnlyRecommend:YES];
+    [contentList setNoTagWork:YES];
     [contentList setDomainID:self.domainID];
     [contentList setDomainType:self.domainType];
     [self pushViewController:contentList animated:YES];

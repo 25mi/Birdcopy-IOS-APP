@@ -330,6 +330,13 @@
                               };
     
     [CRToastManager setDefaultOptions:options];
+    
+    //获取平台消息
+    [FlyingHttpTool getUserInfoByRongID:@"sysAdminor"
+                             completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                 //
+                                 NSLog(@"");
+                             }];
 }
 
 - (void) CalledToJumpToLessinID:(NSNotification*) aNotification
@@ -392,18 +399,24 @@
 {
     [self refreshTabBadgeValue];
     
-    
-    switch (message.conversationType) {
+    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:message.targetId];
+
+    switch (message.conversationType)
+    {
         case ConversationType_PRIVATE:
         case ConversationType_CUSTOMERSERVICE:
         case ConversationType_SYSTEM:
         {
-            
-            NSString * somebody = message.content.senderUserInfo.name;
-            
-            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ is sending something...", nil),somebody];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationMessage
-                                                                object:message];
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [FlyingSoundPlayer noticeSound];
+
+                NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
+                [CRToastManager showNotificationWithMessage:messageText
+                                            completionBlock:^{
+                                                NSLog(@"Completed");
+                                            }];
+            });
         }
             break;
             
@@ -437,7 +450,7 @@
     //同步重要遗漏数据
     if([[NSUserDefaults standardUserDefaults] boolForKey:KShouldSysMembership])
     {
-        FlyingUserRightData * userRight = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getBusinessID]
+        FlyingUserRightData * userRight = [FlyingDataManager getUserRightForDomainID:[FlyingDataManager getAppData].appID
                                         domainType:BC_Domain_Business];
         
         

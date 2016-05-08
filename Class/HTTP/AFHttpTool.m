@@ -355,7 +355,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_id":userID}];
     [params setObject:@"tuserurms" forKey:@"type"];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_ua_get_info_from_tn.action"
@@ -378,7 +378,7 @@
     
     if ([type isEqualToString:BC_Domain_Business]) {
         
-        [params setObject:domainID forKey:@"gp_owner"];
+        [params setObject:domainID forKey:@"app_id"];
     }
     else if ([type isEqualToString:BC_Domain_Group]) {
         
@@ -578,7 +578,7 @@
              failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openUDID}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     
     [params setObject:@"reg" forKey:@"type"];
     
@@ -596,7 +596,7 @@
                 failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":openUDID}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"tu_ua_get_status_from_tn.action"
@@ -674,7 +674,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":account}];
     [params setObject:@"validth" forKey:@"type"];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"ua_get_user_info_from_hp.action"
@@ -691,7 +691,7 @@
                              failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     
     //苹果渠道
     [params setObject:@"11" forKey:@"vthg_type"];
@@ -725,7 +725,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:@"accobk" forKey:@"type"];
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -745,7 +745,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:[@(moneycount) stringValue] forKey:@"appletpp_sum"];
     [params setObject:[@(giftCount) stringValue] forKey:@"reward_sum"];
     [params setObject:[@(touchCount) stringValue] forKey:@"consume_sum"];
@@ -764,7 +764,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:@"topup_pwd_total" forKey:@"type"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -782,7 +782,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:cardNo forKey:@"topup_pwd"];
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -801,7 +801,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:@"lnclick" forKey:@"type"];
     [params setObject:leesonID forKey:@"ln_id"];
 
@@ -820,7 +820,7 @@
 {
     //老API还用user_key
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"user_key":openudid}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:orgnizedStr forKey:@"lncks"];
 
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -841,7 +841,7 @@
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
     [params setObject:@"lnvalidth" forKey:@"type"];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:lessonID forKey:@"ln_md5"];
     
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
@@ -860,7 +860,7 @@
                              failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"tuser_key":account}];
-    [params setObject:[FlyingDataManager getBirdcopyAppID] forKey:@"app_id"];
+    [params setObject:[FlyingDataManager getAppData].appID forKey:@"app_id"];
     [params setObject:lessonID forKey:@"ln_md5"];
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

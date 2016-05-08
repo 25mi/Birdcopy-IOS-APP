@@ -155,7 +155,6 @@
 
 + (ReaderDocument *)withLessonID:(NSString*) lessonID
 {
-
     ReaderDocument * document;
 
     FlyingLessonData * lesson = [[[FlyingLessonDAO alloc] init] selectWithLessonID:lessonID];

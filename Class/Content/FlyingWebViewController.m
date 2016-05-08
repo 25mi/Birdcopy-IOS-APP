@@ -49,18 +49,40 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.webURL forKey:@"self.webURL"];
-    [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    
+    if (![self.webURL isBlankString])
+    {
+        [coder encodeObject:self.webURL forKey:@"self.webURL"];
+    }
+    
+    if (self.thePubLesson)
+    {
+        [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.webURL = [coder decodeObjectForKey:@"self.webURL"];
-    self.thePubLesson = [coder decodeObjectForKey:@"self.thePubLesson"];
+    NSString *webURL = [coder decodeObjectForKey:@"self.webURL"];
     
-    [self loadWebview];
+    if (![webURL isBlankString])
+    {
+        self.webURL = webURL;
+    }
+    
+    FlyingPubLessonData * thePubLesson = [coder decodeObjectForKey:@"self.thePubLesson"];
+    if(thePubLesson)
+    {
+        self.thePubLesson = thePubLesson;
+    }
+    
+    if (![self.webURL isBlankString] ||
+        self.thePubLesson)
+    {
+        [self loadWebview];
+    }
 }
 
 - (id)init
@@ -79,7 +101,7 @@
 {
     [super viewDidLoad];
     
-    self.edgesForExtendedLayout = UIRectEdgeAll;
+    //self.edgesForExtendedLayout = UIRectEdgeAll;
 
     self.title = @"网页内容";
     
@@ -173,7 +195,11 @@
         [self.view addSubview:self.progressView];
     }
     
-    [self loadWebview];
+    if (![self.webURL isBlankString] ||
+        self.thePubLesson)
+    {
+        [self loadWebview];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -268,10 +294,7 @@
 }
 
 -(void) loadWebview
-{
-    //Test useing
-    self.webURL = @"http://e.birdcopy.com/ua_get_article_detail.action?ua_id=308&from=pw2&f=p&u=1%402&ln_id=1909&comment_id=747bad3435c4dd916aad0080c0121d88";
-    
+{    
     if(!self.webURL){
         
         self.webURL = self.thePubLesson.contentURL;

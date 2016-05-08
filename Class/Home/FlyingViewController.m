@@ -13,6 +13,7 @@
 #import "FlyingNavigationController.h"
 #import "FlyingSoundPlayer.h"
 #import <CRToast.h>
+#import "NSString+FlyingExtention.h"
 
 @interface FlyingViewController ()<UIViewControllerRestoration>
 
@@ -45,9 +46,18 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    NSString * domainID = [coder decodeObjectForKey:@"self.domainID"];
+    if (![domainID isBlankString])
+    {
+        self.domainID = domainID;
+    }
         
-    self.domainID =[coder decodeObjectForKey:@"self.domainID"];
-    self.domainType =[coder decodeObjectForKey:@"self.domainType"];
+    NSString * domainType =[coder decodeObjectForKey:@"self.domainType"];
+    if (![domainType isBlankString])
+    {
+        self.domainType = domainType;
+    }
 }
 
 - (id)init
@@ -94,27 +104,11 @@
     {
         [self.tabBarController.tabBar setHidden:NO];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:KNotificationMessage
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note)
-     {
-         
-         [FlyingSoundPlayer noticeSound];
-         [CRToastManager showNotificationWithMessage:[note object]
-                                     completionBlock:^{
-                                         //:"
-                                     }];
-     }];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationMessage    object:nil];
 }
 
 

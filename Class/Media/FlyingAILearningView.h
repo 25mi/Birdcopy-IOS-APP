@@ -17,4 +17,6 @@
 @property (nonatomic, assign) BOOL AImagnifyEnabled;
 @property (nonatomic, weak)   id<FlyingAILearningViewDelegate>  delegate;
 
+@property (nonatomic, weak)   UIView   *subtitleTextView;
+
 @end

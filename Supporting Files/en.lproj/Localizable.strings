@@ -131,3 +131,7 @@
 //视频播放
 "Item cannot be played" = "Item cannot be played";
 "The assets tracks were loaded, but could not be made playable." = "The assets tracks were loaded, but could not be made playable.";
+
+//课程
+"share"="share";
+"help"="help";

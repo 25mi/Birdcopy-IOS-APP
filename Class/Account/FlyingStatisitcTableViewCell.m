@@ -28,10 +28,10 @@
     self.consumeLabel.font = [UIFont systemFontOfSize:KLittleFontSize];
     
     
-    self.currentLabel.text = NSLocalizedString(@"currentCount", nil);
-    self.buyLabel.text = NSLocalizedString(@"buyCount", nil);
-    self.awardLabel.text = NSLocalizedString(@"awardCount", nil);
-    self.consumeLabel.text = NSLocalizedString(@"consumeCount", nil);
+    self.currentLabel.text = NSLocalizedString(@"CurrentCount", nil);
+    self.buyLabel.text = NSLocalizedString(@"BuyCount", nil);
+    self.awardLabel.text = NSLocalizedString(@"AwardCount", nil);
+    self.consumeLabel.text = NSLocalizedString(@"ConsumeCount", nil);
 
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;

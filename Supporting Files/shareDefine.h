@@ -10,13 +10,14 @@
 #define FlyingEnglish_shareDefine_h
 
 //搜索资源类型
-typedef enum BESearchType
-{
-    BEFindLesson,
-    BEFindWord,
-    BEFindGroup,
-    BEFindPeople
-} BESearchType;
+#define BC_Search_Lesson    @"BC_Search_Lesson"
+#define BC_Search_Word      @"BC_Search_Word"
+#define BC_Search_Group     @"BC_Search_Group"
+#define BC_Search_People    @"BC_Search_People"
+
+//present or push state
+#define BC_Pushed_State     @"BC_Pushed_State"
+#define BC_Presented_State  @"BC_Presented_State"
 
 //获取资源类型
 #define BC_Domain_Business     @"BC_Domain_Business"
@@ -103,7 +104,6 @@ typedef enum BC_NextType
 #define ALPHA	@"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
 
 #define KlessonStateChange        @"KlessonStateChange"
-#define KNotificationMessage      @"KNotificationMessage"
 
 #define KMAX_GROUPS_VALUE         100
 

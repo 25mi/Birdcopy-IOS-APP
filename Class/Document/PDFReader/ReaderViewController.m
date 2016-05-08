@@ -62,6 +62,8 @@
 #import "FlyingDataManager.h"
 #import "UIAlertController+Window.h"
 #import <CRToastManager.h>
+#import "FlyingWordDetailVC.h"
+#import "FlyingNavigationController.h"
 
 enum
 {
@@ -80,7 +82,7 @@ enum
 	BIRDMODE_DELETE
 };
 
-@interface ReaderViewController ()<UIViewControllerRestoration>
+@interface ReaderViewController ()<UIViewControllerRestoration,FlyingItemViewDelegate>
 {
 	ReaderDocument *document;
 
@@ -140,11 +142,28 @@ enum
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (![self.lessonID isBlankString])
+    {
+        [coder encodeObject:self.lessonID forKey:@"self.lessonID"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    NSString * lessonID = [coder decodeObjectForKey:@"self.lessonID"];
+    
+    if (![lessonID isBlankString])
+    {
+        self.lessonID = lessonID;
+    }
+    
+    if (![self.lessonID isBlankString])
+    {
+        [self loadReaderDocument];
+    }
 }
 
 - (id)init
@@ -166,7 +185,10 @@ enum
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    [self loadReaderDocument];
+    if (self.lessonID)
+    {
+        [self loadReaderDocument];
+    }
 }
 
 -(void) doLoadView
@@ -1075,6 +1097,7 @@ enum
             [_aWordView setLessonID:self.lessonID];
             [_aWordView setWord:word];
             [_aWordView  drawWithLemma:[word lowercaseString] AppTag:nil];
+            [_aWordView setDelegate:self];
             
             //随机散开磁贴的显示位置
             srand((unsigned int)_aWordView.lemma.hash);
@@ -1112,6 +1135,20 @@ enum
         _aWordView =nil;
     }
 }
+
+- (void) itemPressed:(NSString*)lemma
+{
+    FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
+    [wordDetail setTheWord:lemma];
+    [wordDetail setShowingModle:BC_Presented_State];
+    
+    [self presentViewController:[[FlyingNavigationController alloc] initWithRootViewController:wordDetail]
+                       animated:YES
+                     completion:^{
+                         //
+                     }];
+}
+
 
 //把点击单词纪录下来
 -(void) addToucLammaRecord:(NSString *) touchWord

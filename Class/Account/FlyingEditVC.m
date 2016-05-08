@@ -41,14 +41,23 @@
     [super encodeRestorableStateWithCoder:coder];
     
     [coder encodeBool:self.isNickName forKey:@"self.isNickName"];
-    [coder encodeObject:self.someText forKey:@"self.someText"];
+    
+    if (![self.someText isBlankString]) {
+        
+        [coder encodeObject:self.someText forKey:@"self.someText"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    
     self.isNickName = [coder decodeBoolForKey:@"self.isNickName"];
-    self.someText = [coder decodeObjectForKey:@"self.someText"];
+    
+    NSString *someText = [coder decodeObjectForKey:@"self.someText"];
+    
+    if (someText)
+    {
+        self.someText = someText;
+    }
     
     [super decodeRestorableStateWithCoder:coder];
 }

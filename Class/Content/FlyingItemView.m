@@ -62,6 +62,11 @@
         self.fullScreenModle=NO;
         
         self.tagTrasform= [[FlyingTagTransform alloc] init];
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemPressed:)];
+        tapRecognizer.numberOfTapsRequired = 1; // 单击
+        [self addGestureRecognizer:tapRecognizer];
+
     }
     return self;
 }
@@ -219,7 +224,6 @@
 
 - (void) presentDesc
 {
-    
     if (self.desc)
     {
      
@@ -415,7 +419,6 @@
     }
 }
 
-
 - (void)dismissViewAnimated:(BOOL)animated {
     
     if (animated) {
@@ -436,26 +439,14 @@
 }
 
 
-#pragma mark - 拖拽 缩放手势功能
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    FlyingWordDetailVC * wordDetail =[[FlyingWordDetailVC alloc] init];
-    [wordDetail setTheWord:self.lemma];
-    
-    [appDelegate pushViewController:wordDetail animated:YES];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void) itemPressed:(NSString*)lemma
 {
     [[[FlyingSoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(itemPressed:)])
+    {
+        [self.delegate itemPressed:self.lemma];
+    }
 }
 
 @end

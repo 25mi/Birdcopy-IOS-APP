@@ -71,4 +71,10 @@
 }
 
 
+-(void) setHelpText:(NSString*) helpText
+{
+    [self.chatNow setText:helpText];
+}
+
+
 @end

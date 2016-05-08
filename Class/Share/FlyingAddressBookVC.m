@@ -53,13 +53,23 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.title forKey:@"self.title"];
+    
+    if (![self.title isBlankString])
+    {
+        [coder encodeObject:self.title forKey:@"self.title"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    self.title = [coder decodeObjectForKey:@"self.title"];
+    
+    NSString * string = [coder decodeObjectForKey:@"self.title"];
+    
+    if (![string isBlankString])
+    {
+        self.title = string;
+    }
     
     [self loadData];
 }

@@ -31,6 +31,7 @@
 #import "FlyingGroupUpdateData.h"
 #import "FlyingDataManager.h"
 #import "YALSunnyRefreshControl.h"
+#import "FlyingLoadingCell.h"
 
 @interface FlyingMyGroupsVC ()<UIViewControllerRestoration>
 {
@@ -39,6 +40,8 @@
 }
 
 @property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+@property (strong, nonatomic) FlyingLoadingCell *loadingMoreIndicatorCell;
+
 @property (atomic,assign)    BOOL refresh;
 
 @end
@@ -55,11 +58,22 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (!CGRectEqualToRect(self.groupTableView.frame,CGRectZero))
+    {
+        [coder encodeCGRect:self.groupTableView.frame forKey:@"self.groupTableView.frame"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    CGRect frame = [coder decodeCGRectForKey:@"self.groupTableView.frame"];
+    if (!CGRectEqualToRect(frame,CGRectZero))
+    {
+        self.groupTableView.frame = frame;
+    }
 }
 
 - (id)init
@@ -72,7 +86,7 @@
         
         self.hidesBottomBarWhenPushed = NO;
         
-        self.domainID = [FlyingDataManager getAppData].domainID;
+        self.domainID = [FlyingDataManager getAppData].appID;
         self.domainType = BC_Domain_Business;
     }
     return self;
@@ -85,10 +99,41 @@
     //标题
     self.title = NSLocalizedString(@"Group",nil);
     
-    //顶部导航
-    [self reloadAll];
+    if (!self.groupTableView)
+    {
+        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
+        
+        //必须在设置delegate之前
+        UINib *nib = [UINib nibWithNibName:@"FlyingGroupUpdateCell" bundle: nil];
+        [self.groupTableView registerNib:nib  forCellReuseIdentifier:@"FlyingGroupUpdateCell"];
+        
+        [self.groupTableView registerNib:[UINib nibWithNibName:@"FlyingLoadingCell" bundle: nil]
+                  forCellReuseIdentifier:@"FlyingLoadingCell"];
+        
+        self.groupTableView.delegate = self;
+        self.groupTableView.dataSource = self;
+        self.groupTableView.backgroundColor = [UIColor clearColor];
+        
+        self.groupTableView.restorationIdentifier = self.restorationIdentifier;
+        
+        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, bottom)];
+        
+        [self.view addSubview:self.groupTableView];
+        
+        _currentData = [NSMutableArray new];
+        
+        _currentLodingIndex=0;
+        _maxNumOfGroups=NSIntegerMax;
+    }
     
     [self setupRefreshControl];
+    
+    //顶部导航
+    if (self.domainID)
+    {
+        [self reloadAll];
+    }
 }
 
 - (void) willDismiss
@@ -136,32 +181,6 @@
 
 - (void)reloadAll
 {
-    if (!self.groupTableView)
-    {
-        self.groupTableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
-        
-        //必须在设置delegate之前
-        UINib *nib = [UINib nibWithNibName:@"FlyingGroupUpdateCell" bundle: nil];
-        [self.groupTableView registerNib:nib  forCellReuseIdentifier:@"FlyingGroupUpdateCell"];
-        
-        self.groupTableView.delegate = self;
-        self.groupTableView.dataSource = self;
-        self.groupTableView.backgroundColor = [UIColor clearColor];
-        
-        self.groupTableView.restorationIdentifier = self.restorationIdentifier;
-        
-        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
-        self.groupTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupTableView.frame.size.width, bottom)];
-        
-        [self.view addSubview:self.groupTableView];
-        
-        _currentData = [NSMutableArray new];
-        
-        _currentLodingIndex=0;
-        _maxNumOfGroups=NSIntegerMax;
-        
-    }
-
     [_currentData removeAllObjects];
     _currentLodingIndex=0;
     _maxNumOfGroups=NSIntegerMax;
@@ -222,12 +241,7 @@
 //////////////////////////////////////////////////////////////
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentData.count && _currentData.count<_maxNumOfGroups)
-    {
-        return 2; // 增加一个加载更多
-    }
-    
-    return 1;
+    return 2; // 增加一个加载更多
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -236,13 +250,17 @@
     {
         return [self.currentData count];
     }
-    
-    // 加载更多
-    return 1;
+    else
+    {
+        // 加载更多
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell* cell = nil;
+
     if (indexPath.section == 0)
     {
         // 普通Cell
@@ -257,29 +275,18 @@
 
         return cell;
     }
-    
-    // 加载更多
-    static NSString *CellIdentifierLoadMore = @"CellIdentifierLoadMore";
-    
-    UITableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierLoadMore];
-    if (!loadCell)
+    else
     {
-        loadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierLoadMore];
-        loadCell.backgroundColor = [UIColor clearColor];
-        loadCell.contentView.backgroundColor = [UIColor clearColor];
+        FlyingLoadingCell *loadingCell = [tableView dequeueReusableCellWithIdentifier:@"FlyingLoadingCell"];
         
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicator.tag = kLoadMoreIndicatorTag;
-        indicator.hidesWhenStopped = YES;
-        indicator.center =loadCell.center;
-        indicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|
-        UIViewAutoresizingFlexibleRightMargin|
-        UIViewAutoresizingFlexibleTopMargin|
-        UIViewAutoresizingFlexibleBottomMargin;
-        [loadCell.contentView addSubview:indicator];
+        if(loadingCell == nil)
+            loadingCell = [FlyingLoadingCell loadingCell];
+        
+        cell = loadingCell;
+        self.loadingMoreIndicatorCell=loadingCell;
     }
-        
-    return loadCell;
+    
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -295,11 +302,15 @@
         }];
     
     }
-    
-    // 加载更多
-    return 44;
+    else
+    {
+        return [tableView fd_heightForCellWithIdentifier:@"FlyingLoadingCell"
+                                        cacheByIndexPath:indexPath
+                                           configuration:^(FlyingLoadingCell *cell) {
+                                               //[self configureCell:cell atIndexPath:indexPath];
+                                           }];
+    }
 }
-
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
@@ -314,50 +325,50 @@
 //////////////////////////////////////////////////////////////
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
+    if (indexPath.section == 1)
     {
-        return;
+        if (_currentData.count>0&&
+            _currentData.count<_maxNumOfGroups)
+        {
+            // 加载更多
+            [self.loadingMoreIndicatorCell startAnimating:@"尝试加载更多..."];
+            
+            // 加载下一页
+            [self loadMore];
+        }
+        else
+        {
+            [self.loadingMoreIndicatorCell stopAnimating:@"加入更多群组..."];
+        }
     }
-    
-    // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator startAnimating];
-    
-    // 加载下一页
-    [self loadMore];
-}
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0)
-    {
-        return;
-    }
-    
-    // 加载更多
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:kLoadMoreIndicatorTag];
-    [indicator stopAnimating];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FlyingGroupUpdateData *groupUpData = self.currentData[indexPath.row];
-    FlyingGroupVC *groupVC =  [[FlyingGroupVC alloc] init];
-    groupVC.groupData = groupUpData.groupData;
-    
-    //公开群组直接进入
-    if (groupUpData.groupData.is_public_access)
+    if (indexPath.section == 0)
     {
-        [self.navigationController pushViewController:groupVC animated:YES];
+        FlyingGroupUpdateData *groupUpData = self.currentData[indexPath.row];
+        FlyingGroupVC *groupVC =  [[FlyingGroupVC alloc] init];
+        groupVC.groupData = groupUpData.groupData;
+        
+        //公开群组直接进入
+        if (groupUpData.groupData.is_public_access)
+        {
+            [self.navigationController pushViewController:groupVC animated:YES];
+        }
+        else
+        {
+            [FlyingGroupVC doMemberRightInVC:self
+                                     GroupID:groupUpData.groupData.gp_id
+                                  Completion:^(FlyingUserRightData *userRightData) {
+                                      //
+                                      [self.navigationController pushViewController:groupVC animated:YES];
+                                  }];
+        }
     }
-    else
+    else if (indexPath.section == 1)
     {
-        [FlyingGroupVC doMemberRightInVC:self
-                                 GroupID:groupUpData.groupData.gp_id
-                              Completion:^(FlyingUserRightData *userRightData) {
-                                  //
-                                  [self.navigationController pushViewController:groupVC animated:YES];
-                              }];
+        [self.tabBarController setSelectedIndex:0];
     }
 }
 
