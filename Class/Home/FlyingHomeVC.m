@@ -188,7 +188,6 @@
         webVC.domainType = self.domainType;
         
         webVC.thePubLesson = lessonPubData;
-        
         [self.navigationController pushViewController:webVC animated:YES];
     }
     else
@@ -212,7 +211,7 @@
     contentList.domainType = self.domainType;
     
     [contentList setNoTagWork:YES];
-    [contentList setOnlyRecommend:YES];
+    [contentList setRecommend:BC_onlyRecommend];
     [contentList setTitle:@"头条"];
 
     [self.navigationController pushViewController:contentList animated:YES];

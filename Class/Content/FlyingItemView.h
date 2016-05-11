@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @protocol FlyingItemViewDelegate <NSObject>
 
 @optional
@@ -17,6 +16,10 @@
 
 
 @interface FlyingItemView : UIView
+{
+    CGAffineTransform         originalTransform;
+    CFMutableDictionaryRef    touchBeginPoints;
+}
 
 @property (strong, nonatomic)  NSString        *word;
 @property (strong, nonatomic)  NSString        *lemma;

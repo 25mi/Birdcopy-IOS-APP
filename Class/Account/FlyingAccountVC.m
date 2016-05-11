@@ -66,11 +66,22 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (!CGRectEqualToRect(self.tableView.frame,CGRectZero))
+    {
+        [coder encodeCGRect:self.tableView.frame forKey:@"self.tableView.frame"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    CGRect frame = [coder decodeCGRectForKey:@"self.tableView.frame"];
+    if (!CGRectEqualToRect(frame,CGRectZero))
+    {
+        self.tableView.frame = frame;
+    }
 }
 
 - (id)init
@@ -82,6 +93,10 @@
         self.restorationClass = [self class];
         
         self.hidesBottomBarWhenPushed = NO;
+        
+        self.domainID = [FlyingDataManager getAppData].appID;
+        self.domainType = BC_Domain_Business;
+
     }
     return self;
 }
@@ -103,7 +118,7 @@
     
     if (!self.tableView)
     {
-        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame: CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64) style:UITableViewStylePlain];
         
         //必须在设置delegate之前
         [self.tableView registerNib:[UINib nibWithNibName:@"FlyingImageTextCell" bundle:nil]
@@ -115,8 +130,8 @@
         self.tableView.backgroundColor = [UIColor clearColor];
         //self.tableView.separatorColor = [UIColor clearColor];
         
-        //self.tableView.tableFooterView = [UIView new];
-        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+        NSInteger bottom = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, bottom)];
         
         [self.view addSubview:self.tableView];
     }
@@ -266,12 +281,7 @@
                                          //
                                          if ([userData.portraitUri isBlankString])
                                          {
-                                             //即时反馈
-                                             [FlyingSoundPlayer noticeSound];
-                                             NSString * message = NSLocalizedString(@"Touch portrait to update it!", nil);
-                                             [self.view makeToast:message
-                                                         duration:3.0
-                                                         position: CSToastPositionCenter];
+                                             //
                                          }
                                          else
                                          {

@@ -351,7 +351,7 @@
                     if ([self.userdata.portraitUri isBlankString])
                     {
                         [(FlyingImageLabelCell *)cell setImageIcon:[UIImage imageNamed:@"Icon"]];
-
+                        /*
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
@@ -362,6 +362,7 @@
                                                             NSLog(@"Completed");
                                                         }];
                         }
+                         */
                     }
                     else{
                         
@@ -374,8 +375,9 @@
                 {
                     [(FlyingTextLableCell *)cell setItemText:NSLocalizedString(@"NickName", nil)];
                     
-                    if ([self.userdata.name isBlankString]){
-                        
+                    if ([self.userdata.name isBlankString])
+                    {
+                        /*
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
@@ -386,6 +388,7 @@
                                                             NSLog(@"Completed");
                                                         }];
                         }
+                         */
                     }
                     else{
                         
@@ -399,8 +402,9 @@
                     [(FlyingTextLableCell *)cell setItemText:NSLocalizedString(@"Who am I", nil)];
                     
                     
-                    if ([self.userdata.digest isBlankString]){
-                        
+                    if ([self.userdata.digest isBlankString])
+                    {
+                        /*
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
@@ -412,6 +416,7 @@
                                                         }];
 
                         }
+                         */
                     }
                     else{
                         

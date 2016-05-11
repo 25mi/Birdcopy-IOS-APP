@@ -1147,7 +1147,6 @@
             {
                 FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
                 [webVC setWebURL:webURL];
-                
                 [self.navigationController pushViewController:webVC animated:YES];
             }
         }

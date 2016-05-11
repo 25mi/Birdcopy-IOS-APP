@@ -89,11 +89,35 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
+    
+    if (document)
+    {
+        [coder encodeObject:document forKey:@"document"];
+    }
+    
+    if (delegate)
+    {
+        [coder encodeObject:delegate forKey:@"delegate"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
+    
+    ReaderDocument *tempDocument = [coder decodeObjectForKey:@"document"];
+    
+    if (tempDocument)
+    {
+        document = tempDocument;
+    }
+    
+    delegate = [coder decodeObjectForKey:@"delegate"];
+    
+    if (delegate && document)
+    {
+        [self loadContent];
+    }
 }
 
 - (id)init
@@ -103,6 +127,11 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        
+        updateBookmarked = YES; bookmarked = [NSMutableArray new]; // Bookmarked pages
+        
+        searchMarked = [NSMutableArray new];
+        lastSearchKey=nil;
     }
     return self;
 }
@@ -115,14 +144,10 @@
 	{
 		if ((self = [super initWithNibName:nil bundle:nil])) // Designated initializer
 		{
-			updateBookmarked = YES; bookmarked = [NSMutableArray new]; // Bookmarked pages
 
 			document = object; // Retain the ReaderDocument object for our use
 
 			thumbs = self; // Return an initialized ThumbsViewController object
-            
-            searchMarked = [NSMutableArray new];
-            lastSearchKey=nil;
 		}
 	}
 
@@ -133,59 +158,67 @@
 {
     [super viewDidLoad];
     
-	assert(delegate != nil); assert(document != nil);
+    if (delegate && document)
+    {
+        [self loadContent];
+    }
+}
 
-	self.view.backgroundColor = [UIColor grayColor]; // Neutral gray
-
-	CGRect scrollViewRect = self.view.bounds; UIView *fakeStatusBar = nil;
-
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) // iOS 7+
-	{
-		if ([self prefersStatusBarHidden] == NO) // Visible status bar
-		{
-			CGRect statusBarRect = self.view.bounds; // Status bar frame
-			statusBarRect.size.height = STATUS_HEIGHT; // Default status height
-			fakeStatusBar = [[UIView alloc] initWithFrame:statusBarRect]; // UIView
-			fakeStatusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-			fakeStatusBar.backgroundColor = [UIColor blackColor];
-			fakeStatusBar.contentMode = UIViewContentModeRedraw;
-			fakeStatusBar.userInteractionEnabled = NO;
-
-			scrollViewRect.origin.y += STATUS_HEIGHT; scrollViewRect.size.height -= STATUS_HEIGHT;
-		}
-	}
-
-	//NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
-
+-(void) loadContent
+{
+    assert(delegate != nil); assert(document != nil);
+    
+    self.view.backgroundColor = [UIColor grayColor]; // Neutral gray
+    
+    CGRect scrollViewRect = self.view.bounds; UIView *fakeStatusBar = nil;
+    
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) // iOS 7+
+    {
+        if ([self prefersStatusBarHidden] == NO) // Visible status bar
+        {
+            CGRect statusBarRect = self.view.bounds; // Status bar frame
+            statusBarRect.size.height = STATUS_HEIGHT; // Default status height
+            fakeStatusBar = [[UIView alloc] initWithFrame:statusBarRect]; // UIView
+            fakeStatusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            fakeStatusBar.backgroundColor = [UIColor blackColor];
+            fakeStatusBar.contentMode = UIViewContentModeRedraw;
+            fakeStatusBar.userInteractionEnabled = NO;
+            
+            scrollViewRect.origin.y += STATUS_HEIGHT; scrollViewRect.size.height -= STATUS_HEIGHT;
+        }
+    }
+    
+    //NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
+    
     NSString *toolbarTitle = document.displayName;
     
-	CGRect toolbarRect = scrollViewRect; // Toolbar frame
-	toolbarRect.size.height = TOOLBAR_HEIGHT; // Default toolbar height
-	mainToolbar = [[ThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // ThumbsMainToolbar
-	mainToolbar.delegate = self; // ThumbsMainToolbarDelegate
-	[self.view addSubview:mainToolbar];
-
-	if (fakeStatusBar != nil) [self.view addSubview:fakeStatusBar]; // Add status bar background view
-
-	UIEdgeInsets scrollViewInsets = UIEdgeInsetsZero; // Scroll view toolbar insets
-
-	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) // iPad
-	{
-		scrollViewRect.origin.y += TOOLBAR_HEIGHT; scrollViewRect.size.height -= TOOLBAR_HEIGHT;
-	}
-	else // Set UIScrollView insets for non-UIUserInterfaceIdiomPad case
-	{
-		scrollViewInsets.top = TOOLBAR_HEIGHT;
-	}
-
-	theThumbsView = [[ReaderThumbsView alloc] initWithFrame:scrollViewRect]; // ReaderThumbsView
-	theThumbsView.contentInset = scrollViewInsets; theThumbsView.scrollIndicatorInsets = scrollViewInsets;
-	theThumbsView.delegate = self; // ReaderThumbsViewDelegate
-	[self.view insertSubview:theThumbsView belowSubview:mainToolbar];
-
-	BOOL large = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
-	CGFloat thumbSize = (large ? PAGE_THUMB_LARGE : PAGE_THUMB_SMALL); // Thumb dimensions
-	[theThumbsView setThumbSize:CGSizeMake(thumbSize, thumbSize)]; // Set the thumb size
+    CGRect toolbarRect = scrollViewRect; // Toolbar frame
+    toolbarRect.size.height = TOOLBAR_HEIGHT; // Default toolbar height
+    mainToolbar = [[ThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // ThumbsMainToolbar
+    mainToolbar.delegate = self; // ThumbsMainToolbarDelegate
+    [self.view addSubview:mainToolbar];
+    
+    if (fakeStatusBar != nil) [self.view addSubview:fakeStatusBar]; // Add status bar background view
+    
+    UIEdgeInsets scrollViewInsets = UIEdgeInsetsZero; // Scroll view toolbar insets
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) // iPad
+    {
+        scrollViewRect.origin.y += TOOLBAR_HEIGHT; scrollViewRect.size.height -= TOOLBAR_HEIGHT;
+    }
+    else // Set UIScrollView insets for non-UIUserInterfaceIdiomPad case
+    {
+        scrollViewInsets.top = TOOLBAR_HEIGHT;
+    }
+    
+    theThumbsView = [[ReaderThumbsView alloc] initWithFrame:scrollViewRect]; // ReaderThumbsView
+    theThumbsView.contentInset = scrollViewInsets; theThumbsView.scrollIndicatorInsets = scrollViewInsets;
+    theThumbsView.delegate = self; // ReaderThumbsViewDelegate
+    [self.view insertSubview:theThumbsView belowSubview:mainToolbar];
+    
+    BOOL large = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+    CGFloat thumbSize = (large ? PAGE_THUMB_LARGE : PAGE_THUMB_SMALL); // Thumb dimensions
+    [theThumbsView setThumbSize:CGSizeMake(thumbSize, thumbSize)]; // Set the thumb size
 }
 
 - (void)viewWillAppear:(BOOL)animated

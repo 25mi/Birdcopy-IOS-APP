@@ -60,7 +60,7 @@
     
     NSString * theWord = [coder decodeObjectForKey:@"self.theWord"];
     
-    if ([theWord isBlankString])
+    if (![theWord isBlankString])
     {
         self.theWord = theWord;
     }
@@ -109,7 +109,7 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:playButtonItem, searchBarButtonItem, nil];
     
-    if (self.theWord)
+    if (![self.theWord isBlankString])
     {
         [self loadWordContent];
     }

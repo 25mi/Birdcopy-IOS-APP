@@ -14,6 +14,6 @@
                                                         UITableViewDelegate>
 
 @property (strong, nonatomic)  UITableView         *tableView;
-@property (assign, nonatomic)  NSString            *searchType;
+@property (strong, nonatomic)  NSString            *searchType;
 
 @end

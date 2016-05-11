@@ -153,19 +153,19 @@
 //////////////////////////////////////////////////////////////
 + (void) getAlbumListForDomainID:(NSString*) domainID
                       DomainType:(NSString*) type
-                  ContentType:(NSString*) contentType
-                   PageNumber:(NSInteger) pageNumber
-                OnlyRecommend:(BOOL)    isOnlyRecommend
-                   Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
+                     ContentType:(NSString*) contentType
+                      PageNumber:(NSInteger) pageNumber
+                       Recommend:(NSString*) recommend
+                      Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion;
 
 + (void) getLessonListForDomainID:(NSString*) domainID
                        DomainType:(NSString*) type
-                    PageNumber:   (NSInteger) pageNumber
-             lessonConcentType:  (NSString *) contentType
-                  DownloadType:  (NSString *) downloadType
-                           Tag:  (NSString *) tag
-                 OnlyRecommend:(BOOL)    isOnlyRecommend
-                    Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
+                       PageNumber:(NSInteger) pageNumber
+                lessonConcentType:(NSString *) contentType
+                     DownloadType:(NSString *) downloadType
+                              Tag:(NSString *) tag
+                        Recommend:(NSString *) recommend
+                       Completion:(void (^)(NSArray *lessonList,NSInteger allRecordCount)) completion;
 
 + (void) getCoverListForDomainID:(NSString*) domainID
                       DomainType:(NSString*) type

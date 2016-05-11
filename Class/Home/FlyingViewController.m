@@ -32,15 +32,19 @@
 {
     [super encodeRestorableStateWithCoder:coder];
     
-    if (self.domainID) {
+    if (![self.domainID isBlankString])
+    {
         
         [coder encodeObject:self.domainID forKey:@"self.domainID"];
     }
     
-    if (self.domainType) {
+    if (![self.domainType isBlankString])
+    {
         
         [coder encodeObject:self.domainType forKey:@"self.domainType"];
     }
+    
+    [coder encodeBool:self.hidesBottomBarWhenPushed forKey:@"self.hidesBottomBarWhenPushed"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
@@ -58,6 +62,8 @@
     {
         self.domainType = domainType;
     }
+    
+    self.hidesBottomBarWhenPushed = [coder decodeBoolForKey:@"self.hidesBottomBarWhenPushed"];
 }
 
 - (id)init
@@ -86,7 +92,6 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear:animated];
     
     if ([self.navigationController.viewControllers count]>1)
@@ -110,7 +115,6 @@
 {
     [super viewWillDisappear:animated];
 }
-
 
 - (void)didReceiveMemoryWarning {
     
@@ -167,6 +171,8 @@
                                            action:@selector(handleSwipeFrom:)];
     
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    //recognizer.cancelsTouchesInView = NO;
+    
     [self.view addGestureRecognizer:recognizer];
 }
 

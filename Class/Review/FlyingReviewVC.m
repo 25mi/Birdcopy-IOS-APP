@@ -72,7 +72,6 @@
 {
     [super viewDidLoad];
     
-    
     _currentContentIndex=0;
 
     //更新欢迎语言

@@ -1088,6 +1088,11 @@
 		82501C841C0D8F7E00C58789 /* ibag.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C85A70291BDE525B003E8AF8 /* ibag.entitlements */; };
 		82501C871C0D90D400C58789 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
 		82501C881C0D913B00C58789 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
+		8252E7021CE19ECF003D78BA /* UIImage+webview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8252E7011CE19ECF003D78BA /* UIImage+webview.m */; };
+		8252E7031CE19ECF003D78BA /* UIImage+webview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8252E7011CE19ECF003D78BA /* UIImage+webview.m */; };
+		8252E7041CE19ECF003D78BA /* UIImage+webview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8252E7011CE19ECF003D78BA /* UIImage+webview.m */; };
+		8252E7051CE19ECF003D78BA /* UIImage+webview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8252E7011CE19ECF003D78BA /* UIImage+webview.m */; };
+		8252E7061CE19ECF003D78BA /* UIImage+webview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8252E7011CE19ECF003D78BA /* UIImage+webview.m */; };
 		825746CC1C170A31007EA235 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82501C861C0D90D400C58789 /* StoreKit.framework */; };
 		825AF9921CAF8DFA00BB6891 /* UIAlertController+Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 825AF9911CAF8DFA00BB6891 /* UIAlertController+Window.m */; };
 		825AF9931CAF8DFA00BB6891 /* UIAlertController+Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 825AF9911CAF8DFA00BB6891 /* UIAlertController+Window.m */; };
@@ -2226,6 +2231,8 @@
 		824B78F21C83109E00BD4DAA /* FlyingContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingContentCell.xib; sourceTree = "<group>"; };
 		82501C851C0D902000C58789 /* Finance Education.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Finance Education.entitlements"; sourceTree = "<group>"; };
 		82501C861C0D90D400C58789 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8252E7001CE19ECF003D78BA /* UIImage+webview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+webview.h"; sourceTree = "<group>"; };
+		8252E7011CE19ECF003D78BA /* UIImage+webview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+webview.m"; sourceTree = "<group>"; };
 		825AF9901CAF8DFA00BB6891 /* UIAlertController+Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Window.h"; sourceTree = "<group>"; };
 		825AF9911CAF8DFA00BB6891 /* UIAlertController+Window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Window.m"; sourceTree = "<group>"; };
 		826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingCommentHeader.h; sourceTree = "<group>"; };
@@ -3456,9 +3463,6 @@
 		82493F8F1C07F53E000A2306 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */,
-				829831441CD1C1BF0080D53E /* FlyingSummaryheader.h */,
-				829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */,
 				826D3FB71C0AC91500F8E76E /* FlyingCommentHeader.h */,
 				826D3FB81C0AC91500F8E76E /* FlyingCommentHeader.m */,
 				826D3FB91C0AC91500F8E76E /* FlyingCommentHeader.xib */,
@@ -3474,6 +3478,9 @@
 				82493F931C07F53E000A2306 /* FlyingItemParser.m */,
 				82493F941C07F53E000A2306 /* FlyingItemView.h */,
 				82493F951C07F53E000A2306 /* FlyingItemView.m */,
+				829831441CD1C1BF0080D53E /* FlyingSummaryheader.h */,
+				829831431CD1C1BF0080D53E /* FlyingSummaryheader.m */,
+				829831451CD1C1BF0080D53E /* FlyingSummaryheader.xib */,
 				8249407E1C07FFEF000A2306 /* FlyingTagCell.h */,
 				8249407F1C07FFEF000A2306 /* FlyingTagCell.m */,
 				824940801C07FFEF000A2306 /* FlyingTagCell.xib */,
@@ -3484,6 +3491,8 @@
 				82E3B4D41C943D22002B2327 /* FlyingWebViewController.m */,
 				82F7066E1C4664830068C791 /* TLTagsControl.h */,
 				82F7066F1C4664830068C791 /* TLTagsControl.m */,
+				8252E7001CE19ECF003D78BA /* UIImage+webview.h */,
+				8252E7011CE19ECF003D78BA /* UIImage+webview.m */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -4810,6 +4819,7 @@
 				8214E8F01C298BF40014B6BD /* HTTPAuthenticationRequest.m in Sources */,
 				FA11E7A519CD526200D97FDB /* MuTextSelectView.m in Sources */,
 				FA8CDD811B030821004152C2 /* MuWord.m in Sources */,
+				8252E7021CE19ECF003D78BA /* UIImage+webview.m in Sources */,
 				8214E9591C298BF40014B6BD /* DDASLLogger.m in Sources */,
 				8212F4A21C321B8E009C9F86 /* OpenUDID.m in Sources */,
 				FA11E7A119CD526200D97FDB /* MuPageViewNormal.m in Sources */,
@@ -5333,6 +5343,7 @@
 				C81F8B751BD7B488004146F0 /* FlyingGroupData.m in Sources */,
 				8212F4831C321B8E009C9F86 /* FMTokenizers.m in Sources */,
 				8212F69D1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
+				8252E7061CE19ECF003D78BA /* UIImage+webview.m in Sources */,
 				8214E91C1C298BF40014B6BD /* HTTPDataResponse.m in Sources */,
 				824940411C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.m in Sources */,
 				823903791CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
@@ -5614,6 +5625,7 @@
 				8212F4671C321B8E009C9F86 /* FMDatabaseAdditions.m in Sources */,
 				8214E9461C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D51BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				8252E7031CE19ECF003D78BA /* UIImage+webview.m in Sources */,
 				8212F69A1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240211C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
 				823903761CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
@@ -5895,6 +5907,7 @@
 				8212F4681C321B8E009C9F86 /* FMDatabaseAdditions.m in Sources */,
 				8214E9471C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D61BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				8252E7041CE19ECF003D78BA /* UIImage+webview.m in Sources */,
 				8212F69B1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240221C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
 				823903771CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,
@@ -6176,6 +6189,7 @@
 				8212F4691C321B8E009C9F86 /* FMDatabaseAdditions.m in Sources */,
 				8214E9481C298BF40014B6BD /* PUTResponse.m in Sources */,
 				FA2559D71BA13DCF00FA9A1E /* FlyingGroupData.m in Sources */,
+				8252E7051CE19ECF003D78BA /* UIImage+webview.m in Sources */,
 				8212F69C1C321BC8009C9F86 /* UIColor+RCColor.m in Sources */,
 				82B240231C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */,
 				823903781CCF255E00643612 /* FlyingGroupMemberStartView.m in Sources */,

@@ -53,7 +53,6 @@
 #import "MuPageViewNormal.h"
 #import "MuPageViewReflow.h"
 #import "MuPageView.h"
-#import "FlyingWebViewController.h"
 #import "ACMagnifyingGlass.h"
 #import "FlyingNowLessonDAO.h"
 #import "AFHttpTool.h"
@@ -243,11 +242,13 @@ enum
     singleTapOne.numberOfTouchesRequired = 1; singleTapOne.numberOfTapsRequired = 1; singleTapOne.delegate = self;
 	[self.view addGestureRecognizer:singleTapOne];
     
+    /*
 	UITapGestureRecognizer *doubleTapOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
 	doubleTapOne.numberOfTouchesRequired = 1; doubleTapOne.numberOfTapsRequired = 2; doubleTapOne.delegate = self;
 	[self.view addGestureRecognizer:doubleTapOne];
     
     [singleTapOne requireGestureRecognizerToFail:doubleTapOne];
+     */
     
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongTap:)];
 	[self.view addGestureRecognizer:longTap];

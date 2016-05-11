@@ -888,13 +888,13 @@
 //获取课程列表相关
 + (void) lessonListDataByTagForDomainID:(NSString*) domainID
                              DomainType:(NSString*) type
-                           PageNumber:(NSInteger) pageNumber
-                    lessonConcentType:  (NSString *) contentType
-                         DownloadType:  (NSString *) downloadType
-                                  Tag:  (NSString *) tag
-                        OnlyRecommend:  (BOOL)    isOnlyRecommend
-                              success:(void (^)(id response))success
-                              failure:(void (^)(NSError* err))failure
+                             PageNumber:(NSInteger) pageNumber
+                      lessonConcentType:(NSString *) contentType
+                           DownloadType:(NSString *) downloadType
+                                    Tag:(NSString *) tag
+                              Recommend:(NSString *) recommend
+                                success:(void (^)(id response))success
+                                failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"vc":@"3",@"page":[@(pageNumber) stringValue]}];
     
@@ -920,7 +920,7 @@
         
         [params setObject:domainID forKey:KAPI_BusinessID_KEY];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"sys_recom"];
         }
@@ -929,7 +929,7 @@
     {
         [params setObject:domainID forKey:@"gp_id"];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"sys_recom_c"];
         }
@@ -938,7 +938,7 @@
     {
         [params setObject:domainID forKey:@"ln_owner"];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }
@@ -1097,11 +1097,11 @@
 //推荐标签
 + (void) albumListDataForDomainID:(NSString*) domainID
                        DomainType:(NSString*) type
-              lessonConcentType:(NSString*) contentType
-                     PageNumber:(NSInteger) pageNumber
-                  OnlyRecommend:  (BOOL)    isOnlyRecommend
-                        success:(void (^)(id response))success
-                        failure:(void (^)(NSError* err))failure
+                lessonConcentType:(NSString*) contentType
+                       PageNumber:(NSInteger) pageNumber
+                        Recommend:(NSString*) recommend
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure
 {
     NSMutableDictionary *params =[NSMutableDictionary dictionaryWithDictionary:@{@"sortindex":@"upd_time desc"}];
     
@@ -1111,7 +1111,7 @@
         
         [params setObject:domainID forKey:KAPI_BusinessID_KEY];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"sys_recom"];
         }
@@ -1120,7 +1120,7 @@
         
         [params setObject:domainID forKey:@"gp_id"];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"sys_recom_c"];
         }
@@ -1129,7 +1129,7 @@
         
         [params setObject:domainID forKey:@"ln_owner"];
         
-        if(isOnlyRecommend)
+        if([BC_onlyRecommend isEqualToString:recommend])
         {
             [params setObject:@"1" forKey:@"owner_recom"];
         }

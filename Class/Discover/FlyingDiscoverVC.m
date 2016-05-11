@@ -29,6 +29,8 @@
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
 #import "FlyingConversationVC.h"
+#import "FlyingSoundPlayer.h"
+#import <CRToast.h>
 
 
 @interface FlyingDiscoverVC ()<UIViewControllerRestoration>
@@ -238,17 +240,17 @@
         [FlyingHttpTool getAlbumListForDomainID:self.domainID
                                      DomainType:self.domainType
                                     ContentType:nil
-                                   PageNumber:_currentLodingIndex
-                                    OnlyRecommend:YES
-                                   Completion:^(NSArray *albumList,NSInteger allRecordCount) {
-                                       [self.currentData addObjectsFromArray:albumList];
-                                       
-                                       _maxNumOfTags=allRecordCount;
-                                       
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           [self finishLoadingData];
-                                       });
-                                   }];
+                                     PageNumber:_currentLodingIndex
+                                      Recommend:BC_onlyRecommend
+                                     Completion:^(NSArray *albumList,NSInteger allRecordCount) {
+                                         [self.currentData addObjectsFromArray:albumList];
+                                         
+                                         _maxNumOfTags=allRecordCount;
+                                         
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             [self finishLoadingData];
+                                         });
+                                     }];
         
         return true;
     }
@@ -267,7 +269,17 @@
     }
     
     //更新界面
-    if (_currentData.count!=0)
+    if (_currentData.count==0)
+    {
+        //即时反馈
+        [FlyingSoundPlayer noticeSound];
+        NSString * message = NSLocalizedString(@"还没有推荐内容哦...", nil);
+        [CRToastManager showNotificationWithMessage:message
+                                    completionBlock:^{
+                                        NSLog(@"Completed");
+                                    }];
+    }
+    else
     {
         [self.homeFeatureTagPSColeectionView reloadData];
     }
@@ -346,6 +358,7 @@
         FlyingContentListVC * list=[[FlyingContentListVC alloc] init];
         [list setTagString:coverData.tagString];
         [list setContentType:coverData.tagtype];
+        
         [list setDomainID:self.domainID];
         [list setDomainType:self.domainType];
         
@@ -367,8 +380,9 @@
 - (void) showFeatureContent
 {
     FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
-    [contentList setOnlyRecommend:YES];
+    [contentList setRecommend:BC_onlyRecommend];
     [contentList setNoTagWork:YES];
+    
     [contentList setDomainID:self.domainID];
     [contentList setDomainType:self.domainType];
     [self pushViewController:contentList animated:YES];

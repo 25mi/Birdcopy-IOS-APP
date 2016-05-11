@@ -72,7 +72,10 @@
         [coder encodeObject:self.downloadType forKey:@"self.downloadType"];
     }
     
-    [coder encodeBool:self.onlyRecommend forKey:@"self.onlyRecommend"];
+    if (![self.recommend isBlankString])
+    {
+        [coder encodeObject:self.recommend forKey:@"self.recommend"];
+    }
     
     if (![self.title isBlankString])
     {
@@ -109,7 +112,11 @@
         self.downloadType = downloadType;
     }
     
-    self.onlyRecommend = [coder decodeBoolForKey:@"self.onlyRecommend"];
+    NSString *recommend  = [coder decodeObjectForKey:@"self.recommend"];
+    if (![recommend isBlankString])
+    {
+        self.recommend = recommend;
+    }
     
     NSString * title = [coder decodeObjectForKey:@"self.title"];
     if (![title isBlankString])
@@ -298,7 +305,7 @@
                                lessonConcentType:self.contentType
                                     DownloadType:self.downloadType
                                              Tag:self.tagString
-                                   OnlyRecommend:self.onlyRecommend
+                                       Recommend:self.recommend
                                       Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
                                           //
                                           if (lessonList) {
@@ -449,7 +456,6 @@
                 
                 FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
                 [webVC setThePubLesson:lessonPubData];
-                
                 [self.navigationController pushViewController:webVC animated:YES];
             }
             else

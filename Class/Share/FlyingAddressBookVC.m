@@ -70,8 +70,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     {
         self.title = string;
     }
-    
-    [self loadData];
 }
 
 - (id)init

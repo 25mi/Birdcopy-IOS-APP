@@ -1548,85 +1548,85 @@
 //////////////////////////////////////////////////////////////
 + (void) getAlbumListForDomainID:(NSString*) domainID
                       DomainType:(NSString*) type
-                  ContentType:(NSString*) contentType
-                   PageNumber:(NSInteger) pageNumber
-                OnlyRecommend:  (BOOL)    isOnlyRecommend
-                   Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
+                     ContentType:(NSString*) contentType
+                      PageNumber:(NSInteger) pageNumber
+                       Recommend:(NSString*) recommend
+                      Completion:(void (^)(NSArray *albumList,NSInteger allRecordCount)) completion
 {
     [AFHttpTool albumListDataForDomainID:domainID
                               DomainType:type
-                     lessonConcentType:contentType
-                                 PageNumber:pageNumber
-                                  OnlyRecommend:isOnlyRecommend
-                                    success:^(id response) {
-                                        //
-                                        FlyingCoverDataParser *parser = [[FlyingCoverDataParser  alloc] init];
-                                        
-                                        [parser SetData:response];
-                                        
-                                        parser.completionBlock = ^(NSArray *tagCoverList,NSInteger allRecordCount)
-                                        {
-                                            if(tagCoverList.count!=0 && completion) {
-                                                completion(tagCoverList,allRecordCount);
-                                            }
-                                        };
-                                        
-                                        parser.failureBlock = ^(NSError *error)
-                                        {
-                                            NSLog(@"FlyingCoverDataParser:%@",error.description);
-                                        };
-                                        
-                                        [parser parse];
-                                    } failure:^(NSError *err) {
-                                        //
-                                        NSLog(@"albumListDataForContentType:%@",err.description);
-
-                                    }];
+                       lessonConcentType:contentType
+                              PageNumber:pageNumber
+                               Recommend:recommend
+                                 success:^(id response) {
+                                     //
+                                     FlyingCoverDataParser *parser = [[FlyingCoverDataParser  alloc] init];
+                                     
+                                     [parser SetData:response];
+                                     
+                                     parser.completionBlock = ^(NSArray *tagCoverList,NSInteger allRecordCount)
+                                     {
+                                         if(completion) {
+                                             completion(tagCoverList,allRecordCount);
+                                         }
+                                     };
+                                     
+                                     parser.failureBlock = ^(NSError *error)
+                                     {
+                                         NSLog(@"FlyingCoverDataParser:%@",error.description);
+                                     };
+                                     
+                                     [parser parse];
+                                 } failure:^(NSError *err) {
+                                     //
+                                     NSLog(@"albumListDataForContentType:%@",err.description);
+                                     
+                                 }];
 }
 
 
 + (void) getLessonListForDomainID:(NSString*)  domainID
                        DomainType:(NSString*)  type
-                     PageNumber:   (NSInteger) pageNumber
-              lessonConcentType:  (NSString *) contentType
-                   DownloadType:  (NSString *) downloadType
-                            Tag:  (NSString *) tag
-                 OnlyRecommend:  (BOOL)    isOnlyRecommend
-                     Completion:(void (^)
-                                 (NSArray *lessonList,NSInteger allRecordCount)) completion
+                       PageNumber:(NSInteger)  pageNumber
+                lessonConcentType:(NSString *) contentType
+                     DownloadType:(NSString *) downloadType
+                              Tag:(NSString *) tag
+                        Recommend:(NSString*)  recommend
+                       Completion:(void (^)
+                                   (NSArray *lessonList,NSInteger allRecordCount)) completion
 {
     
     [AFHttpTool lessonListDataByTagForDomainID:domainID
                                     DomainType:type
-                                  PageNumber:pageNumber
-                              lessonConcentType:contentType
-                                   DownloadType:downloadType
-                                            Tag:tag
-                                      OnlyRecommend:isOnlyRecommend
-                                        success:^(id response) {
-                                            //
-                                            
-                                            FlyingLessonParser *parser = [[FlyingLessonParser alloc] init];
-                                            [parser SetData:response];
-                                            
-                                            parser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-                                            {
-                                                if(LessonList.count!=0 && completion) {
-                                                    completion(LessonList,allRecordCount);
-                                                }
-                                            };
-                                            
-                                            parser.failureBlock = ^(NSError *error)
-                                            {
-                                                NSLog(@"FlyingLessonParser:%@",error.description);
-                                            };
-                                            
-                                            [parser parse];
-
-                                        } failure:^(NSError *err) {
-                                            //
-                                            NSLog(@"lessonListByTagURLForPageNumber:%@",err.description);
-                                        }];
+                                    PageNumber:pageNumber
+                             lessonConcentType:contentType
+                                  DownloadType:downloadType
+                                           Tag:tag
+                                     Recommend:recommend
+                                       success:^(id response) {
+                                           //
+                                           
+                                           FlyingLessonParser *parser = [[FlyingLessonParser alloc] init];
+                                           [parser SetData:response];
+                                           
+                                           parser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+                                           {
+                                               if(LessonList.count!=0 && completion) {
+                                                   completion(LessonList,allRecordCount);
+                                               }
+                                           };
+                                           
+                                           parser.failureBlock = ^(NSError *error)
+                                           {
+                                               NSLog(@"FlyingLessonParser:%@",error.description);
+                                           };
+                                           
+                                           [parser parse];
+                                           
+                                       } failure:^(NSError *err) {
+                                           //
+                                           NSLog(@"lessonListByTagURLForPageNumber:%@",err.description);
+                                       }];
 }
 
 + (void) getCoverListForDomainID:(NSString*) domainID
@@ -1636,38 +1636,38 @@
 {
     [AFHttpTool lessonListDataByTagForDomainID:domainID
                                     DomainType:type
-                                 PageNumber:pageNumber
-                           lessonConcentType:nil
-                                DownloadType:nil
-                                         Tag:nil
-                                   OnlyRecommend:YES
-                                     success:^(id response) {
-                                         
-                                         if (response) {
-                                             FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
-                                             [lessonParser SetData:response];
-                                             
-                                             lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
-                                             {
-                                                 if(LessonList.count!=0 && completion) {
-                                                     completion(LessonList,allRecordCount);
-                                                 }
-                                             };
-                                             
-                                             lessonParser.failureBlock = ^(NSError *error)
-                                             {
-                                                 NSLog(@"FlyingLessonParser:%@",error.description);
-                                             };
-                                             
-                                             [lessonParser parse];
-                                         }
-                                     }
-                                     failure:^(NSError *err) {
-                                         //
-                                         
-                                         NSLog(@"coverListWithSuccessCompletion %@",err.description);
-                                         
-                                     }];
+                                    PageNumber:pageNumber
+                             lessonConcentType:nil
+                                  DownloadType:nil
+                                           Tag:nil
+                                     Recommend:BC_onlyRecommend
+                                       success:^(id response) {
+                                           
+                                           if (response) {
+                                               FlyingLessonParser * lessonParser = [[FlyingLessonParser alloc] init];
+                                               [lessonParser SetData:response];
+                                               
+                                               lessonParser.completionBlock = ^(NSArray *LessonList,NSInteger allRecordCount)
+                                               {
+                                                   if(LessonList.count!=0 && completion) {
+                                                       completion(LessonList,allRecordCount);
+                                                   }
+                                               };
+                                               
+                                               lessonParser.failureBlock = ^(NSError *error)
+                                               {
+                                                   NSLog(@"FlyingLessonParser:%@",error.description);
+                                               };
+                                               
+                                               [lessonParser parse];
+                                           }
+                                       }
+                                       failure:^(NSError *err) {
+                                           //
+                                           
+                                           NSLog(@"coverListWithSuccessCompletion %@",err.description);
+                                           
+                                       }];
 }
 
 + (void) getLessonForLessonID:(NSString*) lessonID

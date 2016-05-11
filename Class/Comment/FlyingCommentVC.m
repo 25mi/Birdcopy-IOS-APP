@@ -118,8 +118,11 @@
     {
         self.commentTitle = commentTitle;
     }
-
-    [self reloadAll];
+    
+    if(![self.contentID isBlankString])
+    {
+        [self reloadAll];
+    }
 }
 
 - (id)init
@@ -197,7 +200,10 @@
         self.navigationItem.leftBarButtonItem = backBarButtonItem;
     }
     
-    [self reloadAll];
+    if(![self.contentID isBlankString])
+    {
+        [self reloadAll];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -266,29 +272,26 @@
 
 - (void)loadMore
 {
-    if (self.contentID) {
-
-        if (_currentData.count<_maxNumOfComments)
-        {
-            _currentLodingIndex++;
-            
-            [FlyingHttpTool getCommentListForContentID:self.contentID
-                                           ContentType:self.contentType
-                                            PageNumber:_currentLodingIndex
-                                            Completion:^(NSArray *commentList, NSInteger allRecordCount) {
+    if (_currentData.count<_maxNumOfComments)
+    {
+        _currentLodingIndex++;
+        
+        [FlyingHttpTool getCommentListForContentID:self.contentID
+                                       ContentType:self.contentType
+                                        PageNumber:_currentLodingIndex
+                                        Completion:^(NSArray *commentList, NSInteger allRecordCount) {
+                                            
+                                            if (commentList.count!=0) {
                                                 
-                                                if (commentList.count!=0) {
+                                                [self.currentData addObjectsFromArray:commentList];
+                                                _maxNumOfComments=allRecordCount;
+                                                
+                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                     
-                                                    [self.currentData addObjectsFromArray:commentList];
-                                                    _maxNumOfComments=allRecordCount;
-                                                    
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        
-                                                        [self.tableView reloadData];
-                                                    });
-                                                }
-                                            }];
-        }
+                                                    [self.tableView reloadData];
+                                                });
+                                            }
+                                        }];
     }
 }
 
@@ -397,7 +400,7 @@
         }
         else
         {
-            [self.loadingMoreIndicatorCell stopAnimating:@"点击成为第一个评论者"];
+            [self.loadingMoreIndicatorCell stopAnimating:@"点击这里开始评论..."];
         }
     }
 }

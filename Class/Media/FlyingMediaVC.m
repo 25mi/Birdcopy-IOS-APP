@@ -245,8 +245,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         self.thePubLesson = thePubLesson;
     }
     
-    if (self.thePubLesson) {
-        
+    if (self.thePubLesson)
+    {
         [self initData];
         [self showLoadingIndicator];
         [self playVedio];
@@ -275,12 +275,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         [self showLoadingIndicator];
         [self playVedio];
     }
-    
-    //监控
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(godReset)
-                                                 name:KGodIsComing
-                                               object:nil];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -291,10 +285,18 @@ static void *TrackObservationContext         = &TrackObservationContext;
     {
         [self playAndDoAI];
     }
+    
+    //监控
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(godReset)
+                                                 name:KGodIsComing
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KGodIsComing    object:nil];
+
     if(self.player)
     {
         [self pauseAndDoAI];
@@ -901,7 +903,7 @@ static void *TrackObservationContext         = &TrackObservationContext;
         if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
         {
             [FlyingSoundPlayer noticeSound];
-            NSString *message = NSLocalizedString(@"如果还有问题，建议删除课程更新一下：）",nil);
+            NSString *message = NSLocalizedString(@"网速太慢,使劲加载中...",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
                                             NSLog(@"Completed");
@@ -2076,9 +2078,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
 #pragma mark - Flying back
 
 //back delegate functions
-- (void)dismiss{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KGodIsComing    object:nil];
+- (void)dismiss
+{
     
     [self stop];
 }

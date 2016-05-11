@@ -90,7 +90,7 @@
     CGRect frame = [coder decodeCGRectForKey:@"self.groupStreamTableView.frame"];
     if (!CGRectEqualToRect(frame,CGRectZero))
     {
-        self.groupStreamTableView.frame = [coder decodeCGRectForKey:@"self.groupStreamTableView.frame"];
+        self.groupStreamTableView.frame = frame;
     }
 
     if (self.groupData)
@@ -188,8 +188,7 @@
         CGRect memberStartFrame=self.view.frame;
         CGRect frame=self.view.frame;
         
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSInteger height = appDelegate.getTabBarController.tabBar.frame.size.height;
+        NSInteger height = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
         
         memberStartFrame.size.width  = frame.size.width;
         memberStartFrame.size.height = height;
@@ -412,7 +411,7 @@
                             lessonConcentType:nil
                                  DownloadType:nil
                                           Tag:nil
-                                OnlyRecommend:NO
+                                Recommend:nil
                                    Completion:^(NSArray *lessonList, NSInteger allRecordCount) {
                                        //
                                        if (lessonList) {

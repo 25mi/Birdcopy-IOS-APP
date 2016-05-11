@@ -331,6 +331,11 @@
     
     [CRToastManager setDefaultOptions:options];
     
+    //初始化默认后台通知设置
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KNoticeNewMessage];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KNoticeVoiceMessage];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     //获取平台消息
     [FlyingHttpTool getUserInfoByRongID:@"sysAdminor"
                              completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
@@ -400,29 +405,62 @@
     [self refreshTabBadgeValue];
     
     RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:message.targetId];
-
-    switch (message.conversationType)
+    
+    if (userInfo)
     {
-        case ConversationType_PRIVATE:
-        case ConversationType_CUSTOMERSERVICE:
-        case ConversationType_SYSTEM:
+        switch (message.conversationType)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [FlyingSoundPlayer noticeSound];
-
-                NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
-                [CRToastManager showNotificationWithMessage:messageText
-                                            completionBlock:^{
-                                                NSLog(@"Completed");
-                                            }];
-            });
+            case ConversationType_PRIVATE:
+            case ConversationType_CUSTOMERSERVICE:
+            case ConversationType_SYSTEM:
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [FlyingSoundPlayer noticeSound];
+                    
+                    NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
+                    [CRToastManager showNotificationWithMessage:messageText
+                                                completionBlock:^{
+                                                    NSLog(@"Completed");
+                                                }];
+                });
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        default:
-            break;
     }
+    else
+    {
+        [FlyingHttpTool getUserInfoByRongID:message.targetId
+                                 completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
+                                     //
+                                     switch (message.conversationType)
+                                     {
+                                         case ConversationType_PRIVATE:
+                                         case ConversationType_CUSTOMERSERVICE:
+                                         case ConversationType_SYSTEM:
+                                         {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 
+                                                 [FlyingSoundPlayer noticeSound];
+                                                 
+                                                 NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
+                                                 [CRToastManager showNotificationWithMessage:messageText
+                                                                             completionBlock:^{
+                                                                                 NSLog(@"Completed");
+                                                                             }];
+                                             });
+                                         }
+                                             break;
+                                             
+                                         default:
+                                             break;
+                                     }
+                                 }];
+    }
+
 }
 
 - (void)dealloc
@@ -641,8 +679,7 @@
         FlyingWebViewController * webVC=[[FlyingWebViewController alloc] init];
         [webVC setWebURL:webURL];
         
-        [self pushViewController:webVC
-                        animated:YES];
+        [self pushViewController:webVC animated:YES];
         
         return YES;
     }

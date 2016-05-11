@@ -26,6 +26,36 @@
 #define TAG_ACTIVITY_INDICATOR 149462
 
 
+@implementation UITouch (TouchSorting)
+
+- (NSComparisonResult)compareAddress:(id)obj
+{
+    if ((__bridge void *)self < (__bridge void *)obj)
+    {
+        return NSOrderedAscending;
+    }
+    else if ((__bridge void *)self == (__bridge void *)obj)
+    {
+        return NSOrderedSame;
+    }
+    else
+    {
+        return NSOrderedDescending;
+    }
+}
+
+@end
+
+@interface FlyingItemView (TouchCOntrol)
+
+- (CGAffineTransform)incrementalTransformWithTouches:(NSSet *)touches;
+- (void)updateOriginalTransformForTouches:(NSSet *)touches;
+
+- (void)cacheBeginPointForTouches:(NSSet *)touches;
+- (void)removeTouchesFromCache:(NSSet *)touches;
+
+@end
+
 @interface FlyingItemView ()<UIGestureRecognizerDelegate>
 
 @property (strong,nonatomic) UIImageView * backgroundNotesImageView;
@@ -54,6 +84,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.opaque=NO;
         self.alpha=0;
+        
         self.userInteractionEnabled = YES;
         self.multipleTouchEnabled = NO;
         self.exclusiveTouch = YES;
@@ -63,17 +94,18 @@
         
         self.tagTrasform= [[FlyingTagTransform alloc] init];
         
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemPressed:)];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchItem)];
         tapRecognizer.numberOfTapsRequired = 1; // 单击
         [self addGestureRecognizer:tapRecognizer];
-
+        
+        originalTransform = CGAffineTransformIdentity;
+        touchBeginPoints = CFDictionaryCreateMutable(NULL, 0, NULL, NULL);
     }
     return self;
 }
 
 - (void)  drawWithLemma:(NSString *) lemma AppTag: (NSString*) appTag
 {
-    
     self.lemma=lemma;
     self.appTag=appTag;
     
@@ -267,13 +299,9 @@
         [self addSubview:descLabel];
     }
 }
-
-
-
 //////////////////////////////////////////////////////////////
 #pragma mark - Download data from Web Dictionary
 //////////////////////////////////////////////////////////////
-
 - (void) showWebData
 {
     [AFHttpTool dicDataforWord:self.lemma success:^(id response) {
@@ -438,14 +466,178 @@
     }
 }
 
-
-- (void) itemPressed:(NSString*)lemma
+- (void) touchItem
 {
     [[[FlyingSoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(itemPressed:)])
     {
         [self.delegate itemPressed:self.lemma];
+    }
+}
+
+#pragma mark - 拖拽 缩放手势功能
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [UIView animateWithDuration:1 animations:^{
+        [self.superview bringSubviewToFront:self];
+    }];
+    
+    
+    //发音功能
+    /*UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self.magnetImageView];
+    if ([self.magnetImageView pointInside:touchPoint withEvent:event]) {
+        
+        [[[FlyingSoundPlayer alloc] init] speechWord:self.word LessonID:self.lessonID];
+    }
+     */
+    
+    NSMutableSet *currentTouches = [[event touchesForView:self] mutableCopy];
+    [currentTouches minusSet:touches];
+    if ([currentTouches count] > 0)
+    {
+        [self updateOriginalTransformForTouches:currentTouches];
+        [self cacheBeginPointForTouches:currentTouches];
+    }
+    [self cacheBeginPointForTouches:touches];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    CGAffineTransform incrementalTransform =
+    [self incrementalTransformWithTouches:[event touchesForView:self]];
+    self.transform = CGAffineTransformConcat(originalTransform,
+                                             incrementalTransform);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches)
+    {
+        if (touch.tapCount >= 2)
+        {
+            [self.superview bringSubviewToFront:self];
+        }
+    }
+    
+    [self updateOriginalTransformForTouches:[event touchesForView:self]];
+    [self removeTouchesFromCache:touches];
+    
+    NSMutableSet *remainingTouches = [[event touchesForView:self] mutableCopy];
+    [remainingTouches minusSet:touches];
+    [self cacheBeginPointForTouches:remainingTouches];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self touchesEnded:touches withEvent:event];
+}
+
+- (CGAffineTransform)incrementalTransformWithTouches:(NSSet *)touches
+{
+    NSArray *sortedTouches = [[touches allObjects] sortedArrayUsingSelector:
+                              @selector(compareAddress:)];
+    NSInteger numTouches = [sortedTouches count];
+    
+    // No touches
+    if (numTouches == 0)
+    {
+        return CGAffineTransformIdentity;
+    }
+    
+    // Single touch
+    if (numTouches == 1)
+    {
+        UITouch *touch = [sortedTouches objectAtIndex:0];
+        CGPoint beginPoint = *(CGPoint *)CFDictionaryGetValue(touchBeginPoints,(__bridge const void *)(touch));
+        CGPoint currentPoint = [touch locationInView:self.superview];
+        return CGAffineTransformMakeTranslation(currentPoint.x - beginPoint.x,
+                                                currentPoint.y - beginPoint.y);
+    }
+    
+    // If two or more touches, go with the first two (sorted by address)
+    UITouch *touch1 = [sortedTouches objectAtIndex:0];
+    UITouch *touch2 = [sortedTouches objectAtIndex:1];
+    
+    CGPoint beginPoint1 = *(CGPoint *)CFDictionaryGetValue(touchBeginPoints,(__bridge const void *)(touch1));
+    CGPoint currentPoint1 = [touch1 locationInView:self.superview];
+    CGPoint beginPoint2 = *(CGPoint *)CFDictionaryGetValue(touchBeginPoints,(__bridge const void *)(touch2));
+    CGPoint currentPoint2 = [touch2 locationInView:self.superview];
+    
+    double layerX = self.center.x;
+    double layerY = self.center.y;
+    
+    double x1 = beginPoint1.x - layerX;
+    double y1 = beginPoint1.y - layerY;
+    double x2 = beginPoint2.x - layerX;
+    double y2 = beginPoint2.y - layerY;
+    double x3 = currentPoint1.x - layerX;
+    double y3 = currentPoint1.y - layerY;
+    double x4 = currentPoint2.x - layerX;
+    double y4 = currentPoint2.y - layerY;
+    
+    // Solve the system:
+    //[a b t1, -b a t2, 0 0 1] * [x1, y1, 1] = [x3, y3, 1]
+    //[a b t1, -b a t2, 0 0 1] * [x2, y2, 1] = [x4, y4, 1]
+    
+    double D = (y1-y2)*(y1-y2) + (x1-x2)*(x1-x2);
+    if (D < 0.1)
+    {
+        return CGAffineTransformMakeTranslation(x3-x1, y3-y1);
+    }
+    
+    double a = (y1-y2)*(y3-y4) + (x1-x2)*(x3-x4);
+    double b = (y1-y2)*(x3-x4) - (x1-x2)*(y3-y4);
+    double tx = (y1*x2 - x1*y2)*(y4-y3) - (x1*x2 + y1*y2)*(x3+x4) +
+    x3*(y2*y2 + x2*x2) + x4*(y1*y1 + x1*x1);
+    double ty = (x1*x2 + y1*y2)*(-y4-y3) + (y1*x2 - x1*y2)*(x3-x4) +
+    y3*(y2*y2 + x2*x2) + y4*(y1*y1 + x1*x1);
+    
+    return CGAffineTransformMake(a/D, -b/D, b/D, a/D, tx/D, ty/D);
+}
+
+- (void)updateOriginalTransformForTouches:(NSSet *)touches
+{
+    if ([touches count] > 0)
+    {
+        CGAffineTransform incrementalTransform =
+        [self incrementalTransformWithTouches:touches];
+        self.transform = CGAffineTransformConcat(originalTransform,
+                                                 incrementalTransform);
+        originalTransform = self.transform;
+    }
+}
+
+- (void)cacheBeginPointForTouches:(NSSet *)touches
+{
+    if ([touches count] > 0)
+    {
+        for (UITouch *touch in touches)
+        {
+            CGPoint *point = (CGPoint *)CFDictionaryGetValue(touchBeginPoints,(__bridge const void *)(touch));
+            if (point == NULL)
+            {
+                point = (CGPoint *)malloc(sizeof(CGPoint));
+                CFDictionarySetValue(touchBeginPoints, (__bridge const void *)(touch), point);
+            }
+            *point = [touch locationInView:self.superview];
+        }
+    }
+}
+
+- (void)removeTouchesFromCache:(NSSet *)touches
+{
+    for (UITouch *touch in touches)
+    {
+        CGPoint *point = (CGPoint *)CFDictionaryGetValue(touchBeginPoints,
+                                                         (__bridge const void *)(touch));
+        if (point != NULL)
+        {
+            free((void *)CFDictionaryGetValue(touchBeginPoints, (__bridge const void *)(touch)));
+            CFDictionaryRemoveValue(touchBeginPoints, (__bridge const void *)(touch));
+        }
     }
 }
 

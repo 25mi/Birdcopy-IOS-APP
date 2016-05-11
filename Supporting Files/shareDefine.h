@@ -19,6 +19,9 @@
 #define BC_Pushed_State     @"BC_Pushed_State"
 #define BC_Presented_State  @"BC_Presented_State"
 
+//是否推荐
+#define BC_onlyRecommend     @"BC_onlyRecommend"
+
 //获取资源类型
 #define BC_Domain_Business     @"BC_Domain_Business"
 #define BC_Domain_Group        @"BC_Domain_Group"

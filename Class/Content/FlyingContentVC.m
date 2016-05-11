@@ -46,6 +46,7 @@
 #import "FlyingGroupVC.h"
 #import "FlyingSummaryheader.h"
 #import <CRToastManager.h>
+#import "FlyingItemView.h"
 
 @interface FlyingContentVC ()<UIViewControllerRestoration>
 {
@@ -132,7 +133,7 @@
     
     FlyingMediaVC * mediaVC = [coder decodeObjectForKey:@"self.mediaVC"];
     
-    if (self.mediaVC)
+    if (mediaVC)
     {
         self.mediaVC = mediaVC;
         self.mediaVC.restorationIdentifier = self.restorationIdentifier;
@@ -218,6 +219,25 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+-(void) handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
+{
+    CGPoint point = [recognizer locationInView:recognizer.view];
+    UIView *viewTouched = [recognizer.view hitTest:point withEvent:nil];
+    
+    if ([viewTouched isKindOfClass:[FlyingItemView class]])
+    {
+        // Do nothing;
+    }
+    else {
+        // respond to touch action
+        
+        if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+            
+            [super dismissNavigation];
+        }
+    }
 }
 
 - (void) willDismiss
@@ -559,6 +579,7 @@
                 webVC.domainType = self.domainType;
                 
                 [webVC setThePubLesson:self.thePubLesson];
+                
                 [self.navigationController pushViewController:webVC animated:YES];
             }
         }

@@ -276,10 +276,13 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         
         if([BC_Search_Lesson isEqualToString:self.searchType])
         {
-            FlyingContentListVC *conetentList = [[FlyingContentListVC alloc] init];
-            [conetentList setTagString:resultString];
+            FlyingContentListVC *contentList = [[FlyingContentListVC alloc] init];
+            [contentList setTagString:resultString];
             
-            [self.navigationController pushViewController:conetentList animated:YES];
+            [contentList setDomainID:self.domainID];
+            [contentList setDomainType:self.domainType];
+            
+            [self.navigationController pushViewController:contentList animated:YES];
         }
         else if([BC_Search_Word isEqualToString:self.searchType])
         {

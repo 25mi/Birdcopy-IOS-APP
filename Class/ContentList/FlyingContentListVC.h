@@ -24,8 +24,7 @@
 
 @property (strong, nonatomic) NSString           *contentType;
 @property (strong, nonatomic) NSString           *downloadType;
-@property (assign, nonatomic) BOOL               onlyRecommend;
-
+@property (assign, nonatomic) NSString           *recommend;
 
 @property (strong, nonatomic) UITableView        *contentTableView;
 

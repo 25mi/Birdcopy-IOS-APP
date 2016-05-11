@@ -17,23 +17,41 @@
 #import "NSString+FlyingExtention.h"
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "UIImage+webview.h"
+
 @interface FlyingWebViewController ()<UIViewControllerRestoration,
                                         WKNavigationDelegate,
                                         WKUIDelegate,
-                                        WKScriptMessageHandler>
+                                        WKScriptMessageHandler,
+                                        UIScrollViewDelegate>
 {
     //跳转App内部逻辑用
     //FlyingLessonParser      *_parser;
 }
 
 @property(nonatomic,strong)  WKWebView * webView;
+@property (nonatomic,strong) NSMutableURLRequest *urlRequest;
+
 @property(nonatomic,strong)  UIProgressView *  progressView;
 
 @property(nonatomic,strong)  WKUserContentController *userContentController;
 
-@property (strong, nonatomic) UIButton *shareButton;
-
 @property (strong,nonatomic) MPMoviePlayerViewController *playerVC;
+
+
+@property (nonatomic,strong) UIToolbar * customToolBar;
+
+/* Navigation Buttons */
+@property (nonatomic,strong) UIBarButtonItem *backButton;             /* Moves the web view one page back */
+@property (nonatomic,strong) UIBarButtonItem *forwardButton;          /* Moves the web view one page forward */
+@property (nonatomic,strong) UIBarButtonItem *reloadStopButton;       /* Reload / Stop buttons */
+@property (nonatomic,strong) UIBarButtonItem *actionButton;           /* Shows the UIActivityViewController */
+
+/* Images for the Reload/Stop button */
+@property (nonatomic,strong) UIImage *reloadIcon;
+@property (nonatomic,strong) UIImage *stopIcon;
+
+@property (nonatomic, assign) CGFloat lastContentOffset;
 
 @end
 
@@ -59,6 +77,12 @@
     {
         [coder encodeObject:self.thePubLesson forKey:@"self.thePubLesson"];
     }
+    
+    if (!CGRectEqualToRect(self.webView.frame,CGRectZero))
+    {
+        [coder encodeCGRect:self.webView.frame forKey:@"self.webView.frame"];
+    }
+
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
@@ -78,8 +102,14 @@
         self.thePubLesson = thePubLesson;
     }
     
+    CGRect frame = [coder decodeCGRectForKey:@"self.webView.frame"];
+    if (!CGRectEqualToRect(frame,CGRectZero))
+    {
+        self.webView.frame = frame;
+    }
+    
     if (![self.webURL isBlankString] ||
-        self.thePubLesson)
+        self.thePubLesson!=nil)
     {
         [self loadWebview];
     }
@@ -92,7 +122,6 @@
         // Custom initialization
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
-        self.webView.restorationIdentifier = self.restorationIdentifier;
     }
     return self;
 }
@@ -101,8 +130,6 @@
 {
     [super viewDidLoad];
     
-    //self.edgesForExtendedLayout = UIRectEdgeAll;
-
     self.title = @"网页内容";
     
     //顶部导航
@@ -111,12 +138,7 @@
     [commentButton addTarget:self action:@selector(doCommnet) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* commentBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:commentButton];
     
-    self.shareButton= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    [self.shareButton setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    [self.shareButton addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* shareBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareBarButtonItem,commentBarButtonItem,nil];
+    self.navigationItem.rightBarButtonItem = commentBarButtonItem;
     
     if (!self.webView)
     {
@@ -143,14 +165,17 @@
         // 是否支持记忆读取
         configuration.suppressesIncrementalRendering = YES;
         
-        self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
+        self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64)
+                                          configuration:configuration];
         
+        self.webView.restorationIdentifier = self.restorationIdentifier;
+
         // 设置代理
         self.webView.navigationDelegate = self;
         self.webView.UIDelegate = self;
+        self.webView.scrollView.delegate =self;
         
         // 添加进度监控
-        
         /*
          NSKeyValueObservingOptionNew 把更改之前的值提供给处理方法
          
@@ -159,13 +184,11 @@
          　　NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册，立马就会调用一次。通常它会带有新值，而不会带有旧值。
          
          　　NSKeyValueObservingOptionPrior 分2次调用。在值改变之前和值改变之后。
-         
          */
-        
         [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
         
         //开启手势触摸
-        self.webView.allowsBackForwardNavigationGestures = YES;
+        self.webView.allowsBackForwardNavigationGestures = NO;
         
         // 设置 可以前进 和 后退
         //适应你设定的尺寸
@@ -176,10 +199,9 @@
     
     if (!self.progressView)
     {
-        
         self.progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
         
-        CGRect barFrame = CGRectMake(0, 64, self.view.frame.size.width, 1);
+        CGRect barFrame = CGRectMake(0, 0, self.view.frame.size.width, 1);
         
         self.progressView.frame = barFrame;
         
@@ -196,56 +218,38 @@
     }
     
     if (![self.webURL isBlankString] ||
-        self.thePubLesson)
+        self.thePubLesson!=nil)
     {
         [self loadWebview];
     }
+    
+    [self setUpNavigationButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setToolbarHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
+    [self setToolbarHidden:YES];
     [self.userContentController removeScriptMessageHandlerForName:@"playvideo"];
+    
+    //zombie bug fix
+    self.webView.scrollView.delegate = nil;
 }
 
 - (void) willDismiss
 {
-    if (_webView) {
-        
+    if (_webView)
+    {
         [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
         [_webView stopLoading];
-        //_webView=nil;
     }
-}
-
-- (void) shakeToShow:(UIView*)aView
-
-{
-    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    
-    animation.duration = 1.5;// 动画时间
-    
-    NSMutableArray *values = [NSMutableArray array];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-    
-    // 这三个数字，我只研究了前两个，所以最后一个数字我还是按照它原来写1.0；前两个是控制view的大小的；
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)]];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.6, 1.6, 1.0)]];
-    
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(2.0, 2.0, 1.0)]];
-    
-    animation.values = values;
-    
-    [aView.layer addAnimation:animation forKey:nil];
 }
 
 -(void) doCommnet
@@ -256,13 +260,16 @@
     commentVC.contentType=self.thePubLesson.contentType;
     commentVC.commentTitle=self.thePubLesson.title;
     
+    commentVC.domainID = self.domainID;
+    commentVC.domainType = self.domainType;
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void) doSomething
 {
-    if (self.thePubLesson) {
-        
+    if (self.thePubLesson)
+    {
         FlyingShareData * shareData = [[FlyingShareData alloc] init];
         
         shareData.webURL  = [NSURL URLWithString:self.thePubLesson.weburl];
@@ -274,7 +281,7 @@
         shareData.image   = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareData.imageURL]]] makeThumbnailOfSize:CGSizeMake(90, 120)];
         
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shareContent:shareData fromView:self.shareButton];
+        [appDelegate shareContent:shareData fromView:self.actionButton];
     }
     else
     {
@@ -284,13 +291,8 @@
         shareData.title   = self.title;
         
         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate shareContent:shareData fromView:self.shareButton];
+        [appDelegate shareContent:shareData fromView:self.actionButton];
     }
-}
-
-- (void) doFresh
-{
-    [_webView reload];
 }
 
 -(void) loadWebview
@@ -302,13 +304,30 @@
         
     NSURL *webURL = [NSURL URLWithString:self.webURL];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webURL];
+    self.urlRequest = [NSMutableURLRequest requestWithURL:webURL];
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+        [self.urlRequest setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     }
 
-    [_webView loadRequest:request];
+    [_webView loadRequest:self.urlRequest];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!INTERFACE_IS_PAD)
+    {
+        if (self.lastContentOffset > scrollView.contentOffset.y)
+        {
+            [self setToolbarHidden:NO];
+        }
+        else if (self.lastContentOffset < scrollView.contentOffset.y)
+        {
+            [self setToolbarHidden:YES];
+        }
+        
+        self.lastContentOffset = scrollView.contentOffset.y;
+    }
 }
 
 //////////////////////////////////////////////////////////////
@@ -318,7 +337,6 @@
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    
     self.progressView.hidden = YES;
     
     /*
@@ -333,14 +351,14 @@
     //遍历网页中的视频资源 并加上播放标示
     NSString *javaScript=[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"injectJSForVideo" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
 
-    
     [webView evaluateJavaScript:javaScript completionHandler:nil];
+    
+    [self refreshButtonsState];
 }
 
 //开始加载
 -(void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
-    
     //开始加载的时候，让加载进度条显示
     self.progressView.hidden = NO;
 }
@@ -505,6 +523,190 @@
     
     // 交互。可输入的文本。
     
+}
+
+- (void)setUpNavigationButtons
+{
+    //set up the back button
+    if (self.backButton == nil)
+    {
+        UIImage *backButtonImage = [UIImage backButton];
+        
+        self.backButton = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTapped:)];
+    }
+    
+    //set up the forward button
+    if (self.forwardButton == nil) {
+        UIImage *forwardButtonImage = [UIImage forwardButton];
+        self.forwardButton  = [[UIBarButtonItem alloc] initWithImage:forwardButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonTapped:)];
+    }
+    
+    //set up the reload button
+    if (self.reloadStopButton == nil) {
+        self.reloadIcon = [UIImage refreshButton];
+        self.stopIcon   = [UIImage stopButton];
+        
+        self.reloadStopButton = [[UIBarButtonItem alloc] initWithImage:self.reloadIcon style:UIBarButtonItemStylePlain target:self action:@selector(reloadStopButtonTapped:)];
+    }
+    
+    //if desired, show the action button
+    if (self.actionButton == nil) {
+        self.actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonTapped:)];
+        
+        CGFloat topInset = -2.0f;
+        self.actionButton.imageInsets = UIEdgeInsetsMake(topInset, 0.0f, -topInset, 0.0f);
+    }
+    
+    [self layoutButtonsForCurrentSizeClass];
+}
+
+#define NAVIGATION_ICON_SPACING             25
+
+- (void)layoutButtonsForCurrentSizeClass
+{
+    //Handle iPhone Layout
+    if (!INTERFACE_IS_PAD)
+    {
+        //Set up array of buttons
+        NSMutableArray *items = [NSMutableArray array];
+        
+        if (self.backButton)        { [items addObject:self.backButton]; }
+        if (self.forwardButton)     { [items addObject:self.forwardButton]; }
+        if (self.actionButton)      { [items addObject:self.actionButton]; }
+        if (self.reloadStopButton)  { [items addObject:self.reloadStopButton]; }
+        
+        UIBarButtonItem *(^flexibleSpace)() = ^{
+            return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        };
+        
+        BOOL lessThanFiveItems = items.count < 5;
+        
+        NSInteger index = 1;
+        NSInteger itemsCount = items.count-1;
+        for (NSInteger i = 0; i < itemsCount; i++) {
+            [items insertObject:flexibleSpace() atIndex:index];
+            index += 2;
+        }
+        
+        if (lessThanFiveItems) {
+            [items insertObject:flexibleSpace() atIndex:0];
+            [items addObject:flexibleSpace()];
+        }
+        
+        CGRect toolBarFrame=self.view.frame;
+        CGRect frame=self.view.frame;
+        
+        NSInteger height = [[NSUserDefaults standardUserDefaults] integerForKey:KTabBarHeight];
+        toolBarFrame.size.width  = frame.size.width;
+        toolBarFrame.size.height = height;
+        toolBarFrame.origin.x    = 0;
+        toolBarFrame.origin.y    = CGRectGetHeight(self.webView.frame)-height;
+        
+        self.customToolBar = [[UIToolbar alloc] initWithFrame:toolBarFrame];
+        self.customToolBar.items = items;
+
+        [self.view addSubview:self.customToolBar];
+    }
+    else
+    {
+        [self setToolbarHidden:YES];
+        
+        //Handle iPad layout
+        NSMutableArray *rightItems = [NSMutableArray array];
+        UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixedSpace.width = NAVIGATION_ICON_SPACING;
+        
+        if (self.actionButton)      { [rightItems addObject:self.actionButton];     [rightItems addObject:fixedSpace]; }
+        
+        if (self.reloadStopButton)  { [rightItems addObject:self.reloadStopButton]; [rightItems addObject:fixedSpace]; }
+        if (self.forwardButton)     { [rightItems addObject:self.forwardButton];    [rightItems addObject:fixedSpace]; }
+        if (self.backButton)        { [rightItems addObject:self.backButton];       [rightItems addObject:fixedSpace]; }
+        
+        self.navigationItem.rightBarButtonItems = rightItems;
+    }
+}
+
+-(void) setToolbarHidden:(BOOL) hidden
+{
+    [self.customToolBar setHidden:hidden];
+}
+
+#pragma mark -
+#pragma mark Button Callbacks
+- (void)backButtonTapped:(id)sender
+{
+    [self.webView goBack];
+    [self refreshButtonsState];
+}
+
+- (void)forwardButtonTapped:(id)sender
+{
+    [self.webView goForward];
+    [self refreshButtonsState];
+}
+
+- (void)reloadStopButtonTapped:(id)sender
+{
+    BOOL loaded = self.webView.estimatedProgress==1? YES:NO;
+    
+    //regardless of reloading, or stopping, halt the webview
+    [self.webView stopLoading];
+    
+    if (loaded) {
+        //In certain cases, if the connection drops out preload or midload,
+        //it nullifies webView.request, which causes [webView reload] to stop working.
+        //This checks to see if the webView request URL is nullified, and if so, tries to load
+        //off our stored self.url property instead
+        if (self.webView.URL.absoluteString.length == 0 && self.webURL)
+        {
+            [self.webView loadRequest:self.urlRequest];
+        }
+        else {
+            [self.webView reload];
+        }
+    }
+    
+    //refresh the buttons
+    [self refreshButtonsState];
+}
+
+- (void)actionButtonTapped:(id)sender
+{
+    //Do nothing if there is no url for action
+    if (!self.webURL) {
+        return;
+    }
+    
+    [self doSomething];
+}
+
+#pragma mark -
+#pragma mark UI State Handling
+- (void)refreshButtonsState
+{
+    //update the state for the back button
+    if (self.webView.canGoBack)
+        [self.backButton setEnabled:YES];
+    else
+        [self.backButton setEnabled:NO];
+    
+    //Forward button
+    if (self.webView.canGoForward)
+        [self.forwardButton setEnabled:YES];
+    else
+        [self.forwardButton setEnabled:NO];
+    
+    BOOL loaded = self.webView.estimatedProgress==1? YES:NO;
+    
+    //Stop/Reload Button
+    if (!loaded) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        self.reloadStopButton.image = self.stopIcon;
+    }
+    else {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        self.reloadStopButton.image = self.reloadIcon;
+    }
 }
 
 

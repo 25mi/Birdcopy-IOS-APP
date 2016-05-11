@@ -251,13 +251,13 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //获取课程列表相关
 + (void) lessonListDataByTagForDomainID:(NSString*) domainID
                              DomainType:(NSString*) type
-                           PageNumber:(NSInteger) pageNumber
-                    lessonConcentType:  (NSString *) contentType
-                         DownloadType:  (NSString *) downloadType
-                                  Tag:  (NSString *) tag
-                        OnlyRecommend:  (BOOL)    isOnlyRecommend
-                              success:(void (^)(id response))success
-                              failure:(void (^)(NSError* err))failure;
+                             PageNumber:(NSInteger) pageNumber
+                      lessonConcentType:  (NSString *) contentType
+                           DownloadType:  (NSString *) downloadType
+                                    Tag:  (NSString *) tag
+                              Recommend:  (NSString *) recommend
+                                success:(void (^)(id response))success
+                                failure:(void (^)(NSError* err))failure;
 
 //获取课程信息相关
 + (void) lessonDataForLessonID:(NSString*) lessonID
@@ -301,11 +301,12 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 
 + (void) albumListDataForDomainID:(NSString*) domainID
                        DomainType:(NSString*) type
-             lessonConcentType:(NSString*) contentType
-                    PageNumber:(NSInteger) pageNumber
-                 OnlyRecommend:  (BOOL)    isOnlyRecommend
-                       success:(void (^)(id response))success
-                       failure:(void (^)(NSError* err))failure;
+                lessonConcentType:(NSString*) contentType
+                       PageNumber:(NSInteger) pageNumber
+                        Recommend:(NSString*) recommend
+                          success:(void (^)(id response))success
+                          failure:(void (^)(NSError* err))failure;
+
 //////////////////////////////////////////////////////////////
 #pragma   字典相关
 //////////////////////////////////////////////////////////////

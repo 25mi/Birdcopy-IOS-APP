@@ -12,6 +12,7 @@
 #import "FlyingPubLessonData.h"
 
 @interface FlyingWebViewController : FlyingViewController
+
 @property (strong, nonatomic) NSString *webURL;
 @property (strong, nonatomic) FlyingPubLessonData * thePubLesson;
 
