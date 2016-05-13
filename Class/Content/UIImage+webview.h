@@ -17,4 +17,6 @@
 + (instancetype) stopButton;
 + (instancetype) actionButton;
 
++ (instancetype) readButton;
+
 @end

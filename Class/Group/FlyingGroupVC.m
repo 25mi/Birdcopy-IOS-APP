@@ -782,7 +782,6 @@
                          if (![BC_Member_Noexisted isEqualToString:userRightData.memberState])
                          {
                              //反馈显示最新状态
-                             [FlyingSoundPlayer noticeSound];
                              NSString *message =[userRightData getMemberStateInfo];
                              [CRToastManager showNotificationWithMessage:message
                                                          completionBlock:^{
@@ -792,7 +791,6 @@
                          else
                          {
                              //反馈显示已经处理
-                             [FlyingSoundPlayer noticeSound];
                              NSString *message = NSLocalizedString(@"Your Message has sent to us...",nil);
                              [CRToastManager showNotificationWithMessage:message
                                                          completionBlock:^{
@@ -806,7 +804,6 @@
                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
             {
                 //提示用户只有会员才能参与互动
-                [FlyingSoundPlayer noticeSound];
                 NSString *message = NSLocalizedString(@"Free chat is for members only!",nil);
                 [CRToastManager showNotificationWithMessage:message
                                             completionBlock:^{
@@ -864,7 +861,6 @@
                          }];
                         
                         //反馈显示已经处理
-                        [FlyingSoundPlayer noticeSound];
                         NSString *message = NSLocalizedString(@"Your Message has sent to us...",nil);
                         [CRToastManager showNotificationWithMessage:message
                                                     completionBlock:^{
@@ -913,7 +909,6 @@
                          [FlyingGroupVC contactAppServiceWithMessage:message
                                                                 inVC:nil];
                          //显示当前反馈
-                         [FlyingSoundPlayer noticeSound];
                          message = NSLocalizedString(@"Your Message has sent to us...",nil);
                          [CRToastManager showNotificationWithMessage:message
                                                      completionBlock:^{
@@ -957,7 +952,6 @@
                      [FlyingGroupVC contactAppServiceWithMessage:message
                                                             inVC:nil];
                      //显示当前反馈
-                     [FlyingSoundPlayer noticeSound];
                      message = NSLocalizedString(@"Your Message has sent to us...",nil);
                      [CRToastManager showNotificationWithMessage:message
                                                  completionBlock:^{
@@ -981,7 +975,6 @@
          //其他情况,友情提醒
          else
          {
-             [FlyingSoundPlayer noticeSound];
              NSString * message = [userRightData getMemberStateInfo];
              [CRToastManager showNotificationWithMessage:message
                                          completionBlock:^{

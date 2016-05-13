@@ -355,7 +355,6 @@
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [FlyingSoundPlayer noticeSound];
                             NSString * message =NSLocalizedString(@"Touch portrait to update it!", nil);
                             [CRToastManager showNotificationWithMessage:message
                                                         completionBlock:^{
@@ -381,7 +380,6 @@
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [FlyingSoundPlayer noticeSound];
                             NSString * message =NSLocalizedString(@"Touch nickName to update it!", nil);
                             [CRToastManager showNotificationWithMessage:message
                                                         completionBlock:^{
@@ -408,7 +406,6 @@
                         if ([myOpenID isEqualToString:self.openUDID] ||
                             [myUserID isEqualToString:self.userID]){
                             
-                            [FlyingSoundPlayer noticeSound];
                             NSString * message =NSLocalizedString(@"Touch digest to update it!", nil);
                             [CRToastManager showNotificationWithMessage:message
                                                         completionBlock:^{
@@ -522,7 +519,6 @@
                 if ([[FlyingDataManager getUserData:nil].portraitUri isBlankString])
                 {
                     
-                    [FlyingSoundPlayer noticeSound];
                     NSString * message = NSLocalizedString(@"Upload your portrait first please!", nil);
                     [CRToastManager showNotificationWithMessage:message
                                                 completionBlock:^{
@@ -679,7 +675,6 @@
                                             //
                                             if (result)
                                             {
-                                                [FlyingSoundPlayer noticeSound];
                                                 NSString * message = NSLocalizedString(@"上传头像成功！",nil);
                                                 [CRToastManager showNotificationWithMessage:message
                                                                             completionBlock:^{

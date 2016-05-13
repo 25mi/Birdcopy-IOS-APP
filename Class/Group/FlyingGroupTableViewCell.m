@@ -171,7 +171,6 @@
          else
          {
              //显示会员状态信息
-             [FlyingSoundPlayer noticeSound];
              NSString* message = [userRightData getMemberStateInfo];
              [CRToastManager showNotificationWithMessage:message
                                          completionBlock:^{

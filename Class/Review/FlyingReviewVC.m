@@ -180,7 +180,6 @@
 
 -(void)reachEnd
 {
-    [FlyingSoundPlayer noticeSound];
     NSString * message =NSLocalizedString(@"已经没有更多了!", nil);
     [CRToastManager showNotificationWithMessage:message
                                 completionBlock:^{

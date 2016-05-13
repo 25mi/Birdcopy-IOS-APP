@@ -46,6 +46,7 @@
 @property (nonatomic,strong) UIBarButtonItem *forwardButton;          /* Moves the web view one page forward */
 @property (nonatomic,strong) UIBarButtonItem *reloadStopButton;       /* Reload / Stop buttons */
 @property (nonatomic,strong) UIBarButtonItem *actionButton;           /* Shows the UIActivityViewController */
+@property (nonatomic,strong) UIBarButtonItem *readButton;           /* Shows the UIActivityViewController */
 
 /* Images for the Reload/Stop button */
 @property (nonatomic,strong) UIImage *reloadIcon;
@@ -145,7 +146,6 @@
         //注册供js调用的方法
         self.userContentController =[[WKUserContentController alloc] init];
         [self.userContentController addScriptMessageHandler:self  name:@"playvideo"];
-        
         // 根据生成的WKUserScript对象，初始化WKWebViewConfiguration
         WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
         
@@ -296,7 +296,7 @@
 }
 
 -(void) loadWebview
-{    
+{
     if(!self.webURL){
         
         self.webURL = self.thePubLesson.contentURL;
@@ -350,9 +350,8 @@
     
     //遍历网页中的视频资源 并加上播放标示
     NSString *javaScript=[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"injectJSForVideo" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-
-    [webView evaluateJavaScript:javaScript completionHandler:nil];
-    
+    [self.webView evaluateJavaScript:javaScript completionHandler:nil];
+        
     [self refreshButtonsState];
 }
 
@@ -373,9 +372,11 @@
     NSLog(@"%lf",   self.webView.estimatedProgress);
     
     //屏蔽放大镜
+    /*
     NSString *javascript = @"var meta = document.createElement('meta');meta.setAttribute('name', 'viewport');meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');document.getElementsByTagName('head')[0].appendChild(meta);";
     
     [webView evaluateJavaScript:javascript completionHandler:nil];
+     */
     
 }
 
@@ -549,13 +550,23 @@
         self.reloadStopButton = [[UIBarButtonItem alloc] initWithImage:self.reloadIcon style:UIBarButtonItemStylePlain target:self action:@selector(reloadStopButtonTapped:)];
     }
     
-    //if desired, show the action button
+    //set up the  action button
     if (self.actionButton == nil) {
         self.actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonTapped:)];
         
         CGFloat topInset = -2.0f;
         self.actionButton.imageInsets = UIEdgeInsetsMake(topInset, 0.0f, -topInset, 0.0f);
     }
+    
+
+    //set up the read button
+    /*
+    if (self.readButton == nil)
+    {
+        UIImage *readButtonImage = [UIImage readButton];
+        self.readButton  = [[UIBarButtonItem alloc] initWithImage:readButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(readButtonTapped:)];
+    }
+     */
     
     [self layoutButtonsForCurrentSizeClass];
 }
@@ -574,6 +585,7 @@
         if (self.forwardButton)     { [items addObject:self.forwardButton]; }
         if (self.actionButton)      { [items addObject:self.actionButton]; }
         if (self.reloadStopButton)  { [items addObject:self.reloadStopButton]; }
+        if (self.readButton)        { [items addObject:self.readButton]; }
         
         UIBarButtonItem *(^flexibleSpace)() = ^{
             return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -680,8 +692,15 @@
     [self doSomething];
 }
 
-#pragma mark -
-#pragma mark UI State Handling
+- (void)readButtonTapped:(id)sender
+{
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"reader" ofType:@"js"];
+    NSString *jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    [self.webView evaluateJavaScript:jsCode completionHandler:nil];
+}
+
 - (void)refreshButtonsState
 {
     //update the state for the back button

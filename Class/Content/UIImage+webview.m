@@ -206,4 +206,42 @@
     return actionButtonImage;
 }
 
++ (instancetype) readButton
+{
+    UIImage *actionButtonImage = nil;
+    UIGraphicsBeginImageContextWithOptions((CGSize){20,20}, NO, [[UIScreen mainScreen] scale]);
+    {
+        CGFloat scale =0.3;
+        
+        //// Rectangle Drawing
+        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(scale*10, scale*17, scale*80, scale*4)];
+        [UIColor.blackColor setFill];
+        [rectanglePath fill];
+        
+        
+        //// Rectangle 2 Drawing
+        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(scale*10, scale*38, scale*80, scale*4)];
+        [UIColor.blackColor setFill];
+        [rectangle2Path fill];
+        
+        
+        //// Rectangle 3 Drawing
+        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(scale*10, scale*59, scale*80, scale*4)];
+        [UIColor.blackColor setFill];
+        [rectangle3Path fill];
+        
+        
+        //// Rectangle 4 Drawing
+        UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRect: CGRectMake(scale*10, scale*80, scale*50, scale*4)];
+        [UIColor.blackColor setFill];
+        [rectangle4Path fill];
+
+        actionButtonImage = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    return actionButtonImage;
+}
+
+
 @end

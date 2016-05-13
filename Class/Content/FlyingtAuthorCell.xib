@@ -34,7 +34,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat" translatesAutoresizingMaskIntoConstraints="NO" id="bMq-qc-P1e">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Help" translatesAutoresizingMaskIntoConstraints="NO" id="bMq-qc-P1e">
                         <rect key="frame" x="246" y="16" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="Tlw-IX-o35"/>
@@ -65,6 +65,6 @@
     </objects>
     <resources>
         <image name="Account" width="30" height="30"/>
-        <image name="chat" width="96" height="96"/>
+        <image name="Help" width="96" height="96"/>
     </resources>
 </document>

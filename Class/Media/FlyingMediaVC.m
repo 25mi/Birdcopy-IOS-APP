@@ -902,7 +902,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
         {
-            [FlyingSoundPlayer noticeSound];
             NSString *message = NSLocalizedString(@"网速太慢,使劲加载中...",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
@@ -911,7 +910,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         }
         else
         {
-            [FlyingSoundPlayer noticeSound];
             NSString *message = NSLocalizedString(@"我们正在处理你碰到的问题...",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
@@ -1076,7 +1074,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt<0)
         {
-            [FlyingSoundPlayer noticeSound];
             NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
@@ -1136,7 +1133,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
         
         if (npt>duration)
         {
-            [FlyingSoundPlayer noticeSound];
             NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
 
             [CRToastManager showNotificationWithMessage:message
@@ -2135,7 +2131,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString *message = NSLocalizedString(@"没有字幕,不能智能学习..",nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -2149,7 +2144,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
 {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
-        [FlyingSoundPlayer noticeSound];
         NSString *message = NSLocalizedString(@"如有英文，点击自动解释!",nil);
 
         [CRToastManager showNotificationWithMessage:message
@@ -2159,7 +2153,6 @@ static void *TrackObservationContext         = &TrackObservationContext;
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BESwipRight"])
     {
-        [FlyingSoundPlayer noticeSound];
         NSString *message = NSLocalizedString(@"右划跳转到上一个场景!",nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{

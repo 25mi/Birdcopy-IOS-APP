@@ -554,7 +554,6 @@
     else
     {
         //显示会员状态信息
-        [FlyingSoundPlayer noticeSound];
         NSString * message = [userRightData getMemberStateInfo];
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -667,7 +666,6 @@
 {
     if(error != NULL)
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"保存图片失败!",nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -676,7 +674,6 @@
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"成功保存图片！",nil) ;
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -1049,7 +1046,6 @@
         }
         else
         {
-            [FlyingSoundPlayer noticeSound];
             NSString * message = NSLocalizedString(@"保存图片失败！",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
@@ -1068,7 +1064,6 @@
         }
         else
         {
-            [FlyingSoundPlayer noticeSound];
             NSString * message = NSLocalizedString( @"保存地址图片失败！",nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{
@@ -1122,7 +1117,6 @@
                 // The barcode format, such as a QR code or UPC-A
                 //ZXBarcodeFormat format = result.barcodeFormat;
                 
-                [FlyingSoundPlayer noticeSound];
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                 
                 [FlyingScanViewController processingSCanResult:contents];

@@ -72,7 +72,7 @@
 #import "FlyingTabBarController.h"
 #import <CRToastManager.h>
 #import <CRToast/CRToastConfig.h>
-
+#import "FlyingConversationVC.h"
 
 @interface iFlyingAppDelegate ()
 {
@@ -87,6 +87,10 @@
 }
 
 @property (strong, nonatomic) FlyingTabBarController *tabBarController;
+
+@property (assign, atomic)  BOOL hasMessageJob;
+
+@property (nonatomic, retain) NSOperationQueue      *dealMessageQueue;
 
 @end
 
@@ -324,19 +328,33 @@
     //准备APP Style
     [self prepairAppStyle];
     
-    //设置消息提醒风格
-    NSDictionary *options = @{
-                              kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar)
-                              };
+    //设置消息参数
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+    
+    options[kCRToastNotificationTypeKey] = @(CRToastTypeNavigationBar);
+    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeTap
+                                                                                                  automaticallyDismiss:YES
+                                                                                                                 block:^(CRToastInteractionType interactionType)
+    {
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate touchMessage];
+    }]];
+    
+    
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+    UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+    options[kCRToastBackgroundColorKey] = backgroundColor;
+    options[kCRToastTextColorKey] = [UIColor blackColor];
+    options[kCRToastFontKey] = [UIFont systemFontOfSize:KLargeFontSize];
+    options[kCRToastImageKey] = [UIImage imageNamed:@"Message"];
+    options[kCRToastTextAlignmentKey] =@(NSTextAlignmentLeft);
     
     [CRToastManager setDefaultOptions:options];
+
+    //是否关闭所有的前台消息提示音，默认值是NO
+    [[RCIM sharedRCIM] setDisableMessageAlertSound:YES];
     
-    //初始化默认后台通知设置
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KNoticeNewMessage];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KNoticeVoiceMessage];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //获取平台消息
+    //获取平台管理员消息
     [FlyingHttpTool getUserInfoByRongID:@"sysAdminor"
                              completion:^(FlyingUserData *userData, RCUserInfo *userInfo) {
                                  //
@@ -416,12 +434,13 @@
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [FlyingSoundPlayer noticeSound];
-                    
                     NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
                     [CRToastManager showNotificationWithMessage:messageText
                                                 completionBlock:^{
-                                                    NSLog(@"Completed");
+                                                    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:message]
+                                                                                              forKey:KJobMessageNow];
+                                                    
+                                                    self.hasMessageJob = YES;
                                                 }];
                 });
             }
@@ -443,8 +462,6 @@
                                          case ConversationType_SYSTEM:
                                          {
                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                 
-                                                 [FlyingSoundPlayer noticeSound];
                                                  
                                                  NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
                                                  [CRToastManager showNotificationWithMessage:messageText
@@ -977,7 +994,6 @@
             [FlyingDataManager awardGold:KBEGoldAwardCount];
         }
         
-        [FlyingSoundPlayer noticeSound];
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
                                         NSLog(@"Completed");
@@ -1044,6 +1060,45 @@
             [[self getTabBarController] presentViewController:alertController animated:YES completion:nil];
         }
     }
+}
+
+//////////////////////////////////////////////////////////////
+#pragma mark some thing
+//////////////////////////////////////////////////////////////
+-(void) touchMessage
+{
+    if(!self.dealMessageQueue)
+    {
+        self.dealMessageQueue = [NSOperationQueue new];
+        [self.dealMessageQueue setMaxConcurrentOperationCount:1];
+    }
+    
+    [self.dealMessageQueue cancelAllOperations];
+    
+    [self.dealMessageQueue addOperationWithBlock:^{
+        
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        if (appDelegate.hasMessageJob)
+        {
+            NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:KJobMessageNow];
+            
+            if (data)
+            {
+                RCMessage *message =  (RCMessage*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+                
+                FlyingConversationVC *chatVC = [[FlyingConversationVC alloc] init];
+                chatVC.targetId = message.targetId;
+                chatVC.conversationType = ConversationType_PRIVATE;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [appDelegate pushViewController:chatVC animated:YES];
+                });
+            }
+            
+            appDelegate.hasMessageJob=NO;
+        }
+    }];
 }
 
 #pragma mark Remote control Event methods

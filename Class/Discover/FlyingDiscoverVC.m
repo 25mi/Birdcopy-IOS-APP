@@ -272,7 +272,6 @@
     if (_currentData.count==0)
     {
         //即时反馈
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"还没有推荐内容哦...", nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{

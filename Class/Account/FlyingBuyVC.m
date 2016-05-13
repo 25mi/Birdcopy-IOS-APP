@@ -491,7 +491,6 @@
         else
         {
             //即时反馈
-            [FlyingSoundPlayer noticeSound];
             NSString * message = NSLocalizedString(@"In App Purchasing Disabled", nil);
             [CRToastManager showNotificationWithMessage:message
                                         completionBlock:^{

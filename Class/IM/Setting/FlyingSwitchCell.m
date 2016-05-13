@@ -28,18 +28,13 @@
 
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 + (FlyingSwitchCell*) switchCell
 {
     FlyingSwitchCell * cell = [[[NSBundle mainBundle] loadNibNamed:@"FlyingSwitchCell" owner:self options:nil] objectAtIndex:0];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell.switchButton setEnabled:NO];
     
     return cell;
 }
@@ -54,6 +49,7 @@
 {
 
     self.switchButton.on = isOn;
+    
 }
 
 -(void)switchAction:(id)sender

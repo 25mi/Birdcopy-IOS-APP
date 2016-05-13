@@ -198,7 +198,6 @@
 {
     if(error != NULL)
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString( @"保存图片失败！", nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -207,7 +206,6 @@
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString( @"成功保存图片！", nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{

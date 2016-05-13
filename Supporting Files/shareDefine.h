@@ -110,10 +110,10 @@ typedef enum BC_NextType
 
 #define KMAX_GROUPS_VALUE         100
 
-#define KNoticeNewMessage         @"KNoticeNewMessage"
 #define KNoticeDetailMessage      @"KNoticeDetailMessage"
-#define KNoticeVoiceMessage       @"KNoticeVoiceMessage"
 #define KNoticeShockMessage       @"KNoticeShockMessage"
+
+#define KJobMessageNow            @"KJobMessageNow"
 
 //IM相关
 #define kRongCloudDeviceToken     @"kRongCloudDeviceToken"

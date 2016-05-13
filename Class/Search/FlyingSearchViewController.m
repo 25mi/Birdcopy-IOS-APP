@@ -213,7 +213,6 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"click the words in the subtitles for translation", nil);
 
         [CRToastManager showNotificationWithMessage:message

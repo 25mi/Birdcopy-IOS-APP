@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82053BD01CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
-		82053BD11CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
-		82053BD21CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
-		82053BD31CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
-		82053BD41CD9FC99000A5794 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */; };
 		82053BD81CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
 		82053BD91CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
 		82053BDA1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */; };
@@ -812,6 +807,16 @@
 		8220E7501C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
 		8220E7511C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
 		8220E7521C3D57DB00265815 /* FlyingDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8220E74D1C3D57DB00265815 /* FlyingDBManager.m */; };
+		8224F37E1CE444EA00864604 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F37D1CE444EA00864604 /* reader.js */; };
+		8224F37F1CE479EC00864604 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F37D1CE444EA00864604 /* reader.js */; };
+		8224F3801CE479ED00864604 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F37D1CE444EA00864604 /* reader.js */; };
+		8224F3811CE479EE00864604 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F37D1CE444EA00864604 /* reader.js */; };
+		8224F3821CE479EE00864604 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F37D1CE444EA00864604 /* reader.js */; };
+		8224F3841CE49C6C00864604 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F3831CE49C6C00864604 /* injectJSForVideo.js */; };
+		8224F3851CE49C6C00864604 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F3831CE49C6C00864604 /* injectJSForVideo.js */; };
+		8224F3861CE49C6C00864604 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F3831CE49C6C00864604 /* injectJSForVideo.js */; };
+		8224F3871CE49C6C00864604 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F3831CE49C6C00864604 /* injectJSForVideo.js */; };
+		8224F3881CE49C6C00864604 /* injectJSForVideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 8224F3831CE49C6C00864604 /* injectJSForVideo.js */; };
 		8228FA6E1CAE262B00990F49 /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8228FA6D1CAE262B00990F49 /* FlyingSoundPlayer.m */; };
 		8228FA6F1CAE263100990F49 /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8228FA6D1CAE262B00990F49 /* FlyingSoundPlayer.m */; };
 		8228FA701CAE263200990F49 /* FlyingSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8228FA6D1CAE262B00990F49 /* FlyingSoundPlayer.m */; };
@@ -922,11 +927,6 @@
 		823C2A461CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C2A431CBCF714005CD298 /* KMNetworkLoadingViewController.xib */; };
 		823C2A471CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C2A431CBCF714005CD298 /* KMNetworkLoadingViewController.xib */; };
 		823C2A481CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823C2A431CBCF714005CD298 /* KMNetworkLoadingViewController.xib */; };
-		823C2A4E1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */; };
-		823C2A4F1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */; };
-		823C2A501CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */; };
-		823C2A511CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */; };
-		823C2A521CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */; };
 		823C2A531CBCFD72005CD298 /* FlyingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4C1CBCFD72005CD298 /* FlyingSwitchCell.m */; };
 		823C2A541CBCFD72005CD298 /* FlyingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4C1CBCFD72005CD298 /* FlyingSwitchCell.m */; };
 		823C2A551CBCFD72005CD298 /* FlyingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823C2A4C1CBCFD72005CD298 /* FlyingSwitchCell.m */; };
@@ -1810,7 +1810,6 @@
 /* Begin PBXFileReference section */
 		1ECB9300DEFE7871D649D4E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7B78710A6B62E33FAD31163C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectJSForVideo.js; sourceTree = "<group>"; };
 		82053BD51CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMemberIconCellCollectionViewCell.h; sourceTree = "<group>"; };
 		82053BD61CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMemberIconCellCollectionViewCell.m; sourceTree = "<group>"; };
 		82053BD71CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingMemberIconCellCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2138,6 +2137,8 @@
 		8220E7461C3D095D00265815 /* FlyingFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingFileManager.m; sourceTree = "<group>"; };
 		8220E74C1C3D57DB00265815 /* FlyingDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingDBManager.h; sourceTree = "<group>"; };
 		8220E74D1C3D57DB00265815 /* FlyingDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingDBManager.m; sourceTree = "<group>"; };
+		8224F37D1CE444EA00864604 /* reader.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reader.js; sourceTree = "<group>"; };
+		8224F3831CE49C6C00864604 /* injectJSForVideo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectJSForVideo.js; sourceTree = "<group>"; };
 		8228FA6C1CAE262B00990F49 /* FlyingSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingSoundPlayer.h; path = Dictionary/FlyingSoundPlayer.h; sourceTree = "<group>"; };
 		8228FA6D1CAE262B00990F49 /* FlyingSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingSoundPlayer.m; path = Dictionary/FlyingSoundPlayer.m; sourceTree = "<group>"; };
 		822F2AE31C7C120B007A9E4A /* FlyingHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingHomeVC.h; sourceTree = "<group>"; };
@@ -2175,8 +2176,6 @@
 		823C2A231CBCC588005CD298 /* FlyingTextOnlyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingTextOnlyCell.m; sourceTree = "<group>"; };
 		823C2A241CBCC588005CD298 /* FlyingTextOnlyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingTextOnlyCell.xib; sourceTree = "<group>"; };
 		823C2A431CBCF714005CD298 /* KMNetworkLoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KMNetworkLoadingViewController.xib; sourceTree = "<group>"; };
-		823C2A491CBCFD72005CD298 /* FlyingMessageNotifySettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingMessageNotifySettingVC.h; sourceTree = "<group>"; };
-		823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingMessageNotifySettingVC.m; sourceTree = "<group>"; };
 		823C2A4B1CBCFD72005CD298 /* FlyingSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSwitchCell.h; sourceTree = "<group>"; };
 		823C2A4C1CBCFD72005CD298 /* FlyingSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSwitchCell.m; sourceTree = "<group>"; };
 		823C2A4D1CBCFD72005CD298 /* FlyingSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingSwitchCell.xib; sourceTree = "<group>"; };
@@ -3392,8 +3391,6 @@
 		8214EB7A1C2AE8D20014B6BD /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				823C2A491CBCFD72005CD298 /* FlyingMessageNotifySettingVC.h */,
-				823C2A4A1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m */,
 				823C2A4B1CBCFD72005CD298 /* FlyingSwitchCell.h */,
 				823C2A4C1CBCFD72005CD298 /* FlyingSwitchCell.m */,
 				823C2A4D1CBCFD72005CD298 /* FlyingSwitchCell.xib */,
@@ -3787,9 +3784,10 @@
 		C85AC302181CA39D00B83580 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				8224F37D1CE444EA00864604 /* reader.js */,
 				823697F81C8452D50000221C /* pullrefresh.aif */,
 				C85AC33A181CA39D00B83580 /* userModel.db */,
-				82053BCF1CD9FC99000A5794 /* injectJSForVideo.js */,
+				8224F3831CE49C6C00864604 /* injectJSForVideo.js */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -4373,14 +4371,15 @@
 				824940821C07FFEF000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401C1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A2A1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
+				8224F37E1CE444EA00864604 /* reader.js in Resources */,
 				823645C31C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
+				8224F3841CE49C6C00864604 /* injectJSForVideo.js in Resources */,
 				8247E6781CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				82A21DAB1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A101CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				8298314B1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
-				82053BD01CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				823C2A441CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				824940261C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				823645AC1C81D4A500499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4414,14 +4413,15 @@
 				824940461C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				823C2A2E1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				823645C71C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
+				8224F3821CE479EE00864604 /* reader.js in Resources */,
 				8247E67C1CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
+				8224F3881CE49C6C00864604 /* injectJSForVideo.js in Resources */,
 				82A21DAF1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				823C2A141CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				827A71CC1CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				8298314F1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				8249403C1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
-				82053BD41CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				823C2A481CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				8249408E1C080955000A2306 /* FlyingTagCell.xib in Resources */,
 				823645B01C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4442,7 +4442,6 @@
 				82A21DAC1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
 				FA1BE5D11B27DF3400AA1AFD /* InfoPlist.strings in Resources */,
 				FA5ACC371B707AD00051A3EA /* MKStoreKitConfigs.plist in Resources */,
-				82053BD11CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				8247E66C1CB244850038EF05 /* FlyingStatisitcTableViewCell.xib in Resources */,
 				8247E6791CB27FE40038EF05 /* FlyingMemberTableViewCell.xib in Resources */,
 				8247E65A1CB20C190038EF05 /* Localizable.strings in Resources */,
@@ -4458,12 +4457,14 @@
 				8249401D1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A041CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */,
+				8224F3801CE479ED00864604 /* reader.js in Resources */,
 				823C2A2B1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78F91C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				828A7FBE1CD4F20400987DDE /* FlyingGroupBoard.xib in Resources */,
 				82053BDE1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879B1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D981CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
+				8224F3851CE49C6C00864604 /* injectJSForVideo.js in Resources */,
 				823C2A111CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940271C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA1BE5AC1B27DD5A00AA1AFD /* userModel.db in Resources */,
@@ -4484,7 +4485,6 @@
 				826D3FC11C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403A1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAD1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
-				82053BD21CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				FA632A9B1B510A0000A1222E /* InfoPlist.strings in Resources */,
 				828A7FD31CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA632A9C1B510A0000A1222E /* Images.xcassets in Resources */,
@@ -4500,12 +4500,14 @@
 				C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */,
 				8249408C1C080953000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401E1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
+				8224F37F1CE479EC00864604 /* reader.js in Resources */,
 				823C2A051CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				823C2A2C1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FA1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				82053BDF1CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879C1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D991CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
+				8224F3861CE49C6C00864604 /* injectJSForVideo.js in Resources */,
 				823C2A121CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940281C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA632A8C1B51091400A1222E /* userModel.db in Resources */,
@@ -4526,7 +4528,6 @@
 				826D3FC21C0AC91500F8E76E /* FlyingCommentHeader.xib in Resources */,
 				8249403B1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
 				82A21DAE1CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib in Resources */,
-				82053BD31CD9FC99000A5794 /* injectJSForVideo.js in Resources */,
 				82501C831C0D8F7900C58789 /* inet.entitlements in Resources */,
 				828A7FD41CD5C47400987DDE /* FlyingGroupMembersCell.xib in Resources */,
 				FA8C3EFB1B535B9100DEA02D /* Images.xcassets in Resources */,
@@ -4542,12 +4543,14 @@
 				824940451C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				8249408D1C080954000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401F1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
+				8224F3811CE479EE00864604 /* reader.js in Resources */,
 				823C2A061CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				823C2A2D1CBCC588005CD298 /* FlyingTextOnlyCell.xib in Resources */,
 				824B78FB1C83109E00BD4DAA /* FlyingContentCell.xib in Resources */,
 				82053BE01CDACA68000A5794 /* FlyingMemberIconCellCollectionViewCell.xib in Resources */,
 				82A1879D1CCA3E6700DAD77C /* FlyingAuthorCollectionViewCell.xib in Resources */,
 				82A21D9A1CAA829B00AFAECC /* FlyingAddressBookTableViewCell.xib in Resources */,
+				8224F3871CE49C6C00864604 /* injectJSForVideo.js in Resources */,
 				823C2A131CBCB828005CD298 /* FlyingImageLabelCell.xib in Resources */,
 				824940291C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				FA8C3EEC1B535A1500DEA02D /* userModel.db in Resources */,
@@ -4993,7 +4996,6 @@
 				824940211C07FB27000A2306 /* FlyingLoadingCell.m in Sources */,
 				FAB5F9441B1ADA6E0041DF89 /* FlyingAccountVC.m in Sources */,
 				82A21D731CA93B2000AFAECC /* FlyingUserData.m in Sources */,
-				823C2A4E1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
 				C8FE201F1BB154C8009C8D48 /* FlyingCommentData.m in Sources */,
 				8214EC061C2AE8D20014B6BD /* RCDConversationSettingTableViewCell.m in Sources */,
 				82E91CB91C1192AB00B0EC70 /* FlyingEditVC.m in Sources */,
@@ -5276,7 +5278,6 @@
 				8214EBEC1C2AE8D20014B6BD /* RealTimeLocationEndCell.m in Sources */,
 				8214E9441C298BF40014B6BD /* DELETEResponse.m in Sources */,
 				82A21D771CA93B2000AFAECC /* FlyingUserData.m in Sources */,
-				823C2A521CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
 				82493FA81C07F53E000A2306 /* FlyingItemView.m in Sources */,
 				C81F8B2D1BD7B488004146F0 /* ReaderThumbView.m in Sources */,
 				C81F8B331BD7B488004146F0 /* FlyingAccountVC.m in Sources */,
@@ -5556,7 +5557,6 @@
 				826D3FBB1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				8212F47B1C321B8E009C9F86 /* FMDatabase+FTS3.m in Sources */,
 				82A21D741CA93B2000AFAECC /* FlyingUserData.m in Sources */,
-				823C2A4F1CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
 				C8C805291BD21596009F3712 /* FlyingCommentCell.m in Sources */,
 				824940481C07FB5D000A2306 /* FlyingContentVC.m in Sources */,
 				8210AE7C1C151C97009EBD76 /* FlyingActiveViewController.m in Sources */,
@@ -5837,7 +5837,6 @@
 				8212F6961C321BC8009C9F86 /* UIColor+HexString.m in Sources */,
 				826D3FBC1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				82A21D751CA93B2000AFAECC /* FlyingUserData.m in Sources */,
-				823C2A501CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
 				8212F47C1C321B8E009C9F86 /* FMDatabase+FTS3.m in Sources */,
 				C8C8052A1BD21597009F3712 /* FlyingCommentCell.m in Sources */,
 				824940491C07FB5D000A2306 /* FlyingContentVC.m in Sources */,
@@ -6120,7 +6119,6 @@
 				FA8C3E5C1B535A1500DEA02D /* MuInkView.m in Sources */,
 				8212F47D1C321B8E009C9F86 /* FMDatabase+FTS3.m in Sources */,
 				82A21D761CA93B2000AFAECC /* FlyingUserData.m in Sources */,
-				823C2A511CBCFD72005CD298 /* FlyingMessageNotifySettingVC.m in Sources */,
 				826D3FBD1C0AC91500F8E76E /* FlyingCommentHeader.m in Sources */,
 				C8C8052B1BD21598009F3712 /* FlyingCommentCell.m in Sources */,
 				8249404A1C07FB5D000A2306 /* FlyingContentVC.m in Sources */,

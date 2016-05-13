@@ -233,7 +233,6 @@
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"我们会尽快补充词典！", nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{

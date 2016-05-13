@@ -47,8 +47,8 @@
         NSURL *url = [NSURL fileURLWithPath:wordMP3File];
         SystemSoundID soundID;
         
-        AudioServicesCreateSystemSoundID ((__bridge CFURLRef)url, &soundID);
-        AudioServicesPlaySystemSound(soundID);
+        AudioServicesCreateSystemSoundID ((__bridge CFURLRef)url, &soundID);        
+        AudioServicesPlaySystemSoundWithCompletion(soundID,nil);
         
         /*
          AVAudioPlayer * palyer  = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];

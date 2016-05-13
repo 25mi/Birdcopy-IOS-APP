@@ -390,7 +390,6 @@
                                                EndDate:endDate
                                             Completion:^(BOOL result) {
                                                 //
-                                                [FlyingSoundPlayer noticeSound];
                                                 [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
                                             }];
         }
@@ -409,7 +408,6 @@
             
             [FlyingHttpTool uploadMoneyDataWithOpenID:[FlyingDataManager getOpenUDID] Completion:^(BOOL result) {
                 //
-                [FlyingSoundPlayer noticeSound];
                 [[NSNotificationCenter defaultCenter] postNotificationName:KBEAccountChange object:nil userInfo:nil];
             }];
         }
@@ -438,7 +436,6 @@
     giftCountNow+=KBEGoldAwardCount;
     [statisticDAO updateWithUserID:openID GiftCount:giftCountNow];
     
-    [FlyingSoundPlayer noticeSound];
 }
 
 

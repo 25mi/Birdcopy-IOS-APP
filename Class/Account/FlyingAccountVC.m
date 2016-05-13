@@ -35,7 +35,6 @@
 #import "FlyingTaskWordDAO.h"
 #import "FlyingBuyVC.h"
 #import "FlyingImageTextCell.h"
-#import "FlyingMessageNotifySettingVC.h"
 #import "FlyingScanViewController.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingGroupVC.h"
@@ -156,7 +155,6 @@
                                                   usingBlock:^(NSNotification *note)
      {
          //即时反馈
-         [FlyingSoundPlayer noticeSound];
          NSString * message = NSLocalizedString(@"Cleanning is ok",nil);
          [CRToastManager showNotificationWithMessage:message
                                      completionBlock:^{
@@ -228,7 +226,7 @@
     }
     else if (section == 3)
     {
-        return 3;
+        return 2;
     }
     else if (section == 4)
     {
@@ -338,19 +336,12 @@
         switch (indexPath.row) {
             case 0:
             {
-                [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"chat"]];
-                [(FlyingImageTextCell *)cell setCellText:NSLocalizedString(@"Chat Setting",nil)];
-                break;
-            }
-                
-            case 1:
-            {
                 [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"close"]];
                 [(FlyingImageTextCell *)cell setCellText:NSLocalizedString(@"Clear Cache",nil)];
                 break;
             }
                 
-            case 2:
+            case 1:
             {
                 [(FlyingImageTextCell *)cell setImageIcon:[UIImage imageNamed:@"colorWheel"]];
                 [(FlyingImageTextCell *)cell setCellText:NSLocalizedString(@"Style Setting",nil)];
@@ -414,7 +405,6 @@
                 else
                 {
                     //即时反馈
-                    [FlyingSoundPlayer noticeSound];
                     NSString * message = NSLocalizedString(@"Click the words in the subtitles for translation", nil);
                     [self.view makeToast:message
                                 duration:3.0
@@ -434,17 +424,11 @@
             
         case 3:
         {
-            if (indexPath.row == 0)
-            {
-                FlyingMessageNotifySettingVC * notifySettingVC = [[FlyingMessageNotifySettingVC alloc] init];
-
-                [self.navigationController pushViewController:notifySettingVC animated:YES];
-            }
-            else if (indexPath.row == 1) {
+            if (indexPath.row == 0) {
                 
                 [self clearCache];
             }
-            else if (indexPath.row == 2) {
+            else if (indexPath.row == 1) {
                 
                 
                 FlyingPickColorVCViewController * vc= [[FlyingPickColorVCViewController alloc] init];

@@ -445,7 +445,6 @@
     }
     
     //即时反馈
-    [FlyingSoundPlayer noticeSound];
     [CRToastManager showNotificationWithMessage:message
                                 completionBlock:^{
                                     NSLog(@"Completed");
@@ -628,7 +627,6 @@
     else
     {
         //即时反馈
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"抱歉：请升级支持新课程类型！", nil);
         [CRToastManager showNotificationWithMessage:message
                                     completionBlock:^{
@@ -1078,7 +1076,6 @@
             case 0:
             {
                 //即时反馈
-                [FlyingSoundPlayer noticeSound];
                 NSString * message = NSLocalizedString(@"如果咨询问题，点击“求助”", nil);
                 [CRToastManager showNotificationWithMessage:message
                                             completionBlock:^{
@@ -1192,7 +1189,6 @@
                 else
                 {
                     //和APP的客服沟通
-                    [FlyingSoundPlayer noticeSound];
                     NSString * message = NSLocalizedString(@"已经帮你转接客服人员...", nil);
                     
                     [CRToastManager showNotificationWithMessage:message completionBlock:^{
@@ -1207,7 +1203,6 @@
         else
         {
             //和APP的客服沟通
-            [FlyingSoundPlayer noticeSound];
             NSString * message = NSLocalizedString(@"已经帮你转接客服人员...", nil);
             [CRToastManager showNotificationWithMessage:message completionBlock:^{
                 //

@@ -37,6 +37,10 @@
 - (void) shareContent:(FlyingShareData*) shareData fromView:(UIView*) popView;
 - (void) shakeNow;
 
+//消息跳转管理
+
+
+
 //发音管理
 - (NSOperationQueue    *) get_flyingSoundPlayer_queue;
 - (AVSpeechSynthesizer *) getSpeechSynthesizer;
@@ -50,9 +54,7 @@
 - (void) setNavigationBarWithLogoStyle:(BOOL) logoStyle;
 
 //界面跳转管理
-
 - (UITabBarController*) getTabBarController;
-
 - (void)refreshTabBadgeValue;
 
 

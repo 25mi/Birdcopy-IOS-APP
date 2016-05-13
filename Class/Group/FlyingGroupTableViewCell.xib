@@ -30,7 +30,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unlock" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-0x-1Ld">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="public" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-0x-1Ld">
                         <rect key="frame" x="523" y="8" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="JHl-JA-xZo"/>
@@ -146,6 +146,6 @@
         <image name="Favorite" width="96" height="96"/>
         <image name="Icon" width="57" height="57"/>
         <image name="People" width="30" height="30"/>
-        <image name="unlock" width="96" height="96"/>
+        <image name="public" width="72" height="72"/>
     </resources>
 </document>

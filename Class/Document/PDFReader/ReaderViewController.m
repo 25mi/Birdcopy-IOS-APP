@@ -816,7 +816,6 @@ enum
     }
     else
     {
-        [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString(@"无法打开，请重试或者重新下载!", nil);
 
         [CRToastManager showNotificationWithMessage:message
