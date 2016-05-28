@@ -16,6 +16,7 @@
 #import "FlyingShareWithRecent.h"
 #import <UIKit/UIKit.h>
 #import <CRToastManager.h>
+#import "iFlyingAppDelegate.h"
 
 @interface FlyingImagePreivewVC ()<UIViewControllerRestoration>
 {
@@ -199,18 +200,14 @@
     if(error != NULL)
     {
         NSString * message = NSLocalizedString( @"保存图片失败！", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
     else
     {
         NSString * message = NSLocalizedString( @"成功保存图片！", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

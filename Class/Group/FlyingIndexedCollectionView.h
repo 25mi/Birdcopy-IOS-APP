@@ -13,6 +13,6 @@
 /**
  *  The `UITableViewCell` indexPath.row in which the collection view is nested in.
  */
-@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) BOOL supportTouch;
 
 @end

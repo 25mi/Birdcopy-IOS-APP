@@ -13,6 +13,10 @@
 #import <RongIMKit/RongIMKit.h>
 #import "RCDRCIMDataSource.h"
 #import <UIKit/UITabBarController.h>
+#import "FlyingHomeVC.h"
+#import "FlyingMyGroupsVC.h"
+#import "FlyingConversationListVC.h"
+#import "FlyingAccountVC.h"
 
 @class FlyingM3U8Downloader;
 @class FlyingMagnetDownloader;
@@ -23,12 +27,19 @@
 @class FlyingShareData;
 @class FlyingTabBarController;
 
+
 @interface iFlyingAppDelegate : UIResponder <UIApplicationDelegate,
                                                 WXApiDelegate,
                                                 RCIMConnectionStatusDelegate,
                                                 RCIMReceiveMessageDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow                  *window;
+
+@property (strong, nonatomic) FlyingHomeVC              *homeVC;
+@property (strong, nonatomic) FlyingMyGroupsVC          *myGroupsVC;
+@property (strong, nonatomic) FlyingConversationListVC  *messagesVC;
+@property (strong, nonatomic) FlyingAccountVC           *accountVC;
+
 
 //本地环境准备
 +(void) preparelocalEnvironment;
@@ -37,9 +48,8 @@
 - (void) shareContent:(FlyingShareData*) shareData fromView:(UIView*) popView;
 - (void) shakeNow;
 
-//消息跳转管理
-
-
+//消息管理
+-(void) makeToast:(NSString*)message;
 
 //发音管理
 - (NSOperationQueue    *) get_flyingSoundPlayer_queue;
@@ -54,7 +64,8 @@
 - (void) setNavigationBarWithLogoStyle:(BOOL) logoStyle;
 
 //界面跳转管理
-- (UITabBarController*) getTabBarController;
+- (FlyingTabBarController*) getTabBarController;
+-(void)setTabBarController:(FlyingTabBarController*)tabBarController;
 - (void)refreshTabBadgeValue;
 
 

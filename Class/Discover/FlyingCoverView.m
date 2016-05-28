@@ -86,8 +86,8 @@
         [self.coverImageViewDic removeAllObjects];
     }
     
-    if (self.coverData.count==0) {
-        
+    if (self.coverData.count==0)
+    {
         [self loadCoverData];
     }
 }

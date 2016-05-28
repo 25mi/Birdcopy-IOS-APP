@@ -32,6 +32,10 @@
     {
         self.rightView.backgroundColor = newColor;
     }
+    
+    UIColor *textColor=  [UIColor readableForegroundColorForBackgroundColor:self.rightView.backgroundColor];
+    
+    self.joinLabel.textColor = textColor;
 }
 
 -(void) setBadge:(NSInteger) badgeCount;
@@ -133,7 +137,7 @@
         self.favorLabel = [[UILabel alloc] initWithFrame:favorLabelFrame];
         self.favorLabel.font = [UIFont systemFontOfSize:KLargeFontSize];
         self.favorLabel.textAlignment = NSTextAlignmentCenter;
-        self.favorLabel.text = NSLocalizedString(@"精彩",nil);
+        self.favorLabel.text = NSLocalizedString(@"Featured",nil);
         
         [self.leftView addSubview:self.favorLabel];
     }

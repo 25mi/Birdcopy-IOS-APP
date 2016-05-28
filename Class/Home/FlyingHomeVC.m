@@ -34,7 +34,6 @@
 #import "FlyingGroupVC.h"
 #import "FlyingIndexedCollectionView.h"
 #import "FlyingAuthorCollectionViewCell.h"
-#import <CRToastManager.h>
 #import "FlyingLoadingCell.h"
 
 @interface FlyingHomeVC ()<UIViewControllerRestoration>
@@ -55,8 +54,14 @@
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
                                                             coder:(NSCoder *)coder
 {
-    UIViewController *vc = [self new];
-    return vc;
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (!appDelegate.homeVC) {
+        
+        appDelegate.homeVC = [self new];
+    }
+    
+    return appDelegate.homeVC;
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder

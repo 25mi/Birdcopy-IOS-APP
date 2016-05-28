@@ -7,7 +7,6 @@
 //
 
 #import "FlyingWebViewController.h"
-#import <WebKit/WebKit.h>
 #import "FlyingCommentVC.h"
 #import "FlyingShareData.h"
 #import "iFlyingAppDelegate.h"
@@ -147,26 +146,26 @@
         self.userContentController =[[WKUserContentController alloc] init];
         [self.userContentController addScriptMessageHandler:self  name:@"playvideo"];
         // 根据生成的WKUserScript对象，初始化WKWebViewConfiguration
-        WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
+        self.configuration = [[WKWebViewConfiguration alloc] init];
         
         //打开JavaScript交互 默认为YES
-        configuration.preferences.javaScriptEnabled = YES;
-        configuration.userContentController = self.userContentController;
+        self.configuration.preferences.javaScriptEnabled = YES;
+        self.configuration.userContentController = self.userContentController;
         
         //允许视频播放
-        configuration.allowsAirPlayForMediaPlayback = YES;
+        self.configuration.allowsAirPlayForMediaPlayback = NO;
         
         // 允许在线播放
-        configuration.allowsInlineMediaPlayback = YES;
+        self.configuration.allowsInlineMediaPlayback = YES;
         
         // 允许可以与网页交互，选择视图
-        configuration.selectionGranularity = YES;
+        self.configuration.selectionGranularity = YES;
         
         // 是否支持记忆读取
-        configuration.suppressesIncrementalRendering = YES;
+        self.configuration.suppressesIncrementalRendering = YES;
         
         self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0.0f, 0, CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64)
-                                          configuration:configuration];
+                                          configuration:self.configuration];
         
         self.webView.restorationIdentifier = self.restorationIdentifier;
 

@@ -15,7 +15,6 @@
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
-#import <CRToastManager.h>
 
 @interface FlyingScanViewController ()<UIViewControllerRestoration>
 {
@@ -165,10 +164,9 @@
 -(void) scanningOK:(NSString*) message
 {
     [FlyingSoundPlayer noticeSound];
-    [CRToastManager showNotificationWithMessage:message
-                                completionBlock:^{
-                                    NSLog(@"Completed");
-                                }];
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate makeToast:message];
+
     [_session stopRunning];
     [timer invalidate];
     [self setupCamera];
@@ -333,10 +331,8 @@
                               //
                               [FlyingSoundPlayer noticeSound];
                               NSString * message = NSLocalizedString( @"登录网站成功！", nil);
-                              [CRToastManager showNotificationWithMessage:message
-                                                          completionBlock:^{
-                                                              NSLog(@"Completed");
-                                                          }];
+                              iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                              [appDelegate makeToast:message];
                           }];
     }
 }
@@ -507,10 +503,8 @@
         {
             [FlyingSoundPlayer noticeSound];
             NSString * message = NSLocalizedString(@"提醒：图片中没有发现二维码!", nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
     }];
 }

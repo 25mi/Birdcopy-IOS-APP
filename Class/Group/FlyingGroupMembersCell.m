@@ -14,8 +14,6 @@
 #import "FlyingConversationVC.h"
 #import "NSString+FlyingExtention.h"
 #import "iFlyingAppDelegate.h"
-#import <CRToastManager.h>
-#import "FlyingSoundPlayer.h"
 
 @interface FlyingGroupMembersCell()
 
@@ -34,6 +32,7 @@
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"FlyingAuthorCollectionViewCell"];
     self.collectionView.dataSource      = self;
     self.collectionView.delegate        = self;
+    self.collectionView.supportTouch    = YES;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -128,10 +127,8 @@
          {
              //显示会员状态信息
              NSString* message = [userRightData getMemberStateInfo];
-             [CRToastManager showNotificationWithMessage:message
-                                         completionBlock:^{
-                                             NSLog(@"Completed");
-                                         }];
+             iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+             [appDelegate makeToast:message];
          }
      }];
 }

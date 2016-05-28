@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_0_stable/RongIMLib.framework/Headers/RCUserInfo.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_2_stable/RongIMLib.framework/Headers/RCUserInfo.h

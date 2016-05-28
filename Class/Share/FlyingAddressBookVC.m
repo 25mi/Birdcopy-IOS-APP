@@ -12,7 +12,6 @@
 #import "FlyingGroupMemberData.h"
 #import "FlyingAddressBookTableViewCell.h"
 #import "iFlyingAppDelegate.h"
-#import <CRToastManager.h>
 #import "FlyingDataManager.h"
 #import "FlyingProfileVC.h"
 #import <RongIMLib/RongIMLib.h>
@@ -210,11 +209,9 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
                              GroupID:groupID
                           Completion:^(FlyingUserRightData *userRightData) {
                               //即时反馈
+                              iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
                               NSString * message = [userRightData getMemberStateInfo];
-                              [CRToastManager showNotificationWithMessage:message
-                                                          completionBlock:^{
-                                                              NSLog(@"Completed");
-                                                          }];
+                              [appDelegate makeToast:message];
                           }];
     
 }
@@ -321,13 +318,10 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
         //非合格会员，不能查看会员
         else
         {
-           //显示会员状态信息
+            //即时反馈
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSString * message = [userRightData getMemberStateInfo];
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
-
+            [appDelegate makeToast:message];
         }
     }
 }

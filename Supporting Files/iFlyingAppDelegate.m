@@ -1,4 +1,4 @@
-//  iFlyingAppDelegate.m
+    //  iFlyingAppDelegate.m
 //  FlyingEnglish
 //
 //  Created by vincent sung on 9/3/12.
@@ -86,11 +86,11 @@
     AVSpeechSynthesizer         *_synthesizer;
 }
 
-@property (strong, nonatomic) FlyingTabBarController *tabBarController;
+@property (strong, nonatomic) FlyingTabBarController    *theTabBarController;
 
 @property (assign, atomic)  BOOL hasMessageJob;
 
-@property (nonatomic, retain) NSOperationQueue      *dealMessageQueue;
+@property (nonatomic, retain) NSOperationQueue      *makeToastQueue;
 
 @end
 
@@ -115,25 +115,21 @@
 
 - (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
 {
+    self.window.rootViewController = [FlyingViewController new];
+
+    /*
     UIViewController *vc = [coder decodeObjectForKey:@"rootVC"];
     
-    if (vc) {
+    if (vc)
+    {
+        self.window.rootViewController = vc;
         
-        UIWindow * window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        window.rootViewController = vc;
-        window.restorationIdentifier = NSStringFromClass([window class]);
-        
-        // The green color is just to make it obvious if our view didn't load properly.
-        // It can be removed when you are finished debugging.
-        window.backgroundColor = [UIColor colorWithWhite:0.94 alpha:1.000];
-        
-        self.window = window;
+        if ([vc isKindOfClass:[FlyingTabBarController class]])
+        {
+            self.tabBarController = (FlyingTabBarController*)vc;
+        }
     }
-    
-    if ([vc isKindOfClass:[FlyingTabBarController class]]) {
-        
-        self.tabBarController = (FlyingTabBarController*)vc;
-    }
+     */
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -169,6 +165,16 @@
     } else {
         NSLog(@"该启动事件不包含来自融云的推送服务");
     }
+    
+    UIWindow * window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    window.restorationIdentifier = NSStringFromClass([window class]);
+    
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
+    UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+    
+    window.backgroundColor = backgroundColor;
+    
+    self.window = window;
     
     return YES;
 }
@@ -229,23 +235,10 @@
 //根据是否注册进行不同跳转处理
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if (!self.window) {
-        
-        UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        
-        // The blue color is just to make it obvious if our view didn't load properly.
-        // It can be removed when you are finished debugging.
-        
-        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
-        UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
-        
-        window.backgroundColor = backgroundColor;
-        window.restorationIdentifier = NSStringFromClass([window class]);
-        self.window = window;
-        
+    if (!self.window.rootViewController)
+    {
         if([FlyingDataManager getUserData:[FlyingDataManager getOpenUDID]])
         {
-            
             self.window.rootViewController = [self getTabBarController];
         }
         else
@@ -256,7 +249,7 @@
     }
     
     [self.window makeKeyAndVisible];
-    
+
     return YES;
 }
 
@@ -360,6 +353,9 @@
                                  //
                                  NSLog(@"");
                              }];
+    
+    //登录融云
+    [FlyingHttpTool loginRongCloud];
 }
 
 - (void) CalledToJumpToLessinID:(NSNotification*) aNotification
@@ -435,13 +431,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
-                    [CRToastManager showNotificationWithMessage:messageText
-                                                completionBlock:^{
-                                                    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:message]
-                                                                                              forKey:KJobMessageNow];
-                                                    
-                                                    self.hasMessageJob = YES;
-                                                }];
+                    [self makeToast:messageText];
+                    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:message]
+                                                              forKey:KJobMessageNow];
+                    self.hasMessageJob = YES;
                 });
             }
                 break;
@@ -464,10 +457,7 @@
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  
                                                  NSString *messageText =[NSString stringWithFormat: NSLocalizedString(@"%@ is sending something...", nil),userInfo.name];
-                                                 [CRToastManager showNotificationWithMessage:messageText
-                                                                             completionBlock:^{
-                                                                                 NSLog(@"Completed");
-                                                                             }];
+                                                 [self makeToast:messageText];
                                              });
                                          }
                                              break;
@@ -707,14 +697,18 @@
 }
 
 //////////////////////////////////////////////////////////////
--(UITabBarController*) getTabBarController
+-(FlyingTabBarController*) getTabBarController
 {
-    if(!self.tabBarController)
+    if(!self.theTabBarController)
     {
-        self.tabBarController = [[FlyingTabBarController alloc] init];
+        self.theTabBarController = [[FlyingTabBarController alloc] init];
     }
     
-    return self.tabBarController;
+    return self.theTabBarController;
+}
+-(void)setTabBarController:(FlyingTabBarController*)tabBarController
+{
+    self.theTabBarController = tabBarController;
 }
 
 - (void)refreshTabBadgeValue
@@ -994,11 +988,7 @@
             [FlyingDataManager awardGold:KBEGoldAwardCount];
         }
         
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
-
+        [self makeToast:message];
     }
 }
 
@@ -1067,37 +1057,47 @@
 //////////////////////////////////////////////////////////////
 -(void) touchMessage
 {
-    if(!self.dealMessageQueue)
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (appDelegate.hasMessageJob)
     {
-        self.dealMessageQueue = [NSOperationQueue new];
-        [self.dealMessageQueue setMaxConcurrentOperationCount:1];
+        NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:KJobMessageNow];
+        
+        if (data)
+        {
+            RCMessage *message =  (RCMessage*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            FlyingConversationVC *chatVC = [[FlyingConversationVC alloc] init];
+            chatVC.targetId = message.targetId;
+            chatVC.conversationType = ConversationType_PRIVATE;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [appDelegate pushViewController:chatVC animated:YES];
+            });
+        }
+        
+        appDelegate.hasMessageJob=NO;
+    }
+}
+
+-(void) makeToast:(NSString*)message
+{
+    if(!self.makeToastQueue)
+    {
+        self.makeToastQueue = [NSOperationQueue new];
+        [self.makeToastQueue setMaxConcurrentOperationCount:1];
     }
     
-    [self.dealMessageQueue cancelAllOperations];
-    
-    [self.dealMessageQueue addOperationWithBlock:^{
+    [self.makeToastQueue cancelAllOperations];
+    [self.makeToastQueue addOperationWithBlock:^{
         
-        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        if (appDelegate.hasMessageJob)
-        {
-            NSData *data =[[NSUserDefaults standardUserDefaults] objectForKey:KJobMessageNow];
-            
-            if (data)
-            {
-                RCMessage *message =  (RCMessage*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
-                
-                FlyingConversationVC *chatVC = [[FlyingConversationVC alloc] init];
-                chatVC.targetId = message.targetId;
-                chatVC.conversationType = ConversationType_PRIVATE;
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [appDelegate pushViewController:chatVC animated:YES];
-                });
-            }
-            
-            appDelegate.hasMessageJob=NO;
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [CRToastManager showNotificationWithMessage:message
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+        });
     }];
 }
 

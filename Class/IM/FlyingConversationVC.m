@@ -33,7 +33,6 @@
 #import "FlyingShareWithRecent.h"
 #import "FlyingProfileVC.h"
 #import "FlyingGroupVC.h"
-#import <CRToastManager.h>
 
 @interface FlyingConversationVC () <RCRealTimeLocationObserver,
                                     RealTimeLocationStatusViewDelegate,
@@ -96,6 +95,7 @@
     }
     
     self.conversationType = [coder decodeIntegerForKey:@"self.conversationType"];
+//    self.conversationMessageCollectionView = [coder decodeObjectForKey:@"self.conversationMessageCollectionView"];
     
     NSString * targetId = [coder decodeObjectForKey:@"self.targetId"];
     
@@ -116,6 +116,18 @@
     if (![domainType isBlankString])
     {
         self.domainType = domainType;
+    }
+    
+    NSArray *messages = [[RCIMClient sharedRCIMClient] getLatestMessages:self.conversationType
+                                                                targetId:self.targetId
+                                                                   count:10];
+    if (messages)
+    {
+        for (RCMessage *message in messages)
+        {
+            RCMessageModel *model = [RCMessageModel modelWithMessage:message];
+            [self.conversationDataRepository addObject:model];
+        }
     }
     
     [self.conversationMessageCollectionView reloadData];
@@ -275,8 +287,11 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
+
+    /*
+     [self.conversationMessageCollectionView reloadData];
+     */
     
     if ([self.navigationController.viewControllers count]>1) {
         
@@ -554,11 +569,10 @@
     else
     {
         //显示会员状态信息
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString * message = [userRightData getMemberStateInfo];
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        [appDelegate makeToast:message];
+
         return nil;
     }
 }
@@ -664,22 +678,18 @@
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
+    NSString * message;
     if(error != NULL)
     {
-        NSString * message = NSLocalizedString(@"保存图片失败!",nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        message = NSLocalizedString(@"保存图片失败!",nil);
     }
     else
     {
-        NSString * message = NSLocalizedString(@"成功保存图片！",nil) ;
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        message = NSLocalizedString(@"成功保存图片！",nil) ;
     }
+    
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate makeToast:message];
 }
 
 - (void)didTapCellPortrait:(NSString *)userId
@@ -1047,10 +1057,8 @@
         else
         {
             NSString * message = NSLocalizedString(@"保存图片失败！",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
     }
     
@@ -1065,10 +1073,8 @@
         else
         {
             NSString * message = NSLocalizedString( @"保存地址图片失败！",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
     }
 }

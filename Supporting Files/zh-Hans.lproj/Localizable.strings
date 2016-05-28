@@ -89,6 +89,8 @@
 "Free chat is for members only!" ="会员专享:在线咨询｜精华推荐｜会员互动";
 "I need help in the group:%@"    = "我需要咨询／帮助，群组:%@";
 
+"Featured"  = "推荐";
+
 //评论
 "Send" = "发送";
 "Save" = "保存";

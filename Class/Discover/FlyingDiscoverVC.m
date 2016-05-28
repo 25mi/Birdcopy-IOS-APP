@@ -273,10 +273,8 @@
     {
         //即时反馈
         NSString * message = NSLocalizedString(@"还没有推荐内容哦...", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
     else
     {

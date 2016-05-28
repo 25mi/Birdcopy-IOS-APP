@@ -25,7 +25,6 @@
 #import "FlyingDataManager.h"
 #import "FlyingUserData.h"
 #import "FlyingProfileVC.h"
-#import <CRToastManager.h>
 
 @interface FlyingCommentVC ()<UIViewControllerRestoration>
 {

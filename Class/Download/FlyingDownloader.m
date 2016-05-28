@@ -18,9 +18,6 @@
 #import "iFlyingAppDelegate.h"
 #import "AFHttpTool.h"
 #import "FlyingDownloadManager.h"
-#import <CRToastManager.h>
-#import <CRToastManager.h>
-
 #import <Foundation/NSURLSession.h>
 
 @interface FlyingDownloader ()
@@ -130,10 +127,8 @@
              */
             [FlyingSoundPlayer noticeSound];
             NSString *message = NSLocalizedString(@"请使用专业版!",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         else if ([_downloadType isEqualToString:KDownloadTypeM3U8]) {
             
@@ -174,10 +169,8 @@
         //[(FlyingMagnetDownloader *)_downloader  startDownloadVideo];
         
         NSString *message = NSLocalizedString(@"请使用专业版!",nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
@@ -196,10 +189,8 @@
         //[(FlyingMagnetDownloader *)_downloader  cancelDownload];
         [FlyingSoundPlayer noticeSound];
         NSString *message = [NSString stringWithFormat:@"请使用专业版!"];
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

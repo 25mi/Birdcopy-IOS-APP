@@ -38,7 +38,6 @@
 #import "FlyingScanViewController.h"
 #import "FlyingSearchViewController.h"
 #import "FlyingGroupVC.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
 #import <Toast/UIView+Toast.h>
 
@@ -58,8 +57,14 @@
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
                                                             coder:(NSCoder *)coder
 {
-    UIViewController *vc = [self new];
-    return vc;
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (!appDelegate.accountVC) {
+        
+        appDelegate.accountVC = [self new];
+    }
+    
+    return appDelegate.accountVC;
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -155,11 +160,9 @@
                                                   usingBlock:^(NSNotification *note)
      {
          //即时反馈
+         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
          NSString * message = NSLocalizedString(@"Cleanning is ok",nil);
-         [CRToastManager showNotificationWithMessage:message
-                                     completionBlock:^{
-                                         NSLog(@"Completed");
-                                     }];
+         [appDelegate makeToast:message];
      }];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];

@@ -203,7 +203,6 @@
     
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
     UIColor *logoStyle  = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
-
     
     if([self.memberState  isEqualToString:BC_Member_Noexisted])
     {
@@ -211,7 +210,7 @@
     }
     else if([self.memberState  isEqualToString:BC_Member_Reviewing])
     {
-        returnColor = nil;
+        returnColor = [UIColor whiteColor];
     }
     else if ([self.memberState isEqualToString:BC_Member_Verified])
     {

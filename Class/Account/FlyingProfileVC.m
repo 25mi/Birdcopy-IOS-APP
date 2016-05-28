@@ -26,7 +26,6 @@
 #import "FlyingImageLabelCell.h"
 #import "FlyingTextLableCell.h"
 #import "FlyingTextOnlyCell.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
@@ -520,10 +519,8 @@
                 {
                     
                     NSString * message = NSLocalizedString(@"Upload your portrait first please!", nil);
-                    [CRToastManager showNotificationWithMessage:message
-                                                completionBlock:^{
-                                                    NSLog(@"Completed");
-                                                }];
+                    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [appDelegate makeToast:message];
                 }
                 else
                 {
@@ -676,10 +673,8 @@
                                             if (result)
                                             {
                                                 NSString * message = NSLocalizedString(@"上传头像成功！",nil);
-                                                [CRToastManager showNotificationWithMessage:message
-                                                                            completionBlock:^{
-                                                                                NSLog(@"Completed");
-                                                                            }];
+                                                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                [appDelegate makeToast:message];
                                             }
                                         }];
 }

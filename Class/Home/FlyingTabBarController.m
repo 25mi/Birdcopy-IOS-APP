@@ -14,8 +14,14 @@
 #import "FlyingNavigationController.h"
 #import "FlyingDataManager.h"
 #import "FlyingHttpTool.h"
+#import "iFlyingAppDelegate.h"
 
 @interface FlyingTabBarController ()<UIViewControllerRestoration>
+
+@property (strong, nonatomic) FlyingNavigationController *disCoverTab;
+@property (strong, nonatomic) FlyingNavigationController *myGroupsTab;
+@property (strong, nonatomic) FlyingNavigationController *myMessagersTab;
+@property (strong, nonatomic) FlyingNavigationController *myAccountTab;
 
 @end
 
@@ -25,21 +31,22 @@
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
                                                             coder:(NSCoder *)coder
 {
-    UIViewController *vc = [self new];
+    FlyingTabBarController *vc = [self new];
+    
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setTabBarController:vc];
+
     return vc;
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    
-    [coder encodeObject:self.tabBar.tintColor  forKey:@"tabBar.tintColor"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    self.tabBar.tintColor = [coder decodeObjectForKey:@"tabBar.tintColor"];
 }
 
 - (id)init
@@ -50,58 +57,88 @@
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         
-        [self commoninit];
-        
+        [self setupTabBar];
     }
     return self;
 }
 
--(void) commoninit
+-(void) setupTabBar
 {
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     //发现
-    FlyingHomeVC * homeVC = [[FlyingHomeVC alloc] init];
-    FlyingNavigationController *disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:homeVC];
-    disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Discover",nil)
-                                                           image:[UIImage imageNamed:@"Discover"]
-                                                             tag:0];
-    disCoverTab.restorationIdentifier = @"disCoverTab";
+    if (!self.disCoverTab)
+    {
+        if (!appDelegate.homeVC)
+        {
+            appDelegate.homeVC = [[FlyingHomeVC alloc] init];
+        }
+        
+        self.disCoverTab = [[FlyingNavigationController alloc] initWithRootViewController:appDelegate.homeVC];
+        self.disCoverTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Discover",nil)
+                                                               image:[UIImage imageNamed:@"Discover"]
+                                                                 tag:0];
+        self.disCoverTab.restorationIdentifier = @"disCoverTab";
+    }
     
     //群组
-    FlyingMyGroupsVC * myGroupVC = [[FlyingMyGroupsVC alloc] init];
-    FlyingNavigationController *myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:myGroupVC];
+    if (!self.myGroupsTab)
+    {
+        if (!appDelegate.myGroupsVC)
+        {
+            appDelegate.myGroupsVC = [[FlyingMyGroupsVC alloc] init];
+        }
+
+        self.myGroupsTab = [[FlyingNavigationController alloc] initWithRootViewController:appDelegate.myGroupsVC];
+        
+        self.myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Group",nil)
+                                                               image:[UIImage imageNamed:@"People"]
+                                                                 tag:0];
+        self.myGroupsTab.restorationIdentifier = @"myGroupsTab";
+    }
     
-    myGroupsTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Group",nil)
-                                                           image:[UIImage imageNamed:@"People"]
-                                                             tag:0];
-    myGroupsTab.restorationIdentifier = @"myGroupsTab";
     
     //消息
-    FlyingConversationListVC * messageList =[[FlyingConversationListVC alloc] init];
-    //设置要显示的会话类型
-    [messageList setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
-    
-    //聚合会话类型
-    [messageList setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
-    
-    FlyingNavigationController *myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:messageList];
-    
-    myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Message",nil)
-                                                              image:[UIImage imageNamed:@"Message"]
-                                                                tag:0];
-    
-    myMessagersTab.restorationIdentifier = @"myMessagersTab";
-    
+    if (!self.myMessagersTab)
+    {
+        if (!appDelegate.messagesVC) {
+            
+            appDelegate.messagesVC = [[FlyingConversationListVC alloc] init];
+        }
+        
+        //设置要显示的会话类型
+        [appDelegate.messagesVC setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
+        
+        //聚合会话类型
+        [appDelegate.messagesVC setCollectionConversationType:@[@(ConversationType_GROUP),@(ConversationType_DISCUSSION),@(ConversationType_SYSTEM)]];
+        
+        self.myMessagersTab = [[FlyingNavigationController alloc] initWithRootViewController:appDelegate.messagesVC];
+        
+        self.myMessagersTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Message",nil)
+                                                                  image:[UIImage imageNamed:@"Message"]
+                                                                    tag:0];
+        
+        self.myMessagersTab.restorationIdentifier = @"myMessagersTab";
+    }
     
     //账户
-    FlyingAccountVC * accountVC = [[FlyingAccountVC alloc] init];
-    FlyingNavigationController *myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:accountVC];
-    myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Account",nil)
-                                                            image:[UIImage imageNamed:@"Account"]
-                                                              tag:0];
+    if (!self.myAccountTab)
+    {
+        if (!appDelegate.accountVC)
+        {
+            
+            appDelegate.accountVC = [[FlyingAccountVC alloc] init];
+        }
+        
+        self.myAccountTab = [[FlyingNavigationController alloc] initWithRootViewController:appDelegate.accountVC];
+        self.myAccountTab.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Account",nil)
+                                                                image:[UIImage imageNamed:@"Account"]
+                                                                  tag:0];
+        
+        self.myAccountTab.restorationIdentifier = @"myAccountTab";
+    }
     
-    myAccountTab.restorationIdentifier = @"myAccountTab";
-
-    self.viewControllers = [NSArray arrayWithObjects:disCoverTab,myGroupsTab,myMessagersTab,myAccountTab,nil];
+    self.viewControllers = [NSArray arrayWithObjects:self.disCoverTab,self.myGroupsTab,self.myMessagersTab,self.myAccountTab,nil];
     
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundColor"];
     UIColor *backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
@@ -111,9 +148,6 @@
     NSInteger height = self.tabBar.frame.size.height;
     [[NSUserDefaults standardUserDefaults] setInteger:height forKey:KTabBarHeight];
     [[NSUserDefaults standardUserDefaults]  synchronize];
-    
-    //登录融云
-    [FlyingHttpTool loginRongCloud];
 }
 
 - (void)viewDidLoad {

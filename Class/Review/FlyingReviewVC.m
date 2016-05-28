@@ -22,7 +22,6 @@
 #import "FlyingWordDetailVC.h"
 #import "FlyingTaskWordData.h"
 #import "MAOFlipViewController.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
 
 @interface FlyingReviewVC ()<MAOFlipViewControllerDelegate,
@@ -181,11 +180,8 @@
 -(void)reachEnd
 {
     NSString * message =NSLocalizedString(@"已经没有更多了!", nil);
-    [CRToastManager showNotificationWithMessage:message
-                                completionBlock:^{
-                                    NSLog(@"Completed");
-                                }];
-
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate makeToast:message];
 }
 
 //////////////////////////////////////////////////////////////

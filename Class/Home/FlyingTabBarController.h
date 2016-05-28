@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlyingNavigationController.h"
 
 @interface FlyingTabBarController : UITabBarController
 

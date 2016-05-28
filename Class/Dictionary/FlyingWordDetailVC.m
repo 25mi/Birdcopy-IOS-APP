@@ -20,7 +20,6 @@
 #import "iFlyingAppDelegate.h"
 #import "FlyingHttpTool.h"
 #import "FlyingNavigationController.h"
-#import <CRToastManager.h>
 
 @interface FlyingWordDetailVC ()<UIViewControllerRestoration>
 {
@@ -234,10 +233,8 @@
     else
     {
         NSString * message = NSLocalizedString(@"我们会尽快补充词典！", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

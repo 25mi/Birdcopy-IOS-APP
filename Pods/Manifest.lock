@@ -17,9 +17,9 @@ PODS:
   - CRToast (0.0.9)
   - INTULocationManager (4.2.0)
   - MBProgressHUD (0.9.2)
-  - RongCloudIMKit (2.5.0)
+  - RongCloudIMKit (2.5.2)
   - Sheriff (0.3.2)
-  - SlackTextViewController (1.9.2)
+  - SlackTextViewController (1.9.3)
   - Toast (3.0)
   - UICKeyChainStore (2.1.0)
   - UITableView+FDTemplateLayoutCell (1.4)
@@ -41,9 +41,9 @@ SPEC CHECKSUMS:
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  RongCloudIMKit: 3d8473f022c7588db80ef81caf0208e5c2fa4789
+  RongCloudIMKit: cce0a68e8e5d0baaecb99ec5685048ca8800a27d
   Sheriff: d3d03fe6d35aa781e3f42d48f3fb53ed7d04958d
-  SlackTextViewController: bac3350ccc639bc446bb14cbd09da238f5e01f32
+  SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
   Toast: 32c59229abfcf41850162b83bb9259dc84372473
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030

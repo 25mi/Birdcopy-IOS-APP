@@ -25,7 +25,7 @@
 @property (nonatomic, strong) IBOutlet UILabel       * descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView   * isPublicIcon;
 
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet FlyingIndexedCollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionHeight;
 
 @property (nonatomic, strong) FlyingGroupUpdateData* groupUpdateData;

@@ -26,7 +26,6 @@
 
 #import "FlyingHttpTool.h"
 #import "FlyingReviewVC.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
 
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
@@ -214,11 +213,8 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     else
     {
         NSString * message = NSLocalizedString(@"click the words in the subtitles for translation", nil);
-
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

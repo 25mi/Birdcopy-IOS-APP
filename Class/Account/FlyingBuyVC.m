@@ -14,7 +14,6 @@
 #import "FlyingImageTextCell.h"
 #import "FlyingDataManager.h"
 #import "FlyingStatisticDAO.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
 
 @interface FlyingBuyVC()<
@@ -491,11 +490,9 @@
         else
         {
             //即时反馈
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSString * message = NSLocalizedString(@"In App Purchasing Disabled", nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            [appDelegate makeToast:message];
         }
     }
 }

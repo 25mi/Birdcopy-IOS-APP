@@ -25,22 +25,37 @@
 #import "FlyingFileManager.h"
 #import "FlyingDownloadManager.h"
 #import "MKStoreKit.h"
-#import <CRToastManager.h>
 
 @implementation FlyingDataManager
 
 + (NSString*) getServerAddress
 {
+#ifdef __CLIENT__IS__FD__
+    return @"http://fd.birdcopy.com";
+#endif
+    
     return @"http://e.birdcopy.com";
 }
 
 + (NSString*) getWeixinID
 {
+#ifdef __CLIENT__IS__FD__
+    return @"wx73a97518db1cff0f";
+#endif
+
+#ifdef __CLIENT__IS__BE__
+    return @"wx6ff0856d58d6e397";
+#endif
+    
     return @"wx120047123f35e00e";
 }
 
 + (NSString*) getRongKey
 {
+#ifdef __CLIENT__IS__FD__
+    return @"x4vkb1qpvcx9k";
+#endif
+    
     return @"e5t4ouvptjtsa";
 }
 
@@ -355,10 +370,8 @@
     {
         [FlyingSoundPlayer noticeSound];
         NSString * message = NSLocalizedString( @"帐户金币数不足,请尽快在《我的档案》充值！", nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

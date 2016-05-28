@@ -335,7 +335,13 @@
     self.title = self.groupData.gp_name;
     
     //更新群组封面
-    [self.groupBoard settingWithGroupData:self.groupData];
+    [FlyingHttpTool getGroupByID:self.groupData.gp_id
+               successCompletion:^(FlyingGroupUpdateData *updata) {
+                   //
+                   self.groupData = updata.groupData;
+                   [self.groupBoard settingWithGroupData:self.groupData];
+
+               }];
     [FlyingHttpTool getCoverListForDomainID:self.groupData.gp_id
                                  DomainType:BC_Domain_Group
                                  PageNumber:1
@@ -783,19 +789,15 @@
                          {
                              //反馈显示最新状态
                              NSString *message =[userRightData getMemberStateInfo];
-                             [CRToastManager showNotificationWithMessage:message
-                                                         completionBlock:^{
-                                                             NSLog(@"Completed");
-                                                         }];
+                             iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                             [appDelegate makeToast:message];
                          }
                          else
                          {
                              //反馈显示已经处理
                              NSString *message = NSLocalizedString(@"Your Message has sent to us...",nil);
-                             [CRToastManager showNotificationWithMessage:message
-                                                         completionBlock:^{
-                                                             NSLog(@"Completed");
-                                                         }];
+                             iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                             [appDelegate makeToast:message];
                          }
                      }
                  }];
@@ -805,10 +807,8 @@
             {
                 //提示用户只有会员才能参与互动
                 NSString *message = NSLocalizedString(@"Free chat is for members only!",nil);
-                [CRToastManager showNotificationWithMessage:message
-                                            completionBlock:^{
-                                                NSLog(@"Completed");
-                                            }];
+                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [appDelegate makeToast:message];
             }];
              
              [alertController addAction:doneAction];
@@ -910,10 +910,8 @@
                                                                 inVC:nil];
                          //显示当前反馈
                          message = NSLocalizedString(@"Your Message has sent to us...",nil);
-                         [CRToastManager showNotificationWithMessage:message
-                                                     completionBlock:^{
-                                                         NSLog(@"Completed");
-                                                     }];
+                         iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                         [appDelegate makeToast:message];
                      }];
                 }];
                  UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil)
@@ -953,10 +951,8 @@
                                                             inVC:nil];
                      //显示当前反馈
                      message = NSLocalizedString(@"Your Message has sent to us...",nil);
-                     [CRToastManager showNotificationWithMessage:message
-                                                 completionBlock:^{
-                                                     NSLog(@"Completed");
-                                                 }];
+                     iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                     [appDelegate makeToast:message];
                  }];
                 
             }];
@@ -976,11 +972,8 @@
          else
          {
              NSString * message = [userRightData getMemberStateInfo];
-             [CRToastManager showNotificationWithMessage:message
-                                         completionBlock:^{
-                                             //:"
-                                         }];
-             
+             iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+             [appDelegate makeToast:message];
          }
      }];
 }

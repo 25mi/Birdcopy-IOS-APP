@@ -60,7 +60,6 @@
 #import "CGPDFDocument.h"
 #import "FlyingDataManager.h"
 #import "UIAlertController+Window.h"
-#import <CRToastManager.h>
 #import "FlyingWordDetailVC.h"
 #import "FlyingNavigationController.h"
 
@@ -818,11 +817,8 @@ enum
     {
         NSString * message = NSLocalizedString(@"无法打开，请重试或者重新下载!", nil);
 
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        //:"
-                                    }];
-
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 

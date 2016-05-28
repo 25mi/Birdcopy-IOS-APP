@@ -51,8 +51,14 @@
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
                                                             coder:(NSCoder *)coder
 {
-    UIViewController *vc = [self new];
-    return vc;
+    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (!appDelegate.myGroupsVC) {
+        
+        appDelegate.myGroupsVC = [self new];
+    }
+    
+    return appDelegate.myGroupsVC;
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder

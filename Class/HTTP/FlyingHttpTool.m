@@ -31,8 +31,8 @@
 #import "FlyingDataManager.h"
 #import <UICKeyChainStore.h>
 #import "FlyingGroupUpdateData.h"
-#import <CRToastManager.h>
 #import "FlyingSoundPlayer.h"
+#import "iFlyingAppDelegate.h"
 
 @implementation FlyingHttpTool
 
@@ -80,7 +80,6 @@
     {
         [self connectWithRongCloud:rongDeviceKoken];
     }
-    
 }
 
 +(void)  connectWithRongCloud:(NSString*)rongDeviceKoken
@@ -1290,11 +1289,8 @@
                                                     }
                                                     
                                                     [FlyingSoundPlayer noticeSound];
-                                                    [CRToastManager showNotificationWithMessage:responseStr
-                                                                                completionBlock:^{
-                                                                                    //:"
-                                                                                }];
-
+                                                    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                    [appDelegate makeToast:responseStr];
                                                 }
                                                 
                                                 if (completion) {
@@ -1305,11 +1301,8 @@
                                             {
                                                 [FlyingSoundPlayer noticeSound];
                                                 NSString *message = NSLocalizedString(@"服务器繁忙或者网络故障请稍后再试！",nil);
-                                                [CRToastManager showNotificationWithMessage:message
-                                                                            completionBlock:^{
-                                                                                //:"
-                                                                            }];
-
+                                                iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                [appDelegate makeToast:message];
                                                 if (completion) {
                                                     completion(false);
                                                 }
@@ -1938,7 +1931,6 @@
     [AFHttpTool getAppDataforBounldeID:boundleID
                                success:^(id response) {
                                    //
-                                   
                                    NSMutableArray *tempArr = [NSMutableArray new];
                                    NSArray *allApps = response[@"rs"];
                                    

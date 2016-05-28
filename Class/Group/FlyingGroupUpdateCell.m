@@ -44,8 +44,8 @@
 {
     self.updateGroupData = updateGroupData;
     
-    if (updateGroupData.groupData.logo.length!=0) {
-        
+    if (updateGroupData.groupData.logo.length!=0)
+    {
         [self.groupIconImageView setImageWithURL:[NSURL URLWithString:updateGroupData.groupData.logo]
                                 placeholderImage:[UIImage imageNamed:@"Icon"]];
     }
@@ -73,8 +73,8 @@
         self.dateLabel.text = updateGroupData.recentLessonData.timeLamp;
     }
     
-    if (updateGroupData.recentLessonData.imageURL.length!=0) {
-                
+    if (updateGroupData.recentLessonData.imageURL.length!=0)
+    {
         [self.updateImageView setImageWithURL:[NSURL URLWithString:updateGroupData.recentLessonData.imageURL]
                              placeholderImage:[UIImage imageNamed:@"Default"]];
     }

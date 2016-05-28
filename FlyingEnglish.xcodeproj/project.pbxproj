@@ -1274,6 +1274,11 @@
 		82A21DB21CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */; };
 		82A21DB31CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */; };
 		82A21DB41CAB8F5000AFAECC /* FlyingSelectPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */; };
+		82B1E30F1CF34FF200F2C75E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */; };
+		82B1E3101CF34FF200F2C75E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */; };
+		82B1E3111CF34FF200F2C75E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */; };
+		82B1E3121CF34FF200F2C75E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */; };
+		82B1E3131CF34FF200F2C75E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */; };
 		82B240201C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
 		82B240211C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
 		82B240221C92CCC10040192A /* FlyingGroupUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */; };
@@ -2292,6 +2297,7 @@
 		82A21DA31CAB8F5000AFAECC /* FlyingSelectPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlyingSelectPersonTableViewCell.xib; sourceTree = "<group>"; };
 		82A21DA41CAB8F5000AFAECC /* FlyingSelectPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingSelectPersonViewController.h; sourceTree = "<group>"; };
 		82A21DA51CAB8F5000AFAECC /* FlyingSelectPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingSelectPersonViewController.m; sourceTree = "<group>"; };
+		82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		82B2401E1C92CCC10040192A /* FlyingGroupUpdateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyingGroupUpdateData.h; path = Group/FlyingGroupUpdateData.h; sourceTree = "<group>"; };
 		82B2401F1C92CCC10040192A /* FlyingGroupUpdateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyingGroupUpdateData.m; path = Group/FlyingGroupUpdateData.m; sourceTree = "<group>"; };
 		82E3B4D31C943D22002B2327 /* FlyingWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingWebViewController.h; sourceTree = "<group>"; };
@@ -3815,6 +3821,7 @@
 				C88B764E173BFC2200955BC2 /* iFlyingAppDelegate.m */,
 				C88B7652173BFC2200955BC2 /* main.m */,
 				8247E65F1CB20C190038EF05 /* Localizable.strings */,
+				82B1E30E1CF34FF200F2C75E /* Launch Screen.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -4380,6 +4387,7 @@
 				827A71C81CC75B5600E708C7 /* FlyingtAuthorCell.xib in Resources */,
 				8298314B1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				C874EC391BD20F4C006F276E /* MKStoreKitConfigs.plist in Resources */,
+				82B1E30F1CF34FF200F2C75E /* Launch Screen.storyboard in Resources */,
 				823C2A441CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				824940261C07FB27000A2306 /* FlyingLoadingCell.xib in Resources */,
 				823645AC1C81D4A500499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4422,6 +4430,7 @@
 				8298314F1CD1C1BF0080D53E /* FlyingSummaryheader.xib in Resources */,
 				824940201C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				8249403C1C07FB5D000A2306 /* FlyingContentSummaryCell.xib in Resources */,
+				82B1E3131CF34FF200F2C75E /* Launch Screen.storyboard in Resources */,
 				823C2A481CBCF714005CD298 /* KMNetworkLoadingViewController.xib in Resources */,
 				8249408E1C080955000A2306 /* FlyingTagCell.xib in Resources */,
 				823645B01C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
@@ -4454,6 +4463,7 @@
 				828A7FB41CD463A300987DDE /* YALSunnyRefreshControl.xib in Resources */,
 				823697FA1C8452D50000221C /* pullrefresh.aif in Resources */,
 				8249408B1C080952000A2306 /* FlyingTagCell.xib in Resources */,
+				82B1E3101CF34FF200F2C75E /* Launch Screen.storyboard in Resources */,
 				8249401D1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
 				823C2A041CBCB809005CD298 /* FlyingTextLableCell.xib in Resources */,
 				FA1BE5EA1B27E8BF00AA1AFD /* Images.xcassets in Resources */,
@@ -4497,6 +4507,7 @@
 				823645C51C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				823645AE1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
 				823697FB1C8452D50000221C /* pullrefresh.aif in Resources */,
+				82B1E3111CF34FF200F2C75E /* Launch Screen.storyboard in Resources */,
 				C895B97C1BF0387100D2D902 /* MKStoreKitConfigs.plist in Resources */,
 				8249408C1C080953000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401E1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
@@ -4540,6 +4551,7 @@
 				823645C61C81D77A00499190 /* FlyingGroupUpdateCell.xib in Resources */,
 				823645AF1C81D4A600499190 /* FlyingGroupTableViewCell.xib in Resources */,
 				823697FC1C8452D50000221C /* pullrefresh.aif in Resources */,
+				82B1E3121CF34FF200F2C75E /* Launch Screen.storyboard in Resources */,
 				824940451C07FB5D000A2306 /* FlyingContentTitleAndTypeCell.xib in Resources */,
 				8249408D1C080954000A2306 /* FlyingTagCell.xib in Resources */,
 				8249401F1C07FB27000A2306 /* FlyingCommentCell.xib in Resources */,
@@ -6342,6 +6354,10 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -6477,8 +6493,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6490,6 +6505,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__CLIENT__IS__FD__=1",
 					"DEBUG=1",
+					"__CLIENT__IS__BE__=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
@@ -6516,7 +6532,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "97e9a4ba-2a3b-4ba7-aa1b-30cb93b36b57";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm64";
@@ -6533,8 +6549,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Finance Education.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6543,7 +6558,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FlyingEnglish-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "__CLIENT__IS__FD__=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__CLIENT__IS__FD__=1",
+					"__CLIENT__IS__BE__=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2/**",
 					"$(inherited)",
@@ -6569,7 +6587,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.birdcopy.finance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6c46e68d-7c9b-4d14-aecf-d60e945616a5";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm64";
@@ -6692,7 +6710,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ling lu (PB6KJF87MA)";
@@ -6747,7 +6764,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = beiyang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ling lu (V483NATPWH)";

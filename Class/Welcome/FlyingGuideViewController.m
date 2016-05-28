@@ -64,13 +64,13 @@
     
     [self.loginQueue addOperationWithBlock:^{
         
-        if (!hud) {
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        if (!hud)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelText = @"激活设备准备登陆中...";
-            }];
+                hud.labelText = @"激活设备准备登录中...";
+            });
         }
         
         //清理旧数据，如果有
@@ -107,10 +107,10 @@
                                         }
                                         else
                                         {
-                                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                                
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+
                                                 hud.labelText = @"非授权APP设备...";
-                                            }];
+                                            });
                                         }
                                     }];
 
@@ -122,29 +122,23 @@
     [FlyingHttpTool verifyOpenUDID:[FlyingDataManager getOpenUDID]
                         Completion:^(BOOL result) {
                             //有注册记录
-                            if (result) {
-                                
+                            if (result)
+                            {
                                 //从服务器获取新数据
                                 [FlyingDataManager creatLocalUSerProfileWithServer];
                                 
-                                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                    
-                                    [self accountActive];
-                                }];
+                                [self accountActive];
                             }
                             else
                             {
                                 //注册终端设备
                                 [FlyingHttpTool regOpenUDID:[FlyingDataManager getOpenUDID]
-                                                 Completion:^(BOOL result) {
-                                                     
+                                                 Completion:^(BOOL result)
+                                {
                                                      //注册成功
-                                                     if (result) {
-                                                         
-                                                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                                             
-                                                             [self accountActive];
-                                                         }];
+                                                     if (result)
+                                                     {
+                                                         [self accountActive];
                                                      }
                                                  }];
                             }
@@ -154,12 +148,13 @@
 
 - (void)accountActive
 {
-    iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = [appDelegate getTabBarController];
-    
-    [self.timer invalidate];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDelegate.window.rootViewController = [appDelegate getTabBarController];
+        
+        [self.timer invalidate];
+
         [hud hide:YES];
     });
 }

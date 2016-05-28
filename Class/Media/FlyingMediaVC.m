@@ -903,18 +903,14 @@ static void *TrackObservationContext         = &TrackObservationContext;
         if ([tempStr isEqualToString:@"10"] || [tempStr isEqualToString:@"11"])
         {
             NSString *message = NSLocalizedString(@"网速太慢,使劲加载中...",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         else
         {
             NSString *message = NSLocalizedString(@"我们正在处理你碰到的问题...",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         
     } failure:^(NSError *err) {
@@ -1075,10 +1071,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         if (npt<0)
         {
             NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         else
         {
@@ -1134,11 +1128,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
         if (npt>duration)
         {
             NSString *message = NSLocalizedString(@"已经播放完毕..",nil);
-
-            [CRToastManager showNotificationWithMessage:message
-                                        completionBlock:^{
-                                            NSLog(@"Completed");
-                                        }];
+            iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate makeToast:message];
         }
         else
         {
@@ -2132,10 +2123,8 @@ static void *TrackObservationContext         = &TrackObservationContext;
     else
     {
         NSString *message = NSLocalizedString(@"没有字幕,不能智能学习..",nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
         _enableAISub=NO;
     }
 }
@@ -2145,19 +2134,14 @@ static void *TrackObservationContext         = &TrackObservationContext;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BEHelpSubtitleTouch"])
     {
         NSString *message = NSLocalizedString(@"如有英文，点击自动解释!",nil);
-
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"BESwipRight"])
     {
         NSString *message = NSLocalizedString(@"右划跳转到上一个场景!",nil);
-        [CRToastManager showNotificationWithMessage:message
-                                    completionBlock:^{
-                                        NSLog(@"Completed");
-                                    }];
+        iFlyingAppDelegate *appDelegate = (iFlyingAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate makeToast:message];
     }
 }
 
